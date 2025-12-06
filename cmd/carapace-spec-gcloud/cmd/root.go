@@ -30,7 +30,7 @@ var rootCmd = &cobra.Command{
 			return err
 		}
 
-		m, err := yaml.Marshal(command.ToSpecCommand(cli.SerializedFlagList))
+		m, err := yaml.Marshal(command.ToSpecCommand(cli.SerializedFlagList, true))
 		if err != nil {
 			return err
 		}

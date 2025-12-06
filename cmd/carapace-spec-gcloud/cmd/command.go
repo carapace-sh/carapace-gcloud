@@ -45,7 +45,7 @@ type Command struct {
 	} `json:"sections"`
 }
 
-func (c Command) ToSpecCommand(args []Arg) command.Command {
+func (c Command) ToSpecCommand(args []Arg, root bool) command.Command {
 	command := command.Command{
 		Name:        c.Name,
 		Description: c.Capsule,
@@ -56,26 +56,31 @@ func (c Command) ToSpecCommand(args []Arg) command.Command {
 	command.Documentation.Flag = make(map[string]string)
 
 	for _, argIndex := range c.Flags {
-		if argIndex != 0 {
-			arg := args[argIndex]
-			f := arg.ToFlag()
-
-			command.AddFlag(f)
-			if len(arg.Choices) > 0 {
-				choices := make([]string, 0)
-				for _, choice := range arg.Choices {
-					choices = append(choices, fmt.Sprintf("%s", choice))
-				}
-				command.Completion.Flag[f.Name()] = choices
-			}
-			command.Documentation.Flag[f.Name()] = arg.Description
+		if argIndex == 0 {
+			continue
 		}
+		arg := args[argIndex]
+		if arg.IsGlobal && !root {
+			continue
+		}
+
+		f := arg.ToFlag()
+
+		command.AddFlag(f)
+		if len(arg.Choices) > 0 {
+			choices := make([]string, 0)
+			for _, choice := range arg.Choices {
+				choices = append(choices, fmt.Sprintf("%s", choice))
+			}
+			command.Completion.Flag[f.Name()] = choices
+		}
+		command.Documentation.Flag[f.Name()] = arg.Description
 	}
 
 	// TODO Documentation
 
 	for _, subCommand := range c.Commands {
-		command.Commands = append(command.Commands, subCommand.ToSpecCommand(args))
+		command.Commands = append(command.Commands, subCommand.ToSpecCommand(args, false))
 	}
 	return command
 }
@@ -107,6 +112,7 @@ func (a Arg) ToFlag() command.Flag {
 		Longhand:    strings.TrimLeft(a.Name, "-"),
 		Description: a.Description,
 		Value:       a.Type != "bool",
+		Persistent:  a.IsGlobal,
 		Hidden:      a.IsHidden,
 		Required:    a.IsRequired,
 	}
