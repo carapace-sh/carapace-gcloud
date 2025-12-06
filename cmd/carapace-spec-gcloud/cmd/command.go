@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/carapace-sh/carapace-spec/pkg/command"
@@ -50,10 +51,24 @@ func (c Command) ToSpecCommand(args []Arg) command.Command {
 		Description: c.Capsule,
 		Hidden:      c.IsHidden,
 	}
+	command.Completion.Flag = make(map[string][]string)
+	command.Documentation.Command = c.Sections.Description
+	command.Documentation.Flag = make(map[string]string)
 
 	for _, argIndex := range c.Flags {
 		if argIndex != 0 {
-			command.AddFlag(args[argIndex].ToFlag())
+			arg := args[argIndex]
+			f := arg.ToFlag()
+
+			command.AddFlag(f)
+			if len(arg.Choices) > 0 {
+				choices := make([]string, 0)
+				for _, choice := range arg.Choices {
+					choices = append(choices, fmt.Sprintf("%s", choice))
+				}
+				command.Completion.Flag[f.Name()] = choices
+			}
+			command.Documentation.Flag[f.Name()] = arg.Description
 		}
 	}
 
