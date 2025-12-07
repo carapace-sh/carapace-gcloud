@@ -7,11 +7,13 @@ require (
 	github.com/carapace-sh/carapace-spec v1.4.1
 	github.com/neurosnap/sentences v1.1.2
 	github.com/spf13/cobra v1.9.1
+	github.com/spf13/pflag v1.0.9
 	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (
 	github.com/carapace-sh/carapace-shlex v1.1.1 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
-	github.com/spf13/pflag v1.0.9 // indirect
 )
+
+replace github.com/spf13/pflag => github.com/carapace-sh/carapace-pflag v1.1.0
