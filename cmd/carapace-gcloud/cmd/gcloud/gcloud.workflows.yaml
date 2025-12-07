@@ -2,90 +2,6 @@
 name: workflows
 description: Manage your Cloud Workflows resources.
 commands:
-    - name: execute
-      description: Execute a workflow.
-      flags:
-        --call-log-level=: Level of call logging to apply during execution.
-        --data=: JSON string with data that will be passed to the workflow as an argument.
-        --disable-concurrency-quota-overflow-buffering: If set, the execution will not be backlogged when the concurrency quota is exhausted.
-        --execution-history-level=: Level of execution history to apply during execution.
-        --labels=: List of label KEY=VALUE pairs to add.
-        --location=: The Cloud location for the workflow.
-        --no-disable-concurrency-quota-overflow-buffering&: If set, the execution will not be backlogged when the concurrency quota is exhausted.
-      completion:
-        flag:
-            call-log-level:
-                - log-all-calls
-                - log-errors-only
-                - log-none
-                - none
-            execution-history-level:
-                - execution-history-basic
-                - execution-history-detailed
-                - none
-    - name: executions
-      description: Manage your Cloud Workflow execution resources.
-      commands:
-        - name: describe-last
-          description: Show metadata for the last cached workflow execution.
-        - name: list
-          description: List workflow executions.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: The Cloud location for the workflow.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: wait
-          description: Wait for an execution to complete.
-          flags:
-            --location=: Cloud location for the execution.
-            --workflow=: Workflow for the execution.
-        - name: wait-last
-          description: Wait for the last cached workflow execution to complete.
-        - name: cancel
-          description: Cancel a workflow execution.
-          flags:
-            --location=: The Cloud location for the execution.
-            --workflow=: The Cloud Workflow for the execution.
-        - name: describe
-          description: Show metadata for a workflow execution.
-          flags:
-            --location=: The Cloud location for the execution.
-            --workflow=: The Cloud Workflow for the execution.
-    - name: list
-      description: List workflows.
-      flags:
-        --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-        --limit=: Maximum number of resources to list.
-        --location=: ID of the location or fully qualified identifier for the location.
-        --no-uri&: Print a list of resource URIs instead of the default output, and change the
-        --page-size=: Some services group resource list output into pages.
-        --sort-by=: Comma-separated list of resource field key names to sort by.
-        --uri: Print a list of resource URIs instead of the default output, and change the
-    - name: run
-      description: Execute a workflow and wait for the execution to complete.
-      flags:
-        --call-log-level=: Level of call logging to apply during execution.
-        --data=: JSON string with data that will be passed to the workflow as an argument.
-        --disable-concurrency-quota-overflow-buffering: If set, the execution will not be backlogged when the concurrency quota is exhausted.
-        --execution-history-level=: Level of execution history to apply during execution.
-        --labels=: List of label KEY=VALUE pairs to add.
-        --location=: Cloud location for the workflow.
-        --no-disable-concurrency-quota-overflow-buffering&: If set, the execution will not be backlogged when the concurrency quota is exhausted.
-      completion:
-        flag:
-            call-log-level:
-                - log-all-calls
-                - log-errors-only
-                - log-none
-                - none
-            execution-history-level:
-                - execution-history-basic
-                - execution-history-detailed
-                - none
     - name: delete
       description: Delete a workflow.
       flags:
@@ -130,3 +46,87 @@ commands:
       flags:
         --location=: The Cloud location for the workflow.
         --revision-id=: The revision ID of the workflow to describe.
+    - name: execute
+      description: Execute a workflow.
+      flags:
+        --call-log-level=: Level of call logging to apply during execution.
+        --data=: JSON string with data that will be passed to the workflow as an argument.
+        --disable-concurrency-quota-overflow-buffering: If set, the execution will not be backlogged when the concurrency quota is exhausted.
+        --execution-history-level=: Level of execution history to apply during execution.
+        --labels=: List of label KEY=VALUE pairs to add.
+        --location=: The Cloud location for the workflow.
+        --no-disable-concurrency-quota-overflow-buffering&: If set, the execution will not be backlogged when the concurrency quota is exhausted.
+      completion:
+        flag:
+            call-log-level:
+                - log-all-calls
+                - log-errors-only
+                - log-none
+                - none
+            execution-history-level:
+                - execution-history-basic
+                - execution-history-detailed
+                - none
+    - name: executions
+      description: Manage your Cloud Workflow execution resources.
+      commands:
+        - name: cancel
+          description: Cancel a workflow execution.
+          flags:
+            --location=: The Cloud location for the execution.
+            --workflow=: The Cloud Workflow for the execution.
+        - name: describe
+          description: Show metadata for a workflow execution.
+          flags:
+            --location=: The Cloud location for the execution.
+            --workflow=: The Cloud Workflow for the execution.
+        - name: describe-last
+          description: Show metadata for the last cached workflow execution.
+        - name: list
+          description: List workflow executions.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: The Cloud location for the workflow.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: wait
+          description: Wait for an execution to complete.
+          flags:
+            --location=: Cloud location for the execution.
+            --workflow=: Workflow for the execution.
+        - name: wait-last
+          description: Wait for the last cached workflow execution to complete.
+    - name: list
+      description: List workflows.
+      flags:
+        --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+        --limit=: Maximum number of resources to list.
+        --location=: ID of the location or fully qualified identifier for the location.
+        --no-uri&: Print a list of resource URIs instead of the default output, and change the
+        --page-size=: Some services group resource list output into pages.
+        --sort-by=: Comma-separated list of resource field key names to sort by.
+        --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: run
+      description: Execute a workflow and wait for the execution to complete.
+      flags:
+        --call-log-level=: Level of call logging to apply during execution.
+        --data=: JSON string with data that will be passed to the workflow as an argument.
+        --disable-concurrency-quota-overflow-buffering: If set, the execution will not be backlogged when the concurrency quota is exhausted.
+        --execution-history-level=: Level of execution history to apply during execution.
+        --labels=: List of label KEY=VALUE pairs to add.
+        --location=: Cloud location for the workflow.
+        --no-disable-concurrency-quota-overflow-buffering&: If set, the execution will not be backlogged when the concurrency quota is exhausted.
+      completion:
+        flag:
+            call-log-level:
+                - log-all-calls
+                - log-errors-only
+                - log-none
+                - none
+            execution-history-level:
+                - execution-history-basic
+                - execution-history-detailed
+                - none

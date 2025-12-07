@@ -5,6 +5,16 @@ commands:
     - name: instances
       description: Workbench Instances command group.
       commands:
+        - name: add-iam-policy-binding
+          description: Adds IAM policy binding for a workbench instance.
+          flags:
+            --location=: The location of the workbench instance.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: check-instance-upgradability
+          description: Checks if a workbench instance is upgradeable.
+          flags:
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
         - name: create
           description: Creates a workbench instance.
           flags:
@@ -107,26 +117,10 @@ commands:
             --async: Return immediately, without waiting for the operation in progress to
             --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
             --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: remove-iam-policy-binding
-          description: Removes IAM policy binding for a workbench instance.
+        - name: describe
+          description: Describes a workbench instance.
           flags:
-            --location=: The location of the workbench instance.
-            --member=!: The principal to remove the binding for.
-            --role=!: The role to remove the principal from.
-        - name: restore
-          description: Restores the workbench instance to a snapshot state.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
             --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --snapshot-project=!: The project id of the snapshot to be restored from.
-            --snapshot=!: The snapshot name to be restored from.
-        - name: start
-          description: Starts a workbench instance.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
-            --no-async&: Return immediately, without waiting for the operation in progress to
         - name: diagnose
           description: Diagnoses a workbench instance.
           flags:
@@ -141,26 +135,8 @@ commands:
             --no-enable-packet-capture&: Enables flag to capture packets from the instance for 30 seconds
             --no-enable-repair&: Enables flag to repair service for instance
             --relative-path=: Defines the relative storage path in the Cloud Storage bucket where the diagnostic logs will be written.
-        - name: resize-disk
-          description: Resizes the workbench instance's disk.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --boot-disk-size=: Size of boot disk in GB attached to this instance, up to a maximum of 64000 GB (64 TB).
-            --data-disk-size=: Size of data disk in GB attached to this instance, up to a maximum of 64000 GB (64 TB).
-            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: set-iam-policy
-          description: Sets the IAM policy for a workbench instance.
-          flags:
-            --location=: The location of the workbench instance.
-        - name: stop
-          description: Stops a workbench instance.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: describe
-          description: Describes a workbench instance.
+        - name: get-config
+          description: Describes the valid configurations for workbench instances.
           flags:
             --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
         - name: get-iam-policy
@@ -181,12 +157,34 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: remove-iam-policy-binding
+          description: Removes IAM policy binding for a workbench instance.
+          flags:
+            --location=: The location of the workbench instance.
+            --member=!: The principal to remove the binding for.
+            --role=!: The role to remove the principal from.
         - name: reset
           description: Resets a workbench instance.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
             --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
             --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: resize-disk
+          description: Resizes the workbench instance's disk.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --boot-disk-size=: Size of boot disk in GB attached to this instance, up to a maximum of 64000 GB (64 TB).
+            --data-disk-size=: Size of data disk in GB attached to this instance, up to a maximum of 64000 GB (64 TB).
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: restore
+          description: Restores the workbench instance to a snapshot state.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --snapshot-project=!: The project id of the snapshot to be restored from.
+            --snapshot=!: The snapshot name to be restored from.
         - name: rollback
           description: Rolls back a workbench instance.
           flags:
@@ -194,6 +192,22 @@ commands:
             --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --target-snapshot=!: The saved snapshot to rollback to.
+        - name: set-iam-policy
+          description: Sets the IAM policy for a workbench instance.
+          flags:
+            --location=: The location of the workbench instance.
+        - name: start
+          description: Starts a workbench instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: stop
+          description: Stops a workbench instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --no-async&: Return immediately, without waiting for the operation in progress to
         - name: update
           description: Updates a workbench instance.
           flags:
@@ -235,17 +249,3 @@ commands:
             --async: Return immediately, without waiting for the operation in progress to
             --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
             --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: add-iam-policy-binding
-          description: Adds IAM policy binding for a workbench instance.
-          flags:
-            --location=: The location of the workbench instance.
-            --member=!: The principal to add the binding for.
-            --role=!: Role name to assign to the principal.
-        - name: check-instance-upgradability
-          description: Checks if a workbench instance is upgradeable.
-          flags:
-            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
-        - name: get-config
-          description: Describes the valid configurations for workbench instances.
-          flags:
-            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.

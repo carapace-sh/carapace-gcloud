@@ -2,6 +2,44 @@
 name: storage
 description: Create and manage Cloud Storage buckets and objects.
 commands:
+    - name: batch-operations
+      description: Manage Cloud Storage batch operations.
+      commands:
+        - name: jobs
+          description: Manage Cloud Storage batch operations jobs.
+          commands:
+            - name: cancel
+              description: Cancel a batch-operations job.
+            - name: create
+              description: Create a new batch operation job.
+              flags:
+                --bucket=!: Bucket containing the objects that the batch job will operate on.
+                --delete-object!: If this flag is set, objects specified in source will be deleted.
+                --description=: Description for the batch job.
+                --enable-permanent-object-deletion: If this flag is set and versioning is enabled on the buckets, both live and noncurrent objects will be permanently deleted.
+                --included-object-prefixes=: A comma-separated list of object prefixes to describe the objects being transformed.
+                --log-action-states=: The states in which the actions specified in --log-actions are logged.
+                --log-actions=: Define the batch job actions to report in logs.
+                --manifest-location=: An absolute path to the manifest source file in a Google Cloud Storage bucket.
+                --no-delete-object!&: If this flag is set, objects specified in source will be deleted.
+                --no-enable-permanent-object-deletion&: If this flag is set and versioning is enabled on the buckets, both live and noncurrent objects will be permanently deleted.
+                --no-put-object-event-based-hold&: Sets or unsets object event based holds state.
+                --no-put-object-temporary-hold&: Sets or unsets object temporary holds state.
+                --put-metadata=: Sets object metadata.
+                --put-object-event-based-hold: Sets or unsets object event based holds state.
+                --put-object-temporary-hold: Sets or unsets object temporary holds state.
+                --rewrite-object=: Rewrites object and the specified metadata.
+            - name: delete
+              description: Delete a batch-operations job.
+            - name: describe
+              description: Describe a batch-operations job.
+            - name: list
+              description: List batch-operations jobs.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
     - name: buckets
       description: Manage Cloud Storage buckets.
       commands:
@@ -15,6 +53,21 @@ commands:
         - name: anywhere-caches
           description: Manage Cloud Storage Anywhere Caches.
           commands:
+            - name: create
+              description: Create Anywhere Cache instances for a bucket.
+              flags:
+                --admission-policy=: The cache admission policy decides for each cache miss, whether to insert the missed block or not.
+                --ttl=: Cache entry time-to-live.
+              completion:
+                flag:
+                    admission-policy:
+                        - ADMIT_ON_FIRST_MISS
+                        - ADMIT_ON_SECOND_MISS
+            - name: describe
+              description: Returns details of Anywhere Cache instance of a bucket.
+              flags:
+                --no-raw&: Shows metadata in the format returned by the API instead of standardizing it.
+                --raw: Shows metadata in the format returned by the API instead of standardizing it.
             - name: disable
               description: Disable Anywhere Cache instances.
             - name: list
@@ -42,80 +95,6 @@ commands:
                     admission-policy:
                         - ADMIT_ON_FIRST_MISS
                         - ADMIT_ON_SECOND_MISS
-            - name: create
-              description: Create Anywhere Cache instances for a bucket.
-              flags:
-                --admission-policy=: The cache admission policy decides for each cache miss, whether to insert the missed block or not.
-                --ttl=: Cache entry time-to-live.
-              completion:
-                flag:
-                    admission-policy:
-                        - ADMIT_ON_FIRST_MISS
-                        - ADMIT_ON_SECOND_MISS
-            - name: describe
-              description: Returns details of Anywhere Cache instance of a bucket.
-              flags:
-                --no-raw&: Shows metadata in the format returned by the API instead of standardizing it.
-                --raw: Shows metadata in the format returned by the API instead of standardizing it.
-        - name: delete
-          description: Deletes Cloud Storage buckets.
-          flags:
-            --additional-headers=: Includes arbitrary headers in storage API calls.
-            --continue-on-error: If any operations are unsuccessful, the command will exit with a non-zero exit status after completing the remaining operations.
-        - name: describe
-          description: Describes Cloud Storage buckets.
-          flags:
-            --additional-headers=: Includes arbitrary headers in storage API calls.
-            --no-raw&: Shows metadata in the format returned by the API instead of standardizing it.
-            --raw: Shows metadata in the format returned by the API instead of standardizing it.
-        - name: get-iam-policy
-          description: Get the IAM policy for a bucket.
-        - name: notifications
-          description: Manage Cloud Storage bucket notifications.
-          commands:
-            - name: describe
-              description: Show metadata for a notification configuration.
-            - name: list
-              description: List the notification configurations belonging to a given bucket.
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --human-readable&: Prints notification information in a more descriptive, unstructured format.
-                --limit=: Maximum number of resources to list.
-                --no-human-readable&: Prints notification information in a more descriptive, unstructured format.
-                --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --uri: Print a list of resource URIs instead of the default output, and change the
-            - name: create
-              description: Create a notification configuration on a bucket.
-              flags:
-                --custom-attributes=: Specifies key:value attributes that are appended to the set of attributes sent to Cloud Pub/Sub for all events associated with this notification configuration.
-                --event-types=: Specify event type filters for this notification configuration.
-                --object-prefix=: Specifies a prefix path for this notification configuration.
-                --payload-format=: Specifies the payload format of notification messages.
-                --skip-topic-setup: Skips creation and permission assignment of the Cloud Pub/Sub topic.
-                --topic=: Specifies the Cloud Pub/Sub topic to send notifications to.
-              completion:
-                flag:
-                    payload-format:
-                        - json
-                        - none
-            - name: delete
-              description: Delete notification configurations from a bucket.
-        - name: remove-iam-policy-binding
-          description: Remove an IAM policy binding from a bucket.
-          flags:
-            --all: Remove all bindings with this role and principal, irrespective of any
-            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
-            --condition=: The condition of the binding that you want to remove.
-            --member=!: The principal to remove the binding for.
-            --no-all&: ""
-            --role=!: The role to remove the principal from.
-        - name: set-iam-policy
-          description: Set the IAM policy for a bucket.
-          flags:
-            --continue-on-error: If any operations are unsuccessful, the command will exit with a non-zero exit status after completing the remaining operations.
-            --etag=: Custom etag to set on IAM policy.
         - name: create
           description: Create buckets for storing objects.
           flags:
@@ -150,6 +129,19 @@ commands:
                 rpo:
                     - ASYNC_TURBO
                     - DEFAULT
+        - name: delete
+          description: Deletes Cloud Storage buckets.
+          flags:
+            --additional-headers=: Includes arbitrary headers in storage API calls.
+            --continue-on-error: If any operations are unsuccessful, the command will exit with a non-zero exit status after completing the remaining operations.
+        - name: describe
+          description: Describes Cloud Storage buckets.
+          flags:
+            --additional-headers=: Includes arbitrary headers in storage API calls.
+            --no-raw&: Shows metadata in the format returned by the API instead of standardizing it.
+            --raw: Shows metadata in the format returned by the API instead of standardizing it.
+        - name: get-iam-policy
+          description: Get the IAM policy for a bucket.
         - name: list
           description: Lists Cloud Storage buckets.
           flags:
@@ -162,6 +154,38 @@ commands:
             --raw: Shows metadata in the format returned by the API instead of standardizing it.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: notifications
+          description: Manage Cloud Storage bucket notifications.
+          commands:
+            - name: create
+              description: Create a notification configuration on a bucket.
+              flags:
+                --custom-attributes=: Specifies key:value attributes that are appended to the set of attributes sent to Cloud Pub/Sub for all events associated with this notification configuration.
+                --event-types=: Specify event type filters for this notification configuration.
+                --object-prefix=: Specifies a prefix path for this notification configuration.
+                --payload-format=: Specifies the payload format of notification messages.
+                --skip-topic-setup: Skips creation and permission assignment of the Cloud Pub/Sub topic.
+                --topic=: Specifies the Cloud Pub/Sub topic to send notifications to.
+              completion:
+                flag:
+                    payload-format:
+                        - json
+                        - none
+            - name: delete
+              description: Delete notification configurations from a bucket.
+            - name: describe
+              description: Show metadata for a notification configuration.
+            - name: list
+              description: List the notification configurations belonging to a given bucket.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --human-readable&: Prints notification information in a more descriptive, unstructured format.
+                --limit=: Maximum number of resources to list.
+                --no-human-readable&: Prints notification information in a more descriptive, unstructured format.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
         - name: relocate
           description: Relocates bucket between different locations.
           flags:
@@ -173,6 +197,20 @@ commands:
             --operation=!: Specify the relocation operation name to advance the relocation operation.The relocation operation name must include the Cloud Storage bucket and operation ID.
             --placement=: A comma-separated list of regions that form the custom [dual-region](https://cloud.google.com/storage/docs/locations#location-dr). Only regions within the same continent are or will ever be valid.
             --ttl=: Time to live for the relocation operation.
+        - name: remove-iam-policy-binding
+          description: Remove an IAM policy binding from a bucket.
+          flags:
+            --all: Remove all bindings with this role and principal, irrespective of any
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: The condition of the binding that you want to remove.
+            --member=!: The principal to remove the binding for.
+            --no-all&: ""
+            --role=!: The role to remove the principal from.
+        - name: set-iam-policy
+          description: Set the IAM policy for a bucket.
+          flags:
+            --continue-on-error: If any operations are unsuccessful, the command will exit with a non-zero exit status after completing the remaining operations.
+            --etag=: Custom etag to set on IAM policy.
         - name: update
           description: Update bucket settings.
           flags:
@@ -254,9 +292,118 @@ commands:
                 rpo:
                     - ASYNC_TURBO
                     - DEFAULT
+    - name: cat
+      description: Outputs the contents of one or more URLs to stdout.
+      flags:
+        --additional-headers=: Includes arbitrary headers in storage API calls.
+        --decryption-keys=: A comma-separated list of customer-supplied encryption keys (RFC 4648 section 4 base64-encoded AES256 strings) that will be used to decrypt Cloud Storage objects.
+        --display-url: Prints the header before each object.
+        --encryption-key=&: The encryption key to use for encrypting target objects.
+        --range=: Causes gcloud storage to output just the specified byte range of
+    - name: cp
+      description: Upload, download, and copy Cloud Storage objects.
+      flags:
+        --additional-headers=: Includes arbitrary headers in storage API calls.
+        --all-versions: Copy all source versions from a source bucket or folder.
+        --cache-control=: How caches should handle requests and responses.
+        --canned-acl=: Applies predefined, or "canned," ACLs to a resource.
+        --clear-custom-metadata: Clears all custom metadata on objects.
+        --content-disposition=: How content should be displayed.
+        --content-encoding=: How content is encoded (e.g. ``gzip'').
+        --content-language=: Content's language (e.g. ``en'' signifies "English").
+        --content-md5=: Manually specified MD5 hash digest for the contents of an uploaded file.
+        --content-type=: Type of data contained in the object (e.g. ``text/html'').
+        --continue-on-error: If any operations are unsuccessful, the command will exit with a non-zero exit status after completing the remaining operations.
+        --custom-metadata=: Sets custom metadata on objects.
+        --custom-time=: Custom time for Cloud Storage objects in RFC 3339 format.
+        --daisy-chain: Copy in "daisy chain" mode, which means copying an object by first downloading it to the machine where the command is run, then uploading it to the destination bucket.
+        --decryption-keys=: A comma-separated list of customer-supplied encryption keys (RFC 4648 section 4 base64-encoded AES256 strings) that will be used to decrypt Cloud Storage objects.
+        --do-not-decompress: Do not automatically decompress downloaded gzip files.
+        --encryption-key=: The encryption key to use for encrypting target objects.
+        --gzip-in-flight-all: Applies gzip transport encoding to file uploads.
+        --gzip-in-flight=: Applies gzip transport encoding to any file upload whose
+        --gzip-local-all: Applies gzip content encoding to file uploads.
+        --gzip-local=: Applies gzip content encoding to any file upload whose
+        --if-generation-match=: Execute only if the generation matches the generation of the requested object.
+        --if-metageneration-match=: Execute only if the metageneration matches the metageneration of the requested object.
+        --ignore-symlinks: Ignore file symlinks instead of copying what they point to.
+        --include-managed-folders: Includes managed folders in command operations.
+        --manifest-path=: Outputs a manifest log file with detailed information about each item that
+        --no-clear-custom-metadata&: Clears all custom metadata on objects.
+        --no-clobber: Do not overwrite existing files or objects at the destination.
+        --no-do-not-decompress&: Do not automatically decompress downloaded gzip files.
+        --no-ignore-symlinks&: Ignore file symlinks instead of copying what they point to.
+        --no-include-managed-folders&: Includes managed folders in command operations.
+        --no-preserve-acl&: Preserves ACLs when copying in the cloud.
+        --no-preserve-symlinks&: Preserve symlinks instead of copying what they point to.
+        --no-read-paths-from-stdin&: Read the list of resources to copy from stdin.
+        --predefined-acl=: Applies predefined, or "canned," ACLs to a resource.
+        --preserve-acl: Preserves ACLs when copying in the cloud.
+        --preserve-posix: Causes POSIX attributes to be preserved when objects are copied.
+        --preserve-symlinks: Preserve symlinks instead of copying what they point to.
+        --print-created-message: Prints the version-specific URL for each copied object.
+        --read-paths-from-stdin: Read the list of resources to copy from stdin.
+        --recursive: Recursively copy the contents of any directories that match the source path expression.
+        --remove-custom-metadata=: Removes individual custom metadata keys from objects.
+        --retain-until=: Ensures the destination object is retained until the specified time in RFC 3339 format.
+        --retention-mode=: Sets the destination object retention mode to either "Locked" or "Unlocked".
+        --skip-unsupported: Skip objects with unsupported object types.
+        --storage-class=: Specify the storage class of the destination object.
+        --update-custom-metadata=: Adds or sets individual custom metadata key value pairs on objects.
+      completion:
+        flag:
+            retention-mode:
+                - Locked
+                - Unlocked
+    - name: diagnose
+      description: Diagnose Google Cloud Storage.
+      flags:
+        --destination=: Destination file path where the diagnostic bundle will be exported.
+        --download-type=: Download strategy to use for the DOWNLOAD_THROUGHPUT diagnostic test.
+        --export!: Generate and export a diagnostic bundle.
+        --logs-path=: If the diagnostic supports writing logs, write the logs to this file location.
+        --no-export!&: ""
+        --object-count=!: Number of objects to use for each diagnostic test.
+        --object-size=: Object size to use for the diagnostic tests.
+        --object-sizes=: List of object sizes to use for the tests.
+        --process-count=: Number of processes at max to use for each diagnostic test.
+        --test-type=: Tests to run as part of this diagnosis.
+        --thread-count=: Number of threads at max to use for each diagnostic test.
+        --upload-type=: Upload strategy to use for the _UPLOAD_THROUGHPUT_ diagnostic test.
+      completion:
+        flag:
+            download-type:
+                - FILE
+                - SLICED
+                - STREAMING
+            upload-type:
+                - FILE
+                - PARALLEL_COMPOSITE
+                - STREAMING
+    - name: du
+      description: Displays the amount of space in bytes used by storage resources.
+      flags:
+        --additional-headers=: Includes arbitrary headers in storage API calls.
+        --all-versions: Includes noncurrent object versions for a bucket with Object Versioning enabled.
+        --exclude-name-pattern-file=: Similar to -e, but excludes patterns from the given file.
+        --exclude-name-pattern=: Exclude a pattern from the report.
+        --readable-sizes: Prints object sizes in human-readable format.
+        --summarize: Displays only the summary for each argument.
+        --total: Includes a total size of all input sources.
+        --zero-terminator: Ends each output line with a 0 byte rather than a newline.
     - name: folders
       description: Manage Cloud Storage folders.
       commands:
+        - name: create
+          description: Create folders for hierarchical namespace bucket.
+          flags:
+            --additional-headers=: Includes arbitrary headers in storage API calls.
+            --no-recursive&: Recursively create all folders in a given path if they do not alraedy exist.
+            --recursive: Recursively create all folders in a given path if they do not alraedy exist.
+        - name: delete
+          description: Delete folders.
+          flags:
+            --additional-headers=: Includes arbitrary headers in storage API calls.
         - name: describe
           description: Describe hierarchical namesapace bucket folders.
           flags:
@@ -275,27 +422,21 @@ commands:
             --raw: Shows metadata in the format returned by the API instead of standardizing it.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: create
-          description: Create folders for hierarchical namespace bucket.
-          flags:
-            --additional-headers=: Includes arbitrary headers in storage API calls.
-            --no-recursive&: Recursively create all folders in a given path if they do not alraedy exist.
-            --recursive: Recursively create all folders in a given path if they do not alraedy exist.
-        - name: delete
-          description: Delete folders.
-          flags:
-            --additional-headers=: Includes arbitrary headers in storage API calls.
+    - name: hash
+      description: Calculates hashes on local or cloud files.
+      flags:
+        --additional-headers=: Includes arbitrary headers in storage API calls.
+        --decryption-keys=: A comma-separated list of customer-supplied encryption keys (RFC 4648 section 4 base64-encoded AES256 strings) that will be used to decrypt Cloud Storage objects.
+        --encryption-key=&: The encryption key to use for encrypting target objects.
+        --hex: Output hash digests in hex format.
+        --no-hex&: Output hash digests in hex format.
+        --no-skip-crc32c&: Skip CRC32C hash calculation.
+        --no-skip-md5&: Skip MD5 hash calculation.
+        --skip-crc32c: Skip CRC32C hash calculation.
+        --skip-md5: Skip MD5 hash calculation.
     - name: hmac
       description: Manage Cloud Storage service account HMAC keys.
       commands:
-        - name: update
-          description: Change the status of a service account HMAC.
-          flags:
-            --activate: Sets the state of the specified key to ``ACTIVE''.
-            --deactivate: Sets the state of the specified key to ``INACTIVE''.
-            --etag=: If provided, the update will only be performed if the specified etag
-            --no-activate&: Sets the state of the specified key to ``ACTIVE''.
-            --no-deactivate&: Sets the state of the specified key to ``INACTIVE''.
         - name: create
           description: Add a service account HMAC.
         - name: delete
@@ -314,9 +455,273 @@ commands:
             --service-account=: Filter keys for the provided service account email.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Change the status of a service account HMAC.
+          flags:
+            --activate: Sets the state of the specified key to ``ACTIVE''.
+            --deactivate: Sets the state of the specified key to ``INACTIVE''.
+            --etag=: If provided, the update will only be performed if the specified etag
+            --no-activate&: Sets the state of the specified key to ``ACTIVE''.
+            --no-deactivate&: Sets the state of the specified key to ``INACTIVE''.
+    - name: insights
+      description: Manage Cloud Storage inventory reports.
+      commands:
+        - name: dataset-configs
+          description: Manage Cloud Storage Insights dataset configurations.
+          commands:
+            - name: create
+              description: Create a new dataset config for Insights.
+              flags:
+                --auto-add-new-buckets: Automatically include any new buckets created if they satisfy criteria defined in config settings.
+                --description=: Description for dataset config.
+                --enable-organization-scope: If passed, the dataset config will be enabled on the organization.
+                --exclude-bucket-names=: List of bucket names to be excluded.
+                --exclude-bucket-prefix-regexes=: List of bucket prefix regexes to be excluded.
+                --exclude-source-locations=: List of locations for projects to be excluded.
+                --identity=: The type of service account used in the dataset config.
+                --include-bucket-names=: List of bucket names be included.
+                --include-bucket-prefix-regexes=: List of bucket prefix regexes to be included.
+                --include-source-locations=: List of locations for projects to be included.
+                --location=!: Provide location of the dataset config.
+                --no-auto-add-new-buckets&: Automatically include any new buckets created if they satisfy criteria defined in config settings.
+                --no-enable-organization-scope&: If passed, the dataset config will be enabled on the organization.
+                --organization=!: Provide the source organization number.
+                --retention-period-days=!: Provide retention period for the config.
+                --source-folders-file=: CSV formatted file containing source folder IDs, one per line.
+                --source-folders=: List of source folder IDs.
+                --source-projects-file=: CSV formatted file containing source project numbers, one per line.
+                --source-projects=: List of source project numbers.
+              completion:
+                flag:
+                    identity:
+                        - IDENTITY_TYPE_PER_CONFIG
+                        - IDENTITY_TYPE_PER_PROJECT
+            - name: create-link
+              description: Create a link to a BigQuery instance.
+              flags:
+                --location=: Insights supported Google Cloud location for the dataset-config.
+            - name: delete
+              description: Delete dataset config for Insights.
+              flags:
+                --auto-delete-link: Delete the BigQuery instance links before the config gets deleted explicitly.
+                --force: Force delete the config by skipping the consent.
+                --location=: Insights supported Google Cloud location for the dataset-config.
+                --no-auto-delete-link&: Delete the BigQuery instance links before the config gets deleted explicitly.
+                --no-force&: Force delete the config by skipping the consent.
+            - name: delete-link
+              description: Delete a link to a BigQuery instance.
+              flags:
+                --location=: Insights supported Google Cloud location for the dataset-config.
+            - name: describe
+              description: Describe dataset config for Insights.
+              flags:
+                --location=: Insights supported Google Cloud location for the dataset-config.
+            - name: list
+              description: List returns all the Insights dataset configs for given location.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: Provide location of the dataset config.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Updates a dataset config for Insights.
+              flags:
+                --auto-add-new-buckets: Automatically include any new buckets created if they satisfy criteria defined in config settings.
+                --description=: Description for dataset config.
+                --enable-organization-scope: If passed, the dataset config will be enabled on the organization.
+                --exclude-bucket-names=: List of bucket names to be excluded.
+                --exclude-bucket-prefix-regexes=: List of bucket prefix regexes to be excluded.
+                --exclude-source-locations=: List of locations for projects to be excluded.
+                --include-bucket-names=: List of bucket names be included.
+                --include-bucket-prefix-regexes=: List of bucket prefix regexes to be included.
+                --include-source-locations=: List of locations for projects to be included.
+                --location=: Insights supported Google Cloud location for the dataset-config.
+                --no-enable-organization-scope&: If passed, the dataset config will be enabled on the organization.
+                --retention-period-days=: Provide retention period for the config.
+                --source-folders-file=: CSV formatted file containing source folder IDs, one per line.
+                --source-folders=: List of source folder IDs.
+                --source-projects-file=: CSV formatted file containing source project numbers, one per line.
+                --source-projects=: List of source project numbers.
+        - name: inventory-reports
+          description: Manage Cloud Storage inventory report configurations.
+          commands:
+            - name: create
+              description: Create a new inventory report config.
+              flags:
+                --csv-delimiter=: Sets the delimiter that separates the fields in the inventory report CSV file.
+                --csv-header: Indicates whether or not headers are included in the inventory report CSV file.
+                --csv-separator=: Sets the character used to separate the records in the inventory report CSV file.
+                --destination=: Sets the URL of the destination bucket and path where generated reports are stored.
+                --display-name=: Sets the editable name of the report configuration.
+                --metadata-fields=: The metadata fields to be included in the inventory report.
+                --no-csv-header&: Indicates whether or not headers are included in the inventory report CSV file.
+                --no-parquet&: Generate reports in parquet format.
+                --parquet: Generate reports in parquet format.
+                --schedule-repeats-until=: Sets date after which you want to stop generating inventory reports.
+                --schedule-repeats=: Sets how often the inventory report configuration will run.
+                --schedule-starts=: Sets the date you want to start generating inventory reports.
+              completion:
+                flag:
+                    csv-separator:
+                        - \n
+                        - \r\n
+                    schedule-repeats:
+                        - daily
+                        - weekly
+            - name: delete
+              description: Delete an inventory report config.
+              flags:
+                --force: If set, all report details for this report config will be deleted.
+                --location=: Google Cloud location for the report-config.
+                --no-force&: If set, all report details for this report config will be deleted.
+            - name: describe
+              description: Describe an inventory report config.
+              flags:
+                --location=: Google Cloud location for the report-config.
+            - name: details
+              description: Retrieve details of inventory reports.
+              commands:
+                - name: describe
+                  description: Describe inventory reports detail.
+                  flags:
+                    --location=: Google Cloud location for the report-detail.
+                    --report-config=: Report Config ID for the report-detail.
+                - name: list
+                  description: List inventory report details.
+                  flags:
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --location=: Google Cloud location for the report-config.
+                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                    --page-size=: Some services group resource list output into pages.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: list
+              description: Lists all inventory report configs.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location of the report configs.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --source=: Specifies URL of the source bucket that contains the inventory report configuration.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Update an inventory report config.
+              flags:
+                --add-metadata-fields=: Adds fields to the metadata_fields list.
+                --csv-delimiter=: Sets the delimiter that separates the fields in the inventory report CSV file.
+                --csv-header: Indicates whether or not headers are included in the inventory report CSV file.
+                --csv-separator=: Sets the character used to separate the records in the inventory report CSV file.
+                --destination=: Sets the URL of the destination bucket and path where generated reports are stored.
+                --display-name=: Sets the editable name of the report configuration.
+                --location=: Google Cloud location for the report-config.
+                --metadata-fields=: The metadata fields to be included in the inventory report.
+                --no-csv-header&: Indicates whether or not headers are included in the inventory report CSV file.
+                --no-parquet&: Generate reports in parquet format.
+                --parquet: Generate reports in parquet format.
+                --remove-metadata-fields=: Removes fields from the metadata_fields list.
+                --schedule-repeats-until=: Sets date after which you want to stop generating inventory reports.
+                --schedule-repeats=: Sets how often the inventory report configuration will run.
+                --schedule-starts=: Sets the date you want to start generating inventory reports.
+              completion:
+                flag:
+                    csv-separator:
+                        - \n
+                        - \r\n
+                    schedule-repeats:
+                        - daily
+                        - weekly
+    - name: intelligence-configs
+      description: Manage Cloud Storage Intelligence Configurations.
+      commands:
+        - name: describe
+          description: Describes storage intelligence configuration.
+          flags:
+            --organization=: Specifies organization id for the storage intelligence config.
+            --sub-folder=: Specifies sub-folder id for the storage intelligence config.
+        - name: disable
+          description: Disables storage intelligence.
+          flags:
+            --organization=: Specifies organization id for the storage intelligence config.
+            --sub-folder=: Specifies sub-folder id for the storage intelligence config.
+        - name: enable
+          description: Enables storage intelligence.
+          flags:
+            --exclude-bucket-id-regexes=: Sets filter for bucket id regexes to exclude.
+            --exclude-locations=: Comma separated list of [locations](https://cloud.google.com/storage/docs/locations#available-locations) to exclude in storage intelligence filter.
+            --include-bucket-id-regexes=: Sets filter for bucket id regexes to include.
+            --include-locations=: Comma separated list of [locations](https://cloud.google.com/storage/docs/locations#available-locations) to include in storage intelligence filter.
+            --no-trial-edition&: Enables Storage Intelligence for TRIAL edition.
+            --organization=: Specifies organization id for the storage intelligence config.
+            --sub-folder=: Specifies sub-folder id for the storage intelligence config.
+            --trial-edition: Enables Storage Intelligence for TRIAL edition.
+        - name: update
+          description: Updates storage intelligence configuration.
+          flags:
+            --exclude-bucket-id-regexes=: Sets filter for bucket id regexes to exclude.
+            --exclude-locations=: Comma separated list of [locations](https://cloud.google.com/storage/docs/locations#available-locations) to exclude in storage intelligence filter.
+            --include-bucket-id-regexes=: Sets filter for bucket id regexes to include.
+            --include-locations=: Comma separated list of [locations](https://cloud.google.com/storage/docs/locations#available-locations) to include in storage intelligence filter.
+            --inherit-from-parent: Specifies storage intelligence config to be inherited from parent.
+            --no-inherit-from-parent&: Specifies storage intelligence config to be inherited from parent.
+            --no-trial-edition&: Enables Storage Intelligence for TRIAL edition.
+            --organization=: Specifies organization id for the storage intelligence config.
+            --sub-folder=: Specifies sub-folder id for the storage intelligence config.
+            --trial-edition: Enables Storage Intelligence for TRIAL edition.
+    - name: ls
+      description: List Cloud Storage buckets and objects.
+      flags:
+        --additional-headers=: Includes arbitrary headers in storage API calls.
+        --all-versions: Include noncurrent object versions in the listing.
+        --buckets: When given a bucket URL, only return buckets.
+        --decryption-keys=: A comma-separated list of customer-supplied encryption keys (RFC 4648 section 4 base64-encoded AES256 strings) that will be used to decrypt Cloud Storage objects.
+        --encryption-key=&: The encryption key to use for encrypting target objects.
+        --etag: Include ETag metadata in listings that use the `--long` flag.
+        --exhaustive: For features like soft delete, the API may return an empty list.
+        --fetch-encrypted-object-hashes: API requests to the LIST endpoint do not fetch the hashes for encrypted objects by default.
+        --full: List all available metadata about items in rows.
+        --json: List all available metadata about items as a JSON dump.
+        --long: For objects only.
+        --next-page-token=: Page token for resuming LIST calls.
+        --no-exhaustive&: For features like soft delete, the API may return an empty list.
+        --no-fetch-encrypted-object-hashes&: API requests to the LIST endpoint do not fetch the hashes for encrypted objects by default.
+        --no-read-paths-from-stdin&: Read the list of URLs from stdin.
+        --no-readable-sizes&: When used with `--long`, print object sizes in human readable format, such as 1 KiB, 234 MiB, or 2 GiB.
+        --no-soft-deleted&: Displays soft-deleted resources only.
+        --read-paths-from-stdin: Read the list of URLs from stdin.
+        --readable-sizes: When used with `--long`, print object sizes in human readable format, such as 1 KiB, 234 MiB, or 2 GiB.
+        --recursive: Recursively list the contents of any directories that match the path expression.
+        --soft-deleted: Displays soft-deleted resources only.
     - name: managed-folders
       description: Manage Cloud Storage managed folders.
       commands:
+        - name: add-iam-policy-binding
+          description: Add an IAM policy binding to a managed folder.
+          flags:
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: A condition to include in the binding.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: create
+          description: Create managed folders.
+          flags:
+            --additional-headers=: Includes arbitrary headers in storage API calls.
+        - name: delete
+          description: Delete managed folders.
+          flags:
+            --additional-headers=: Includes arbitrary headers in storage API calls.
+            --continue-on-error: If any operations are unsuccessful, the command will exit with a non-zero exit status after completing the remaining operations.
+        - name: describe
+          description: Describe managed folders.
+          flags:
+            --additional-headers=: Includes arbitrary headers in storage API calls.
+            --no-raw&: Shows metadata in the format returned by the API instead of standardizing it.
+            --raw: Shows metadata in the format returned by the API instead of standardizing it.
         - name: get-iam-policy
           description: Get the IAM policy for a managed folder.
         - name: list
@@ -345,144 +750,98 @@ commands:
           flags:
             --continue-on-error: If any operations are unsuccessful, the command will exit with a non-zero exit status after completing the remaining operations.
             --etag=: Custom etag to set on IAM policy.
+    - name: mv
+      description: Moves or renames objects.
+      flags:
+        --additional-headers=: Includes arbitrary headers in storage API calls.
+        --all-versions: Copy all source versions from a source bucket or folder.
+        --cache-control=: How caches should handle requests and responses.
+        --canned-acl=: Applies predefined, or "canned," ACLs to a resource.
+        --clear-custom-metadata: Clears all custom metadata on objects.
+        --content-disposition=: How content should be displayed.
+        --content-encoding=: How content is encoded (e.g. ``gzip'').
+        --content-language=: Content's language (e.g. ``en'' signifies "English").
+        --content-md5=: Manually specified MD5 hash digest for the contents of an uploaded file.
+        --content-type=: Type of data contained in the object (e.g. ``text/html'').
+        --continue-on-error: If any operations are unsuccessful, the command will exit with a non-zero exit status after completing the remaining operations.
+        --custom-metadata=: Sets custom metadata on objects.
+        --custom-time=: Custom time for Cloud Storage objects in RFC 3339 format.
+        --daisy-chain: Copy in "daisy chain" mode, which means copying an object by first downloading it to the machine where the command is run, then uploading it to the destination bucket.
+        --decryption-keys=: A comma-separated list of customer-supplied encryption keys (RFC 4648 section 4 base64-encoded AES256 strings) that will be used to decrypt Cloud Storage objects.
+        --do-not-decompress: Do not automatically decompress downloaded gzip files.
+        --encryption-key=: The encryption key to use for encrypting target objects.
+        --gzip-in-flight-all: Applies gzip transport encoding to file uploads.
+        --gzip-in-flight=: Applies gzip transport encoding to any file upload whose
+        --gzip-local-all: Applies gzip content encoding to file uploads.
+        --gzip-local=: Applies gzip content encoding to any file upload whose
+        --if-generation-match=: Execute only if the generation matches the generation of the requested object.
+        --if-metageneration-match=: Execute only if the metageneration matches the metageneration of the requested object.
+        --ignore-symlinks: Ignore file symlinks instead of copying what they point to.
+        --include-managed-folders: Includes managed folders in command operations.
+        --manifest-path=: Outputs a manifest log file with detailed information about each item that
+        --no-clear-custom-metadata&: Clears all custom metadata on objects.
+        --no-clobber: Do not overwrite existing files or objects at the destination.
+        --no-do-not-decompress&: Do not automatically decompress downloaded gzip files.
+        --no-ignore-symlinks&: Ignore file symlinks instead of copying what they point to.
+        --no-include-managed-folders&: Includes managed folders in command operations.
+        --no-preserve-acl&: Preserves ACLs when copying in the cloud.
+        --no-preserve-symlinks&: Preserve symlinks instead of copying what they point to.
+        --no-read-paths-from-stdin&: Read the list of resources to copy from stdin.
+        --predefined-acl=: Applies predefined, or "canned," ACLs to a resource.
+        --preserve-acl: Preserves ACLs when copying in the cloud.
+        --preserve-posix: Causes POSIX attributes to be preserved when objects are copied.
+        --preserve-symlinks: Preserve symlinks instead of copying what they point to.
+        --print-created-message: Prints the version-specific URL for each copied object.
+        --read-paths-from-stdin: Read the list of resources to copy from stdin.
+        --remove-custom-metadata=: Removes individual custom metadata keys from objects.
+        --retain-until=: Ensures the destination object is retained until the specified time in RFC 3339 format.
+        --retention-mode=: Sets the destination object retention mode to either "Locked" or "Unlocked".
+        --skip-unsupported: Skip objects with unsupported object types.
+        --storage-class=: Specify the storage class of the destination object.
+        --update-custom-metadata=: Adds or sets individual custom metadata key value pairs on objects.
+      completion:
+        flag:
+            retention-mode:
+                - Locked
+                - Unlocked
+    - name: objects
+      description: Manage Cloud Storage objects.
+      commands:
         - name: add-iam-policy-binding
-          description: Add an IAM policy binding to a managed folder.
+          description: Grant a principal access to an object.
+          hidden: true
           flags:
             --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
             --condition=: A condition to include in the binding.
             --member=!: The principal to add the binding for.
             --role=!: Role name to assign to the principal.
-        - name: create
-          description: Create managed folders.
+        - name: compose
+          description: Concatenate a sequence of objects into a new composite object.
           flags:
             --additional-headers=: Includes arbitrary headers in storage API calls.
-        - name: delete
-          description: Delete managed folders.
-          flags:
-            --additional-headers=: Includes arbitrary headers in storage API calls.
-            --continue-on-error: If any operations are unsuccessful, the command will exit with a non-zero exit status after completing the remaining operations.
+            --decryption-keys=&: A comma-separated list of customer-supplied encryption keys (RFC 4648 section 4 base64-encoded AES256 strings) that will be used to decrypt Cloud Storage objects.
+            --encryption-key=&: The encryption key to use for encrypting target objects.
+            --if-generation-match=: Execute only if the generation matches the generation of the requested object.
+            --if-metageneration-match=: Execute only if the metageneration matches the metageneration of the requested object.
+            --retain-until=: Ensures the destination object is retained until the specified time in RFC 3339 format.
+            --retention-mode=: Sets the destination object retention mode to either "Locked" or "Unlocked".
+          completion:
+            flag:
+                retention-mode:
+                    - Locked
+                    - Unlocked
         - name: describe
-          description: Describe managed folders.
+          description: Describe a Cloud Storage object.
           flags:
             --additional-headers=: Includes arbitrary headers in storage API calls.
+            --decryption-keys=: A comma-separated list of customer-supplied encryption keys (RFC 4648 section 4 base64-encoded AES256 strings) that will be used to decrypt Cloud Storage objects.
+            --encryption-key=&: The encryption key to use for encrypting target objects.
+            --fetch-encrypted-object-hashes: If the initial GET request returns an object encrypted with a customer-supplied encryption key, the hash fields will be null.
+            --no-fetch-encrypted-object-hashes&: If the initial GET request returns an object encrypted with a customer-supplied encryption key, the hash fields will be null.
             --no-raw&: Shows metadata in the format returned by the API instead of standardizing it.
+            --no-soft-deleted&: Displays soft-deleted resources only.
             --raw: Shows metadata in the format returned by the API instead of standardizing it.
-    - name: operations
-      description: Manage storage operations.
-      commands:
-        - name: cancel
-          description: Cancel a storage operation.
-        - name: describe
-          description: Get configuration and latest storage operation details.
-        - name: list
-          description: List storage operations.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --server-filter=: Server-side filter string used to determine what operations to return.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-    - name: service-agent
-      description: Manage a project's Cloud Storage service agent, which is used to perform Cloud KMS operations.
-      flags:
-        --authorize-cmek=: Adds appropriate encrypt/decrypt permissions to the specified Cloud
-    - name: sign-url
-      description: Generate a URL with embedded authentication that can be used by anyone.
-      flags:
-        --duration=: Specifies the duration that the signed url should be valid for,
-        --headers=: Specifies the headers to be used in the signed request.
-        --http-verb=: Specifies the HTTP verb to be authorized for use with the signed
-        --no-path-style-url&: Generate path-style signed URL.
-        --path-style-url: Generate path-style signed URL.
-        --private-key-file=: The service account private key used to generate the cryptographic
-        --private-key-password=: Specifies the PRIVATE_KEY_FILE password instead of prompting.
-        --query-params=: Specifies the query parameters to be used in the signed request.
-        --region=: Specifies the region in which the resources for which you are
-    - name: batch-operations
-      description: Manage Cloud Storage batch operations.
-      commands:
-        - name: jobs
-          description: Manage Cloud Storage batch operations jobs.
-          commands:
-            - name: cancel
-              description: Cancel a batch-operations job.
-            - name: create
-              description: Create a new batch operation job.
-              flags:
-                --bucket=!: Bucket containing the objects that the batch job will operate on.
-                --delete-object!: If this flag is set, objects specified in source will be deleted.
-                --description=: Description for the batch job.
-                --enable-permanent-object-deletion: If this flag is set and versioning is enabled on the buckets, both live and noncurrent objects will be permanently deleted.
-                --included-object-prefixes=: A comma-separated list of object prefixes to describe the objects being transformed.
-                --log-action-states=: The states in which the actions specified in --log-actions are logged.
-                --log-actions=: Define the batch job actions to report in logs.
-                --manifest-location=: An absolute path to the manifest source file in a Google Cloud Storage bucket.
-                --no-delete-object!&: If this flag is set, objects specified in source will be deleted.
-                --no-enable-permanent-object-deletion&: If this flag is set and versioning is enabled on the buckets, both live and noncurrent objects will be permanently deleted.
-                --no-put-object-event-based-hold&: Sets or unsets object event based holds state.
-                --no-put-object-temporary-hold&: Sets or unsets object temporary holds state.
-                --put-metadata=: Sets object metadata.
-                --put-object-event-based-hold: Sets or unsets object event based holds state.
-                --put-object-temporary-hold: Sets or unsets object temporary holds state.
-                --rewrite-object=: Rewrites object and the specified metadata.
-            - name: delete
-              description: Delete a batch-operations job.
-            - name: describe
-              description: Describe a batch-operations job.
-            - name: list
-              description: List batch-operations jobs.
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --limit=: Maximum number of resources to list.
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-    - name: cat
-      description: Outputs the contents of one or more URLs to stdout.
-      flags:
-        --additional-headers=: Includes arbitrary headers in storage API calls.
-        --decryption-keys=: A comma-separated list of customer-supplied encryption keys (RFC 4648 section 4 base64-encoded AES256 strings) that will be used to decrypt Cloud Storage objects.
-        --display-url: Prints the header before each object.
-        --encryption-key=&: The encryption key to use for encrypting target objects.
-        --range=: Causes gcloud storage to output just the specified byte range of
-    - name: intelligence-configs
-      description: Manage Cloud Storage Intelligence Configurations.
-      commands:
-        - name: enable
-          description: Enables storage intelligence.
-          flags:
-            --exclude-bucket-id-regexes=: Sets filter for bucket id regexes to exclude.
-            --exclude-locations=: Comma separated list of [locations](https://cloud.google.com/storage/docs/locations#available-locations) to exclude in storage intelligence filter.
-            --include-bucket-id-regexes=: Sets filter for bucket id regexes to include.
-            --include-locations=: Comma separated list of [locations](https://cloud.google.com/storage/docs/locations#available-locations) to include in storage intelligence filter.
-            --no-trial-edition&: Enables Storage Intelligence for TRIAL edition.
-            --organization=: Specifies organization id for the storage intelligence config.
-            --sub-folder=: Specifies sub-folder id for the storage intelligence config.
-            --trial-edition: Enables Storage Intelligence for TRIAL edition.
-        - name: update
-          description: Updates storage intelligence configuration.
-          flags:
-            --exclude-bucket-id-regexes=: Sets filter for bucket id regexes to exclude.
-            --exclude-locations=: Comma separated list of [locations](https://cloud.google.com/storage/docs/locations#available-locations) to exclude in storage intelligence filter.
-            --include-bucket-id-regexes=: Sets filter for bucket id regexes to include.
-            --include-locations=: Comma separated list of [locations](https://cloud.google.com/storage/docs/locations#available-locations) to include in storage intelligence filter.
-            --inherit-from-parent: Specifies storage intelligence config to be inherited from parent.
-            --no-inherit-from-parent&: Specifies storage intelligence config to be inherited from parent.
-            --no-trial-edition&: Enables Storage Intelligence for TRIAL edition.
-            --organization=: Specifies organization id for the storage intelligence config.
-            --sub-folder=: Specifies sub-folder id for the storage intelligence config.
-            --trial-edition: Enables Storage Intelligence for TRIAL edition.
-        - name: describe
-          description: Describes storage intelligence configuration.
-          flags:
-            --organization=: Specifies organization id for the storage intelligence config.
-            --sub-folder=: Specifies sub-folder id for the storage intelligence config.
-        - name: disable
-          description: Disables storage intelligence.
-          flags:
-            --organization=: Specifies organization id for the storage intelligence config.
-            --sub-folder=: Specifies sub-folder id for the storage intelligence config.
-    - name: objects
-      description: Manage Cloud Storage objects.
-      commands:
+            --soft-deleted: Displays soft-deleted resources only.
         - name: get-iam-policy
           description: Get the access policy for an object.
           hidden: true
@@ -590,41 +949,20 @@ commands:
                 retention-mode:
                     - Locked
                     - Unlocked
-        - name: add-iam-policy-binding
-          description: Grant a principal access to an object.
-          hidden: true
-          flags:
-            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
-            --condition=: A condition to include in the binding.
-            --member=!: The principal to add the binding for.
-            --role=!: Role name to assign to the principal.
-        - name: compose
-          description: Concatenate a sequence of objects into a new composite object.
-          flags:
-            --additional-headers=: Includes arbitrary headers in storage API calls.
-            --decryption-keys=&: A comma-separated list of customer-supplied encryption keys (RFC 4648 section 4 base64-encoded AES256 strings) that will be used to decrypt Cloud Storage objects.
-            --encryption-key=&: The encryption key to use for encrypting target objects.
-            --if-generation-match=: Execute only if the generation matches the generation of the requested object.
-            --if-metageneration-match=: Execute only if the metageneration matches the metageneration of the requested object.
-            --retain-until=: Ensures the destination object is retained until the specified time in RFC 3339 format.
-            --retention-mode=: Sets the destination object retention mode to either "Locked" or "Unlocked".
-          completion:
-            flag:
-                retention-mode:
-                    - Locked
-                    - Unlocked
+    - name: operations
+      description: Manage storage operations.
+      commands:
+        - name: cancel
+          description: Cancel a storage operation.
         - name: describe
-          description: Describe a Cloud Storage object.
+          description: Get configuration and latest storage operation details.
+        - name: list
+          description: List storage operations.
           flags:
-            --additional-headers=: Includes arbitrary headers in storage API calls.
-            --decryption-keys=: A comma-separated list of customer-supplied encryption keys (RFC 4648 section 4 base64-encoded AES256 strings) that will be used to decrypt Cloud Storage objects.
-            --encryption-key=&: The encryption key to use for encrypting target objects.
-            --fetch-encrypted-object-hashes: If the initial GET request returns an object encrypted with a customer-supplied encryption key, the hash fields will be null.
-            --no-fetch-encrypted-object-hashes&: If the initial GET request returns an object encrypted with a customer-supplied encryption key, the hash fields will be null.
-            --no-raw&: Shows metadata in the format returned by the API instead of standardizing it.
-            --no-soft-deleted&: Displays soft-deleted resources only.
-            --raw: Shows metadata in the format returned by the API instead of standardizing it.
-            --soft-deleted: Displays soft-deleted resources only.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --server-filter=: Server-side filter string used to determine what operations to return.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
     - name: restore
       description: Restore one or more soft-deleted objects.
       flags:
@@ -701,357 +1039,19 @@ commands:
         --skip-if-dest-has-newer-mtime: Skip operating on destination object if it has a newer modification time than the source.
         --skip-unsupported: Skip objects with unsupported object types.
         --update-custom-metadata=: Adds or sets individual custom metadata key value pairs on objects.
-    - name: cp
-      description: Upload, download, and copy Cloud Storage objects.
+    - name: service-agent
+      description: Manage a project's Cloud Storage service agent, which is used to perform Cloud KMS operations.
       flags:
-        --additional-headers=: Includes arbitrary headers in storage API calls.
-        --all-versions: Copy all source versions from a source bucket or folder.
-        --cache-control=: How caches should handle requests and responses.
-        --canned-acl=: Applies predefined, or "canned," ACLs to a resource.
-        --clear-custom-metadata: Clears all custom metadata on objects.
-        --content-disposition=: How content should be displayed.
-        --content-encoding=: How content is encoded (e.g. ``gzip'').
-        --content-language=: Content's language (e.g. ``en'' signifies "English").
-        --content-md5=: Manually specified MD5 hash digest for the contents of an uploaded file.
-        --content-type=: Type of data contained in the object (e.g. ``text/html'').
-        --continue-on-error: If any operations are unsuccessful, the command will exit with a non-zero exit status after completing the remaining operations.
-        --custom-metadata=: Sets custom metadata on objects.
-        --custom-time=: Custom time for Cloud Storage objects in RFC 3339 format.
-        --daisy-chain: Copy in "daisy chain" mode, which means copying an object by first downloading it to the machine where the command is run, then uploading it to the destination bucket.
-        --decryption-keys=: A comma-separated list of customer-supplied encryption keys (RFC 4648 section 4 base64-encoded AES256 strings) that will be used to decrypt Cloud Storage objects.
-        --do-not-decompress: Do not automatically decompress downloaded gzip files.
-        --encryption-key=: The encryption key to use for encrypting target objects.
-        --gzip-in-flight-all: Applies gzip transport encoding to file uploads.
-        --gzip-in-flight=: Applies gzip transport encoding to any file upload whose
-        --gzip-local-all: Applies gzip content encoding to file uploads.
-        --gzip-local=: Applies gzip content encoding to any file upload whose
-        --if-generation-match=: Execute only if the generation matches the generation of the requested object.
-        --if-metageneration-match=: Execute only if the metageneration matches the metageneration of the requested object.
-        --ignore-symlinks: Ignore file symlinks instead of copying what they point to.
-        --include-managed-folders: Includes managed folders in command operations.
-        --manifest-path=: Outputs a manifest log file with detailed information about each item that
-        --no-clear-custom-metadata&: Clears all custom metadata on objects.
-        --no-clobber: Do not overwrite existing files or objects at the destination.
-        --no-do-not-decompress&: Do not automatically decompress downloaded gzip files.
-        --no-ignore-symlinks&: Ignore file symlinks instead of copying what they point to.
-        --no-include-managed-folders&: Includes managed folders in command operations.
-        --no-preserve-acl&: Preserves ACLs when copying in the cloud.
-        --no-preserve-symlinks&: Preserve symlinks instead of copying what they point to.
-        --no-read-paths-from-stdin&: Read the list of resources to copy from stdin.
-        --predefined-acl=: Applies predefined, or "canned," ACLs to a resource.
-        --preserve-acl: Preserves ACLs when copying in the cloud.
-        --preserve-posix: Causes POSIX attributes to be preserved when objects are copied.
-        --preserve-symlinks: Preserve symlinks instead of copying what they point to.
-        --print-created-message: Prints the version-specific URL for each copied object.
-        --read-paths-from-stdin: Read the list of resources to copy from stdin.
-        --recursive: Recursively copy the contents of any directories that match the source path expression.
-        --remove-custom-metadata=: Removes individual custom metadata keys from objects.
-        --retain-until=: Ensures the destination object is retained until the specified time in RFC 3339 format.
-        --retention-mode=: Sets the destination object retention mode to either "Locked" or "Unlocked".
-        --skip-unsupported: Skip objects with unsupported object types.
-        --storage-class=: Specify the storage class of the destination object.
-        --update-custom-metadata=: Adds or sets individual custom metadata key value pairs on objects.
-      completion:
-        flag:
-            retention-mode:
-                - Locked
-                - Unlocked
-    - name: diagnose
-      description: Diagnose Google Cloud Storage.
+        --authorize-cmek=: Adds appropriate encrypt/decrypt permissions to the specified Cloud
+    - name: sign-url
+      description: Generate a URL with embedded authentication that can be used by anyone.
       flags:
-        --destination=: Destination file path where the diagnostic bundle will be exported.
-        --download-type=: Download strategy to use for the DOWNLOAD_THROUGHPUT diagnostic test.
-        --export!: Generate and export a diagnostic bundle.
-        --logs-path=: If the diagnostic supports writing logs, write the logs to this file location.
-        --no-export!&: ""
-        --object-count=!: Number of objects to use for each diagnostic test.
-        --object-size=: Object size to use for the diagnostic tests.
-        --object-sizes=: List of object sizes to use for the tests.
-        --process-count=: Number of processes at max to use for each diagnostic test.
-        --test-type=: Tests to run as part of this diagnosis.
-        --thread-count=: Number of threads at max to use for each diagnostic test.
-        --upload-type=: Upload strategy to use for the _UPLOAD_THROUGHPUT_ diagnostic test.
-      completion:
-        flag:
-            download-type:
-                - FILE
-                - SLICED
-                - STREAMING
-            upload-type:
-                - FILE
-                - PARALLEL_COMPOSITE
-                - STREAMING
-    - name: insights
-      description: Manage Cloud Storage inventory reports.
-      commands:
-        - name: inventory-reports
-          description: Manage Cloud Storage inventory report configurations.
-          commands:
-            - name: details
-              description: Retrieve details of inventory reports.
-              commands:
-                - name: list
-                  description: List inventory report details.
-                  flags:
-                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                    --limit=: Maximum number of resources to list.
-                    --location=: Google Cloud location for the report-config.
-                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                    --page-size=: Some services group resource list output into pages.
-                    --sort-by=: Comma-separated list of resource field key names to sort by.
-                    --uri: Print a list of resource URIs instead of the default output, and change the
-                - name: describe
-                  description: Describe inventory reports detail.
-                  flags:
-                    --location=: Google Cloud location for the report-detail.
-                    --report-config=: Report Config ID for the report-detail.
-            - name: list
-              description: Lists all inventory report configs.
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --limit=: Maximum number of resources to list.
-                --location=: The location of the report configs.
-                --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --source=: Specifies URL of the source bucket that contains the inventory report configuration.
-                --uri: Print a list of resource URIs instead of the default output, and change the
-            - name: update
-              description: Update an inventory report config.
-              flags:
-                --add-metadata-fields=: Adds fields to the metadata_fields list.
-                --csv-delimiter=: Sets the delimiter that separates the fields in the inventory report CSV file.
-                --csv-header: Indicates whether or not headers are included in the inventory report CSV file.
-                --csv-separator=: Sets the character used to separate the records in the inventory report CSV file.
-                --destination=: Sets the URL of the destination bucket and path where generated reports are stored.
-                --display-name=: Sets the editable name of the report configuration.
-                --location=: Google Cloud location for the report-config.
-                --metadata-fields=: The metadata fields to be included in the inventory report.
-                --no-csv-header&: Indicates whether or not headers are included in the inventory report CSV file.
-                --no-parquet&: Generate reports in parquet format.
-                --parquet: Generate reports in parquet format.
-                --remove-metadata-fields=: Removes fields from the metadata_fields list.
-                --schedule-repeats-until=: Sets date after which you want to stop generating inventory reports.
-                --schedule-repeats=: Sets how often the inventory report configuration will run.
-                --schedule-starts=: Sets the date you want to start generating inventory reports.
-              completion:
-                flag:
-                    csv-separator:
-                        - \n
-                        - \r\n
-                    schedule-repeats:
-                        - daily
-                        - weekly
-            - name: create
-              description: Create a new inventory report config.
-              flags:
-                --csv-delimiter=: Sets the delimiter that separates the fields in the inventory report CSV file.
-                --csv-header: Indicates whether or not headers are included in the inventory report CSV file.
-                --csv-separator=: Sets the character used to separate the records in the inventory report CSV file.
-                --destination=: Sets the URL of the destination bucket and path where generated reports are stored.
-                --display-name=: Sets the editable name of the report configuration.
-                --metadata-fields=: The metadata fields to be included in the inventory report.
-                --no-csv-header&: Indicates whether or not headers are included in the inventory report CSV file.
-                --no-parquet&: Generate reports in parquet format.
-                --parquet: Generate reports in parquet format.
-                --schedule-repeats-until=: Sets date after which you want to stop generating inventory reports.
-                --schedule-repeats=: Sets how often the inventory report configuration will run.
-                --schedule-starts=: Sets the date you want to start generating inventory reports.
-              completion:
-                flag:
-                    csv-separator:
-                        - \n
-                        - \r\n
-                    schedule-repeats:
-                        - daily
-                        - weekly
-            - name: delete
-              description: Delete an inventory report config.
-              flags:
-                --force: If set, all report details for this report config will be deleted.
-                --location=: Google Cloud location for the report-config.
-                --no-force&: If set, all report details for this report config will be deleted.
-            - name: describe
-              description: Describe an inventory report config.
-              flags:
-                --location=: Google Cloud location for the report-config.
-        - name: dataset-configs
-          description: Manage Cloud Storage Insights dataset configurations.
-          commands:
-            - name: create
-              description: Create a new dataset config for Insights.
-              flags:
-                --auto-add-new-buckets: Automatically include any new buckets created if they satisfy criteria defined in config settings.
-                --description=: Description for dataset config.
-                --enable-organization-scope: If passed, the dataset config will be enabled on the organization.
-                --exclude-bucket-names=: List of bucket names to be excluded.
-                --exclude-bucket-prefix-regexes=: List of bucket prefix regexes to be excluded.
-                --exclude-source-locations=: List of locations for projects to be excluded.
-                --identity=: The type of service account used in the dataset config.
-                --include-bucket-names=: List of bucket names be included.
-                --include-bucket-prefix-regexes=: List of bucket prefix regexes to be included.
-                --include-source-locations=: List of locations for projects to be included.
-                --location=!: Provide location of the dataset config.
-                --no-auto-add-new-buckets&: Automatically include any new buckets created if they satisfy criteria defined in config settings.
-                --no-enable-organization-scope&: If passed, the dataset config will be enabled on the organization.
-                --organization=!: Provide the source organization number.
-                --retention-period-days=!: Provide retention period for the config.
-                --source-folders-file=: CSV formatted file containing source folder IDs, one per line.
-                --source-folders=: List of source folder IDs.
-                --source-projects-file=: CSV formatted file containing source project numbers, one per line.
-                --source-projects=: List of source project numbers.
-              completion:
-                flag:
-                    identity:
-                        - IDENTITY_TYPE_PER_CONFIG
-                        - IDENTITY_TYPE_PER_PROJECT
-            - name: create-link
-              description: Create a link to a BigQuery instance.
-              flags:
-                --location=: Insights supported Google Cloud location for the dataset-config.
-            - name: delete
-              description: Delete dataset config for Insights.
-              flags:
-                --auto-delete-link: Delete the BigQuery instance links before the config gets deleted explicitly.
-                --force: Force delete the config by skipping the consent.
-                --location=: Insights supported Google Cloud location for the dataset-config.
-                --no-auto-delete-link&: Delete the BigQuery instance links before the config gets deleted explicitly.
-                --no-force&: Force delete the config by skipping the consent.
-            - name: delete-link
-              description: Delete a link to a BigQuery instance.
-              flags:
-                --location=: Insights supported Google Cloud location for the dataset-config.
-            - name: describe
-              description: Describe dataset config for Insights.
-              flags:
-                --location=: Insights supported Google Cloud location for the dataset-config.
-            - name: list
-              description: List returns all the Insights dataset configs for given location.
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --limit=: Maximum number of resources to list.
-                --location=: Provide location of the dataset config.
-                --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --uri: Print a list of resource URIs instead of the default output, and change the
-            - name: update
-              description: Updates a dataset config for Insights.
-              flags:
-                --auto-add-new-buckets: Automatically include any new buckets created if they satisfy criteria defined in config settings.
-                --description=: Description for dataset config.
-                --enable-organization-scope: If passed, the dataset config will be enabled on the organization.
-                --exclude-bucket-names=: List of bucket names to be excluded.
-                --exclude-bucket-prefix-regexes=: List of bucket prefix regexes to be excluded.
-                --exclude-source-locations=: List of locations for projects to be excluded.
-                --include-bucket-names=: List of bucket names be included.
-                --include-bucket-prefix-regexes=: List of bucket prefix regexes to be included.
-                --include-source-locations=: List of locations for projects to be included.
-                --location=: Insights supported Google Cloud location for the dataset-config.
-                --no-enable-organization-scope&: If passed, the dataset config will be enabled on the organization.
-                --retention-period-days=: Provide retention period for the config.
-                --source-folders-file=: CSV formatted file containing source folder IDs, one per line.
-                --source-folders=: List of source folder IDs.
-                --source-projects-file=: CSV formatted file containing source project numbers, one per line.
-                --source-projects=: List of source project numbers.
-    - name: du
-      description: Displays the amount of space in bytes used by storage resources.
-      flags:
-        --additional-headers=: Includes arbitrary headers in storage API calls.
-        --all-versions: Includes noncurrent object versions for a bucket with Object Versioning enabled.
-        --exclude-name-pattern-file=: Similar to -e, but excludes patterns from the given file.
-        --exclude-name-pattern=: Exclude a pattern from the report.
-        --readable-sizes: Prints object sizes in human-readable format.
-        --summarize: Displays only the summary for each argument.
-        --total: Includes a total size of all input sources.
-        --zero-terminator: Ends each output line with a 0 byte rather than a newline.
-    - name: hash
-      description: Calculates hashes on local or cloud files.
-      flags:
-        --additional-headers=: Includes arbitrary headers in storage API calls.
-        --decryption-keys=: A comma-separated list of customer-supplied encryption keys (RFC 4648 section 4 base64-encoded AES256 strings) that will be used to decrypt Cloud Storage objects.
-        --encryption-key=&: The encryption key to use for encrypting target objects.
-        --hex: Output hash digests in hex format.
-        --no-hex&: Output hash digests in hex format.
-        --no-skip-crc32c&: Skip CRC32C hash calculation.
-        --no-skip-md5&: Skip MD5 hash calculation.
-        --skip-crc32c: Skip CRC32C hash calculation.
-        --skip-md5: Skip MD5 hash calculation.
-    - name: ls
-      description: List Cloud Storage buckets and objects.
-      flags:
-        --additional-headers=: Includes arbitrary headers in storage API calls.
-        --all-versions: Include noncurrent object versions in the listing.
-        --buckets: When given a bucket URL, only return buckets.
-        --decryption-keys=: A comma-separated list of customer-supplied encryption keys (RFC 4648 section 4 base64-encoded AES256 strings) that will be used to decrypt Cloud Storage objects.
-        --encryption-key=&: The encryption key to use for encrypting target objects.
-        --etag: Include ETag metadata in listings that use the `--long` flag.
-        --exhaustive: For features like soft delete, the API may return an empty list.
-        --fetch-encrypted-object-hashes: API requests to the LIST endpoint do not fetch the hashes for encrypted objects by default.
-        --full: List all available metadata about items in rows.
-        --json: List all available metadata about items as a JSON dump.
-        --long: For objects only.
-        --next-page-token=: Page token for resuming LIST calls.
-        --no-exhaustive&: For features like soft delete, the API may return an empty list.
-        --no-fetch-encrypted-object-hashes&: API requests to the LIST endpoint do not fetch the hashes for encrypted objects by default.
-        --no-read-paths-from-stdin&: Read the list of URLs from stdin.
-        --no-readable-sizes&: When used with `--long`, print object sizes in human readable format, such as 1 KiB, 234 MiB, or 2 GiB.
-        --no-soft-deleted&: Displays soft-deleted resources only.
-        --read-paths-from-stdin: Read the list of URLs from stdin.
-        --readable-sizes: When used with `--long`, print object sizes in human readable format, such as 1 KiB, 234 MiB, or 2 GiB.
-        --recursive: Recursively list the contents of any directories that match the path expression.
-        --soft-deleted: Displays soft-deleted resources only.
-    - name: mv
-      description: Moves or renames objects.
-      flags:
-        --additional-headers=: Includes arbitrary headers in storage API calls.
-        --all-versions: Copy all source versions from a source bucket or folder.
-        --cache-control=: How caches should handle requests and responses.
-        --canned-acl=: Applies predefined, or "canned," ACLs to a resource.
-        --clear-custom-metadata: Clears all custom metadata on objects.
-        --content-disposition=: How content should be displayed.
-        --content-encoding=: How content is encoded (e.g. ``gzip'').
-        --content-language=: Content's language (e.g. ``en'' signifies "English").
-        --content-md5=: Manually specified MD5 hash digest for the contents of an uploaded file.
-        --content-type=: Type of data contained in the object (e.g. ``text/html'').
-        --continue-on-error: If any operations are unsuccessful, the command will exit with a non-zero exit status after completing the remaining operations.
-        --custom-metadata=: Sets custom metadata on objects.
-        --custom-time=: Custom time for Cloud Storage objects in RFC 3339 format.
-        --daisy-chain: Copy in "daisy chain" mode, which means copying an object by first downloading it to the machine where the command is run, then uploading it to the destination bucket.
-        --decryption-keys=: A comma-separated list of customer-supplied encryption keys (RFC 4648 section 4 base64-encoded AES256 strings) that will be used to decrypt Cloud Storage objects.
-        --do-not-decompress: Do not automatically decompress downloaded gzip files.
-        --encryption-key=: The encryption key to use for encrypting target objects.
-        --gzip-in-flight-all: Applies gzip transport encoding to file uploads.
-        --gzip-in-flight=: Applies gzip transport encoding to any file upload whose
-        --gzip-local-all: Applies gzip content encoding to file uploads.
-        --gzip-local=: Applies gzip content encoding to any file upload whose
-        --if-generation-match=: Execute only if the generation matches the generation of the requested object.
-        --if-metageneration-match=: Execute only if the metageneration matches the metageneration of the requested object.
-        --ignore-symlinks: Ignore file symlinks instead of copying what they point to.
-        --include-managed-folders: Includes managed folders in command operations.
-        --manifest-path=: Outputs a manifest log file with detailed information about each item that
-        --no-clear-custom-metadata&: Clears all custom metadata on objects.
-        --no-clobber: Do not overwrite existing files or objects at the destination.
-        --no-do-not-decompress&: Do not automatically decompress downloaded gzip files.
-        --no-ignore-symlinks&: Ignore file symlinks instead of copying what they point to.
-        --no-include-managed-folders&: Includes managed folders in command operations.
-        --no-preserve-acl&: Preserves ACLs when copying in the cloud.
-        --no-preserve-symlinks&: Preserve symlinks instead of copying what they point to.
-        --no-read-paths-from-stdin&: Read the list of resources to copy from stdin.
-        --predefined-acl=: Applies predefined, or "canned," ACLs to a resource.
-        --preserve-acl: Preserves ACLs when copying in the cloud.
-        --preserve-posix: Causes POSIX attributes to be preserved when objects are copied.
-        --preserve-symlinks: Preserve symlinks instead of copying what they point to.
-        --print-created-message: Prints the version-specific URL for each copied object.
-        --read-paths-from-stdin: Read the list of resources to copy from stdin.
-        --remove-custom-metadata=: Removes individual custom metadata keys from objects.
-        --retain-until=: Ensures the destination object is retained until the specified time in RFC 3339 format.
-        --retention-mode=: Sets the destination object retention mode to either "Locked" or "Unlocked".
-        --skip-unsupported: Skip objects with unsupported object types.
-        --storage-class=: Specify the storage class of the destination object.
-        --update-custom-metadata=: Adds or sets individual custom metadata key value pairs on objects.
-      completion:
-        flag:
-            retention-mode:
-                - Locked
-                - Unlocked
+        --duration=: Specifies the duration that the signed url should be valid for,
+        --headers=: Specifies the headers to be used in the signed request.
+        --http-verb=: Specifies the HTTP verb to be authorized for use with the signed
+        --no-path-style-url&: Generate path-style signed URL.
+        --path-style-url: Generate path-style signed URL.
+        --private-key-file=: The service account private key used to generate the cryptographic
+        --private-key-password=: Specifies the PRIVATE_KEY_FILE password instead of prompting.
+        --query-params=: Specifies the query parameters to be used in the signed request.
+        --region=: Specifies the region in which the resources for which you are

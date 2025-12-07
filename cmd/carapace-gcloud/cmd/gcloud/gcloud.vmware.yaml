@@ -2,6 +2,43 @@
 name: vmware
 description: Manage Google Cloud VMware Engine resources.
 commands:
+    - name: announcements
+      description: Manage announcements in Google Cloud VMware Engine.
+      commands:
+        - name: list
+          description: List announcements in a Google Cloud VMware Engine.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --type=!: The type of announcement to list.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+          completion:
+            flag:
+                type:
+                    - maintenance
+    - name: dns-bind-permission
+      description: Manage DNS binding permission in Google Cloud VMware Engine.
+      commands:
+        - name: describe
+          description: Get all users and service accounts having bind permission.
+        - name: grant
+          description: Grants a DNS Bind Permission.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --service-account=: The consumer provided service account which needs to be granted permission to bind with the intranet VPC corresponding to the consumer project.
+            --user=: The consumer provided user which needs to be granted permission to bind with the intranet VPC corresponding to the consumer project.
+        - name: revoke
+          description: Revokes a DNS Bind Permission.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --service-account=: The consumer provided service account whose permission needs to be revoked on the intranet VPC corresponding to the consumer project.
+            --user=: The consumer provided user whose permission needs to be revoked on the intranet VPC corresponding to the consumer project.
     - name: locations
       description: List locations in Google Cloud VMware Engine.
       commands:
@@ -92,9 +129,178 @@ commands:
             --description=: Updated description for this VPC network peering.
             --location=: The resource name of the location.
             --no-async&: Return immediately, without waiting for the operation in progress to
+    - name: network-policies
+      description: Manage VMware Engine network policies in Google Cloud VMware Engine.
+      commands:
+        - name: create
+          description: Create a VMware Engine network policy.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: User-provided description of the network policy.
+            --edge-services-cidr=!: IP address range to use for internet access and external IP access gateways, in CIDR notation.
+            --external-ip-access: Enable or disable network service that allows external IP addresses to be assigned to VMware workloads.
+            --internet-access: Enable or disable network service that allows VMware workloads to access the internet.
+            --location=: The resource name of the location.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-external-ip-access&: Enable or disable network service that allows external IP addresses to be assigned to VMware workloads.
+            --no-internet-access&: Enable or disable network service that allows VMware workloads to access the internet.
+            --vmware-engine-network=!: Resource ID of the VMware Engine network to attach the new policy to.
+        - name: delete
+          description: Delete a VMware Engine network policy.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The resource name of the location.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe a VMware Engine network policy.
+          flags:
+            --location=: The resource name of the location.
+        - name: external-access-rules
+          description: Manage VMware Engine external access firewall rules in Google Cloud VMware Engine.
+          commands:
+            - name: create
+              description: Create a VMware Engine external access firewall rule.
+              flags:
+                --action=: Whether the firewall rule allows or denies traffic based on a successful rule match.
+                --async: Return immediately, without waiting for the operation in progress to
+                --description=: User-provided description of the external access rule.
+                --destination-ports=: List of allowed destination ports.
+                --destination-ranges=!: A list of destination IP addresses that the rule applies to.
+                --ip-protocol=!: Internet protocol covered by the rule.
+                --location=: The resource name of the location.
+                --network-policy=: VMware Engine network policy
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --priority=!: Priority of this external access rule.
+                --source-ports=: List of allowed source ports.
+                --source-ranges=!: A list of source IP addresses that the rule applies to.
+              completion:
+                flag:
+                    action:
+                        - ALLOW
+                        - DENY
+                    ip-protocol:
+                        - TCP
+                        - UDP
+                        - ICMP
+            - name: delete
+              description: Delete a VMware Engine external access rule.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The resource name of the location.
+                --network-policy=: VMware Engine network policy
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: describe
+              description: Describe a VMware Engine external access rule.
+              flags:
+                --location=: The resource name of the location.
+                --network-policy=: VMware Engine network policy
+            - name: list
+              description: List VMware Engine external access rules.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The resource name of the location.
+                --network-policy=!: ID of the VMware Engine Network Policy or fully qualified identifier for the VMware Engine Network Policy.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Update a VMware Engine network policy.
+              flags:
+                --action=: Whether the firewall rule allows or denies traffic based on a successful rule match.
+                --async: Return immediately, without waiting for the operation in progress to
+                --description=: User-provided description of the external access rule.
+                --destination-ports=: List of allowed destination ports.
+                --destination-ranges=: A list of destination IP addresses that the rule applies to.
+                --ip-protocol=: Internet protocol covered by the rule.
+                --location=: The resource name of the location.
+                --network-policy=: VMware Engine network policy
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --priority=: Priority of this external access rule.
+                --source-ports=: List of allowed source ports.
+                --source-ranges=: A list of source IP addresses that the rule applies to.
+              completion:
+                flag:
+                    action:
+                        - ALLOW
+                        - DENY
+                    ip-protocol:
+                        - TCP
+                        - UDP
+                        - ICMP
+        - name: list
+          description: List VMware Engine network policies.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a VMware Engine network policy.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: Updated description for the network policy.
+            --edge-services-cidr=: Updated IP address range to use for internet access and external IP access gateways, in CIDR notation.
+            --external-ip-access: Enable or disable network service that allows external IP addresses to be assigned to VMware workloads.
+            --internet-access: Enable or disable network service that allows VMware workloads to access the internet.
+            --location=: The resource name of the location.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-external-ip-access&: Enable or disable network service that allows external IP addresses to be assigned to VMware workloads.
+            --no-internet-access&: Enable or disable network service that allows VMware workloads to access the internet.
+    - name: networks
+      description: Manage VMware Engine networks in Google Cloud VMware Engine.
+      commands:
+        - name: create
+          description: Create a Google Cloud VMware Engine network.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: Text describing the VMware Engine network.
+            --location=: The resource name of the location.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --type=!: Type of the VMware Engine network.
+          completion:
+            flag:
+                type:
+                    - LEGACY
+                    - STANDARD
+        - name: delete
+          description: Delete a Google Cloud VMware Engine network.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The resource name of the location.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe a Google Cloud VMware Engine network.
+          flags:
+            --location=: The resource name of the location.
+        - name: list
+          description: List Google Cloud VMware Engine networks.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a Google Cloud VMware Engine network.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: Text describing the VMware Engine network
+            --location=: The resource name of the location.
+            --no-async&: Return immediately, without waiting for the operation in progress to
     - name: node-types
       description: Show node types in Google Cloud VMware Engine.
       commands:
+        - name: describe
+          description: Display data associated with a Google Cloud VMware Engine node type.
+          flags:
+            --location=: Location of the private cloud or cluster.
         - name: list
           description: List supported Google Cloud VMware Engine node types.
           flags:
@@ -105,41 +311,49 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: operations
+      description: List and describe operations in Google Cloud VMware Engine.
+      commands:
         - name: describe
-          description: Display data associated with a Google Cloud VMware Engine node type.
+          description: Describe a Google Cloud VMware Engine operation.
           flags:
             --location=: Location of the private cloud or cluster.
+        - name: list
+          description: List Google Cloud VMware Engine operations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
     - name: private-clouds
       description: Manage private clouds in Google Cloud VMware Engine.
       commands:
-        - name: subnets
-          description: Manage vmware subnets in Google Cloud VMware Engine.
-          commands:
-            - name: list
-              description: List subnets in a VMware Engine private cloud.
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --limit=: Maximum number of resources to list.
-                --location=: Location of the private cloud or cluster.
-                --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                --page-size=: Some services group resource list output into pages.
-                --private-cloud=!: ID of the private cloud or fully qualified identifier for the private cloud.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --uri: Print a list of resource URIs instead of the default output, and change the
-            - name: update
-              description: Update a subnet.
-              flags:
-                --ip-cidr-range=!: Updated IP CIDR range for this subnet.
-                --location=: Location of the private cloud or cluster.
-                --private-cloud=: VMware Engine private cloud.
-            - name: describe
-              description: Describe a subnet in a VMware Engine private cloud.
-              flags:
-                --location=: Location of the private cloud or cluster.
-                --private-cloud=: VMware Engine private cloud.
         - name: clusters
           description: Manage clusters in Google Cloud VMware Engine.
           commands:
+            - name: create
+              description: Create a Google Cloud VMware Engine cluster.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --autoscaling-cool-down-period=&: Cool down period (in minutes) between consecutive cluster expansions/contractions
+                --autoscaling-max-cluster-node-count=&: Maximum number of nodes in the cluster
+                --autoscaling-min-cluster-node-count=&: Minimum number of nodes in the cluster
+                --autoscaling-policy=&: Autoscaling policy to be applied to the cluster
+                --autoscaling-settings-from-file=&: A YAML file containing the autoscaling settings to be applied to the cluster
+                --location=: Location of the private cloud or cluster.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --node-type-config=!: Information about the type and number of nodes associated with the cluster.
+                --private-cloud=: VMware Engine private cloud.
+            - name: delete
+              description: Delete a Google Cloud VMware Engine cluster.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: Location of the private cloud or cluster.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --private-cloud=: VMware Engine private cloud.
             - name: describe
               description: Describe a Google Cloud VMware Engine cluster.
               flags:
@@ -193,30 +407,77 @@ commands:
                 --remove-nodes-config=: Type of node that should be removed from the cluster
                 --update-autoscaling-policy=: Autoscaling policy to be applied to the cluster
                 --update-nodes-config=: Information about the type and number of nodes associated with the cluster.
-            - name: create
-              description: Create a Google Cloud VMware Engine cluster.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --autoscaling-cool-down-period=&: Cool down period (in minutes) between consecutive cluster expansions/contractions
-                --autoscaling-max-cluster-node-count=&: Maximum number of nodes in the cluster
-                --autoscaling-min-cluster-node-count=&: Minimum number of nodes in the cluster
-                --autoscaling-policy=&: Autoscaling policy to be applied to the cluster
-                --autoscaling-settings-from-file=&: A YAML file containing the autoscaling settings to be applied to the cluster
-                --location=: Location of the private cloud or cluster.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --node-type-config=!: Information about the type and number of nodes associated with the cluster.
-                --private-cloud=: VMware Engine private cloud.
-            - name: delete
-              description: Delete a Google Cloud VMware Engine cluster.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --location=: Location of the private cloud or cluster.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --private-cloud=: VMware Engine private cloud.
+        - name: create
+          description: Create a VMware Engine private cloud.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --autoscaling-cool-down-period=&: Cool down period (in minutes) between consecutive cluster expansions/contractions
+            --autoscaling-max-cluster-node-count=&: Maximum number of nodes in the cluster
+            --autoscaling-min-cluster-node-count=&: Minimum number of nodes in the cluster
+            --autoscaling-policy=&: Autoscaling policy to be applied to the cluster
+            --autoscaling-settings-from-file=&: A YAML file containing the autoscaling settings to be applied to the cluster
+            --cluster=!: ID of the cluster or fully qualified identifier for the cluster.
+            --description=: Text describing the private cloud.
+            --location=: Location of the private cloud or cluster.
+            --management-range=!: IP address range in the private cloud to use for management appliances, in CIDR format.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --node-type-config=!: Information about the type and number of nodes associated with the cluster.
+            --preferred-zone=: Zone that will remain operational when connection between the two zones is
+            --secondary-zone=: Additional zone for a higher level of availability and load balancing.
+            --service-subnet=&: A non-overlapping CIDR range and prefix length for the service subnets.
+            --type=: Type of the private cloud.
+            --vmware-engine-network=!: Resource ID of the VMware Engine network attached to the private cloud.
+          completion:
+            flag:
+                type:
+                    - STANDARD
+                    - STRETCHED
+                    - TIME_LIMITED
+        - name: delete
+          description: Delete a Google Cloud VMware Engine private cloud.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --delay-hours=: Number of hours to wait before deleting the private cloud.
+            --location=: Location of the private cloud or cluster.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+          completion:
+            flag:
+                delay-hours:
+                    - "0"
+                    - "1"
+                    - "2"
+                    - "3"
+                    - "4"
+                    - "5"
+                    - "6"
+                    - "7"
+                    - "8"
+        - name: delete-now
+          description: Permanent deletion of a Google Cloud VMware Engine private cloud currently in soft-deleted state.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Location of the private cloud or cluster.
+            --no-async&: Return immediately, without waiting for the operation in progress to
         - name: describe
           description: Describe a Google Cloud VMware Engine private cloud.
           flags:
             --location=: Location of the private cloud or cluster.
+        - name: dns-forwarding
+          description: Manage dns-forwarding in Google Cloud VMware Engine.
+          commands:
+            - name: describe
+              description: Describe a Google Cloud VMware Engine dns-forwarding.
+              flags:
+                --location=: Location of the private cloud or cluster.
+                --private-cloud=!: ID of the private cloud or fully qualified identifier for the private cloud.
+            - name: update
+              description: Update a Google Cloud VMware Engine dns-forwarding.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: Location of the private cloud or cluster.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --private-cloud=!: ID of the private cloud or fully qualified identifier for the private cloud.
+                --rule=: Domain name and the name servers used to resolve DNS requests for this domain.
         - name: external-addresses
           description: Manage external IP addresses in Google Cloud VMware Engine.
           commands:
@@ -261,6 +522,111 @@ commands:
                 --location=: Location of the private cloud or cluster.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --private-cloud=: VMware Engine private cloud.
+        - name: hcx
+          description: Manage HCX using Google Cloud VMware Engine.
+          commands:
+            - name: activationkeys
+              description: Manage VMware HCX activation keys using Google Cloud VMware Engine.
+              commands:
+                - name: create
+                  description: Create a Google Cloud VMware HCX activation key.
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --location=: Location of the private cloud or cluster.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --private-cloud=: VMware Engine private cloud.
+                - name: describe
+                  description: Describe a Google Cloud VMware HCX activation key.
+                  flags:
+                    --location=: Location of the private cloud or cluster.
+                    --private-cloud=: VMware Engine private cloud.
+                - name: list
+                  description: List HCX activation keys in a Google Cloud VMware Engine private cloud.
+                  flags:
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --location=: Location of the private cloud or cluster.
+                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                    --page-size=: Some services group resource list output into pages.
+                    --private-cloud=!: ID of the private cloud or fully qualified identifier for the private cloud.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: identity-sources
+          description: Manage identity sources in Google Cloud VMware Engine.
+          hidden: true
+          commands:
+            - name: create
+              description: Create a Google Cloud VMware Engine identity source.
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --base-groups-dn=!: The base distinguished name for groups.
+                --base-users-dn=!: The base distinguished name for users.
+                --domain-alias=: The domain alias of the identity source.
+                --domain-password=!: Password of the user in the domain who has a minimum of read-only access to the base distinguished names of users and groups.
+                --domain-user=!: ID of a user in the domain who has a minimum of read-only access to the base distinguished names of users and groups.
+                --domain=!: The domain name of the identity source.
+                --location=: Location of the private cloud or cluster.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --primary-server=!: Primary domain controller LDAP server for the domain.
+                --private-cloud=: VMware Engine private cloud.
+                --protocol=!: The LDAP server connection protocol.
+                --secondary-server=: Secondary domain controller LDAP server for the domain.
+                --ssl-certificate-from-file=: Path to the root CA certificate files in CER format for the LDAPS server.
+              completion:
+                flag:
+                    protocol:
+                        - LDAP
+                        - LDAPS
+            - name: delete
+              description: Delete a Google Cloud VMware Engine identity source.
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: Location of the private cloud or cluster.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --private-cloud=: VMware Engine private cloud.
+            - name: describe
+              description: Describe a Google Cloud VMware Engine identity source.
+              hidden: true
+              flags:
+                --location=: Location of the private cloud or cluster.
+                --private-cloud=: VMware Engine private cloud.
+            - name: list
+              description: List Google Cloud VMware Engine identity sources in a given private cloud.
+              hidden: true
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: Location of the private cloud or cluster.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --private-cloud=!: ID of the private cloud or fully qualified identifier for the private cloud.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Update a Google Cloud VMware Engine identity source.
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --base-groups-dn=: The base distinguished name for groups.
+                --base-users-dn=: The base distinguished name for users.
+                --domain-password=: Password of the user in the domain who has a  minimum of read-only access to the base distinguished names of users and groups.
+                --domain-user=: ID of a user in the domain who has a minimum of read-only access to the base distinguished names of users and groups.
+                --location=: Location of the private cloud or cluster.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --private-cloud=: VMware Engine private cloud.
+                --ssl-certificate-from-file=: Path to the root CA certificate files in CER format for the LDAPS server.
+        - name: list
+          description: List Google Cloud VMware Engine private clouds.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
         - name: logging-servers
           description: Manage logging-server in Google Cloud VMware Engine.
           commands:
@@ -331,156 +697,9 @@ commands:
                     source-type:
                         - VCSA
                         - ESXI
-        - name: nsx
-          description: Manage NSX using Google Cloud VMware Engine.
-          commands:
-            - name: credentials
-              description: Manage VMware NSX credentials using Google Cloud VMware Engine.
-              commands:
-                - name: reset
-                  description: Reset VMware NSX sign-in credentials associated with a Google Cloud VMware Engine private cloud.
-                  flags:
-                    --async: Return immediately, without waiting for the operation in progress to
-                    --location=: Location of the private cloud or cluster.
-                    --no-async&: Return immediately, without waiting for the operation in progress to
-                    --private-cloud=!: ID of the private cloud or fully qualified identifier for the private cloud.
-                - name: describe
-                  description: Retrieve VMware NSX sign-in credentials associated with a Google Cloud VMware Engine private cloud.
-                  flags:
-                    --location=: Location of the private cloud or cluster.
-                    --private-cloud=!: ID of the private cloud or fully qualified identifier for the private cloud.
-        - name: undelete
-          description: Cancel deletion of a Google Cloud VMware Engine private cloud.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: Location of the private cloud or cluster.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: vcenter
-          description: Manage vCenter resources in Google Cloud VMware Engine.
-          commands:
-            - name: credentials
-              description: Manage VMware vCenter credentials using Google Cloud VMware Engine.
-              commands:
-                - name: describe
-                  description: Describe Google Cloud VMware Engine vCenter credentials.
-                  flags:
-                    --location=: Location of the private cloud or cluster.
-                    --private-cloud=!: ID of the private cloud or fully qualified identifier for the private cloud.
-                    --username=&: The username of the user to be queried for credentials.
-                - name: reset
-                  description: Reset VMware vCenter sign-in credentials associated with a Google Cloud VMware Engine private cloud.
-                  flags:
-                    --async: Return immediately, without waiting for the operation in progress to
-                    --location=: Location of the private cloud or cluster.
-                    --no-async&: Return immediately, without waiting for the operation in progress to
-                    --private-cloud=!: ID of the private cloud or fully qualified identifier for the private cloud.
-                    --username=&: The username of the user to reset the credentials.
-        - name: delete-now
-          description: Permanent deletion of a Google Cloud VMware Engine private cloud currently in soft-deleted state.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: Location of the private cloud or cluster.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: dns-forwarding
-          description: Manage dns-forwarding in Google Cloud VMware Engine.
-          commands:
-            - name: describe
-              description: Describe a Google Cloud VMware Engine dns-forwarding.
-              flags:
-                --location=: Location of the private cloud or cluster.
-                --private-cloud=!: ID of the private cloud or fully qualified identifier for the private cloud.
-            - name: update
-              description: Update a Google Cloud VMware Engine dns-forwarding.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --location=: Location of the private cloud or cluster.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --private-cloud=!: ID of the private cloud or fully qualified identifier for the private cloud.
-                --rule=: Domain name and the name servers used to resolve DNS requests for this domain.
-        - name: identity-sources
-          description: Manage identity sources in Google Cloud VMware Engine.
-          hidden: true
-          commands:
-            - name: update
-              description: Update a Google Cloud VMware Engine identity source.
-              hidden: true
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --base-groups-dn=: The base distinguished name for groups.
-                --base-users-dn=: The base distinguished name for users.
-                --domain-password=: Password of the user in the domain who has a  minimum of read-only access to the base distinguished names of users and groups.
-                --domain-user=: ID of a user in the domain who has a minimum of read-only access to the base distinguished names of users and groups.
-                --location=: Location of the private cloud or cluster.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --private-cloud=: VMware Engine private cloud.
-                --ssl-certificate-from-file=: Path to the root CA certificate files in CER format for the LDAPS server.
-            - name: create
-              description: Create a Google Cloud VMware Engine identity source.
-              hidden: true
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --base-groups-dn=!: The base distinguished name for groups.
-                --base-users-dn=!: The base distinguished name for users.
-                --domain-alias=: The domain alias of the identity source.
-                --domain-password=!: Password of the user in the domain who has a minimum of read-only access to the base distinguished names of users and groups.
-                --domain-user=!: ID of a user in the domain who has a minimum of read-only access to the base distinguished names of users and groups.
-                --domain=!: The domain name of the identity source.
-                --location=: Location of the private cloud or cluster.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --primary-server=!: Primary domain controller LDAP server for the domain.
-                --private-cloud=: VMware Engine private cloud.
-                --protocol=!: The LDAP server connection protocol.
-                --secondary-server=: Secondary domain controller LDAP server for the domain.
-                --ssl-certificate-from-file=: Path to the root CA certificate files in CER format for the LDAPS server.
-              completion:
-                flag:
-                    protocol:
-                        - LDAP
-                        - LDAPS
-            - name: delete
-              description: Delete a Google Cloud VMware Engine identity source.
-              hidden: true
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --location=: Location of the private cloud or cluster.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --private-cloud=: VMware Engine private cloud.
-            - name: describe
-              description: Describe a Google Cloud VMware Engine identity source.
-              hidden: true
-              flags:
-                --location=: Location of the private cloud or cluster.
-                --private-cloud=: VMware Engine private cloud.
-            - name: list
-              description: List Google Cloud VMware Engine identity sources in a given private cloud.
-              hidden: true
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --limit=: Maximum number of resources to list.
-                --location=: Location of the private cloud or cluster.
-                --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                --page-size=: Some services group resource list output into pages.
-                --private-cloud=!: ID of the private cloud or fully qualified identifier for the private cloud.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --uri: Print a list of resource URIs instead of the default output, and change the
         - name: management-dns-zone-bindings
           description: Manage Management DNS zone bindings in Google Cloud VMware Engine.
           commands:
-            - name: repair
-              description: Repair a management DNS zone binding.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --location=: Location of the private cloud or cluster.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --private-cloud=: VMware Engine private cloud.
-            - name: update
-              description: Update a management DNS zone binding.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --description=!: Text describing the binding resource that represents the network getting bound to the management DNS zone.
-                --location=: Location of the private cloud or cluster.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --private-cloud=: VMware Engine private cloud.
             - name: create
               description: Create a management DNS zone binding.
               flags:
@@ -514,61 +733,70 @@ commands:
                 --private-cloud=!: ID of the private cloud or fully qualified identifier for the private cloud.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: create
-          description: Create a VMware Engine private cloud.
+            - name: repair
+              description: Repair a management DNS zone binding.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: Location of the private cloud or cluster.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --private-cloud=: VMware Engine private cloud.
+            - name: update
+              description: Update a management DNS zone binding.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --description=!: Text describing the binding resource that represents the network getting bound to the management DNS zone.
+                --location=: Location of the private cloud or cluster.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --private-cloud=: VMware Engine private cloud.
+        - name: nsx
+          description: Manage NSX using Google Cloud VMware Engine.
+          commands:
+            - name: credentials
+              description: Manage VMware NSX credentials using Google Cloud VMware Engine.
+              commands:
+                - name: describe
+                  description: Retrieve VMware NSX sign-in credentials associated with a Google Cloud VMware Engine private cloud.
+                  flags:
+                    --location=: Location of the private cloud or cluster.
+                    --private-cloud=!: ID of the private cloud or fully qualified identifier for the private cloud.
+                - name: reset
+                  description: Reset VMware NSX sign-in credentials associated with a Google Cloud VMware Engine private cloud.
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --location=: Location of the private cloud or cluster.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --private-cloud=!: ID of the private cloud or fully qualified identifier for the private cloud.
+        - name: subnets
+          description: Manage vmware subnets in Google Cloud VMware Engine.
+          commands:
+            - name: describe
+              description: Describe a subnet in a VMware Engine private cloud.
+              flags:
+                --location=: Location of the private cloud or cluster.
+                --private-cloud=: VMware Engine private cloud.
+            - name: list
+              description: List subnets in a VMware Engine private cloud.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: Location of the private cloud or cluster.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --private-cloud=!: ID of the private cloud or fully qualified identifier for the private cloud.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Update a subnet.
+              flags:
+                --ip-cidr-range=!: Updated IP CIDR range for this subnet.
+                --location=: Location of the private cloud or cluster.
+                --private-cloud=: VMware Engine private cloud.
+        - name: undelete
+          description: Cancel deletion of a Google Cloud VMware Engine private cloud.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
-            --autoscaling-cool-down-period=&: Cool down period (in minutes) between consecutive cluster expansions/contractions
-            --autoscaling-max-cluster-node-count=&: Maximum number of nodes in the cluster
-            --autoscaling-min-cluster-node-count=&: Minimum number of nodes in the cluster
-            --autoscaling-policy=&: Autoscaling policy to be applied to the cluster
-            --autoscaling-settings-from-file=&: A YAML file containing the autoscaling settings to be applied to the cluster
-            --cluster=!: ID of the cluster or fully qualified identifier for the cluster.
-            --description=: Text describing the private cloud.
-            --location=: Location of the private cloud or cluster.
-            --management-range=!: IP address range in the private cloud to use for management appliances, in CIDR format.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --node-type-config=!: Information about the type and number of nodes associated with the cluster.
-            --preferred-zone=: Zone that will remain operational when connection between the two zones is
-            --secondary-zone=: Additional zone for a higher level of availability and load balancing.
-            --service-subnet=&: A non-overlapping CIDR range and prefix length for the service subnets.
-            --type=: Type of the private cloud.
-            --vmware-engine-network=!: Resource ID of the VMware Engine network attached to the private cloud.
-          completion:
-            flag:
-                type:
-                    - STANDARD
-                    - STRETCHED
-                    - TIME_LIMITED
-        - name: delete
-          description: Delete a Google Cloud VMware Engine private cloud.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --delay-hours=: Number of hours to wait before deleting the private cloud.
             --location=: Location of the private cloud or cluster.
             --no-async&: Return immediately, without waiting for the operation in progress to
-          completion:
-            flag:
-                delay-hours:
-                    - '%!s(float64=0)'
-                    - '%!s(float64=1)'
-                    - '%!s(float64=2)'
-                    - '%!s(float64=3)'
-                    - '%!s(float64=4)'
-                    - '%!s(float64=5)'
-                    - '%!s(float64=6)'
-                    - '%!s(float64=7)'
-                    - '%!s(float64=8)'
-        - name: list
-          description: List Google Cloud VMware Engine private clouds.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
         - name: update
           description: Update a Google Cloud VMware Engine private cloud.
           flags:
@@ -595,270 +823,29 @@ commands:
                 --private-cloud=!: ID of the private cloud or fully qualified identifier for the private cloud.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: hcx
-          description: Manage HCX using Google Cloud VMware Engine.
+        - name: vcenter
+          description: Manage vCenter resources in Google Cloud VMware Engine.
           commands:
-            - name: activationkeys
-              description: Manage VMware HCX activation keys using Google Cloud VMware Engine.
+            - name: credentials
+              description: Manage VMware vCenter credentials using Google Cloud VMware Engine.
               commands:
-                - name: create
-                  description: Create a Google Cloud VMware HCX activation key.
+                - name: describe
+                  description: Describe Google Cloud VMware Engine vCenter credentials.
+                  flags:
+                    --location=: Location of the private cloud or cluster.
+                    --private-cloud=!: ID of the private cloud or fully qualified identifier for the private cloud.
+                    --username=&: The username of the user to be queried for credentials.
+                - name: reset
+                  description: Reset VMware vCenter sign-in credentials associated with a Google Cloud VMware Engine private cloud.
                   flags:
                     --async: Return immediately, without waiting for the operation in progress to
                     --location=: Location of the private cloud or cluster.
                     --no-async&: Return immediately, without waiting for the operation in progress to
-                    --private-cloud=: VMware Engine private cloud.
-                - name: describe
-                  description: Describe a Google Cloud VMware HCX activation key.
-                  flags:
-                    --location=: Location of the private cloud or cluster.
-                    --private-cloud=: VMware Engine private cloud.
-                - name: list
-                  description: List HCX activation keys in a Google Cloud VMware Engine private cloud.
-                  flags:
-                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                    --limit=: Maximum number of resources to list.
-                    --location=: Location of the private cloud or cluster.
-                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                    --page-size=: Some services group resource list output into pages.
                     --private-cloud=!: ID of the private cloud or fully qualified identifier for the private cloud.
-                    --sort-by=: Comma-separated list of resource field key names to sort by.
-                    --uri: Print a list of resource URIs instead of the default output, and change the
-    - name: announcements
-      description: Manage announcements in Google Cloud VMware Engine.
-      commands:
-        - name: list
-          description: List announcements in a Google Cloud VMware Engine.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --type=!: The type of announcement to list.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-          completion:
-            flag:
-                type:
-                    - maintenance
-    - name: dns-bind-permission
-      description: Manage DNS binding permission in Google Cloud VMware Engine.
-      commands:
-        - name: describe
-          description: Get all users and service accounts having bind permission.
-        - name: grant
-          description: Grants a DNS Bind Permission.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --service-account=: The consumer provided service account which needs to be granted permission to bind with the intranet VPC corresponding to the consumer project.
-            --user=: The consumer provided user which needs to be granted permission to bind with the intranet VPC corresponding to the consumer project.
-        - name: revoke
-          description: Revokes a DNS Bind Permission.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --service-account=: The consumer provided service account whose permission needs to be revoked on the intranet VPC corresponding to the consumer project.
-            --user=: The consumer provided user whose permission needs to be revoked on the intranet VPC corresponding to the consumer project.
-    - name: network-policies
-      description: Manage VMware Engine network policies in Google Cloud VMware Engine.
-      commands:
-        - name: list
-          description: List VMware Engine network policies.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: update
-          description: Update a VMware Engine network policy.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --description=: Updated description for the network policy.
-            --edge-services-cidr=: Updated IP address range to use for internet access and external IP access gateways, in CIDR notation.
-            --external-ip-access: Enable or disable network service that allows external IP addresses to be assigned to VMware workloads.
-            --internet-access: Enable or disable network service that allows VMware workloads to access the internet.
-            --location=: The resource name of the location.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-external-ip-access&: Enable or disable network service that allows external IP addresses to be assigned to VMware workloads.
-            --no-internet-access&: Enable or disable network service that allows VMware workloads to access the internet.
-        - name: create
-          description: Create a VMware Engine network policy.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --description=: User-provided description of the network policy.
-            --edge-services-cidr=!: IP address range to use for internet access and external IP access gateways, in CIDR notation.
-            --external-ip-access: Enable or disable network service that allows external IP addresses to be assigned to VMware workloads.
-            --internet-access: Enable or disable network service that allows VMware workloads to access the internet.
-            --location=: The resource name of the location.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-external-ip-access&: Enable or disable network service that allows external IP addresses to be assigned to VMware workloads.
-            --no-internet-access&: Enable or disable network service that allows VMware workloads to access the internet.
-            --vmware-engine-network=!: Resource ID of the VMware Engine network to attach the new policy to.
-        - name: delete
-          description: Delete a VMware Engine network policy.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: The resource name of the location.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: describe
-          description: Describe a VMware Engine network policy.
-          flags:
-            --location=: The resource name of the location.
-        - name: external-access-rules
-          description: Manage VMware Engine external access firewall rules in Google Cloud VMware Engine.
-          commands:
-            - name: list
-              description: List VMware Engine external access rules.
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --limit=: Maximum number of resources to list.
-                --location=: The resource name of the location.
-                --network-policy=!: ID of the VMware Engine Network Policy or fully qualified identifier for the VMware Engine Network Policy.
-                --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --uri: Print a list of resource URIs instead of the default output, and change the
-            - name: update
-              description: Update a VMware Engine network policy.
-              flags:
-                --action=: Whether the firewall rule allows or denies traffic based on a successful rule match.
-                --async: Return immediately, without waiting for the operation in progress to
-                --description=: User-provided description of the external access rule.
-                --destination-ports=: List of allowed destination ports.
-                --destination-ranges=: A list of destination IP addresses that the rule applies to.
-                --ip-protocol=: Internet protocol covered by the rule.
-                --location=: The resource name of the location.
-                --network-policy=: VMware Engine network policy
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --priority=: Priority of this external access rule.
-                --source-ports=: List of allowed source ports.
-                --source-ranges=: A list of source IP addresses that the rule applies to.
-              completion:
-                flag:
-                    action:
-                        - ALLOW
-                        - DENY
-                    ip-protocol:
-                        - TCP
-                        - UDP
-                        - ICMP
-            - name: create
-              description: Create a VMware Engine external access firewall rule.
-              flags:
-                --action=: Whether the firewall rule allows or denies traffic based on a successful rule match.
-                --async: Return immediately, without waiting for the operation in progress to
-                --description=: User-provided description of the external access rule.
-                --destination-ports=: List of allowed destination ports.
-                --destination-ranges=!: A list of destination IP addresses that the rule applies to.
-                --ip-protocol=!: Internet protocol covered by the rule.
-                --location=: The resource name of the location.
-                --network-policy=: VMware Engine network policy
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --priority=!: Priority of this external access rule.
-                --source-ports=: List of allowed source ports.
-                --source-ranges=!: A list of source IP addresses that the rule applies to.
-              completion:
-                flag:
-                    action:
-                        - ALLOW
-                        - DENY
-                    ip-protocol:
-                        - TCP
-                        - UDP
-                        - ICMP
-            - name: delete
-              description: Delete a VMware Engine external access rule.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --location=: The resource name of the location.
-                --network-policy=: VMware Engine network policy
-                --no-async&: Return immediately, without waiting for the operation in progress to
-            - name: describe
-              description: Describe a VMware Engine external access rule.
-              flags:
-                --location=: The resource name of the location.
-                --network-policy=: VMware Engine network policy
-    - name: networks
-      description: Manage VMware Engine networks in Google Cloud VMware Engine.
-      commands:
-        - name: delete
-          description: Delete a Google Cloud VMware Engine network.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: The resource name of the location.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: describe
-          description: Describe a Google Cloud VMware Engine network.
-          flags:
-            --location=: The resource name of the location.
-        - name: list
-          description: List Google Cloud VMware Engine networks.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: update
-          description: Update a Google Cloud VMware Engine network.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --description=: Text describing the VMware Engine network
-            --location=: The resource name of the location.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: create
-          description: Create a Google Cloud VMware Engine network.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --description=: Text describing the VMware Engine network.
-            --location=: The resource name of the location.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --type=!: Type of the VMware Engine network.
-          completion:
-            flag:
-                type:
-                    - LEGACY
-                    - STANDARD
-    - name: operations
-      description: List and describe operations in Google Cloud VMware Engine.
-      commands:
-        - name: describe
-          description: Describe a Google Cloud VMware Engine operation.
-          flags:
-            --location=: Location of the private cloud or cluster.
-        - name: list
-          description: List Google Cloud VMware Engine operations.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
+                    --username=&: The username of the user to reset the credentials.
     - name: private-connections
       description: Manage Private Connections in Google Cloud VMware Engine.
       commands:
-        - name: update
-          description: Update a Google Cloud Private Connection.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --description=: Updated description for this Private Connection.
-            --location=: The resource name of the location.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --routing-mode=: Updated routing mode for this Private Connection.
-          completion:
-            flag:
-                routing-mode:
-                    - GLOBAL
-                    - REGIONAL
         - name: create
           description: Create a Google Cloud Private Connection.
           flags:
@@ -915,3 +902,16 @@ commands:
                 --private-connection=!: ID of the Private Connection or fully qualified identifier for the Private Connection.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a Google Cloud Private Connection.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: Updated description for this Private Connection.
+            --location=: The resource name of the location.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --routing-mode=: Updated routing mode for this Private Connection.
+          completion:
+            flag:
+                routing-mode:
+                    - GLOBAL
+                    - REGIONAL

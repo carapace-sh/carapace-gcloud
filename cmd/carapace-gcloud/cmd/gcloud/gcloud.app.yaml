@@ -2,6 +2,12 @@
 name: app
 description: Manage your App Engine deployments.
 commands:
+    - name: browse
+      description: Open the current app in a web browser.
+      flags:
+        --launch-browser: Launch a browser if possible.
+        --no-launch-browser&: Launch a browser if possible.
+        --service=: The service that should be opened.
     - name: create
       description: Create an App Engine app within the current Google Cloud Project.
       flags:
@@ -13,43 +19,6 @@ commands:
             ssl-policy:
                 - TLS_VERSION_1_0
                 - TLS_VERSION_1_2
-    - name: gen-repo-info-file
-      description: '[DEPRECATED] Saves repository information in a file.'
-      hidden: true
-      flags:
-        --output-directory=: The directory in which to create the source context file.
-        --output-file=: (Deprecated; use --output-directory instead.)
-        --source-directory=: The path to directory containing the source code for the build.
-    - name: operations
-      description: View and manage your App Engine Operations.
-      commands:
-        - name: wait
-          description: Polls an operation until completion.
-        - name: describe
-          description: Describes the operation.
-        - name: list
-          description: List the operations.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --no-pending&: Only display pending operations
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --pending: Only display pending operations
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-    - name: regions
-      description: View regional availability of App Engine runtime environments.
-      commands:
-        - name: list
-          description: List the availability of flex and standard environments for each region.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
     - name: deploy
       description: Deploy the local code and/or configuration of your app to App Engine.
       flags:
@@ -73,240 +42,6 @@ commands:
         --stop-previous-version: Stop the previously running version when deploying a new version that
     - name: describe
       description: Display all data about an existing service.
-    - name: open-console
-      description: Open the App Engine dashboard, or log viewer, in a web browser.
-      flags:
-        --logs: Open the log viewer instead of the App Engine dashboard.
-        --no-logs&: Open the log viewer instead of the App Engine dashboard.
-        --service=: The service to consider.
-    - name: ssl-certificates
-      description: View and manage your App Engine SSL certificates.
-      commands:
-        - name: create
-          description: Uploads a new SSL certificate.
-          flags:
-            --certificate=!: The file path for the new certificate to upload.
-            --display-name=!: A display name for this certificate.
-            --private-key=!: The file path to a local RSA private key file.
-        - name: delete
-          description: Deletes an SSL certificate.
-        - name: describe
-          description: Describes a specified SSL certificate.
-        - name: list
-          description: Lists the SSL certificates.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: update
-          description: Updates an SSL certificate.
-          flags:
-            --certificate=: The file path for the new certificate to upload.
-            --display-name=: A display name for this certificate.
-            --private-key=: The file path to a local RSA private key file.
-    - name: update
-      description: Updates an App Engine application.
-      flags:
-        --no-split-health-checks&: Enables/disables split health checks by default on new deployments.
-        --service-account=: The app-level default service account to update the app with.
-        --split-health-checks: Enables/disables split health checks by default on new deployments.
-        --ssl-policy=: The app-level SSL policy to update the app with.
-      completion:
-        flag:
-            ssl-policy:
-                - TLS_VERSION_1_0
-                - TLS_VERSION_1_2
-    - name: instances
-      description: View and manage your App Engine instances.
-      commands:
-        - name: ssh
-          description: SSH into the VM of an App Engine Flexible instance.
-          flags:
-            --container=: Name of the container within the VM to connect to.
-            --no-tunnel-through-iap&: Tunnel the ssh connection through Identity-Aware Proxy for TCP forwarding.
-            --service=: The service ID.
-            --tunnel-through-iap: Tunnel the ssh connection through Identity-Aware Proxy for TCP forwarding.
-        - name: delete
-          description: Delete a specified instance.
-          flags:
-            --service=!: The service ID.
-        - name: describe
-          description: Display all data about an existing instance.
-          flags:
-            --service=!: The service ID.
-        - name: disable-debug
-          description: Disable debug mode for an instance.
-          flags:
-            --service=: If specified, only match instances belonging to the given service.
-        - name: enable-debug
-          description: Enable debug mode for an instance (only works on the flexible environment).
-          flags:
-            --service=: If specified, only match instances belonging to the given service.
-        - name: list
-          description: List the instances affiliated with the current App Engine project.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --service=: If specified, only list instances belonging to the given service.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: scp
-          description: SCP from or to the VM of an App Engine Flexible instance.
-          flags:
-            --compress: Enable compression.
-            --no-compress&: Enable compression.
-            --no-recurse&: Upload directories recursively.
-            --no-tunnel-through-iap&: Tunnel the ssh connection through Identity-Aware Proxy for TCP forwarding.
-            --recurse: Upload directories recursively.
-            --service=: The service ID.
-            --tunnel-through-iap: Tunnel the ssh connection through Identity-Aware Proxy for TCP forwarding.
-    - name: logs
-      description: Manage your App Engine logs.
-      commands:
-        - name: read
-          description: Reads log entries for the current App Engine app.
-          flags:
-            --level=: Filter entries with severity equal to or higher than a given level.
-            --limit=: Number of log entries to show.
-            --logs=: Filter entries from a particular set of logs.
-            --service=: Limit to specific service.
-          completion:
-            flag:
-                level:
-                    - critical
-                    - error
-                    - warning
-                    - info
-                    - debug
-                    - any
-        - name: tail
-          description: Streams logs for App Engine apps.
-          flags:
-            --level=: Filter entries with severity equal to or higher than a given level.
-            --logs=: Filter entries from a particular set of logs.
-            --service=: Limit to specific service.
-          completion:
-            flag:
-                level:
-                    - critical
-                    - error
-                    - warning
-                    - info
-                    - debug
-                    - any
-    - name: runtimes
-      description: List runtimes available to Google App Engine.
-      commands:
-        - name: list
-          description: List the available runtimes.
-          flags:
-            --environment=!: Environment for the application.
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-          completion:
-            flag:
-                environment:
-                    - standard
-    - name: services
-      description: View and manage your App Engine services.
-      commands:
-        - name: browse
-          description: Open the specified service(s) in a browser.
-          flags:
-            --launch-browser: Launch a browser if possible.
-            --no-launch-browser&: Launch a browser if possible.
-        - name: delete
-          description: Delete services in the current project.
-        - name: describe
-          description: Display all data about an existing service.
-        - name: list
-          description: List your existing services.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: set-traffic
-          description: Set traffic splitting settings.
-          flags:
-            --migrate: The migrate flag determines whether or not to use traffic migration
-            --no-migrate&: The migrate flag determines whether or not to use traffic migration
-            --split-by=: Whether to split traffic based on cookie, IP address or random.
-            --splits=!: Key-value pairs describing what proportion of traffic should go to
-          completion:
-            flag:
-                split-by:
-                    - cookie
-                    - ip
-                    - random
-        - name: update
-          description: Update service-level settings.
-          flags:
-            --ingress=!: Control what traffic can reach the app.
-          completion:
-            flag:
-                ingress:
-                    - all
-                    - internal-only
-                    - internal-and-cloud-load-balancing
-    - name: versions
-      description: View and manage your App Engine versions.
-      commands:
-        - name: migrate
-          description: Migrate traffic from one version to another for a set of services.
-          flags:
-            --service=: If specified, only migrate versions from the given service.
-        - name: start
-          description: Start serving specified versions.
-          flags:
-            --service=: If specified, only start versions from the given service.
-        - name: stop
-          description: Stop serving specified versions.
-          flags:
-            --service=: If specified, only stop versions from the given service.
-        - name: browse
-          description: Open the specified versions in a browser.
-          flags:
-            --launch-browser: Launch a browser if possible.
-            --no-launch-browser&: Launch a browser if possible.
-            --service=: If specified, only open versions from the given service.
-        - name: delete
-          description: Delete a specified version.
-          flags:
-            --service=: If specified, only delete versions from the given service.
-        - name: describe
-          description: Display all data about an existing version.
-          flags:
-            --service=!: The service corresponding to the version to show.
-        - name: list
-          description: List your existing versions.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --hide-no-traffic: Only show versions that are receiving traffic.
-            --limit=: Maximum number of resources to list.
-            --no-hide-no-traffic&: Only show versions that are receiving traffic.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --service=: Only show versions from this service.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-    - name: browse
-      description: Open the current app in a web browser.
-      flags:
-        --launch-browser: Launch a browser if possible.
-        --no-launch-browser&: Launch a browser if possible.
-        --service=: The service that should be opened.
     - name: domain-mappings
       description: View and manage your App Engine domain mappings.
       commands:
@@ -384,3 +119,268 @@ commands:
                 action:
                     - ALLOW
                     - DENY
+    - name: gen-repo-info-file
+      description: '[DEPRECATED] Saves repository information in a file.'
+      hidden: true
+      flags:
+        --output-directory=: The directory in which to create the source context file.
+        --output-file=: (Deprecated; use --output-directory instead.)
+        --source-directory=: The path to directory containing the source code for the build.
+    - name: instances
+      description: View and manage your App Engine instances.
+      commands:
+        - name: delete
+          description: Delete a specified instance.
+          flags:
+            --service=!: The service ID.
+        - name: describe
+          description: Display all data about an existing instance.
+          flags:
+            --service=!: The service ID.
+        - name: disable-debug
+          description: Disable debug mode for an instance.
+          flags:
+            --service=: If specified, only match instances belonging to the given service.
+        - name: enable-debug
+          description: Enable debug mode for an instance (only works on the flexible environment).
+          flags:
+            --service=: If specified, only match instances belonging to the given service.
+        - name: list
+          description: List the instances affiliated with the current App Engine project.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --service=: If specified, only list instances belonging to the given service.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: scp
+          description: SCP from or to the VM of an App Engine Flexible instance.
+          flags:
+            --compress: Enable compression.
+            --no-compress&: Enable compression.
+            --no-recurse&: Upload directories recursively.
+            --no-tunnel-through-iap&: Tunnel the ssh connection through Identity-Aware Proxy for TCP forwarding.
+            --recurse: Upload directories recursively.
+            --service=: The service ID.
+            --tunnel-through-iap: Tunnel the ssh connection through Identity-Aware Proxy for TCP forwarding.
+        - name: ssh
+          description: SSH into the VM of an App Engine Flexible instance.
+          flags:
+            --container=: Name of the container within the VM to connect to.
+            --no-tunnel-through-iap&: Tunnel the ssh connection through Identity-Aware Proxy for TCP forwarding.
+            --service=: The service ID.
+            --tunnel-through-iap: Tunnel the ssh connection through Identity-Aware Proxy for TCP forwarding.
+    - name: logs
+      description: Manage your App Engine logs.
+      commands:
+        - name: read
+          description: Reads log entries for the current App Engine app.
+          flags:
+            --level=: Filter entries with severity equal to or higher than a given level.
+            --limit=: Number of log entries to show.
+            --logs=: Filter entries from a particular set of logs.
+            --service=: Limit to specific service.
+          completion:
+            flag:
+                level:
+                    - critical
+                    - error
+                    - warning
+                    - info
+                    - debug
+                    - any
+        - name: tail
+          description: Streams logs for App Engine apps.
+          flags:
+            --level=: Filter entries with severity equal to or higher than a given level.
+            --logs=: Filter entries from a particular set of logs.
+            --service=: Limit to specific service.
+          completion:
+            flag:
+                level:
+                    - critical
+                    - error
+                    - warning
+                    - info
+                    - debug
+                    - any
+    - name: open-console
+      description: Open the App Engine dashboard, or log viewer, in a web browser.
+      flags:
+        --logs: Open the log viewer instead of the App Engine dashboard.
+        --no-logs&: Open the log viewer instead of the App Engine dashboard.
+        --service=: The service to consider.
+    - name: operations
+      description: View and manage your App Engine Operations.
+      commands:
+        - name: describe
+          description: Describes the operation.
+        - name: list
+          description: List the operations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-pending&: Only display pending operations
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --pending: Only display pending operations
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: wait
+          description: Polls an operation until completion.
+    - name: regions
+      description: View regional availability of App Engine runtime environments.
+      commands:
+        - name: list
+          description: List the availability of flex and standard environments for each region.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: runtimes
+      description: List runtimes available to Google App Engine.
+      commands:
+        - name: list
+          description: List the available runtimes.
+          flags:
+            --environment=!: Environment for the application.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+          completion:
+            flag:
+                environment:
+                    - standard
+    - name: services
+      description: View and manage your App Engine services.
+      commands:
+        - name: browse
+          description: Open the specified service(s) in a browser.
+          flags:
+            --launch-browser: Launch a browser if possible.
+            --no-launch-browser&: Launch a browser if possible.
+        - name: delete
+          description: Delete services in the current project.
+        - name: describe
+          description: Display all data about an existing service.
+        - name: list
+          description: List your existing services.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: set-traffic
+          description: Set traffic splitting settings.
+          flags:
+            --migrate: The migrate flag determines whether or not to use traffic migration
+            --no-migrate&: The migrate flag determines whether or not to use traffic migration
+            --split-by=: Whether to split traffic based on cookie, IP address or random.
+            --splits=!: Key-value pairs describing what proportion of traffic should go to
+          completion:
+            flag:
+                split-by:
+                    - cookie
+                    - ip
+                    - random
+        - name: update
+          description: Update service-level settings.
+          flags:
+            --ingress=!: Control what traffic can reach the app.
+          completion:
+            flag:
+                ingress:
+                    - all
+                    - internal-only
+                    - internal-and-cloud-load-balancing
+    - name: ssl-certificates
+      description: View and manage your App Engine SSL certificates.
+      commands:
+        - name: create
+          description: Uploads a new SSL certificate.
+          flags:
+            --certificate=!: The file path for the new certificate to upload.
+            --display-name=!: A display name for this certificate.
+            --private-key=!: The file path to a local RSA private key file.
+        - name: delete
+          description: Deletes an SSL certificate.
+        - name: describe
+          description: Describes a specified SSL certificate.
+        - name: list
+          description: Lists the SSL certificates.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Updates an SSL certificate.
+          flags:
+            --certificate=: The file path for the new certificate to upload.
+            --display-name=: A display name for this certificate.
+            --private-key=: The file path to a local RSA private key file.
+    - name: update
+      description: Updates an App Engine application.
+      flags:
+        --no-split-health-checks&: Enables/disables split health checks by default on new deployments.
+        --service-account=: The app-level default service account to update the app with.
+        --split-health-checks: Enables/disables split health checks by default on new deployments.
+        --ssl-policy=: The app-level SSL policy to update the app with.
+      completion:
+        flag:
+            ssl-policy:
+                - TLS_VERSION_1_0
+                - TLS_VERSION_1_2
+    - name: versions
+      description: View and manage your App Engine versions.
+      commands:
+        - name: browse
+          description: Open the specified versions in a browser.
+          flags:
+            --launch-browser: Launch a browser if possible.
+            --no-launch-browser&: Launch a browser if possible.
+            --service=: If specified, only open versions from the given service.
+        - name: delete
+          description: Delete a specified version.
+          flags:
+            --service=: If specified, only delete versions from the given service.
+        - name: describe
+          description: Display all data about an existing version.
+          flags:
+            --service=!: The service corresponding to the version to show.
+        - name: list
+          description: List your existing versions.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --hide-no-traffic: Only show versions that are receiving traffic.
+            --limit=: Maximum number of resources to list.
+            --no-hide-no-traffic&: Only show versions that are receiving traffic.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --service=: Only show versions from this service.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: migrate
+          description: Migrate traffic from one version to another for a set of services.
+          flags:
+            --service=: If specified, only migrate versions from the given service.
+        - name: start
+          description: Start serving specified versions.
+          flags:
+            --service=: If specified, only start versions from the given service.
+        - name: stop
+          description: Stop serving specified versions.
+          flags:
+            --service=: If specified, only stop versions from the given service.

@@ -40,6 +40,53 @@ commands:
     - name: templates
       description: Manage Template resources.
       commands:
+        - name: create
+          description: Create Model Armor Template.
+          flags:
+            --advanced-config-deidentify-template=: Optional Sensitive Data Protection Deidentify template resource name.
+            --advanced-config-inspect-template=: Sensitive Data Protection inspect template resource name
+            --basic-config-filter-enforcement=: Tells whether the Sensitive Data Protection basic config is enabled or
+            --labels=: Labels as key value pairs.
+            --location=: The location id of the template resource.
+            --malicious-uri-filter-settings-enforcement=: Tells whether the Malicious URI filter is enabled or disabled.
+            --no-template-metadata-ignore-partial-invocation-failures&: If true, partial detector failures should be ignored.
+            --no-template-metadata-log-operations&: If true, log template crud operations.
+            --no-template-metadata-log-sanitize-operations&: If true, log sanitize operations.
+            --pi-and-jailbreak-filter-settings-confidence-level=: Confidence level for this filter.
+            --pi-and-jailbreak-filter-settings-enforcement=: Tells whether Prompt injection and Jailbreak filter is enabled or
+            --rai-settings-filters=!: Required, List of Responsible AI filters enabled for template.
+            --request-id=: An optional request ID to identify requests.
+            --template-metadata-custom-llm-response-safety-error-code=: Indicates the custom error code set by the user to be returned to the end
+            --template-metadata-custom-llm-response-safety-error-message=: Indicates the custom error message set by the user to be returned to the
+            --template-metadata-custom-prompt-safety-error-code=: Indicates the custom error code set by the user to be returned to the end
+            --template-metadata-custom-prompt-safety-error-message=: Indicates the custom error message set by the user to be returned to the
+            --template-metadata-ignore-partial-invocation-failures: If true, partial detector failures should be ignored.
+            --template-metadata-log-operations: If true, log template crud operations.
+            --template-metadata-log-sanitize-operations: If true, log sanitize operations.
+          completion:
+            flag:
+                basic-config-filter-enforcement:
+                    - disabled
+                    - enabled
+                malicious-uri-filter-settings-enforcement:
+                    - disabled
+                    - enabled
+                pi-and-jailbreak-filter-settings-confidence-level:
+                    - high
+                    - low-and-above
+                    - medium-and-above
+                pi-and-jailbreak-filter-settings-enforcement:
+                    - disabled
+                    - enabled
+        - name: delete
+          description: Delete Model Armor Template.
+          flags:
+            --location=: The location id of the template resource.
+            --request-id=: An optional request ID to identify requests.
+        - name: describe
+          description: Get Model Armor Template.
+          flags:
+            --location=: The location id of the template resource.
         - name: list
           description: List Model Armor Templates.
           flags:
@@ -125,50 +172,3 @@ commands:
                 pi-and-jailbreak-filter-settings-enforcement:
                     - disabled
                     - enabled
-        - name: create
-          description: Create Model Armor Template.
-          flags:
-            --advanced-config-deidentify-template=: Optional Sensitive Data Protection Deidentify template resource name.
-            --advanced-config-inspect-template=: Sensitive Data Protection inspect template resource name
-            --basic-config-filter-enforcement=: Tells whether the Sensitive Data Protection basic config is enabled or
-            --labels=: Labels as key value pairs.
-            --location=: The location id of the template resource.
-            --malicious-uri-filter-settings-enforcement=: Tells whether the Malicious URI filter is enabled or disabled.
-            --no-template-metadata-ignore-partial-invocation-failures&: If true, partial detector failures should be ignored.
-            --no-template-metadata-log-operations&: If true, log template crud operations.
-            --no-template-metadata-log-sanitize-operations&: If true, log sanitize operations.
-            --pi-and-jailbreak-filter-settings-confidence-level=: Confidence level for this filter.
-            --pi-and-jailbreak-filter-settings-enforcement=: Tells whether Prompt injection and Jailbreak filter is enabled or
-            --rai-settings-filters=!: Required, List of Responsible AI filters enabled for template.
-            --request-id=: An optional request ID to identify requests.
-            --template-metadata-custom-llm-response-safety-error-code=: Indicates the custom error code set by the user to be returned to the end
-            --template-metadata-custom-llm-response-safety-error-message=: Indicates the custom error message set by the user to be returned to the
-            --template-metadata-custom-prompt-safety-error-code=: Indicates the custom error code set by the user to be returned to the end
-            --template-metadata-custom-prompt-safety-error-message=: Indicates the custom error message set by the user to be returned to the
-            --template-metadata-ignore-partial-invocation-failures: If true, partial detector failures should be ignored.
-            --template-metadata-log-operations: If true, log template crud operations.
-            --template-metadata-log-sanitize-operations: If true, log sanitize operations.
-          completion:
-            flag:
-                basic-config-filter-enforcement:
-                    - disabled
-                    - enabled
-                malicious-uri-filter-settings-enforcement:
-                    - disabled
-                    - enabled
-                pi-and-jailbreak-filter-settings-confidence-level:
-                    - high
-                    - low-and-above
-                    - medium-and-above
-                pi-and-jailbreak-filter-settings-enforcement:
-                    - disabled
-                    - enabled
-        - name: delete
-          description: Delete Model Armor Template.
-          flags:
-            --location=: The location id of the template resource.
-            --request-id=: An optional request ID to identify requests.
-        - name: describe
-          description: Get Model Armor Template.
-          flags:
-            --location=: The location id of the template resource.

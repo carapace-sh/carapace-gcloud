@@ -2,275 +2,9 @@
 name: logging
 description: Manage Cloud Logging.
 commands:
-    - name: cmek-settings
-      description: Manages the customer-managed encryption key (CMEK) settings for the Cloud Logging Logs Router.
-      hidden: true
-      commands:
-        - name: update
-          description: Update the CMEK settings for the Cloud Logging Logs Router.
-          hidden: true
-          flags:
-            --clear-kms-key: Disable CMEK for the Logs Router by clearing out Cloud KMS cryptokey in the organization's CMEK settings.
-            --kms-key-name=!: ID of the key or fully qualified identifier for the key.
-            --kms-keyring=: The KMS keyring of the key.
-            --kms-location=: The Google Cloud location for the key.
-            --kms-project=: The Google Cloud project for the key.
-            --no-clear-kms-key&: Disable CMEK for the Logs Router by clearing out Cloud KMS cryptokey in the organization's CMEK settings.
-            --organization=!: Organization to update Logs Router CMEK settings for.
-        - name: describe
-          description: Display the CMEK settings for the Cloud Logging Logs Router.
-          hidden: true
-          flags:
-            --billing-account=: Billing account of the CMEK settings to describe.
-            --folder=: Folder of the CMEK settings to describe.
-            --organization=: Organization of the CMEK settings to describe.
-    - name: redact
-      description: Redact log entries.
-      hidden: true
-      flags:
-        --billing-account=: Billing account of the log entries to redact.
-        --folder=: Folder of the log entries to redact.
-        --location=!: Location of the bucket.
-        --log-filter=: A filter specifying which log entries to Redact.
-        --organization=: Organization of the log entries to redact.
-        --reason=!: The reason for the redaction.
-    - name: settings
-      description: Manages the org settings for the Cloud Logging Logs Router.
-      commands:
-        - name: describe
-          description: Display the settings for the Cloud Logging Logs Router.
-          flags:
-            --billing-account=: Billing account of the settings to describe.
-            --folder=: Folder of the settings to describe.
-            --organization=: Organization of the settings to describe.
-        - name: update
-          description: Update the settings for the Cloud Logging Logs Router.
-          flags:
-            --analytics-mode=&: Update the analytics mode for newly-created project buckets.
-            --clear-kms-key: Disable CMEK for the Logs Router by clearing out Cloud KMS cryptokey in the organization's CMEK settings.
-            --disable-default-sink: Enable or disable ```_Default``` sink for the ```_Default``` bucket.
-            --folder=: Folder to update Logs Router settings for.
-            --kms-key-name=!: ID of the key or fully qualified identifier for the key.
-            --kms-keyring=: The KMS keyring of the key.
-            --kms-location=: The Google Cloud location for the key.
-            --kms-project=: The Google Cloud project for the key.
-            --no-clear-kms-key&: Disable CMEK for the Logs Router by clearing out Cloud KMS cryptokey in the organization's CMEK settings.
-            --no-disable-default-sink&: Enable or disable ```_Default``` sink for the ```_Default``` bucket.
-            --organization=: Organization to update Logs Router settings for.
-            --storage-location=: Update the storage location for ```_Default``` bucket and ```_Required``` bucket.
-          completion:
-            flag:
-                analytics-mode:
-                    - required
-                    - optional
-                    - unspecified
-    - name: views
-      description: Manage log views.
-      commands:
-        - name: list
-          description: List the defined views.
-          flags:
-            --billing-account=: Billing account of the views to list.
-            --bucket=!: ID of bucket
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --folder=: Folder of the views to list.
-            --limit=: Maximum number of resources to list.
-            --location=!: Location of the specified bucket
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --organization=: Organization of the views to list.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: remove-iam-policy-binding
-          description: Remove IAM policy binding to a log view.
-          flags:
-            --all: Remove all bindings with this role and principal, irrespective of any
-            --billing-account=: Billing account of the view that contains the IAM policy.
-            --bucket=!: ID of the bucket that contains the view.
-            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
-            --condition=: The condition of the binding that you want to remove.
-            --folder=: Folder of the view that contains the IAM policy.
-            --location=!: Location of the bucket that contains the view.
-            --member=!: The principal to remove the binding for.
-            --no-all&: ""
-            --organization=: Organization of the view that contains the IAM policy.
-            --role=!: The role to remove the principal from.
-        - name: update
-          description: Update a view.
-          flags:
-            --billing-account=: Billing account of the view to update.
-            --bucket=!: ID of the bucket that holds the view
-            --description=: New description for the view.
-            --folder=: Folder of the view to update.
-            --location=!: Location of the bucket that contains the view.
-            --log-filter=: New filter for the view.
-            --organization=: Organization of the view to update.
-        - name: delete
-          description: Delete a view.
-          flags:
-            --billing-account=: Billing account of the view to delete.
-            --bucket=!: ID of bucket
-            --folder=: Folder of the view to delete.
-            --location=!: Location of the bucket.
-            --organization=: Organization of the view to delete.
-        - name: set-iam-policy
-          description: Set IAM policy for a view.
-          flags:
-            --billing-account=: Billing account of the view to set IAM policy.
-            --bucket=!: ID of the bucket that contains the view.
-            --folder=: Folder of the view to set IAM policy.
-            --location=!: Location of the bucket that contains the view.
-            --organization=: Organization of the view to set IAM policy.
-        - name: add-iam-policy-binding
-          description: Add IAM policy binding to a log view.
-          flags:
-            --billing-account=: Billing account of the view that contains the IAM policy.
-            --bucket=!: ID of the bucket that contains the view.
-            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
-            --condition=: A condition to include in the binding.
-            --folder=: Folder of the view that contains the IAM policy.
-            --location=!: Location of the bucket that contains the view.
-            --member=!: The principal to add the binding for.
-            --organization=: Organization of the view that contains the IAM policy.
-            --role=!: Role name to assign to the principal.
-        - name: create
-          description: Create a log view on a log bucket.
-          flags:
-            --billing-account=: Billing account of the view to create.
-            --bucket=!: ID of the bucket that will hold the view
-            --description=: A textual description for the view.
-            --folder=: Folder of the view to create.
-            --location=!: Location of the bucket that will hold the view.
-            --log-filter=: A filter for the view.
-            --organization=: Organization of the view to create.
-        - name: describe
-          description: Display information about a view.
-          flags:
-            --billing-account=: Billing account of the view to describe.
-            --bucket=!: ID of bucket
-            --folder=: Folder of the view to describe.
-            --location=!: Location of the bucket.
-            --organization=: Organization of the view to describe.
-        - name: get-iam-policy
-          description: Display the IAM policy for a view.
-          flags:
-            --billing-account=: Billing account of the view to fetch IAM policy.
-            --bucket=!: ID of the bucket that holds the view.
-            --folder=: Folder of the view to fetch IAM policy.
-            --location=!: Location of the bucket that contains the view
-            --organization=: Organization of the view to fetch IAM policy.
-    - name: write
-      description: Write a log entry.
-      flags:
-        --billing-account=: Billing account of the log entries to write.
-        --folder=: Folder of the log entries to write.
-        --monitored-resource-labels=: Monitored Resource labels to add to the payload
-        --monitored-resource-type=: Monitored Resource type to add to the payload
-        --organization=: Organization of the log entries to write.
-        --payload-type=: Type of the log entry payload.
-        --severity=: Severity level of the log entry.
-      completion:
-        flag:
-            payload-type:
-                - text
-                - json
-            severity:
-                - DEFAULT
-                - DEBUG
-                - INFO
-                - NOTICE
-                - WARNING
-                - ERROR
-                - CRITICAL
-                - ALERT
-                - EMERGENCY
-    - name: links
-      description: Manage linked datasets.
-      commands:
-        - name: delete
-          description: Delete a linked dataset.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --billing-account=: Billing account of the linked dataset to delete.
-            --bucket=!: ID of bucket
-            --folder=: Folder of the linked dataset to delete.
-            --location=!: Location of the bucket.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --organization=: Organization of the linked dataset to delete.
-        - name: describe
-          description: Display information about a linked dataset.
-          flags:
-            --billing-account=: Billing account of the linked dataset to describe.
-            --bucket=!: ID of bucket
-            --folder=: Folder of the linked dataset to describe.
-            --location=!: Location of the bucket.
-            --organization=: Organization of the linked dataset to describe.
-        - name: list
-          description: List created linked datasets on the specified bucket.
-          flags:
-            --billing-account=: Billing account of the linked datasets to list.
-            --bucket=!: ID of bucket
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --folder=: Folder of the linked datasets to list.
-            --limit=: Maximum number of resources to list.
-            --location=!: Location of the specified bucket
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --organization=: Organization of the linked datasets to list.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: create
-          description: Create a linked dataset on an analytics log bucket.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --billing-account=: Billing account of the linked dataset to create.
-            --bucket=!: ID of the bucket that will hold the linked dataset
-            --description=: A textual description for the linked dataset.
-            --folder=: Folder of the linked dataset to create.
-            --location=!: Location of the bucket that will hold the linked datasert.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --organization=: Organization of the linked dataset to create.
     - name: buckets
       description: Manage Cloud Logging buckets.
       commands:
-        - name: move
-          description: Move a bucket.
-          hidden: true
-          flags:
-            --billing-account=: Billing account of the bucket to move.
-            --folder=: Folder of the bucket to move.
-            --location=!: Location of the bucket.
-            --new-location=!: New location to move the bucket to.
-            --organization=: Organization of the bucket to move.
-        - name: undelete
-          description: Undelete a bucket.
-          flags:
-            --billing-account=: Billing account of the bucket to undelete.
-            --folder=: Folder of the bucket to undelete.
-            --location=!: Location of the bucket.
-            --organization=: Organization of the bucket to undelete.
-        - name: update
-          description: Update a bucket.
-          flags:
-            --add-index=: Add an index to be added to the log bucket.
-            --async: Return immediately, without waiting for the operation in progress to
-            --billing-account=: Billing account of the bucket to update.
-            --clear-indexes: Remove all logging indexes from the bucket.
-            --cmek-kms-key-name=: A valid `kms_key_name` will enable CMEK for the bucket.
-            --description=: A new description for the bucket.
-            --enable-analytics: Whether to opt the bucket into Log Analytics.
-            --folder=: Folder of the bucket to update.
-            --location=!: Location of the bucket.
-            --locked: Lock the bucket and prevent it from being modified or deleted (unless it is empty).
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-clear-indexes&: Remove all logging indexes from the bucket.
-            --no-enable-analytics&: Whether to opt the bucket into Log Analytics.
-            --no-locked&: Lock the bucket and prevent it from being modified or deleted (unless it is empty).
-            --organization=: Organization of the bucket to update.
-            --remove-indexes=: Specify the field path of the logging index(es) to delete.
-            --restricted-fields=: A new set of restricted fields for the bucket.
-            --retention-days=: A new retention period for the bucket.
-            --update-index=: Update an index to be added to the log bucket.
         - name: create
           description: Create a bucket.
           flags:
@@ -312,6 +46,120 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: move
+          description: Move a bucket.
+          hidden: true
+          flags:
+            --billing-account=: Billing account of the bucket to move.
+            --folder=: Folder of the bucket to move.
+            --location=!: Location of the bucket.
+            --new-location=!: New location to move the bucket to.
+            --organization=: Organization of the bucket to move.
+        - name: undelete
+          description: Undelete a bucket.
+          flags:
+            --billing-account=: Billing account of the bucket to undelete.
+            --folder=: Folder of the bucket to undelete.
+            --location=!: Location of the bucket.
+            --organization=: Organization of the bucket to undelete.
+        - name: update
+          description: Update a bucket.
+          flags:
+            --add-index=: Add an index to be added to the log bucket.
+            --async: Return immediately, without waiting for the operation in progress to
+            --billing-account=: Billing account of the bucket to update.
+            --clear-indexes: Remove all logging indexes from the bucket.
+            --cmek-kms-key-name=: A valid `kms_key_name` will enable CMEK for the bucket.
+            --description=: A new description for the bucket.
+            --enable-analytics: Whether to opt the bucket into Log Analytics.
+            --folder=: Folder of the bucket to update.
+            --location=!: Location of the bucket.
+            --locked: Lock the bucket and prevent it from being modified or deleted (unless it is empty).
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-indexes&: Remove all logging indexes from the bucket.
+            --no-enable-analytics&: Whether to opt the bucket into Log Analytics.
+            --no-locked&: Lock the bucket and prevent it from being modified or deleted (unless it is empty).
+            --organization=: Organization of the bucket to update.
+            --remove-indexes=: Specify the field path of the logging index(es) to delete.
+            --restricted-fields=: A new set of restricted fields for the bucket.
+            --retention-days=: A new retention period for the bucket.
+            --update-index=: Update an index to be added to the log bucket.
+    - name: cmek-settings
+      description: Manages the customer-managed encryption key (CMEK) settings for the Cloud Logging Logs Router.
+      hidden: true
+      commands:
+        - name: describe
+          description: Display the CMEK settings for the Cloud Logging Logs Router.
+          hidden: true
+          flags:
+            --billing-account=: Billing account of the CMEK settings to describe.
+            --folder=: Folder of the CMEK settings to describe.
+            --organization=: Organization of the CMEK settings to describe.
+        - name: update
+          description: Update the CMEK settings for the Cloud Logging Logs Router.
+          hidden: true
+          flags:
+            --clear-kms-key: Disable CMEK for the Logs Router by clearing out Cloud KMS cryptokey in the organization's CMEK settings.
+            --kms-key-name=!: ID of the key or fully qualified identifier for the key.
+            --kms-keyring=: The KMS keyring of the key.
+            --kms-location=: The Google Cloud location for the key.
+            --kms-project=: The Google Cloud project for the key.
+            --no-clear-kms-key&: Disable CMEK for the Logs Router by clearing out Cloud KMS cryptokey in the organization's CMEK settings.
+            --organization=!: Organization to update Logs Router CMEK settings for.
+    - name: copy
+      description: Copy log entries.
+      flags:
+        --billing-account=: Billing account of the log entries to copy.
+        --folder=: Folder of the log entries to copy.
+        --location=!: Location of the log bucket.
+        --log-filter=: A filter specifying which log entries to copy.
+        --organization=: Organization of the log entries to copy.
+    - name: links
+      description: Manage linked datasets.
+      commands:
+        - name: create
+          description: Create a linked dataset on an analytics log bucket.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --billing-account=: Billing account of the linked dataset to create.
+            --bucket=!: ID of the bucket that will hold the linked dataset
+            --description=: A textual description for the linked dataset.
+            --folder=: Folder of the linked dataset to create.
+            --location=!: Location of the bucket that will hold the linked datasert.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: Organization of the linked dataset to create.
+        - name: delete
+          description: Delete a linked dataset.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --billing-account=: Billing account of the linked dataset to delete.
+            --bucket=!: ID of bucket
+            --folder=: Folder of the linked dataset to delete.
+            --location=!: Location of the bucket.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: Organization of the linked dataset to delete.
+        - name: describe
+          description: Display information about a linked dataset.
+          flags:
+            --billing-account=: Billing account of the linked dataset to describe.
+            --bucket=!: ID of bucket
+            --folder=: Folder of the linked dataset to describe.
+            --location=!: Location of the bucket.
+            --organization=: Organization of the linked dataset to describe.
+        - name: list
+          description: List created linked datasets on the specified bucket.
+          flags:
+            --billing-account=: Billing account of the linked datasets to list.
+            --bucket=!: ID of bucket
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --folder=: Folder of the linked datasets to list.
+            --limit=: Maximum number of resources to list.
+            --location=!: Location of the specified bucket
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --organization=: Organization of the linked datasets to list.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
     - name: locations
       description: Query Cloud Logging locations.
       commands:
@@ -347,6 +195,165 @@ commands:
             --location=!: Location of the log bucket.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --view=!: Id of the view.
+    - name: metrics
+      description: Manages logs-based metrics.
+      commands:
+        - name: create
+          description: Create a logs-based metric.
+          flags:
+            --bucket-name=: The Log Bucket name which owns the log-based metric.
+            --config-from-file=: A path to a YAML or JSON file specifying the logs-based metric to create.
+            --description=!: The metric's description.
+            --log-filter=!: The metric's filter expression.
+        - name: delete
+          description: Delete a logs-based metric.
+        - name: describe
+          description: Display the definition of a logs-based metric.
+        - name: list
+          description: Display all logs-based metrics.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: update
+          description: Update the definition of a logs-based metric.
+          flags:
+            --bucket-name=: The Log Bucket name which owns the log-based metric.
+            --config-from-file=: A path to a YAML file specifying the updates to be made to the logs-based metric.
+            --description=: A new description for the metric.
+            --log-filter=: A new filter string for the metric.
+    - name: operations
+      description: Manage long running operations.
+      commands:
+        - name: cancel
+          description: Cancel a long running operation.
+          flags:
+            --billing-account=: Billing account of the operation to cancel.
+            --folder=: Folder of the operation to cancel.
+            --location=!: Location of the operation.
+            --organization=: Organization of the operation to cancel.
+        - name: describe
+          description: Display the information about a long running operation.
+          flags:
+            --billing-account=: Billing account of the operation to describe.
+            --folder=: Folder of the operation to describe.
+            --location=!: Location of the operation.
+            --organization=: Organization of the operation to describe.
+        - name: list
+          description: List long running operations.
+          flags:
+            --billing-account=: Billing account of the operations to list.
+            --folder=: Folder of the operations to list.
+            --limit=: Maximum number of resources to list.
+            --location=!: Location of the operations.
+            --operation-filter=!: Filter expression that specifies the operations to return.
+            --organization=: Organization of the operations to list.
+            --page-size=: Some services group resource list output into pages.
+            --page-token=: The next_page_token value returned from a previous List request, if any.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+    - name: read
+      description: Read log entries.
+      flags:
+        --billing-account=: Billing account of the log entries to read.
+        --bucket=!: Id of the log bucket.
+        --folder=: Folder of the log entries to read.
+        --freshness=: Return entries that are not older than this value.
+        --limit=: Maximum number of resources to list.
+        --location=!: Location of the log bucket.
+        --order=: Ordering of returned log entries based on timestamp field.
+        --organization=: Organization of the log entries to read.
+        --resource-names=: Resource name(s) to read logs from.
+        --view=!: Id of the view.
+      completion:
+        flag:
+            order:
+                - desc
+                - asc
+    - name: redact
+      description: Redact log entries.
+      hidden: true
+      flags:
+        --billing-account=: Billing account of the log entries to redact.
+        --folder=: Folder of the log entries to redact.
+        --location=!: Location of the bucket.
+        --log-filter=: A filter specifying which log entries to Redact.
+        --organization=: Organization of the log entries to redact.
+        --reason=!: The reason for the redaction.
+    - name: resource-descriptors
+      description: Get information about resource descriptors.
+      commands:
+        - name: list
+          description: List all available resource descriptors.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+    - name: scopes
+      description: Manages Cloud Logging log scopes.
+      commands:
+        - name: create
+          description: Create a log scope.
+          flags:
+            --description=: A textual description for the log scope.
+            --folder=: Folder of the log scope to create.
+            --organization=: Organization of the log scope to create.
+            --resource-names=!: Comma-separated list of resource names in this log scope.
+        - name: delete
+          description: Delete a log scope.
+          flags:
+            --folder=: Folder of the log scope to delete.
+            --organization=: Organization of the log scope to delete.
+        - name: describe
+          description: Display information about a log scope.
+          flags:
+            --folder=: Folder of the log scope to describe.
+            --organization=: Organization of the log scope to describe.
+        - name: list
+          description: List the defined log scopes.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --folder=: Folder of the log scopes to list.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --organization=: Organization of the log scopes to list.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a log scope.
+          flags:
+            --description=: A new description for the log scope.
+            --resource-names=: A new set of resource names for the log scope.
+    - name: settings
+      description: Manages the org settings for the Cloud Logging Logs Router.
+      commands:
+        - name: describe
+          description: Display the settings for the Cloud Logging Logs Router.
+          flags:
+            --billing-account=: Billing account of the settings to describe.
+            --folder=: Folder of the settings to describe.
+            --organization=: Organization of the settings to describe.
+        - name: update
+          description: Update the settings for the Cloud Logging Logs Router.
+          flags:
+            --analytics-mode=&: Update the analytics mode for newly-created project buckets.
+            --clear-kms-key: Disable CMEK for the Logs Router by clearing out Cloud KMS cryptokey in the organization's CMEK settings.
+            --disable-default-sink: Enable or disable ```_Default``` sink for the ```_Default``` bucket.
+            --folder=: Folder to update Logs Router settings for.
+            --kms-key-name=!: ID of the key or fully qualified identifier for the key.
+            --kms-keyring=: The KMS keyring of the key.
+            --kms-location=: The Google Cloud location for the key.
+            --kms-project=: The Google Cloud project for the key.
+            --no-clear-kms-key&: Disable CMEK for the Logs Router by clearing out Cloud KMS cryptokey in the organization's CMEK settings.
+            --no-disable-default-sink&: Enable or disable ```_Default``` sink for the ```_Default``` bucket.
+            --organization=: Organization to update Logs Router settings for.
+            --storage-location=: Update the storage location for ```_Default``` bucket and ```_Required``` bucket.
+          completion:
+            flag:
+                analytics-mode:
+                    - required
+                    - optional
+                    - unspecified
     - name: sinks
       description: Manages sinks used to route logs to storage or export destinations.
       commands:
@@ -412,130 +419,123 @@ commands:
             --remove-exclusions=: Specify the name of the Logging exclusion(s) to delete.
             --update-exclusion=: Update an exclusion filter for a log entry that is not to be exported.
             --use-partitioned-tables: If specified, use BigQuery's partitioned tables.
-    - name: copy
-      description: Copy log entries.
-      flags:
-        --billing-account=: Billing account of the log entries to copy.
-        --folder=: Folder of the log entries to copy.
-        --location=!: Location of the log bucket.
-        --log-filter=: A filter specifying which log entries to copy.
-        --organization=: Organization of the log entries to copy.
-    - name: metrics
-      description: Manages logs-based metrics.
+    - name: views
+      description: Manage log views.
       commands:
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding to a log view.
+          flags:
+            --billing-account=: Billing account of the view that contains the IAM policy.
+            --bucket=!: ID of the bucket that contains the view.
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: A condition to include in the binding.
+            --folder=: Folder of the view that contains the IAM policy.
+            --location=!: Location of the bucket that contains the view.
+            --member=!: The principal to add the binding for.
+            --organization=: Organization of the view that contains the IAM policy.
+            --role=!: Role name to assign to the principal.
         - name: create
-          description: Create a logs-based metric.
+          description: Create a log view on a log bucket.
           flags:
-            --bucket-name=: The Log Bucket name which owns the log-based metric.
-            --config-from-file=: A path to a YAML or JSON file specifying the logs-based metric to create.
-            --description=!: The metric's description.
-            --log-filter=!: The metric's filter expression.
+            --billing-account=: Billing account of the view to create.
+            --bucket=!: ID of the bucket that will hold the view
+            --description=: A textual description for the view.
+            --folder=: Folder of the view to create.
+            --location=!: Location of the bucket that will hold the view.
+            --log-filter=: A filter for the view.
+            --organization=: Organization of the view to create.
         - name: delete
-          description: Delete a logs-based metric.
+          description: Delete a view.
+          flags:
+            --billing-account=: Billing account of the view to delete.
+            --bucket=!: ID of bucket
+            --folder=: Folder of the view to delete.
+            --location=!: Location of the bucket.
+            --organization=: Organization of the view to delete.
         - name: describe
-          description: Display the definition of a logs-based metric.
-        - name: list
-          description: Display all logs-based metrics.
+          description: Display information about a view.
           flags:
+            --billing-account=: Billing account of the view to describe.
+            --bucket=!: ID of bucket
+            --folder=: Folder of the view to describe.
+            --location=!: Location of the bucket.
+            --organization=: Organization of the view to describe.
+        - name: get-iam-policy
+          description: Display the IAM policy for a view.
+          flags:
+            --billing-account=: Billing account of the view to fetch IAM policy.
+            --bucket=!: ID of the bucket that holds the view.
+            --folder=: Folder of the view to fetch IAM policy.
+            --location=!: Location of the bucket that contains the view
+            --organization=: Organization of the view to fetch IAM policy.
+        - name: list
+          description: List the defined views.
+          flags:
+            --billing-account=: Billing account of the views to list.
+            --bucket=!: ID of bucket
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --folder=: Folder of the views to list.
             --limit=: Maximum number of resources to list.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: update
-          description: Update the definition of a logs-based metric.
-          flags:
-            --bucket-name=: The Log Bucket name which owns the log-based metric.
-            --config-from-file=: A path to a YAML file specifying the updates to be made to the logs-based metric.
-            --description=: A new description for the metric.
-            --log-filter=: A new filter string for the metric.
-    - name: operations
-      description: Manage long running operations.
-      commands:
-        - name: list
-          description: List long running operations.
-          flags:
-            --billing-account=: Billing account of the operations to list.
-            --folder=: Folder of the operations to list.
-            --limit=: Maximum number of resources to list.
-            --location=!: Location of the operations.
-            --operation-filter=!: Filter expression that specifies the operations to return.
-            --organization=: Organization of the operations to list.
-            --page-size=: Some services group resource list output into pages.
-            --page-token=: The next_page_token value returned from a previous List request, if any.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: cancel
-          description: Cancel a long running operation.
-          flags:
-            --billing-account=: Billing account of the operation to cancel.
-            --folder=: Folder of the operation to cancel.
-            --location=!: Location of the operation.
-            --organization=: Organization of the operation to cancel.
-        - name: describe
-          description: Display the information about a long running operation.
-          flags:
-            --billing-account=: Billing account of the operation to describe.
-            --folder=: Folder of the operation to describe.
-            --location=!: Location of the operation.
-            --organization=: Organization of the operation to describe.
-    - name: read
-      description: Read log entries.
-      flags:
-        --billing-account=: Billing account of the log entries to read.
-        --bucket=!: Id of the log bucket.
-        --folder=: Folder of the log entries to read.
-        --freshness=: Return entries that are not older than this value.
-        --limit=: Maximum number of resources to list.
-        --location=!: Location of the log bucket.
-        --order=: Ordering of returned log entries based on timestamp field.
-        --organization=: Organization of the log entries to read.
-        --resource-names=: Resource name(s) to read logs from.
-        --view=!: Id of the view.
-      completion:
-        flag:
-            order:
-                - desc
-                - asc
-    - name: resource-descriptors
-      description: Get information about resource descriptors.
-      commands:
-        - name: list
-          description: List all available resource descriptors.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-    - name: scopes
-      description: Manages Cloud Logging log scopes.
-      commands:
-        - name: list
-          description: List the defined log scopes.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --folder=: Folder of the log scopes to list.
-            --limit=: Maximum number of resources to list.
+            --location=!: Location of the specified bucket
             --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --organization=: Organization of the log scopes to list.
+            --organization=: Organization of the views to list.
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: remove-iam-policy-binding
+          description: Remove IAM policy binding to a log view.
+          flags:
+            --all: Remove all bindings with this role and principal, irrespective of any
+            --billing-account=: Billing account of the view that contains the IAM policy.
+            --bucket=!: ID of the bucket that contains the view.
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: The condition of the binding that you want to remove.
+            --folder=: Folder of the view that contains the IAM policy.
+            --location=!: Location of the bucket that contains the view.
+            --member=!: The principal to remove the binding for.
+            --no-all&: ""
+            --organization=: Organization of the view that contains the IAM policy.
+            --role=!: The role to remove the principal from.
+        - name: set-iam-policy
+          description: Set IAM policy for a view.
+          flags:
+            --billing-account=: Billing account of the view to set IAM policy.
+            --bucket=!: ID of the bucket that contains the view.
+            --folder=: Folder of the view to set IAM policy.
+            --location=!: Location of the bucket that contains the view.
+            --organization=: Organization of the view to set IAM policy.
         - name: update
-          description: Update a log scope.
+          description: Update a view.
           flags:
-            --description=: A new description for the log scope.
-            --resource-names=: A new set of resource names for the log scope.
-        - name: create
-          description: Create a log scope.
-          flags:
-            --description=: A textual description for the log scope.
-            --folder=: Folder of the log scope to create.
-            --organization=: Organization of the log scope to create.
-            --resource-names=!: Comma-separated list of resource names in this log scope.
-        - name: delete
-          description: Delete a log scope.
-          flags:
-            --folder=: Folder of the log scope to delete.
-            --organization=: Organization of the log scope to delete.
-        - name: describe
-          description: Display information about a log scope.
-          flags:
-            --folder=: Folder of the log scope to describe.
-            --organization=: Organization of the log scope to describe.
+            --billing-account=: Billing account of the view to update.
+            --bucket=!: ID of the bucket that holds the view
+            --description=: New description for the view.
+            --folder=: Folder of the view to update.
+            --location=!: Location of the bucket that contains the view.
+            --log-filter=: New filter for the view.
+            --organization=: Organization of the view to update.
+    - name: write
+      description: Write a log entry.
+      flags:
+        --billing-account=: Billing account of the log entries to write.
+        --folder=: Folder of the log entries to write.
+        --monitored-resource-labels=: Monitored Resource labels to add to the payload
+        --monitored-resource-type=: Monitored Resource type to add to the payload
+        --organization=: Organization of the log entries to write.
+        --payload-type=: Type of the log entry payload.
+        --severity=: Severity level of the log entry.
+      completion:
+        flag:
+            payload-type:
+                - text
+                - json
+            severity:
+                - DEFAULT
+                - DEBUG
+                - INFO
+                - NOTICE
+                - WARNING
+                - ERROR
+                - CRITICAL
+                - ALERT
+                - EMERGENCY

@@ -5,27 +5,25 @@ commands:
     - name: instances
       description: Manage Cloud Memorystore Memcached instances.
       commands:
-        - name: list
-          description: List Memorystore Memcached instances.
+        - name: apply-parameters
+          description: Apply parameter update to nodes in a Memorystore Memcached instance.
           flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --region=: ID of the region or fully qualified identifier for the region.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: upgrade
-          description: Upgrade memcache instance to a newer memcached version.
-          flags:
+            --apply-all: Apply the parameter update onto all nodes.
             --async: Return immediately, without waiting for the operation in progress to
-            --memcached-version=!: Memcached engine version to which instance should be upgraded to.
+            --no-apply-all&: Apply the parameter update onto all nodes.
             --no-async&: Return immediately, without waiting for the operation in progress to
+            --node-ids=: Nodes on which to apply the parameter update.
             --region=: The name of the Memcached region of the instance.
-          completion:
-            flag:
-                memcached-version:
-                    - 1.6.15
+        - name: apply-software-update
+          description: Apply software update to nodes in a Memorystore Memcached instance.
+          hidden: true
+          flags:
+            --apply-all: Apply the software update onto all nodes.
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-apply-all&: Apply the software update onto all nodes.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --node-ids=: Nodes on which to apply the software update.
+            --region=: The name of the Memcached region of the instance.
         - name: create
           description: Create a Memorystore Memcached instance.
           flags:
@@ -69,6 +67,16 @@ commands:
           description: Display metadata for a Memorystore Memcached instance.
           flags:
             --region=: The name of the Memcached region of the instance.
+        - name: list
+          description: List Memorystore Memcached instances.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: ID of the region or fully qualified identifier for the region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
         - name: reschedule-maintenance
           description: Reschedule maintenance window for a Memcache instance.
           flags:
@@ -109,25 +117,17 @@ commands:
                     - thursday
                     - tuesday
                     - wednesday
-        - name: apply-parameters
-          description: Apply parameter update to nodes in a Memorystore Memcached instance.
+        - name: upgrade
+          description: Upgrade memcache instance to a newer memcached version.
           flags:
-            --apply-all: Apply the parameter update onto all nodes.
             --async: Return immediately, without waiting for the operation in progress to
-            --no-apply-all&: Apply the parameter update onto all nodes.
+            --memcached-version=!: Memcached engine version to which instance should be upgraded to.
             --no-async&: Return immediately, without waiting for the operation in progress to
-            --node-ids=: Nodes on which to apply the parameter update.
             --region=: The name of the Memcached region of the instance.
-        - name: apply-software-update
-          description: Apply software update to nodes in a Memorystore Memcached instance.
-          hidden: true
-          flags:
-            --apply-all: Apply the software update onto all nodes.
-            --async: Return immediately, without waiting for the operation in progress to
-            --no-apply-all&: Apply the software update onto all nodes.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --node-ids=: Nodes on which to apply the software update.
-            --region=: The name of the Memcached region of the instance.
+          completion:
+            flag:
+                memcached-version:
+                    - 1.6.15
     - name: operations
       description: Manage Cloud Memorystore Memcached operations.
       commands:

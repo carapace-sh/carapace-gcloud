@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"slices"
 	"strings"
 
 	"github.com/carapace-sh/carapace-spec/pkg/command"
@@ -46,14 +47,14 @@ type Command struct {
 }
 
 func (c Command) ToSpecCommand(args []Arg, root bool) command.Command {
-	command := command.Command{
+	specCommand := command.Command{
 		Name:        c.Name,
 		Description: c.Capsule,
 		Hidden:      c.IsHidden,
 	}
-	command.Completion.Flag = make(map[string][]string)
-	command.Documentation.Command = c.Sections.Description
-	command.Documentation.Flag = make(map[string]string)
+	specCommand.Completion.Flag = make(map[string][]string)
+	specCommand.Documentation.Command = c.Sections.Description
+	specCommand.Documentation.Flag = make(map[string]string)
 
 	for _, argIndex := range c.Flags {
 		if argIndex == 0 {
@@ -66,23 +67,24 @@ func (c Command) ToSpecCommand(args []Arg, root bool) command.Command {
 
 		f := arg.ToFlag()
 
-		command.AddFlag(f)
+		specCommand.AddFlag(f)
 		if len(arg.Choices) > 0 {
 			choices := make([]string, 0)
 			for _, choice := range arg.Choices {
-				choices = append(choices, fmt.Sprintf("%s", choice))
+				choices = append(choices, fmt.Sprintf("%v", choice)) // TODO verify
 			}
-			command.Completion.Flag[f.Name()] = choices
+			specCommand.Completion.Flag[f.Name()] = choices
 		}
-		command.Documentation.Flag[f.Name()] = arg.Description
+		specCommand.Documentation.Flag[f.Name()] = arg.Description
 	}
 
 	// TODO Documentation
 
 	for _, subCommand := range c.Commands {
-		command.Commands = append(command.Commands, subCommand.ToSpecCommand(args, false))
+		specCommand.Commands = append(specCommand.Commands, subCommand.ToSpecCommand(args, false))
 	}
-	return command
+	slices.SortFunc(specCommand.Commands, func(a, b command.Command) int { return strings.Compare(a.Name, b.Name) })
+	return specCommand
 }
 
 type Arg struct {

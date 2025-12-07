@@ -5,6 +5,11 @@ commands:
     - name: accounts
       description: Manage billing accounts.
       commands:
+        - name: add-iam-policy-binding
+          description: Add an IAM policy binding to a Cloud Billing account.
+          flags:
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
         - name: describe
           description: Show metadata for a billing account.
         - name: get-iam-policy
@@ -30,11 +35,6 @@ commands:
             --role=!: The role to remove the principal from.
         - name: set-iam-policy
           description: Set the IAM policy for a Cloud Billing account.
-        - name: add-iam-policy-binding
-          description: Add an IAM policy binding to a Cloud Billing account.
-          flags:
-            --member=!: The principal to add the binding for.
-            --role=!: Role name to assign to the principal.
     - name: budgets
       description: Manage the budgets of your billing accounts.
       commands:
@@ -140,8 +140,6 @@ commands:
     - name: projects
       description: Manage the billing account configuration of your projects.
       commands:
-        - name: unlink
-          description: Unlink the account (if any) linked with a project.
         - name: describe
           description: Show detailed billing information for a project.
         - name: link
@@ -156,3 +154,5 @@ commands:
             --limit=: Maximum number of resources to list.
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: unlink
+          description: Unlink the account (if any) linked with a project.

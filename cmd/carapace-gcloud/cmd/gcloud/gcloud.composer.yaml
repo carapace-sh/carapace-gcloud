@@ -5,122 +5,6 @@ commands:
     - name: environments
       description: Create and manage Cloud Composer environments.
       commands:
-        - name: list-upgrades
-          description: List the Cloud Composer image version upgrades for a specific environment.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: Region where Composer environment runs or in which to create the environment.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: restart-web-server
-          description: Restart web server for a Cloud Composer environment.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: Region where Composer environment runs or in which to create the environment.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: run
-          description: Run an Airflow sub-command remotely in a Cloud Composer environment.
-          flags:
-            --location=: Region where Composer environment runs or in which to create the environment.
-        - name: update
-          description: Update properties of a Cloud Composer environment.
-          flags:
-            --airflow-database-retention-days=: The number of days for the Airflow database retention period.
-            --async: Return immediately, without waiting for the operation in progress to
-            --clear-airflow-configs: Removes all Airflow config overrides from the environment.
-            --clear-env-variables: Removes all environment variables from the environment.
-            --clear-labels: Remove all labels.
-            --clear-maintenance-window: Clears the maintenance window settings.
-            --clear-pypi-packages: Removes all PyPI packages from the environment.
-            --cloud-sql-machine-type=: Cloud SQL machine type used by the Airflow database.
-            --dag-processor-count=: Number of dag processors, supported in Composer 3 environments or greater.
-            --dag-processor-cpu=: CPU allocated to Airflow dag processor, supported in Composer 3
-            --dag-processor-memory=: Memory allocated to Airflow dag processor, ex.
-            --dag-processor-storage=: Storage allocated to Airflow dag processor, ex.
-            --disable-cloud-data-lineage-integration: Disable Cloud Data Lineage integration, supported for Composer 2 Environments.
-            --disable-high-resilience: Disable high resilience, supported for Composer 2 Environments.
-            --disable-logs-in-cloud-logging-only: Disable logs in cloud logging only, supported for Composer 2 Environments.
-            --disable-master-authorized-networks: Disable Master Authorized Networks feature
-            --disable-private-builds-only: Builds performed during operations that install Python
-            --disable-private-environment: Enable internet connection from any Composer component,
-            --disable-scheduled-snapshot-creation: Disables automated snapshots creation.
-            --disable-triggerer: (DEPRECATED)     Disable a triggerer, supported in the Environments with Composer 2.0.31 and Airflow 2.2.5 and greater.
-            --disable-vpc-connectivity: Disable connectivity with a user's VPC network,
-            --enable-cloud-data-lineage-integration: Enable Cloud Data Lineage integration, supported for Composer 2 Environments.
-            --enable-high-resilience: Enable high resilience, supported for Composer 2 Environments.
-            --enable-logs-in-cloud-logging-only: Enable logs in cloud logging only, supported for Composer 2 Environments.
-            --enable-master-authorized-networks: Enable Master Authorized Networks feature
-            --enable-private-builds-only: Builds performed during operations that install Python
-            --enable-private-environment: Disable internet connection from any Composer component,
-            --enable-scheduled-snapshot-creation!: When specified, snapshots of the environment will be created according to a schedule.
-            --enable-triggerer: (DEPRECATED)     Enable use of a triggerer, supported in the Environments with Composer 2.0.31 and Airflow 2.2.5 and greater.
-            --environment-size=: Size of the environment.
-            --image-version=: Upgrade the environment to a later version in-place.
-            --location=: Region where Composer environment runs or in which to create the environment.
-            --maintenance-window-end=!: End time of the mantenance window in the form of the full date.
-            --maintenance-window-recurrence=!: An RFC 5545 RRULE, specifying how the maintenance window will recur.
-            --maintenance-window-start=!: Start time of the mantenance window in the form of the full date.
-            --master-authorized-networks=: Comma separated Master Authorized Networks specified in CIDR notation.
-            --max-workers=: Maximum number of workers in the Environment.
-            --min-workers=: Minimum number of workers in the Environment.
-            --network-attachment=: Cloud Composer Network Attachment, which provides connectivity with a user's VPC network,
-            --network=!: The Compute Engine Network to which the environment will be connected.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-clear-airflow-configs&: Removes all Airflow config overrides from the environment.
-            --no-clear-env-variables&: Removes all environment variables from the environment.
-            --no-clear-labels&: Remove all labels.
-            --no-clear-maintenance-window&: Clears the maintenance window settings.
-            --no-clear-pypi-packages&: Removes all PyPI packages from the environment.
-            --no-disable-cloud-data-lineage-integration&: Disable Cloud Data Lineage integration, supported for Composer 2 Environments.
-            --no-disable-master-authorized-networks&: Disable Master Authorized Networks feature
-            --no-disable-private-environment&: Enable internet connection from any Composer component,
-            --no-enable-cloud-data-lineage-integration&: Enable Cloud Data Lineage integration, supported for Composer 2 Environments.
-            --no-enable-master-authorized-networks&: Enable Master Authorized Networks feature
-            --no-enable-private-environment&: Disable internet connection from any Composer component,
-            --no-support-web-server-plugins&: Enable the support for web server plugins, supported in Composer 3
-            --no-web-server-allow-all&: Allows all IP addresses to access the Airflow web server.
-            --no-web-server-deny-all&: Denies all incoming traffic to the Airflow web server.
-            --node-count=: The new number of nodes running the environment.
-            --remove-airflow-configs=: A list of Airflow config override keys to remove.
-            --remove-env-variables=: A list of environment variables to remove.
-            --remove-labels=: List of label keys to remove.
-            --remove-pypi-packages=: A list of PyPI package names to remove.
-            --scheduler-count=: Number of schedulers, supported in the Environments with Airflow 2.0.1 and later.
-            --scheduler-cpu=: CPU allocated to Airflow scheduler.
-            --scheduler-memory=: Memory allocated to Airflow scheduler, ex.
-            --scheduler-storage=: Storage allocated to Airflow scheduler, ex.
-            --snapshot-creation-schedule=!: Cron expression specifying when snapshots of the environment should be created.
-            --snapshot-location=!: The Cloud Storage location for storing automatically created snapshots.
-            --snapshot-schedule-timezone=!: Timezone that sets the context to interpret snapshot_creation_schedule.
-            --subnetwork=: The Compute Engine Subnetwork (https://cloud.google.com/compute/docs/subnetworks) to which the environment will be connected.
-            --support-web-server-plugins: Enable the support for web server plugins, supported in Composer 3
-            --triggerer-count=: Number of triggerers, supported in the Environments with Composer 2.0.31 and Airflow 2.2.5 and greater.
-            --triggerer-cpu=: CPU allocated to Airflow triggerer.
-            --triggerer-memory=: Memory allocated to Airflow triggerer, ex.
-            --update-airflow-configs=: A list of Airflow config override KEY=VALUE pairs to set.
-            --update-env-variables=: A list of environment variable NAME=VALUE pairs to set and provide to the
-            --update-labels=: List of label KEY=VALUE pairs to update.
-            --update-pypi-package=: A PyPI package to add to the environment.
-            --update-pypi-packages-from-file=: The path to a file containing a list of PyPI packages to install in
-            --update-web-server-allow-ip=: Specifies a list of IPv4 or IPv6 ranges that will be allowed to access the
-            --web-server-allow-all: Allows all IP addresses to access the Airflow web server.
-            --web-server-cpu=: CPU allocated to each Airflow web server
-            --web-server-deny-all: Denies all incoming traffic to the Airflow web server.
-            --web-server-machine-type=: machine type used by the Airflow web server.
-            --web-server-memory=: Memory allocated to Airflow web server, ex.
-            --web-server-storage=: Storage allocated to Airflow web server, ex.
-            --worker-cpu=: CPU allocated to each Airflow worker
-            --worker-memory=: Memory allocated to Airflow worker, ex.
-            --worker-storage=: Storage allocated to Airflow worker, ex.
-          completion:
-            flag:
-                environment-size:
-                    - extra-large
-                    - large
-                    - medium
-                    - small
-                    - unspecified
         - name: check-upgrade
           description: Check that upgrading a Cloud Composer environment does not result in PyPI module conflicts.
           flags:
@@ -251,12 +135,58 @@ commands:
             --async: Return immediately, without waiting for the operation in progress to
             --location=: Region where Composer environment runs or in which to create the environment.
             --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: delete
+          description: Delete one or more Cloud Composer environments.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Region where Composer environment runs or in which to create the environment.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Get details about a Cloud Composer environment.
+          flags:
+            --location=: Region where Composer environment runs or in which to create the environment.
+        - name: fetch-database-properties
+          description: Fetch database properties.
+          flags:
+            --location=: Region where Composer environment runs or in which to create the environment.
+        - name: list
+          description: List the Cloud Composer environments under a project and location.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --locations=!: IDs of the locations or fully qualified identifiers for the locations.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
         - name: list-packages
           description: List all PyPI modules installed in an Airflow worker.
           flags:
             --location=: Region where Composer environment runs or in which to create the environment.
             --no-tree&: List PyPI packages, their versions and a dependency tree, as displayed by the "python -m pipdeptree --warn" command.
             --tree: List PyPI packages, their versions and a dependency tree, as displayed by the "python -m pipdeptree --warn" command.
+        - name: list-upgrades
+          description: List the Cloud Composer image version upgrades for a specific environment.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Region where Composer environment runs or in which to create the environment.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list-workloads
+          description: List Composer workloads, supported in Composer 3 environments or greater.
+          flags:
+            --location=: Region where Composer environment runs or in which to create the environment.
+        - name: restart-web-server
+          description: Restart web server for a Cloud Composer environment.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Region where Composer environment runs or in which to create the environment.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: run
+          description: Run an Airflow sub-command remotely in a Cloud Composer environment.
+          flags:
+            --location=: Region where Composer environment runs or in which to create the environment.
         - name: snapshots
           description: Save and load snapshots of environment.
           commands:
@@ -282,94 +212,6 @@ commands:
                 --location=: Region where Composer environment runs or in which to create the environment.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --snapshot-location=: The Cloud Storage location where to save the snapshot.
-        - name: user-workloads-config-maps
-          description: Create and manage user workloads ConfigMaps of environment.
-          commands:
-            - name: update
-              description: Update a user workloads ConfigMap.
-              flags:
-                --config-map-file-path=!: Path to a local file with a single Kubernetes ConfigMap in YAML format.
-                --environment=!: ID of the environment or fully qualified identifier for the environment.
-                --location=: Region where Composer environment runs or in which to create the environment.
-            - name: create
-              description: Create a user workloads ConfigMap.
-              flags:
-                --config-map-file-path=!: Path to a local file with a single Kubernetes ConfigMap in YAML format.
-                --environment=!: ID of the environment or fully qualified identifier for the environment.
-                --location=: Region where Composer environment runs or in which to create the environment.
-            - name: delete
-              description: Delete a user workloads ConfigMap.
-              flags:
-                --environment=!: ID of the environment or fully qualified identifier for the environment.
-                --location=: Region where Composer environment runs or in which to create the environment.
-            - name: describe
-              description: Get details about a user workloads ConfigMap.
-              flags:
-                --environment=!: ID of the environment or fully qualified identifier for the environment.
-                --location=: Region where Composer environment runs or in which to create the environment.
-            - name: list
-              description: List user workloads ConfigMaps.
-              flags:
-                --environment=!: ID of the environment or fully qualified identifier for the environment.
-                --location=: Region where Composer environment runs or in which to create the environment.
-        - name: delete
-          description: Delete one or more Cloud Composer environments.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: Region where Composer environment runs or in which to create the environment.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: fetch-database-properties
-          description: Fetch database properties.
-          flags:
-            --location=: Region where Composer environment runs or in which to create the environment.
-        - name: list
-          description: List the Cloud Composer environments under a project and location.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --locations=!: IDs of the locations or fully qualified identifiers for the locations.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: list-workloads
-          description: List Composer workloads, supported in Composer 3 environments or greater.
-          flags:
-            --location=: Region where Composer environment runs or in which to create the environment.
-        - name: user-workloads-secrets
-          description: Create and manage user workloads Secrets of environment.
-          commands:
-            - name: create
-              description: Create a user workloads Secret.
-              flags:
-                --environment=!: ID of the environment or fully qualified identifier for the environment.
-                --location=: Region where Composer environment runs or in which to create the environment.
-                --secret-file-path=!: Path to a local file with a single Kubernetes Secret in YAML format.
-            - name: delete
-              description: Delete a user workloads Secret.
-              flags:
-                --environment=!: ID of the environment or fully qualified identifier for the environment.
-                --location=: Region where Composer environment runs or in which to create the environment.
-            - name: describe
-              description: Get details about a user workloads Secret.
-              flags:
-                --environment=!: ID of the environment or fully qualified identifier for the environment.
-                --location=: Region where Composer environment runs or in which to create the environment.
-            - name: list
-              description: List user workloads Secrets.
-              flags:
-                --environment=!: ID of the environment or fully qualified identifier for the environment.
-                --location=: Region where Composer environment runs or in which to create the environment.
-            - name: update
-              description: Update a user workloads Secret.
-              flags:
-                --environment=!: ID of the environment or fully qualified identifier for the environment.
-                --location=: Region where Composer environment runs or in which to create the environment.
-                --secret-file-path=!: Path to a local file with a single Kubernetes Secret in YAML format.
-        - name: describe
-          description: Get details about a Cloud Composer environment.
-          flags:
-            --location=: Region where Composer environment runs or in which to create the environment.
         - name: storage
           description: Manage Cloud Storage objects stored as part of Cloud Composer environments.
           commands:
@@ -454,6 +296,164 @@ commands:
                   flags:
                     --environment=!: ID of the environment or fully qualified identifier for the environment.
                     --location=: Region where Composer environment runs or in which to create the environment.
+        - name: update
+          description: Update properties of a Cloud Composer environment.
+          flags:
+            --airflow-database-retention-days=: The number of days for the Airflow database retention period.
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-airflow-configs: Removes all Airflow config overrides from the environment.
+            --clear-env-variables: Removes all environment variables from the environment.
+            --clear-labels: Remove all labels.
+            --clear-maintenance-window: Clears the maintenance window settings.
+            --clear-pypi-packages: Removes all PyPI packages from the environment.
+            --cloud-sql-machine-type=: Cloud SQL machine type used by the Airflow database.
+            --dag-processor-count=: Number of dag processors, supported in Composer 3 environments or greater.
+            --dag-processor-cpu=: CPU allocated to Airflow dag processor, supported in Composer 3
+            --dag-processor-memory=: Memory allocated to Airflow dag processor, ex.
+            --dag-processor-storage=: Storage allocated to Airflow dag processor, ex.
+            --disable-cloud-data-lineage-integration: Disable Cloud Data Lineage integration, supported for Composer 2 Environments.
+            --disable-high-resilience: Disable high resilience, supported for Composer 2 Environments.
+            --disable-logs-in-cloud-logging-only: Disable logs in cloud logging only, supported for Composer 2 Environments.
+            --disable-master-authorized-networks: Disable Master Authorized Networks feature
+            --disable-private-builds-only: Builds performed during operations that install Python
+            --disable-private-environment: Enable internet connection from any Composer component,
+            --disable-scheduled-snapshot-creation: Disables automated snapshots creation.
+            --disable-triggerer: (DEPRECATED)     Disable a triggerer, supported in the Environments with Composer 2.0.31 and Airflow 2.2.5 and greater.
+            --disable-vpc-connectivity: Disable connectivity with a user's VPC network,
+            --enable-cloud-data-lineage-integration: Enable Cloud Data Lineage integration, supported for Composer 2 Environments.
+            --enable-high-resilience: Enable high resilience, supported for Composer 2 Environments.
+            --enable-logs-in-cloud-logging-only: Enable logs in cloud logging only, supported for Composer 2 Environments.
+            --enable-master-authorized-networks: Enable Master Authorized Networks feature
+            --enable-private-builds-only: Builds performed during operations that install Python
+            --enable-private-environment: Disable internet connection from any Composer component,
+            --enable-scheduled-snapshot-creation!: When specified, snapshots of the environment will be created according to a schedule.
+            --enable-triggerer: (DEPRECATED)     Enable use of a triggerer, supported in the Environments with Composer 2.0.31 and Airflow 2.2.5 and greater.
+            --environment-size=: Size of the environment.
+            --image-version=: Upgrade the environment to a later version in-place.
+            --location=: Region where Composer environment runs or in which to create the environment.
+            --maintenance-window-end=!: End time of the mantenance window in the form of the full date.
+            --maintenance-window-recurrence=!: An RFC 5545 RRULE, specifying how the maintenance window will recur.
+            --maintenance-window-start=!: Start time of the mantenance window in the form of the full date.
+            --master-authorized-networks=: Comma separated Master Authorized Networks specified in CIDR notation.
+            --max-workers=: Maximum number of workers in the Environment.
+            --min-workers=: Minimum number of workers in the Environment.
+            --network-attachment=: Cloud Composer Network Attachment, which provides connectivity with a user's VPC network,
+            --network=!: The Compute Engine Network to which the environment will be connected.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-airflow-configs&: Removes all Airflow config overrides from the environment.
+            --no-clear-env-variables&: Removes all environment variables from the environment.
+            --no-clear-labels&: Remove all labels.
+            --no-clear-maintenance-window&: Clears the maintenance window settings.
+            --no-clear-pypi-packages&: Removes all PyPI packages from the environment.
+            --no-disable-cloud-data-lineage-integration&: Disable Cloud Data Lineage integration, supported for Composer 2 Environments.
+            --no-disable-master-authorized-networks&: Disable Master Authorized Networks feature
+            --no-disable-private-environment&: Enable internet connection from any Composer component,
+            --no-enable-cloud-data-lineage-integration&: Enable Cloud Data Lineage integration, supported for Composer 2 Environments.
+            --no-enable-master-authorized-networks&: Enable Master Authorized Networks feature
+            --no-enable-private-environment&: Disable internet connection from any Composer component,
+            --no-support-web-server-plugins&: Enable the support for web server plugins, supported in Composer 3
+            --no-web-server-allow-all&: Allows all IP addresses to access the Airflow web server.
+            --no-web-server-deny-all&: Denies all incoming traffic to the Airflow web server.
+            --node-count=: The new number of nodes running the environment.
+            --remove-airflow-configs=: A list of Airflow config override keys to remove.
+            --remove-env-variables=: A list of environment variables to remove.
+            --remove-labels=: List of label keys to remove.
+            --remove-pypi-packages=: A list of PyPI package names to remove.
+            --scheduler-count=: Number of schedulers, supported in the Environments with Airflow 2.0.1 and later.
+            --scheduler-cpu=: CPU allocated to Airflow scheduler.
+            --scheduler-memory=: Memory allocated to Airflow scheduler, ex.
+            --scheduler-storage=: Storage allocated to Airflow scheduler, ex.
+            --snapshot-creation-schedule=!: Cron expression specifying when snapshots of the environment should be created.
+            --snapshot-location=!: The Cloud Storage location for storing automatically created snapshots.
+            --snapshot-schedule-timezone=!: Timezone that sets the context to interpret snapshot_creation_schedule.
+            --subnetwork=: The Compute Engine Subnetwork (https://cloud.google.com/compute/docs/subnetworks) to which the environment will be connected.
+            --support-web-server-plugins: Enable the support for web server plugins, supported in Composer 3
+            --triggerer-count=: Number of triggerers, supported in the Environments with Composer 2.0.31 and Airflow 2.2.5 and greater.
+            --triggerer-cpu=: CPU allocated to Airflow triggerer.
+            --triggerer-memory=: Memory allocated to Airflow triggerer, ex.
+            --update-airflow-configs=: A list of Airflow config override KEY=VALUE pairs to set.
+            --update-env-variables=: A list of environment variable NAME=VALUE pairs to set and provide to the
+            --update-labels=: List of label KEY=VALUE pairs to update.
+            --update-pypi-package=: A PyPI package to add to the environment.
+            --update-pypi-packages-from-file=: The path to a file containing a list of PyPI packages to install in
+            --update-web-server-allow-ip=: Specifies a list of IPv4 or IPv6 ranges that will be allowed to access the
+            --web-server-allow-all: Allows all IP addresses to access the Airflow web server.
+            --web-server-cpu=: CPU allocated to each Airflow web server
+            --web-server-deny-all: Denies all incoming traffic to the Airflow web server.
+            --web-server-machine-type=: machine type used by the Airflow web server.
+            --web-server-memory=: Memory allocated to Airflow web server, ex.
+            --web-server-storage=: Storage allocated to Airflow web server, ex.
+            --worker-cpu=: CPU allocated to each Airflow worker
+            --worker-memory=: Memory allocated to Airflow worker, ex.
+            --worker-storage=: Storage allocated to Airflow worker, ex.
+          completion:
+            flag:
+                environment-size:
+                    - extra-large
+                    - large
+                    - medium
+                    - small
+                    - unspecified
+        - name: user-workloads-config-maps
+          description: Create and manage user workloads ConfigMaps of environment.
+          commands:
+            - name: create
+              description: Create a user workloads ConfigMap.
+              flags:
+                --config-map-file-path=!: Path to a local file with a single Kubernetes ConfigMap in YAML format.
+                --environment=!: ID of the environment or fully qualified identifier for the environment.
+                --location=: Region where Composer environment runs or in which to create the environment.
+            - name: delete
+              description: Delete a user workloads ConfigMap.
+              flags:
+                --environment=!: ID of the environment or fully qualified identifier for the environment.
+                --location=: Region where Composer environment runs or in which to create the environment.
+            - name: describe
+              description: Get details about a user workloads ConfigMap.
+              flags:
+                --environment=!: ID of the environment or fully qualified identifier for the environment.
+                --location=: Region where Composer environment runs or in which to create the environment.
+            - name: list
+              description: List user workloads ConfigMaps.
+              flags:
+                --environment=!: ID of the environment or fully qualified identifier for the environment.
+                --location=: Region where Composer environment runs or in which to create the environment.
+            - name: update
+              description: Update a user workloads ConfigMap.
+              flags:
+                --config-map-file-path=!: Path to a local file with a single Kubernetes ConfigMap in YAML format.
+                --environment=!: ID of the environment or fully qualified identifier for the environment.
+                --location=: Region where Composer environment runs or in which to create the environment.
+        - name: user-workloads-secrets
+          description: Create and manage user workloads Secrets of environment.
+          commands:
+            - name: create
+              description: Create a user workloads Secret.
+              flags:
+                --environment=!: ID of the environment or fully qualified identifier for the environment.
+                --location=: Region where Composer environment runs or in which to create the environment.
+                --secret-file-path=!: Path to a local file with a single Kubernetes Secret in YAML format.
+            - name: delete
+              description: Delete a user workloads Secret.
+              flags:
+                --environment=!: ID of the environment or fully qualified identifier for the environment.
+                --location=: Region where Composer environment runs or in which to create the environment.
+            - name: describe
+              description: Get details about a user workloads Secret.
+              flags:
+                --environment=!: ID of the environment or fully qualified identifier for the environment.
+                --location=: Region where Composer environment runs or in which to create the environment.
+            - name: list
+              description: List user workloads Secrets.
+              flags:
+                --environment=!: ID of the environment or fully qualified identifier for the environment.
+                --location=: Region where Composer environment runs or in which to create the environment.
+            - name: update
+              description: Update a user workloads Secret.
+              flags:
+                --environment=!: ID of the environment or fully qualified identifier for the environment.
+                --location=: Region where Composer environment runs or in which to create the environment.
+                --secret-file-path=!: Path to a local file with a single Kubernetes Secret in YAML format.
     - name: operations
       description: Manage Cloud Composer operations.
       commands:

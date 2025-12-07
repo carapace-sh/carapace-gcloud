@@ -60,6 +60,30 @@ commands:
             bigquery-partition-key:
                 - PARTITION_KEY_UNSPECIFIED
                 - REQUEST_TIME
+    - name: analyze-move
+      description: Analyzes resource move.
+      flags:
+        --blockers-only=: Determines whether to perform analysis against blockers only.
+        --destination-folder=: The destination folder ID to perform the analysis.
+        --destination-organization=: The destination organization ID to perform the analysis.
+    - name: analyze-org-policies
+      description: Analyze organization policies under a scope.
+      flags:
+        --constraint=!: The name of the constraint to analyze organization policies for.
+        --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+        --limit=: Maximum number of resources to list.
+        --page-size=: Some services group resource list output into pages.
+        --scope=!: Scope can only be an organization.
+        --sort-by=: Comma-separated list of resource field key names to sort by.
+    - name: analyze-org-policy-governed-assets
+      description: Analyze organization policies governed assets under a scope.
+      flags:
+        --constraint=!: The name of the constraint to analyze organization policies for.
+        --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+        --limit=: Maximum number of resources to list.
+        --page-size=: Some services group resource list output into pages.
+        --scope=!: Scope can only be an organization.
+        --sort-by=: Comma-separated list of resource field key names to sort by.
     - name: analyze-org-policy-governed-containers
       description: Analyze organization policies governed containers under a scope.
       flags:
@@ -99,137 +123,6 @@ commands:
             partition-key:
                 - read-time
                 - request-time
-    - name: get-effective-iam-policy
-      description: Get effective IAM policies for a specified list of resources within accessible scope, such as a project, folder or organization.
-      flags:
-        --names=!: Names refer to a list of
-        --scope=!: Scope can be a project, a folder, or an organization.
-    - name: list
-      description: List the Cloud assets.
-      flags:
-        --asset-types=: A list of asset types (i.e., "compute.googleapis.com/Disk") to take a snapshot.
-        --content-type=: Asset content type.
-        --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-        --folder=: The ID of the folder which is the root asset.
-        --limit=: Maximum number of resources to list.
-        --organization=: The ID of the organization which is the root asset.
-        --page-size=: Some services group resource list output into pages.
-        --relationship-types=: A list of relationship types (i.e., "INSTANCE_TO_INSTANCEGROUP") to take a snapshot.
-        --snapshot-time=: Timestamp to take a snapshot on assets.
-        --sort-by=: Comma-separated list of resource field key names to sort by.
-      completion:
-        flag:
-            content-type:
-                - resource
-                - iam-policy
-                - org-policy
-                - access-policy
-                - os-inventory
-                - relationship
-    - name: saved-queries
-      description: Manage Cloud Asset Inventory saved queries.
-      commands:
-        - name: create
-          description: Create a Cloud Asset Inventory saved query.
-          flags:
-            --description=: A string describing the query.
-            --folder=: Folder of the saved query.
-            --labels=: List of label KEY=VALUE pairs to add.
-            --organization=: Organization of the saved query.
-            --query-file-path=!: Path to JSON or YAML file that contains the query.
-        - name: delete
-          description: Delete a Cloud Asset Inventory saved query.
-          flags:
-            --folder=: Folder of the saved query.
-            --organization=: Organization of the saved query.
-        - name: describe
-          description: Describe a Cloud Asset Inventory saved query.
-          flags:
-            --folder=: Folder of the saved query.
-            --organization=: Organization of the saved query.
-        - name: list
-          description: List Cloud Asset Inventory saved query.
-          flags:
-            --folder=: Folder of the saved query.
-            --organization=: Organization of the saved query.
-        - name: update
-          description: Update an existing Cloud Asset Inventory saved query.
-          flags:
-            --clear-labels: Remove all labels.
-            --description=: A string describing the query.
-            --folder=: Folder of the saved query.
-            --no-clear-labels&: Remove all labels.
-            --organization=: Organization of the saved query.
-            --query-file-path=: Path to JSON or YAML file that contains the query.
-            --remove-labels=: List of label keys to remove.
-            --update-labels=: List of label KEY=VALUE pairs to update.
-    - name: search-all-resources
-      description: Searches all Cloud resources within the specified accessible scope, such as a project, folder or organization.
-      flags:
-        --asset-types=: A list of asset types that this request searches for.
-        --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-        --limit=: Maximum number of resources to list.
-        --order-by=: A comma-separated list of fields specifying the sorting order of the
-        --page-size=: Some services group resource list output into pages.
-        --query=: The query statement.
-        --read-mask=: A comma-separated list of fields specifying which fields to be returned
-        --scope=: A scope can be a project, a folder, or an organization.
-        --sort-by=: Comma-separated list of resource field key names to sort by.
-    - name: get-history
-      description: Get the update history of assets that overlaps a time window.
-      flags:
-        --asset-names=!: A list of full names of the assets to get the history for.
-        --content-type=!: Asset content type.
-        --end-time=: End time of the time window (exclusive) for the asset history.
-        --organization=: The ID of the organization which is the root asset.
-        --relationship-types=: A list of relationship types (i.e., "INSTANCE_TO_INSTANCEGROUP") to take a snapshot.
-        --start-time=!: Start time of the time window (inclusive) for the asset history.
-      completion:
-        flag:
-            content-type:
-                - resource
-                - iam-policy
-                - org-policy
-                - access-policy
-                - os-inventory
-                - relationship
-    - name: query
-      description: Query the Cloud assets.
-      flags:
-        --bigquery-dataset=: The id of the BigQuery dataset.
-        --bigquery-table=!: ID of the table or fully qualified identifier for the table.
-        --end-time=: End time of the time window (exclusive) for the asset history.
-        --folder=: The ID of the folder which is the root asset.
-        --job-reference=: Reference to the query job, which is from the previous call.
-        --organization=: The ID of the organization which is the root asset.
-        --page-size=: The maximum number of rows to return in the results.
-        --page-token=: A page token received from previous call.
-        --snapshot-time=: Timestamp to take a snapshot on assets.
-        --start-time=!: Start time of the time window (inclusive) for the asset history.
-        --statement=: A BigQuery Standard SQL compatible statement.
-        --timeout=: Maximum amount of time that the client will wait for the query to complete.
-        --write-disposition=: Specifies the action that occurs if the destination table or partition already exists.
-      completion:
-        flag:
-            write-disposition:
-                - write-append
-                - write-empty
-                - write-truncate
-    - name: analyze-move
-      description: Analyzes resource move.
-      flags:
-        --blockers-only=: Determines whether to perform analysis against blockers only.
-        --destination-folder=: The destination folder ID to perform the analysis.
-        --destination-organization=: The destination organization ID to perform the analysis.
-    - name: analyze-org-policy-governed-assets
-      description: Analyze organization policies governed assets under a scope.
-      flags:
-        --constraint=!: The name of the constraint to analyze organization policies for.
-        --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-        --limit=: Maximum number of resources to list.
-        --page-size=: Some services group resource list output into pages.
-        --scope=!: Scope can only be an organization.
-        --sort-by=: Comma-separated list of resource field key names to sort by.
     - name: feeds
       description: Manage Cloud Asset Inventory feeds.
       commands:
@@ -309,11 +202,115 @@ commands:
                     - access-policy
                     - os-inventory
                     - relationship
+    - name: get-effective-iam-policy
+      description: Get effective IAM policies for a specified list of resources within accessible scope, such as a project, folder or organization.
+      flags:
+        --names=!: Names refer to a list of
+        --scope=!: Scope can be a project, a folder, or an organization.
+    - name: get-history
+      description: Get the update history of assets that overlaps a time window.
+      flags:
+        --asset-names=!: A list of full names of the assets to get the history for.
+        --content-type=!: Asset content type.
+        --end-time=: End time of the time window (exclusive) for the asset history.
+        --organization=: The ID of the organization which is the root asset.
+        --relationship-types=: A list of relationship types (i.e., "INSTANCE_TO_INSTANCEGROUP") to take a snapshot.
+        --start-time=!: Start time of the time window (inclusive) for the asset history.
+      completion:
+        flag:
+            content-type:
+                - resource
+                - iam-policy
+                - org-policy
+                - access-policy
+                - os-inventory
+                - relationship
+    - name: list
+      description: List the Cloud assets.
+      flags:
+        --asset-types=: A list of asset types (i.e., "compute.googleapis.com/Disk") to take a snapshot.
+        --content-type=: Asset content type.
+        --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+        --folder=: The ID of the folder which is the root asset.
+        --limit=: Maximum number of resources to list.
+        --organization=: The ID of the organization which is the root asset.
+        --page-size=: Some services group resource list output into pages.
+        --relationship-types=: A list of relationship types (i.e., "INSTANCE_TO_INSTANCEGROUP") to take a snapshot.
+        --snapshot-time=: Timestamp to take a snapshot on assets.
+        --sort-by=: Comma-separated list of resource field key names to sort by.
+      completion:
+        flag:
+            content-type:
+                - resource
+                - iam-policy
+                - org-policy
+                - access-policy
+                - os-inventory
+                - relationship
     - name: operations
       description: Manage Cloud Asset Inventory operations.
       commands:
         - name: describe
           description: Describe a Cloud Asset Inventory operation.
+    - name: query
+      description: Query the Cloud assets.
+      flags:
+        --bigquery-dataset=: The id of the BigQuery dataset.
+        --bigquery-table=!: ID of the table or fully qualified identifier for the table.
+        --end-time=: End time of the time window (exclusive) for the asset history.
+        --folder=: The ID of the folder which is the root asset.
+        --job-reference=: Reference to the query job, which is from the previous call.
+        --organization=: The ID of the organization which is the root asset.
+        --page-size=: The maximum number of rows to return in the results.
+        --page-token=: A page token received from previous call.
+        --snapshot-time=: Timestamp to take a snapshot on assets.
+        --start-time=!: Start time of the time window (inclusive) for the asset history.
+        --statement=: A BigQuery Standard SQL compatible statement.
+        --timeout=: Maximum amount of time that the client will wait for the query to complete.
+        --write-disposition=: Specifies the action that occurs if the destination table or partition already exists.
+      completion:
+        flag:
+            write-disposition:
+                - write-append
+                - write-empty
+                - write-truncate
+    - name: saved-queries
+      description: Manage Cloud Asset Inventory saved queries.
+      commands:
+        - name: create
+          description: Create a Cloud Asset Inventory saved query.
+          flags:
+            --description=: A string describing the query.
+            --folder=: Folder of the saved query.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --organization=: Organization of the saved query.
+            --query-file-path=!: Path to JSON or YAML file that contains the query.
+        - name: delete
+          description: Delete a Cloud Asset Inventory saved query.
+          flags:
+            --folder=: Folder of the saved query.
+            --organization=: Organization of the saved query.
+        - name: describe
+          description: Describe a Cloud Asset Inventory saved query.
+          flags:
+            --folder=: Folder of the saved query.
+            --organization=: Organization of the saved query.
+        - name: list
+          description: List Cloud Asset Inventory saved query.
+          flags:
+            --folder=: Folder of the saved query.
+            --organization=: Organization of the saved query.
+        - name: update
+          description: Update an existing Cloud Asset Inventory saved query.
+          flags:
+            --clear-labels: Remove all labels.
+            --description=: A string describing the query.
+            --folder=: Folder of the saved query.
+            --no-clear-labels&: Remove all labels.
+            --organization=: Organization of the saved query.
+            --query-file-path=: Path to JSON or YAML file that contains the query.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
     - name: search-all-iam-policies
       description: Searches all IAM policies within the specified accessible scope, such as a project, folder or organization.
       flags:
@@ -325,12 +322,15 @@ commands:
         --query=: Query statement.
         --scope=: Scope can be a project, a folder, or an organization.
         --sort-by=: Comma-separated list of resource field key names to sort by.
-    - name: analyze-org-policies
-      description: Analyze organization policies under a scope.
+    - name: search-all-resources
+      description: Searches all Cloud resources within the specified accessible scope, such as a project, folder or organization.
       flags:
-        --constraint=!: The name of the constraint to analyze organization policies for.
+        --asset-types=: A list of asset types that this request searches for.
         --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
         --limit=: Maximum number of resources to list.
+        --order-by=: A comma-separated list of fields specifying the sorting order of the
         --page-size=: Some services group resource list output into pages.
-        --scope=!: Scope can only be an organization.
+        --query=: The query statement.
+        --read-mask=: A comma-separated list of fields specifying which fields to be returned
+        --scope=: A scope can be a project, a folder, or an organization.
         --sort-by=: Comma-separated list of resource field key names to sort by.

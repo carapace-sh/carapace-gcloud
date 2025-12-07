@@ -8,6 +8,22 @@ commands:
         --location=!: The location where the queue exists.
         --queue=!: The queue the task belongs to.
         --task-id=: The task ID for the task being created.
+    - name: cmek-config
+      description: Get or change CMEK configuration for Cloud Tasks.
+      commands:
+        - name: describe
+          description: Get CMEK configuration for Cloud Tasks in the specified location.
+          flags:
+            --location=!: Google Cloud location for the KMS key.
+        - name: update
+          description: Enable, disable, or edit CMEK configuration for Cloud Tasks in the specified location.
+          flags:
+            --clear-kms-key!: Disables CMEK for Cloud Tasks in the specified location by clearing the Cloud KMS cryptokey from the Cloud Tasks project and CMEK configuration.
+            --kms-key-name=!: Fully qualified identifier for the key or just the key ID.
+            --kms-keyring=: KMS keyring of the KMS key.
+            --kms-project=: Google Cloud project for the KMS key.
+            --location=: Google Cloud location for the KMS key.
+            --no-clear-kms-key!&: Disables CMEK for Cloud Tasks in the specified location by clearing the Cloud KMS cryptokey from the Cloud Tasks project and CMEK configuration.
     - name: create-app-engine-task
       description: Create and add a task that targets App Engine.
       flags:
@@ -20,6 +36,21 @@ commands:
         --relative-uri=: The relative URI of the request.
         --routing=: The route to be used for this task.
         --schedule-time=: The time when the task is scheduled to be first attempted.
+    - name: create-http-task
+      description: Create and add a task that targets a HTTP endpoint.
+      flags:
+        --body-content=: HTTP Body data sent to the task worker processing the task.
+        --body-file=: File containing HTTP body data sent to the task worker processing
+        --header=: An HTTP request header.
+        --location=: The location where we want to manage the queue or task.
+        --method=: The HTTP method to use for the request.
+        --oauth-service-account-email=!: The service account email to be used for generating an OAuth2 access
+        --oauth-token-scope=: The scope to be used when generating an OAuth2 access token to be
+        --oidc-service-account-email=!: The service account email to be used for generating an OpenID
+        --oidc-token-audience=: The audience to be used when generating an OpenID Connect token to
+        --queue=!: The queue the task belongs to.
+        --schedule-time=: The time when the task is scheduled to be first attempted.
+        --url=!: The full URL path that the request will be sent to.
     - name: delete
       description: Delete a task from a queue.
       flags:
@@ -65,18 +96,12 @@ commands:
     - name: queues
       description: Manage Cloud Tasks queues.
       commands:
-        - name: pause
-          description: Pause a queue.
-          flags:
-            --location=: The location where we want to manage the queue or task.
-        - name: resume
-          description: Request to resume a paused or disabled queue.
-          flags:
-            --location=: The location where we want to manage the queue or task.
-        - name: set-iam-policy
-          description: Set the IAM policy for a queue.
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding for a tasks queue.
           flags:
             --location=: The location name.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
         - name: create
           description: Create a Cloud Tasks queue.
           flags:
@@ -123,6 +148,10 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: pause
+          description: Pause a queue.
+          flags:
+            --location=: The location where we want to manage the queue or task.
         - name: purge
           description: Purge a queue by deleting all of its tasks.
           flags:
@@ -133,6 +162,14 @@ commands:
             --location=: The location name.
             --member=!: The principal to remove the binding for.
             --role=!: The role to remove the principal from.
+        - name: resume
+          description: Request to resume a paused or disabled queue.
+          flags:
+            --location=: The location where we want to manage the queue or task.
+        - name: set-iam-policy
+          description: Set the IAM policy for a queue.
+          flags:
+            --location=: The location name.
         - name: update
           description: Update a Cloud Tasks queue.
           flags:
@@ -185,45 +222,8 @@ commands:
             --no-clear-min-backoff&: Clear the field corresponding to `--min-backoff`.
             --no-clear-routing-override&: Clear the field corresponding to `--routing-override`.
             --routing-override=: If provided, the specified App Engine route is used for all tasks
-        - name: add-iam-policy-binding
-          description: Add IAM policy binding for a tasks queue.
-          flags:
-            --location=: The location name.
-            --member=!: The principal to add the binding for.
-            --role=!: Role name to assign to the principal.
     - name: run
       description: Force a task to run now.
       flags:
         --location=: The location where we want to manage the queue or task.
         --queue=: The queue the task belongs to.
-    - name: cmek-config
-      description: Get or change CMEK configuration for Cloud Tasks.
-      commands:
-        - name: describe
-          description: Get CMEK configuration for Cloud Tasks in the specified location.
-          flags:
-            --location=!: Google Cloud location for the KMS key.
-        - name: update
-          description: Enable, disable, or edit CMEK configuration for Cloud Tasks in the specified location.
-          flags:
-            --clear-kms-key!: Disables CMEK for Cloud Tasks in the specified location by clearing the Cloud KMS cryptokey from the Cloud Tasks project and CMEK configuration.
-            --kms-key-name=!: Fully qualified identifier for the key or just the key ID.
-            --kms-keyring=: KMS keyring of the KMS key.
-            --kms-project=: Google Cloud project for the KMS key.
-            --location=: Google Cloud location for the KMS key.
-            --no-clear-kms-key!&: Disables CMEK for Cloud Tasks in the specified location by clearing the Cloud KMS cryptokey from the Cloud Tasks project and CMEK configuration.
-    - name: create-http-task
-      description: Create and add a task that targets a HTTP endpoint.
-      flags:
-        --body-content=: HTTP Body data sent to the task worker processing the task.
-        --body-file=: File containing HTTP body data sent to the task worker processing
-        --header=: An HTTP request header.
-        --location=: The location where we want to manage the queue or task.
-        --method=: The HTTP method to use for the request.
-        --oauth-service-account-email=!: The service account email to be used for generating an OAuth2 access
-        --oauth-token-scope=: The scope to be used when generating an OAuth2 access token to be
-        --oidc-service-account-email=!: The service account email to be used for generating an OpenID
-        --oidc-token-audience=: The audience to be used when generating an OpenID Connect token to
-        --queue=!: The queue the task belongs to.
-        --schedule-time=: The time when the task is scheduled to be first attempted.
-        --url=!: The full URL path that the request will be sent to.

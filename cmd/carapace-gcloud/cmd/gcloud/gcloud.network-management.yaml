@@ -133,6 +133,8 @@ commands:
     - name: operations
       description: Manage Network Management operations.
       commands:
+        - name: describe
+          description: Describe a Network Management operation.
         - name: list
           description: List Network Management operations.
           flags:
@@ -140,11 +142,71 @@ commands:
             --limit=: Maximum number of resources to list.
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: describe
-          description: Describe a Network Management operation.
     - name: vpc-flow-logs-configs
       description: Manage the VPC Flow Logs configurations.
       commands:
+        - name: create
+          description: Creates a new VPC Flow Logs configuration.
+          flags:
+            --aggregation-interval=: The aggregation interval for the logs.
+            --async: Return immediately, without waiting for the operation in progress to
+            --cross-project-metadata=: Determines whether to include cross project annotations in the logs.
+            --description=: The user-supplied description of the VPC Flow Logs configuration.
+            --filter-expr=: Export filter used to define which VPC Flow Logs should be logged.
+            --flow-sampling=: The value of the field must be in (0, 1].
+            --interconnect-attachment=: Traffic will be logged from the Interconnect Attachment.
+            --labels=: Resource labels to represent user-provided metadata.
+            --location=: The location id of the vpcFlowLogsConfig resource.
+            --metadata-fields=: Custom metadata fields to include in the reported VPC flow logs.
+            --metadata=: Configures whether all, none or a subset of metadata fields should be
+            --network=: Traffic will be logged from VMs, VPN tunnels and Interconnect Attachments
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: The organization id of the vpcFlowLogsConfig resource.
+            --state=: The state of the VPC Flow Log configuration.
+            --subnet=: Traffic will be logged from VMs within the subnetwork.
+            --vpn-tunnel=: Traffic will be logged from the VPN Tunnel.
+          completion:
+            flag:
+                aggregation-interval:
+                    - interval-1-min
+                    - interval-10-min
+                    - interval-15-min
+                    - interval-30-sec
+                    - interval-5-min
+                    - interval-5-sec
+                cross-project-metadata:
+                    - cross-project-metadata-disabled
+                    - cross-project-metadata-enabled
+                metadata:
+                    - custom-metadata
+                    - exclude-all-metadata
+                    - include-all-metadata
+                state:
+                    - disabled
+                    - enabled
+        - name: delete
+          description: Deletes the specified VPC Flow Logs configuration.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the vpcFlowLogsConfig resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: The organization id of the vpcFlowLogsConfig resource.
+        - name: describe
+          description: Describe the details of a specific VPC Flow Logs configuration.
+          flags:
+            --location=: The location id of the vpcFlowLogsConfig resource.
+            --organization=: The organization id of the vpcFlowLogsConfig resource.
+        - name: list
+          description: List all VPC Flow Logs configurations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --organization=: The organization id of the location resource.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
         - name: query-org-vpc-flow-logs-configs
           description: Fetch all organization-level VPC Flow Logs configurations associated with the project.
           flags:
@@ -209,65 +271,3 @@ commands:
                 state:
                     - disabled
                     - enabled
-        - name: create
-          description: Creates a new VPC Flow Logs configuration.
-          flags:
-            --aggregation-interval=: The aggregation interval for the logs.
-            --async: Return immediately, without waiting for the operation in progress to
-            --cross-project-metadata=: Determines whether to include cross project annotations in the logs.
-            --description=: The user-supplied description of the VPC Flow Logs configuration.
-            --filter-expr=: Export filter used to define which VPC Flow Logs should be logged.
-            --flow-sampling=: The value of the field must be in (0, 1].
-            --interconnect-attachment=: Traffic will be logged from the Interconnect Attachment.
-            --labels=: Resource labels to represent user-provided metadata.
-            --location=: The location id of the vpcFlowLogsConfig resource.
-            --metadata-fields=: Custom metadata fields to include in the reported VPC flow logs.
-            --metadata=: Configures whether all, none or a subset of metadata fields should be
-            --network=: Traffic will be logged from VMs, VPN tunnels and Interconnect Attachments
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --organization=: The organization id of the vpcFlowLogsConfig resource.
-            --state=: The state of the VPC Flow Log configuration.
-            --subnet=: Traffic will be logged from VMs within the subnetwork.
-            --vpn-tunnel=: Traffic will be logged from the VPN Tunnel.
-          completion:
-            flag:
-                aggregation-interval:
-                    - interval-1-min
-                    - interval-10-min
-                    - interval-15-min
-                    - interval-30-sec
-                    - interval-5-min
-                    - interval-5-sec
-                cross-project-metadata:
-                    - cross-project-metadata-disabled
-                    - cross-project-metadata-enabled
-                metadata:
-                    - custom-metadata
-                    - exclude-all-metadata
-                    - include-all-metadata
-                state:
-                    - disabled
-                    - enabled
-        - name: delete
-          description: Deletes the specified VPC Flow Logs configuration.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: The location id of the vpcFlowLogsConfig resource.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --organization=: The organization id of the vpcFlowLogsConfig resource.
-        - name: describe
-          description: Describe the details of a specific VPC Flow Logs configuration.
-          flags:
-            --location=: The location id of the vpcFlowLogsConfig resource.
-            --organization=: The organization id of the vpcFlowLogsConfig resource.
-        - name: list
-          description: List all VPC Flow Logs configurations.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=!: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --organization=: The organization id of the location resource.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the

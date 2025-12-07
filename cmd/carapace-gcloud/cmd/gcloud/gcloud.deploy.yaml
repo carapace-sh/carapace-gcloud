@@ -34,17 +34,6 @@ commands:
     - name: automations
       description: Manages Automations resources for Cloud Deploy.
       commands:
-        - name: list
-          description: List the Automations.
-          flags:
-            --delivery-pipeline=: ID of the delivery_pipeline or fully qualified identifier for the delivery_pipeline.
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --region=: Location of the delivery_pipeline.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
         - name: delete
           description: Deletes a Cloud Deploy Automation.
           flags:
@@ -61,9 +50,43 @@ commands:
             --delivery-pipeline=: The delivery pipeline associated with the automation.
             --destination=: Path to a YAML file where the configuration will be exported.
             --region=: The Cloud region for the automation.
+        - name: list
+          description: List the Automations.
+          flags:
+            --delivery-pipeline=: ID of the delivery_pipeline or fully qualified identifier for the delivery_pipeline.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: Location of the delivery_pipeline.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
     - name: custom-target-types
       description: Create and manage Custom Target Type resources for Cloud Deploy.
       commands:
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding for a Cloud Deploy Custom Target Type.
+          flags:
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: A condition to include in the binding.
+            --member=!: The principal to add the binding for.
+            --region=: Location of the custom target type.
+            --role=!: Role name to assign to the principal.
+        - name: delete
+          description: Delete a custom target type.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: Location of the custom target type.
+        - name: describe
+          description: Show details for a custom target type.
+          flags:
+            --region=: Location of the custom target type.
+        - name: export
+          description: Returns the .yaml definition of the specified custom target type.
+          flags:
+            --destination=: Path to a YAML file where the configuration will be exported.
+            --region=: The Cloud region for the custom_target_type.
         - name: get-iam-policy
           description: Get the IAM policy for a Cloud Deploy Custom Target Type.
           flags:
@@ -96,46 +119,16 @@ commands:
           description: Set the IAM policy for a Cloud Deploy Custom Target Type.
           flags:
             --region=: Location of the custom target type.
-        - name: add-iam-policy-binding
-          description: Add IAM policy binding for a Cloud Deploy Custom Target Type.
-          flags:
-            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
-            --condition=: A condition to include in the binding.
-            --member=!: The principal to add the binding for.
-            --region=: Location of the custom target type.
-            --role=!: Role name to assign to the principal.
-        - name: delete
-          description: Delete a custom target type.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --region=: Location of the custom target type.
-        - name: describe
-          description: Show details for a custom target type.
-          flags:
-            --region=: Location of the custom target type.
-        - name: export
-          description: Returns the .yaml definition of the specified custom target type.
-          flags:
-            --destination=: Path to a YAML file where the configuration will be exported.
-            --region=: The Cloud region for the custom_target_type.
+    - name: delete
+      description: Deletes Delivery Pipeline(s), Target(s), Custom Target Type(s), and Automation(s) in a yaml configuration.
+      flags:
+        --file=!: Path to yaml file containing Delivery Pipeline(s), Target(s) declarative definitions.
+        --force: If true, the delivery pipeline and its sub-resources (releases and rollouts) are deleted.
+        --no-force&: If true, the delivery pipeline and its sub-resources (releases and rollouts) are deleted.
+        --region=: ID of the location or fully qualified identifier for the location.
     - name: delivery-pipelines
       description: Create and manage Delivery Pipeline resources for Cloud Deploy.
       commands:
-        - name: remove-iam-policy-binding
-          description: Remove an IAM policy binding for a Cloud Deploy delivery pipeline.
-          flags:
-            --all: Remove all bindings with this role and principal, irrespective of any
-            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
-            --condition=: The condition of the binding that you want to remove.
-            --member=!: The principal to remove the binding for.
-            --no-all&: ""
-            --region=: Location of the delivery_pipeline.
-            --role=!: The role to remove the principal from.
-        - name: set-iam-policy
-          description: Set the IAM policy for a Cloud Deploy delivery pipeline.
-          flags:
-            --region=: Location of the delivery_pipeline.
         - name: add-iam-policy-binding
           description: Add IAM policy binding for a Cloud Deploy delivery pipeline.
           flags:
@@ -179,165 +172,20 @@ commands:
             --region=: ID of the location or fully qualified identifier for the location.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
-    - name: rollouts
-      description: Create and manage Rollout resources for Cloud Deploy.
-      commands:
-        - name: list
-          description: List the rollouts.
-          flags:
-            --delivery-pipeline=: The name of the Cloud Deploy delivery pipeline.
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --region=: Location of the release.
-            --release=!: ID of the release or fully qualified identifier for the release.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: reject
-          description: Rejects a rollout having an Approval state of "Required".
-          flags:
-            --delivery-pipeline=: The delivery pipeline associated with the rollout.
-            --override-deploy-policies=: Deploy policies to override
-            --region=: The Cloud region for the rollout.
-            --release=: The release associated with the rollout.
-        - name: retry-job
-          description: Retries a specified job, phase combination on a rollout.
-          flags:
-            --delivery-pipeline=: The delivery pipeline associated with the rollout.
-            --job-id=!: Job ID on a rollout resource
-            --override-deploy-policies=: Deploy policies to override
-            --phase-id=!: Phase ID on a rollout resource
-            --region=: The Cloud region for the rollout.
-            --release=: The release associated with the rollout.
-        - name: advance
-          description: Advances a rollout.
-          flags:
-            --delivery-pipeline=: The delivery pipeline associated with the rollout.
-            --override-deploy-policies=: Deploy policies to override
-            --phase-id=: Phase ID on a rollout resource
-            --region=: The Cloud region for the rollout.
-            --release=: The release associated with the rollout.
-        - name: approve
-          description: Approves a rollout having an Approval state of "Required".
-          flags:
-            --delivery-pipeline=: The delivery pipeline associated with the rollout.
-            --override-deploy-policies=: Deploy policies to override
-            --region=: The Cloud region for the rollout.
-            --release=: The release associated with the rollout.
-        - name: cancel
-          description: Cancel a Rollout.
-          flags:
-            --delivery-pipeline=: The delivery pipeline associated with the rollout.
-            --override-deploy-policies=: Deploy policies to override
-            --region=: The Cloud region for the rollout.
-            --release=: The release associated with the rollout.
-        - name: describe
-          description: Show details for a rollout.
-          flags:
-            --delivery-pipeline=: The name of the Cloud Deploy delivery pipeline.
-            --region=: Location of the rollout.
-            --release=: The name of the Cloud Deploy release.
-        - name: ignore-job
-          description: Ignores a specified job and phase combination on a rollout.
-          flags:
-            --delivery-pipeline=: The delivery pipeline associated with the rollout.
-            --job-id=!: Job ID on a rollout resource
-            --override-deploy-policies=: Deploy policies to override
-            --phase-id=!: Phase ID on a rollout resource
-            --region=: The Cloud region for the rollout.
-            --release=: The release associated with the rollout.
-    - name: targets
-      description: Create and manage Target resources for Cloud Deploy.
-      commands:
-        - name: set-iam-policy
-          description: Set the IAM policy for a Cloud Deploy target.
-          flags:
-            --region=: Location of the target.
-        - name: delete
-          description: Deletes a Cloud Deploy target.
-          flags:
-            --region=: The Cloud region for the target.
-        - name: describe
-          description: Describes details specific to the individual target, delivery pipeline qualified.
-          flags:
-            --delivery-pipeline=: The name of the Cloud Deploy delivery pipeline
-            --list-all-pipelines: List all Delivery Pipelines associated with a target.
-            --no-list-all-pipelines&: List all Delivery Pipelines associated with a target.
-            --no-skip-pipeline-lookup&: If set, skip fetching details of associated pipelines when describing a target.
-            --region=: The Cloud region for the target.
-            --skip-pipeline-lookup: If set, skip fetching details of associated pipelines when describing a target.
-        - name: list
-          description: List Cloud Deploy targets.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --region=: ID of the location or fully qualified identifier for the location.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: rollback
-          description: Rollbacks a target to a prior rollout.
-          flags:
-            --annotations=: Annotations to apply to the rollback.
-            --delivery-pipeline=!: The name of the Cloud Deploy delivery pipeline
-            --description=: Description of rollout created during a rollback.
-            --labels=: Labels to apply to the rollback.
-            --override-deploy-policies=: Deploy policies to override
-            --region=: The Cloud region for the target.
-            --release=: Name of the release to rollback to.
-            --rollout-id=: ID to assign to the generated rollout for promotion.
-            --starting-phase-id=: If set, starts the created rollout at the specified phase.
-        - name: add-iam-policy-binding
-          description: Add IAM policy binding for a Cloud Deploy target.
-          flags:
-            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
-            --condition=: A condition to include in the binding.
-            --member=!: The principal to add the binding for.
-            --region=: Location of the target.
-            --role=!: Role name to assign to the principal.
-        - name: export
-          description: Returns the .yaml definition of the specified target.
-          flags:
-            --destination=: Path to a YAML file where the configuration will be exported.
-            --region=: The Cloud region for the target.
-        - name: get-iam-policy
-          description: Get the IAM policy for a Cloud Deploy target.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --page-size=: Some services group resource list output into pages.
-            --region=: Location of the target.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: redeploy
-          description: Redeploy the last release to a target.
-          flags:
-            --annotations=: Annotations to apply to the rollout.
-            --delivery-pipeline=!: The name of the Cloud Deploy delivery pipeline
-            --description=: Description of rollout created during a rollback.
-            --labels=: Labels to apply to the rollout.
-            --override-deploy-policies=: Deploy policies to override
-            --region=: The Cloud region for the target.
-            --rollout-id=: ID to assign to the generated rollout for promotion.
-            --starting-phase-id=: If set, starts the created rollout at the specified phase.
         - name: remove-iam-policy-binding
-          description: Remove an IAM policy binding for a Cloud Deploy target.
+          description: Remove an IAM policy binding for a Cloud Deploy delivery pipeline.
           flags:
             --all: Remove all bindings with this role and principal, irrespective of any
             --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
             --condition=: The condition of the binding that you want to remove.
             --member=!: The principal to remove the binding for.
             --no-all&: ""
-            --region=: Location of the target.
+            --region=: Location of the delivery_pipeline.
             --role=!: The role to remove the principal from.
-    - name: delete
-      description: Deletes Delivery Pipeline(s), Target(s), Custom Target Type(s), and Automation(s) in a yaml configuration.
-      flags:
-        --file=!: Path to yaml file containing Delivery Pipeline(s), Target(s) declarative definitions.
-        --force: If true, the delivery pipeline and its sub-resources (releases and rollouts) are deleted.
-        --no-force&: If true, the delivery pipeline and its sub-resources (releases and rollouts) are deleted.
-        --region=: ID of the location or fully qualified identifier for the location.
+        - name: set-iam-policy
+          description: Set the IAM policy for a Cloud Deploy delivery pipeline.
+          flags:
+            --region=: Location of the delivery_pipeline.
     - name: deploy-policies
       description: Create and manage Deploy Policy resources for Google Cloud Deploy.
       commands:
@@ -435,6 +283,11 @@ commands:
     - name: releases
       description: Create and manage Release resources for Cloud Deploy.
       commands:
+        - name: abandon
+          description: Abandons a release.
+          flags:
+            --delivery-pipeline=: The delivery pipeline associated with the release.
+            --region=: The Cloud region for the release.
         - name: create
           description: Creates a new release, delivery pipeline qualified.
           flags:
@@ -493,8 +346,155 @@ commands:
             --rollout-id=: ID to assign to the generated rollout for promotion.
             --starting-phase-id=: If set, starts the created rollout at the specified phase.
             --to-target=: Destination target to promote into.
-        - name: abandon
-          description: Abandons a release.
+    - name: rollouts
+      description: Create and manage Rollout resources for Cloud Deploy.
+      commands:
+        - name: advance
+          description: Advances a rollout.
           flags:
-            --delivery-pipeline=: The delivery pipeline associated with the release.
-            --region=: The Cloud region for the release.
+            --delivery-pipeline=: The delivery pipeline associated with the rollout.
+            --override-deploy-policies=: Deploy policies to override
+            --phase-id=: Phase ID on a rollout resource
+            --region=: The Cloud region for the rollout.
+            --release=: The release associated with the rollout.
+        - name: approve
+          description: Approves a rollout having an Approval state of "Required".
+          flags:
+            --delivery-pipeline=: The delivery pipeline associated with the rollout.
+            --override-deploy-policies=: Deploy policies to override
+            --region=: The Cloud region for the rollout.
+            --release=: The release associated with the rollout.
+        - name: cancel
+          description: Cancel a Rollout.
+          flags:
+            --delivery-pipeline=: The delivery pipeline associated with the rollout.
+            --override-deploy-policies=: Deploy policies to override
+            --region=: The Cloud region for the rollout.
+            --release=: The release associated with the rollout.
+        - name: describe
+          description: Show details for a rollout.
+          flags:
+            --delivery-pipeline=: The name of the Cloud Deploy delivery pipeline.
+            --region=: Location of the rollout.
+            --release=: The name of the Cloud Deploy release.
+        - name: ignore-job
+          description: Ignores a specified job and phase combination on a rollout.
+          flags:
+            --delivery-pipeline=: The delivery pipeline associated with the rollout.
+            --job-id=!: Job ID on a rollout resource
+            --override-deploy-policies=: Deploy policies to override
+            --phase-id=!: Phase ID on a rollout resource
+            --region=: The Cloud region for the rollout.
+            --release=: The release associated with the rollout.
+        - name: list
+          description: List the rollouts.
+          flags:
+            --delivery-pipeline=: The name of the Cloud Deploy delivery pipeline.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: Location of the release.
+            --release=!: ID of the release or fully qualified identifier for the release.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: reject
+          description: Rejects a rollout having an Approval state of "Required".
+          flags:
+            --delivery-pipeline=: The delivery pipeline associated with the rollout.
+            --override-deploy-policies=: Deploy policies to override
+            --region=: The Cloud region for the rollout.
+            --release=: The release associated with the rollout.
+        - name: retry-job
+          description: Retries a specified job, phase combination on a rollout.
+          flags:
+            --delivery-pipeline=: The delivery pipeline associated with the rollout.
+            --job-id=!: Job ID on a rollout resource
+            --override-deploy-policies=: Deploy policies to override
+            --phase-id=!: Phase ID on a rollout resource
+            --region=: The Cloud region for the rollout.
+            --release=: The release associated with the rollout.
+    - name: targets
+      description: Create and manage Target resources for Cloud Deploy.
+      commands:
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding for a Cloud Deploy target.
+          flags:
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: A condition to include in the binding.
+            --member=!: The principal to add the binding for.
+            --region=: Location of the target.
+            --role=!: Role name to assign to the principal.
+        - name: delete
+          description: Deletes a Cloud Deploy target.
+          flags:
+            --region=: The Cloud region for the target.
+        - name: describe
+          description: Describes details specific to the individual target, delivery pipeline qualified.
+          flags:
+            --delivery-pipeline=: The name of the Cloud Deploy delivery pipeline
+            --list-all-pipelines: List all Delivery Pipelines associated with a target.
+            --no-list-all-pipelines&: List all Delivery Pipelines associated with a target.
+            --no-skip-pipeline-lookup&: If set, skip fetching details of associated pipelines when describing a target.
+            --region=: The Cloud region for the target.
+            --skip-pipeline-lookup: If set, skip fetching details of associated pipelines when describing a target.
+        - name: export
+          description: Returns the .yaml definition of the specified target.
+          flags:
+            --destination=: Path to a YAML file where the configuration will be exported.
+            --region=: The Cloud region for the target.
+        - name: get-iam-policy
+          description: Get the IAM policy for a Cloud Deploy target.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --region=: Location of the target.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: List Cloud Deploy targets.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: ID of the location or fully qualified identifier for the location.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: redeploy
+          description: Redeploy the last release to a target.
+          flags:
+            --annotations=: Annotations to apply to the rollout.
+            --delivery-pipeline=!: The name of the Cloud Deploy delivery pipeline
+            --description=: Description of rollout created during a rollback.
+            --labels=: Labels to apply to the rollout.
+            --override-deploy-policies=: Deploy policies to override
+            --region=: The Cloud region for the target.
+            --rollout-id=: ID to assign to the generated rollout for promotion.
+            --starting-phase-id=: If set, starts the created rollout at the specified phase.
+        - name: remove-iam-policy-binding
+          description: Remove an IAM policy binding for a Cloud Deploy target.
+          flags:
+            --all: Remove all bindings with this role and principal, irrespective of any
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: The condition of the binding that you want to remove.
+            --member=!: The principal to remove the binding for.
+            --no-all&: ""
+            --region=: Location of the target.
+            --role=!: The role to remove the principal from.
+        - name: rollback
+          description: Rollbacks a target to a prior rollout.
+          flags:
+            --annotations=: Annotations to apply to the rollback.
+            --delivery-pipeline=!: The name of the Cloud Deploy delivery pipeline
+            --description=: Description of rollout created during a rollback.
+            --labels=: Labels to apply to the rollback.
+            --override-deploy-policies=: Deploy policies to override
+            --region=: The Cloud region for the target.
+            --release=: Name of the release to rollback to.
+            --rollout-id=: ID to assign to the generated rollout for promotion.
+            --starting-phase-id=: If set, starts the created rollout at the specified phase.
+        - name: set-iam-policy
+          description: Set the IAM policy for a Cloud Deploy target.
+          flags:
+            --region=: Location of the target.

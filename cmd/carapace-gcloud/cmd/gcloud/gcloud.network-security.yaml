@@ -5,6 +5,43 @@ commands:
     - name: address-groups
       description: Manage Network Security AddressGroups.
       commands:
+        - name: add-items
+          description: Add items to an address group.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --items=: Items to be added to the address group.
+            --location=: The location Id.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: clone-items
+          description: Clone items from source address group.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location Id.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --source=: Source address group to be cloned from.
+        - name: create
+          description: Create an address group.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --capacity=!: Capacity of the address group.
+            --description=: Description of the address group.
+            --items=: Items of the address group.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The location Id.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --purpose=: List of Address Group purposes.
+            --type=!: Type of the address group.
+          completion:
+            flag:
+                type:
+                    - ipv4
+                    - ipv6
+        - name: delete
+          description: Delete address group.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location Id.
+            --no-async&: Return immediately, without waiting for the operation in progress to
         - name: describe
           description: Describe an address group.
           flags:
@@ -36,23 +73,6 @@ commands:
             --items=: Items to be removed from the address group.
             --location=: The location Id.
             --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: create
-          description: Create an address group.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --capacity=!: Capacity of the address group.
-            --description=: Description of the address group.
-            --items=: Items of the address group.
-            --labels=: List of label KEY=VALUE pairs to add.
-            --location=: The location Id.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --purpose=: List of Address Group purposes.
-            --type=!: Type of the address group.
-          completion:
-            flag:
-                type:
-                    - ipv4
-                    - ipv6
         - name: update
           description: Update an address group.
           flags:
@@ -66,26 +86,6 @@ commands:
             --purpose=: List of Address Group purposes.
             --remove-labels=: List of label keys to remove.
             --update-labels=: List of label KEY=VALUE pairs to update.
-        - name: add-items
-          description: Add items to an address group.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --items=: Items to be added to the address group.
-            --location=: The location Id.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: clone-items
-          description: Clone items from source address group.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: The location Id.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --source=: Source address group to be cloned from.
-        - name: delete
-          description: Delete address group.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: The location Id.
-            --no-async&: Return immediately, without waiting for the operation in progress to
     - name: authorization-policies
       description: Manage Network Security AuthorizationPolicies.
       commands:
@@ -117,97 +117,6 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
-    - name: firewall-endpoint-associations
-      description: Create and manage Firewall Plus endpoint associations.
-      commands:
-        - name: update
-          description: Update a Firewall Plus endpoint association.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --clear-labels: Remove all labels.
-            --disabled: Disable a firewall endpoint association.
-            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-clear-labels&: Remove all labels.
-            --no-disabled&: Disable a firewall endpoint association.
-            --no-tls-inspection-policy: Remove TLS inspection policy from this association.
-            --remove-labels=: List of label keys to remove.
-            --tls-inspection-policy-project=: Project of the TLS Inspection Policy.
-            --tls-inspection-policy-region=: Region of the TLS Inspection Policy.
-            --tls-inspection-policy=!: ID of the TLS Inspection Policy or fully qualified identifier for the TLS Inspection Policy.
-            --update-labels=: List of label KEY=VALUE pairs to update.
-            --zone=: Zone of the firewall endpoint association.
-        - name: create
-          description: Create a Firewall Plus endpoint association.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --endpoint-zone=: Zone of the firewall endpoint.
-            --endpoint=!: ID of the firewall endpoint or fully qualified identifier for the firewall endpoint.
-            --labels=: List of label KEY=VALUE pairs to add.
-            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
-            --network=!: ID of the network or fully qualified identifier for the network.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --organization=: Organization ID to which the changes should apply.
-            --tls-inspection-policy-project=: Project of the TLS Inspection Policy.
-            --tls-inspection-policy-region=: Region of the TLS Inspection Policy.
-            --tls-inspection-policy=!: ID of the TLS Inspection Policy or fully qualified identifier for the TLS Inspection Policy.
-            --zone=!: Zone of a firewall endpoint association
-        - name: delete
-          description: Delete a Firewall Plus endpoint association.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --zone=: Zone of the firewall endpoint association.
-        - name: describe
-          description: Describe a Firewall Plus endpoint association.
-          flags:
-            --zone=: Zone of the firewall endpoint association.
-        - name: list
-          description: List Firewall Plus endpoint associations.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-            --zone=: Zone for the list operation
-    - name: server-tls-policies
-      description: Manage Network Security ServerTlsPolicies.
-      commands:
-        - name: delete
-          description: Delete ServerTlsPolicy.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: The location Id.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: describe
-          description: Describe ServerTlsPolicy.
-          flags:
-            --location=: The location Id.
-        - name: export
-          description: Export ServerTlsPolicy.
-          flags:
-            --destination=: Path to a YAML file where the configuration will be exported.
-            --location=: The location Id.
-        - name: import
-          description: Import ServerTlsPolicy.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: The location Id.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --source=: Path to a YAML file containing the configuration export data.
-        - name: list
-          description: List ServerTlsPolicies.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
     - name: authz-policies
       description: Manage Network Security `AuthzPolicy` resources.
       commands:
@@ -230,425 +139,6 @@ commands:
             --source=: Path to a YAML file containing the configuration export data.
         - name: list
           description: List `AuthzPolicy` resources.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=!: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-    - name: firewall-endpoints
-      description: Create and manage Firewall Plus endpoints.
-      commands:
-        - name: create
-          description: Create a Firewall Plus endpoint.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --description=: Description of the endpoint
-            --enable-jumbo-frames: Enable jumbo frames for the firewall endpoint.
-            --labels=: List of label KEY=VALUE pairs to add.
-            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-enable-jumbo-frames&: Enable jumbo frames for the firewall endpoint.
-            --organization=: Organization ID of the firewall endpoint.
-            --zone=: Zone of the firewall endpoint.
-        - name: delete
-          description: Delete a Firewall Plus endpoint.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --organization=: Organization ID of the firewall endpoint.
-            --zone=: Zone of the firewall endpoint.
-        - name: describe
-          description: Describe a Firewall Plus endpoint.
-          flags:
-            --organization=: Organization ID of the firewall endpoint.
-            --zone=: Zone of the firewall endpoint.
-        - name: list
-          description: List Firewall Plus endpoints.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --organization=!: The organization for a list operation
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-            --zone=!: The zone for a list operation
-        - name: update
-          description: Update a Firewall Plus endpoint.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --clear-labels: Remove all labels.
-            --description=: Description of the endpoint
-            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-clear-labels&: Remove all labels.
-            --organization=: Organization ID of the firewall endpoint.
-            --remove-labels=: List of label keys to remove.
-            --update-billing-project=: The Google Cloud project ID to use for API enablement check, quota, and endpoint uptime billing.
-            --update-labels=: List of label KEY=VALUE pairs to update.
-            --zone=: Zone of the firewall endpoint.
-    - name: intercept-endpoint-groups
-      description: Manage Intercept Endpoint Group resources.
-      commands:
-        - name: update
-          description: Update a Intercept Endpoint Group.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --clear-labels: Remove all labels.
-            --description=: Description of the endpoint
-            --location=: Location of the intercept endpoint group.
-            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-clear-labels&: Remove all labels.
-            --remove-labels=: List of label keys to remove.
-            --update-labels=: List of label KEY=VALUE pairs to update.
-        - name: create
-          description: Create a Intercept Endpoint Group.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --description=: Description of the endpoint
-            --intercept-deployment-group-location=: Location of the intercept deployment group.
-            --intercept-deployment-group-project=: Project of the intercept deployment group.
-            --intercept-deployment-group=!: ID of the intercept deployment group or fully qualified identifier for the intercept deployment group.
-            --labels=: List of label KEY=VALUE pairs to add.
-            --location=: Location of the intercept endpoint group.
-            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: delete
-          description: Delete a Intercept Endpoint Group.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: Location of the intercept endpoint group.
-            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: describe
-          description: Describe a Intercept Endpoint Group.
-          flags:
-            --location=: Location of the intercept endpoint group.
-        - name: list
-          description: List Intercept Endpoint Groups.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-    - name: org-address-groups
-      description: Manage Network Security AddressGroups.
-      commands:
-        - name: update
-          description: Update an address group.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --clear-labels: Remove all labels.
-            --description=: New description of the address group.
-            --items=: Items of the address group.
-            --location=: The location Id.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-clear-labels&: Remove all labels.
-            --organization=: Organization number.
-            --purpose=: List of Address Group purposes.
-            --remove-labels=: List of label keys to remove.
-            --update-labels=: List of label KEY=VALUE pairs to update.
-        - name: add-items
-          description: Add items to an address group of organization.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --items=: Items to be added to the address group.
-            --location=: The location Id.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --organization=: Organization number.
-        - name: list-references
-          description: Lists References of an Organization Address Group.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: The location Id.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --organization=: Organization number.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: clone-items
-          description: Clone items from source address group of organization.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: The location Id.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --organization=: Organization number.
-            --source=: Source address group to be cloned from.
-        - name: create
-          description: Create an address group.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --capacity=!: Capacity of the address group.
-            --description=: Description of the address group.
-            --items=: Items of the address group.
-            --labels=: List of label KEY=VALUE pairs to add.
-            --location=: The location Id.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --organization=: Organization number.
-            --purpose=: List of Address Group purposes.
-            --type=!: Type of the address group.
-          completion:
-            flag:
-                type:
-                    - ipv4
-                    - ipv6
-        - name: delete
-          description: Delete address group.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: The location Id.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --organization=: Organization number.
-        - name: describe
-          description: Describe an address group.
-          flags:
-            --location=: The location Id.
-            --organization=: Organization number.
-        - name: list
-          description: List address groups.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=!: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --organization=: Organization number.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: remove-items
-          description: Remove items from an address group of organization.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --items=: Items to be removed from the address group.
-            --location=: The location Id.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --organization=: Organization number.
-    - name: security-profiles
-      description: Manage Network Security - Security Profiles.
-      commands:
-        - name: custom-intercept
-          description: Manage Security Profiles - Custom Intercept Profile.
-          commands:
-            - name: list
-              description: List Custom Intercept Security Profiles.
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --limit=: Maximum number of resources to list.
-                --location=!: ID of the location or fully qualified identifier for the location.
-                --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                --organization=: Organization ID of the location.
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --uri: Print a list of resource URIs instead of the default output, and change the
-            - name: update
-              description: Updates a Custom Intercept Profile.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --clear-labels: Remove all labels.
-                --description=: Brief description of the security profile
-                --location=: location of the security_profile - Global.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --no-clear-labels&: Remove all labels.
-                --organization=: Organization ID to which the changes should apply.
-                --remove-labels=: List of label keys to remove.
-                --update-labels=: List of label KEY=VALUE pairs to update.
-            - name: create
-              description: Create a new Custom Intercept Profile.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --description=: Brief description of the security profile
-                --intercept-endpoint-group-location=: Location of the intercept endpoint group.
-                --intercept-endpoint-group=!: ID of the intercept endpoint group or fully qualified identifier for the intercept endpoint group.
-                --labels=: List of label KEY=VALUE pairs to add.
-                --location=: location of the security_profile - Global.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --organization=: Organization ID to which the changes should apply.
-            - name: delete
-              description: Delete a Security Profile.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --location=: Location ID of the resource.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --organization=: Organization number.
-            - name: describe
-              description: Describe a Custom InterceptSecurity Profile.
-              flags:
-                --location=: Location ID of the resource.
-                --organization=: Organization number.
-        - name: custom-mirroring
-          description: Manage Security Profiles - Custom Mirroring Profile.
-          commands:
-            - name: create
-              description: Create a new Custom Mirroring Profile.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --description=: Brief description of the security profile
-                --labels=: List of label KEY=VALUE pairs to add.
-                --location=: location of the security_profile - Global.
-                --mirroring-endpoint-group-location=: Location of the mirroring endpoint group.
-                --mirroring-endpoint-group=!: ID of the mirroring endpoint group or fully qualified identifier for the mirroring endpoint group.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --organization=: Organization ID to which the changes should apply.
-            - name: delete
-              description: Delete a Security Profile.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --location=: Location ID of the resource.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --organization=: Organization number.
-            - name: describe
-              description: Describe a Custom MirroringSecurity Profile.
-              flags:
-                --location=: Location ID of the resource.
-                --organization=: Organization number.
-            - name: list
-              description: List Custom Mirroring Security Profiles.
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --limit=: Maximum number of resources to list.
-                --location=!: ID of the location or fully qualified identifier for the location.
-                --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                --organization=: Organization ID of the location.
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --uri: Print a list of resource URIs instead of the default output, and change the
-            - name: update
-              description: Updates a Custom Mirroring Profile.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --clear-labels: Remove all labels.
-                --description=: Brief description of the security profile
-                --location=: location of the security_profile - Global.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --no-clear-labels&: Remove all labels.
-                --organization=: Organization ID to which the changes should apply.
-                --remove-labels=: List of label keys to remove.
-                --update-labels=: List of label KEY=VALUE pairs to update.
-        - name: threat-prevention
-          description: Manage Security Profiles - Threat Prevention Profile.
-          commands:
-            - name: delete
-              description: Delete a Security Profile.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --location=: Location ID of the resource.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --organization=: Organization number.
-            - name: delete-override
-              description: Delete overrides of Threat Prevention Profile.
-              flags:
-                --antivirus=: List of comma-separated protocols where each value in the list indicates the protocol of the antivirus threat.
-                --async: Return immediately, without waiting for the operation in progress to
-                --clear-labels: Remove all labels.
-                --location=: location of the security_profile - Global.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --no-clear-labels&: Remove all labels.
-                --organization=: Organization ID to which the changes should apply.
-                --remove-labels=: List of label keys to remove.
-                --severities=: List of comma-separated severities where each value in the list indicates the severity of the threat.
-                --threat-ids=: List of comma-separated threat identifiers where each identifier in the list is a vendor-specified Signature ID representing a threat type.
-                --update-labels=: List of label KEY=VALUE pairs to update.
-            - name: list
-              description: List Threat Prevention Security Profiles.
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --limit=: Maximum number of resources to list.
-                --location=!: ID of the location or fully qualified identifier for the location.
-                --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                --organization=: Organization ID of the location.
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --uri: Print a list of resource URIs instead of the default output, and change the
-            - name: list-overrides
-              description: List overrides of Threat Prevention Profile.
-              flags:
-                --location=: location of the security_profile - Global.
-                --organization=: Organization ID to which the changes should apply.
-            - name: update-override
-              description: Update Overrides of Threat Prevention Profile.
-              flags:
-                --action=!: Action associated with antivirus, severity, or threat-id.
-                --antivirus=: List of comma-separated protocols where each value in the list indicates the protocol of the antivirus threat.
-                --async: Return immediately, without waiting for the operation in progress to
-                --clear-labels: Remove all labels.
-                --location=: location of the security_profile - Global.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --no-clear-labels&: Remove all labels.
-                --organization=: Organization ID to which the changes should apply.
-                --remove-labels=: List of label keys to remove.
-                --severities=: List of comma-separated severities where each value in the list indicates the severity of the threat.
-                --threat-ids=: List of comma-separated threat identifiers where each identifier in the list is a vendor-specified Signature ID representing a threat type.
-                --update-labels=: List of label KEY=VALUE pairs to update.
-              completion:
-                flag:
-                    action:
-                        - DEFAULT_ACTION
-                        - ALLOW
-                        - ALERT
-                        - DENY
-            - name: add-override
-              description: Add overrides to Threat Prevention Profile.
-              flags:
-                --action=!: Action associated with antivirus, severity, or threat-id.
-                --antivirus=: List of comma-separated protocols where each value in the list indicates the protocol of the antivirus threat.
-                --async: Return immediately, without waiting for the operation in progress to
-                --clear-labels: Remove all labels.
-                --location=: location of the security_profile - Global.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --no-clear-labels&: Remove all labels.
-                --organization=: Organization ID to which the changes should apply.
-                --remove-labels=: List of label keys to remove.
-                --severities=: List of comma-separated severities where each value in the list indicates the severity of the threat.
-                --threat-ids=: List of comma-separated threat identifiers where each identifier in the list is a vendor-specified Signature ID representing a threat type.
-                --update-labels=: List of label KEY=VALUE pairs to update.
-              completion:
-                flag:
-                    action:
-                        - DEFAULT_ACTION
-                        - ALLOW
-                        - ALERT
-                        - DENY
-            - name: create
-              description: Create a new Threat Prevention Profile.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --description=: Brief description of the security profile
-                --labels=: List of label KEY=VALUE pairs to add.
-                --location=: location of the security_profile - Global.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --organization=: Organization ID to which the changes should apply.
-    - name: tls-inspection-policies
-      description: Manage Network Security TLS Inspection Policies.
-      commands:
-        - name: delete
-          description: Delete TLS Inspection Policy.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: The location Id.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: export
-          description: Export TLS Inspection Policy.
-          flags:
-            --destination=: Path to a YAML file where the configuration will be exported.
-            --location=: The location Id.
-        - name: import
-          description: Import TLS Inspection Policy.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: The location Id.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --source=: Path to a YAML file containing the configuration export data.
-        - name: list
-          description: List TLS Inspection Policies.
           flags:
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
@@ -740,9 +230,129 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: firewall-endpoint-associations
+      description: Create and manage Firewall Plus endpoint associations.
+      commands:
+        - name: create
+          description: Create a Firewall Plus endpoint association.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --endpoint-zone=: Zone of the firewall endpoint.
+            --endpoint=!: ID of the firewall endpoint or fully qualified identifier for the firewall endpoint.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
+            --network=!: ID of the network or fully qualified identifier for the network.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: Organization ID to which the changes should apply.
+            --tls-inspection-policy-project=: Project of the TLS Inspection Policy.
+            --tls-inspection-policy-region=: Region of the TLS Inspection Policy.
+            --tls-inspection-policy=!: ID of the TLS Inspection Policy or fully qualified identifier for the TLS Inspection Policy.
+            --zone=!: Zone of a firewall endpoint association
+        - name: delete
+          description: Delete a Firewall Plus endpoint association.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --zone=: Zone of the firewall endpoint association.
+        - name: describe
+          description: Describe a Firewall Plus endpoint association.
+          flags:
+            --zone=: Zone of the firewall endpoint association.
+        - name: list
+          description: List Firewall Plus endpoint associations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+            --zone=: Zone for the list operation
+        - name: update
+          description: Update a Firewall Plus endpoint association.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Remove all labels.
+            --disabled: Disable a firewall endpoint association.
+            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --no-disabled&: Disable a firewall endpoint association.
+            --no-tls-inspection-policy: Remove TLS inspection policy from this association.
+            --remove-labels=: List of label keys to remove.
+            --tls-inspection-policy-project=: Project of the TLS Inspection Policy.
+            --tls-inspection-policy-region=: Region of the TLS Inspection Policy.
+            --tls-inspection-policy=!: ID of the TLS Inspection Policy or fully qualified identifier for the TLS Inspection Policy.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+            --zone=: Zone of the firewall endpoint association.
+    - name: firewall-endpoints
+      description: Create and manage Firewall Plus endpoints.
+      commands:
+        - name: create
+          description: Create a Firewall Plus endpoint.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: Description of the endpoint
+            --enable-jumbo-frames: Enable jumbo frames for the firewall endpoint.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-enable-jumbo-frames&: Enable jumbo frames for the firewall endpoint.
+            --organization=: Organization ID of the firewall endpoint.
+            --zone=: Zone of the firewall endpoint.
+        - name: delete
+          description: Delete a Firewall Plus endpoint.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: Organization ID of the firewall endpoint.
+            --zone=: Zone of the firewall endpoint.
+        - name: describe
+          description: Describe a Firewall Plus endpoint.
+          flags:
+            --organization=: Organization ID of the firewall endpoint.
+            --zone=: Zone of the firewall endpoint.
+        - name: list
+          description: List Firewall Plus endpoints.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --organization=!: The organization for a list operation
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+            --zone=!: The zone for a list operation
+        - name: update
+          description: Update a Firewall Plus endpoint.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Remove all labels.
+            --description=: Description of the endpoint
+            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --organization=: Organization ID of the firewall endpoint.
+            --remove-labels=: List of label keys to remove.
+            --update-billing-project=: The Google Cloud project ID to use for API enablement check, quota, and endpoint uptime billing.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+            --zone=: Zone of the firewall endpoint.
     - name: gateway-security-policies
       description: Manage Network Security Gateway Security Policies.
       commands:
+        - name: delete
+          description: Delete Gateway Security Policy.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location Id.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: export
+          description: Export Gateway Security Policy.
+          flags:
+            --destination=: Path to a YAML file where the configuration will be exported.
+            --location=: The location Id.
         - name: import
           description: Import Gateway Security Policy.
           flags:
@@ -763,17 +373,6 @@ commands:
         - name: rules
           description: Manage Network Security Gateway Security Policy Rules.
           commands:
-            - name: list
-              description: List Gateway Security Policy Rules.
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --gateway-security-policy=!: ID of the gateway security policy or fully qualified identifier for the gateway security policy.
-                --limit=: Maximum number of resources to list.
-                --location=: The location Id.
-                --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --uri: Print a list of resource URIs instead of the default output, and change the
             - name: delete
               description: Delete Gateway Security Policy Rule.
               flags:
@@ -795,17 +394,112 @@ commands:
                 --location=: The location Id.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --source=: Path to a YAML file containing the configuration export data.
-        - name: delete
-          description: Delete Gateway Security Policy.
+            - name: list
+              description: List Gateway Security Policy Rules.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --gateway-security-policy=!: ID of the gateway security policy or fully qualified identifier for the gateway security policy.
+                --limit=: Maximum number of resources to list.
+                --location=: The location Id.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: intercept-deployment-groups
+      description: Manage Intercept Deployment Group resources.
+      commands:
+        - name: create
+          description: Create an Intercept Deployment Group.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
-            --location=: The location Id.
+            --description=: Description of the deployment group.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: Location of the intercept deployment group.
+            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
+            --network=!: ID of the network or fully qualified identifier for the network.
             --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: export
-          description: Export Gateway Security Policy.
+        - name: delete
+          description: Delete an Intercept Deployment Group.
           flags:
-            --destination=: Path to a YAML file where the configuration will be exported.
-            --location=: The location Id.
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Location of the intercept deployment group.
+            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe an Intercept Deployment Group.
+          flags:
+            --location=: Location of the intercept deployment group.
+        - name: list
+          description: List Intercept Deployment Groups.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update an Intercept Deployment Group.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Remove all labels.
+            --description=: Description of the deployment group.
+            --location=: Location of the intercept deployment group.
+            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+    - name: intercept-deployments
+      description: Manage Intercept Deployment resources.
+      commands:
+        - name: create
+          description: Create an Intercept Deployment.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: Description of the deployment.
+            --forwarding-rule-location=: The Cloud region for the forwardingRule.
+            --forwarding-rule=!: ID of the forwardingRule or fully qualified identifier for the forwardingRule.
+            --intercept-deployment-group-location=: Location of the intercept deployment group.
+            --intercept-deployment-group=!: ID of the intercept deployment group or fully qualified identifier for the intercept deployment group.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: Location of the intercept deployment.
+            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: delete
+          description: Delete an Intercept Deployment.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Location of the intercept deployment.
+            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe an Intercept Deployment.
+          flags:
+            --location=: Location of the intercept deployment.
+        - name: list
+          description: List Intercept Deployments.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update an Intercept Deployment.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Remove all labels.
+            --description=: Description of the deployment.
+            --location=: Location of the intercept deployment.
+            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
     - name: intercept-endpoint-group-associations
       description: Manage Intercept Endpoint Group Association resources.
       commands:
@@ -852,21 +546,103 @@ commands:
             --no-clear-labels&: Remove all labels.
             --remove-labels=: List of label keys to remove.
             --update-labels=: List of label KEY=VALUE pairs to update.
-    - name: mirroring-deployments
-      description: Manage Mirroring Deployment resources.
+    - name: intercept-endpoint-groups
+      description: Manage Intercept Endpoint Group resources.
       commands:
+        - name: create
+          description: Create a Intercept Endpoint Group.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: Description of the endpoint
+            --intercept-deployment-group-location=: Location of the intercept deployment group.
+            --intercept-deployment-group-project=: Project of the intercept deployment group.
+            --intercept-deployment-group=!: ID of the intercept deployment group or fully qualified identifier for the intercept deployment group.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: Location of the intercept endpoint group.
+            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: delete
+          description: Delete a Intercept Endpoint Group.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Location of the intercept endpoint group.
+            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe a Intercept Endpoint Group.
+          flags:
+            --location=: Location of the intercept endpoint group.
+        - name: list
+          description: List Intercept Endpoint Groups.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
         - name: update
-          description: Update a Mirroring Deployment.
+          description: Update a Intercept Endpoint Group.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
             --clear-labels: Remove all labels.
-            --description=: Description of the mirroring deployment
-            --location=: Location of the mirroring deployment.
+            --description=: Description of the endpoint
+            --location=: Location of the intercept endpoint group.
             --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-clear-labels&: Remove all labels.
             --remove-labels=: List of label keys to remove.
             --update-labels=: List of label KEY=VALUE pairs to update.
+    - name: mirroring-deployment-groups
+      description: Manage Mirroring Deployment Group resources.
+      commands:
+        - name: create
+          description: Create a Mirroring Deployment Group.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: Description of the mirroring deployment group
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: Location of the mirroring deployment group.
+            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
+            --network=!: ID of the network or fully qualified identifier for the network.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: delete
+          description: Delete a Mirroring Deployment Group.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Location of the mirroring deployment group.
+            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe a Mirroring Deployment Group.
+          flags:
+            --location=: Location of the mirroring deployment group.
+        - name: list
+          description: List Mirroring Deployment Groups.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a Mirroring Deployment Group.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Remove all labels.
+            --description=: Description of the mirroring deployment group
+            --location=: Location of the mirroring deployment group.
+            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+    - name: mirroring-deployments
+      description: Manage Mirroring Deployment resources.
+      commands:
         - name: create
           description: Create a Mirroring Deployment.
           flags:
@@ -901,6 +677,18 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a Mirroring Deployment.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Remove all labels.
+            --description=: Description of the mirroring deployment
+            --location=: Location of the mirroring deployment.
+            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
     - name: mirroring-endpoint-group-associations
       description: Manage Mirroring Endpoint Group Association resources.
       commands:
@@ -995,147 +783,99 @@ commands:
             --no-clear-labels&: Remove all labels.
             --remove-labels=: List of label keys to remove.
             --update-labels=: List of label KEY=VALUE pairs to update.
-    - name: intercept-deployment-groups
-      description: Manage Intercept Deployment Group resources.
+    - name: org-address-groups
+      description: Manage Network Security AddressGroups.
       commands:
+        - name: add-items
+          description: Add items to an address group of organization.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --items=: Items to be added to the address group.
+            --location=: The location Id.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: Organization number.
+        - name: clone-items
+          description: Clone items from source address group of organization.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location Id.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: Organization number.
+            --source=: Source address group to be cloned from.
+        - name: create
+          description: Create an address group.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --capacity=!: Capacity of the address group.
+            --description=: Description of the address group.
+            --items=: Items of the address group.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The location Id.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: Organization number.
+            --purpose=: List of Address Group purposes.
+            --type=!: Type of the address group.
+          completion:
+            flag:
+                type:
+                    - ipv4
+                    - ipv6
+        - name: delete
+          description: Delete address group.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location Id.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: Organization number.
+        - name: describe
+          description: Describe an address group.
+          flags:
+            --location=: The location Id.
+            --organization=: Organization number.
         - name: list
-          description: List Intercept Deployment Groups.
+          description: List address groups.
           flags:
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
-            --location=: ID of the location or fully qualified identifier for the location.
+            --location=!: ID of the location or fully qualified identifier for the location.
             --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --organization=: Organization number.
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: update
-          description: Update an Intercept Deployment Group.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --clear-labels: Remove all labels.
-            --description=: Description of the deployment group.
-            --location=: Location of the intercept deployment group.
-            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-clear-labels&: Remove all labels.
-            --remove-labels=: List of label keys to remove.
-            --update-labels=: List of label KEY=VALUE pairs to update.
-        - name: create
-          description: Create an Intercept Deployment Group.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --description=: Description of the deployment group.
-            --labels=: List of label KEY=VALUE pairs to add.
-            --location=: Location of the intercept deployment group.
-            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
-            --network=!: ID of the network or fully qualified identifier for the network.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: delete
-          description: Delete an Intercept Deployment Group.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: Location of the intercept deployment group.
-            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: describe
-          description: Describe an Intercept Deployment Group.
-          flags:
-            --location=: Location of the intercept deployment group.
-    - name: intercept-deployments
-      description: Manage Intercept Deployment resources.
-      commands:
-        - name: describe
-          description: Describe an Intercept Deployment.
-          flags:
-            --location=: Location of the intercept deployment.
-        - name: list
-          description: List Intercept Deployments.
+        - name: list-references
+          description: Lists References of an Organization Address Group.
           flags:
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
-            --location=: ID of the location or fully qualified identifier for the location.
+            --location=: The location Id.
             --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --organization=: Organization number.
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: remove-items
+          description: Remove items from an address group of organization.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --items=: Items to be removed from the address group.
+            --location=: The location Id.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: Organization number.
         - name: update
-          description: Update an Intercept Deployment.
+          description: Update an address group.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
             --clear-labels: Remove all labels.
-            --description=: Description of the deployment.
-            --location=: Location of the intercept deployment.
-            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
+            --description=: New description of the address group.
+            --items=: Items of the address group.
+            --location=: The location Id.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-clear-labels&: Remove all labels.
+            --organization=: Organization number.
+            --purpose=: List of Address Group purposes.
             --remove-labels=: List of label keys to remove.
             --update-labels=: List of label KEY=VALUE pairs to update.
-        - name: create
-          description: Create an Intercept Deployment.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --description=: Description of the deployment.
-            --forwarding-rule-location=: The Cloud region for the forwardingRule.
-            --forwarding-rule=!: ID of the forwardingRule or fully qualified identifier for the forwardingRule.
-            --intercept-deployment-group-location=: Location of the intercept deployment group.
-            --intercept-deployment-group=!: ID of the intercept deployment group or fully qualified identifier for the intercept deployment group.
-            --labels=: List of label KEY=VALUE pairs to add.
-            --location=: Location of the intercept deployment.
-            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: delete
-          description: Delete an Intercept Deployment.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: Location of the intercept deployment.
-            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-    - name: mirroring-deployment-groups
-      description: Manage Mirroring Deployment Group resources.
-      commands:
-        - name: describe
-          description: Describe a Mirroring Deployment Group.
-          flags:
-            --location=: Location of the mirroring deployment group.
-        - name: list
-          description: List Mirroring Deployment Groups.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: update
-          description: Update a Mirroring Deployment Group.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --clear-labels: Remove all labels.
-            --description=: Description of the mirroring deployment group
-            --location=: Location of the mirroring deployment group.
-            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-clear-labels&: Remove all labels.
-            --remove-labels=: List of label keys to remove.
-            --update-labels=: List of label KEY=VALUE pairs to update.
-        - name: create
-          description: Create a Mirroring Deployment Group.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --description=: Description of the mirroring deployment group
-            --labels=: List of label KEY=VALUE pairs to add.
-            --location=: Location of the mirroring deployment group.
-            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
-            --network=!: ID of the network or fully qualified identifier for the network.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: delete
-          description: Delete a Mirroring Deployment Group.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: Location of the mirroring deployment group.
-            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
-            --no-async&: Return immediately, without waiting for the operation in progress to
     - name: security-profile-groups
       description: Manage Network Security - Security Profile Groups.
       commands:
@@ -1199,6 +939,266 @@ commands:
             --threat-prevention-profile-organization=: Organization ID of the Security Profile.
             --threat-prevention-profile=!: ID of the Security Profile or fully qualified identifier for the Security Profile.
             --update-labels=: List of label KEY=VALUE pairs to update.
+    - name: security-profiles
+      description: Manage Network Security - Security Profiles.
+      commands:
+        - name: custom-intercept
+          description: Manage Security Profiles - Custom Intercept Profile.
+          commands:
+            - name: create
+              description: Create a new Custom Intercept Profile.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --description=: Brief description of the security profile
+                --intercept-endpoint-group-location=: Location of the intercept endpoint group.
+                --intercept-endpoint-group=!: ID of the intercept endpoint group or fully qualified identifier for the intercept endpoint group.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --location=: location of the security_profile - Global.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --organization=: Organization ID to which the changes should apply.
+            - name: delete
+              description: Delete a Security Profile.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: Location ID of the resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --organization=: Organization number.
+            - name: describe
+              description: Describe a Custom InterceptSecurity Profile.
+              flags:
+                --location=: Location ID of the resource.
+                --organization=: Organization number.
+            - name: list
+              description: List Custom Intercept Security Profiles.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=!: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --organization=: Organization ID of the location.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Updates a Custom Intercept Profile.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-labels: Remove all labels.
+                --description=: Brief description of the security profile
+                --location=: location of the security_profile - Global.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Remove all labels.
+                --organization=: Organization ID to which the changes should apply.
+                --remove-labels=: List of label keys to remove.
+                --update-labels=: List of label KEY=VALUE pairs to update.
+        - name: custom-mirroring
+          description: Manage Security Profiles - Custom Mirroring Profile.
+          commands:
+            - name: create
+              description: Create a new Custom Mirroring Profile.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --description=: Brief description of the security profile
+                --labels=: List of label KEY=VALUE pairs to add.
+                --location=: location of the security_profile - Global.
+                --mirroring-endpoint-group-location=: Location of the mirroring endpoint group.
+                --mirroring-endpoint-group=!: ID of the mirroring endpoint group or fully qualified identifier for the mirroring endpoint group.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --organization=: Organization ID to which the changes should apply.
+            - name: delete
+              description: Delete a Security Profile.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: Location ID of the resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --organization=: Organization number.
+            - name: describe
+              description: Describe a Custom MirroringSecurity Profile.
+              flags:
+                --location=: Location ID of the resource.
+                --organization=: Organization number.
+            - name: list
+              description: List Custom Mirroring Security Profiles.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=!: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --organization=: Organization ID of the location.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Updates a Custom Mirroring Profile.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-labels: Remove all labels.
+                --description=: Brief description of the security profile
+                --location=: location of the security_profile - Global.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Remove all labels.
+                --organization=: Organization ID to which the changes should apply.
+                --remove-labels=: List of label keys to remove.
+                --update-labels=: List of label KEY=VALUE pairs to update.
+        - name: threat-prevention
+          description: Manage Security Profiles - Threat Prevention Profile.
+          commands:
+            - name: add-override
+              description: Add overrides to Threat Prevention Profile.
+              flags:
+                --action=!: Action associated with antivirus, severity, or threat-id.
+                --antivirus=: List of comma-separated protocols where each value in the list indicates the protocol of the antivirus threat.
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-labels: Remove all labels.
+                --location=: location of the security_profile - Global.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Remove all labels.
+                --organization=: Organization ID to which the changes should apply.
+                --remove-labels=: List of label keys to remove.
+                --severities=: List of comma-separated severities where each value in the list indicates the severity of the threat.
+                --threat-ids=: List of comma-separated threat identifiers where each identifier in the list is a vendor-specified Signature ID representing a threat type.
+                --update-labels=: List of label KEY=VALUE pairs to update.
+              completion:
+                flag:
+                    action:
+                        - DEFAULT_ACTION
+                        - ALLOW
+                        - ALERT
+                        - DENY
+            - name: create
+              description: Create a new Threat Prevention Profile.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --description=: Brief description of the security profile
+                --labels=: List of label KEY=VALUE pairs to add.
+                --location=: location of the security_profile - Global.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --organization=: Organization ID to which the changes should apply.
+            - name: delete
+              description: Delete a Security Profile.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: Location ID of the resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --organization=: Organization number.
+            - name: delete-override
+              description: Delete overrides of Threat Prevention Profile.
+              flags:
+                --antivirus=: List of comma-separated protocols where each value in the list indicates the protocol of the antivirus threat.
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-labels: Remove all labels.
+                --location=: location of the security_profile - Global.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Remove all labels.
+                --organization=: Organization ID to which the changes should apply.
+                --remove-labels=: List of label keys to remove.
+                --severities=: List of comma-separated severities where each value in the list indicates the severity of the threat.
+                --threat-ids=: List of comma-separated threat identifiers where each identifier in the list is a vendor-specified Signature ID representing a threat type.
+                --update-labels=: List of label KEY=VALUE pairs to update.
+            - name: list
+              description: List Threat Prevention Security Profiles.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=!: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --organization=: Organization ID of the location.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: list-overrides
+              description: List overrides of Threat Prevention Profile.
+              flags:
+                --location=: location of the security_profile - Global.
+                --organization=: Organization ID to which the changes should apply.
+            - name: update-override
+              description: Update Overrides of Threat Prevention Profile.
+              flags:
+                --action=!: Action associated with antivirus, severity, or threat-id.
+                --antivirus=: List of comma-separated protocols where each value in the list indicates the protocol of the antivirus threat.
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-labels: Remove all labels.
+                --location=: location of the security_profile - Global.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Remove all labels.
+                --organization=: Organization ID to which the changes should apply.
+                --remove-labels=: List of label keys to remove.
+                --severities=: List of comma-separated severities where each value in the list indicates the severity of the threat.
+                --threat-ids=: List of comma-separated threat identifiers where each identifier in the list is a vendor-specified Signature ID representing a threat type.
+                --update-labels=: List of label KEY=VALUE pairs to update.
+              completion:
+                flag:
+                    action:
+                        - DEFAULT_ACTION
+                        - ALLOW
+                        - ALERT
+                        - DENY
+    - name: server-tls-policies
+      description: Manage Network Security ServerTlsPolicies.
+      commands:
+        - name: delete
+          description: Delete ServerTlsPolicy.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location Id.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe ServerTlsPolicy.
+          flags:
+            --location=: The location Id.
+        - name: export
+          description: Export ServerTlsPolicy.
+          flags:
+            --destination=: Path to a YAML file where the configuration will be exported.
+            --location=: The location Id.
+        - name: import
+          description: Import ServerTlsPolicy.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location Id.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --source=: Path to a YAML file containing the configuration export data.
+        - name: list
+          description: List ServerTlsPolicies.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: tls-inspection-policies
+      description: Manage Network Security TLS Inspection Policies.
+      commands:
+        - name: delete
+          description: Delete TLS Inspection Policy.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location Id.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: export
+          description: Export TLS Inspection Policy.
+          flags:
+            --destination=: Path to a YAML file where the configuration will be exported.
+            --location=: The location Id.
+        - name: import
+          description: Import TLS Inspection Policy.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location Id.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --source=: Path to a YAML file containing the configuration export data.
+        - name: list
+          description: List TLS Inspection Policies.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
     - name: url-lists
       description: Manage Network Security Url Lists.
       commands:

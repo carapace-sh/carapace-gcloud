@@ -2,290 +2,9 @@
 name: datastream
 description: Manage Cloud Datastream resources.
 commands:
-    - name: operations
-      description: Manage Datastream operations.
-      commands:
-        - name: delete
-          description: Delete a Datastream operation.
-          flags:
-            --location=: The location of the resources.
-        - name: describe
-          description: Show details about a operation.
-          flags:
-            --location=: The location of the resources.
-        - name: list
-          description: List operations.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=!: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: cancel
-          description: Cancel a Datastream operation.
-          flags:
-            --location=: The location of the resources.
-    - name: private-connections
-      description: Manage Datastream private connections.
-      commands:
-        - name: list
-          description: List private connections.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=!: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: create
-          description: Create a Datastream private connection.
-          flags:
-            --display-name=!: Friendly name for the private connection.
-            --labels=: List of label KEY=VALUE pairs to add.
-            --location=: The Cloud location for the private_connection.
-            --network-attachment=!: Full URI of the network attachment that datastream will connect to.For example, this would be of the form:`network-attachment=projects/test-project/regions/us-central1/networkAttachments/my-na`
-            --no-validate-only&: If set, the request will retrieve the project id to allow in the  network attachment Datastream will connect to.
-            --subnet=!: A free subnet for peering.
-            --validate-only: If set, the request will retrieve the project id to allow in the  network attachment Datastream will connect to.
-            --vpc=!: ID of the vpc or fully qualified identifier for the vpc.
-        - name: delete
-          description: Delete a Datastream private connection.
-          flags:
-            --force: You must set the force to ensure that the private
-            --location=: The location of the resources.
-            --no-force&: You must set the force to ensure that the private
-        - name: describe
-          description: Show details about a Datastream private connection.
-          flags:
-            --location=: The location of the resources.
-    - name: routes
-      description: Manage Datastream routes.
-      commands:
-        - name: create
-          description: Create a Datastream private connection route.
-          flags:
-            --destination-address=!: Destination address for connection.
-            --destination-port=: Destination port for connection.
-            --display-name=!: Friendly name for the route.
-            --labels=: List of label KEY=VALUE pairs to add.
-            --location=: The Cloud location for the route.
-            --private-connection=: The private connection of the route.
-        - name: delete
-          description: Delete a Datastream private connection route.
-          flags:
-            --location=: The location of the resources.
-            --private-connection=: The private connection name.
-        - name: describe
-          description: Show details about the route.
-          flags:
-            --location=: The location of the resources.
-            --private-connection=: The private connection name.
-        - name: list
-          description: List Datastream routes.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: The location of the resources.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --private-connection=!: ID of the private_connection or fully qualified identifier for the private_connection.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-    - name: streams
-      description: Manage Datastream stream resources.
-      commands:
-        - name: describe
-          description: Show details about a Datastream stream resource.
-          flags:
-            --location=: The location of the resources.
-        - name: list
-          description: List Datastream stream resources.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=!: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: update
-          description: Updates a Datastream stream.
-          flags:
-            --backfill-all: Automatically backfill objects included in the stream source
-            --backfill-none: Do not automatically backfill any objects.
-            --bigquery-destination-config=: Path to a YAML (or JSON) file containing the configuration for Google BigQuery Destination Config.
-            --clear-labels: Remove all labels.
-            --destination=!: ID of the connection_profile or fully qualified identifier for the connection_profile.
-            --display-name=: Friendly name for the stream.
-            --force: Update the stream without validating it.
-            --gcs-destination-config=: Path to a YAML (or JSON) file containing the configuration for Google Cloud Storage Destination Config.
-            --location=: The Cloud location for the stream.
-            --mongodb-excluded-objects=: Path to a YAML (or JSON) file containing the MongoDB data sources to avoid backfilling.
-            --mongodb-source-config=: Path to a YAML (or JSON) file containing the configuration for MongoDB Source Config.
-            --mysql-excluded-objects=: Path to a YAML (or JSON) file containing the MySQL data sources to avoid backfilling.
-            --mysql-source-config=: Path to a YAML (or JSON) file containing the configuration for MySQL Source Config.
-            --no-backfill-all&: Automatically backfill objects included in the stream source
-            --no-backfill-none&: Do not automatically backfill any objects.
-            --no-clear-labels&: Remove all labels.
-            --no-force&: Update the stream without validating it.
-            --no-validate-only&: Only validate the stream, but do not update any resources.
-            --oracle-excluded-objects=: Path to a YAML (or JSON) file containing the Oracle data sources to avoid backfilling.
-            --oracle-source-config=: Path to a YAML (or JSON) file containing the configuration for Oracle Source Config.
-            --postgresql-excluded-objects=: Path to a YAML (or JSON) file containing the PostgreSQL data sources to avoid backfilling.
-            --postgresql-source-config=: Path to a YAML (or JSON) file containing the configuration for PostgreSQL Source Config.
-            --remove-labels=: List of label keys to remove.
-            --salesforce-excluded-objects=: Path to a YAML (or JSON) file containing the Salesforce data sources to avoid backfilling.
-            --salesforce-source-config=: Path to a YAML (or JSON) file containing the configuration for Salesforce Source Config.
-            --source=!: ID of the connection_profile or fully qualified identifier for the connection_profile.
-            --sqlserver-excluded-objects=: Path to a YAML (or JSON) file containing the SQL Server data sources to avoid backfilling.
-            --sqlserver-source-config=: Path to a YAML (or JSON) file containing the configuration for SQL Server Source Config.
-            --state=: 'Stream state, can be set to: "RUNNING" or "PAUSED".'
-            --update-labels=: List of label KEY=VALUE pairs to update.
-            --update-mask=: Used to specify the fields to be overwritten in the stream resource by the update.
-            --validate-only: Only validate the stream, but do not update any resources.
-        - name: create
-          description: Create a Datastream stream.
-          flags:
-            --backfill-all: Automatically backfill objects included in the stream source
-            --backfill-none: Do not automatically backfill any objects.
-            --bigquery-destination-config=: Path to a YAML (or JSON) file containing the configuration for Google BigQuery Destination Config.
-            --destination=!: ID of the connection_profile or fully qualified identifier for the connection_profile.
-            --display-name=!: Friendly name for the stream.
-            --force: Create the stream without validating it.
-            --gcs-destination-config=: Path to a YAML (or JSON) file containing the configuration for Google Cloud Storage Destination Config.
-            --labels=: List of label KEY=VALUE pairs to add.
-            --location=: The Cloud location for the stream.
-            --mongodb-excluded-objects=: Path to a YAML (or JSON) file containing the MongoDB data sources to avoid backfilling.
-            --mongodb-source-config=: Path to a YAML (or JSON) file containing the configuration for MongoDB Source Config.
-            --mysql-excluded-objects=: Path to a YAML (or JSON) file containing the MySQL data sources to avoid backfilling.
-            --mysql-source-config=: Path to a YAML (or JSON) file containing the configuration for MySQL Source Config.
-            --no-backfill-all&: Automatically backfill objects included in the stream source
-            --no-backfill-none&: Do not automatically backfill any objects.
-            --no-force&: Create the stream without validating it.
-            --no-validate-only&: Only validate the stream, but do not create any resources.
-            --oracle-excluded-objects=: Path to a YAML (or JSON) file containing the Oracle data sources to avoid backfilling.
-            --oracle-source-config=: Path to a YAML (or JSON) file containing the configuration for Oracle Source Config.
-            --postgresql-excluded-objects=: Path to a YAML (or JSON) file containing the PostgreSQL data sources to avoid backfilling.
-            --postgresql-source-config=: Path to a YAML (or JSON) file containing the configuration for PostgreSQL Source Config.
-            --salesforce-excluded-objects=: Path to a YAML (or JSON) file containing the Salesforce data sources to avoid backfilling.
-            --salesforce-source-config=: Path to a YAML (or JSON) file containing the configuration for Salesforce Source Config.
-            --source=!: ID of the connection_profile or fully qualified identifier for the connection_profile.
-            --sqlserver-excluded-objects=: Path to a YAML (or JSON) file containing the SQL Server data sources to avoid backfilling.
-            --sqlserver-source-config=: Path to a YAML (or JSON) file containing the configuration for SQL Server Source Config.
-            --validate-only: Only validate the stream, but do not create any resources.
-        - name: delete
-          description: Delete a Datastream stream.
-          flags:
-            --location=: The location of the resources.
     - name: connection-profiles
       description: Manage Datastream connection profiles.
       commands:
-        - name: list
-          description: List Datastream connection profiles.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=!: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: update
-          description: Update a Datastream connection profile.
-          flags:
-            --bucket=: The full project and resource path for Cloud Storage
-            --ca-certificate=: x509 PEM-encoded certificate of the CA that signed the source database
-            --clear-labels: Remove all labels.
-            --client-certificate=: x509 PEM-encoded certificate that will be used by the replica to
-            --client-key=: Unencrypted PKCS#1 or PKCS#8 PEM-encoded private key associated with
-            --database-service=: Database service for the Oracle connection.
-            --display-name=: Friendly name for the connection profile.
-            --force: Update the connection profile without validating it.
-            --forward-ssh-hostname=: Hostname for the SSH tunnel.
-            --forward-ssh-password=: SSH password.
-            --forward-ssh-port=: Port for the SSH tunnel, default value is 22.
-            --forward-ssh-private-key=: SSH private key..
-            --forward-ssh-username=: Username for the SSH tunnel.
-            --location=: The Cloud location for the connection_profile.
-            --mongodb-ca-certificate=: x509 PEM-encoded certificate of the CA that signed the source database
-            --mongodb-direct-connection: Connect to the mongodb hosts directly and do not try to resolve
-            --mongodb-host-addresses=: IP or hostname and port of the MongoDB source database.
-            --mongodb-password=: Password for the user that Datastream will be using to
-            --mongodb-prompt-for-password: Prompt for the password used to connect to the database.
-            --mongodb-replica-set=: Replica set of the MongoDB source database.
-            --mongodb-secret-manager-stored-password=: Path to secret manager, storing the password for the user used to connect to the database.
-            --mongodb-srv-connection-format: SRV Connection format for the MongoDB source database.
-            --mongodb-standard-connection-format: Standard connection format for the MongoDB source database.
-            --mongodb-tls: Enable Transport Layer Security for the monogodb connection.
-            --mongodb-username=: Username Datastream will use to connect to the database.
-            --mysql-hostname=: IP or hostname of the MySQL source database.
-            --mysql-password=: Password for the user that Datastream will be using to
-            --mysql-port=: Network port of the MySQL source database.
-            --mysql-prompt-for-password: Prompt for the password used to connect to the database.
-            --mysql-secret-manager-stored-password=: Path to secret manager, storing the password for the user used to connect to the database.
-            --mysql-username=: Username Datastream will use to connect to the database.
-            --no-clear-labels&: Remove all labels.
-            --no-force&: Update the connection profile without validating it.
-            --no-mongodb-direct-connection&: Connect to the mongodb hosts directly and do not try to resolve
-            --no-mongodb-prompt-for-password&: Prompt for the password used to connect to the database.
-            --no-mongodb-srv-connection-format&: SRV Connection format for the MongoDB source database.
-            --no-mongodb-standard-connection-format&: Standard connection format for the MongoDB source database.
-            --no-mongodb-tls&: Enable Transport Layer Security for the monogodb connection.
-            --no-mysql-prompt-for-password&: Prompt for the password used to connect to the database.
-            --no-oracle-prompt-for-password&: Prompt for the password used to connect to the database.
-            --no-postgresql-prompt-for-password&: Prompt for the password used to connect to the database.
-            --no-salesforce-prompt-for-oauth2-client-secret&: Prompt for the OAuth 2.0 Client secret used to connect to Salesforce.
-            --no-salesforce-prompt-for-password&: Prompt for the password used to connect to Salesforce.
-            --no-salesforce-prompt-for-security-token&: Prompt for the security token used to connect to Salesforce.
-            --no-sqlserver-prompt-for-password&: Prompt for the password used to connect to the database.
-            --no-static-ip-connectivity&: use static ip connectivity
-            --oracle-ca-certificate=: PEM-encoded certificate of the CA that signed the source database
-            --oracle-hostname=: IP or hostname of the oracle source database.
-            --oracle-password=: Password for the user that Datastream will be using to
-            --oracle-port=: Network port of the oracle source database.
-            --oracle-prompt-for-password: Prompt for the password used to connect to the database.
-            --oracle-secret-manager-stored-password=: Path to secret manager, storing the password for the user used to connect to the database.
-            --oracle-server-certificate-distinguished-name=: The distinguished name (DN) mentioned in the server
-            --oracle-username=: Username Datastream will use to connect to the database.
-            --postgresql-ca-certificate=: x509 PEM-encoded certificate of the CA that signed the source database
-            --postgresql-client-certificate=: x509 PEM-encoded certificate that will be used by the replica to
-            --postgresql-client-key=: Unencrypted PKCS#1 or PKCS#8 PEM-encoded private key associated with
-            --postgresql-database=: Database service for the PostgreSQL connection.
-            --postgresql-hostname=: IP or hostname of the PostgreSQL source database.
-            --postgresql-password=: Password for the user that Datastream will be using to
-            --postgresql-port=: Network port of the PostgreSQL source database.
-            --postgresql-prompt-for-password: Prompt for the password used to connect to the database.
-            --postgresql-secret-manager-stored-password=: Path to secret manager, storing the password for the user used to connect to the database.
-            --postgresql-server-certificate-hostname=: The hostname mentioned in the Subject or SAN extension of the server
-            --postgresql-username=: Username Datastream will use to connect to the database.
-            --private-connection=!: ID of the private_connection or fully qualified identifier for the private_connection.
-            --remove-labels=: List of label keys to remove.
-            --root-path=: The root path inside the Cloud Storage bucket.
-            --salesforce-domain=: Domain of the Salesforce organization.
-            --salesforce-oauth2-client-id=: OAuth 2.0 Client ID used to connect to Salesforce.
-            --salesforce-oauth2-client-secret=: OAuth 2.0 Client secret used to connect to Salesforce.
-            --salesforce-password=: Password for the user that Datastream will be using to
-            --salesforce-prompt-for-oauth2-client-secret: Prompt for the OAuth 2.0 Client secret used to connect to Salesforce.
-            --salesforce-prompt-for-password: Prompt for the password used to connect to Salesforce.
-            --salesforce-prompt-for-security-token: Prompt for the security token used to connect to Salesforce.
-            --salesforce-secret-manager-stored-oauth2-client-secret=: Path to secret manager, storing the OAuth 2.0 Client secret used to connect to Salesforce.
-            --salesforce-secret-manager-stored-password=: Path to secret manager, storing the password for the user used to connect to Salesforce.
-            --salesforce-secret-manager-stored-security-token=: Path to secret manager, storing the security token used to connect to Salesforce.
-            --salesforce-security-token=: Security token for the user that Datastream will be using to
-            --salesforce-username=: Username Datastream will use to connect to the database.
-            --sqlserver-database=: Database service for the SQL Server connection.
-            --sqlserver-hostname=: IP or hostname of the SQL Server source database.
-            --sqlserver-password=: Password for the user that Datastream will be using to
-            --sqlserver-port=: Network port of the SQL Server source database.
-            --sqlserver-prompt-for-password: Prompt for the password used to connect to the database.
-            --sqlserver-secret-manager-stored-password=: Path to secret manager, storing the password for the user used to connect to the database.
-            --sqlserver-username=: Username Datastream will use to connect to the database.
-            --static-ip-connectivity: use static ip connectivity
-            --type=!: Type can be MYSQL, ORACLE, POSTGRESQL, SQLSERVER, SALESFORCE, GOOGLE-CLOUD-STORAGE or BIGQUERY
-            --update-labels=: List of label KEY=VALUE pairs to update.
         - name: create
           description: Create a Datastream connection profile.
           flags:
@@ -400,6 +119,109 @@ commands:
             --recursive: (DEPRECATED) Whether to retrieve the full hierarchy of data objects (TRUE) or only the current level (FALSE).
             --recursive-depth=: (DEPRECATED) The number of hierarchy levels below the current level to be retrieved.
             --sqlserver-rdbms-file=: Path to a YAML (or JSON) file containing the SQL Server RDBMS to enrich with child data objects and metadata.
+        - name: list
+          description: List Datastream connection profiles.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a Datastream connection profile.
+          flags:
+            --bucket=: The full project and resource path for Cloud Storage
+            --ca-certificate=: x509 PEM-encoded certificate of the CA that signed the source database
+            --clear-labels: Remove all labels.
+            --client-certificate=: x509 PEM-encoded certificate that will be used by the replica to
+            --client-key=: Unencrypted PKCS#1 or PKCS#8 PEM-encoded private key associated with
+            --database-service=: Database service for the Oracle connection.
+            --display-name=: Friendly name for the connection profile.
+            --force: Update the connection profile without validating it.
+            --forward-ssh-hostname=: Hostname for the SSH tunnel.
+            --forward-ssh-password=: SSH password.
+            --forward-ssh-port=: Port for the SSH tunnel, default value is 22.
+            --forward-ssh-private-key=: SSH private key..
+            --forward-ssh-username=: Username for the SSH tunnel.
+            --location=: The Cloud location for the connection_profile.
+            --mongodb-ca-certificate=: x509 PEM-encoded certificate of the CA that signed the source database
+            --mongodb-direct-connection: Connect to the mongodb hosts directly and do not try to resolve
+            --mongodb-host-addresses=: IP or hostname and port of the MongoDB source database.
+            --mongodb-password=: Password for the user that Datastream will be using to
+            --mongodb-prompt-for-password: Prompt for the password used to connect to the database.
+            --mongodb-replica-set=: Replica set of the MongoDB source database.
+            --mongodb-secret-manager-stored-password=: Path to secret manager, storing the password for the user used to connect to the database.
+            --mongodb-srv-connection-format: SRV Connection format for the MongoDB source database.
+            --mongodb-standard-connection-format: Standard connection format for the MongoDB source database.
+            --mongodb-tls: Enable Transport Layer Security for the monogodb connection.
+            --mongodb-username=: Username Datastream will use to connect to the database.
+            --mysql-hostname=: IP or hostname of the MySQL source database.
+            --mysql-password=: Password for the user that Datastream will be using to
+            --mysql-port=: Network port of the MySQL source database.
+            --mysql-prompt-for-password: Prompt for the password used to connect to the database.
+            --mysql-secret-manager-stored-password=: Path to secret manager, storing the password for the user used to connect to the database.
+            --mysql-username=: Username Datastream will use to connect to the database.
+            --no-clear-labels&: Remove all labels.
+            --no-force&: Update the connection profile without validating it.
+            --no-mongodb-direct-connection&: Connect to the mongodb hosts directly and do not try to resolve
+            --no-mongodb-prompt-for-password&: Prompt for the password used to connect to the database.
+            --no-mongodb-srv-connection-format&: SRV Connection format for the MongoDB source database.
+            --no-mongodb-standard-connection-format&: Standard connection format for the MongoDB source database.
+            --no-mongodb-tls&: Enable Transport Layer Security for the monogodb connection.
+            --no-mysql-prompt-for-password&: Prompt for the password used to connect to the database.
+            --no-oracle-prompt-for-password&: Prompt for the password used to connect to the database.
+            --no-postgresql-prompt-for-password&: Prompt for the password used to connect to the database.
+            --no-salesforce-prompt-for-oauth2-client-secret&: Prompt for the OAuth 2.0 Client secret used to connect to Salesforce.
+            --no-salesforce-prompt-for-password&: Prompt for the password used to connect to Salesforce.
+            --no-salesforce-prompt-for-security-token&: Prompt for the security token used to connect to Salesforce.
+            --no-sqlserver-prompt-for-password&: Prompt for the password used to connect to the database.
+            --no-static-ip-connectivity&: use static ip connectivity
+            --oracle-ca-certificate=: PEM-encoded certificate of the CA that signed the source database
+            --oracle-hostname=: IP or hostname of the oracle source database.
+            --oracle-password=: Password for the user that Datastream will be using to
+            --oracle-port=: Network port of the oracle source database.
+            --oracle-prompt-for-password: Prompt for the password used to connect to the database.
+            --oracle-secret-manager-stored-password=: Path to secret manager, storing the password for the user used to connect to the database.
+            --oracle-server-certificate-distinguished-name=: The distinguished name (DN) mentioned in the server
+            --oracle-username=: Username Datastream will use to connect to the database.
+            --postgresql-ca-certificate=: x509 PEM-encoded certificate of the CA that signed the source database
+            --postgresql-client-certificate=: x509 PEM-encoded certificate that will be used by the replica to
+            --postgresql-client-key=: Unencrypted PKCS#1 or PKCS#8 PEM-encoded private key associated with
+            --postgresql-database=: Database service for the PostgreSQL connection.
+            --postgresql-hostname=: IP or hostname of the PostgreSQL source database.
+            --postgresql-password=: Password for the user that Datastream will be using to
+            --postgresql-port=: Network port of the PostgreSQL source database.
+            --postgresql-prompt-for-password: Prompt for the password used to connect to the database.
+            --postgresql-secret-manager-stored-password=: Path to secret manager, storing the password for the user used to connect to the database.
+            --postgresql-server-certificate-hostname=: The hostname mentioned in the Subject or SAN extension of the server
+            --postgresql-username=: Username Datastream will use to connect to the database.
+            --private-connection=!: ID of the private_connection or fully qualified identifier for the private_connection.
+            --remove-labels=: List of label keys to remove.
+            --root-path=: The root path inside the Cloud Storage bucket.
+            --salesforce-domain=: Domain of the Salesforce organization.
+            --salesforce-oauth2-client-id=: OAuth 2.0 Client ID used to connect to Salesforce.
+            --salesforce-oauth2-client-secret=: OAuth 2.0 Client secret used to connect to Salesforce.
+            --salesforce-password=: Password for the user that Datastream will be using to
+            --salesforce-prompt-for-oauth2-client-secret: Prompt for the OAuth 2.0 Client secret used to connect to Salesforce.
+            --salesforce-prompt-for-password: Prompt for the password used to connect to Salesforce.
+            --salesforce-prompt-for-security-token: Prompt for the security token used to connect to Salesforce.
+            --salesforce-secret-manager-stored-oauth2-client-secret=: Path to secret manager, storing the OAuth 2.0 Client secret used to connect to Salesforce.
+            --salesforce-secret-manager-stored-password=: Path to secret manager, storing the password for the user used to connect to Salesforce.
+            --salesforce-secret-manager-stored-security-token=: Path to secret manager, storing the security token used to connect to Salesforce.
+            --salesforce-security-token=: Security token for the user that Datastream will be using to
+            --salesforce-username=: Username Datastream will use to connect to the database.
+            --sqlserver-database=: Database service for the SQL Server connection.
+            --sqlserver-hostname=: IP or hostname of the SQL Server source database.
+            --sqlserver-password=: Password for the user that Datastream will be using to
+            --sqlserver-port=: Network port of the SQL Server source database.
+            --sqlserver-prompt-for-password: Prompt for the password used to connect to the database.
+            --sqlserver-secret-manager-stored-password=: Path to secret manager, storing the password for the user used to connect to the database.
+            --sqlserver-username=: Username Datastream will use to connect to the database.
+            --static-ip-connectivity: use static ip connectivity
+            --type=!: Type can be MYSQL, ORACLE, POSTGRESQL, SQLSERVER, SALESFORCE, GOOGLE-CLOUD-STORAGE or BIGQUERY
+            --update-labels=: List of label KEY=VALUE pairs to update.
     - name: locations
       description: Manage Datastream location resources.
       commands:
@@ -419,6 +241,22 @@ commands:
     - name: objects
       description: Manage Datastream stream objects.
       commands:
+        - name: describe
+          description: Show details about a Stream object.
+          flags:
+            --location=: The location of the resources.
+            --stream=: The stream name.
+        - name: list
+          description: List a Datastream stream objects.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: The Cloud location for the stream.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --stream=!: ID of the stream or fully qualified identifier for the stream.
+            --uri: Print a list of resource URIs instead of the default output, and change the
         - name: lookup
           description: Lookup a Datastream stream object.
           flags:
@@ -443,19 +281,181 @@ commands:
           flags:
             --location=: The location of the resources.
             --stream=: The stream name.
-        - name: describe
-          description: Show details about a Stream object.
+    - name: operations
+      description: Manage Datastream operations.
+      commands:
+        - name: cancel
+          description: Cancel a Datastream operation.
           flags:
             --location=: The location of the resources.
-            --stream=: The stream name.
+        - name: delete
+          description: Delete a Datastream operation.
+          flags:
+            --location=: The location of the resources.
+        - name: describe
+          description: Show details about a operation.
+          flags:
+            --location=: The location of the resources.
         - name: list
-          description: List a Datastream stream objects.
+          description: List operations.
           flags:
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
-            --location=: The Cloud location for the stream.
+            --location=!: ID of the location or fully qualified identifier for the location.
             --no-uri&: Print a list of resource URIs instead of the default output, and change the
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
-            --stream=!: ID of the stream or fully qualified identifier for the stream.
             --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: private-connections
+      description: Manage Datastream private connections.
+      commands:
+        - name: create
+          description: Create a Datastream private connection.
+          flags:
+            --display-name=!: Friendly name for the private connection.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The Cloud location for the private_connection.
+            --network-attachment=!: Full URI of the network attachment that datastream will connect to.For example, this would be of the form:`network-attachment=projects/test-project/regions/us-central1/networkAttachments/my-na`
+            --no-validate-only&: If set, the request will retrieve the project id to allow in the  network attachment Datastream will connect to.
+            --subnet=!: A free subnet for peering.
+            --validate-only: If set, the request will retrieve the project id to allow in the  network attachment Datastream will connect to.
+            --vpc=!: ID of the vpc or fully qualified identifier for the vpc.
+        - name: delete
+          description: Delete a Datastream private connection.
+          flags:
+            --force: You must set the force to ensure that the private
+            --location=: The location of the resources.
+            --no-force&: You must set the force to ensure that the private
+        - name: describe
+          description: Show details about a Datastream private connection.
+          flags:
+            --location=: The location of the resources.
+        - name: list
+          description: List private connections.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: routes
+      description: Manage Datastream routes.
+      commands:
+        - name: create
+          description: Create a Datastream private connection route.
+          flags:
+            --destination-address=!: Destination address for connection.
+            --destination-port=: Destination port for connection.
+            --display-name=!: Friendly name for the route.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The Cloud location for the route.
+            --private-connection=: The private connection of the route.
+        - name: delete
+          description: Delete a Datastream private connection route.
+          flags:
+            --location=: The location of the resources.
+            --private-connection=: The private connection name.
+        - name: describe
+          description: Show details about the route.
+          flags:
+            --location=: The location of the resources.
+            --private-connection=: The private connection name.
+        - name: list
+          description: List Datastream routes.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: The location of the resources.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --private-connection=!: ID of the private_connection or fully qualified identifier for the private_connection.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: streams
+      description: Manage Datastream stream resources.
+      commands:
+        - name: create
+          description: Create a Datastream stream.
+          flags:
+            --backfill-all: Automatically backfill objects included in the stream source
+            --backfill-none: Do not automatically backfill any objects.
+            --bigquery-destination-config=: Path to a YAML (or JSON) file containing the configuration for Google BigQuery Destination Config.
+            --destination=!: ID of the connection_profile or fully qualified identifier for the connection_profile.
+            --display-name=!: Friendly name for the stream.
+            --force: Create the stream without validating it.
+            --gcs-destination-config=: Path to a YAML (or JSON) file containing the configuration for Google Cloud Storage Destination Config.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The Cloud location for the stream.
+            --mongodb-excluded-objects=: Path to a YAML (or JSON) file containing the MongoDB data sources to avoid backfilling.
+            --mongodb-source-config=: Path to a YAML (or JSON) file containing the configuration for MongoDB Source Config.
+            --mysql-excluded-objects=: Path to a YAML (or JSON) file containing the MySQL data sources to avoid backfilling.
+            --mysql-source-config=: Path to a YAML (or JSON) file containing the configuration for MySQL Source Config.
+            --no-backfill-all&: Automatically backfill objects included in the stream source
+            --no-backfill-none&: Do not automatically backfill any objects.
+            --no-force&: Create the stream without validating it.
+            --no-validate-only&: Only validate the stream, but do not create any resources.
+            --oracle-excluded-objects=: Path to a YAML (or JSON) file containing the Oracle data sources to avoid backfilling.
+            --oracle-source-config=: Path to a YAML (or JSON) file containing the configuration for Oracle Source Config.
+            --postgresql-excluded-objects=: Path to a YAML (or JSON) file containing the PostgreSQL data sources to avoid backfilling.
+            --postgresql-source-config=: Path to a YAML (or JSON) file containing the configuration for PostgreSQL Source Config.
+            --salesforce-excluded-objects=: Path to a YAML (or JSON) file containing the Salesforce data sources to avoid backfilling.
+            --salesforce-source-config=: Path to a YAML (or JSON) file containing the configuration for Salesforce Source Config.
+            --source=!: ID of the connection_profile or fully qualified identifier for the connection_profile.
+            --sqlserver-excluded-objects=: Path to a YAML (or JSON) file containing the SQL Server data sources to avoid backfilling.
+            --sqlserver-source-config=: Path to a YAML (or JSON) file containing the configuration for SQL Server Source Config.
+            --validate-only: Only validate the stream, but do not create any resources.
+        - name: delete
+          description: Delete a Datastream stream.
+          flags:
+            --location=: The location of the resources.
+        - name: describe
+          description: Show details about a Datastream stream resource.
+          flags:
+            --location=: The location of the resources.
+        - name: list
+          description: List Datastream stream resources.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Updates a Datastream stream.
+          flags:
+            --backfill-all: Automatically backfill objects included in the stream source
+            --backfill-none: Do not automatically backfill any objects.
+            --bigquery-destination-config=: Path to a YAML (or JSON) file containing the configuration for Google BigQuery Destination Config.
+            --clear-labels: Remove all labels.
+            --destination=!: ID of the connection_profile or fully qualified identifier for the connection_profile.
+            --display-name=: Friendly name for the stream.
+            --force: Update the stream without validating it.
+            --gcs-destination-config=: Path to a YAML (or JSON) file containing the configuration for Google Cloud Storage Destination Config.
+            --location=: The Cloud location for the stream.
+            --mongodb-excluded-objects=: Path to a YAML (or JSON) file containing the MongoDB data sources to avoid backfilling.
+            --mongodb-source-config=: Path to a YAML (or JSON) file containing the configuration for MongoDB Source Config.
+            --mysql-excluded-objects=: Path to a YAML (or JSON) file containing the MySQL data sources to avoid backfilling.
+            --mysql-source-config=: Path to a YAML (or JSON) file containing the configuration for MySQL Source Config.
+            --no-backfill-all&: Automatically backfill objects included in the stream source
+            --no-backfill-none&: Do not automatically backfill any objects.
+            --no-clear-labels&: Remove all labels.
+            --no-force&: Update the stream without validating it.
+            --no-validate-only&: Only validate the stream, but do not update any resources.
+            --oracle-excluded-objects=: Path to a YAML (or JSON) file containing the Oracle data sources to avoid backfilling.
+            --oracle-source-config=: Path to a YAML (or JSON) file containing the configuration for Oracle Source Config.
+            --postgresql-excluded-objects=: Path to a YAML (or JSON) file containing the PostgreSQL data sources to avoid backfilling.
+            --postgresql-source-config=: Path to a YAML (or JSON) file containing the configuration for PostgreSQL Source Config.
+            --remove-labels=: List of label keys to remove.
+            --salesforce-excluded-objects=: Path to a YAML (or JSON) file containing the Salesforce data sources to avoid backfilling.
+            --salesforce-source-config=: Path to a YAML (or JSON) file containing the configuration for Salesforce Source Config.
+            --source=!: ID of the connection_profile or fully qualified identifier for the connection_profile.
+            --sqlserver-excluded-objects=: Path to a YAML (or JSON) file containing the SQL Server data sources to avoid backfilling.
+            --sqlserver-source-config=: Path to a YAML (or JSON) file containing the configuration for SQL Server Source Config.
+            --state=: 'Stream state, can be set to: "RUNNING" or "PAUSED".'
+            --update-labels=: List of label KEY=VALUE pairs to update.
+            --update-mask=: Used to specify the fields to be overwritten in the stream resource by the update.
+            --validate-only: Only validate the stream, but do not update any resources.

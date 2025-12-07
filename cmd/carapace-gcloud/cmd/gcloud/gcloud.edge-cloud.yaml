@@ -5,69 +5,6 @@ commands:
     - name: container
       description: Manage Edge Container resources.
       commands:
-        - name: regions
-          description: Manages Edge Container regions.
-          commands:
-            - name: list
-              description: List Edge Container regions.
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --limit=: Maximum number of resources to list.
-                --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --uri: Print a list of resource URIs instead of the default output, and change the
-            - name: describe
-              description: Describe an Edge Container region (location).
-        - name: vpn-connections
-          description: Manage Edge VPN connections between an Edge Container cluster and a VPC network.
-          commands:
-            - name: delete
-              description: Delete a VPN connection between an Edge Container cluster and a VPC network.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --location=: The global location name.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-            - name: describe
-              description: Show details about a VPN connection.
-              flags:
-                --location=: The global location name.
-            - name: list
-              description: List VPN connections.
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --limit=: Maximum number of resources to list.
-                --location=: ID of the location or fully qualified identifier for the location.
-                --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --uri: Print a list of resource URIs instead of the default output, and change the
-            - name: create
-              description: Create a VPN connection between an Edge Container cluster and a VPC network.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --cluster=!: ID of the cluster or fully qualified identifier for the cluster.
-                --high-availability: Enables high availability on cluster side.
-                --labels=: List of label KEY=VALUE pairs to add.
-                --location=: For resources [cluster, vpn_connection], provides fallback value for resource location attribute.
-                --nat-gateway-ip=: The NAT gateway IP for the gateway floating IPs.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --no-high-availability&: Enables high availability on cluster side.
-                --router=: Name of the Cloud Router to use when creating the VPN connection.
-                --vpc-network=!: The name of the VPC network to be connected.
-                --vpc-project=: The project of the VPC network.
-        - name: zones
-          description: Inspect Edge Container zones.
-          commands:
-            - name: describe
-              description: Describe an Edge Container zone.
-            - name: list
-              description: List Edge Container zones.
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --limit=: Maximum number of resources to list.
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
         - name: clusters
           description: Manage Kubernetes Edge clusters.
           commands:
@@ -118,6 +55,75 @@ commands:
                 --location=: Google Cloud location for the cluster.
                 --no-offline-credential&: ""
                 --offline-credential: Once specified, an offline credential will be generated for the cluster.
+            - name: list
+              description: List Edge Container clusters.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: node-pools
+              description: Manage Kubernetes Edge node pools.
+              commands:
+                - name: create
+                  description: Create an Edge Container node pool.
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --cluster=: Cluster of the node pool.
+                    --labels=: List of label KEY=VALUE pairs to add.
+                    --local-disk-kms-key=: Google Cloud KMS key that will be used to secure local disks on nodes
+                    --location=: Google Cloud location for the node pool.
+                    --lro-timeout=: Overwrite the default LRO maximum timeout.
+                    --machine-filter=: Only machines matching this filter will be allowed to join the node
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --node-count=!: Default nodeCount used by this node pool.
+                    --node-labels=: Comma-delimited list of key-value pairs that comprise labels for the
+                    --node-location=!: Google Edge Cloud zone where nodes in this node pool will be created.
+                    --node-storage-schema=: Name for the storage schema of worker nodes.
+                - name: delete
+                  description: Delete an Edge Container nodePool.
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --cluster=: Kubernetes cluster.
+                    --location=: The global location name.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                - name: describe
+                  description: Show details about the nodePool.
+                  flags:
+                    --cluster=: Kubernetes cluster.
+                    --location=: The global location name.
+                - name: list
+                  description: List Edge Container nodePools.
+                  flags:
+                    --cluster=: ID of the cluster or fully qualified identifier for the cluster.
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --location=: The global location name.
+                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                    --page-size=: Some services group resource list output into pages.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --uri: Print a list of resource URIs instead of the default output, and change the
+                - name: update
+                  description: Updates an Edge Container node pool.
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --clear-labels: Remove all labels.
+                    --cluster=: Cluster of the node pool.
+                    --local-disk-kms-key=: Google Cloud KMS key that will be used to secure local disks on nodes
+                    --location=: Google Cloud location for the node pool.
+                    --lro-timeout=: Overwrite the default LRO maximum timeout.
+                    --machine-filter=: Only machines matching this filter will be allowed to join the node
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --no-clear-labels&: Remove all labels.
+                    --no-use-google-managed-key&: ""
+                    --node-count=: Default nodeCount used by this node pool.
+                    --node-labels=: Comma-delimited list of key-value pairs that comprise labels for the
+                    --remove-labels=: List of label keys to remove.
+                    --update-labels=: List of label KEY=VALUE pairs to update.
+                    --use-google-managed-key: Once specified, a Google-managed key will be used for the control plane
             - name: print-access-token
               description: Generate an access token for an Edge Container cluster.
               hidden: true
@@ -158,75 +164,6 @@ commands:
               flags:
                 --location=: Google Cloud location for the cluster.
                 --schedule=!: Schedule to upgrade a cluster after the request is acknowledged by Google.
-            - name: list
-              description: List Edge Container clusters.
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --limit=: Maximum number of resources to list.
-                --location=: ID of the location or fully qualified identifier for the location.
-                --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --uri: Print a list of resource URIs instead of the default output, and change the
-            - name: node-pools
-              description: Manage Kubernetes Edge node pools.
-              commands:
-                - name: list
-                  description: List Edge Container nodePools.
-                  flags:
-                    --cluster=: ID of the cluster or fully qualified identifier for the cluster.
-                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                    --limit=: Maximum number of resources to list.
-                    --location=: The global location name.
-                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                    --page-size=: Some services group resource list output into pages.
-                    --sort-by=: Comma-separated list of resource field key names to sort by.
-                    --uri: Print a list of resource URIs instead of the default output, and change the
-                - name: update
-                  description: Updates an Edge Container node pool.
-                  flags:
-                    --async: Return immediately, without waiting for the operation in progress to
-                    --clear-labels: Remove all labels.
-                    --cluster=: Cluster of the node pool.
-                    --local-disk-kms-key=: Google Cloud KMS key that will be used to secure local disks on nodes
-                    --location=: Google Cloud location for the node pool.
-                    --lro-timeout=: Overwrite the default LRO maximum timeout.
-                    --machine-filter=: Only machines matching this filter will be allowed to join the node
-                    --no-async&: Return immediately, without waiting for the operation in progress to
-                    --no-clear-labels&: Remove all labels.
-                    --no-use-google-managed-key&: ""
-                    --node-count=: Default nodeCount used by this node pool.
-                    --node-labels=: Comma-delimited list of key-value pairs that comprise labels for the
-                    --remove-labels=: List of label keys to remove.
-                    --update-labels=: List of label KEY=VALUE pairs to update.
-                    --use-google-managed-key: Once specified, a Google-managed key will be used for the control plane
-                - name: create
-                  description: Create an Edge Container node pool.
-                  flags:
-                    --async: Return immediately, without waiting for the operation in progress to
-                    --cluster=: Cluster of the node pool.
-                    --labels=: List of label KEY=VALUE pairs to add.
-                    --local-disk-kms-key=: Google Cloud KMS key that will be used to secure local disks on nodes
-                    --location=: Google Cloud location for the node pool.
-                    --lro-timeout=: Overwrite the default LRO maximum timeout.
-                    --machine-filter=: Only machines matching this filter will be allowed to join the node
-                    --no-async&: Return immediately, without waiting for the operation in progress to
-                    --node-count=!: Default nodeCount used by this node pool.
-                    --node-labels=: Comma-delimited list of key-value pairs that comprise labels for the
-                    --node-location=!: Google Edge Cloud zone where nodes in this node pool will be created.
-                    --node-storage-schema=: Name for the storage schema of worker nodes.
-                - name: delete
-                  description: Delete an Edge Container nodePool.
-                  flags:
-                    --async: Return immediately, without waiting for the operation in progress to
-                    --cluster=: Kubernetes cluster.
-                    --location=: The global location name.
-                    --no-async&: Return immediately, without waiting for the operation in progress to
-                - name: describe
-                  description: Show details about the nodePool.
-                  flags:
-                    --cluster=: Kubernetes cluster.
-                    --location=: The global location name.
         - name: get-server-config
           description: Get server config.
           flags:
@@ -259,211 +196,75 @@ commands:
               description: Poll long-running edge container operation until it completes.
               flags:
                 --location=: The global location name.
+        - name: regions
+          description: Manages Edge Container regions.
+          commands:
+            - name: describe
+              description: Describe an Edge Container region (location).
+            - name: list
+              description: List Edge Container regions.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: vpn-connections
+          description: Manage Edge VPN connections between an Edge Container cluster and a VPC network.
+          commands:
+            - name: create
+              description: Create a VPN connection between an Edge Container cluster and a VPC network.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --cluster=!: ID of the cluster or fully qualified identifier for the cluster.
+                --high-availability: Enables high availability on cluster side.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --location=: For resources [cluster, vpn_connection], provides fallback value for resource location attribute.
+                --nat-gateway-ip=: The NAT gateway IP for the gateway floating IPs.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-high-availability&: Enables high availability on cluster side.
+                --router=: Name of the Cloud Router to use when creating the VPN connection.
+                --vpc-network=!: The name of the VPC network to be connected.
+                --vpc-project=: The project of the VPC network.
+            - name: delete
+              description: Delete a VPN connection between an Edge Container cluster and a VPC network.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The global location name.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: describe
+              description: Show details about a VPN connection.
+              flags:
+                --location=: The global location name.
+            - name: list
+              description: List VPN connections.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: zones
+          description: Inspect Edge Container zones.
+          commands:
+            - name: describe
+              description: Describe an Edge Container zone.
+            - name: list
+              description: List Edge Container zones.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
     - name: networking
       description: Manage Distributed Cloud Edge Network resources.
       commands:
-        - name: networks
-          description: Manage Distributed Cloud Edge Network networks.
-          commands:
-            - name: create
-              description: Create a Distributed Cloud Edge Network network.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --description=: An optional, textual description for the network.
-                --labels=: List of label KEY=VALUE pairs to add.
-                --location=: The global location name.
-                --mtu=: Maximum transmission unit (MTU) is the size of the largest
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --zone=: The name of the Google Distributed Cloud Edge zone.
-            - name: delete
-              description: Delete a Distributed Cloud Edge Network network.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --location=: The global location name.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --zone=: The name of the Google Distributed Cloud Edge zone.
-            - name: describe
-              description: Show details about the Distributed Cloud Edge Network network.
-              flags:
-                --location=: The global location name.
-                --zone=: The name of the Google Distributed Cloud Edge zone.
-            - name: get-status
-              description: Get the status of a specified Distributed Cloud Edge Network network.
-              flags:
-                --location=: The Cloud location for the network.
-                --zone=: The zone of the network.
-            - name: list
-              description: List Distributed Cloud Edge Network networks.
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --limit=: Maximum number of resources to list.
-                --location=: The global location name.
-                --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --uri: Print a list of resource URIs instead of the default output, and change the
-                --zone=!: ID of the zone or fully qualified identifier for the zone.
-        - name: operations
-          description: Command group for working with Distributed Cloud Edge Network operations.
-          commands:
-            - name: wait
-              description: Poll long-running edge network operation until it completes.
-              flags:
-                --location=: The global location name.
-            - name: describe
-              description: Get description of a long-running edge network operation.
-              flags:
-                --location=: The global location name.
-        - name: routers
-          description: Manage Distributed Cloud Edge Network routers.
-          commands:
-            - name: add-interface
-              description: Add an interface to a Distributed Cloud Edge Network router.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --interconnect-attachment=: Interconnect attachment of the interface being added.
-                --interface-name=!: The name of the interface being added.
-                --ip-address=: Link-local address of the router for this interface.
-                --ip-mask-length=: Subnet mask for the link-local IP range of the interface.
-                --location=: The Cloud location for the router.
-                --loopback-ip-addresses=: The list of ip ranges for the loopback interface.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --subnetwork=: Subnetwork of the interface being added.
-                --zone=: The zone of the router.
-            - name: create
-              description: Create a Distributed Cloud Edge Network router.
-              flags:
-                --asn=!: The locally assigned BGP ASN.
-                --async: Return immediately, without waiting for the operation in progress to
-                --description=: An optional, textual description for the router.
-                --keepalive-interval-in-seconds=&: The interval in seconds between BGP keepalive messages that are sent to the peer.
-                --labels=: List of label KEY=VALUE pairs to add.
-                --location=: The global location name.
-                --network=!: The network that this subnetwork belongs to.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --zone=: The name of the Google Distributed Cloud Edge zone.
-            - name: delete
-              description: Delete a Distributed Cloud Edge Network router.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --location=: The global location name.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --zone=: The name of the Google Distributed Cloud Edge zone.
-            - name: describe
-              description: Show details about the Distributed Cloud Edge Network router.
-              flags:
-                --location=: The global location name.
-                --zone=: The name of the Google Distributed Cloud Edge zone.
-            - name: list
-              description: List Distributed Cloud Edge Network routers.
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --limit=: Maximum number of resources to list.
-                --location=: The global location name.
-                --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --uri: Print a list of resource URIs instead of the default output, and change the
-                --zone=!: ID of the zone or fully qualified identifier for the zone.
-            - name: add-bgp-peer
-              description: Add a BGP peer to a Distributed Cloud Edge Network router.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --interface=!: The name of the interface for this BGP peer.
-                --location=: The Cloud location for the router.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --peer-asn=!: The BGP autonomous system number (ASN) for this BGP peer.
-                --peer-ipv4-range=: The IPv4 link-local address range of the peer router.
-                --peer-name=!: The name of the new BGP peer being added.
-                --zone=: The zone of the router.
-            - name: get-status
-              description: Get the status of a specified Distributed Cloud Edge Network router.
-              flags:
-                --location=: The Cloud location for the router.
-                --zone=: The zone of the router.
-            - name: remove-bgp-peer
-              description: Remove a BGP peer from a Distributed Cloud Edge Network router.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --location=: The Cloud location for the router.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --peer-name=: The name of the BGP peer being removed.
-                --peer-names=: The list of names for peers being removed.
-                --zone=: The zone of the router.
-            - name: remove-interface
-              description: remove an interface on a Distributed Cloud Edge Network router.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --interface-name=: The name of the interface being removed.
-                --interface-names=: The list of names for interfaces being removed.
-                --location=: The Cloud location for the router.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --zone=: The zone of the router.
-        - name: subnets
-          description: Manage Distributed Cloud Edge Network subnets.
-          commands:
-            - name: delete
-              description: Delete a Distributed Cloud Edge Network subnet.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --location=: The global location name.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --zone=: The name of the Google Distributed Cloud Edge zone.
-            - name: describe
-              description: Show details about the Distributed Cloud Edge Network subnet.
-              flags:
-                --location=: The global location name.
-                --zone=: The name of the Google Distributed Cloud Edge zone.
-            - name: list
-              description: List Distributed Cloud Edge Network subnets.
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --limit=: Maximum number of resources to list.
-                --location=: The global location name.
-                --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --uri: Print a list of resource URIs instead of the default output, and change the
-                --zone=!: ID of the zone or fully qualified identifier for the zone.
-            - name: create
-              description: Create a Distributed Cloud Edge Network subnet.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --description=: An optional, textual description for the subnet.
-                --ipv4-range=: The ranges of ipv4 addresses that are owned by this subnetwork in CIDR format.
-                --ipv6-range=: The ranges of ipv6 addresses that are owned by this subnetwork in CIDR format.
-                --labels=: List of label KEY=VALUE pairs to add.
-                --location=: The global location name.
-                --network=!: The network that this subnetwork belongs to.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --vlan-id=: The ID of the VLAN to tag the subnetwork.
-                --zone=: The name of the Google Distributed Cloud Edge zone.
-        - name: zones
-          description: Manage Distributed Cloud Edge Network zones.
-          commands:
-            - name: init
-              description: Initialize a specified Distributed Cloud Edge Network zone.
-              flags:
-                --location=: The Cloud location for the zone.
         - name: interconnects
           description: Manage Distributed Cloud Edge Network interconnects.
           commands:
-            - name: get-diagnostics
-              description: Get the diagnostics of a specified Distributed Cloud Edge Network interconnect.
-              flags:
-                --location=: The Cloud location for the interconnect.
-                --zone=: The zone of the interconnect.
-            - name: list
-              description: List Distributed Cloud Edge Network interconnects.
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --limit=: Maximum number of resources to list.
-                --location=: The global location name.
-                --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --uri: Print a list of resource URIs instead of the default output, and change the
-                --zone=!: ID of the zone or fully qualified identifier for the zone.
             - name: attachments
               description: Manage Distributed Cloud Edge Network interconnect attachments.
               commands:
@@ -511,3 +312,202 @@ commands:
               flags:
                 --location=: The global location name.
                 --zone=: The name of the Google Distributed Cloud Edge zone.
+            - name: get-diagnostics
+              description: Get the diagnostics of a specified Distributed Cloud Edge Network interconnect.
+              flags:
+                --location=: The Cloud location for the interconnect.
+                --zone=: The zone of the interconnect.
+            - name: list
+              description: List Distributed Cloud Edge Network interconnects.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The global location name.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+                --zone=!: ID of the zone or fully qualified identifier for the zone.
+        - name: networks
+          description: Manage Distributed Cloud Edge Network networks.
+          commands:
+            - name: create
+              description: Create a Distributed Cloud Edge Network network.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --description=: An optional, textual description for the network.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --location=: The global location name.
+                --mtu=: Maximum transmission unit (MTU) is the size of the largest
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --zone=: The name of the Google Distributed Cloud Edge zone.
+            - name: delete
+              description: Delete a Distributed Cloud Edge Network network.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The global location name.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --zone=: The name of the Google Distributed Cloud Edge zone.
+            - name: describe
+              description: Show details about the Distributed Cloud Edge Network network.
+              flags:
+                --location=: The global location name.
+                --zone=: The name of the Google Distributed Cloud Edge zone.
+            - name: get-status
+              description: Get the status of a specified Distributed Cloud Edge Network network.
+              flags:
+                --location=: The Cloud location for the network.
+                --zone=: The zone of the network.
+            - name: list
+              description: List Distributed Cloud Edge Network networks.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The global location name.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+                --zone=!: ID of the zone or fully qualified identifier for the zone.
+        - name: operations
+          description: Command group for working with Distributed Cloud Edge Network operations.
+          commands:
+            - name: describe
+              description: Get description of a long-running edge network operation.
+              flags:
+                --location=: The global location name.
+            - name: wait
+              description: Poll long-running edge network operation until it completes.
+              flags:
+                --location=: The global location name.
+        - name: routers
+          description: Manage Distributed Cloud Edge Network routers.
+          commands:
+            - name: add-bgp-peer
+              description: Add a BGP peer to a Distributed Cloud Edge Network router.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --interface=!: The name of the interface for this BGP peer.
+                --location=: The Cloud location for the router.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --peer-asn=!: The BGP autonomous system number (ASN) for this BGP peer.
+                --peer-ipv4-range=: The IPv4 link-local address range of the peer router.
+                --peer-name=!: The name of the new BGP peer being added.
+                --zone=: The zone of the router.
+            - name: add-interface
+              description: Add an interface to a Distributed Cloud Edge Network router.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --interconnect-attachment=: Interconnect attachment of the interface being added.
+                --interface-name=!: The name of the interface being added.
+                --ip-address=: Link-local address of the router for this interface.
+                --ip-mask-length=: Subnet mask for the link-local IP range of the interface.
+                --location=: The Cloud location for the router.
+                --loopback-ip-addresses=: The list of ip ranges for the loopback interface.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --subnetwork=: Subnetwork of the interface being added.
+                --zone=: The zone of the router.
+            - name: create
+              description: Create a Distributed Cloud Edge Network router.
+              flags:
+                --asn=!: The locally assigned BGP ASN.
+                --async: Return immediately, without waiting for the operation in progress to
+                --description=: An optional, textual description for the router.
+                --keepalive-interval-in-seconds=&: The interval in seconds between BGP keepalive messages that are sent to the peer.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --location=: The global location name.
+                --network=!: The network that this subnetwork belongs to.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --zone=: The name of the Google Distributed Cloud Edge zone.
+            - name: delete
+              description: Delete a Distributed Cloud Edge Network router.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The global location name.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --zone=: The name of the Google Distributed Cloud Edge zone.
+            - name: describe
+              description: Show details about the Distributed Cloud Edge Network router.
+              flags:
+                --location=: The global location name.
+                --zone=: The name of the Google Distributed Cloud Edge zone.
+            - name: get-status
+              description: Get the status of a specified Distributed Cloud Edge Network router.
+              flags:
+                --location=: The Cloud location for the router.
+                --zone=: The zone of the router.
+            - name: list
+              description: List Distributed Cloud Edge Network routers.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The global location name.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+                --zone=!: ID of the zone or fully qualified identifier for the zone.
+            - name: remove-bgp-peer
+              description: Remove a BGP peer from a Distributed Cloud Edge Network router.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The Cloud location for the router.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --peer-name=: The name of the BGP peer being removed.
+                --peer-names=: The list of names for peers being removed.
+                --zone=: The zone of the router.
+            - name: remove-interface
+              description: remove an interface on a Distributed Cloud Edge Network router.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --interface-name=: The name of the interface being removed.
+                --interface-names=: The list of names for interfaces being removed.
+                --location=: The Cloud location for the router.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --zone=: The zone of the router.
+        - name: subnets
+          description: Manage Distributed Cloud Edge Network subnets.
+          commands:
+            - name: create
+              description: Create a Distributed Cloud Edge Network subnet.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --description=: An optional, textual description for the subnet.
+                --ipv4-range=: The ranges of ipv4 addresses that are owned by this subnetwork in CIDR format.
+                --ipv6-range=: The ranges of ipv6 addresses that are owned by this subnetwork in CIDR format.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --location=: The global location name.
+                --network=!: The network that this subnetwork belongs to.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --vlan-id=: The ID of the VLAN to tag the subnetwork.
+                --zone=: The name of the Google Distributed Cloud Edge zone.
+            - name: delete
+              description: Delete a Distributed Cloud Edge Network subnet.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The global location name.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --zone=: The name of the Google Distributed Cloud Edge zone.
+            - name: describe
+              description: Show details about the Distributed Cloud Edge Network subnet.
+              flags:
+                --location=: The global location name.
+                --zone=: The name of the Google Distributed Cloud Edge zone.
+            - name: list
+              description: List Distributed Cloud Edge Network subnets.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The global location name.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+                --zone=!: ID of the zone or fully qualified identifier for the zone.
+        - name: zones
+          description: Manage Distributed Cloud Edge Network zones.
+          commands:
+            - name: init
+              description: Initialize a specified Distributed Cloud Edge Network zone.
+              flags:
+                --location=: The Cloud location for the zone.

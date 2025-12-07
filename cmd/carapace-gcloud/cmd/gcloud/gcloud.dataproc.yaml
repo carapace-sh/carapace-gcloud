@@ -2,363 +2,26 @@
 name: dataproc
 description: Create and manage Google Cloud Dataproc clusters and jobs.
 commands:
-    - name: workflow-templates
-      description: Create and manage Dataproc workflow templates.
-      commands:
-        - name: add-job
-          description: Add Dataproc jobs to workflow template.
-          commands:
-            - name: hive
-              description: Add a Hive job to the workflow template.
-              flags:
-                --continue-on-failure: Whether to continue if a single query fails.
-                --execute=: A Hive query to execute as part of the job.
-                --file=: HCFS URI of file containing Hive script to execute as the job.
-                --jars=: Comma separated list of jar files to be provided to the Hive and MR. May contain UDFs.
-                --labels=: List of label KEY=VALUE pairs to add.
-                --no-continue-on-failure&: Whether to continue if a single query fails.
-                --params=: A list of key value pairs to set variables in the Hive queries.
-                --properties-file=: Path to a local file or a file in a Cloud Storage bucket containing
-                --properties=: A list of key value pairs to configure Hive.
-                --region=: Dataproc region for the template.
-                --start-after=: (Optional) List of step IDs to start this job after.
-                --step-id=!: The step ID of the job in the workflow template.
-                --workflow-template=!: ID of the template or fully qualified identifier for the template.
-            - name: spark-r
-              description: Add a SparkR job to the workflow template.
-              flags:
-                --archives=: Comma separated list of archives to be extracted into the working directory of each executor.
-                --driver-log-levels=: List of key value pairs to configure driver logging, where key is a package and value is the log4j log level.
-                --files=: Comma separated list of files to be placed in the working directory of both the app driver and executors.
-                --labels=: List of label KEY=VALUE pairs to add.
-                --properties-file=: Path to a local file or a file in a Cloud Storage bucket containing
-                --properties=: List of key value pairs to configure SparkR.
-                --region=: Dataproc region for the template.
-                --start-after=: (Optional) List of step IDs to start this job after.
-                --step-id=!: The step ID of the job in the workflow template.
-                --workflow-template=!: ID of the template or fully qualified identifier for the template.
-            - name: trino
-              description: Add a Trino job to the workflow template.
-              flags:
-                --client-tags=: A list of Trino client tags to attach to this query.
-                --continue-on-failure: Whether to continue if a query fails.
-                --driver-log-levels=: A list of package-to-log4j log level pairs to configure driver logging.
-                --execute=: A Trino query to execute.
-                --file=: HCFS URI of file containing the Trino script to execute.
-                --labels=: List of label KEY=VALUE pairs to add.
-                --no-continue-on-failure&: Whether to continue if a query fails.
-                --properties-file=: Path to a local file or a file in a Cloud Storage bucket containing
-                --properties=: A list of key value pairs to set Trino session properties.
-                --query-output-format=: The query output display format.
-                --region=: Dataproc region for the template.
-                --start-after=: (Optional) List of step IDs to start this job after.
-                --step-id=!: The step ID of the job in the workflow template.
-                --workflow-template=!: ID of the template or fully qualified identifier for the template.
-            - name: pig
-              description: Add a Pig job to the workflow template.
-              flags:
-                --continue-on-failure: Whether to continue if a single query fails.
-                --driver-log-levels=: A list of package to log4j log level pairs to configure driver logging.
-                --execute=: A Pig query to execute as part of the job.
-                --file=: HCFS URI of file containing Pig script to execute as the job.
-                --jars=: Comma separated list of jar files to be provided to Pig and MR. May contain UDFs.
-                --labels=: List of label KEY=VALUE pairs to add.
-                --no-continue-on-failure&: Whether to continue if a single query fails.
-                --params=: A list of key value pairs to set variables in the Pig queries.
-                --properties-file=: Path to a local file or a file in a Cloud Storage bucket containing
-                --properties=: A list of key value pairs to configure Pig.
-                --region=: Dataproc region for the template.
-                --start-after=: (Optional) List of step IDs to start this job after.
-                --step-id=!: The step ID of the job in the workflow template.
-                --workflow-template=!: ID of the template or fully qualified identifier for the template.
-            - name: presto
-              description: Add a Presto job to the workflow template.
-              flags:
-                --client-tags=: A list of Presto client tags to attach to this query.
-                --continue-on-failure: Whether to continue if a query fails.
-                --driver-log-levels=: A list of package-to-log4j log level pairs to configure driver logging.
-                --execute=: A Presto query to execute.
-                --file=: HCFS URI of file containing the Presto script to execute.
-                --labels=: List of label KEY=VALUE pairs to add.
-                --no-continue-on-failure&: Whether to continue if a query fails.
-                --properties-file=: Path to a local file or a file in a Cloud Storage bucket containing
-                --properties=: A list of key value pairs to set Presto session properties.
-                --query-output-format=: The query output display format.
-                --region=: Dataproc region for the template.
-                --start-after=: (Optional) List of step IDs to start this job after.
-                --step-id=!: The step ID of the job in the workflow template.
-                --workflow-template=!: ID of the template or fully qualified identifier for the template.
-            - name: pyspark
-              description: Add a PySpark job to the workflow template.
-              flags:
-                --archives=: Comma separated list of archives to be extracted into the working directory of each executor.
-                --driver-log-levels=: List of key value pairs to configure driver logging, where key is a package and value is the log4j log level.
-                --files=: Comma separated list of files to be placed in the working directory of both the app driver and executors.
-                --jars=: Comma separated list of jar files to be provided to the executor and driver classpaths.
-                --labels=: List of label KEY=VALUE pairs to add.
-                --properties-file=: Path to a local file or a file in a Cloud Storage bucket containing
-                --properties=: List of key value pairs to configure PySpark.
-                --py-files=: Comma separated list of Python files to be provided to the job.
-                --region=: Dataproc region for the template.
-                --start-after=: (Optional) List of step IDs to start this job after.
-                --step-id=!: The step ID of the job in the workflow template.
-                --workflow-template=!: ID of the template or fully qualified identifier for the template.
-            - name: spark
-              description: Add a Spark job to the workflow template.
-              flags:
-                --archives=: Comma separated list of archives to be extracted into the working directory of each executor.
-                --class=: The class containing the main method of the driver.
-                --driver-log-levels=: List of package to log4j log level pairs to configure driver logging.
-                --files=: Comma separated list of files to be placed in the working directory of both the app driver and executors.
-                --jar=: The HCFS URI of jar file containing the driver jar.
-                --jars=: Comma separated list of jar files to be provided to the executor and driver classpaths.
-                --labels=: List of label KEY=VALUE pairs to add.
-                --properties-file=: Path to a local file or a file in a Cloud Storage bucket containing
-                --properties=: List of key value pairs to configure Spark.
-                --region=: Dataproc region for the template.
-                --start-after=: (Optional) List of step IDs to start this job after.
-                --step-id=!: The step ID of the job in the workflow template.
-                --workflow-template=!: ID of the template or fully qualified identifier for the template.
-            - name: spark-sql
-              description: Add a SparkSql job to the workflow template.
-              flags:
-                --driver-log-levels=: A list of package to log4j log level pairs to configure driver logging.
-                --execute=: A Spark SQL query to execute as part of the job.
-                --file=: HCFS URI of file containing Spark SQL script to execute as the job.
-                --jars=: Comma separated list of jar files to be provided to the executor and driver classpaths.
-                --labels=: List of label KEY=VALUE pairs to add.
-                --params=: A list of key value pairs to set variables in the Hive queries.
-                --properties-file=: Path to a local file or a file in a Cloud Storage bucket containing
-                --properties=: A list of key value pairs to configure Hive.
-                --region=: Dataproc region for the template.
-                --start-after=: (Optional) List of step IDs to start this job after.
-                --step-id=!: The step ID of the job in the workflow template.
-                --workflow-template=!: ID of the template or fully qualified identifier for the template.
-            - name: hadoop
-              description: Add a hadoop job to the workflow template.
-              flags:
-                --archives=: Comma separated list of archives to be provided to the job.
-                --class=: The class containing the main method of the driver.
-                --driver-log-levels=: A list of package to log4j log level pairs to configure driver logging.
-                --files=: Comma separated list of file paths to be provided to the job.
-                --jar=: The HCFS URI of jar file containing the driver jar.
-                --jars=: Comma separated list of jar files to be provided to the MR and driver classpaths.
-                --labels=: List of label KEY=VALUE pairs to add.
-                --properties-file=: Path to a local file or a file in a Cloud Storage bucket containing
-                --properties=: A list of key value pairs to configure Hadoop.
-                --region=: Dataproc region for the template.
-                --start-after=: (Optional) List of step IDs to start this job after.
-                --step-id=!: The step ID of the job in the workflow template.
-                --workflow-template=!: ID of the template or fully qualified identifier for the template.
-        - name: instantiate
-          description: Instantiate a workflow template.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --parameters=: A map from parameter names to values that should be used for those
-            --region=: Dataproc region for the template.
-            --timeout=&: Client side timeout on how long to wait for Dataproc operations.
-        - name: instantiate-from-file
-          description: Instantiate a workflow template from a file.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --file=!: The YAML file containing the workflow template to run
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --region=: Dataproc region to use.
-        - name: remove-job
-          description: Remove a job from workflow template.
-          flags:
-            --region=: Dataproc region for the template.
-            --step-id=: The step ID of the job in the workflow template to remove.
-        - name: delete
-          description: Delete a workflow template.
-          flags:
-            --region=: Dataproc region for the template.
-        - name: get-iam-policy
-          description: Get IAM policy for a workflow template.
-          flags:
-            --region=: Dataproc region for the template.
-        - name: remove-dag-timeout
-          description: Remove DAG timeout from a workflow template.
-          flags:
-            --region=: Dataproc region for the template.
-        - name: set-iam-policy
-          description: Set IAM policy for a template.
-          flags:
-            --region=: Dataproc region for the template.
-        - name: describe
-          description: Describe a workflow template.
-          flags:
-            --region=: Dataproc region for the template.
-        - name: import
-          description: Import a workflow template.
-          flags:
-            --region=: Dataproc region for the template.
-            --source=: Path to a YAML file containing configuration export data.
-        - name: list
-          description: List workflow templates.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --page-size=: Some services group resource list output into pages.
-            --region=: Dataproc region to use.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: set-dag-timeout
-          description: Set DAG timeout on a workflow template.
-          flags:
-            --dag-timeout=!: The duration for which a DAG of jobs can run before being
-            --region=: Dataproc region for the template.
-        - name: set-managed-cluster
-          description: Set a managed cluster for the workflow template.
-          flags:
-            --auto-zone-exclude-zones=&: ""
-            --autoscaling-policy=!: ID of the autoscaling policy or fully qualified identifier for the autoscaling policy.
-            --bucket=: The Google Cloud Storage bucket to use by default to stage job
-            --cluster-name=: The name of the managed dataproc cluster.
-            --cluster-type=: The type of cluster.
-            --confidential-compute: Enables Confidential VM.
-            --dataproc-metastore=: Specify the name of a Dataproc Metastore service to be used as an
-            --enable-component-gateway: Enable access to the web UIs of selected components on the cluster through the component gateway.
-            --enable-kerberos: Enable Kerberos on the cluster.
-            --enable-node-groups=&: Create cluster nodes using Dataproc NodeGroups.
-            --identity-config-file=: Path to a YAML (or JSON) file containing the configuration for Secure Multi-Tenancy
-            --image-version=: The image version to use for the cluster.
-            --image=: The custom image used to create the cluster.
-            --initialization-action-timeout=: The maximum duration of each initialization action.
-            --initialization-actions=: A list of Google Cloud Storage URIs of executables to run on each node in the cluster.
-            --kerberos-config-file=: Path to a YAML (or JSON) file containing the configuration for Kerberos on the
-            --kerberos-kms-key-keyring=: The KMS keyring of the key.
-            --kerberos-kms-key-location=: The Google Cloud location for the key.
-            --kerberos-kms-key-project=: The Google Cloud project for the key.
-            --kerberos-kms-key=!: ID of the key or fully qualified identifier for the key.
-            --kerberos-root-principal-password-uri=: Google Cloud Storage URI of a KMS encrypted file containing the root
-            --kms-key=!: ID of the key or fully qualified identifier for the key.
-            --kms-keyring=: The KMS keyring of the key.
-            --kms-location=: The Google Cloud location for the key.
-            --kms-project=: The Google Cloud project for the key.
-            --labels=: List of label KEY=VALUE pairs to add.
-            --master-accelerator=: Attaches accelerators, such as GPUs, to the master
-            --master-attached-disks=&: A list of disk configurations to attach to nodes.
-            --master-boot-disk-provisioned-iops=: Indicates the [IOPS](https://cloud.google.com/compute/docs/disks/hyperdisks#iops)
-            --master-boot-disk-provisioned-throughput=: Indicates the [throughput](https://cloud.google.com/compute/docs/disks/hyperdisks#throughput)
-            --master-boot-disk-size=: The size of the boot disk.
-            --master-boot-disk-type=: The type of the boot disk.
-            --master-local-ssd-interface=: Interface to use to attach local SSDs to master node(s) in a cluster.
-            --master-machine-type=: The type of machine to use for the master.
-            --master-machine-types=&: Types of machines with optional rank for master nodes to use.
-            --master-min-cpu-platform=: When specified, the VM is scheduled on the host with a specified CPU
-            --metadata=: Metadata to be made available to the guest operating system running on the instances
-            --metric-overrides-file=: Path to a file containing list of Metrics that override the default metrics enabled for the metric sources.
-            --metric-overrides=: List of metrics that override the default metrics enabled for the metric
-            --metric-sources=!: Specifies a list of cluster [Metric Sources](https://cloud.google.com/dataproc/docs/guides/monitoring#available_oss_metrics) to collect custom metrics.
-            --min-num-workers=: Minimum number of primary worker nodes to provision for cluster creation to succeed.
-            --min-secondary-worker-fraction=: Minimum fraction of secondary worker nodes required to create the cluster.
-            --min-worker-fraction=&: Minimum fraction of worker nodes required to create the cluster.
-            --network=: The Compute Engine network that the VM instances of the cluster will be
-            --no-address: If provided, the instances in the cluster will not be assigned external
-            --no-confidential-compute&: Enables Confidential VM.
-            --no-enable-component-gateway&: Enable access to the web UIs of selected components on the cluster through the component gateway.
-            --no-enable-kerberos&: Enable Kerberos on the cluster.
-            --no-public-ip-address&: If provided, cluster instances are assigned external IP addresses.
-            --no-shielded-integrity-monitoring&: Enables monitoring and attestation of the boot integrity of the
-            --no-shielded-secure-boot&: The cluster's VMs will boot with secure boot enabled.
-            --no-shielded-vtpm&: The cluster's VMs will boot with the TPM (Trusted Platform Module) enabled.
-            --no-single-node&: Create a single node cluster.
-            --node-group=: The name of the sole-tenant node group to create the cluster on.
-            --num-master-local-ssds=: The number of local SSDs to attach to the master in a cluster.
-            --num-masters=: The number of master nodes in the cluster.
-            --num-preemptible-worker-local-ssds=&: (DEPRECATED)       The number of local SSDs to attach to each secondary worker in
-            --num-preemptible-workers=&: (DEPRECATED) The number of preemptible worker nodes in the cluster.
-            --num-secondary-worker-local-ssds=: The number of local SSDs to attach to each preemptible worker in
-            --num-secondary-workers=: The number of secondary worker nodes in the cluster.
-            --num-worker-local-ssds=: The number of local SSDs to attach to each worker in a cluster.
-            --num-workers=: The number of worker nodes in the cluster.
-            --optional-components=: List of optional components to be installed on cluster machines.
-            --preemptible-worker-accelerator=&: (DEPRECATED)       Attaches accelerators, such as GPUs, to the preemptible-worker
-            --preemptible-worker-boot-disk-size=&: (DEPRECATED)       The size of the boot disk.
-            --preemptible-worker-boot-disk-type=&: (DEPRECATED)       The type of the boot disk.
-            --private-ipv6-google-access-type=: The private IPv6 Google access type for the cluster.
-            --properties=: Specifies configuration properties for installed packages, such as Hadoop
-            --public-ip-address: If provided, cluster instances are assigned external IP addresses.
-            --region=: Dataproc region for the template.
-            --reservation-affinity=: The type of reservation for the instance.
-            --reservation=: The name of the reservation, required when `--reservation-affinity=specific`.
-            --resource-manager-tags=: Specifies a list of resource manager tags to apply to each cluster node (master and worker nodes).
-            --scopes=: Specifies scopes for the node instances.
-            --secondary-worker-accelerator=: Attaches accelerators, such as GPUs, to the secondary-worker
-            --secondary-worker-attached-disks=&: A list of disk configurations to attach to nodes.
-            --secondary-worker-boot-disk-provisioned-iops=&: Indicates the [IOPS](https://cloud.google.com/compute/docs/disks/hyperdisks#iops)
-            --secondary-worker-boot-disk-provisioned-throughput=&: Indicates the [throughput](https://cloud.google.com/compute/docs/disks/hyperdisks#throughput)
-            --secondary-worker-boot-disk-size=: The size of the boot disk.
-            --secondary-worker-boot-disk-type=: The type of the boot disk.
-            --secondary-worker-local-ssd-interface=: Interface to use to attach local SSDs to each secondary worker
-            --secondary-worker-machine-types=: Types of machines with optional rank for secondary workers to use.
-            --secondary-worker-standard-capacity-base=: This flag sets the base number of Standard VMs to use for [secondary workers](https://cloud.google.com/dataproc/docs/concepts/compute/secondary-vms#preemptible_and_non-preemptible_secondary_workers). Dataproc will create only standard VMs until it reaches this number, then it will mix Spot and Standard VMs according to ``SECONDARY_WORKER_STANDARD_CAPACITY_PERCENT_ABOVE_BASE''.
-            --secondary-worker-standard-capacity-percent-above-base=: When combining Standard and Spot VMs for [secondary-workers](https://cloud.google.com/dataproc/docs/concepts/compute/secondary-vms#preemptible_and_non-preemptible_secondary_workers) once the number of Standard VMs specified by ``SECONDARY_WORKER_STANDARD_CAPACITY_BASE'' has been used, this flag specifies the percentage of the total number of additional Standard VMs secondary workers will use.
-            --secondary-worker-type=: The type of the secondary worker group.
-            --secure-multi-tenancy-user-mapping=: A string of user-to-service-account mappings.
-            --service-account=: The Google Cloud IAM service account to be authenticated as.
-            --shielded-integrity-monitoring: Enables monitoring and attestation of the boot integrity of the
-            --shielded-secure-boot: The cluster's VMs will boot with secure boot enabled.
-            --shielded-vtpm: The cluster's VMs will boot with the TPM (Trusted Platform Module) enabled.
-            --single-node: Create a single node cluster.
-            --subnet=: Specifies the subnet that the cluster will be part of.
-            --tags=: Specifies a list of tags to apply to the instance.
-            --temp-bucket=: The Google Cloud Storage bucket to use by default to store
-            --tier=: Cluster tier.
-            --timeout=&: Client side timeout on how long to wait for Dataproc operations.
-            --worker-accelerator=: Attaches accelerators, such as GPUs, to the worker
-            --worker-attached-disks=&: A list of disk configurations to attach to nodes.
-            --worker-boot-disk-provisioned-iops=: Indicates the [IOPS](https://cloud.google.com/compute/docs/disks/hyperdisks#iops)
-            --worker-boot-disk-provisioned-throughput=: Indicates the [throughput](https://cloud.google.com/compute/docs/disks/hyperdisks#throughput)
-            --worker-boot-disk-size=: The size of the boot disk.
-            --worker-boot-disk-type=: The type of the boot disk.
-            --worker-local-ssd-interface=: Interface to use to attach local SSDs to each worker in a cluster.
-            --worker-machine-type=: The type of machine to use for primary workers.
-            --worker-machine-types=: '[Machine types](https://cloud.google.com/dataproc/docs/concepts/compute/supported-machine-types) for primary worker nodes to use with optional rank.'
-            --worker-min-cpu-platform=: When specified, the VM is scheduled on the host with a specified CPU
-            --zone=: The compute zone (e.g. us-central1-a) for the cluster.
-          completion:
-            flag:
-                cluster-type:
-                    - standard
-                    - single-node
-                    - zero-scale
-                private-ipv6-google-access-type:
-                    - inherit-subnetwork
-                    - outbound
-                    - bidirectional
-                reservation-affinity:
-                    - any
-                    - none
-                    - specific
-                secondary-worker-type:
-                    - preemptible
-                    - non-preemptible
-                    - spot
-                tier:
-                    - premium
-                    - standard
-        - name: create
-          description: Create a workflow template.
-          flags:
-            --dag-timeout=: The duration for which a DAG of jobs can run before being
-            --kms-key=: The KMS key used to encrypt sensitive data in the workflow template.
-            --labels=: List of label KEY=VALUE pairs to add.
-            --region=: Dataproc region for the template.
-        - name: export
-          description: Export a workflow template.
-          flags:
-            --destination=: Path to a YAML file where the configuration will be exported.
-            --region=: Dataproc region for the template.
-        - name: set-cluster-selector
-          description: Set cluster selector for the workflow template.
-          flags:
-            --cluster-labels=: A list of label KEY=VALUE pairs to add.
-            --region=: Dataproc region for the template.
     - name: autoscaling-policies
       description: Create and manage Dataproc autoscaling policies.
       commands:
+        - name: delete
+          description: Delete an autoscaling policy.
+          flags:
+            --region=: Dataproc region for the autoscaling policy.
+        - name: describe
+          description: Describe an autoscaling policy.
+          flags:
+            --region=: Dataproc region for the autoscaling policy.
+        - name: export
+          description: Export an autoscaling policy.
+          flags:
+            --destination=: Path to a YAML file where the configuration will be exported.
+            --region=: Dataproc region for the autoscaling policy.
+        - name: get-iam-policy
+          description: Get IAM policy for an autoscaling policy.
+          flags:
+            --region=: Dataproc region for the autoscaling policy.
         - name: import
           description: Import an autoscaling policy.
           flags:
@@ -378,26 +41,13 @@ commands:
           description: Set IAM policy for an autoscaling policy.
           flags:
             --region=: Dataproc region for the autoscaling policy.
-        - name: delete
-          description: Delete an autoscaling policy.
-          flags:
-            --region=: Dataproc region for the autoscaling policy.
-        - name: describe
-          description: Describe an autoscaling policy.
-          flags:
-            --region=: Dataproc region for the autoscaling policy.
-        - name: export
-          description: Export an autoscaling policy.
-          flags:
-            --destination=: Path to a YAML file where the configuration will be exported.
-            --region=: Dataproc region for the autoscaling policy.
-        - name: get-iam-policy
-          description: Get IAM policy for an autoscaling policy.
-          flags:
-            --region=: Dataproc region for the autoscaling policy.
     - name: batches
       description: Submit Dataproc batch jobs.
       commands:
+        - name: cancel
+          description: Cancel a batch job without removing batch resources.
+          flags:
+            --region=: Dataproc region for the batch.
         - name: delete
           description: Delete a batch job.
           flags:
@@ -602,131 +252,9 @@ commands:
           description: View the output of a batch as it runs or after it completes.
           flags:
             --region=: Dataproc region for the batch.
-        - name: cancel
-          description: Cancel a batch job without removing batch resources.
-          flags:
-            --region=: Dataproc region for the batch.
     - name: clusters
       description: Create and manage Dataproc clusters.
       commands:
-        - name: gke
-          description: Create Dataproc GKE-based virtual clusters.
-          commands:
-            - name: create
-              description: Create a GKE-based virtual cluster.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --gke-cluster-location=: GKE region for the gke-cluster.
-                --gke-cluster=!: ID of the gke-cluster or fully qualified identifier for the gke-cluster.
-                --history-server-cluster-region=: Compute Engine region for the history-server-cluster.
-                --history-server-cluster=!: ID of the history-server-cluster or fully qualified identifier for the history-server-cluster.
-                --metastore-service-location=: Dataproc Metastore location for the metastore-service.
-                --metastore-service=!: ID of the metastore-service or fully qualified identifier for the metastore-service.
-                --namespace=: The name of the Kubernetes namespace to deploy Dataproc system
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --no-setup-workload-identity&: Sets up the GKE Workload Identity for your Dataproc on GKE cluster.
-                --pools=: Each `--pools` flag represents a GKE node pool associated with
-                --properties=: Specifies configuration properties for installed packages, such as
-                --region=: Dataproc region for the cluster.
-                --setup-workload-identity: Sets up the GKE Workload Identity for your Dataproc on GKE cluster.
-                --spark-engine-version=!: The version of the Spark engine to run on this cluster.
-                --staging-bucket=: The Cloud Storage bucket to use to stage job dependencies, miscellaneous
-                --timeout=&: Client side timeout on how long to wait for Dataproc operations.
-        - name: list
-          description: View a list of clusters in a project.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --page-size=: Some services group resource list output into pages.
-            --region=: Dataproc region to use.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: delete
-          description: Delete a cluster.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --region=: Dataproc region for the cluster.
-            --timeout=&: Client side timeout on how long to wait for Dataproc operations.
-        - name: export
-          description: Export a cluster.
-          flags:
-            --destination=: Path to a YAML file where the configuration will be exported.
-            --region=: Dataproc region for the cluster.
-        - name: repair
-          description: Repair a cluster.
-          hidden: true
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --cluster-repair-action=: '`--cluster-repair-action` flag indicates the repair operation is at'
-            --dataproc-super-user=&: Whether to use Dataproc superuser permissions.
-            --graceful-decommission-timeout=: The graceful decommission timeout for decommissioning Node Managers
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --node-pool=: Each `--node-pool` flag represents either the primary or secondary
-            --region=: Dataproc region for the cluster.
-            --timeout=&: Client side timeout on how long to wait for Dataproc operations.
-        - name: set-iam-policy
-          description: Set IAM policy for a cluster.
-          flags:
-            --region=: Dataproc region for the cluster.
-        - name: update
-          description: Update labels and/or the number of worker nodes in a cluster.
-          flags:
-            --add-user-mappings=: List of user-to-service-account mappings to add to current mappings.
-            --async: Return immediately, without waiting for the operation in progress to
-            --autoscaling-policy=!: ID of the autoscaling policy or fully qualified identifier for the autoscaling policy.
-            --clear-labels: Remove all labels.
-            --delete-expiration-time=: The time when the cluster will be auto-deleted, such as
-            --delete-max-age=: The lifespan of the cluster with auto-deletion upon completion,
-            --delete-max-idle=: The duration after the last job completes to auto-delete the cluster,
-            --disable-autoscaling: Disable autoscaling, if it is enabled.
-            --expiration-time=&: The time when the cluster will be auto-deleted, such as
-            --graceful-decommission-timeout=: The graceful decommission timeout for decommissioning Node Managers
-            --identity-config-file=: Path to a YAML (or JSON) file that contains the configuration for [Secure Multi-Tenancy](/dataproc/docs/concepts/iam/sa-multi-tenancy)
-            --max-age=&: The lifespan of the cluster, with auto-deletion upon completion,
-            --max-idle=&: The duration after the last job completes to auto-delete the cluster,
-            --min-secondary-worker-fraction=: Minimum fraction of new secondary worker nodes added in a scale up update operation, required to update the cluster.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-clear-labels&: Remove all labels.
-            --no-delete-max-age: Cancels the cluster auto-deletion by maximum cluster age (configured
-            --no-delete-max-idle: Cancels the cluster auto-deletion by cluster idle duration (configured
-            --no-disable-autoscaling&: Disable autoscaling, if it is enabled.
-            --no-max-age&: Cancels the cluster auto-deletion by maximum cluster age (configured by
-            --no-max-idle&: Cancels the cluster auto-deletion by cluster idle duration (configured
-            --no-stop-max-age: Cancels the cluster auto-stop by maximum cluster age (configured by
-            --no-stop-max-idle: Cancels the cluster auto-stop by cluster idle duration (configured
-            --num-preemptible-workers=&: (DEPRECATED) The new number of preemptible worker nodes in the cluster.
-            --num-secondary-workers=: The new number of secondary worker nodes in the cluster.
-            --num-workers=: The new number of worker nodes in the cluster.
-            --region=: Dataproc region for the cluster.
-            --remove-labels=: List of label keys to remove.
-            --remove-user-mappings=: List of user-to-service-account mappings to remove from the
-            --stop-expiration-time=: The time when the cluster will be auto-stopped, such as
-            --stop-max-age=: The lifespan of the cluster, with auto-stop upon completion,
-            --stop-max-idle=: The duration after the last job completes to auto-stop the cluster,
-            --timeout=&: Client side timeout on how long to wait for Dataproc operations.
-            --update-labels=: List of label KEY=VALUE pairs to update.
-        - name: get-iam-policy
-          description: Get IAM policy for a cluster.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --page-size=: Some services group resource list output into pages.
-            --region=: Dataproc region for the cluster.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: stop
-          description: Stop a cluster.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --region=: Dataproc region for the cluster.
-            --timeout=&: Client side timeout on how long to wait for Dataproc operations.
-        - name: start
-          description: Start a cluster.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --region=: Dataproc region for the cluster.
-            --timeout=&: Client side timeout on how long to wait for Dataproc operations.
         - name: create
           description: Create a cluster.
           flags:
@@ -888,27 +416,17 @@ commands:
                 tier:
                     - premium
                     - standard
-        - name: describe
-          description: View the details of a cluster.
-          flags:
-            --region=: Dataproc region for the cluster.
-        - name: enable-personal-auth-session
-          description: Enable a personal auth session on a cluster.
-          hidden: true
-          flags:
-            --access-boundary=: The path to a JSON file specifying the credential access boundary for
-            --no-refresh-credentials&: ""
-            --openssl-command=&: ""
-            --refresh-credentials&: ""
-            --region=: Dataproc region for the cluster.
-        - name: import
-          description: Import a cluster.
+        - name: delete
+          description: Delete a cluster.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
             --no-async&: Return immediately, without waiting for the operation in progress to
             --region=: Dataproc region for the cluster.
-            --source=: Path to a YAML file containing configuration export data.
             --timeout=&: Client side timeout on how long to wait for Dataproc operations.
+        - name: describe
+          description: View the details of a cluster.
+          flags:
+            --region=: Dataproc region for the cluster.
         - name: diagnose
           description: Run a detailed diagnostic on a cluster.
           flags:
@@ -928,17 +446,137 @@ commands:
                 tarball-access:
                     - GOOGLE_CLOUD_SUPPORT
                     - GOOGLE_DATAPROC_DIAGNOSE
+        - name: enable-personal-auth-session
+          description: Enable a personal auth session on a cluster.
+          hidden: true
+          flags:
+            --access-boundary=: The path to a JSON file specifying the credential access boundary for
+            --no-refresh-credentials&: ""
+            --openssl-command=&: ""
+            --refresh-credentials&: ""
+            --region=: Dataproc region for the cluster.
+        - name: export
+          description: Export a cluster.
+          flags:
+            --destination=: Path to a YAML file where the configuration will be exported.
+            --region=: Dataproc region for the cluster.
+        - name: get-iam-policy
+          description: Get IAM policy for a cluster.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --region=: Dataproc region for the cluster.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: gke
+          description: Create Dataproc GKE-based virtual clusters.
+          commands:
+            - name: create
+              description: Create a GKE-based virtual cluster.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --gke-cluster-location=: GKE region for the gke-cluster.
+                --gke-cluster=!: ID of the gke-cluster or fully qualified identifier for the gke-cluster.
+                --history-server-cluster-region=: Compute Engine region for the history-server-cluster.
+                --history-server-cluster=!: ID of the history-server-cluster or fully qualified identifier for the history-server-cluster.
+                --metastore-service-location=: Dataproc Metastore location for the metastore-service.
+                --metastore-service=!: ID of the metastore-service or fully qualified identifier for the metastore-service.
+                --namespace=: The name of the Kubernetes namespace to deploy Dataproc system
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-setup-workload-identity&: Sets up the GKE Workload Identity for your Dataproc on GKE cluster.
+                --pools=: Each `--pools` flag represents a GKE node pool associated with
+                --properties=: Specifies configuration properties for installed packages, such as
+                --region=: Dataproc region for the cluster.
+                --setup-workload-identity: Sets up the GKE Workload Identity for your Dataproc on GKE cluster.
+                --spark-engine-version=!: The version of the Spark engine to run on this cluster.
+                --staging-bucket=: The Cloud Storage bucket to use to stage job dependencies, miscellaneous
+                --timeout=&: Client side timeout on how long to wait for Dataproc operations.
+        - name: import
+          description: Import a cluster.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: Dataproc region for the cluster.
+            --source=: Path to a YAML file containing configuration export data.
+            --timeout=&: Client side timeout on how long to wait for Dataproc operations.
+        - name: list
+          description: View a list of clusters in a project.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --region=: Dataproc region to use.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: repair
+          description: Repair a cluster.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --cluster-repair-action=: '`--cluster-repair-action` flag indicates the repair operation is at'
+            --dataproc-super-user=&: Whether to use Dataproc superuser permissions.
+            --graceful-decommission-timeout=: The graceful decommission timeout for decommissioning Node Managers
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --node-pool=: Each `--node-pool` flag represents either the primary or secondary
+            --region=: Dataproc region for the cluster.
+            --timeout=&: Client side timeout on how long to wait for Dataproc operations.
+        - name: set-iam-policy
+          description: Set IAM policy for a cluster.
+          flags:
+            --region=: Dataproc region for the cluster.
+        - name: start
+          description: Start a cluster.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: Dataproc region for the cluster.
+            --timeout=&: Client side timeout on how long to wait for Dataproc operations.
+        - name: stop
+          description: Stop a cluster.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: Dataproc region for the cluster.
+            --timeout=&: Client side timeout on how long to wait for Dataproc operations.
+        - name: update
+          description: Update labels and/or the number of worker nodes in a cluster.
+          flags:
+            --add-user-mappings=: List of user-to-service-account mappings to add to current mappings.
+            --async: Return immediately, without waiting for the operation in progress to
+            --autoscaling-policy=!: ID of the autoscaling policy or fully qualified identifier for the autoscaling policy.
+            --clear-labels: Remove all labels.
+            --delete-expiration-time=: The time when the cluster will be auto-deleted, such as
+            --delete-max-age=: The lifespan of the cluster with auto-deletion upon completion,
+            --delete-max-idle=: The duration after the last job completes to auto-delete the cluster,
+            --disable-autoscaling: Disable autoscaling, if it is enabled.
+            --expiration-time=&: The time when the cluster will be auto-deleted, such as
+            --graceful-decommission-timeout=: The graceful decommission timeout for decommissioning Node Managers
+            --identity-config-file=: Path to a YAML (or JSON) file that contains the configuration for [Secure Multi-Tenancy](/dataproc/docs/concepts/iam/sa-multi-tenancy)
+            --max-age=&: The lifespan of the cluster, with auto-deletion upon completion,
+            --max-idle=&: The duration after the last job completes to auto-delete the cluster,
+            --min-secondary-worker-fraction=: Minimum fraction of new secondary worker nodes added in a scale up update operation, required to update the cluster.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --no-delete-max-age: Cancels the cluster auto-deletion by maximum cluster age (configured
+            --no-delete-max-idle: Cancels the cluster auto-deletion by cluster idle duration (configured
+            --no-disable-autoscaling&: Disable autoscaling, if it is enabled.
+            --no-max-age&: Cancels the cluster auto-deletion by maximum cluster age (configured by
+            --no-max-idle&: Cancels the cluster auto-deletion by cluster idle duration (configured
+            --no-stop-max-age: Cancels the cluster auto-stop by maximum cluster age (configured by
+            --no-stop-max-idle: Cancels the cluster auto-stop by cluster idle duration (configured
+            --num-preemptible-workers=&: (DEPRECATED) The new number of preemptible worker nodes in the cluster.
+            --num-secondary-workers=: The new number of secondary worker nodes in the cluster.
+            --num-workers=: The new number of worker nodes in the cluster.
+            --region=: Dataproc region for the cluster.
+            --remove-labels=: List of label keys to remove.
+            --remove-user-mappings=: List of user-to-service-account mappings to remove from the
+            --stop-expiration-time=: The time when the cluster will be auto-stopped, such as
+            --stop-max-age=: The lifespan of the cluster, with auto-stop upon completion,
+            --stop-max-idle=: The duration after the last job completes to auto-stop the cluster,
+            --timeout=&: Client side timeout on how long to wait for Dataproc operations.
+            --update-labels=: List of label KEY=VALUE pairs to update.
     - name: jobs
       description: Submit and manage Dataproc jobs.
       commands:
-        - name: update
-          description: Update the labels for a job.
-          flags:
-            --clear-labels: Remove all labels.
-            --no-clear-labels&: Remove all labels.
-            --region=: Dataproc region for the job.
-            --remove-labels=: List of label keys to remove.
-            --update-labels=: List of label KEY=VALUE pairs to update.
         - name: delete
           description: Delete the record of an inactive job.
           flags:
@@ -989,6 +627,102 @@ commands:
             --no-async&: Return immediately, without waiting for the operation in progress to
             --region=: Dataproc region to use.
           commands:
+            - name: flink
+              description: Submit a Flink job to a cluster.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --bucket=: The Cloud Storage bucket to stage files in.
+                --class=: The class containing the main method of the driver.
+                --cluster-labels=: List of label KEY=VALUE pairs to add.
+                --cluster=: The Dataproc cluster to submit the job to.
+                --driver-log-levels=: List of package to log4j log level pairs to configure driver logging.
+                --driver-required-memory-mb=: The memory allocation requested by the job driver in megabytes (MB) for execution on the driver node group (it is used only by clusters with a driver node group).
+                --driver-required-vcores=: The vCPU allocation requested by the job driver for execution on the driver node group (it is used only by clusters with a driver node group).
+                --id=&: Set the ID of the job, which is usually autogenerated
+                --jar=: The HCFS URI of jar file containing the driver jar.
+                --jars=: Comma-separated list of jar files to provide to the task manager classpaths.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --max-failures-per-hour=: Specifies the maximum number of times a job can be restarted per hour in event of failure.
+                --max-failures-total=: Specifies the maximum total number of times a job can be restarted after the job fails.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --properties-file=: Path to a local file or a file in a Cloud Storage bucket containing
+                --properties=: List of key=value pairs to configure Flink.
+                --region=: Dataproc region to use.
+                --savepoint=: HCFS URI of the savepoint that is used to refer to the state of the previously stopped job.
+                --ttl=&: The maximum duration this job is allowed to run before being killed automatically.
+            - name: hadoop
+              description: Submit a Hadoop job to a cluster.
+              flags:
+                --archives=: Comma separated list of archives to be provided to the job.
+                --async: Return immediately, without waiting for the operation in progress to
+                --bucket=: The Cloud Storage bucket to stage files in.
+                --class=: The class containing the main method of the driver.
+                --cluster-labels=: List of label KEY=VALUE pairs to add.
+                --cluster=: The Dataproc cluster to submit the job to.
+                --driver-log-levels=: A list of package to log4j log level pairs to configure driver logging.
+                --driver-required-memory-mb=: The memory allocation requested by the job driver in megabytes (MB) for execution on the driver node group (it is used only by clusters with a driver node group).
+                --driver-required-vcores=: The vCPU allocation requested by the job driver for execution on the driver node group (it is used only by clusters with a driver node group).
+                --files=: Comma separated list of file paths to be provided to the job.
+                --id=&: Set the ID of the job, which is usually autogenerated
+                --jar=: The HCFS URI of jar file containing the driver jar.
+                --jars=: Comma separated list of jar files to be provided to the MR and driver classpaths.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --max-failures-per-hour=: Specifies the maximum number of times a job can be restarted per hour in event of failure.
+                --max-failures-total=: Specifies the maximum total number of times a job can be restarted after the job fails.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --properties-file=: Path to a local file or a file in a Cloud Storage bucket containing
+                --properties=: A list of key value pairs to configure Hadoop.
+                --region=: Dataproc region to use.
+                --ttl=&: The maximum duration this job is allowed to run before being killed automatically.
+            - name: hive
+              description: Submit a Hive job to a cluster.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --bucket=: The Cloud Storage bucket to stage files in.
+                --cluster-labels=: List of label KEY=VALUE pairs to add.
+                --cluster=: The Dataproc cluster to submit the job to.
+                --continue-on-failure: Whether to continue if a single query fails.
+                --driver-required-memory-mb=: The memory allocation requested by the job driver in megabytes (MB) for execution on the driver node group (it is used only by clusters with a driver node group).
+                --driver-required-vcores=: The vCPU allocation requested by the job driver for execution on the driver node group (it is used only by clusters with a driver node group).
+                --execute=: A Hive query to execute as part of the job.
+                --file=: HCFS URI of file containing Hive script to execute as the job.
+                --id=&: Set the ID of the job, which is usually autogenerated
+                --jars=: Comma separated list of jar files to be provided to the Hive and MR. May contain UDFs.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --max-failures-per-hour=: Specifies the maximum number of times a job can be restarted per hour in event of failure.
+                --max-failures-total=: Specifies the maximum total number of times a job can be restarted after the job fails.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-continue-on-failure&: Whether to continue if a single query fails.
+                --params=: A list of key value pairs to set variables in the Hive queries.
+                --properties-file=: Path to a local file or a file in a Cloud Storage bucket containing
+                --properties=: A list of key value pairs to configure Hive.
+                --region=: Dataproc region to use.
+                --ttl=&: The maximum duration this job is allowed to run before being killed automatically.
+            - name: pig
+              description: Submit a Pig job to a cluster.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --bucket=: The Cloud Storage bucket to stage files in.
+                --cluster-labels=: List of label KEY=VALUE pairs to add.
+                --cluster=: The Dataproc cluster to submit the job to.
+                --continue-on-failure: Whether to continue if a single query fails.
+                --driver-log-levels=: A list of package to log4j log level pairs to configure driver logging.
+                --driver-required-memory-mb=: The memory allocation requested by the job driver in megabytes (MB) for execution on the driver node group (it is used only by clusters with a driver node group).
+                --driver-required-vcores=: The vCPU allocation requested by the job driver for execution on the driver node group (it is used only by clusters with a driver node group).
+                --execute=: A Pig query to execute as part of the job.
+                --file=: HCFS URI of file containing Pig script to execute as the job.
+                --id=&: Set the ID of the job, which is usually autogenerated
+                --jars=: Comma separated list of jar files to be provided to Pig and MR. May contain UDFs.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --max-failures-per-hour=: Specifies the maximum number of times a job can be restarted per hour in event of failure.
+                --max-failures-total=: Specifies the maximum total number of times a job can be restarted after the job fails.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-continue-on-failure&: Whether to continue if a single query fails.
+                --params=: A list of key value pairs to set variables in the Pig queries.
+                --properties-file=: Path to a local file or a file in a Cloud Storage bucket containing
+                --properties=: A list of key value pairs to configure Pig.
+                --region=: Dataproc region to use.
+                --ttl=&: The maximum duration this job is allowed to run before being killed automatically.
             - name: presto
               description: Submit a Presto job to a cluster.
               flags:
@@ -1013,6 +747,32 @@ commands:
                 --properties=: A list of key value pairs to set Presto session properties.
                 --query-output-format=: The query output display format.
                 --region=: Dataproc region to use.
+                --ttl=&: The maximum duration this job is allowed to run before being killed automatically.
+            - name: pyflink
+              description: Submit a PyFlink job to a cluster.
+              hidden: true
+              flags:
+                --archives=: Comma-separated list of archives to be extracted into the working directory of the python UDF worker.
+                --async: Return immediately, without waiting for the operation in progress to
+                --bucket=: The Cloud Storage bucket to stage files in.
+                --cluster-labels=: List of label KEY=VALUE pairs to add.
+                --cluster=: The Dataproc cluster to submit the job to.
+                --driver-log-levels=: List of key=value pairs to configure driver logging, where the key is a package and the value is the log4j log level.
+                --driver-required-memory-mb=: The memory allocation requested by the job driver in megabytes (MB) for execution on the driver node group (it is used only by clusters with a driver node group).
+                --driver-required-vcores=: The vCPU allocation requested by the job driver for execution on the driver node group (it is used only by clusters with a driver node group).
+                --id=&: Set the ID of the job, which is usually autogenerated
+                --jars=: Comma-separated list of jar files to provide to the task manager classpaths.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --max-failures-per-hour=: Specifies the maximum number of times a job can be restarted per hour in event of failure.
+                --max-failures-total=: Specifies the maximum total number of times a job can be restarted after the job fails.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --properties-file=: Path to a local file or a file in a Cloud Storage bucket containing
+                --properties=: List of key=value pairs to configure PyFlink.
+                --py-files=: Comma-separated list of custom Python files to provide to the job.
+                --py-module=: Python module with program entry point.
+                --py-requirements=: A requirements.txt file that defines third-party dependencies.
+                --region=: Dataproc region to use.
+                --savepoint=: HCFS URI of the savepoint that contains the saved job progress.
                 --ttl=&: The maximum duration this job is allowed to run before being killed automatically.
             - name: pyspark
               description: Submit a PySpark job to a cluster.
@@ -1082,6 +842,29 @@ commands:
                 --properties=: List of key value pairs to configure SparkR.
                 --region=: Dataproc region to use.
                 --ttl=&: The maximum duration this job is allowed to run before being killed automatically.
+            - name: spark-sql
+              description: Submit a Spark SQL job to a cluster.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --bucket=: The Cloud Storage bucket to stage files in.
+                --cluster-labels=: List of label KEY=VALUE pairs to add.
+                --cluster=: The Dataproc cluster to submit the job to.
+                --driver-log-levels=: A list of package to log4j log level pairs to configure driver logging.
+                --driver-required-memory-mb=: The memory allocation requested by the job driver in megabytes (MB) for execution on the driver node group (it is used only by clusters with a driver node group).
+                --driver-required-vcores=: The vCPU allocation requested by the job driver for execution on the driver node group (it is used only by clusters with a driver node group).
+                --execute=: A Spark SQL query to execute as part of the job.
+                --file=: HCFS URI of file containing Spark SQL script to execute as the job.
+                --id=&: Set the ID of the job, which is usually autogenerated
+                --jars=: Comma separated list of jar files to be provided to the executor and driver classpaths.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --max-failures-per-hour=: Specifies the maximum number of times a job can be restarted per hour in event of failure.
+                --max-failures-total=: Specifies the maximum total number of times a job can be restarted after the job fails.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --params=: A list of key value pairs to set variables in the Hive queries.
+                --properties-file=: Path to a local file or a file in a Cloud Storage bucket containing
+                --properties=: A list of key value pairs to configure Hive.
+                --region=: Dataproc region to use.
+                --ttl=&: The maximum duration this job is allowed to run before being killed automatically.
             - name: trino
               description: Submit a Trino job to a cluster.
               flags:
@@ -1107,151 +890,14 @@ commands:
                 --query-output-format=: The query output display format.
                 --region=: Dataproc region to use.
                 --ttl=&: The maximum duration this job is allowed to run before being killed automatically.
-            - name: hive
-              description: Submit a Hive job to a cluster.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --bucket=: The Cloud Storage bucket to stage files in.
-                --cluster-labels=: List of label KEY=VALUE pairs to add.
-                --cluster=: The Dataproc cluster to submit the job to.
-                --continue-on-failure: Whether to continue if a single query fails.
-                --driver-required-memory-mb=: The memory allocation requested by the job driver in megabytes (MB) for execution on the driver node group (it is used only by clusters with a driver node group).
-                --driver-required-vcores=: The vCPU allocation requested by the job driver for execution on the driver node group (it is used only by clusters with a driver node group).
-                --execute=: A Hive query to execute as part of the job.
-                --file=: HCFS URI of file containing Hive script to execute as the job.
-                --id=&: Set the ID of the job, which is usually autogenerated
-                --jars=: Comma separated list of jar files to be provided to the Hive and MR. May contain UDFs.
-                --labels=: List of label KEY=VALUE pairs to add.
-                --max-failures-per-hour=: Specifies the maximum number of times a job can be restarted per hour in event of failure.
-                --max-failures-total=: Specifies the maximum total number of times a job can be restarted after the job fails.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --no-continue-on-failure&: Whether to continue if a single query fails.
-                --params=: A list of key value pairs to set variables in the Hive queries.
-                --properties-file=: Path to a local file or a file in a Cloud Storage bucket containing
-                --properties=: A list of key value pairs to configure Hive.
-                --region=: Dataproc region to use.
-                --ttl=&: The maximum duration this job is allowed to run before being killed automatically.
-            - name: pyflink
-              description: Submit a PyFlink job to a cluster.
-              hidden: true
-              flags:
-                --archives=: Comma-separated list of archives to be extracted into the working directory of the python UDF worker.
-                --async: Return immediately, without waiting for the operation in progress to
-                --bucket=: The Cloud Storage bucket to stage files in.
-                --cluster-labels=: List of label KEY=VALUE pairs to add.
-                --cluster=: The Dataproc cluster to submit the job to.
-                --driver-log-levels=: List of key=value pairs to configure driver logging, where the key is a package and the value is the log4j log level.
-                --driver-required-memory-mb=: The memory allocation requested by the job driver in megabytes (MB) for execution on the driver node group (it is used only by clusters with a driver node group).
-                --driver-required-vcores=: The vCPU allocation requested by the job driver for execution on the driver node group (it is used only by clusters with a driver node group).
-                --id=&: Set the ID of the job, which is usually autogenerated
-                --jars=: Comma-separated list of jar files to provide to the task manager classpaths.
-                --labels=: List of label KEY=VALUE pairs to add.
-                --max-failures-per-hour=: Specifies the maximum number of times a job can be restarted per hour in event of failure.
-                --max-failures-total=: Specifies the maximum total number of times a job can be restarted after the job fails.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --properties-file=: Path to a local file or a file in a Cloud Storage bucket containing
-                --properties=: List of key=value pairs to configure PyFlink.
-                --py-files=: Comma-separated list of custom Python files to provide to the job.
-                --py-module=: Python module with program entry point.
-                --py-requirements=: A requirements.txt file that defines third-party dependencies.
-                --region=: Dataproc region to use.
-                --savepoint=: HCFS URI of the savepoint that contains the saved job progress.
-                --ttl=&: The maximum duration this job is allowed to run before being killed automatically.
-            - name: spark-sql
-              description: Submit a Spark SQL job to a cluster.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --bucket=: The Cloud Storage bucket to stage files in.
-                --cluster-labels=: List of label KEY=VALUE pairs to add.
-                --cluster=: The Dataproc cluster to submit the job to.
-                --driver-log-levels=: A list of package to log4j log level pairs to configure driver logging.
-                --driver-required-memory-mb=: The memory allocation requested by the job driver in megabytes (MB) for execution on the driver node group (it is used only by clusters with a driver node group).
-                --driver-required-vcores=: The vCPU allocation requested by the job driver for execution on the driver node group (it is used only by clusters with a driver node group).
-                --execute=: A Spark SQL query to execute as part of the job.
-                --file=: HCFS URI of file containing Spark SQL script to execute as the job.
-                --id=&: Set the ID of the job, which is usually autogenerated
-                --jars=: Comma separated list of jar files to be provided to the executor and driver classpaths.
-                --labels=: List of label KEY=VALUE pairs to add.
-                --max-failures-per-hour=: Specifies the maximum number of times a job can be restarted per hour in event of failure.
-                --max-failures-total=: Specifies the maximum total number of times a job can be restarted after the job fails.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --params=: A list of key value pairs to set variables in the Hive queries.
-                --properties-file=: Path to a local file or a file in a Cloud Storage bucket containing
-                --properties=: A list of key value pairs to configure Hive.
-                --region=: Dataproc region to use.
-                --ttl=&: The maximum duration this job is allowed to run before being killed automatically.
-            - name: flink
-              description: Submit a Flink job to a cluster.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --bucket=: The Cloud Storage bucket to stage files in.
-                --class=: The class containing the main method of the driver.
-                --cluster-labels=: List of label KEY=VALUE pairs to add.
-                --cluster=: The Dataproc cluster to submit the job to.
-                --driver-log-levels=: List of package to log4j log level pairs to configure driver logging.
-                --driver-required-memory-mb=: The memory allocation requested by the job driver in megabytes (MB) for execution on the driver node group (it is used only by clusters with a driver node group).
-                --driver-required-vcores=: The vCPU allocation requested by the job driver for execution on the driver node group (it is used only by clusters with a driver node group).
-                --id=&: Set the ID of the job, which is usually autogenerated
-                --jar=: The HCFS URI of jar file containing the driver jar.
-                --jars=: Comma-separated list of jar files to provide to the task manager classpaths.
-                --labels=: List of label KEY=VALUE pairs to add.
-                --max-failures-per-hour=: Specifies the maximum number of times a job can be restarted per hour in event of failure.
-                --max-failures-total=: Specifies the maximum total number of times a job can be restarted after the job fails.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --properties-file=: Path to a local file or a file in a Cloud Storage bucket containing
-                --properties=: List of key=value pairs to configure Flink.
-                --region=: Dataproc region to use.
-                --savepoint=: HCFS URI of the savepoint that is used to refer to the state of the previously stopped job.
-                --ttl=&: The maximum duration this job is allowed to run before being killed automatically.
-            - name: hadoop
-              description: Submit a Hadoop job to a cluster.
-              flags:
-                --archives=: Comma separated list of archives to be provided to the job.
-                --async: Return immediately, without waiting for the operation in progress to
-                --bucket=: The Cloud Storage bucket to stage files in.
-                --class=: The class containing the main method of the driver.
-                --cluster-labels=: List of label KEY=VALUE pairs to add.
-                --cluster=: The Dataproc cluster to submit the job to.
-                --driver-log-levels=: A list of package to log4j log level pairs to configure driver logging.
-                --driver-required-memory-mb=: The memory allocation requested by the job driver in megabytes (MB) for execution on the driver node group (it is used only by clusters with a driver node group).
-                --driver-required-vcores=: The vCPU allocation requested by the job driver for execution on the driver node group (it is used only by clusters with a driver node group).
-                --files=: Comma separated list of file paths to be provided to the job.
-                --id=&: Set the ID of the job, which is usually autogenerated
-                --jar=: The HCFS URI of jar file containing the driver jar.
-                --jars=: Comma separated list of jar files to be provided to the MR and driver classpaths.
-                --labels=: List of label KEY=VALUE pairs to add.
-                --max-failures-per-hour=: Specifies the maximum number of times a job can be restarted per hour in event of failure.
-                --max-failures-total=: Specifies the maximum total number of times a job can be restarted after the job fails.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --properties-file=: Path to a local file or a file in a Cloud Storage bucket containing
-                --properties=: A list of key value pairs to configure Hadoop.
-                --region=: Dataproc region to use.
-                --ttl=&: The maximum duration this job is allowed to run before being killed automatically.
-            - name: pig
-              description: Submit a Pig job to a cluster.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --bucket=: The Cloud Storage bucket to stage files in.
-                --cluster-labels=: List of label KEY=VALUE pairs to add.
-                --cluster=: The Dataproc cluster to submit the job to.
-                --continue-on-failure: Whether to continue if a single query fails.
-                --driver-log-levels=: A list of package to log4j log level pairs to configure driver logging.
-                --driver-required-memory-mb=: The memory allocation requested by the job driver in megabytes (MB) for execution on the driver node group (it is used only by clusters with a driver node group).
-                --driver-required-vcores=: The vCPU allocation requested by the job driver for execution on the driver node group (it is used only by clusters with a driver node group).
-                --execute=: A Pig query to execute as part of the job.
-                --file=: HCFS URI of file containing Pig script to execute as the job.
-                --id=&: Set the ID of the job, which is usually autogenerated
-                --jars=: Comma separated list of jar files to be provided to Pig and MR. May contain UDFs.
-                --labels=: List of label KEY=VALUE pairs to add.
-                --max-failures-per-hour=: Specifies the maximum number of times a job can be restarted per hour in event of failure.
-                --max-failures-total=: Specifies the maximum total number of times a job can be restarted after the job fails.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --no-continue-on-failure&: Whether to continue if a single query fails.
-                --params=: A list of key value pairs to set variables in the Pig queries.
-                --properties-file=: Path to a local file or a file in a Cloud Storage bucket containing
-                --properties=: A list of key value pairs to configure Pig.
-                --region=: Dataproc region to use.
-                --ttl=&: The maximum duration this job is allowed to run before being killed automatically.
+        - name: update
+          description: Update the labels for a job.
+          flags:
+            --clear-labels: Remove all labels.
+            --no-clear-labels&: Remove all labels.
+            --region=: Dataproc region for the job.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
         - name: wait
           description: View the output of a job as it runs or after it completes.
           flags:
@@ -1275,6 +921,14 @@ commands:
     - name: operations
       description: View and manage Dataproc operations.
       commands:
+        - name: cancel
+          description: Cancel an active operation.
+          flags:
+            --region=: Dataproc region for the operation.
+        - name: delete
+          description: Delete the record of an inactive operation.
+          flags:
+            --region=: Dataproc region for the operation.
         - name: describe
           description: View the details of an operation.
           flags:
@@ -1306,11 +960,357 @@ commands:
           description: Set IAM policy for an operation.
           flags:
             --region=: Dataproc region for the operation.
-        - name: cancel
-          description: Cancel an active operation.
+    - name: workflow-templates
+      description: Create and manage Dataproc workflow templates.
+      commands:
+        - name: add-job
+          description: Add Dataproc jobs to workflow template.
+          commands:
+            - name: hadoop
+              description: Add a hadoop job to the workflow template.
+              flags:
+                --archives=: Comma separated list of archives to be provided to the job.
+                --class=: The class containing the main method of the driver.
+                --driver-log-levels=: A list of package to log4j log level pairs to configure driver logging.
+                --files=: Comma separated list of file paths to be provided to the job.
+                --jar=: The HCFS URI of jar file containing the driver jar.
+                --jars=: Comma separated list of jar files to be provided to the MR and driver classpaths.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --properties-file=: Path to a local file or a file in a Cloud Storage bucket containing
+                --properties=: A list of key value pairs to configure Hadoop.
+                --region=: Dataproc region for the template.
+                --start-after=: (Optional) List of step IDs to start this job after.
+                --step-id=!: The step ID of the job in the workflow template.
+                --workflow-template=!: ID of the template or fully qualified identifier for the template.
+            - name: hive
+              description: Add a Hive job to the workflow template.
+              flags:
+                --continue-on-failure: Whether to continue if a single query fails.
+                --execute=: A Hive query to execute as part of the job.
+                --file=: HCFS URI of file containing Hive script to execute as the job.
+                --jars=: Comma separated list of jar files to be provided to the Hive and MR. May contain UDFs.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --no-continue-on-failure&: Whether to continue if a single query fails.
+                --params=: A list of key value pairs to set variables in the Hive queries.
+                --properties-file=: Path to a local file or a file in a Cloud Storage bucket containing
+                --properties=: A list of key value pairs to configure Hive.
+                --region=: Dataproc region for the template.
+                --start-after=: (Optional) List of step IDs to start this job after.
+                --step-id=!: The step ID of the job in the workflow template.
+                --workflow-template=!: ID of the template or fully qualified identifier for the template.
+            - name: pig
+              description: Add a Pig job to the workflow template.
+              flags:
+                --continue-on-failure: Whether to continue if a single query fails.
+                --driver-log-levels=: A list of package to log4j log level pairs to configure driver logging.
+                --execute=: A Pig query to execute as part of the job.
+                --file=: HCFS URI of file containing Pig script to execute as the job.
+                --jars=: Comma separated list of jar files to be provided to Pig and MR. May contain UDFs.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --no-continue-on-failure&: Whether to continue if a single query fails.
+                --params=: A list of key value pairs to set variables in the Pig queries.
+                --properties-file=: Path to a local file or a file in a Cloud Storage bucket containing
+                --properties=: A list of key value pairs to configure Pig.
+                --region=: Dataproc region for the template.
+                --start-after=: (Optional) List of step IDs to start this job after.
+                --step-id=!: The step ID of the job in the workflow template.
+                --workflow-template=!: ID of the template or fully qualified identifier for the template.
+            - name: presto
+              description: Add a Presto job to the workflow template.
+              flags:
+                --client-tags=: A list of Presto client tags to attach to this query.
+                --continue-on-failure: Whether to continue if a query fails.
+                --driver-log-levels=: A list of package-to-log4j log level pairs to configure driver logging.
+                --execute=: A Presto query to execute.
+                --file=: HCFS URI of file containing the Presto script to execute.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --no-continue-on-failure&: Whether to continue if a query fails.
+                --properties-file=: Path to a local file or a file in a Cloud Storage bucket containing
+                --properties=: A list of key value pairs to set Presto session properties.
+                --query-output-format=: The query output display format.
+                --region=: Dataproc region for the template.
+                --start-after=: (Optional) List of step IDs to start this job after.
+                --step-id=!: The step ID of the job in the workflow template.
+                --workflow-template=!: ID of the template or fully qualified identifier for the template.
+            - name: pyspark
+              description: Add a PySpark job to the workflow template.
+              flags:
+                --archives=: Comma separated list of archives to be extracted into the working directory of each executor.
+                --driver-log-levels=: List of key value pairs to configure driver logging, where key is a package and value is the log4j log level.
+                --files=: Comma separated list of files to be placed in the working directory of both the app driver and executors.
+                --jars=: Comma separated list of jar files to be provided to the executor and driver classpaths.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --properties-file=: Path to a local file or a file in a Cloud Storage bucket containing
+                --properties=: List of key value pairs to configure PySpark.
+                --py-files=: Comma separated list of Python files to be provided to the job.
+                --region=: Dataproc region for the template.
+                --start-after=: (Optional) List of step IDs to start this job after.
+                --step-id=!: The step ID of the job in the workflow template.
+                --workflow-template=!: ID of the template or fully qualified identifier for the template.
+            - name: spark
+              description: Add a Spark job to the workflow template.
+              flags:
+                --archives=: Comma separated list of archives to be extracted into the working directory of each executor.
+                --class=: The class containing the main method of the driver.
+                --driver-log-levels=: List of package to log4j log level pairs to configure driver logging.
+                --files=: Comma separated list of files to be placed in the working directory of both the app driver and executors.
+                --jar=: The HCFS URI of jar file containing the driver jar.
+                --jars=: Comma separated list of jar files to be provided to the executor and driver classpaths.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --properties-file=: Path to a local file or a file in a Cloud Storage bucket containing
+                --properties=: List of key value pairs to configure Spark.
+                --region=: Dataproc region for the template.
+                --start-after=: (Optional) List of step IDs to start this job after.
+                --step-id=!: The step ID of the job in the workflow template.
+                --workflow-template=!: ID of the template or fully qualified identifier for the template.
+            - name: spark-r
+              description: Add a SparkR job to the workflow template.
+              flags:
+                --archives=: Comma separated list of archives to be extracted into the working directory of each executor.
+                --driver-log-levels=: List of key value pairs to configure driver logging, where key is a package and value is the log4j log level.
+                --files=: Comma separated list of files to be placed in the working directory of both the app driver and executors.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --properties-file=: Path to a local file or a file in a Cloud Storage bucket containing
+                --properties=: List of key value pairs to configure SparkR.
+                --region=: Dataproc region for the template.
+                --start-after=: (Optional) List of step IDs to start this job after.
+                --step-id=!: The step ID of the job in the workflow template.
+                --workflow-template=!: ID of the template or fully qualified identifier for the template.
+            - name: spark-sql
+              description: Add a SparkSql job to the workflow template.
+              flags:
+                --driver-log-levels=: A list of package to log4j log level pairs to configure driver logging.
+                --execute=: A Spark SQL query to execute as part of the job.
+                --file=: HCFS URI of file containing Spark SQL script to execute as the job.
+                --jars=: Comma separated list of jar files to be provided to the executor and driver classpaths.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --params=: A list of key value pairs to set variables in the Hive queries.
+                --properties-file=: Path to a local file or a file in a Cloud Storage bucket containing
+                --properties=: A list of key value pairs to configure Hive.
+                --region=: Dataproc region for the template.
+                --start-after=: (Optional) List of step IDs to start this job after.
+                --step-id=!: The step ID of the job in the workflow template.
+                --workflow-template=!: ID of the template or fully qualified identifier for the template.
+            - name: trino
+              description: Add a Trino job to the workflow template.
+              flags:
+                --client-tags=: A list of Trino client tags to attach to this query.
+                --continue-on-failure: Whether to continue if a query fails.
+                --driver-log-levels=: A list of package-to-log4j log level pairs to configure driver logging.
+                --execute=: A Trino query to execute.
+                --file=: HCFS URI of file containing the Trino script to execute.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --no-continue-on-failure&: Whether to continue if a query fails.
+                --properties-file=: Path to a local file or a file in a Cloud Storage bucket containing
+                --properties=: A list of key value pairs to set Trino session properties.
+                --query-output-format=: The query output display format.
+                --region=: Dataproc region for the template.
+                --start-after=: (Optional) List of step IDs to start this job after.
+                --step-id=!: The step ID of the job in the workflow template.
+                --workflow-template=!: ID of the template or fully qualified identifier for the template.
+        - name: create
+          description: Create a workflow template.
           flags:
-            --region=: Dataproc region for the operation.
+            --dag-timeout=: The duration for which a DAG of jobs can run before being
+            --kms-key=: The KMS key used to encrypt sensitive data in the workflow template.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --region=: Dataproc region for the template.
         - name: delete
-          description: Delete the record of an inactive operation.
+          description: Delete a workflow template.
           flags:
-            --region=: Dataproc region for the operation.
+            --region=: Dataproc region for the template.
+        - name: describe
+          description: Describe a workflow template.
+          flags:
+            --region=: Dataproc region for the template.
+        - name: export
+          description: Export a workflow template.
+          flags:
+            --destination=: Path to a YAML file where the configuration will be exported.
+            --region=: Dataproc region for the template.
+        - name: get-iam-policy
+          description: Get IAM policy for a workflow template.
+          flags:
+            --region=: Dataproc region for the template.
+        - name: import
+          description: Import a workflow template.
+          flags:
+            --region=: Dataproc region for the template.
+            --source=: Path to a YAML file containing configuration export data.
+        - name: instantiate
+          description: Instantiate a workflow template.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --parameters=: A map from parameter names to values that should be used for those
+            --region=: Dataproc region for the template.
+            --timeout=&: Client side timeout on how long to wait for Dataproc operations.
+        - name: instantiate-from-file
+          description: Instantiate a workflow template from a file.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --file=!: The YAML file containing the workflow template to run
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: Dataproc region to use.
+        - name: list
+          description: List workflow templates.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --region=: Dataproc region to use.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: remove-dag-timeout
+          description: Remove DAG timeout from a workflow template.
+          flags:
+            --region=: Dataproc region for the template.
+        - name: remove-job
+          description: Remove a job from workflow template.
+          flags:
+            --region=: Dataproc region for the template.
+            --step-id=: The step ID of the job in the workflow template to remove.
+        - name: set-cluster-selector
+          description: Set cluster selector for the workflow template.
+          flags:
+            --cluster-labels=: A list of label KEY=VALUE pairs to add.
+            --region=: Dataproc region for the template.
+        - name: set-dag-timeout
+          description: Set DAG timeout on a workflow template.
+          flags:
+            --dag-timeout=!: The duration for which a DAG of jobs can run before being
+            --region=: Dataproc region for the template.
+        - name: set-iam-policy
+          description: Set IAM policy for a template.
+          flags:
+            --region=: Dataproc region for the template.
+        - name: set-managed-cluster
+          description: Set a managed cluster for the workflow template.
+          flags:
+            --auto-zone-exclude-zones=&: ""
+            --autoscaling-policy=!: ID of the autoscaling policy or fully qualified identifier for the autoscaling policy.
+            --bucket=: The Google Cloud Storage bucket to use by default to stage job
+            --cluster-name=: The name of the managed dataproc cluster.
+            --cluster-type=: The type of cluster.
+            --confidential-compute: Enables Confidential VM.
+            --dataproc-metastore=: Specify the name of a Dataproc Metastore service to be used as an
+            --enable-component-gateway: Enable access to the web UIs of selected components on the cluster through the component gateway.
+            --enable-kerberos: Enable Kerberos on the cluster.
+            --enable-node-groups=&: Create cluster nodes using Dataproc NodeGroups.
+            --identity-config-file=: Path to a YAML (or JSON) file containing the configuration for Secure Multi-Tenancy
+            --image-version=: The image version to use for the cluster.
+            --image=: The custom image used to create the cluster.
+            --initialization-action-timeout=: The maximum duration of each initialization action.
+            --initialization-actions=: A list of Google Cloud Storage URIs of executables to run on each node in the cluster.
+            --kerberos-config-file=: Path to a YAML (or JSON) file containing the configuration for Kerberos on the
+            --kerberos-kms-key-keyring=: The KMS keyring of the key.
+            --kerberos-kms-key-location=: The Google Cloud location for the key.
+            --kerberos-kms-key-project=: The Google Cloud project for the key.
+            --kerberos-kms-key=!: ID of the key or fully qualified identifier for the key.
+            --kerberos-root-principal-password-uri=: Google Cloud Storage URI of a KMS encrypted file containing the root
+            --kms-key=!: ID of the key or fully qualified identifier for the key.
+            --kms-keyring=: The KMS keyring of the key.
+            --kms-location=: The Google Cloud location for the key.
+            --kms-project=: The Google Cloud project for the key.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --master-accelerator=: Attaches accelerators, such as GPUs, to the master
+            --master-attached-disks=&: A list of disk configurations to attach to nodes.
+            --master-boot-disk-provisioned-iops=: Indicates the [IOPS](https://cloud.google.com/compute/docs/disks/hyperdisks#iops)
+            --master-boot-disk-provisioned-throughput=: Indicates the [throughput](https://cloud.google.com/compute/docs/disks/hyperdisks#throughput)
+            --master-boot-disk-size=: The size of the boot disk.
+            --master-boot-disk-type=: The type of the boot disk.
+            --master-local-ssd-interface=: Interface to use to attach local SSDs to master node(s) in a cluster.
+            --master-machine-type=: The type of machine to use for the master.
+            --master-machine-types=&: Types of machines with optional rank for master nodes to use.
+            --master-min-cpu-platform=: When specified, the VM is scheduled on the host with a specified CPU
+            --metadata=: Metadata to be made available to the guest operating system running on the instances
+            --metric-overrides-file=: Path to a file containing list of Metrics that override the default metrics enabled for the metric sources.
+            --metric-overrides=: List of metrics that override the default metrics enabled for the metric
+            --metric-sources=!: Specifies a list of cluster [Metric Sources](https://cloud.google.com/dataproc/docs/guides/monitoring#available_oss_metrics) to collect custom metrics.
+            --min-num-workers=: Minimum number of primary worker nodes to provision for cluster creation to succeed.
+            --min-secondary-worker-fraction=: Minimum fraction of secondary worker nodes required to create the cluster.
+            --min-worker-fraction=&: Minimum fraction of worker nodes required to create the cluster.
+            --network=: The Compute Engine network that the VM instances of the cluster will be
+            --no-address: If provided, the instances in the cluster will not be assigned external
+            --no-confidential-compute&: Enables Confidential VM.
+            --no-enable-component-gateway&: Enable access to the web UIs of selected components on the cluster through the component gateway.
+            --no-enable-kerberos&: Enable Kerberos on the cluster.
+            --no-public-ip-address&: If provided, cluster instances are assigned external IP addresses.
+            --no-shielded-integrity-monitoring&: Enables monitoring and attestation of the boot integrity of the
+            --no-shielded-secure-boot&: The cluster's VMs will boot with secure boot enabled.
+            --no-shielded-vtpm&: The cluster's VMs will boot with the TPM (Trusted Platform Module) enabled.
+            --no-single-node&: Create a single node cluster.
+            --node-group=: The name of the sole-tenant node group to create the cluster on.
+            --num-master-local-ssds=: The number of local SSDs to attach to the master in a cluster.
+            --num-masters=: The number of master nodes in the cluster.
+            --num-preemptible-worker-local-ssds=&: (DEPRECATED)       The number of local SSDs to attach to each secondary worker in
+            --num-preemptible-workers=&: (DEPRECATED) The number of preemptible worker nodes in the cluster.
+            --num-secondary-worker-local-ssds=: The number of local SSDs to attach to each preemptible worker in
+            --num-secondary-workers=: The number of secondary worker nodes in the cluster.
+            --num-worker-local-ssds=: The number of local SSDs to attach to each worker in a cluster.
+            --num-workers=: The number of worker nodes in the cluster.
+            --optional-components=: List of optional components to be installed on cluster machines.
+            --preemptible-worker-accelerator=&: (DEPRECATED)       Attaches accelerators, such as GPUs, to the preemptible-worker
+            --preemptible-worker-boot-disk-size=&: (DEPRECATED)       The size of the boot disk.
+            --preemptible-worker-boot-disk-type=&: (DEPRECATED)       The type of the boot disk.
+            --private-ipv6-google-access-type=: The private IPv6 Google access type for the cluster.
+            --properties=: Specifies configuration properties for installed packages, such as Hadoop
+            --public-ip-address: If provided, cluster instances are assigned external IP addresses.
+            --region=: Dataproc region for the template.
+            --reservation-affinity=: The type of reservation for the instance.
+            --reservation=: The name of the reservation, required when `--reservation-affinity=specific`.
+            --resource-manager-tags=: Specifies a list of resource manager tags to apply to each cluster node (master and worker nodes).
+            --scopes=: Specifies scopes for the node instances.
+            --secondary-worker-accelerator=: Attaches accelerators, such as GPUs, to the secondary-worker
+            --secondary-worker-attached-disks=&: A list of disk configurations to attach to nodes.
+            --secondary-worker-boot-disk-provisioned-iops=&: Indicates the [IOPS](https://cloud.google.com/compute/docs/disks/hyperdisks#iops)
+            --secondary-worker-boot-disk-provisioned-throughput=&: Indicates the [throughput](https://cloud.google.com/compute/docs/disks/hyperdisks#throughput)
+            --secondary-worker-boot-disk-size=: The size of the boot disk.
+            --secondary-worker-boot-disk-type=: The type of the boot disk.
+            --secondary-worker-local-ssd-interface=: Interface to use to attach local SSDs to each secondary worker
+            --secondary-worker-machine-types=: Types of machines with optional rank for secondary workers to use.
+            --secondary-worker-standard-capacity-base=: This flag sets the base number of Standard VMs to use for [secondary workers](https://cloud.google.com/dataproc/docs/concepts/compute/secondary-vms#preemptible_and_non-preemptible_secondary_workers). Dataproc will create only standard VMs until it reaches this number, then it will mix Spot and Standard VMs according to ``SECONDARY_WORKER_STANDARD_CAPACITY_PERCENT_ABOVE_BASE''.
+            --secondary-worker-standard-capacity-percent-above-base=: When combining Standard and Spot VMs for [secondary-workers](https://cloud.google.com/dataproc/docs/concepts/compute/secondary-vms#preemptible_and_non-preemptible_secondary_workers) once the number of Standard VMs specified by ``SECONDARY_WORKER_STANDARD_CAPACITY_BASE'' has been used, this flag specifies the percentage of the total number of additional Standard VMs secondary workers will use.
+            --secondary-worker-type=: The type of the secondary worker group.
+            --secure-multi-tenancy-user-mapping=: A string of user-to-service-account mappings.
+            --service-account=: The Google Cloud IAM service account to be authenticated as.
+            --shielded-integrity-monitoring: Enables monitoring and attestation of the boot integrity of the
+            --shielded-secure-boot: The cluster's VMs will boot with secure boot enabled.
+            --shielded-vtpm: The cluster's VMs will boot with the TPM (Trusted Platform Module) enabled.
+            --single-node: Create a single node cluster.
+            --subnet=: Specifies the subnet that the cluster will be part of.
+            --tags=: Specifies a list of tags to apply to the instance.
+            --temp-bucket=: The Google Cloud Storage bucket to use by default to store
+            --tier=: Cluster tier.
+            --timeout=&: Client side timeout on how long to wait for Dataproc operations.
+            --worker-accelerator=: Attaches accelerators, such as GPUs, to the worker
+            --worker-attached-disks=&: A list of disk configurations to attach to nodes.
+            --worker-boot-disk-provisioned-iops=: Indicates the [IOPS](https://cloud.google.com/compute/docs/disks/hyperdisks#iops)
+            --worker-boot-disk-provisioned-throughput=: Indicates the [throughput](https://cloud.google.com/compute/docs/disks/hyperdisks#throughput)
+            --worker-boot-disk-size=: The size of the boot disk.
+            --worker-boot-disk-type=: The type of the boot disk.
+            --worker-local-ssd-interface=: Interface to use to attach local SSDs to each worker in a cluster.
+            --worker-machine-type=: The type of machine to use for primary workers.
+            --worker-machine-types=: '[Machine types](https://cloud.google.com/dataproc/docs/concepts/compute/supported-machine-types) for primary worker nodes to use with optional rank.'
+            --worker-min-cpu-platform=: When specified, the VM is scheduled on the host with a specified CPU
+            --zone=: The compute zone (e.g. us-central1-a) for the cluster.
+          completion:
+            flag:
+                cluster-type:
+                    - standard
+                    - single-node
+                    - zero-scale
+                private-ipv6-google-access-type:
+                    - inherit-subnetwork
+                    - outbound
+                    - bidirectional
+                reservation-affinity:
+                    - any
+                    - none
+                    - specific
+                secondary-worker-type:
+                    - preemptible
+                    - non-preemptible
+                    - spot
+                tier:
+                    - premium
+                    - standard

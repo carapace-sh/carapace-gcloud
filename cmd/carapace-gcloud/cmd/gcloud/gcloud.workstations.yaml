@@ -2,21 +2,6 @@
 name: workstations
 description: Manage Cloud Workstations resources.
 commands:
-    - name: start-tcp-tunnel
-      description: Start a tunnel through which a local process can forward TCP traffic to the workstation.
-      flags:
-        --cluster=: The cluster for the workstation.
-        --config=: The config for the workstation.
-        --local-host-port=: '`LOCAL_HOST:LOCAL_PORT` on which gcloud should bind and listen for connections'
-        --region=: The region for the workstation.
-    - name: stop
-      description: Stop a workstation.
-      flags:
-        --async: Return immediately, without waiting for the operation in progress to
-        --cluster=: The cluster for the workstation.
-        --config=: The config for the workstation.
-        --no-async&: Return immediately, without waiting for the operation in progress to
-        --region=: The region for the workstation.
     - name: clusters
       description: Manage Cloud Workstations cluster resources.
       commands:
@@ -51,67 +36,6 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --region=: ID of the region or fully qualified identifier for the region.
             --sort-by=: Comma-separated list of resource field key names to sort by.
-    - name: create
-      description: Create a workstation.
-      flags:
-        --async: Return immediately, without waiting for the operation in progress to
-        --cluster=: The name of the cluster containing the workstation.
-        --config=: The name of the config containing the workstation.
-        --env=: Environment variables passed to the Workstation.
-        --labels=: Labels that are applied to the workstation and propagated to the underlying Compute Engine
-        --no-async&: Return immediately, without waiting for the operation in progress to
-        --region=: The name of the region of the workstation.
-        --source-workstation=: Source workstation from which this workstations persistent directories are cloned on
-    - name: delete
-      description: Delete a workstation.
-      flags:
-        --async: Return immediately, without waiting for the operation in progress to
-        --cluster=: The name of the cluster containing the workstation.
-        --config=: The name of the config containing the workstation.
-        --no-async&: Return immediately, without waiting for the operation in progress to
-        --region=: The name of the region of the workstation.
-    - name: describe
-      description: Describe a workstation.
-      flags:
-        --cluster=: The name of the cluster containing the workstation.
-        --config=: The name of the config containing the workstation.
-        --region=: The name of the region of the workstation.
-    - name: get-iam-policy
-      description: Get the IAM policy for a workstation.
-      flags:
-        --cluster=: The name of the cluster containing the workstation.
-        --config=: The name of the config containing the workstation.
-        --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-        --limit=: Maximum number of resources to list.
-        --page-size=: Some services group resource list output into pages.
-        --region=: The name of the region of the workstation.
-        --sort-by=: Comma-separated list of resource field key names to sort by.
-    - name: list
-      description: List workstations.
-      flags:
-        --cluster=: The name of the cluster containing the config.
-        --config=: ID of the config or fully qualified identifier for the config.
-        --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-        --limit=: Maximum number of resources to list.
-        --page-size=: Some services group resource list output into pages.
-        --region=: The name of the region of the config.
-        --sort-by=: Comma-separated list of resource field key names to sort by.
-    - name: list-usable
-      description: List usable workstations.
-      flags:
-        --cluster=: The cluster for the config.
-        --config=: ID of the config or fully qualified identifier for the config.
-        --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-        --limit=: Maximum number of resources to list.
-        --page-size=: Some services group resource list output into pages.
-        --region=: The region for the config.
-        --sort-by=: Comma-separated list of resource field key names to sort by.
-    - name: set-iam-policy
-      description: Set the IAM policy for a workstation.
-      flags:
-        --cluster=: The name of the cluster containing the workstation.
-        --config=: The name of the config containing the workstation.
-        --region=: The name of the region of the workstation.
     - name: configs
       description: Manage Cloud Workstations configuration resources.
       commands:
@@ -189,12 +113,12 @@ commands:
                     - rubymine
                     - webstorm
                 pd-disk-size:
-                    - '%!s(float64=10)'
-                    - '%!s(float64=50)'
-                    - '%!s(float64=100)'
-                    - '%!s(float64=200)'
-                    - '%!s(float64=500)'
-                    - '%!s(float64=1000)'
+                    - "10"
+                    - "50"
+                    - "100"
+                    - "200"
+                    - "500"
+                    - "1000"
                 pd-disk-type:
                     - pd-standard
                     - pd-balanced
@@ -307,16 +231,77 @@ commands:
                     - rubymine
                     - webstorm
                 pd-disk-size:
-                    - '%!s(float64=10)'
-                    - '%!s(float64=50)'
-                    - '%!s(float64=100)'
-                    - '%!s(float64=200)'
-                    - '%!s(float64=500)'
-                    - '%!s(float64=1000)'
+                    - "10"
+                    - "50"
+                    - "100"
+                    - "200"
+                    - "500"
+                    - "1000"
                 pd-disk-type:
                     - pd-standard
                     - pd-balanced
                     - pd-ssd
+    - name: create
+      description: Create a workstation.
+      flags:
+        --async: Return immediately, without waiting for the operation in progress to
+        --cluster=: The name of the cluster containing the workstation.
+        --config=: The name of the config containing the workstation.
+        --env=: Environment variables passed to the Workstation.
+        --labels=: Labels that are applied to the workstation and propagated to the underlying Compute Engine
+        --no-async&: Return immediately, without waiting for the operation in progress to
+        --region=: The name of the region of the workstation.
+        --source-workstation=: Source workstation from which this workstations persistent directories are cloned on
+    - name: delete
+      description: Delete a workstation.
+      flags:
+        --async: Return immediately, without waiting for the operation in progress to
+        --cluster=: The name of the cluster containing the workstation.
+        --config=: The name of the config containing the workstation.
+        --no-async&: Return immediately, without waiting for the operation in progress to
+        --region=: The name of the region of the workstation.
+    - name: describe
+      description: Describe a workstation.
+      flags:
+        --cluster=: The name of the cluster containing the workstation.
+        --config=: The name of the config containing the workstation.
+        --region=: The name of the region of the workstation.
+    - name: get-iam-policy
+      description: Get the IAM policy for a workstation.
+      flags:
+        --cluster=: The name of the cluster containing the workstation.
+        --config=: The name of the config containing the workstation.
+        --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+        --limit=: Maximum number of resources to list.
+        --page-size=: Some services group resource list output into pages.
+        --region=: The name of the region of the workstation.
+        --sort-by=: Comma-separated list of resource field key names to sort by.
+    - name: list
+      description: List workstations.
+      flags:
+        --cluster=: The name of the cluster containing the config.
+        --config=: ID of the config or fully qualified identifier for the config.
+        --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+        --limit=: Maximum number of resources to list.
+        --page-size=: Some services group resource list output into pages.
+        --region=: The name of the region of the config.
+        --sort-by=: Comma-separated list of resource field key names to sort by.
+    - name: list-usable
+      description: List usable workstations.
+      flags:
+        --cluster=: The cluster for the config.
+        --config=: ID of the config or fully qualified identifier for the config.
+        --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+        --limit=: Maximum number of resources to list.
+        --page-size=: Some services group resource list output into pages.
+        --region=: The region for the config.
+        --sort-by=: Comma-separated list of resource field key names to sort by.
+    - name: set-iam-policy
+      description: Set the IAM policy for a workstation.
+      flags:
+        --cluster=: The name of the cluster containing the workstation.
+        --config=: The name of the config containing the workstation.
+        --region=: The name of the region of the workstation.
     - name: ssh
       description: SSH into a running workstation.
       flags:
@@ -330,6 +315,21 @@ commands:
         --user=: The username with which to SSH.
     - name: start
       description: Start a workstation.
+      flags:
+        --async: Return immediately, without waiting for the operation in progress to
+        --cluster=: The cluster for the workstation.
+        --config=: The config for the workstation.
+        --no-async&: Return immediately, without waiting for the operation in progress to
+        --region=: The region for the workstation.
+    - name: start-tcp-tunnel
+      description: Start a tunnel through which a local process can forward TCP traffic to the workstation.
+      flags:
+        --cluster=: The cluster for the workstation.
+        --config=: The config for the workstation.
+        --local-host-port=: '`LOCAL_HOST:LOCAL_PORT` on which gcloud should bind and listen for connections'
+        --region=: The region for the workstation.
+    - name: stop
+      description: Stop a workstation.
       flags:
         --async: Return immediately, without waiting for the operation in progress to
         --cluster=: The cluster for the workstation.

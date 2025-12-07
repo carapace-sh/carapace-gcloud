@@ -5,6 +5,26 @@ commands:
     - name: parameters
       description: Manage Parameter Manager parameter resources.
       commands:
+        - name: create
+          description: Creates a Parameter Manager parameter.
+          flags:
+            --key-ring=: The keyRing id of the cryptoKey resource.
+            --kms-key=!: ID of the cryptoKey or fully qualified identifier for the cryptoKey.
+            --labels=: Labels as key value pairs.
+            --location=: For resources [parameter, kms-key], provides fallback value for resource location attribute.
+            --parameter-format=: Specifies the format of a Parameter.
+            --request-id=: An optional request ID to identify requests.
+          completion:
+            flag:
+                parameter-format:
+                    - json
+                    - unformatted
+                    - yaml
+        - name: delete
+          description: Deletes a single Parameter Manager parameter resource.
+          flags:
+            --location=: The location id of the parameter resource.
+            --request-id=: An optional request ID to identify requests.
         - name: describe
           description: Gets a single Parameter Manager parameter.
           flags:
@@ -94,23 +114,3 @@ commands:
                 --no-disabled&: Disabled boolean to determine if a ParameterVersion acts as a metadata only
                 --parameter=: The parameter id of the version resource.
                 --request-id=: An optional request ID to identify requests.
-        - name: create
-          description: Creates a Parameter Manager parameter.
-          flags:
-            --key-ring=: The keyRing id of the cryptoKey resource.
-            --kms-key=!: ID of the cryptoKey or fully qualified identifier for the cryptoKey.
-            --labels=: Labels as key value pairs.
-            --location=: For resources [parameter, kms-key], provides fallback value for resource location attribute.
-            --parameter-format=: Specifies the format of a Parameter.
-            --request-id=: An optional request ID to identify requests.
-          completion:
-            flag:
-                parameter-format:
-                    - json
-                    - unformatted
-                    - yaml
-        - name: delete
-          description: Deletes a single Parameter Manager parameter resource.
-          flags:
-            --location=: The location id of the parameter resource.
-            --request-id=: An optional request ID to identify requests.

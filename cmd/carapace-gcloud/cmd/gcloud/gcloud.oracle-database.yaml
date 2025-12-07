@@ -2,15 +2,340 @@
 name: oracle-database
 description: Manage Oracle Database resources.
 commands:
-    - name: pluggable-databases
-      description: Manage Pluggable Database resources.
+    - name: autonomous-database-backups
+      description: Manage Autonomous Database Backup resources.
       commands:
-        - name: describe
-          description: Get details of a PluggableDatabase.
-          flags:
-            --location=: The location id of the pluggableDatabase resource.
         - name: list
-          description: List pluggableDatabases.
+          description: List autonomous database backups.
+          flags:
+            --filter=: 'Apply a ADB filter in the format :'
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: autonomous-database-character-sets
+      description: Manage Autonomous Database Character Set resources.
+      commands:
+        - name: list
+          description: List all AutonomousDatabaseCharacterSets.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: autonomous-databases
+      description: Manage Autonomous Database resources.
+      commands:
+        - name: create
+          description: Create a new AutonomousDatabase.
+          flags:
+            --admin-password=: The password for the default ADMIN user.
+            --async: Return immediately, without waiting for the operation in progress to
+            --cidr=: The subnet CIDR range for the Autonomous Database.
+            --database=: The name of the Autonomous Database.
+            --display-name=: The display name for the Autonomous Database.
+            --encryption-key-kms=!: ID of the cryptoKey or fully qualified identifier for the cryptoKey.
+            --encryption-key-provider=: The provider of the encryption key.
+            --key-ring=: The keyRing id of the cryptoKey resource.
+            --labels=: The labels or tags associated with the Autonomous Database.
+            --location=: For resources [autonomous_database, encryption-key-kms, odb-network, odb-subnet, source-config-autonomous-database], provides fallback value for resource location attribute.
+            --network=!: ID of the network or fully qualified identifier for the network.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-properties-is-auto-scaling-enabled&: This field indicates if auto scaling is enabled for the Autonomous Database
+            --no-properties-is-storage-auto-scaling-enabled&: This field indicates if auto scaling is enabled for the Autonomous Database
+            --no-properties-mtls-connection-required&: This field specifies if the Autonomous Database requires mTLS connections.
+            --no-source-config-automatic-backups-replication-enabled&: This field specifies if the replication of automatic backups is enabled
+            --odb-network=: For resources [odb-network, odb-subnet], provides fallback value for resource odb-network attribute.
+            --odb-subnet=!: ID of the odbSubnet or fully qualified identifier for the odbSubnet.
+            --properties-allowlisted-ips=: The list of allowlisted IP addresses for the Autonomous Database.
+            --properties-backup-retention-period-days=: The retention period for the Autonomous Database.
+            --properties-character-set=: The character set for the Autonomous Database.
+            --properties-compute-count=: The number of compute servers for the Autonomous Database.
+            --properties-cpu-core-count=: The number of CPU cores to be made available to the database.
+            --properties-customer-contacts=: The list of customer contacts.
+            --properties-data-storage-size-gb=: The size of the data stored in the database, in gigabytes.
+            --properties-data-storage-size-tb=: The size of the data stored in the database, in terabytes.
+            --properties-db-edition=: The edition of the Autonomous Databases.
+            --properties-db-version=: The Oracle Database version for the Autonomous Database.
+            --properties-db-workload=!: The workload type of the Autonomous Database.
+            --properties-is-auto-scaling-enabled: This field indicates if auto scaling is enabled for the Autonomous Database
+            --properties-is-storage-auto-scaling-enabled: This field indicates if auto scaling is enabled for the Autonomous Database
+            --properties-license-type=!: The license type used for the Autonomous Database.
+            --properties-maintenance-schedule-type=: The maintenance schedule of the Autonomous Database.
+            --properties-mtls-connection-required: This field specifies if the Autonomous Database requires mTLS connections.
+            --properties-n-character-set=: The national character set for the Autonomous Database.
+            --properties-private-endpoint-ip=: The private endpoint IP address for the Autonomous Database.
+            --properties-private-endpoint-label=: The private endpoint label for the Autonomous Database.
+            --properties-secret-id=: The ID of the Oracle Cloud Infrastructure vault secret.
+            --properties-vault-id=: The ID of the Oracle Cloud Infrastructure vault.
+            --request-id=: An optional ID to identify the request.
+            --source-config-automatic-backups-replication-enabled: This field specifies if the replication of automatic backups is enabled
+            --source-config-autonomous-database=!: ID of the autonomousDatabase or fully qualified identifier for the autonomousDatabase.
+          completion:
+            flag:
+                encryption-key-provider:
+                    - google-managed
+                    - oracle-managed
+                properties-db-edition:
+                    - enterprise-edition
+                    - standard-edition
+                properties-db-workload:
+                    - ajd
+                    - apex
+                    - dw
+                    - oltp
+                properties-license-type:
+                    - bring-your-own-license
+                    - license-included
+                properties-maintenance-schedule-type:
+                    - early
+                    - regular
+        - name: delete
+          description: Delete an AutonomousDatabase.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the autonomousDatabase resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --request-id=: An optional ID to identify the request.
+        - name: describe
+          description: Get details of an AutonomousDatabase.
+          flags:
+            --location=: The location id of the autonomousDatabase resource.
+        - name: failover
+          description: Failovers a standby AutonomousDatabase to a new primary.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: For resources [autonomous_database, peer-autonomous-database], provides fallback value for resource location attribute.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --peer-autonomous-database=!: ID of the autonomousDatabase or fully qualified identifier for the autonomousDatabase.
+        - name: generate-wallet
+          description: Generate wallet for an AutonomousDatabase.
+          flags:
+            --is-regional: True when requesting regional connection strings in PDB connect info,
+            --location=: The location id of the autonomousDatabase resource.
+            --no-is-regional&: True when requesting regional connection strings in PDB connect info,
+            --password=!: The password used to encrypt the keys inside the wallet.
+            --type=: The type of wallet generation for the Autonomous Database.
+          completion:
+            flag:
+                type:
+                    - all
+                    - single
+        - name: list
+          description: List all AutonomousDatabases.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: restart
+          description: Restarts an AutonomousDatabase.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the autonomousDatabase resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: restore
+          description: Restore an AutonomousDatabase.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the autonomousDatabase resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --restore-time=!: The time and date to restore the database to.
+        - name: start
+          description: Starts an AutonomousDatabase.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the autonomousDatabase resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: stop
+          description: Stops an AutonomousDatabase.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the autonomousDatabase resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: switchover
+          description: Switchovers an AutonomousDatabase to a new primary.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: For resources [autonomous_database, peer-autonomous-database], provides fallback value for resource location attribute.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --peer-autonomous-database=!: ID of the autonomousDatabase or fully qualified identifier for the autonomousDatabase.
+        - name: update
+          description: Update an AutonomousDatabase.
+          flags:
+            --add-properties-allowlisted-ips=: Add new value to properties_allowlisted_ips list.
+            --add-properties-customer-contacts=: Add new value to properties_customer_contacts list.
+            --admin-password=: The password for the default ADMIN user.
+            --async: Return immediately, without waiting for the operation in progress to
+            --cidr=: The subnet CIDR range for the Autonomous Database.
+            --clear-encryption-key-kms: Clear encryption_key_kms value and set to null.
+            --clear-labels: Clear labels value and set to empty map.
+            --clear-network: Clear network value and set to null.
+            --clear-odb-network: Clear odb_network value and set to null.
+            --clear-odb-subnet: Clear odb_subnet value and set to null.
+            --clear-properties: Set autonomousDatabase.properties back to default value.
+            --clear-properties-allowlisted-ips: Clear properties_allowlisted_ips value and set to empty list.
+            --clear-properties-customer-contacts: Clear properties_customer_contacts value and set to empty list.
+            --clear-source-config: Set autonomousDatabase.sourceConfig back to default value.
+            --clear-source-config-autonomous-database: Clear source_config_autonomous_database value and set to null.
+            --database=: The name of the Autonomous Database.
+            --display-name=: The display name for the Autonomous Database.
+            --encryption-key-kms=!: ID of the cryptoKey or fully qualified identifier for the cryptoKey.
+            --encryption-key-provider=: The provider of the encryption key.
+            --key-ring=: The keyRing id of the cryptoKey resource.
+            --labels=: Set labels to new value.
+            --location=: For resources [autonomous_database, encryption-key-kms, odb-network, odb-subnet, source-config-autonomous-database], provides fallback value for resource location attribute.
+            --network=!: ID of the network or fully qualified identifier for the network.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-encryption-key-kms&: Clear encryption_key_kms value and set to null.
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --no-clear-network&: Clear network value and set to null.
+            --no-clear-odb-network&: Clear odb_network value and set to null.
+            --no-clear-odb-subnet&: Clear odb_subnet value and set to null.
+            --no-clear-properties&: Set autonomousDatabase.properties back to default value.
+            --no-clear-properties-allowlisted-ips&: Clear properties_allowlisted_ips value and set to empty list.
+            --no-clear-properties-customer-contacts&: Clear properties_customer_contacts value and set to empty list.
+            --no-clear-source-config&: Set autonomousDatabase.sourceConfig back to default value.
+            --no-clear-source-config-autonomous-database&: Clear source_config_autonomous_database value and set to null.
+            --no-properties-is-auto-scaling-enabled&: This field indicates if auto scaling is enabled for the Autonomous Database
+            --no-properties-is-storage-auto-scaling-enabled&: This field indicates if auto scaling is enabled for the Autonomous Database
+            --no-properties-mtls-connection-required&: This field specifies if the Autonomous Database requires mTLS connections.
+            --no-source-config-automatic-backups-replication-enabled&: This field specifies if the replication of automatic backups is enabled
+            --odb-network=: For resources [odb-network, odb-subnet], provides fallback value for resource odb-network attribute.
+            --odb-subnet=!: ID of the odbSubnet or fully qualified identifier for the odbSubnet.
+            --properties-allowlisted-ips=: Set properties_allowlisted_ips to new value.
+            --properties-backup-retention-period-days=: The retention period for the Autonomous Database.
+            --properties-character-set=: The character set for the Autonomous Database.
+            --properties-compute-count=: The number of compute servers for the Autonomous Database.
+            --properties-cpu-core-count=: The number of CPU cores to be made available to the database.
+            --properties-customer-contacts=: Set properties_customer_contacts to new value.
+            --properties-data-storage-size-gb=: The size of the data stored in the database, in gigabytes.
+            --properties-data-storage-size-tb=: The size of the data stored in the database, in terabytes.
+            --properties-db-edition=: The edition of the Autonomous Databases.
+            --properties-db-version=: The Oracle Database version for the Autonomous Database.
+            --properties-db-workload=: The workload type of the Autonomous Database.
+            --properties-is-auto-scaling-enabled: This field indicates if auto scaling is enabled for the Autonomous Database
+            --properties-is-storage-auto-scaling-enabled: This field indicates if auto scaling is enabled for the Autonomous Database
+            --properties-license-type=: The license type used for the Autonomous Database.
+            --properties-maintenance-schedule-type=: The maintenance schedule of the Autonomous Database.
+            --properties-mtls-connection-required: This field specifies if the Autonomous Database requires mTLS connections.
+            --properties-n-character-set=: The national character set for the Autonomous Database.
+            --properties-private-endpoint-ip=: The private endpoint IP address for the Autonomous Database.
+            --properties-private-endpoint-label=: The private endpoint label for the Autonomous Database.
+            --properties-secret-id=: The ID of the Oracle Cloud Infrastructure vault secret.
+            --properties-vault-id=: The ID of the Oracle Cloud Infrastructure vault.
+            --remove-labels=: Remove existing value from map labels.
+            --remove-properties-allowlisted-ips=: Remove existing value from properties_allowlisted_ips list.
+            --remove-properties-customer-contacts=: Remove existing value from properties_customer_contacts list.
+            --request-id=: An optional ID to identify the request.
+            --source-config-automatic-backups-replication-enabled: This field specifies if the replication of automatic backups is enabled
+            --source-config-autonomous-database=!: ID of the autonomousDatabase or fully qualified identifier for the autonomousDatabase.
+            --update-labels=: Update labels value or add key value pair.
+          completion:
+            flag:
+                encryption-key-provider:
+                    - google-managed
+                    - oracle-managed
+                properties-db-edition:
+                    - enterprise-edition
+                    - standard-edition
+                properties-db-workload:
+                    - ajd
+                    - apex
+                    - dw
+                    - oltp
+                properties-license-type:
+                    - bring-your-own-license
+                    - license-included
+                properties-maintenance-schedule-type:
+                    - early
+                    - regular
+    - name: autonomous-db-versions
+      description: Manage Autonomous Db Version resources.
+      commands:
+        - name: list
+          description: List all AutonomousDbVersions.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: cloud-exadata-infrastructures
+      description: Manage Cloud Exadata Infrastructure resources.
+      commands:
+        - name: create
+          description: Create a new ExadataInfrastructure.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --display-name=: User friendly name for this resource.
+            --gcp-oracle-zone=: The GCP Oracle zone where Oracle Exadata Infrastructure is hosted.
+            --labels=: Labels or tags associated with the resource.
+            --location=: The location id of the cloudExadataInfrastructure resource.
+            --maintenance-window-custom-action-timeout-mins=: Determines the amount of time the system will wait before the start of each
+            --maintenance-window-days-of-week=: Days during the week when maintenance should be performed.
+            --maintenance-window-hours-of-day=: The window of hours during the day when maintenance should be performed.
+            --maintenance-window-is-custom-action-timeout-enabled: If true, enables the configuration of a custom action timeout (waiting
+            --maintenance-window-lead-time-week=: Lead time window allows user to set a lead time to prepare for a down time.
+            --maintenance-window-months=: Months during the year when maintenance should be performed.
+            --maintenance-window-patching-mode=: Cloud CloudExadataInfrastructure node patching method, either "ROLLING"
+            --maintenance-window-preference=: The maintenance window scheduling preference.
+            --maintenance-window-weeks-of-month=: Weeks during the month when maintenance should be performed.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-maintenance-window-is-custom-action-timeout-enabled&: If true, enables the configuration of a custom action timeout (waiting
+            --properties-compute-count=: The number of compute servers for the Exadata Infrastructure.
+            --properties-customer-contacts=: The list of customer contacts.
+            --properties-shape=!: The shape of the Exadata Infrastructure.
+            --properties-storage-count=: The number of Cloud Exadata storage servers for the Exadata Infrastructure.
+            --properties-total-storage-size-gb=: The total storage allocated to the Exadata Infrastructure
+            --request-id=: An optional ID to identify the request.
+          completion:
+            flag:
+                maintenance-window-patching-mode:
+                    - non-rolling
+                    - rolling
+                maintenance-window-preference:
+                    - custom-preference
+                    - no-preference
+        - name: db-servers
+          description: Manage Db Server resources.
+          commands:
+            - name: list
+              description: List all DbServers.
+              flags:
+                --cloud-exadata-infrastructure=!: ID of the cloudExadataInfrastructure or fully qualified identifier for the cloudExadataInfrastructure.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the cloudExadataInfrastructure resource.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: delete
+          description: Delete an ExadataInfrastructure.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --force: If set to true, all VM clusters for this Exadata Infrastructure will be
+            --location=: The location id of the cloudExadataInfrastructure resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-force&: If set to true, all VM clusters for this Exadata Infrastructure will be
+            --request-id=: An optional ID to identify the request.
+        - name: describe
+          description: Get details of a ExadataInfrastructure.
+          flags:
+            --location=: The location id of the cloudExadataInfrastructure resource.
+        - name: list
+          description: List all ExadataInfrastructures.
           flags:
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
@@ -22,44 +347,6 @@ commands:
     - name: cloud-vm-clusters
       description: Manage Cloud Vm Cluster resources.
       commands:
-        - name: db-nodes
-          description: Manage Db Node resources.
-          commands:
-            - name: list
-              description: List all DbNodes.
-              flags:
-                --cloud-vm-cluster=: ID of the cloudVmClusterOrExadbVmCluster or fully qualified identifier for the cloudVmClusterOrExadbVmCluster.
-                --exadb-vm-cluster=: ID of the cloudVmClusterOrExadbVmCluster or fully qualified identifier for the cloudVmClusterOrExadbVmCluster.
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --limit=: Maximum number of resources to list.
-                --location=: The location id of the cloudVmClusterOrExadbVmCluster resource.
-                --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: delete
-          description: Delete a CloudVmCluster.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --force: If set to true, all child resources for the VM Cluster will be deleted.
-            --location=: The location id of the cloudVmCluster resource.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-force&: If set to true, all child resources for the VM Cluster will be deleted.
-            --request-id=: An optional ID to identify the request.
-        - name: describe
-          description: Describe cloudVmClusters.
-          flags:
-            --location=: The location id of the cloudVmCluster resource.
-        - name: list
-          description: List all CloudVmClusters.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=!: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
         - name: create
           description: Create a new CloudVmCluster.
           flags:
@@ -110,6 +397,100 @@ commands:
                 properties-license-type:
                     - bring-your-own-license
                     - license-included
+        - name: db-nodes
+          description: Manage Db Node resources.
+          commands:
+            - name: list
+              description: List all DbNodes.
+              flags:
+                --cloud-vm-cluster=: ID of the cloudVmClusterOrExadbVmCluster or fully qualified identifier for the cloudVmClusterOrExadbVmCluster.
+                --exadb-vm-cluster=: ID of the cloudVmClusterOrExadbVmCluster or fully qualified identifier for the cloudVmClusterOrExadbVmCluster.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the cloudVmClusterOrExadbVmCluster resource.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: delete
+          description: Delete a CloudVmCluster.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --force: If set to true, all child resources for the VM Cluster will be deleted.
+            --location=: The location id of the cloudVmCluster resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-force&: If set to true, all child resources for the VM Cluster will be deleted.
+            --request-id=: An optional ID to identify the request.
+        - name: describe
+          description: Describe cloudVmClusters.
+          flags:
+            --location=: The location id of the cloudVmCluster resource.
+        - name: list
+          description: List all CloudVmClusters.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: database-character-sets
+      description: Manage Database Character Set resources.
+      commands:
+        - name: list
+          description: List all DatabaseCharacterSets.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: databases
+      description: Manage Database resources.
+      commands:
+        - name: describe
+          description: Get details of a Database.
+          flags:
+            --location=: The location id of the database resource.
+        - name: list
+          description: List all Databases.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: db-system-initial-storage-sizes
+      description: Manage Db System Initial Storage Size resources.
+      commands:
+        - name: list
+          description: List all DbSystemInitialStorageSizes.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: db-system-shapes
+      description: Manage Db System Shape resources.
+      commands:
+        - name: list
+          description: List all DbSystemShapes.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
     - name: db-systems
       description: Manage Db System resources.
       commands:
@@ -241,305 +622,6 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
-    - name: entitlements
-      description: Manage Entitlement resources.
-      commands:
-        - name: list
-          description: List all Entitlements.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=!: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-    - name: autonomous-database-backups
-      description: Manage Autonomous Database Backup resources.
-      commands:
-        - name: list
-          description: List autonomous database backups.
-          flags:
-            --filter=: 'Apply a ADB filter in the format :'
-            --limit=: Maximum number of resources to list.
-            --location=!: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-    - name: autonomous-database-character-sets
-      description: Manage Autonomous Database Character Set resources.
-      commands:
-        - name: list
-          description: List all AutonomousDatabaseCharacterSets.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=!: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-    - name: autonomous-databases
-      description: Manage Autonomous Database resources.
-      commands:
-        - name: delete
-          description: Delete an AutonomousDatabase.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: The location id of the autonomousDatabase resource.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --request-id=: An optional ID to identify the request.
-        - name: failover
-          description: Failovers a standby AutonomousDatabase to a new primary.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: For resources [autonomous_database, peer-autonomous-database], provides fallback value for resource location attribute.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --peer-autonomous-database=!: ID of the autonomousDatabase or fully qualified identifier for the autonomousDatabase.
-        - name: restart
-          description: Restarts an AutonomousDatabase.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: The location id of the autonomousDatabase resource.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: restore
-          description: Restore an AutonomousDatabase.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: The location id of the autonomousDatabase resource.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --restore-time=!: The time and date to restore the database to.
-        - name: stop
-          description: Stops an AutonomousDatabase.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: The location id of the autonomousDatabase resource.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: switchover
-          description: Switchovers an AutonomousDatabase to a new primary.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: For resources [autonomous_database, peer-autonomous-database], provides fallback value for resource location attribute.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --peer-autonomous-database=!: ID of the autonomousDatabase or fully qualified identifier for the autonomousDatabase.
-        - name: create
-          description: Create a new AutonomousDatabase.
-          flags:
-            --admin-password=: The password for the default ADMIN user.
-            --async: Return immediately, without waiting for the operation in progress to
-            --cidr=: The subnet CIDR range for the Autonomous Database.
-            --database=: The name of the Autonomous Database.
-            --display-name=: The display name for the Autonomous Database.
-            --encryption-key-kms=!: ID of the cryptoKey or fully qualified identifier for the cryptoKey.
-            --encryption-key-provider=: The provider of the encryption key.
-            --key-ring=: The keyRing id of the cryptoKey resource.
-            --labels=: The labels or tags associated with the Autonomous Database.
-            --location=: For resources [autonomous_database, encryption-key-kms, odb-network, odb-subnet, source-config-autonomous-database], provides fallback value for resource location attribute.
-            --network=!: ID of the network or fully qualified identifier for the network.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-properties-is-auto-scaling-enabled&: This field indicates if auto scaling is enabled for the Autonomous Database
-            --no-properties-is-storage-auto-scaling-enabled&: This field indicates if auto scaling is enabled for the Autonomous Database
-            --no-properties-mtls-connection-required&: This field specifies if the Autonomous Database requires mTLS connections.
-            --no-source-config-automatic-backups-replication-enabled&: This field specifies if the replication of automatic backups is enabled
-            --odb-network=: For resources [odb-network, odb-subnet], provides fallback value for resource odb-network attribute.
-            --odb-subnet=!: ID of the odbSubnet or fully qualified identifier for the odbSubnet.
-            --properties-allowlisted-ips=: The list of allowlisted IP addresses for the Autonomous Database.
-            --properties-backup-retention-period-days=: The retention period for the Autonomous Database.
-            --properties-character-set=: The character set for the Autonomous Database.
-            --properties-compute-count=: The number of compute servers for the Autonomous Database.
-            --properties-cpu-core-count=: The number of CPU cores to be made available to the database.
-            --properties-customer-contacts=: The list of customer contacts.
-            --properties-data-storage-size-gb=: The size of the data stored in the database, in gigabytes.
-            --properties-data-storage-size-tb=: The size of the data stored in the database, in terabytes.
-            --properties-db-edition=: The edition of the Autonomous Databases.
-            --properties-db-version=: The Oracle Database version for the Autonomous Database.
-            --properties-db-workload=!: The workload type of the Autonomous Database.
-            --properties-is-auto-scaling-enabled: This field indicates if auto scaling is enabled for the Autonomous Database
-            --properties-is-storage-auto-scaling-enabled: This field indicates if auto scaling is enabled for the Autonomous Database
-            --properties-license-type=!: The license type used for the Autonomous Database.
-            --properties-maintenance-schedule-type=: The maintenance schedule of the Autonomous Database.
-            --properties-mtls-connection-required: This field specifies if the Autonomous Database requires mTLS connections.
-            --properties-n-character-set=: The national character set for the Autonomous Database.
-            --properties-private-endpoint-ip=: The private endpoint IP address for the Autonomous Database.
-            --properties-private-endpoint-label=: The private endpoint label for the Autonomous Database.
-            --properties-secret-id=: The ID of the Oracle Cloud Infrastructure vault secret.
-            --properties-vault-id=: The ID of the Oracle Cloud Infrastructure vault.
-            --request-id=: An optional ID to identify the request.
-            --source-config-automatic-backups-replication-enabled: This field specifies if the replication of automatic backups is enabled
-            --source-config-autonomous-database=!: ID of the autonomousDatabase or fully qualified identifier for the autonomousDatabase.
-          completion:
-            flag:
-                encryption-key-provider:
-                    - google-managed
-                    - oracle-managed
-                properties-db-edition:
-                    - enterprise-edition
-                    - standard-edition
-                properties-db-workload:
-                    - ajd
-                    - apex
-                    - dw
-                    - oltp
-                properties-license-type:
-                    - bring-your-own-license
-                    - license-included
-                properties-maintenance-schedule-type:
-                    - early
-                    - regular
-        - name: describe
-          description: Get details of an AutonomousDatabase.
-          flags:
-            --location=: The location id of the autonomousDatabase resource.
-        - name: generate-wallet
-          description: Generate wallet for an AutonomousDatabase.
-          flags:
-            --is-regional: True when requesting regional connection strings in PDB connect info,
-            --location=: The location id of the autonomousDatabase resource.
-            --no-is-regional&: True when requesting regional connection strings in PDB connect info,
-            --password=!: The password used to encrypt the keys inside the wallet.
-            --type=: The type of wallet generation for the Autonomous Database.
-          completion:
-            flag:
-                type:
-                    - all
-                    - single
-        - name: list
-          description: List all AutonomousDatabases.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=!: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: start
-          description: Starts an AutonomousDatabase.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: The location id of the autonomousDatabase resource.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: update
-          description: Update an AutonomousDatabase.
-          flags:
-            --add-properties-allowlisted-ips=: Add new value to properties_allowlisted_ips list.
-            --add-properties-customer-contacts=: Add new value to properties_customer_contacts list.
-            --admin-password=: The password for the default ADMIN user.
-            --async: Return immediately, without waiting for the operation in progress to
-            --cidr=: The subnet CIDR range for the Autonomous Database.
-            --clear-encryption-key-kms: Clear encryption_key_kms value and set to null.
-            --clear-labels: Clear labels value and set to empty map.
-            --clear-network: Clear network value and set to null.
-            --clear-odb-network: Clear odb_network value and set to null.
-            --clear-odb-subnet: Clear odb_subnet value and set to null.
-            --clear-properties: Set autonomousDatabase.properties back to default value.
-            --clear-properties-allowlisted-ips: Clear properties_allowlisted_ips value and set to empty list.
-            --clear-properties-customer-contacts: Clear properties_customer_contacts value and set to empty list.
-            --clear-source-config: Set autonomousDatabase.sourceConfig back to default value.
-            --clear-source-config-autonomous-database: Clear source_config_autonomous_database value and set to null.
-            --database=: The name of the Autonomous Database.
-            --display-name=: The display name for the Autonomous Database.
-            --encryption-key-kms=!: ID of the cryptoKey or fully qualified identifier for the cryptoKey.
-            --encryption-key-provider=: The provider of the encryption key.
-            --key-ring=: The keyRing id of the cryptoKey resource.
-            --labels=: Set labels to new value.
-            --location=: For resources [autonomous_database, encryption-key-kms, odb-network, odb-subnet, source-config-autonomous-database], provides fallback value for resource location attribute.
-            --network=!: ID of the network or fully qualified identifier for the network.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-clear-encryption-key-kms&: Clear encryption_key_kms value and set to null.
-            --no-clear-labels&: Clear labels value and set to empty map.
-            --no-clear-network&: Clear network value and set to null.
-            --no-clear-odb-network&: Clear odb_network value and set to null.
-            --no-clear-odb-subnet&: Clear odb_subnet value and set to null.
-            --no-clear-properties&: Set autonomousDatabase.properties back to default value.
-            --no-clear-properties-allowlisted-ips&: Clear properties_allowlisted_ips value and set to empty list.
-            --no-clear-properties-customer-contacts&: Clear properties_customer_contacts value and set to empty list.
-            --no-clear-source-config&: Set autonomousDatabase.sourceConfig back to default value.
-            --no-clear-source-config-autonomous-database&: Clear source_config_autonomous_database value and set to null.
-            --no-properties-is-auto-scaling-enabled&: This field indicates if auto scaling is enabled for the Autonomous Database
-            --no-properties-is-storage-auto-scaling-enabled&: This field indicates if auto scaling is enabled for the Autonomous Database
-            --no-properties-mtls-connection-required&: This field specifies if the Autonomous Database requires mTLS connections.
-            --no-source-config-automatic-backups-replication-enabled&: This field specifies if the replication of automatic backups is enabled
-            --odb-network=: For resources [odb-network, odb-subnet], provides fallback value for resource odb-network attribute.
-            --odb-subnet=!: ID of the odbSubnet or fully qualified identifier for the odbSubnet.
-            --properties-allowlisted-ips=: Set properties_allowlisted_ips to new value.
-            --properties-backup-retention-period-days=: The retention period for the Autonomous Database.
-            --properties-character-set=: The character set for the Autonomous Database.
-            --properties-compute-count=: The number of compute servers for the Autonomous Database.
-            --properties-cpu-core-count=: The number of CPU cores to be made available to the database.
-            --properties-customer-contacts=: Set properties_customer_contacts to new value.
-            --properties-data-storage-size-gb=: The size of the data stored in the database, in gigabytes.
-            --properties-data-storage-size-tb=: The size of the data stored in the database, in terabytes.
-            --properties-db-edition=: The edition of the Autonomous Databases.
-            --properties-db-version=: The Oracle Database version for the Autonomous Database.
-            --properties-db-workload=: The workload type of the Autonomous Database.
-            --properties-is-auto-scaling-enabled: This field indicates if auto scaling is enabled for the Autonomous Database
-            --properties-is-storage-auto-scaling-enabled: This field indicates if auto scaling is enabled for the Autonomous Database
-            --properties-license-type=: The license type used for the Autonomous Database.
-            --properties-maintenance-schedule-type=: The maintenance schedule of the Autonomous Database.
-            --properties-mtls-connection-required: This field specifies if the Autonomous Database requires mTLS connections.
-            --properties-n-character-set=: The national character set for the Autonomous Database.
-            --properties-private-endpoint-ip=: The private endpoint IP address for the Autonomous Database.
-            --properties-private-endpoint-label=: The private endpoint label for the Autonomous Database.
-            --properties-secret-id=: The ID of the Oracle Cloud Infrastructure vault secret.
-            --properties-vault-id=: The ID of the Oracle Cloud Infrastructure vault.
-            --remove-labels=: Remove existing value from map labels.
-            --remove-properties-allowlisted-ips=: Remove existing value from properties_allowlisted_ips list.
-            --remove-properties-customer-contacts=: Remove existing value from properties_customer_contacts list.
-            --request-id=: An optional ID to identify the request.
-            --source-config-automatic-backups-replication-enabled: This field specifies if the replication of automatic backups is enabled
-            --source-config-autonomous-database=!: ID of the autonomousDatabase or fully qualified identifier for the autonomousDatabase.
-            --update-labels=: Update labels value or add key value pair.
-          completion:
-            flag:
-                encryption-key-provider:
-                    - google-managed
-                    - oracle-managed
-                properties-db-edition:
-                    - enterprise-edition
-                    - standard-edition
-                properties-db-workload:
-                    - ajd
-                    - apex
-                    - dw
-                    - oltp
-                properties-license-type:
-                    - bring-your-own-license
-                    - license-included
-                properties-maintenance-schedule-type:
-                    - early
-                    - regular
-    - name: databases
-      description: Manage Database resources.
-      commands:
-        - name: describe
-          description: Get details of a Database.
-          flags:
-            --location=: The location id of the database resource.
-        - name: list
-          description: List all Databases.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=!: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-    - name: db-system-initial-storage-sizes
-      description: Manage Db System Initial Storage Size resources.
-      commands:
-        - name: list
-          description: List all DbSystemInitialStorageSizes.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=!: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
     - name: db-versions
       description: Manage Db Version resources.
       commands:
@@ -553,9 +635,62 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: entitlements
+      description: Manage Entitlement resources.
+      commands:
+        - name: list
+          description: List all Entitlements.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
     - name: exadb-vm-clusters
       description: Manage Exadb Vm Cluster resources.
       commands:
+        - name: create
+          description: Create exadbVmClusters.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --backup-odb-subnet=!: ID of the odbSubnet or fully qualified identifier for the odbSubnet.
+            --data-collection-options-is-diagnostics-events-enabled: Indicates whether to enable data collection for diagnostics.
+            --data-collection-options-is-health-monitoring-enabled: Indicates whether to enable health monitoring.
+            --data-collection-options-is-incident-logs-enabled: Indicates whether to enable incident logs and trace collection.
+            --display-name=!: The display name for the ExadbVmCluster.
+            --labels=: The labels or tags associated with the ExadbVmCluster.
+            --location=: For resources [backup-odb-subnet, exadb_vm_cluster, odb-network, odb-subnet, properties-exascale-db-storage-vault], provides fallback value for resource location attribute.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-data-collection-options-is-diagnostics-events-enabled&: Indicates whether to enable data collection for diagnostics.
+            --no-data-collection-options-is-health-monitoring-enabled&: Indicates whether to enable health monitoring.
+            --no-data-collection-options-is-incident-logs-enabled&: Indicates whether to enable incident logs and trace collection.
+            --odb-network=: For resources [backup-odb-subnet, odb-network, odb-subnet], provides fallback value for resource odb-network attribute.
+            --odb-subnet=!: ID of the odbSubnet or fully qualified identifier for the odbSubnet.
+            --properties-additional-ecpu-count-per-node=: The number of additional ECPUs per node for an Exadata VM cluster on
+            --properties-cluster-name=: The cluster name for Exascale vm cluster.
+            --properties-enabled-ecpu-count-per-node=!: The number of ECPUs enabled per node for an exadata vm cluster on
+            --properties-exascale-db-storage-vault=!: ID of the exascaleDbStorageVault or fully qualified identifier for the exascaleDbStorageVault.
+            --properties-grid-image-id=!: Grid Infrastructure Version.
+            --properties-hostname-prefix=!: Prefix for VM cluster host names.
+            --properties-license-model=: The license type of the ExadbVmCluster.
+            --properties-node-count=!: The number of nodes/VMs in the ExadbVmCluster.
+            --properties-scan-listener-port-tcp=: SCAN listener port - TCP
+            --properties-shape-attribute=!: The shape attribute of the VM cluster.
+            --properties-ssh-public-keys=!: The SSH public keys for the ExadbVmCluster.
+            --request-id=: An optional request ID to identify requests.
+            --time-zone-id=: IANA Time Zone Database time zone.
+            --time-zone-version=: IANA Time Zone Database version number.
+            --vm-file-system-storage-size-in-gbs-per-node=!: The storage allocation for the exadbvmcluster per node, in gigabytes (GB).
+          completion:
+            flag:
+                properties-license-model:
+                    - bring-your-own-license
+                    - license-included
+                properties-shape-attribute:
+                    - block-storage
+                    - smart-storage
         - name: delete
           description: Delete exadbVmClusters.
           flags:
@@ -600,46 +735,6 @@ commands:
             --remove-labels=: Remove existing value from map labels.
             --request-id=: An optional ID to identify the request.
             --update-labels=: Update labels value or add key value pair.
-        - name: create
-          description: Create exadbVmClusters.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --backup-odb-subnet=!: ID of the odbSubnet or fully qualified identifier for the odbSubnet.
-            --data-collection-options-is-diagnostics-events-enabled: Indicates whether to enable data collection for diagnostics.
-            --data-collection-options-is-health-monitoring-enabled: Indicates whether to enable health monitoring.
-            --data-collection-options-is-incident-logs-enabled: Indicates whether to enable incident logs and trace collection.
-            --display-name=!: The display name for the ExadbVmCluster.
-            --labels=: The labels or tags associated with the ExadbVmCluster.
-            --location=: For resources [backup-odb-subnet, exadb_vm_cluster, odb-network, odb-subnet, properties-exascale-db-storage-vault], provides fallback value for resource location attribute.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-data-collection-options-is-diagnostics-events-enabled&: Indicates whether to enable data collection for diagnostics.
-            --no-data-collection-options-is-health-monitoring-enabled&: Indicates whether to enable health monitoring.
-            --no-data-collection-options-is-incident-logs-enabled&: Indicates whether to enable incident logs and trace collection.
-            --odb-network=: For resources [backup-odb-subnet, odb-network, odb-subnet], provides fallback value for resource odb-network attribute.
-            --odb-subnet=!: ID of the odbSubnet or fully qualified identifier for the odbSubnet.
-            --properties-additional-ecpu-count-per-node=: The number of additional ECPUs per node for an Exadata VM cluster on
-            --properties-cluster-name=: The cluster name for Exascale vm cluster.
-            --properties-enabled-ecpu-count-per-node=!: The number of ECPUs enabled per node for an exadata vm cluster on
-            --properties-exascale-db-storage-vault=!: ID of the exascaleDbStorageVault or fully qualified identifier for the exascaleDbStorageVault.
-            --properties-grid-image-id=!: Grid Infrastructure Version.
-            --properties-hostname-prefix=!: Prefix for VM cluster host names.
-            --properties-license-model=: The license type of the ExadbVmCluster.
-            --properties-node-count=!: The number of nodes/VMs in the ExadbVmCluster.
-            --properties-scan-listener-port-tcp=: SCAN listener port - TCP
-            --properties-shape-attribute=!: The shape attribute of the VM cluster.
-            --properties-ssh-public-keys=!: The SSH public keys for the ExadbVmCluster.
-            --request-id=: An optional request ID to identify requests.
-            --time-zone-id=: IANA Time Zone Database time zone.
-            --time-zone-version=: IANA Time Zone Database version number.
-            --vm-file-system-storage-size-in-gbs-per-node=!: The storage allocation for the exadbvmcluster per node, in gigabytes (GB).
-          completion:
-            flag:
-                properties-license-model:
-                    - bring-your-own-license
-                    - license-included
-                properties-shape-attribute:
-                    - block-storage
-                    - smart-storage
     - name: exascale-db-storage-vaults
       description: Manage Exascale Db Storage Vault resources.
       commands:
@@ -669,45 +764,6 @@ commands:
             --location=: The location id of the exascaleDbStorageVault resource.
         - name: list
           description: List exascaleDbStorageVaults.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=!: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-    - name: autonomous-db-versions
-      description: Manage Autonomous Db Version resources.
-      commands:
-        - name: list
-          description: List all AutonomousDbVersions.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=!: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-    - name: database-character-sets
-      description: Manage Database Character Set resources.
-      commands:
-        - name: list
-          description: List all DatabaseCharacterSets.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=!: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-    - name: db-system-shapes
-      description: Manage Db System Shape resources.
-      commands:
-        - name: list
-          description: List all DbSystemShapes.
           flags:
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
@@ -780,22 +836,6 @@ commands:
         - name: odb-subnets
           description: Manage Odb Subnet resources.
           commands:
-            - name: describe
-              description: Get details of an OdbSubnet.
-              flags:
-                --location=: The location id of the odbSubnet resource.
-                --odb-network=: The odbNetwork id of the odbSubnet resource.
-            - name: list
-              description: List all OdbSubnets.
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --limit=: Maximum number of resources to list.
-                --location=: The location id of the odbNetwork resource.
-                --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                --odb-network=!: ID of the odbNetwork or fully qualified identifier for the odbNetwork.
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --uri: Print a list of resource URIs instead of the default output, and change the
             - name: create
               description: Create a new OdbSubnet.
               flags:
@@ -820,6 +860,22 @@ commands:
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --odb-network=: The odbNetwork id of the odbSubnet resource.
                 --request-id=: An optional ID to identify the request.
+            - name: describe
+              description: Get details of an OdbSubnet.
+              flags:
+                --location=: The location id of the odbSubnet resource.
+                --odb-network=: The odbNetwork id of the odbSubnet resource.
+            - name: list
+              description: List all OdbSubnets.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the odbNetwork resource.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --odb-network=!: ID of the odbNetwork or fully qualified identifier for the odbNetwork.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
     - name: operations
       description: Manage Operation resources.
       commands:
@@ -849,11 +905,15 @@ commands:
           description: Wait operations.
           flags:
             --location=: The location id of the operation resource.
-    - name: cloud-exadata-infrastructures
-      description: Manage Cloud Exadata Infrastructure resources.
+    - name: pluggable-databases
+      description: Manage Pluggable Database resources.
       commands:
+        - name: describe
+          description: Get details of a PluggableDatabase.
+          flags:
+            --location=: The location id of the pluggableDatabase resource.
         - name: list
-          description: List all ExadataInfrastructures.
+          description: List pluggableDatabases.
           flags:
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
@@ -862,63 +922,3 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: create
-          description: Create a new ExadataInfrastructure.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --display-name=: User friendly name for this resource.
-            --gcp-oracle-zone=: The GCP Oracle zone where Oracle Exadata Infrastructure is hosted.
-            --labels=: Labels or tags associated with the resource.
-            --location=: The location id of the cloudExadataInfrastructure resource.
-            --maintenance-window-custom-action-timeout-mins=: Determines the amount of time the system will wait before the start of each
-            --maintenance-window-days-of-week=: Days during the week when maintenance should be performed.
-            --maintenance-window-hours-of-day=: The window of hours during the day when maintenance should be performed.
-            --maintenance-window-is-custom-action-timeout-enabled: If true, enables the configuration of a custom action timeout (waiting
-            --maintenance-window-lead-time-week=: Lead time window allows user to set a lead time to prepare for a down time.
-            --maintenance-window-months=: Months during the year when maintenance should be performed.
-            --maintenance-window-patching-mode=: Cloud CloudExadataInfrastructure node patching method, either "ROLLING"
-            --maintenance-window-preference=: The maintenance window scheduling preference.
-            --maintenance-window-weeks-of-month=: Weeks during the month when maintenance should be performed.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-maintenance-window-is-custom-action-timeout-enabled&: If true, enables the configuration of a custom action timeout (waiting
-            --properties-compute-count=: The number of compute servers for the Exadata Infrastructure.
-            --properties-customer-contacts=: The list of customer contacts.
-            --properties-shape=!: The shape of the Exadata Infrastructure.
-            --properties-storage-count=: The number of Cloud Exadata storage servers for the Exadata Infrastructure.
-            --properties-total-storage-size-gb=: The total storage allocated to the Exadata Infrastructure
-            --request-id=: An optional ID to identify the request.
-          completion:
-            flag:
-                maintenance-window-patching-mode:
-                    - non-rolling
-                    - rolling
-                maintenance-window-preference:
-                    - custom-preference
-                    - no-preference
-        - name: db-servers
-          description: Manage Db Server resources.
-          commands:
-            - name: list
-              description: List all DbServers.
-              flags:
-                --cloud-exadata-infrastructure=!: ID of the cloudExadataInfrastructure or fully qualified identifier for the cloudExadataInfrastructure.
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --limit=: Maximum number of resources to list.
-                --location=: The location id of the cloudExadataInfrastructure resource.
-                --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: delete
-          description: Delete an ExadataInfrastructure.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --force: If set to true, all VM clusters for this Exadata Infrastructure will be
-            --location=: The location id of the cloudExadataInfrastructure resource.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-force&: If set to true, all VM clusters for this Exadata Infrastructure will be
-            --request-id=: An optional ID to identify the request.
-        - name: describe
-          description: Get details of a ExadataInfrastructure.
-          flags:
-            --location=: The location id of the cloudExadataInfrastructure resource.

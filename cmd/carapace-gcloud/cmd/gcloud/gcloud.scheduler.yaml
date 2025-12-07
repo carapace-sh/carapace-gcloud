@@ -2,27 +2,6 @@
 name: scheduler
 description: Manage Cloud Scheduler jobs and schedules.
 commands:
-    - name: locations
-      description: Get information about Cloud Scheduler locations.
-      commands:
-        - name: list
-          description: Lists the locations where Cloud Scheduler is available.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: describe
-          description: Show details about a location.
-    - name: operations
-      description: Get information about Cloud Scheduler operations.
-      commands:
-        - name: describe
-          description: Show the latest status of an operation.
-          flags:
-            --name=!: The full name of the Cloud Scheduler operation to describe.
     - name: cmek-config
       description: Manage CMEK configuration for Cloud Scheduler.
       commands:
@@ -42,6 +21,108 @@ commands:
     - name: jobs
       description: Manage Cloud Scheduler jobs.
       commands:
+        - name: create
+          description: Create Cloud Scheduler jobs for various types of targets.
+          commands:
+            - name: app-engine
+              description: Create a Cloud Scheduler job with an App Engine target.
+              flags:
+                --attempt-deadline=: The deadline for job attempts.
+                --description=: Human-readable description of the job.
+                --headers=: KEY=VALUE pairs of HTTP headers to include in the request.
+                --http-method=: HTTP method to use for the request.
+                --location=: The location of the job.
+                --max-backoff=: Maximum amount of time to wait before retrying a job after it
+                --max-doublings=: Maximum number of times that the interval between failed job
+                --max-retry-attempts=: Number of times to retry the request if it fails or times out.
+                --max-retry-duration=: Time limit for retrying a failed job, measured from when the job was
+                --message-body-from-file=: Path to file containing the data payload to be included as the
+                --message-body=: Data payload to be included as the body of the HTTP
+                --min-backoff=: Minimum amount of time to wait before retrying a job after it
+                --relative-url=: Relative URL to use for the request (beginning with "/").
+                --schedule=!: Schedule on which the job will be executed.
+                --service=: ID of the App Engine service to send the request to.
+                --time-zone=: Specifies the time zone to be used in interpreting --schedule.
+              completion:
+                flag:
+                    http-method:
+                        - delete
+                        - get
+                        - head
+                        - post
+                        - put
+            - name: http
+              description: Create a Cloud Scheduler job that triggers an action via HTTP.
+              flags:
+                --attempt-deadline=: The deadline for job attempts.
+                --description=: Human-readable description of the job.
+                --headers=: KEY=VALUE pairs of HTTP headers to include in the request.
+                --http-method=: HTTP method to use for the request.
+                --location=: The location of the job.
+                --max-backoff=: Maximum amount of time to wait before retrying a job after it
+                --max-doublings=: Maximum number of times that the interval between failed job
+                --max-retry-attempts=: Number of times to retry the request if it fails or times out.
+                --max-retry-duration=: Time limit for retrying a failed job, measured from when the job was
+                --message-body-from-file=: Path to file containing the data payload to be included as the
+                --message-body=: Data payload to be included as the body of the HTTP
+                --min-backoff=: Minimum amount of time to wait before retrying a job after it
+                --oauth-service-account-email=!: The service account email to be used for generating an OAuth2
+                --oauth-token-scope=: The scope to be used when generating an OAuth2 access token to
+                --oidc-service-account-email=!: The service account email to be used for generating an OpenId
+                --oidc-token-audience=: The audience to be used when generating an OpenId Connect token
+                --schedule=!: Schedule on which the job will be executed.
+                --time-zone=: Specifies the time zone to be used in interpreting --schedule.
+                --uri=!: The full URI path that the request will be sent to.
+              completion:
+                flag:
+                    http-method:
+                        - delete
+                        - get
+                        - head
+                        - post
+                        - put
+            - name: pubsub
+              description: Create a Cloud Scheduler job with a Pub/Sub target.
+              flags:
+                --attributes=: Comma-separated list of attributes.
+                --description=: Human-readable description of the job.
+                --location=: The location of the job.
+                --max-backoff=: Maximum amount of time to wait before retrying a job after it
+                --max-doublings=: Maximum number of times that the interval between failed job
+                --max-retry-attempts=: Number of times to retry the request if it fails or times out.
+                --max-retry-duration=: Time limit for retrying a failed job, measured from when the job was
+                --message-body-from-file=: Path to a file containing the body of the message.
+                --message-body=: Body of the message.
+                --min-backoff=: Minimum amount of time to wait before retrying a job after it
+                --schedule=!: Schedule on which the job will be executed.
+                --time-zone=: Specifies the time zone to be used in interpreting --schedule.
+                --topic=!: Name of the Google Cloud Pub/Sub topic to publish to when the job runs.
+        - name: delete
+          description: Delete a job.
+          flags:
+            --location=: The location of the job.
+        - name: describe
+          description: Show details about a job.
+          flags:
+            --location=: The location of the job.
+        - name: list
+          description: List jobs.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: pause
+          description: Pause the execution of a job.
+          flags:
+            --location=: The location of the job.
+        - name: resume
+          description: Resume execution of a paused job.
+          flags:
+            --location=: The location of the job.
         - name: run
           description: Trigger an on-demand execution of a job.
           flags:
@@ -177,105 +258,24 @@ commands:
                 --time-zone=: Specifies the time zone to be used in interpreting --schedule.
                 --topic=: Name of the Google Cloud Pub/Sub topic to publish to when the job runs.
                 --update-attributes=: Comma-separated list of attributes.
-        - name: create
-          description: Create Cloud Scheduler jobs for various types of targets.
-          commands:
-            - name: app-engine
-              description: Create a Cloud Scheduler job with an App Engine target.
-              flags:
-                --attempt-deadline=: The deadline for job attempts.
-                --description=: Human-readable description of the job.
-                --headers=: KEY=VALUE pairs of HTTP headers to include in the request.
-                --http-method=: HTTP method to use for the request.
-                --location=: The location of the job.
-                --max-backoff=: Maximum amount of time to wait before retrying a job after it
-                --max-doublings=: Maximum number of times that the interval between failed job
-                --max-retry-attempts=: Number of times to retry the request if it fails or times out.
-                --max-retry-duration=: Time limit for retrying a failed job, measured from when the job was
-                --message-body-from-file=: Path to file containing the data payload to be included as the
-                --message-body=: Data payload to be included as the body of the HTTP
-                --min-backoff=: Minimum amount of time to wait before retrying a job after it
-                --relative-url=: Relative URL to use for the request (beginning with "/").
-                --schedule=!: Schedule on which the job will be executed.
-                --service=: ID of the App Engine service to send the request to.
-                --time-zone=: Specifies the time zone to be used in interpreting --schedule.
-              completion:
-                flag:
-                    http-method:
-                        - delete
-                        - get
-                        - head
-                        - post
-                        - put
-            - name: http
-              description: Create a Cloud Scheduler job that triggers an action via HTTP.
-              flags:
-                --attempt-deadline=: The deadline for job attempts.
-                --description=: Human-readable description of the job.
-                --headers=: KEY=VALUE pairs of HTTP headers to include in the request.
-                --http-method=: HTTP method to use for the request.
-                --location=: The location of the job.
-                --max-backoff=: Maximum amount of time to wait before retrying a job after it
-                --max-doublings=: Maximum number of times that the interval between failed job
-                --max-retry-attempts=: Number of times to retry the request if it fails or times out.
-                --max-retry-duration=: Time limit for retrying a failed job, measured from when the job was
-                --message-body-from-file=: Path to file containing the data payload to be included as the
-                --message-body=: Data payload to be included as the body of the HTTP
-                --min-backoff=: Minimum amount of time to wait before retrying a job after it
-                --oauth-service-account-email=!: The service account email to be used for generating an OAuth2
-                --oauth-token-scope=: The scope to be used when generating an OAuth2 access token to
-                --oidc-service-account-email=!: The service account email to be used for generating an OpenId
-                --oidc-token-audience=: The audience to be used when generating an OpenId Connect token
-                --schedule=!: Schedule on which the job will be executed.
-                --time-zone=: Specifies the time zone to be used in interpreting --schedule.
-                --uri=!: The full URI path that the request will be sent to.
-              completion:
-                flag:
-                    http-method:
-                        - delete
-                        - get
-                        - head
-                        - post
-                        - put
-            - name: pubsub
-              description: Create a Cloud Scheduler job with a Pub/Sub target.
-              flags:
-                --attributes=: Comma-separated list of attributes.
-                --description=: Human-readable description of the job.
-                --location=: The location of the job.
-                --max-backoff=: Maximum amount of time to wait before retrying a job after it
-                --max-doublings=: Maximum number of times that the interval between failed job
-                --max-retry-attempts=: Number of times to retry the request if it fails or times out.
-                --max-retry-duration=: Time limit for retrying a failed job, measured from when the job was
-                --message-body-from-file=: Path to a file containing the body of the message.
-                --message-body=: Body of the message.
-                --min-backoff=: Minimum amount of time to wait before retrying a job after it
-                --schedule=!: Schedule on which the job will be executed.
-                --time-zone=: Specifies the time zone to be used in interpreting --schedule.
-                --topic=!: Name of the Google Cloud Pub/Sub topic to publish to when the job runs.
-        - name: delete
-          description: Delete a job.
-          flags:
-            --location=: The location of the job.
+    - name: locations
+      description: Get information about Cloud Scheduler locations.
+      commands:
         - name: describe
-          description: Show details about a job.
-          flags:
-            --location=: The location of the job.
+          description: Show details about a location.
         - name: list
-          description: List jobs.
+          description: Lists the locations where Cloud Scheduler is available.
           flags:
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
-            --location=: ID of the location or fully qualified identifier for the location.
             --no-uri&: Print a list of resource URIs instead of the default output, and change the
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: pause
-          description: Pause the execution of a job.
+    - name: operations
+      description: Get information about Cloud Scheduler operations.
+      commands:
+        - name: describe
+          description: Show the latest status of an operation.
           flags:
-            --location=: The location of the job.
-        - name: resume
-          description: Resume execution of a paused job.
-          flags:
-            --location=: The location of the job.
+            --name=!: The full name of the Cloud Scheduler operation to describe.

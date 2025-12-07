@@ -35,12 +35,12 @@ commands:
               completion:
                 flag:
                     cpu-count:
-                        - '%!s(float64=2)'
-                        - '%!s(float64=4)'
-                        - '%!s(float64=8)'
-                        - '%!s(float64=16)'
-                        - '%!s(float64=32)'
-                        - '%!s(float64=64)'
+                        - "2"
+                        - "4"
+                        - "8"
+                        - "16"
+                        - "32"
+                        - "64"
                     database-version:
                         - POSTGRES_14
                         - POSTGRES_15
@@ -344,6 +344,27 @@ commands:
     - name: conversion-workspaces
       description: Manage Database Migration Service conversion workspaces.
       commands:
+        - name: apply
+          description: Apply a Database Migration Service conversion workspace.
+          flags:
+            --destination-connection-profile=!: ID of the connection_profile or fully qualified identifier for the connection_profile.
+            --filter=: Filter the entities based on [AIP-160](https://google.aip.dev/160) standard.
+            --no-async: Waits for the operation in progress to complete before returning.
+            --region=: The Cloud region for the conversion_workspace.
+        - name: commit
+          description: Commit a Database Migration Service conversion workspace.
+          flags:
+            --commit-name=: A user-friendly name for the conversion workspace commit.
+            --no-async: Waits for the operation in progress to complete before returning.
+            --region=: The Cloud region for the conversion_workspace.
+        - name: convert
+          description: Convert a Database Migration Service conversion workspace.
+          flags:
+            --auto-commit: Auto commits the conversion workspace.
+            --filter=: Filter the entities based on [AIP-160](https://google.aip.dev/160) standard.
+            --no-async: Waits for the operation in progress to complete before returning.
+            --no-auto-commit&: Auto commits the conversion workspace.
+            --region=: The Cloud region for the conversion_workspace.
         - name: convert-application-code
           description: Convert the application code.
           hidden: true
@@ -354,45 +375,6 @@ commands:
             --source-folder=: A folder path to the source code files which needs to be converted.
             --target-dialect=!: The target dialect of the code to be converted.
             --target-path=: Path where the converted code should be written.
-        - name: import-rules
-          description: Import mapping rules in a Database Migration Service conversion workspace.
-          flags:
-            --auto-commit: Auto commits the conversion workspace.
-            --config-files=!: A list of files to import rules from.
-            --file-format=: File format type to import rules from.
-            --no-auto-commit&: Auto commits the conversion workspace.
-            --region=: The Cloud region for the conversion_workspace.
-          completion:
-            flag:
-                file-format:
-                    - ORA2PG
-        - name: mapping-rules
-          description: Manage Database Migration Service Conversion Workspace mapping rules.
-          commands:
-            - name: list
-              description: List Mapping Rules.
-              flags:
-                --conversion-workspace=!: ID of the conversion_workspace or fully qualified identifier for the conversion_workspace.
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --limit=: Maximum number of resources to list.
-                --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                --page-size=: Some services group resource list output into pages.
-                --region=: The name of the region.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: update
-          description: Update a Database Migration Service conversion workspace.
-          flags:
-            --display-name=: A user-friendly name for the conversion workspace.
-            --global-filter=: Filter the source entities based on [AIP-160](https://google.aip.dev/160) standard.
-            --no-async: Waits for the operation in progress to complete before returning.
-            --region=: The Cloud region for the conversion_workspace.
-        - name: commit
-          description: Commit a Database Migration Service conversion workspace.
-          flags:
-            --commit-name=: A user-friendly name for the conversion workspace commit.
-            --no-async: Waits for the operation in progress to complete before returning.
-            --region=: The Cloud region for the conversion_workspace.
         - name: create
           description: Create a Database Migration Service conversion workspace.
           flags:
@@ -422,6 +404,15 @@ commands:
                     - AZURE_SQL_DATABASE
                     - CLOUDSQL
                     - UNSPECIFIED
+        - name: delete
+          description: Delete a Database Migration conversion workspace.
+          flags:
+            --no-async: Waits for the operation in progress to complete before returning.
+            --region=: The Cloud region for the conversion_workspace.
+        - name: describe
+          description: Show details about a database migration conversion workspace.
+          flags:
+            --region=: The name of the region.
         - name: describe-ddls
           description: Describe DDLs in a Database Migration Service conversion workspace.
           flags:
@@ -473,6 +464,18 @@ commands:
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uncommitted: Whether to retrieve the latest committed version of the entities or the
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: import-rules
+          description: Import mapping rules in a Database Migration Service conversion workspace.
+          flags:
+            --auto-commit: Auto commits the conversion workspace.
+            --config-files=!: A list of files to import rules from.
+            --file-format=: File format type to import rules from.
+            --no-auto-commit&: Auto commits the conversion workspace.
+            --region=: The Cloud region for the conversion_workspace.
+          completion:
+            flag:
+                file-format:
+                    - ORA2PG
         - name: list
           description: List conversion workspaces.
           flags:
@@ -483,30 +486,6 @@ commands:
             --region=!: ID of the region or fully qualified identifier for the region.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: apply
-          description: Apply a Database Migration Service conversion workspace.
-          flags:
-            --destination-connection-profile=!: ID of the connection_profile or fully qualified identifier for the connection_profile.
-            --filter=: Filter the entities based on [AIP-160](https://google.aip.dev/160) standard.
-            --no-async: Waits for the operation in progress to complete before returning.
-            --region=: The Cloud region for the conversion_workspace.
-        - name: convert
-          description: Convert a Database Migration Service conversion workspace.
-          flags:
-            --auto-commit: Auto commits the conversion workspace.
-            --filter=: Filter the entities based on [AIP-160](https://google.aip.dev/160) standard.
-            --no-async: Waits for the operation in progress to complete before returning.
-            --no-auto-commit&: Auto commits the conversion workspace.
-            --region=: The Cloud region for the conversion_workspace.
-        - name: delete
-          description: Delete a Database Migration conversion workspace.
-          flags:
-            --no-async: Waits for the operation in progress to complete before returning.
-            --region=: The Cloud region for the conversion_workspace.
-        - name: describe
-          description: Show details about a database migration conversion workspace.
-          flags:
-            --region=: The name of the region.
         - name: list-background-jobs
           description: List background jobs in the conversion workspaces.
           flags:
@@ -514,6 +493,20 @@ commands:
             --most-recent-per-job-type: Returns only the most recent job per job type.
             --no-most-recent-per-job-type&: Returns only the most recent job per job type.
             --region=: The name of the region.
+        - name: mapping-rules
+          description: Manage Database Migration Service Conversion Workspace mapping rules.
+          commands:
+            - name: list
+              description: List Mapping Rules.
+              flags:
+                --conversion-workspace=!: ID of the conversion_workspace or fully qualified identifier for the conversion_workspace.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --region=: The name of the region.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
         - name: rollback
           description: Rollback a Database Migration Service conversion workspace.
           flags:
@@ -528,47 +521,16 @@ commands:
             --no-auto-commit&: Auto commits the conversion workspace.
             --region=: The Cloud region for the conversion_workspace.
             --source-connection-profile=!: ID of the connection_profile or fully qualified identifier for the connection_profile.
+        - name: update
+          description: Update a Database Migration Service conversion workspace.
+          flags:
+            --display-name=: A user-friendly name for the conversion workspace.
+            --global-filter=: Filter the source entities based on [AIP-160](https://google.aip.dev/160) standard.
+            --no-async: Waits for the operation in progress to complete before returning.
+            --region=: The Cloud region for the conversion_workspace.
     - name: migration-jobs
       description: Manage Database Migration Service migration jobs.
       commands:
-        - name: describe
-          description: Show details about a Database Migration Service migration job.
-          flags:
-            --region=: The name of the region.
-        - name: generate-ssh-script
-          description: Generate a SSH script for a Database Migration Service migration job.
-          flags:
-            --region=: The name of the region.
-            --subnet=!: Subnet to create the VM instance in.
-            --vm-machine-type=!: Machine type for a new VM instance.
-            --vm-port=: Port that will be open on the bastion host.
-            --vm-zone-create=: Zone to create the VM instance in.
-            --vm-zone=: Zone the existing bastion VM instance is located in.
-            --vm=!: Bastion Compute Engine VM instance name to use or to create.
-        - name: restart
-          description: Restart a Database Migration Service migration job.
-          flags:
-            --databases-filter=: A list of databases to be migrated to the destination instance.
-            --no-restart-failed-objects&: Restart the failed objects in the migration job.
-            --no-skip-validation&: Restart the migration job without running prior configuration verification.
-            --object-filter=&: A list of schema and table names to be migrated to the destination instance.
-            --region=: The Cloud region for the migration_job.
-            --restart-failed-objects: Restart the failed objects in the migration job.
-            --skip-validation: Restart the migration job without running prior configuration verification.
-        - name: resume
-          description: Resume a Database Migration Service migration job.
-          flags:
-            --no-skip-validation&: Resume the migration job without running prior configuration verification.
-            --region=: The name of the region.
-            --skip-validation: Resume the migration job without running prior configuration verification.
-        - name: stop
-          description: Stop a Database Migration Service migration job.
-          flags:
-            --region=: The name of the region.
-        - name: verify
-          description: Verify a Database Migration Service migration job.
-          flags:
-            --region=: The name of the region.
         - name: create
           description: Create a Database Migration Service migration job.
           flags:
@@ -639,10 +601,24 @@ commands:
           description: Demote a destination of a Database Migration Service migration job.
           flags:
             --region=: The name of the region.
+        - name: describe
+          description: Show details about a Database Migration Service migration job.
+          flags:
+            --region=: The name of the region.
         - name: fetch-source-objects
           description: Fetch objects for a Database Migration Service migration job by connection to the source.
           flags:
             --region=: The Cloud region for the migration_job.
+        - name: generate-ssh-script
+          description: Generate a SSH script for a Database Migration Service migration job.
+          flags:
+            --region=: The name of the region.
+            --subnet=!: Subnet to create the VM instance in.
+            --vm-machine-type=!: Machine type for a new VM instance.
+            --vm-port=: Port that will be open on the bastion host.
+            --vm-zone-create=: Zone to create the VM instance in.
+            --vm-zone=: Zone the existing bastion VM instance is located in.
+            --vm=!: Bastion Compute Engine VM instance name to use or to create.
         - name: list
           description: List Database Migration Service migration jobs.
           flags:
@@ -658,12 +634,32 @@ commands:
           flags:
             --databases-filter=: A list of databases to be migrated to the destination instance.
             --region=: The Cloud region for the migration_job.
+        - name: restart
+          description: Restart a Database Migration Service migration job.
+          flags:
+            --databases-filter=: A list of databases to be migrated to the destination instance.
+            --no-restart-failed-objects&: Restart the failed objects in the migration job.
+            --no-skip-validation&: Restart the migration job without running prior configuration verification.
+            --object-filter=&: A list of schema and table names to be migrated to the destination instance.
+            --region=: The Cloud region for the migration_job.
+            --restart-failed-objects: Restart the failed objects in the migration job.
+            --skip-validation: Restart the migration job without running prior configuration verification.
+        - name: resume
+          description: Resume a Database Migration Service migration job.
+          flags:
+            --no-skip-validation&: Resume the migration job without running prior configuration verification.
+            --region=: The name of the region.
+            --skip-validation: Resume the migration job without running prior configuration verification.
         - name: start
           description: Start a Database Migration Service migration job.
           flags:
             --no-skip-validation&: Start the migration job without running prior configuration verification.
             --region=: The name of the region.
             --skip-validation: Start the migration job without running prior configuration verification.
+        - name: stop
+          description: Stop a Database Migration Service migration job.
+          flags:
+            --region=: The name of the region.
         - name: update
           description: Update a Database Migration Service migration job.
           flags:
@@ -718,6 +714,10 @@ commands:
                 type:
                     - ONE_TIME
                     - CONTINUOUS
+        - name: verify
+          description: Verify a Database Migration Service migration job.
+          flags:
+            --region=: The name of the region.
     - name: objects
       description: Manage Database Migration Service migration job objects.
       commands:
@@ -750,6 +750,10 @@ commands:
     - name: operations
       description: Manage Database Migration Service operations.
       commands:
+        - name: delete
+          description: Delete a Database Migration Service operation.
+          flags:
+            --region=: The name of the region.
         - name: describe
           description: Show details about a operation.
           flags:
@@ -764,10 +768,6 @@ commands:
             --region=!: ID of the region or fully qualified identifier for the region.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: delete
-          description: Delete a Database Migration Service operation.
-          flags:
-            --region=: The name of the region.
     - name: private-connections
       description: Manage Database Migration Service private connections.
       commands:

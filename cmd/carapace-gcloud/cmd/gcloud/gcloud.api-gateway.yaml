@@ -2,92 +2,6 @@
 name: api-gateway
 description: Manage Cloud API Gateway resources.
 commands:
-    - name: gateways
-      description: Manage Cloud API Gateway Gateways.
-      commands:
-        - name: remove-iam-policy-binding
-          description: Remove IAM policy binding from a gateway.
-          flags:
-            --location=: Cloud location for gateway.
-            --member=!: The principal to remove the binding for.
-            --role=!: The role to remove the principal from.
-        - name: update
-          description: Update an API Gateway.
-          flags:
-            --api-config=!: ID of the api-config or fully qualified identifier for the api-config.
-            --api=: API ID.
-            --async: Return immediately, without waiting for the operation in progress to
-            --clear-labels: Remove all labels.
-            --display-name=: Human readable name which can optionally be supplied.
-            --location=: Cloud location for gateway.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-clear-labels&: Remove all labels.
-            --remove-labels=: List of label keys to remove.
-            --update-labels=: List of label KEY=VALUE pairs to update.
-        - name: add-iam-policy-binding
-          description: Add IAM policy binding to a gateway.
-          flags:
-            --location=: Cloud location for gateway.
-            --member=!: The principal to add the binding for.
-            --role=!: Role name to assign to the principal.
-        - name: create
-          description: Create a new gateway.
-          flags:
-            --api-config=!: ID of the api-config or fully qualified identifier for the api-config.
-            --api=: API ID.
-            --async: Return immediately, without waiting for the operation in progress to
-            --display-name=: Human readable name which can optionally be supplied.
-            --labels=: List of label KEY=VALUE pairs to add.
-            --location=: Cloud location for gateway.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: delete
-          description: Delete an API Gateway.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: Cloud location for gateway.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: describe
-          description: Show details about a specific gateway.
-          flags:
-            --location=: Cloud location for gateway.
-        - name: get-iam-policy
-          description: Get the IAM policy for a gateway.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: Cloud location for gateway.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: list
-          description: List API Gateways.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: ID of the location or fully qualified identifier for the location.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-    - name: operations
-      description: Manage operations for Cloud API Gateways.
-      commands:
-        - name: cancel
-          description: Cancel a Cloud API Gateway operation.
-          flags:
-            --location=: Cloud location for operation.
-        - name: describe
-          description: Show details about the Cloud API Gateway operation.
-          flags:
-            --location=: Cloud location for operation.
-        - name: list
-          description: List API Gateway operations.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: ID of the location or fully qualified identifier for the location.
-            --page-size=: Some services group resource list output into pages.
-        - name: wait
-          description: Wait for a Cloud API Gateway operation to complete.
-          flags:
-            --location=: Cloud location for operation.
     - name: api-configs
       description: Manage Cloud API Gateway API Configs.
       commands:
@@ -140,6 +54,26 @@ commands:
     - name: apis
       description: Manage Cloud API Gateway APIs.
       commands:
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding to a gateway.
+          flags:
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: create
+          description: Create a new API.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --display-name=: Human readable name which can optionally be supplied.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --managed-service=: The name of a pre-existing Google Managed Service.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: delete
+          description: Deletes an API.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Show details about a specific API.
         - name: get-iam-policy
           description: Get the IAM policy for an API.
           flags:
@@ -169,23 +103,89 @@ commands:
             --no-clear-labels&: Remove all labels.
             --remove-labels=: List of label keys to remove.
             --update-labels=: List of label KEY=VALUE pairs to update.
+    - name: gateways
+      description: Manage Cloud API Gateway Gateways.
+      commands:
         - name: add-iam-policy-binding
           description: Add IAM policy binding to a gateway.
           flags:
+            --location=: Cloud location for gateway.
             --member=!: The principal to add the binding for.
             --role=!: Role name to assign to the principal.
         - name: create
-          description: Create a new API.
+          description: Create a new gateway.
           flags:
+            --api-config=!: ID of the api-config or fully qualified identifier for the api-config.
+            --api=: API ID.
             --async: Return immediately, without waiting for the operation in progress to
             --display-name=: Human readable name which can optionally be supplied.
             --labels=: List of label KEY=VALUE pairs to add.
-            --managed-service=: The name of a pre-existing Google Managed Service.
+            --location=: Cloud location for gateway.
             --no-async&: Return immediately, without waiting for the operation in progress to
         - name: delete
-          description: Deletes an API.
+          description: Delete an API Gateway.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
+            --location=: Cloud location for gateway.
             --no-async&: Return immediately, without waiting for the operation in progress to
         - name: describe
-          description: Show details about a specific API.
+          description: Show details about a specific gateway.
+          flags:
+            --location=: Cloud location for gateway.
+        - name: get-iam-policy
+          description: Get the IAM policy for a gateway.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Cloud location for gateway.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: List API Gateways.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: remove-iam-policy-binding
+          description: Remove IAM policy binding from a gateway.
+          flags:
+            --location=: Cloud location for gateway.
+            --member=!: The principal to remove the binding for.
+            --role=!: The role to remove the principal from.
+        - name: update
+          description: Update an API Gateway.
+          flags:
+            --api-config=!: ID of the api-config or fully qualified identifier for the api-config.
+            --api=: API ID.
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Remove all labels.
+            --display-name=: Human readable name which can optionally be supplied.
+            --location=: Cloud location for gateway.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+    - name: operations
+      description: Manage operations for Cloud API Gateways.
+      commands:
+        - name: cancel
+          description: Cancel a Cloud API Gateway operation.
+          flags:
+            --location=: Cloud location for operation.
+        - name: describe
+          description: Show details about the Cloud API Gateway operation.
+          flags:
+            --location=: Cloud location for operation.
+        - name: list
+          description: List API Gateway operations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --page-size=: Some services group resource list output into pages.
+        - name: wait
+          description: Wait for a Cloud API Gateway operation to complete.
+          flags:
+            --location=: Cloud location for operation.

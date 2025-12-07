@@ -2,252 +2,6 @@
 name: access-context-manager
 description: Manage Access Context Manager resources.
 commands:
-    - name: perimeters
-      description: Manage Access Context Manager service perimeters.
-      commands:
-        - name: delete
-          description: Delete a service perimeter.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --policy=: The ID of the access policy.
-        - name: describe
-          description: Show details about a service perimeter.
-          flags:
-            --policy=: The ID of the access policy.
-        - name: dry-run
-          description: Enable management of dry-run mode configuration for Service Perimeters.
-          commands:
-            - name: describe
-              description: Display the dry-run mode configuration for a Service Perimeter.
-              flags:
-                --policy=: The ID of the access policy.
-            - name: drop
-              description: Reset the dry-run mode configuration of a Service Perimeter.
-              flags:
-                --async: Return immediately, without waiting for the operation in
-                --no-async&: Return immediately, without waiting for the operation in
-                --policy=: The ID of the access policy.
-            - name: enforce
-              description: Enforces a Service Perimeter's dry-run configuration.
-              flags:
-                --async: Return immediately, without waiting for the operation in
-                --no-async&: Return immediately, without waiting for the operation in
-                --policy=: The ID of the access policy.
-            - name: enforce-all
-              description: Enforces the dry-run mode configuration for all Service Perimeters.
-              flags:
-                --etag=: The etag for the version of the Access Policy that this
-                --policy=: The parent Access Policy which owns all Service Perimeters in
-            - name: list
-              description: List the effective dry-run configuration across all Service Perimeters.
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --limit=: Maximum number of resources to list.
-                --page-size=: Some services group resource list output into pages.
-                --policy=: Policy resource - The access policy you want to list the
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-            - name: update
-              description: Update the dry-run mode configuration for a Service Perimeter.
-              flags:
-                --add-access-levels=: Append the given values to the current Access Level.
-                --add-resources=: Append the given values to the current Resources.
-                --add-restricted-services=: Append the given values to the current Restricted Services.
-                --add-vpc-allowed-services=: Append the given values to the current VPC Allowed Services.
-                --async: Return immediately, without waiting for the operation in
-                --clear-access-levels: Empty the current Access Level.
-                --clear-egress-policies: Empties existing enforced Egress Policies.
-                --clear-ingress-policies: Empties existing enforced Ingress Policies.
-                --clear-resources: Empty the current Resources.
-                --clear-restricted-services: Empty the current Restricted Services.
-                --clear-vpc-allowed-services: Empty the current VPC Allowed Services.
-                --enable-vpc-accessible-services: When specified restrict API calls within the Service Perimeter to the
-                --etag=: The etag for the version of the Access Policy that this
-                --no-async&: Return immediately, without waiting for the operation in
-                --no-clear-access-levels&: Empty the current Access Level.
-                --no-clear-egress-policies&: Empties existing enforced Egress Policies.
-                --no-clear-ingress-policies&: Empties existing enforced Ingress Policies.
-                --no-clear-resources&: Empty the current Resources.
-                --no-clear-restricted-services&: Empty the current Restricted Services.
-                --no-clear-vpc-allowed-services&: Empty the current VPC Allowed Services.
-                --no-enable-vpc-accessible-services&: When specified restrict API calls within the Service Perimeter to the
-                --policy=: The ID of the access policy.
-                --remove-access-levels=: Remove the given values from the current Access Level.
-                --remove-resources=: Remove the given values from the current Resources.
-                --remove-restricted-services=: Remove the given values from the current Restricted Services.
-                --remove-vpc-allowed-services=: Remove the given values from the current VPC Allowed Services.
-                --set-egress-policies=: Path to a file containing a list of Egress Policies.
-                --set-ingress-policies=: Path to a file containing a list of Ingress Policies.
-            - name: create
-              description: Create a dry-run mode configuration for a new or existing Service         Perimeter.
-              flags:
-                --access-levels=: Comma-separated list of IDs for access levels (in the same policy)
-                --async: Return immediately, without waiting for the operation in
-                --egress-policies=: Path to a file containing a list of Egress Policies.
-                --enable-vpc-accessible-services: Whether to restrict API calls within the perimeter to those in the
-                --ingress-policies=: Path to a file containing a list of Ingress Policies.
-                --no-async&: Return immediately, without waiting for the operation in
-                --no-enable-vpc-accessible-services&: Whether to restrict API calls within the perimeter to those in the
-                --no-perimeter-enable-vpc-accessible-services&: Whether to restrict API calls within the perimeter to those in the
-                --perimeter-access-levels=: Comma-separated list of IDs for access levels (in the same policy)
-                --perimeter-description=: Long-form description of Service Perimeter.
-                --perimeter-egress-policies=: Path to a file containing a list of Egress Policies.
-                --perimeter-enable-vpc-accessible-services: Whether to restrict API calls within the perimeter to those in the
-                --perimeter-ingress-policies=: Path to a file containing a list of Ingress Policies.
-                --perimeter-resources=: Comma-separated list of resources (currently only projects, in the
-                --perimeter-restricted-services=: Comma-separated list of services to which the perimeter boundary
-                --perimeter-title=!: Short human-readable title for the Service Perimeter.
-                --perimeter-type=!: Type of the perimeter.
-                --perimeter-vpc-allowed-services=: Comma-separated list of APIs accessible from within the Service
-                --policy=: The ID of the access policy.
-                --resources=: Comma-separated list of resources (currently only projects, in the
-                --restricted-services=: Comma-separated list of services to which the perimeter boundary
-                --vpc-allowed-services=: Comma-separated list of APIs accessible from within the Service
-            - name: delete
-              description: Mark the Service Perimeter as deleted in the dry-run mode.
-              flags:
-                --async: Return immediately, without waiting for the operation in
-                --no-async&: Return immediately, without waiting for the operation in
-                --policy=: The ID of the access policy.
-        - name: list
-          description: List service perimeters.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --page-size=: Some services group resource list output into pages.
-            --policy=: ID of the policy or fully qualified identifier for the policy.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: replace-all
-          description: Replace all existing service perimeters.
-          flags:
-            --etag=: An etag which specifies the version of the Access Policy.
-            --source-file=!: Path to a file containing a list of service perimeters.
-        - name: update
-          description: Update the enforced configuration for an existing Service Perimeter.
-          flags:
-            --add-access-levels=: Append the given values to the current access levels.
-            --add-resources=: Append the given values to the current resources.
-            --add-restricted-services=: Append the given values to the current restricted services.
-            --add-vpc-allowed-services=: Append the given values to the current vpc allowed services.
-            --clear-access-levels: Empty the current access levels.
-            --clear-egress-policies: Empties existing enforced Egress Policies.
-            --clear-ingress-policies: Empties existing enforced Ingress Policies.
-            --clear-resources: Empty the current resources.
-            --clear-restricted-services: Empty the current restricted services.
-            --clear-vpc-allowed-services: Empty the current vpc allowed services.
-            --description=: Long-form description of service perimeter.
-            --enable-vpc-accessible-services: When specified restrict API calls within the Service Perimeter to the set of vpc allowed services.
-            --etag=: The etag for the version of the Access Policy that this
-            --no-clear-access-levels&: Empty the current access levels.
-            --no-clear-egress-policies&: Empties existing enforced Egress Policies.
-            --no-clear-ingress-policies&: Empties existing enforced Ingress Policies.
-            --no-clear-resources&: Empty the current resources.
-            --no-clear-restricted-services&: Empty the current restricted services.
-            --no-clear-vpc-allowed-services&: Empty the current vpc allowed services.
-            --no-enable-vpc-accessible-services&: When specified restrict API calls within the Service Perimeter to the set of vpc allowed services.
-            --policy=: The ID of the access policy.
-            --remove-access-levels=: Remove the given values from the current access levels.
-            --remove-resources=: Remove the given values from the current resources.
-            --remove-restricted-services=: Remove the given values from the current restricted services.
-            --remove-vpc-allowed-services=: Remove the given values from the current vpc allowed services.
-            --set-access-levels=: Completely replace the current access levels with the given values.
-            --set-egress-policies=: Path to a file containing a list of Egress Policies.
-            --set-ingress-policies=: Path to a file containing a list of Ingress Policies.
-            --set-resources=: Completely replace the current resources with the given values.
-            --set-restricted-services=: Completely replace the current restricted services with the given values.
-            --title=: Short human-readable title of the service perimeter.
-            --type=: Type of the perimeter.
-          completion:
-            flag:
-                type:
-                    - bridge
-                    - regular
-        - name: create
-          description: Create a new service perimeter.
-          flags:
-            --access-levels=: Comma-separated list of IDs for access levels (in the same policy)
-            --async: Return immediately, without waiting for the operation in progress to
-            --description=: Long-form description of service perimeter.
-            --egress-policies=: Path to a file containing a list of Engress Policies.
-            --enable-vpc-accessible-services: Whether to restrict API calls within the perimeter to those in the
-            --ingress-policies=: Path to a file containing a list of Ingress Policies.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-enable-vpc-accessible-services&: Whether to restrict API calls within the perimeter to those in the
-            --perimeter-type=: Type of the perimeter.
-            --policy=: The ID of the access policy.
-            --resources=: Comma-separated list of resources (currently only projects, in the
-            --restricted-services=: Comma-separated list of services to which the perimeter boundary
-            --title=!: Short human-readable title for the service perimeter.
-            --vpc-allowed-services=: Comma-separated list of APIs accessible from within the Service
-          completion:
-            flag:
-                perimeter-type:
-                    - bridge
-                    - regular
-    - name: policies
-      description: Manage Access Context Manager policies.
-      commands:
-        - name: add-iam-policy-binding
-          description: Add IAM policy binding for an access policy.
-          flags:
-            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
-            --condition=: A condition to include in the binding.
-            --member=!: The principal to add the binding for.
-            --role=!: Role name to assign to the principal.
-        - name: create
-          description: Create a new access policy.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --organization=!: Parent organization for the access policies.
-            --scopes=: Folder or project on which this policy is applicable.
-            --title=!: Short human-readable title of the access policy.
-        - name: get-iam-policy
-          description: Get the IAM policy for an access policy.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: list
-          description: List access policies.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --organization=!: ID of the organization or fully qualified identifier for the organization.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: update
-          description: Update an existing access policy.
-          flags:
-            --title=: Short human-readable title of the access policy.
-        - name: delete
-          description: Delete an access policy.
-        - name: describe
-          description: Show details about an access policy.
-        - name: remove-iam-policy-binding
-          description: Remove IAM policy binding for an access policy.
-          flags:
-            --all: Remove all bindings with this role and principal, irrespective of any
-            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
-            --condition=: The condition of the binding that you want to remove.
-            --member=!: The principal to remove the binding for.
-            --no-all&: ""
-            --role=!: The role to remove the principal from.
-        - name: set-iam-policy
-          description: Set IAM policy for an access policy.
-    - name: supported-services
-      description: Retrieve VPC Service Controls Supported Services.
-      commands:
-        - name: list
-          description: Lists all VPC Service Controls supported services.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: describe
-          description: Gets information about a VPC Service Controls Supported Service.
     - name: authorized-orgs
       description: Manage Access Context Manager authorized organizations descriptions.
       commands:
@@ -428,3 +182,249 @@ commands:
                 combine-function:
                     - and
                     - or
+    - name: perimeters
+      description: Manage Access Context Manager service perimeters.
+      commands:
+        - name: create
+          description: Create a new service perimeter.
+          flags:
+            --access-levels=: Comma-separated list of IDs for access levels (in the same policy)
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: Long-form description of service perimeter.
+            --egress-policies=: Path to a file containing a list of Engress Policies.
+            --enable-vpc-accessible-services: Whether to restrict API calls within the perimeter to those in the
+            --ingress-policies=: Path to a file containing a list of Ingress Policies.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-enable-vpc-accessible-services&: Whether to restrict API calls within the perimeter to those in the
+            --perimeter-type=: Type of the perimeter.
+            --policy=: The ID of the access policy.
+            --resources=: Comma-separated list of resources (currently only projects, in the
+            --restricted-services=: Comma-separated list of services to which the perimeter boundary
+            --title=!: Short human-readable title for the service perimeter.
+            --vpc-allowed-services=: Comma-separated list of APIs accessible from within the Service
+          completion:
+            flag:
+                perimeter-type:
+                    - bridge
+                    - regular
+        - name: delete
+          description: Delete a service perimeter.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --policy=: The ID of the access policy.
+        - name: describe
+          description: Show details about a service perimeter.
+          flags:
+            --policy=: The ID of the access policy.
+        - name: dry-run
+          description: Enable management of dry-run mode configuration for Service Perimeters.
+          commands:
+            - name: create
+              description: Create a dry-run mode configuration for a new or existing Service         Perimeter.
+              flags:
+                --access-levels=: Comma-separated list of IDs for access levels (in the same policy)
+                --async: Return immediately, without waiting for the operation in
+                --egress-policies=: Path to a file containing a list of Egress Policies.
+                --enable-vpc-accessible-services: Whether to restrict API calls within the perimeter to those in the
+                --ingress-policies=: Path to a file containing a list of Ingress Policies.
+                --no-async&: Return immediately, without waiting for the operation in
+                --no-enable-vpc-accessible-services&: Whether to restrict API calls within the perimeter to those in the
+                --no-perimeter-enable-vpc-accessible-services&: Whether to restrict API calls within the perimeter to those in the
+                --perimeter-access-levels=: Comma-separated list of IDs for access levels (in the same policy)
+                --perimeter-description=: Long-form description of Service Perimeter.
+                --perimeter-egress-policies=: Path to a file containing a list of Egress Policies.
+                --perimeter-enable-vpc-accessible-services: Whether to restrict API calls within the perimeter to those in the
+                --perimeter-ingress-policies=: Path to a file containing a list of Ingress Policies.
+                --perimeter-resources=: Comma-separated list of resources (currently only projects, in the
+                --perimeter-restricted-services=: Comma-separated list of services to which the perimeter boundary
+                --perimeter-title=!: Short human-readable title for the Service Perimeter.
+                --perimeter-type=!: Type of the perimeter.
+                --perimeter-vpc-allowed-services=: Comma-separated list of APIs accessible from within the Service
+                --policy=: The ID of the access policy.
+                --resources=: Comma-separated list of resources (currently only projects, in the
+                --restricted-services=: Comma-separated list of services to which the perimeter boundary
+                --vpc-allowed-services=: Comma-separated list of APIs accessible from within the Service
+            - name: delete
+              description: Mark the Service Perimeter as deleted in the dry-run mode.
+              flags:
+                --async: Return immediately, without waiting for the operation in
+                --no-async&: Return immediately, without waiting for the operation in
+                --policy=: The ID of the access policy.
+            - name: describe
+              description: Display the dry-run mode configuration for a Service Perimeter.
+              flags:
+                --policy=: The ID of the access policy.
+            - name: drop
+              description: Reset the dry-run mode configuration of a Service Perimeter.
+              flags:
+                --async: Return immediately, without waiting for the operation in
+                --no-async&: Return immediately, without waiting for the operation in
+                --policy=: The ID of the access policy.
+            - name: enforce
+              description: Enforces a Service Perimeter's dry-run configuration.
+              flags:
+                --async: Return immediately, without waiting for the operation in
+                --no-async&: Return immediately, without waiting for the operation in
+                --policy=: The ID of the access policy.
+            - name: enforce-all
+              description: Enforces the dry-run mode configuration for all Service Perimeters.
+              flags:
+                --etag=: The etag for the version of the Access Policy that this
+                --policy=: The parent Access Policy which owns all Service Perimeters in
+            - name: list
+              description: List the effective dry-run configuration across all Service Perimeters.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --page-size=: Some services group resource list output into pages.
+                --policy=: Policy resource - The access policy you want to list the
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+            - name: update
+              description: Update the dry-run mode configuration for a Service Perimeter.
+              flags:
+                --add-access-levels=: Append the given values to the current Access Level.
+                --add-resources=: Append the given values to the current Resources.
+                --add-restricted-services=: Append the given values to the current Restricted Services.
+                --add-vpc-allowed-services=: Append the given values to the current VPC Allowed Services.
+                --async: Return immediately, without waiting for the operation in
+                --clear-access-levels: Empty the current Access Level.
+                --clear-egress-policies: Empties existing enforced Egress Policies.
+                --clear-ingress-policies: Empties existing enforced Ingress Policies.
+                --clear-resources: Empty the current Resources.
+                --clear-restricted-services: Empty the current Restricted Services.
+                --clear-vpc-allowed-services: Empty the current VPC Allowed Services.
+                --enable-vpc-accessible-services: When specified restrict API calls within the Service Perimeter to the
+                --etag=: The etag for the version of the Access Policy that this
+                --no-async&: Return immediately, without waiting for the operation in
+                --no-clear-access-levels&: Empty the current Access Level.
+                --no-clear-egress-policies&: Empties existing enforced Egress Policies.
+                --no-clear-ingress-policies&: Empties existing enforced Ingress Policies.
+                --no-clear-resources&: Empty the current Resources.
+                --no-clear-restricted-services&: Empty the current Restricted Services.
+                --no-clear-vpc-allowed-services&: Empty the current VPC Allowed Services.
+                --no-enable-vpc-accessible-services&: When specified restrict API calls within the Service Perimeter to the
+                --policy=: The ID of the access policy.
+                --remove-access-levels=: Remove the given values from the current Access Level.
+                --remove-resources=: Remove the given values from the current Resources.
+                --remove-restricted-services=: Remove the given values from the current Restricted Services.
+                --remove-vpc-allowed-services=: Remove the given values from the current VPC Allowed Services.
+                --set-egress-policies=: Path to a file containing a list of Egress Policies.
+                --set-ingress-policies=: Path to a file containing a list of Ingress Policies.
+        - name: list
+          description: List service perimeters.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --policy=: ID of the policy or fully qualified identifier for the policy.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: replace-all
+          description: Replace all existing service perimeters.
+          flags:
+            --etag=: An etag which specifies the version of the Access Policy.
+            --source-file=!: Path to a file containing a list of service perimeters.
+        - name: update
+          description: Update the enforced configuration for an existing Service Perimeter.
+          flags:
+            --add-access-levels=: Append the given values to the current access levels.
+            --add-resources=: Append the given values to the current resources.
+            --add-restricted-services=: Append the given values to the current restricted services.
+            --add-vpc-allowed-services=: Append the given values to the current vpc allowed services.
+            --clear-access-levels: Empty the current access levels.
+            --clear-egress-policies: Empties existing enforced Egress Policies.
+            --clear-ingress-policies: Empties existing enforced Ingress Policies.
+            --clear-resources: Empty the current resources.
+            --clear-restricted-services: Empty the current restricted services.
+            --clear-vpc-allowed-services: Empty the current vpc allowed services.
+            --description=: Long-form description of service perimeter.
+            --enable-vpc-accessible-services: When specified restrict API calls within the Service Perimeter to the set of vpc allowed services.
+            --etag=: The etag for the version of the Access Policy that this
+            --no-clear-access-levels&: Empty the current access levels.
+            --no-clear-egress-policies&: Empties existing enforced Egress Policies.
+            --no-clear-ingress-policies&: Empties existing enforced Ingress Policies.
+            --no-clear-resources&: Empty the current resources.
+            --no-clear-restricted-services&: Empty the current restricted services.
+            --no-clear-vpc-allowed-services&: Empty the current vpc allowed services.
+            --no-enable-vpc-accessible-services&: When specified restrict API calls within the Service Perimeter to the set of vpc allowed services.
+            --policy=: The ID of the access policy.
+            --remove-access-levels=: Remove the given values from the current access levels.
+            --remove-resources=: Remove the given values from the current resources.
+            --remove-restricted-services=: Remove the given values from the current restricted services.
+            --remove-vpc-allowed-services=: Remove the given values from the current vpc allowed services.
+            --set-access-levels=: Completely replace the current access levels with the given values.
+            --set-egress-policies=: Path to a file containing a list of Egress Policies.
+            --set-ingress-policies=: Path to a file containing a list of Ingress Policies.
+            --set-resources=: Completely replace the current resources with the given values.
+            --set-restricted-services=: Completely replace the current restricted services with the given values.
+            --title=: Short human-readable title of the service perimeter.
+            --type=: Type of the perimeter.
+          completion:
+            flag:
+                type:
+                    - bridge
+                    - regular
+    - name: policies
+      description: Manage Access Context Manager policies.
+      commands:
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding for an access policy.
+          flags:
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: A condition to include in the binding.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: create
+          description: Create a new access policy.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=!: Parent organization for the access policies.
+            --scopes=: Folder or project on which this policy is applicable.
+            --title=!: Short human-readable title of the access policy.
+        - name: delete
+          description: Delete an access policy.
+        - name: describe
+          description: Show details about an access policy.
+        - name: get-iam-policy
+          description: Get the IAM policy for an access policy.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: List access policies.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --organization=!: ID of the organization or fully qualified identifier for the organization.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: remove-iam-policy-binding
+          description: Remove IAM policy binding for an access policy.
+          flags:
+            --all: Remove all bindings with this role and principal, irrespective of any
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: The condition of the binding that you want to remove.
+            --member=!: The principal to remove the binding for.
+            --no-all&: ""
+            --role=!: The role to remove the principal from.
+        - name: set-iam-policy
+          description: Set IAM policy for an access policy.
+        - name: update
+          description: Update an existing access policy.
+          flags:
+            --title=: Short human-readable title of the access policy.
+    - name: supported-services
+      description: Retrieve VPC Service Controls Supported Services.
+      commands:
+        - name: describe
+          description: Gets information about a VPC Service Controls Supported Service.
+        - name: list
+          description: Lists all VPC Service Controls supported services.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.

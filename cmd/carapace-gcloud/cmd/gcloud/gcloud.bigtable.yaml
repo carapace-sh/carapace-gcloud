@@ -5,6 +5,41 @@ commands:
     - name: app-profiles
       description: Manage Cloud Bigtable app profiles.
       commands:
+        - name: create
+          description: Create a new Bigtable app profile.
+          flags:
+            --data-boost!: Use Data Boost serverless compute option, rather than standard provisioned node compute.
+            --data-boost-compute-billing-owner=!: Specify the Data Boost compute billing owner, required if --data-boost is passed.
+            --description=: Friendly name of the app profile.
+            --force: Ignore warnings and force create.
+            --instance=: Bigtable instance for the app profile.
+            --no-data-boost!&: Use Data Boost serverless compute option, rather than standard provisioned node compute.
+            --no-force&: Ignore warnings and force create.
+            --no-route-any!&: Use Multi Cluster Routing policy.
+            --no-row-affinity&: Use row-affinity routing for this app profile.
+            --no-standard&: Use standard provisioned node compute option, rather than Data Boost compute option.
+            --no-transactional-writes&: Allow transactional writes with a Single Cluster Routing policy.
+            --priority=!: Specify the request priority under standard provisioned node compute capabilities.
+            --restrict-to=: Cluster IDs to route to using the Multi Cluster Routing Policy.
+            --route-any!: Use Multi Cluster Routing policy.
+            --route-to=!: Cluster ID to route to using Single Cluster Routing policy.
+            --row-affinity: Use row-affinity routing for this app profile.
+            --standard: Use standard provisioned node compute option, rather than Data Boost compute option.
+            --transactional-writes: Allow transactional writes with a Single Cluster Routing policy.
+          completion:
+            flag:
+                data-boost-compute-billing-owner:
+                    - HOST_PAYS
+                priority:
+                    - PRIORITY_HIGH
+                    - PRIORITY_LOW
+                    - PRIORITY_MEDIUM
+        - name: delete
+          description: Delete a Bigtable app profile.
+          flags:
+            --force: Ignore warnings and force delete.
+            --instance=: Bigtable instance for the app profile.
+            --no-force&: Ignore warnings and force delete.
         - name: describe
           description: Describe an existing Bigtable app profile.
           flags:
@@ -50,44 +85,100 @@ commands:
                     - PRIORITY_HIGH
                     - PRIORITY_LOW
                     - PRIORITY_MEDIUM
+    - name: authorized-views
+      description: Manage Cloud Bigtable Authorized Views.
+      commands:
+        - name: add-iam-policy-binding
+          description: Add an IAM policy binding to a Cloud Bigtable authorized view.
+          flags:
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: A condition to include in the binding.
+            --instance=: Name of the Bigtable instance.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+            --table=: Name of the Bigtable table.
         - name: create
-          description: Create a new Bigtable app profile.
+          description: Create a new Cloud Bigtable authorized view.
           flags:
-            --data-boost!: Use Data Boost serverless compute option, rather than standard provisioned node compute.
-            --data-boost-compute-billing-owner=!: Specify the Data Boost compute billing owner, required if --data-boost is passed.
-            --description=: Friendly name of the app profile.
-            --force: Ignore warnings and force create.
-            --instance=: Bigtable instance for the app profile.
-            --no-data-boost!&: Use Data Boost serverless compute option, rather than standard provisioned node compute.
-            --no-force&: Ignore warnings and force create.
-            --no-route-any!&: Use Multi Cluster Routing policy.
-            --no-row-affinity&: Use row-affinity routing for this app profile.
-            --no-standard&: Use standard provisioned node compute option, rather than Data Boost compute option.
-            --no-transactional-writes&: Allow transactional writes with a Single Cluster Routing policy.
-            --priority=!: Specify the request priority under standard provisioned node compute capabilities.
-            --restrict-to=: Cluster IDs to route to using the Multi Cluster Routing Policy.
-            --route-any!: Use Multi Cluster Routing policy.
-            --route-to=!: Cluster ID to route to using Single Cluster Routing policy.
-            --row-affinity: Use row-affinity routing for this app profile.
-            --standard: Use standard provisioned node compute option, rather than Data Boost compute option.
-            --transactional-writes: Allow transactional writes with a Single Cluster Routing policy.
-          completion:
-            flag:
-                data-boost-compute-billing-owner:
-                    - HOST_PAYS
-                priority:
-                    - PRIORITY_HIGH
-                    - PRIORITY_LOW
-                    - PRIORITY_MEDIUM
+            --async: Return immediately, without waiting for the operation in progress to
+            --definition-file=: Path to a JSON or YAML file containing a valid authorized view protobuf.
+            --instance=: Name of the Bigtable instance.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-pre-encoded&: By default, Base64 encoding is applied to all binary fields ("rowPrefixes", "qualifiers" and
+            --pre-encoded: By default, Base64 encoding is applied to all binary fields ("rowPrefixes", "qualifiers" and
+            --table=: Name of the Bigtable table.
         - name: delete
-          description: Delete a Bigtable app profile.
+          description: Delete a Cloud Bigtable authorized view.
           flags:
-            --force: Ignore warnings and force delete.
-            --instance=: Bigtable instance for the app profile.
-            --no-force&: Ignore warnings and force delete.
+            --instance=: Name of the Bigtable instance.
+            --table=: Name of the Bigtable table.
+        - name: describe
+          description: Describe a Cloud Bigtable authorized view.
+          flags:
+            --instance=: Name of the Bigtable instance.
+            --table=: Name of the Bigtable table.
+        - name: get-iam-policy
+          description: Get an IAM policy on a Cloud Bigtable authorized view.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --instance=: Name of the Bigtable instance.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --table=: Name of the Bigtable table.
+        - name: list
+          description: List all authorized views of a Cloud Bigtable table.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --instance=: Name of the Bigtable instance.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --table=!: ID of the table or fully qualified identifier for the table.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: remove-iam-policy-binding
+          description: Remove an IAM policy binding from a Cloud Bigtable authorized view.
+          flags:
+            --all: Remove all bindings with this role and principal, irrespective of any
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: The condition of the binding that you want to remove.
+            --instance=: Name of the Bigtable instance.
+            --member=!: The principal to remove the binding for.
+            --no-all&: ""
+            --role=!: The role to remove the principal from.
+            --table=: Name of the Bigtable table.
+        - name: set-iam-policy
+          description: Set an IAM policy on a Cloud Bigtable authorized view.
+          flags:
+            --instance=: Name of the Bigtable instance.
+            --table=: Name of the Bigtable table.
+        - name: update
+          description: Update an existing Cloud Bigtable authorized view.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --definition-file=: Path to a JSON or YAML file containing a valid authorized view protobuf.
+            --ignore-warnings: If true, changes that make the authorized view more restrictive are allowed.
+            --instance=: Name of the Bigtable instance.
+            --interactive: If provided, a diff is displayed with a prompt to proceed or cancel the update.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-ignore-warnings&: If true, changes that make the authorized view more restrictive are allowed.
+            --no-interactive&: If provided, a diff is displayed with a prompt to proceed or cancel the update.
+            --no-pre-encoded&: By default, Base64 encoding is applied to all binary fields ("rowPrefixes", "qualifiers" and
+            --pre-encoded: By default, Base64 encoding is applied to all binary fields ("rowPrefixes", "qualifiers" and
+            --table=: Name of the Bigtable table.
     - name: backups
       description: Manage Cloud Bigtable backups.
       commands:
+        - name: add-iam-policy-binding
+          description: Add an IAM policy binding to a Cloud Bigtable Backup.
+          flags:
+            --cluster=: Name of the Bigtable cluster.
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: A condition to include in the binding.
+            --instance=: Name of the Bigtable instance.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
         - name: copy
           description: Copy a Cloud Bigtable backup to a new backup.
           flags:
@@ -121,6 +212,16 @@ commands:
                     - backup-type-unspecified
                     - hot
                     - standard
+        - name: delete
+          description: Delete an existing backup.
+          flags:
+            --cluster=: Name of the Bigtable cluster.
+            --instance=: Name of the Bigtable instance.
+        - name: describe
+          description: Retrieves information about a backup.
+          flags:
+            --cluster=: Name of the Bigtable cluster.
+            --instance=: Name of the Bigtable instance.
         - name: get-iam-policy
           description: Get an IAM policy on a Cloud Bigtable Backup.
           flags:
@@ -152,6 +253,11 @@ commands:
             --member=!: The principal to remove the binding for.
             --no-all&: ""
             --role=!: The role to remove the principal from.
+        - name: set-iam-policy
+          description: Set an IAM policy on a Cloud Bigtable Backup.
+          flags:
+            --cluster=: Name of the Bigtable cluster.
+            --instance=: Name of the Bigtable instance.
         - name: update
           description: 'Update a backup, only supported for the following fields: --expiration-date and --retention-period.'
           flags:
@@ -160,30 +266,62 @@ commands:
             --hot-to-standard-time=: Time at which a hot backup will be converted to a standard backup; must be at least 24 hours
             --instance=: Name of the Bigtable instance.
             --retention-period=: Retention period of the backup relative from now; must be at least 6 hours and at most 90
-        - name: add-iam-policy-binding
-          description: Add an IAM policy binding to a Cloud Bigtable Backup.
+    - name: clusters
+      description: Manage Cloud Bigtable clusters.
+      commands:
+        - name: create
+          description: Create a bigtable cluster.
           flags:
-            --cluster=: Name of the Bigtable cluster.
-            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
-            --condition=: A condition to include in the binding.
-            --instance=: Name of the Bigtable instance.
-            --member=!: The principal to add the binding for.
-            --role=!: Role name to assign to the principal.
+            --async: Return immediately, without waiting for the operation in progress to
+            --autoscaling-cpu-target=!: The target CPU utilization percentage for autoscaling.
+            --autoscaling-max-nodes=!: The maximum number of nodes for autoscaling.
+            --autoscaling-min-nodes=!: The minimum number of nodes for autoscaling.
+            --autoscaling-storage-target=: The target storage utilization gibibytes per node for autoscaling.
+            --instance=: Bigtable instance for the cluster.
+            --kms-key=!: ID of the key or fully qualified identifier for the key.
+            --kms-keyring=: The KMS keyring id of the key.
+            --kms-location=: The Cloud location for the key.
+            --kms-project=: The Cloud project id for the key.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --node-scaling-factor=: Node scaling factor for the cluster.
+            --num-nodes=: Number of nodes to serve.
+            --zone=!: ID of the zone where the cluster is located.
+          completion:
+            flag:
+                node-scaling-factor:
+                    - node-scaling-factor-1x
+                    - node-scaling-factor-2x
         - name: delete
-          description: Delete an existing backup.
+          description: Delete a bigtable cluster.
           flags:
-            --cluster=: Name of the Bigtable cluster.
-            --instance=: Name of the Bigtable instance.
+            --instance=: Bigtable instance for the cluster.
         - name: describe
-          description: Retrieves information about a backup.
+          description: Describe an existing Bigtable cluster.
           flags:
-            --cluster=: Name of the Bigtable cluster.
-            --instance=: Name of the Bigtable instance.
-        - name: set-iam-policy
-          description: Set an IAM policy on a Cloud Bigtable Backup.
+            --instance=: Bigtable instance for the cluster.
+        - name: list
+          description: List existing Bigtable clusters.
           flags:
-            --cluster=: Name of the Bigtable cluster.
-            --instance=: Name of the Bigtable instance.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --instances=!: IDs of the instances or fully qualified identifiers for the instances.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a Bigtable cluster's number of nodes.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --autoscaling-cpu-target=: The target CPU utilization percentage for autoscaling.
+            --autoscaling-max-nodes=: The maximum number of nodes for autoscaling.
+            --autoscaling-min-nodes=: The minimum number of nodes for autoscaling.
+            --autoscaling-storage-target=: The target storage utilization gibibytes per node for autoscaling.
+            --disable-autoscaling: Set this flag and --num-nodes to disable autoscaling.
+            --instance=: Bigtable instance for the cluster.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-disable-autoscaling&: Set this flag and --num-nodes to disable autoscaling.
+            --num-nodes=!: Number of nodes to serve.
     - name: hot-tablets
       description: Manage Cloud Bigtable hot tablets.
       commands:
@@ -202,33 +340,6 @@ commands:
     - name: instances
       description: Manage Cloud Bigtable instances.
       commands:
-        - name: delete
-          description: Delete an existing Bigtable instance.
-        - name: list
-          description: List existing Bigtable instances.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: remove-iam-policy-binding
-          description: Remove an IAM policy binding from a Cloud Bigtable instance.
-          flags:
-            --all: Remove all bindings with this role and principal, irrespective of any
-            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
-            --condition=: The condition of the binding that you want to remove.
-            --member=!: The principal to remove the binding for.
-            --no-all&: ""
-            --role=!: The role to remove the principal from.
-        - name: set-iam-policy
-          description: Set IAM policy for an instance.
-        - name: upgrade
-          description: Upgrade an existing instance's type from development to production.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --no-async&: Return immediately, without waiting for the operation in progress to
         - name: add-iam-policy-binding
           description: Add an IAM policy binding to a Cloud Bigtable instance.
           flags:
@@ -256,6 +367,8 @@ commands:
                 instance-type:
                     - DEVELOPMENT
                     - PRODUCTION
+        - name: delete
+          description: Delete an existing Bigtable instance.
         - name: describe
           description: Describe an existing Bigtable instance.
         - name: get-iam-policy
@@ -265,75 +378,29 @@ commands:
             --limit=: Maximum number of resources to list.
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: List existing Bigtable instances.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: remove-iam-policy-binding
+          description: Remove an IAM policy binding from a Cloud Bigtable instance.
+          flags:
+            --all: Remove all bindings with this role and principal, irrespective of any
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: The condition of the binding that you want to remove.
+            --member=!: The principal to remove the binding for.
+            --no-all&: ""
+            --role=!: The role to remove the principal from.
+        - name: set-iam-policy
+          description: Set IAM policy for an instance.
         - name: tables
           description: Query Cloud Bigtable tables.
           commands:
-            - name: list
-              description: List existing Bigtable instance tables.
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --instances=!: ID of the instances.
-                --limit=: Maximum number of resources to list.
-                --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --uri: Print a list of resource URIs instead of the default output, and change the
-            - name: set-iam-policy
-              description: Set an IAM policy on a Cloud Bigtable table.
-              flags:
-                --instance=: Name of the Bigtable instance.
-            - name: update
-              description: Update an existing Cloud Bigtable table.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --automated-backup-retention-period=: The retention period of automated backup in the format of `30d` for 30 days.
-                --change-stream-retention-period=: The length of time to retain change stream data for the table, in the range of [1 day, 7 days].
-                --clear-change-stream-retention-period: This disables the change stream and eventually removes the change stream data.
-                --clear-row-key-schema: Whether to clear the row key schema in the updated table.
-                --deletion-protection: Once specified, the table is deletion protected.
-                --disable-automated-backup: Once set, disables automated backup policy for the table.
-                --enable-automated-backup: Once set, enables the default automated backup policy (retention_period=7d, frequency=1d) for the table.
-                --instance=: Name of the Bigtable instance.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --no-clear-row-key-schema&: Whether to clear the row key schema in the updated table.
-                --no-deletion-protection&: Once specified, the table is deletion protected.
-                --no-row-key-schema-pre-encoded-bytes&: By default, Base64 encoding is applied to all binary fields in the YAML/JSON file (for example,
-                --row-key-schema-definition-file=: The row key schema for the table.
-                --row-key-schema-pre-encoded-bytes: By default, Base64 encoding is applied to all binary fields in the YAML/JSON file (for example,
-            - name: get-iam-policy
-              description: Get an IAM policy on a Cloud Bigtable table.
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --instance=: Name of the Bigtable instance.
-                --limit=: Maximum number of resources to list.
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-            - name: remove-iam-policy-binding
-              description: Remove an IAM policy binding from a Cloud Bigtable table.
-              flags:
-                --all: Remove all bindings with this role and principal, irrespective of any
-                --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
-                --condition=: The condition of the binding that you want to remove.
-                --instance=: Name of the Bigtable instance.
-                --member=!: The principal to remove the binding for.
-                --no-all&: ""
-                --role=!: The role to remove the principal from.
-            - name: restore
-              description: Restore a Cloud Bigtable backup to a new table.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --destination-instance=: Name of the Bigtable instance.
-                --destination=!: ID of the table or fully qualified identifier for the table.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --source-cluster=: Name of the Bigtable cluster.
-                --source-instance=: Name of the Bigtable instance.
-                --source=!: ID of the backup or fully qualified identifier for the backup.
-            - name: undelete
-              description: Undelete a previously deleted Cloud Bigtable table.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --instance=: Name of the Bigtable instance.
-                --no-async&: Return immediately, without waiting for the operation in progress to
             - name: add-iam-policy-binding
               description: Add an IAM policy binding to a Cloud Bigtable table.
               flags:
@@ -374,21 +441,84 @@ commands:
                         - replication
                         - schema
                         - stats
+            - name: get-iam-policy
+              description: Get an IAM policy on a Cloud Bigtable table.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --instance=: Name of the Bigtable instance.
+                --limit=: Maximum number of resources to list.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+            - name: list
+              description: List existing Bigtable instance tables.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --instances=!: ID of the instances.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: remove-iam-policy-binding
+              description: Remove an IAM policy binding from a Cloud Bigtable table.
+              flags:
+                --all: Remove all bindings with this role and principal, irrespective of any
+                --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+                --condition=: The condition of the binding that you want to remove.
+                --instance=: Name of the Bigtable instance.
+                --member=!: The principal to remove the binding for.
+                --no-all&: ""
+                --role=!: The role to remove the principal from.
+            - name: restore
+              description: Restore a Cloud Bigtable backup to a new table.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --destination-instance=: Name of the Bigtable instance.
+                --destination=!: ID of the table or fully qualified identifier for the table.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --source-cluster=: Name of the Bigtable cluster.
+                --source-instance=: Name of the Bigtable instance.
+                --source=!: ID of the backup or fully qualified identifier for the backup.
+            - name: set-iam-policy
+              description: Set an IAM policy on a Cloud Bigtable table.
+              flags:
+                --instance=: Name of the Bigtable instance.
+            - name: undelete
+              description: Undelete a previously deleted Cloud Bigtable table.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --instance=: Name of the Bigtable instance.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: update
+              description: Update an existing Cloud Bigtable table.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --automated-backup-retention-period=: The retention period of automated backup in the format of `30d` for 30 days.
+                --change-stream-retention-period=: The length of time to retain change stream data for the table, in the range of [1 day, 7 days].
+                --clear-change-stream-retention-period: This disables the change stream and eventually removes the change stream data.
+                --clear-row-key-schema: Whether to clear the row key schema in the updated table.
+                --deletion-protection: Once specified, the table is deletion protected.
+                --disable-automated-backup: Once set, disables automated backup policy for the table.
+                --enable-automated-backup: Once set, enables the default automated backup policy (retention_period=7d, frequency=1d) for the table.
+                --instance=: Name of the Bigtable instance.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-row-key-schema&: Whether to clear the row key schema in the updated table.
+                --no-deletion-protection&: Once specified, the table is deletion protected.
+                --no-row-key-schema-pre-encoded-bytes&: By default, Base64 encoding is applied to all binary fields in the YAML/JSON file (for example,
+                --row-key-schema-definition-file=: The row key schema for the table.
+                --row-key-schema-pre-encoded-bytes: By default, Base64 encoding is applied to all binary fields in the YAML/JSON file (for example,
         - name: update
           description: Modify an existing Bigtable instance.
           flags:
             --display-name=: Friendly name of the instance.
+        - name: upgrade
+          description: Upgrade an existing instance's type from development to production.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
     - name: logical-views
       description: Manage Bigtable logical views.
       commands:
-        - name: update
-          description: Update a Bigtable logical view.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --deletion-protection=: Whether the view is protected from deletion.
-            --instance=: Bigtable instance for the logical view.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --query=: The query of the view.
         - name: create
           description: Create a new Bigtable logical view.
           flags:
@@ -415,6 +545,14 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a Bigtable logical view.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --deletion-protection=: Whether the view is protected from deletion.
+            --instance=: Bigtable instance for the logical view.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --query=: The query of the view.
     - name: materialized-views
       description: Manage Bigtable materialized views.
       commands:
@@ -484,17 +622,6 @@ commands:
     - name: schema-bundles
       description: Manage Bigtable schema bundles.
       commands:
-        - name: remove-iam-policy-binding
-          description: Remove an IAM policy binding from a Bigtable schema bundle.
-          flags:
-            --all: Remove all bindings with this role and principal, irrespective of any
-            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
-            --condition=: The condition of the binding that you want to remove.
-            --instance=: Name of the Bigtable instance.
-            --member=!: The principal to remove the binding for.
-            --no-all&: ""
-            --role=!: The role to remove the principal from.
-            --table=: Name of the Bigtable table.
         - name: add-iam-policy-binding
           description: Add an IAM policy binding to a Bigtable schema bundle.
           flags:
@@ -503,26 +630,6 @@ commands:
             --instance=: Name of the Bigtable instance.
             --member=!: The principal to add the binding for.
             --role=!: Role name to assign to the principal.
-            --table=: Name of the Bigtable table.
-        - name: describe
-          description: Describe a Bigtable schema bundle.
-          flags:
-            --instance=: Name of the Bigtable instance.
-            --table=: Name of the Bigtable table.
-        - name: set-iam-policy
-          description: Set an IAM policy on a Bigtable schema bundle.
-          flags:
-            --instance=: Name of the Bigtable instance.
-            --table=: Name of the Bigtable table.
-        - name: update
-          description: Update an existing Bigtable schema bundle.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --ignore-warnings: If true, backwards incompatible changes will be allowed.
-            --instance=: Name of the Bigtable instance.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-ignore-warnings&: If true, backwards incompatible changes will be allowed.
-            --proto-descriptors-file=!: Path of a file that contains a protobuf-serialized `google.protobuf.FileDescriptorSet` message.
             --table=: Name of the Bigtable table.
         - name: create
           description: Create a new Bigtable schema bundle.
@@ -534,6 +641,11 @@ commands:
             --table=: Name of the Bigtable table.
         - name: delete
           description: Delete a Bigtable schema bundle.
+          flags:
+            --instance=: Name of the Bigtable instance.
+            --table=: Name of the Bigtable table.
+        - name: describe
+          description: Describe a Bigtable schema bundle.
           flags:
             --instance=: Name of the Bigtable instance.
             --table=: Name of the Bigtable table.
@@ -557,30 +669,8 @@ commands:
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --table=!: ID of the table or fully qualified identifier for the table.
             --uri: Print a list of resource URIs instead of the default output, and change the
-    - name: authorized-views
-      description: Manage Cloud Bigtable Authorized Views.
-      commands:
-        - name: delete
-          description: Delete a Cloud Bigtable authorized view.
-          flags:
-            --instance=: Name of the Bigtable instance.
-            --table=: Name of the Bigtable table.
-        - name: describe
-          description: Describe a Cloud Bigtable authorized view.
-          flags:
-            --instance=: Name of the Bigtable instance.
-            --table=: Name of the Bigtable table.
-        - name: get-iam-policy
-          description: Get an IAM policy on a Cloud Bigtable authorized view.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --instance=: Name of the Bigtable instance.
-            --limit=: Maximum number of resources to list.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --table=: Name of the Bigtable table.
         - name: remove-iam-policy-binding
-          description: Remove an IAM policy binding from a Cloud Bigtable authorized view.
+          description: Remove an IAM policy binding from a Bigtable schema bundle.
           flags:
             --all: Remove all bindings with this role and principal, irrespective of any
             --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
@@ -591,137 +681,31 @@ commands:
             --role=!: The role to remove the principal from.
             --table=: Name of the Bigtable table.
         - name: set-iam-policy
-          description: Set an IAM policy on a Cloud Bigtable authorized view.
+          description: Set an IAM policy on a Bigtable schema bundle.
           flags:
             --instance=: Name of the Bigtable instance.
             --table=: Name of the Bigtable table.
+        - name: update
+          description: Update an existing Bigtable schema bundle.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --ignore-warnings: If true, backwards incompatible changes will be allowed.
+            --instance=: Name of the Bigtable instance.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-ignore-warnings&: If true, backwards incompatible changes will be allowed.
+            --proto-descriptors-file=!: Path of a file that contains a protobuf-serialized `google.protobuf.FileDescriptorSet` message.
+            --table=: Name of the Bigtable table.
+    - name: tables
+      description: Query Cloud Bigtable tables.
+      commands:
         - name: add-iam-policy-binding
-          description: Add an IAM policy binding to a Cloud Bigtable authorized view.
+          description: Add an IAM policy binding to a Cloud Bigtable table.
           flags:
             --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
             --condition=: A condition to include in the binding.
             --instance=: Name of the Bigtable instance.
             --member=!: The principal to add the binding for.
             --role=!: Role name to assign to the principal.
-            --table=: Name of the Bigtable table.
-        - name: create
-          description: Create a new Cloud Bigtable authorized view.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --definition-file=: Path to a JSON or YAML file containing a valid authorized view protobuf.
-            --instance=: Name of the Bigtable instance.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-pre-encoded&: By default, Base64 encoding is applied to all binary fields ("rowPrefixes", "qualifiers" and
-            --pre-encoded: By default, Base64 encoding is applied to all binary fields ("rowPrefixes", "qualifiers" and
-            --table=: Name of the Bigtable table.
-        - name: list
-          description: List all authorized views of a Cloud Bigtable table.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --instance=: Name of the Bigtable instance.
-            --limit=: Maximum number of resources to list.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --table=!: ID of the table or fully qualified identifier for the table.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: update
-          description: Update an existing Cloud Bigtable authorized view.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --definition-file=: Path to a JSON or YAML file containing a valid authorized view protobuf.
-            --ignore-warnings: If true, changes that make the authorized view more restrictive are allowed.
-            --instance=: Name of the Bigtable instance.
-            --interactive: If provided, a diff is displayed with a prompt to proceed or cancel the update.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-ignore-warnings&: If true, changes that make the authorized view more restrictive are allowed.
-            --no-interactive&: If provided, a diff is displayed with a prompt to proceed or cancel the update.
-            --no-pre-encoded&: By default, Base64 encoding is applied to all binary fields ("rowPrefixes", "qualifiers" and
-            --pre-encoded: By default, Base64 encoding is applied to all binary fields ("rowPrefixes", "qualifiers" and
-            --table=: Name of the Bigtable table.
-    - name: clusters
-      description: Manage Cloud Bigtable clusters.
-      commands:
-        - name: delete
-          description: Delete a bigtable cluster.
-          flags:
-            --instance=: Bigtable instance for the cluster.
-        - name: describe
-          description: Describe an existing Bigtable cluster.
-          flags:
-            --instance=: Bigtable instance for the cluster.
-        - name: list
-          description: List existing Bigtable clusters.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --instances=!: IDs of the instances or fully qualified identifiers for the instances.
-            --limit=: Maximum number of resources to list.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: update
-          description: Update a Bigtable cluster's number of nodes.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --autoscaling-cpu-target=: The target CPU utilization percentage for autoscaling.
-            --autoscaling-max-nodes=: The maximum number of nodes for autoscaling.
-            --autoscaling-min-nodes=: The minimum number of nodes for autoscaling.
-            --autoscaling-storage-target=: The target storage utilization gibibytes per node for autoscaling.
-            --disable-autoscaling: Set this flag and --num-nodes to disable autoscaling.
-            --instance=: Bigtable instance for the cluster.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-disable-autoscaling&: Set this flag and --num-nodes to disable autoscaling.
-            --num-nodes=!: Number of nodes to serve.
-        - name: create
-          description: Create a bigtable cluster.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --autoscaling-cpu-target=!: The target CPU utilization percentage for autoscaling.
-            --autoscaling-max-nodes=!: The maximum number of nodes for autoscaling.
-            --autoscaling-min-nodes=!: The minimum number of nodes for autoscaling.
-            --autoscaling-storage-target=: The target storage utilization gibibytes per node for autoscaling.
-            --instance=: Bigtable instance for the cluster.
-            --kms-key=!: ID of the key or fully qualified identifier for the key.
-            --kms-keyring=: The KMS keyring id of the key.
-            --kms-location=: The Cloud location for the key.
-            --kms-project=: The Cloud project id for the key.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --node-scaling-factor=: Node scaling factor for the cluster.
-            --num-nodes=: Number of nodes to serve.
-            --zone=!: ID of the zone where the cluster is located.
-          completion:
-            flag:
-                node-scaling-factor:
-                    - node-scaling-factor-1x
-                    - node-scaling-factor-2x
-    - name: tables
-      description: Query Cloud Bigtable tables.
-      commands:
-        - name: get-iam-policy
-          description: Get an IAM policy on a Cloud Bigtable table.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --instance=: Name of the Bigtable instance.
-            --limit=: Maximum number of resources to list.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: remove-iam-policy-binding
-          description: Remove an IAM policy binding from a Cloud Bigtable table.
-          flags:
-            --all: Remove all bindings with this role and principal, irrespective of any
-            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
-            --condition=: The condition of the binding that you want to remove.
-            --instance=: Name of the Bigtable instance.
-            --member=!: The principal to remove the binding for.
-            --no-all&: ""
-            --role=!: The role to remove the principal from.
-        - name: undelete
-          description: Undelete a previously deleted Cloud Bigtable table.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --instance=: Name of the Bigtable instance.
-            --no-async&: Return immediately, without waiting for the operation in progress to
         - name: create
           description: Create a new Cloud Bigtable table.
           flags:
@@ -736,56 +720,6 @@ commands:
             --row-key-schema-definition-file=: The row key schema for the table.
             --row-key-schema-pre-encoded-bytes: By default, Base64 encoding is applied to all binary fields in the YAML/JSON file (for
             --splits=: Row keys where the table should initially be split.
-        - name: list
-          description: List existing Bigtable instance tables.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --instances=!: ID of the instances.
-            --limit=: Maximum number of resources to list.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: restore
-          description: Restore a Cloud Bigtable backup to a new table.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --destination-instance=: Name of the Bigtable instance.
-            --destination=!: ID of the table or fully qualified identifier for the table.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --source-cluster=: Name of the Bigtable cluster.
-            --source-instance=: Name of the Bigtable instance.
-            --source=!: ID of the backup or fully qualified identifier for the backup.
-        - name: set-iam-policy
-          description: Set an IAM policy on a Cloud Bigtable table.
-          flags:
-            --instance=: Name of the Bigtable instance.
-        - name: update
-          description: Update an existing Cloud Bigtable table.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --automated-backup-retention-period=: The retention period of automated backup in the format of `30d` for 30 days.
-            --change-stream-retention-period=: The length of time to retain change stream data for the table, in the range of [1 day, 7 days].
-            --clear-change-stream-retention-period: This disables the change stream and eventually removes the change stream data.
-            --clear-row-key-schema: Whether to clear the row key schema in the updated table.
-            --deletion-protection: Once specified, the table is deletion protected.
-            --disable-automated-backup: Once set, disables automated backup policy for the table.
-            --enable-automated-backup: Once set, enables the default automated backup policy (retention_period=7d, frequency=1d) for the table.
-            --instance=: Name of the Bigtable instance.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-clear-row-key-schema&: Whether to clear the row key schema in the updated table.
-            --no-deletion-protection&: Once specified, the table is deletion protected.
-            --no-row-key-schema-pre-encoded-bytes&: By default, Base64 encoding is applied to all binary fields in the YAML/JSON file (for example,
-            --row-key-schema-definition-file=: The row key schema for the table.
-            --row-key-schema-pre-encoded-bytes: By default, Base64 encoding is applied to all binary fields in the YAML/JSON file (for example,
-        - name: add-iam-policy-binding
-          description: Add an IAM policy binding to a Cloud Bigtable table.
-          flags:
-            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
-            --condition=: A condition to include in the binding.
-            --instance=: Name of the Bigtable instance.
-            --member=!: The principal to add the binding for.
-            --role=!: Role name to assign to the principal.
         - name: delete
           description: Delete a Cloud Bigtable table.
           flags:
@@ -804,3 +738,69 @@ commands:
                     - replication
                     - schema
                     - stats
+        - name: get-iam-policy
+          description: Get an IAM policy on a Cloud Bigtable table.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --instance=: Name of the Bigtable instance.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: List existing Bigtable instance tables.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --instances=!: ID of the instances.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: remove-iam-policy-binding
+          description: Remove an IAM policy binding from a Cloud Bigtable table.
+          flags:
+            --all: Remove all bindings with this role and principal, irrespective of any
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: The condition of the binding that you want to remove.
+            --instance=: Name of the Bigtable instance.
+            --member=!: The principal to remove the binding for.
+            --no-all&: ""
+            --role=!: The role to remove the principal from.
+        - name: restore
+          description: Restore a Cloud Bigtable backup to a new table.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --destination-instance=: Name of the Bigtable instance.
+            --destination=!: ID of the table or fully qualified identifier for the table.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --source-cluster=: Name of the Bigtable cluster.
+            --source-instance=: Name of the Bigtable instance.
+            --source=!: ID of the backup or fully qualified identifier for the backup.
+        - name: set-iam-policy
+          description: Set an IAM policy on a Cloud Bigtable table.
+          flags:
+            --instance=: Name of the Bigtable instance.
+        - name: undelete
+          description: Undelete a previously deleted Cloud Bigtable table.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --instance=: Name of the Bigtable instance.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: update
+          description: Update an existing Cloud Bigtable table.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --automated-backup-retention-period=: The retention period of automated backup in the format of `30d` for 30 days.
+            --change-stream-retention-period=: The length of time to retain change stream data for the table, in the range of [1 day, 7 days].
+            --clear-change-stream-retention-period: This disables the change stream and eventually removes the change stream data.
+            --clear-row-key-schema: Whether to clear the row key schema in the updated table.
+            --deletion-protection: Once specified, the table is deletion protected.
+            --disable-automated-backup: Once set, disables automated backup policy for the table.
+            --enable-automated-backup: Once set, enables the default automated backup policy (retention_period=7d, frequency=1d) for the table.
+            --instance=: Name of the Bigtable instance.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-row-key-schema&: Whether to clear the row key schema in the updated table.
+            --no-deletion-protection&: Once specified, the table is deletion protected.
+            --no-row-key-schema-pre-encoded-bytes&: By default, Base64 encoding is applied to all binary fields in the YAML/JSON file (for example,
+            --row-key-schema-definition-file=: The row key schema for the table.
+            --row-key-schema-pre-encoded-bytes: By default, Base64 encoding is applied to all binary fields in the YAML/JSON file (for example,

@@ -2,68 +2,6 @@
 name: infra-manager
 description: Manage Infra Manager resources.
 commands:
-    - name: resources
-      description: List or describe resources under a Revision.
-      commands:
-        - name: describe
-          description: Describe resources.
-          flags:
-            --deployment=: deployments TBD
-            --location=: locations TBD
-            --revision=: revisions TBD
-        - name: list
-          description: List resources.
-          flags:
-            --deployment=: deployments TBD
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: locations TBD
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --revision=!: ID of the revision or fully qualified identifier for the revision.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-    - name: revisions
-      description: Manage Revision resources.
-      commands:
-        - name: export-statefile
-          description: Export a terraform state file.
-          flags:
-            --deployment=: The deployment for the revision.
-            --location=: The Cloud location for the revision.
-        - name: list
-          description: List revisions.
-          flags:
-            --deployment=!: ID of the deployment or fully qualified identifier for the deployment.
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: locations TBD
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: describe
-          description: Describe revisions.
-          flags:
-            --deployment=: deployments TBD
-            --location=: locations TBD
-    - name: terraform-versions
-      description: Manage Terraform version resources.
-      commands:
-        - name: describe
-          description: Describe Terraform versions.
-          flags:
-            --location=: locations TBD
-        - name: list
-          description: List Terraform versions.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
     - name: deployments
       description: Manage Deployment resources.
       commands:
@@ -109,6 +47,17 @@ commands:
           description: Describe deployments.
           flags:
             --location=: locations TBD
+        - name: export-lock
+          description: Exports lock info of a deployment.
+          flags:
+            --location=: The Cloud location for the deployment.
+        - name: export-statefile
+          description: Export a terraform state file.
+          flags:
+            --draft: If this flag is set to true, the exported deployment state file will be the draft state
+            --file=: File name for statefile.
+            --location=: The Cloud location for the deployment.
+            --no-draft&: If this flag is set to true, the exported deployment state file will be the draft state
         - name: import-statefile
           description: Import a terraform state file.
           flags:
@@ -125,17 +74,6 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: export-lock
-          description: Exports lock info of a deployment.
-          flags:
-            --location=: The Cloud location for the deployment.
-        - name: export-statefile
-          description: Export a terraform state file.
-          flags:
-            --draft: If this flag is set to true, the exported deployment state file will be the draft state
-            --file=: File name for statefile.
-            --location=: The Cloud location for the deployment.
-            --no-draft&: If this flag is set to true, the exported deployment state file will be the draft state
         - name: lock
           description: Locks the deployment.
           flags:
@@ -152,25 +90,6 @@ commands:
     - name: previews
       description: Manage Preview resources.
       commands:
-        - name: describe
-          description: Describe previews.
-          flags:
-            --location=: locations TBD
-        - name: export
-          description: Export preview results.
-          flags:
-            --file=: File name for preview export artifacts.
-            --location=: The Cloud location for the preview.
-        - name: list
-          description: List previews.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
         - name: create
           description: Create a preview.
           flags:
@@ -201,6 +120,25 @@ commands:
             --async: Return immediately, without waiting for the operation in progress to
             --location=: locations TBD
             --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe previews.
+          flags:
+            --location=: locations TBD
+        - name: export
+          description: Export preview results.
+          flags:
+            --file=: File name for preview export artifacts.
+            --location=: The Cloud location for the preview.
+        - name: list
+          description: List previews.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
     - name: resource-changes
       description: Manage resource change resources.
       commands:
@@ -237,5 +175,67 @@ commands:
             --no-uri&: Print a list of resource URIs instead of the default output, and change the
             --page-size=: Some services group resource list output into pages.
             --preview=!: ID of the preview or fully qualified identifier for the preview.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: resources
+      description: List or describe resources under a Revision.
+      commands:
+        - name: describe
+          description: Describe resources.
+          flags:
+            --deployment=: deployments TBD
+            --location=: locations TBD
+            --revision=: revisions TBD
+        - name: list
+          description: List resources.
+          flags:
+            --deployment=: deployments TBD
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: locations TBD
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --revision=!: ID of the revision or fully qualified identifier for the revision.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: revisions
+      description: Manage Revision resources.
+      commands:
+        - name: describe
+          description: Describe revisions.
+          flags:
+            --deployment=: deployments TBD
+            --location=: locations TBD
+        - name: export-statefile
+          description: Export a terraform state file.
+          flags:
+            --deployment=: The deployment for the revision.
+            --location=: The Cloud location for the revision.
+        - name: list
+          description: List revisions.
+          flags:
+            --deployment=!: ID of the deployment or fully qualified identifier for the deployment.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: locations TBD
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: terraform-versions
+      description: Manage Terraform version resources.
+      commands:
+        - name: describe
+          description: Describe Terraform versions.
+          flags:
+            --location=: locations TBD
+        - name: list
+          description: List Terraform versions.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the

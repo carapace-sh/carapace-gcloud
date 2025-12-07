@@ -2,38 +2,28 @@
 name: assured
 description: Read and manipulate Assured Workloads data controls.
 commands:
+    - name: operations
+      description: Read and manipulate Assured Workloads operation resources.
+      commands:
+        - name: describe
+          description: Describe Assured Workloads operations.
+          flags:
+            --location=: The location for the operation.
+            --organization=: The parent organization for the operation.
+        - name: list
+          description: List all Assured Workloads operations that belong to a given parent organization.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: The location of the Assured Workloads operations.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --organization=!: The parent organization of the Assured Workloads operations, provided as an organization ID.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
     - name: workloads
       description: Read and manipulate Assured Workloads resources.
       commands:
-        - name: violations
-          description: Read and list Assured Workloads Violations.
-          commands:
-            - name: describe
-              description: Describe an Assured Workloads compliance violation.
-              flags:
-                --location=: The location for the violation.
-                --organization=: The parent organization for the violation.
-                --workload=: The workload for the violation.
-            - name: list
-              description: List all Assured Workloads violations that belong to a assured workloads environment.
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --limit=: Maximum number of resources to list.
-                --location=!: The location of the Assured Workloads environments.
-                --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                --organization=!: The parent organization of the Assured Workloads environments, provided as an organization ID.
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --uri: Print a list of resource URIs instead of the default output, and change the
-                --workload=!: The parent workload of the Assured Workloads violations, provided as workload ID.
-            - name: acknowledge
-              description: Acknowledge an existing Assured Workloads compliance violation.
-              flags:
-                --acknowledge-type=: 'the acknowledge type for specified violation, which is one of:'
-                --comment=!: Business justification used added to acknowledge a violation.
-                --location=: The location for the violation.
-                --organization=: The parent organization for the violation.
-                --workload=: The workload for the violation.
         - name: create
           description: Create a new Assured Workloads environment.
           flags:
@@ -142,22 +132,32 @@ commands:
             --location=: The location for the workload.
             --organization=: The parent organization for the workload.
             --violation-notifications-enabled=: The notification setting of the Assured Workloads environment.
-    - name: operations
-      description: Read and manipulate Assured Workloads operation resources.
-      commands:
-        - name: describe
-          description: Describe Assured Workloads operations.
-          flags:
-            --location=: The location for the operation.
-            --organization=: The parent organization for the operation.
-        - name: list
-          description: List all Assured Workloads operations that belong to a given parent organization.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=!: The location of the Assured Workloads operations.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --organization=!: The parent organization of the Assured Workloads operations, provided as an organization ID.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: violations
+          description: Read and list Assured Workloads Violations.
+          commands:
+            - name: acknowledge
+              description: Acknowledge an existing Assured Workloads compliance violation.
+              flags:
+                --acknowledge-type=: 'the acknowledge type for specified violation, which is one of:'
+                --comment=!: Business justification used added to acknowledge a violation.
+                --location=: The location for the violation.
+                --organization=: The parent organization for the violation.
+                --workload=: The workload for the violation.
+            - name: describe
+              description: Describe an Assured Workloads compliance violation.
+              flags:
+                --location=: The location for the violation.
+                --organization=: The parent organization for the violation.
+                --workload=: The workload for the violation.
+            - name: list
+              description: List all Assured Workloads violations that belong to a assured workloads environment.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=!: The location of the Assured Workloads environments.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --organization=!: The parent organization of the Assured Workloads environments, provided as an organization ID.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+                --workload=!: The parent workload of the Assured Workloads violations, provided as workload ID.

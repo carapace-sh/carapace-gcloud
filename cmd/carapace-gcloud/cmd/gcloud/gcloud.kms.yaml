@@ -2,139 +2,6 @@
 name: kms
 description: Manage cryptographic keys in the cloud.
 commands:
-    - name: mac-sign
-      description: Sign a user input file using a MAC key version.
-      flags:
-        --input-file=!: Path to the input file to sign.
-        --key=: to use for signing.
-        --keyring=: Key ring of the key.
-        --location=: Location of the keyring.
-        --no-skip-integrity-verification&: Skip integrity verification on request and response API fields.
-        --signature-file=!: Path to the signature file to output.
-        --skip-integrity-verification: Skip integrity verification on request and response API fields.
-    - name: encrypt
-      description: Encrypt a plaintext file using a key.
-      flags:
-        --additional-authenticated-data-file=: File path to the optional file containing the additional authenticated data.
-        --ciphertext-file=!: File path of the ciphertext file to output.
-        --key=: The key to use for encryption.
-        --keyring=: Key ring of the key.
-        --location=: Location of the keyring.
-        --no-skip-integrity-verification&: Skip integrity verification on request and response API fields.
-        --plaintext-file=!: File path of the plaintext file to encrypt.
-        --skip-integrity-verification: Skip integrity verification on request and response API fields.
-    - name: import-jobs
-      description: Create and manage import jobs.
-      commands:
-        - name: create
-          description: Create a new import job.
-          flags:
-            --import-method=!: The wrapping method to be used for incoming key material.
-            --keyring=: Key ring of the import job.
-            --location=: Location of the import job.
-            --protection-level=!: Protection level of the import job.
-          completion:
-            flag:
-                import-method:
-                    - rsa-oaep-3072-sha1-aes-256
-                    - rsa-oaep-3072-sha256
-                    - rsa-oaep-3072-sha256-aes-256
-                    - rsa-oaep-4096-sha1-aes-256
-                    - rsa-oaep-4096-sha256
-                    - rsa-oaep-4096-sha256-aes-256
-                protection-level:
-                    - software
-                    - hsm
-        - name: describe
-          description: Get metadata for a given import job.
-          flags:
-            --attestation-file=: Path to the output attestation file.
-            --keyring=: Key ring of the import job.
-            --location=: Location of the import job.
-        - name: get-iam-policy
-          description: Get the IAM policy for an import job.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --keyring=: The containing keyring.
-            --limit=: Maximum number of resources to list.
-            --location=: The location of the resource.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: list
-          description: Lists import jobs within a keyring.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --keyring=: Key ring of the import job.
-            --limit=: Maximum number of resources to list.
-            --location=: Location of the import job.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: remove-iam-policy-binding
-          description: Remove IAM policy binding for a KMS import job.
-          flags:
-            --keyring=: The containing keyring.
-            --location=: The location of the resource.
-            --member=!: The principal to remove the binding for.
-            --role=!: The role to remove the principal from.
-        - name: set-iam-policy
-          description: Set the IAM policy binding for a KMS import job.
-          flags:
-            --keyring=: The containing keyring.
-            --location=: The location of the resource.
-        - name: add-iam-policy-binding
-          description: Add IAM policy binding to a KMS import job.
-          flags:
-            --keyring=: The containing keyring.
-            --location=: The location of the resource.
-            --member=!: The principal to add the binding for.
-            --role=!: Role name to assign to the principal.
-    - name: mac-verify
-      description: Verify a user signature file using a MAC key version.
-      flags:
-        --input-file=!: Path to the input file to use for verification.
-        --key=: to use for signing.
-        --keyring=: Key ring of the key.
-        --location=: Location of the keyring.
-        --no-skip-integrity-verification&: Skip integrity verification on request and response API fields.
-        --signature-file=!: Path to the signature file to be verified.
-        --skip-integrity-verification: Skip integrity verification on request and response API fields.
-    - name: raw-decrypt
-      description: Decrypt a ciphertext file using a raw key.
-      flags:
-        --additional-authenticated-data-file=: File path to the optional file containing the additional authenticated data.
-        --ciphertext-file=!: File path of the ciphertext file to decrypt.
-        --initialization-vector-file=: File path to the optional file containing the initialization vector for decryption.
-        --key=: The (raw) key to use for decryption.
-        --keyring=: Key ring of the key.
-        --location=: Location of the keyring.
-        --no-skip-integrity-verification&: Skip integrity verification on request and response API fields.
-        --plaintext-file=!: File path of the plaintext file to store the decrypted data.
-        --skip-integrity-verification: Skip integrity verification on request and response API fields.
-    - name: autokey-config
-      description: Update and retrieve the AutokeyConfig.
-      commands:
-        - name: describe
-          description: Describe the AutokeyConfig of a folder.
-          flags:
-            --folder=!: The folder id in which the AutokeyConfig resource exists.
-        - name: show-effective-config
-          description: Gets the effective Cloud KMS AutokeyConfig for a given project.
-        - name: update
-          description: Updates the AutokeyConfig for a folder.
-    - name: locations
-      description: View locations available for a project.
-      commands:
-        - name: list
-          description: List the project's locations.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
     - name: asymmetric-decrypt
       description: Decrypt an input file using an asymmetric-encryption key version.
       flags:
@@ -162,6 +29,27 @@ commands:
                 - sha256
                 - sha384
                 - sha512
+    - name: autokey-config
+      description: Update and retrieve the AutokeyConfig.
+      commands:
+        - name: describe
+          description: Describe the AutokeyConfig of a folder.
+          flags:
+            --folder=!: The folder id in which the AutokeyConfig resource exists.
+        - name: show-effective-config
+          description: Gets the effective Cloud KMS AutokeyConfig for a given project.
+        - name: update
+          description: Updates the AutokeyConfig for a folder.
+    - name: decapsulate
+      description: Decapsulate an input file using a key-encapsulation key version.
+      flags:
+        --ciphertext-file=!: File path of the ciphertext file to decapsulate.
+        --key=: to use for decapsulation.
+        --keyring=: Key ring of the key.
+        --location=: Location of the keyring.
+        --no-skip-integrity-verification&: Skip integrity verification on request and response API fields.
+        --shared-secret-file=!: File path of the shared secret file to output.
+        --skip-integrity-verification: Skip integrity verification on request and response API fields.
     - name: decrypt
       description: Decrypt a ciphertext file using a Cloud KMS key.
       flags:
@@ -215,89 +103,17 @@ commands:
           flags:
             --default-ekm-connection=: The resource name of the EkmConnection to be used as the default EkmConnection for all `external-vpc` CryptoKeys in a project and location.
             --location=!: ID of the location or fully qualified identifier for the location.
-    - name: inventory
-      description: Manages the KMS Inventory and Key Tracking commands.
-      commands:
-        - name: search-protected-resources
-          description: Searches the resources protected by a key.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --keyname=!: ID of the key or fully qualified identifier for the key.
-            --keyring=: The KMS keyring of the key.
-            --limit=: Maximum number of resources to list.
-            --location=: The Google Cloud location for the key.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --resource-types=: A list of resource types that this request searches for.
-            --scope=!: Organization ID.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: get-protected-resources-summary
-          description: Gets the protected resources summary.
-          flags:
-            --keyname=!: ID of the key or fully qualified identifier for the key.
-            --keyring=: The KMS keyring of the key.
-            --location=: The Google Cloud location for the key.
-        - name: list-keys
-          description: Lists the keys in a project.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-    - name: key-handles
-      description: Create and manage KeyHandle resources.
-      commands:
-        - name: create
-          description: Create a new KeyHandle.
-          flags:
-            --generate-key-handle-id: Generate a KeyHandle id for the new KeyHandle resource.
-            --key-handle-id=: The KeyHandle id for the new KeyHandle resource.
-            --location=!: ID of the location or fully qualified identifier for the location.
-            --no-generate-key-handle-id&: Generate a KeyHandle id for the new KeyHandle resource.
-            --resource-type=!: The resource type selector for KeyHandle resources of the form {{SERVICE}}.{{UNIVERSE_DOMAIN}}/{{TYPE}}.
-        - name: describe
-          description: Get metadata for a KeyHandle.
-          flags:
-            --location=: The location of the resource.
-        - name: list
-          description: List KeyHandle resources within a project and location.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=!: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --resource-type=!: The resource type selector for KeyHandle resources of the form {{SERVICE}}.{{UNIVERSE_DOMAIN}}/{{TYPE}}.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-    - name: raw-encrypt
-      description: Encrypt a plaintext file using a raw key.
-      flags:
-        --additional-authenticated-data-file=: File path to the optional file containing the additional authenticated data.
-        --ciphertext-file=!: File path of the ciphertext file to output.
-        --initialization-vector-file=: File path to the optional file containing the initialization vector for encryption.
-        --key=: The key to use for encryption.
-        --keyring=: Key ring of the key.
-        --location=: Location of the keyring.
-        --no-skip-integrity-verification&: Skip integrity verification on request and response API fields.
-        --plaintext-file=!: File path of the plaintext file to encrypt.
-        --skip-integrity-verification: Skip integrity verification on request and response API fields.
-    - name: decapsulate
-      description: Decapsulate an input file using a key-encapsulation key version.
-      flags:
-        --ciphertext-file=!: File path of the ciphertext file to decapsulate.
-        --key=: to use for decapsulation.
-        --keyring=: Key ring of the key.
-        --location=: Location of the keyring.
-        --no-skip-integrity-verification&: Skip integrity verification on request and response API fields.
-        --shared-secret-file=!: File path of the shared secret file to output.
-        --skip-integrity-verification: Skip integrity verification on request and response API fields.
     - name: ekm-connections
       description: Create and manage ekm connections.
       commands:
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding for a kms ekm connection.
+          flags:
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: A condition to include in the binding.
+            --location=: The location of the resource.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
         - name: create
           description: Create a new ekm connection.
           flags:
@@ -364,21 +180,145 @@ commands:
                 key-management-mode:
                     - manual
                     - cloud-kms
+    - name: encrypt
+      description: Encrypt a plaintext file using a key.
+      flags:
+        --additional-authenticated-data-file=: File path to the optional file containing the additional authenticated data.
+        --ciphertext-file=!: File path of the ciphertext file to output.
+        --key=: The key to use for encryption.
+        --keyring=: Key ring of the key.
+        --location=: Location of the keyring.
+        --no-skip-integrity-verification&: Skip integrity verification on request and response API fields.
+        --plaintext-file=!: File path of the plaintext file to encrypt.
+        --skip-integrity-verification: Skip integrity verification on request and response API fields.
+    - name: import-jobs
+      description: Create and manage import jobs.
+      commands:
         - name: add-iam-policy-binding
-          description: Add IAM policy binding for a kms ekm connection.
+          description: Add IAM policy binding to a KMS import job.
           flags:
-            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
-            --condition=: A condition to include in the binding.
+            --keyring=: The containing keyring.
             --location=: The location of the resource.
             --member=!: The principal to add the binding for.
             --role=!: Role name to assign to the principal.
+        - name: create
+          description: Create a new import job.
+          flags:
+            --import-method=!: The wrapping method to be used for incoming key material.
+            --keyring=: Key ring of the import job.
+            --location=: Location of the import job.
+            --protection-level=!: Protection level of the import job.
+          completion:
+            flag:
+                import-method:
+                    - rsa-oaep-3072-sha1-aes-256
+                    - rsa-oaep-3072-sha256
+                    - rsa-oaep-3072-sha256-aes-256
+                    - rsa-oaep-4096-sha1-aes-256
+                    - rsa-oaep-4096-sha256
+                    - rsa-oaep-4096-sha256-aes-256
+                protection-level:
+                    - software
+                    - hsm
+        - name: describe
+          description: Get metadata for a given import job.
+          flags:
+            --attestation-file=: Path to the output attestation file.
+            --keyring=: Key ring of the import job.
+            --location=: Location of the import job.
+        - name: get-iam-policy
+          description: Get the IAM policy for an import job.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --keyring=: The containing keyring.
+            --limit=: Maximum number of resources to list.
+            --location=: The location of the resource.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: Lists import jobs within a keyring.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --keyring=: Key ring of the import job.
+            --limit=: Maximum number of resources to list.
+            --location=: Location of the import job.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: remove-iam-policy-binding
+          description: Remove IAM policy binding for a KMS import job.
+          flags:
+            --keyring=: The containing keyring.
+            --location=: The location of the resource.
+            --member=!: The principal to remove the binding for.
+            --role=!: The role to remove the principal from.
+        - name: set-iam-policy
+          description: Set the IAM policy binding for a KMS import job.
+          flags:
+            --keyring=: The containing keyring.
+            --location=: The location of the resource.
+    - name: inventory
+      description: Manages the KMS Inventory and Key Tracking commands.
+      commands:
+        - name: get-protected-resources-summary
+          description: Gets the protected resources summary.
+          flags:
+            --keyname=!: ID of the key or fully qualified identifier for the key.
+            --keyring=: The KMS keyring of the key.
+            --location=: The Google Cloud location for the key.
+        - name: list-keys
+          description: Lists the keys in a project.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: search-protected-resources
+          description: Searches the resources protected by a key.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --keyname=!: ID of the key or fully qualified identifier for the key.
+            --keyring=: The KMS keyring of the key.
+            --limit=: Maximum number of resources to list.
+            --location=: The Google Cloud location for the key.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --resource-types=: A list of resource types that this request searches for.
+            --scope=!: Organization ID.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: key-handles
+      description: Create and manage KeyHandle resources.
+      commands:
+        - name: create
+          description: Create a new KeyHandle.
+          flags:
+            --generate-key-handle-id: Generate a KeyHandle id for the new KeyHandle resource.
+            --key-handle-id=: The KeyHandle id for the new KeyHandle resource.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-generate-key-handle-id&: Generate a KeyHandle id for the new KeyHandle resource.
+            --resource-type=!: The resource type selector for KeyHandle resources of the form {{SERVICE}}.{{UNIVERSE_DOMAIN}}/{{TYPE}}.
+        - name: describe
+          description: Get metadata for a KeyHandle.
+          flags:
+            --location=: The location of the resource.
+        - name: list
+          description: List KeyHandle resources within a project and location.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --resource-type=!: The resource type selector for KeyHandle resources of the form {{SERVICE}}.{{UNIVERSE_DOMAIN}}/{{TYPE}}.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
     - name: keyrings
       description: Create and manage keyrings.
       commands:
-        - name: set-iam-policy
-          description: Set the IAM policy for a keyring.
-          flags:
-            --location=: Location of the keyring.
         - name: add-iam-policy-binding
           description: Add IAM policy binding for a kms keyring.
           flags:
@@ -423,6 +363,10 @@ commands:
             --member=!: The principal to remove the binding for.
             --no-all&: ""
             --role=!: The role to remove the principal from.
+        - name: set-iam-policy
+          description: Set the IAM policy for a keyring.
+          flags:
+            --location=: Location of the keyring.
     - name: keys
       description: Create and manage keys.
       commands:
@@ -514,34 +458,6 @@ commands:
           flags:
             --keyring=: The KMS keyring of the key.
             --location=: The Google Cloud location for the key.
-        - name: remove-iam-policy-binding
-          description: Remove IAM policy binding for a kms key.
-          flags:
-            --all: Remove all bindings with this role and principal, irrespective of any
-            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
-            --condition=: The condition of the binding that you want to remove.
-            --keyring=: The containing keyring.
-            --location=: The location of the resource.
-            --member=!: The principal to remove the binding for.
-            --no-all&: ""
-            --role=!: The role to remove the principal from.
-        - name: set-iam-policy
-          description: Set the IAM policy for a key.
-          flags:
-            --keyring=: The KMS keyring of the key.
-            --location=: The Google Cloud location for the key.
-        - name: set-primary-version
-          description: Set the primary version of a key.
-          flags:
-            --keyring=: The KMS keyring of the key.
-            --location=: The Google Cloud location for the key.
-        - name: set-rotation-schedule
-          description: Update the rotation schedule for a key.
-          flags:
-            --keyring=: The KMS keyring of the key.
-            --location=: The Google Cloud location for the key.
-            --next-rotation-time=: Next automatic rotation time of the key.
-            --rotation-period=: Automatic rotation period of the key.
         - name: get-iam-policy
           description: Get the IAM policy for a key.
           flags:
@@ -562,11 +478,39 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: remove-iam-policy-binding
+          description: Remove IAM policy binding for a kms key.
+          flags:
+            --all: Remove all bindings with this role and principal, irrespective of any
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: The condition of the binding that you want to remove.
+            --keyring=: The containing keyring.
+            --location=: The location of the resource.
+            --member=!: The principal to remove the binding for.
+            --no-all&: ""
+            --role=!: The role to remove the principal from.
         - name: remove-rotation-schedule
           description: Remove the rotation schedule for a key.
           flags:
             --keyring=: The KMS keyring of the key.
             --location=: The Google Cloud location for the key.
+        - name: set-iam-policy
+          description: Set the IAM policy for a key.
+          flags:
+            --keyring=: The KMS keyring of the key.
+            --location=: The Google Cloud location for the key.
+        - name: set-primary-version
+          description: Set the primary version of a key.
+          flags:
+            --keyring=: The KMS keyring of the key.
+            --location=: The Google Cloud location for the key.
+        - name: set-rotation-schedule
+          description: Update the rotation schedule for a key.
+          flags:
+            --keyring=: The KMS keyring of the key.
+            --location=: The Google Cloud location for the key.
+            --next-rotation-time=: Next automatic rotation time of the key.
+            --rotation-period=: Automatic rotation period of the key.
         - name: update
           description: Update a key.
           flags:
@@ -642,6 +586,13 @@ commands:
                 --location=: Location of the keyring.
                 --no-primary&: If specified, immediately makes the new version primary.
                 --primary: If specified, immediately makes the new version primary.
+            - name: describe
+              description: Get metadata for a given version.
+              flags:
+                --attestation-file=: Path to the output attestation file.
+                --key=: The containing key.
+                --keyring=: Key ring of the key.
+                --location=: Location of the keyring.
             - name: destroy
               description: Schedule a version to be destroyed.
               flags:
@@ -650,6 +601,12 @@ commands:
                 --location=: Location of the keyring.
             - name: disable
               description: Disable a given version.
+              flags:
+                --key=: The containing key.
+                --keyring=: Key ring of the key.
+                --location=: Location of the keyring.
+            - name: enable
+              description: Enable a given version.
               flags:
                 --key=: The containing key.
                 --keyring=: Key ring of the key.
@@ -669,6 +626,14 @@ commands:
                         - cavium
                         - google-card
                         - google-partition
+            - name: get-public-key
+              description: Get the public key for a given version.
+              flags:
+                --key=: The containing key.
+                --keyring=: Key ring of the key.
+                --location=: Location of the keyring.
+                --output-file=: Path to the output file to store public key.
+                --public-key-format=: The format in which the public key will be returned.
             - name: import
               description: Import a version into an existing crypto key.
               flags:
@@ -724,6 +689,18 @@ commands:
                         - rsa-sign-raw-pkcs1-2048
                         - rsa-sign-raw-pkcs1-3072
                         - rsa-sign-raw-pkcs1-4096
+            - name: list
+              description: List the versions within a key.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --key=: The containing key.
+                --keyring=: Key ring of the key.
+                --limit=: Maximum number of resources to list.
+                --location=: Location of the keyring.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
             - name: restore
               description: Restore a version scheduled for destruction.
               flags:
@@ -739,36 +716,59 @@ commands:
                 --keyring=: Key ring of the key.
                 --location=: Location of the keyring.
                 --state=: State of the key version.
-            - name: describe
-              description: Get metadata for a given version.
-              flags:
-                --attestation-file=: Path to the output attestation file.
-                --key=: The containing key.
-                --keyring=: Key ring of the key.
-                --location=: Location of the keyring.
-            - name: enable
-              description: Enable a given version.
-              flags:
-                --key=: The containing key.
-                --keyring=: Key ring of the key.
-                --location=: Location of the keyring.
-            - name: get-public-key
-              description: Get the public key for a given version.
-              flags:
-                --key=: The containing key.
-                --keyring=: Key ring of the key.
-                --location=: Location of the keyring.
-                --output-file=: Path to the output file to store public key.
-                --public-key-format=: The format in which the public key will be returned.
-            - name: list
-              description: List the versions within a key.
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --key=: The containing key.
-                --keyring=: Key ring of the key.
-                --limit=: Maximum number of resources to list.
-                --location=: Location of the keyring.
-                --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: locations
+      description: View locations available for a project.
+      commands:
+        - name: list
+          description: List the project's locations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: mac-sign
+      description: Sign a user input file using a MAC key version.
+      flags:
+        --input-file=!: Path to the input file to sign.
+        --key=: to use for signing.
+        --keyring=: Key ring of the key.
+        --location=: Location of the keyring.
+        --no-skip-integrity-verification&: Skip integrity verification on request and response API fields.
+        --signature-file=!: Path to the signature file to output.
+        --skip-integrity-verification: Skip integrity verification on request and response API fields.
+    - name: mac-verify
+      description: Verify a user signature file using a MAC key version.
+      flags:
+        --input-file=!: Path to the input file to use for verification.
+        --key=: to use for signing.
+        --keyring=: Key ring of the key.
+        --location=: Location of the keyring.
+        --no-skip-integrity-verification&: Skip integrity verification on request and response API fields.
+        --signature-file=!: Path to the signature file to be verified.
+        --skip-integrity-verification: Skip integrity verification on request and response API fields.
+    - name: raw-decrypt
+      description: Decrypt a ciphertext file using a raw key.
+      flags:
+        --additional-authenticated-data-file=: File path to the optional file containing the additional authenticated data.
+        --ciphertext-file=!: File path of the ciphertext file to decrypt.
+        --initialization-vector-file=: File path to the optional file containing the initialization vector for decryption.
+        --key=: The (raw) key to use for decryption.
+        --keyring=: Key ring of the key.
+        --location=: Location of the keyring.
+        --no-skip-integrity-verification&: Skip integrity verification on request and response API fields.
+        --plaintext-file=!: File path of the plaintext file to store the decrypted data.
+        --skip-integrity-verification: Skip integrity verification on request and response API fields.
+    - name: raw-encrypt
+      description: Encrypt a plaintext file using a raw key.
+      flags:
+        --additional-authenticated-data-file=: File path to the optional file containing the additional authenticated data.
+        --ciphertext-file=!: File path of the ciphertext file to output.
+        --initialization-vector-file=: File path to the optional file containing the initialization vector for encryption.
+        --key=: The key to use for encryption.
+        --keyring=: Key ring of the key.
+        --location=: Location of the keyring.
+        --no-skip-integrity-verification&: Skip integrity verification on request and response API fields.
+        --plaintext-file=!: File path of the plaintext file to encrypt.
+        --skip-integrity-verification: Skip integrity verification on request and response API fields.

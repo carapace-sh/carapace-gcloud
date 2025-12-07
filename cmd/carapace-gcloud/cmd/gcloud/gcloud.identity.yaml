@@ -5,6 +5,26 @@ commands:
     - name: groups
       description: Manage Cloud Identity Groups.
       commands:
+        - name: create
+          description: Create a new group.
+          flags:
+            --customer=: The customer ID for the customer\'s G Suite account.
+            --description=: An extended description to help users determine the purpose of a Group.
+            --display-name=: The Group's display name.
+            --dynamic-user-query=: Query that determines the memberships of the dynamic group.
+            --group-type=: The type of group to create.
+            --labels=: Labels for group resource.
+            --organization=: The organization the Group being created belongs to.
+            --with-initial-owner=: If specified the user making the request will be added as the initial owner of the group being
+          completion:
+            flag:
+                group-type:
+                    - discussion
+                    - dynamic
+                    - security
+                with-initial-owner:
+                    - empty
+                    - with-initial-owner
         - name: delete
           description: Delete an existing group.
         - name: describe
@@ -12,6 +32,18 @@ commands:
         - name: memberships
           description: Manage Cloud Identity Groups Memberships.
           commands:
+            - name: add
+              description: Create a new membership in an existing group.
+              flags:
+                --expiration=: Optional time of expiration for the membership.
+                --group-email=!: The email address of the group the new membership is being added to.
+                --member-email=!: The email address of the group or user being added to a group.
+                --roles=: A comma-separated list of roles for a member within the Group.
+            - name: check-transitive-membership
+              description: Check a potential member for transitive membership in a group.
+              flags:
+                --group-email=!: The email address of the group to check transitive membership for.
+                --member-email=!: The email address of the member to check transitive membership for.
             - name: delete
               description: Delete a membership from an existing group.
               flags:
@@ -43,11 +75,6 @@ commands:
                     view:
                         - basic
                         - full
-            - name: check-transitive-membership
-              description: Check a potential member for transitive membership in a group.
-              flags:
-                --group-email=!: The email address of the group to check transitive membership for.
-                --member-email=!: The email address of the member to check transitive membership for.
             - name: modify-membership-roles
               description: Add/remove/modify membership roles of a membership in a group.
               flags:
@@ -69,13 +96,6 @@ commands:
                 --group-email=!: The email address of the group to search transitive memberships for.
                 --page-size=: The maximum number of results to return.
                 --page-token=: The next_page_token value returned from a previous search request, if any.
-            - name: add
-              description: Create a new membership in an existing group.
-              flags:
-                --expiration=: Optional time of expiration for the membership.
-                --group-email=!: The email address of the group the new membership is being added to.
-                --member-email=!: The email address of the group or user being added to a group.
-                --roles=: A comma-separated list of roles for a member within the Group.
         - name: search
           description: Searches for Groups matching a specified query.
           flags:
@@ -101,23 +121,3 @@ commands:
             --labels=: One or more label entries that apply to the group.
             --no-clear-description&: Clear existing description on group being updated.
             --no-clear-display-name&: Clear existing display name on group being updated.
-        - name: create
-          description: Create a new group.
-          flags:
-            --customer=: The customer ID for the customer\'s G Suite account.
-            --description=: An extended description to help users determine the purpose of a Group.
-            --display-name=: The Group's display name.
-            --dynamic-user-query=: Query that determines the memberships of the dynamic group.
-            --group-type=: The type of group to create.
-            --labels=: Labels for group resource.
-            --organization=: The organization the Group being created belongs to.
-            --with-initial-owner=: If specified the user making the request will be added as the initial owner of the group being
-          completion:
-            flag:
-                group-type:
-                    - discussion
-                    - dynamic
-                    - security
-                with-initial-owner:
-                    - empty
-                    - with-initial-owner

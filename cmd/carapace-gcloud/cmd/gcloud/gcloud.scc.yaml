@@ -2,66 +2,9 @@
 name: scc
 description: Manage Cloud SCC resources.
 commands:
-    - name: posture-deployments
-      description: Manage Cloud Security Command Center (SCC) posture deployments.
-      commands:
-        - name: list
-          description: List the details of the Cloud Security Command Center (SCC) posture deployments.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=!: When data residency controls are enabled, this attribute specifies the location in which the resource is located and applicable.
-            --organization=!: The organization ID (e.g., 123) that contains the resource.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: update
-          description: Update the given Cloud Security Command Center (SCC) posture deployment.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --description=: Updated description of posture deployment.
-            --etag=: Etag is an optional flag.
-            --location=: ID of the location where the resource exists (for example, global).
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --organization=: ID of the organization which is the parent of the resource.
-            --posture-id=!: Relative name of the posture to be updated, like `organizations/<organizationID>/locations/<location>/postures/<postureID>`.
-            --posture-revision-id=!: Revision ID of the posture to be updated.
-            --update-mask=: Comma-separated string containing list of fields to be updated.
-        - name: create
-          description: Create a Cloud Security Command Center (SCC) posture deployment.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --description=: User-provided description of the posture deployment.
-            --location=: ID of the location where the resource exists (for example, global).
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --organization=: ID of the organization which is the parent of the resource.
-            --posture-name=!: Posture that needs to be deployed.
-            --posture-revision-id=!: Posture revision that needs to be deployed.
-            --target-resource=!: Name of the workload on which posture deployment is to be created.
-        - name: delete
-          description: Delete a Cloud Security Command Center (SCC) posture deployment.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --etag=: Etag is an optional flag.
-            --location=: ID of the location where the resource exists (for example, global).
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --organization=: ID of the organization which is the parent of the resource.
-        - name: describe
-          description: Describe a Cloud Security Command Center (SCC) posture deployment.
-          flags:
-            --location=: ID of the location where the resource exists (for example, global).
-            --organization=: ID of the organization which is the parent of the resource.
     - name: assets
       description: Manage Cloud SCC (Security Command Center) assets.
       commands:
-        - name: run-discovery
-          description: '*(DEPRECATED)*  Scan an organization for new/modified/deleted assets.'
-        - name: update-marks
-          description: Update Cloud Security Command Center asset's security marks.
-          flags:
-            --organization=: (Optional) If the full resource name isn't provided e.g. organizations/123, then provide the
-            --security-marks=: SecurityMarks resource to be passed as the request body.
-            --start-time=: Time at which the updated SecurityMarks take effect.
-            --update-mask=: Use update-mask if you want to selectively update marks represented by --security-marks
         - name: describe
           description: '*(DEPRECATED)*  Describe an asset given its resource name or asset id.'
           flags:
@@ -108,27 +51,95 @@ commands:
             --page-token=: Response objects will return a non-null value for page-token to indicate that there is at least
             --read-time=: Time used as a reference point when filtering.
             --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: run-discovery
+          description: '*(DEPRECATED)*  Scan an organization for new/modified/deleted assets.'
+        - name: update-marks
+          description: Update Cloud Security Command Center asset's security marks.
+          flags:
+            --organization=: (Optional) If the full resource name isn't provided e.g. organizations/123, then provide the
+            --security-marks=: SecurityMarks resource to be passed as the request body.
+            --start-time=: Time at which the updated SecurityMarks take effect.
+            --update-mask=: Use update-mask if you want to selectively update marks represented by --security-marks
+    - name: bqexports
+      description: Manage Cloud SCC (Security Command Center) BigQuery exports.
+      commands:
+        - name: create
+          description: Create a Security Command Center BigQuery export.
+          flags:
+            --api-version=&: ""
+            --dataset=!: The dataset to write findings updates to.
+            --description=: The text that will be used to describe a BigQuery export.
+            --filter=: The filter string which will applied to findings muted by a BigQuery export.
+            --folder=: Folder where the BigQuery export resides.
+            --location=: When data residency controls are enabled, this attribute specifies the location in which
+            --organization=: Organization where the BigQuery export resides.
+          completion:
+            flag:
+                api-version:
+                    - v1
+                    - v2enabled
+        - name: delete
+          description: Delete a Security Command Center BigQuery export.
+          flags:
+            --api-version=&: ""
+            --folder=: Folder where the BigQuery export resides.
+            --location=: When data residency controls are enabled, this attribute specifies the location in which
+            --organization=: Organization where the BigQuery export resides.
+          completion:
+            flag:
+                api-version:
+                    - v1
+                    - v2enabled
+        - name: get
+          description: Get a Security Command Center BigQuery export.
+          flags:
+            --api-version=&: ""
+            --folder=: Folder where the BigQuery export resides.
+            --location=: When data residency controls are enabled, this attribute specifies the location in which
+            --organization=: Organization where the BigQuery export resides.
+          completion:
+            flag:
+                api-version:
+                    - v1
+                    - v2enabled
+        - name: list
+          description: List Security Command Center BigQuery exports.
+          flags:
+            --api-version=&: ""
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --folder=: Folder where the BigQuery export resides.
+            --limit=: Maximum number of resources to list.
+            --location=: When data residency controls are enabled, this attribute specifies the location in which
+            --organization=: Organization where the BigQuery export resides.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+          completion:
+            flag:
+                api-version:
+                    - v1
+                    - v2enabled
+        - name: update
+          description: Update a Security Command Center BigQuery export.
+          flags:
+            --api-version=&: ""
+            --dataset=: The dataset to write findings updates to.
+            --description=: The text that will be used to describe a BigQuery export.
+            --filter=: The filter string which will applied to findings muted by a BigQuery export.
+            --folder=: Folder where the BigQuery export resides.
+            --location=: When data residency controls are enabled, this attribute specifies the location in which
+            --organization=: Organization where the BigQuery export resides.
+            --update-mask=: 'Optional: If left unspecified (default), an update-mask is'
+          completion:
+            flag:
+                api-version:
+                    - v1
+                    - v2enabled
     - name: custom-modules
       description: Manage Cloud SCC (Security Command Center) custom modules.
       commands:
         - name: sha
           description: Manage Security Health Analytics custom modules.
           commands:
-            - name: update
-              description: Update a Security Health Analytics custom module.
-              flags:
-                --custom-config-from-file=: Path to a YAML file that contains the configuration for the Security Health Analytics custom module.
-                --enablement-state=: Sets the enablement state of the Security Health Analytics custom module.
-                --folder=: Folder where the Security Health Analytics custom module resides.
-                --organization=: Organization where the Security Health Analytics custom module resides.
-                --update-mask=: 'Optional: If left unspecified (default), an update-mask is automatically created using the'
-              completion:
-                flag:
-                    enablement-state:
-                        - disabled
-                        - enabled
-                        - enablement-state-unspecified
-                        - inherited
             - name: create
               description: Create a Security Health Analytics custom module.
               flags:
@@ -159,6 +170,15 @@ commands:
               flags:
                 --folder=: Folder from which to get the custom module details.
                 --organization=: Organization from which to get the custom module details.
+            - name: list
+              description: List the details of Security Health Analytics custom modules.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --folder=: Folder for listing the Security Health Analytics custom modules created at the current
+                --limit=: Maximum number of resources to list.
+                --organization=: Organization for listing the Security Health Analytics custom modules created at the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
             - name: list-descendant
               description: List the details of the resident and descendant Security Health Analytics custom modules.
               flags:
@@ -184,15 +204,219 @@ commands:
                 --folder=: Folder that will own the Security Health Analytics custom module.
                 --organization=: Organization that will own the Security Health Analytics custom module.
                 --resource-from-file=!: Path to a YAML file that contains the resource data to validate the Security Health Analytics custom module against.
-            - name: list
-              description: List the details of Security Health Analytics custom modules.
+            - name: update
+              description: Update a Security Health Analytics custom module.
               flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --folder=: Folder for listing the Security Health Analytics custom modules created at the current
-                --limit=: Maximum number of resources to list.
-                --organization=: Organization for listing the Security Health Analytics custom modules created at the
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --custom-config-from-file=: Path to a YAML file that contains the configuration for the Security Health Analytics custom module.
+                --enablement-state=: Sets the enablement state of the Security Health Analytics custom module.
+                --folder=: Folder where the Security Health Analytics custom module resides.
+                --organization=: Organization where the Security Health Analytics custom module resides.
+                --update-mask=: 'Optional: If left unspecified (default), an update-mask is automatically created using the'
+              completion:
+                flag:
+                    enablement-state:
+                        - disabled
+                        - enabled
+                        - enablement-state-unspecified
+                        - inherited
+    - name: findings
+      description: Manage Cloud SCC (Security Command Center) findings.
+      commands:
+        - name: bulk-mute
+          description: Bulk mute Security Command Center findings based on a filter.
+          flags:
+            --api-version=&: ""
+            --filter=!: Expression that identifies findings that should be muted.
+            --folder=: Folder where the findings reside.
+            --location=: When data residency controls are enabled, this attribute specifies the location in which
+            --mute-state=: Desired mute state of the finding.
+            --organization=: Organization where the findings reside.
+          completion:
+            flag:
+                api-version:
+                    - v1
+                    - v2enabled
+                mute-state:
+                    - muted
+                    - undefined
+        - name: create
+          description: Create a Security Command Center finding.
+          flags:
+            --api-version=&: ""
+            --category=!: Taxonomy group within findings from a given source.
+            --event-time=!: Time at which the event took place.
+            --external-uri=: URI that, if available, points to a web page outside of Cloud SCC (Security Command Center)
+            --location=: When data residency controls are enabled, this attribute specifies the location in which
+            --organization=: (Optional) If the full resource name isn't provided e.g. organizations/123, then provide the
+            --resource-name=!: Full resource name of the Google Cloud Platform resource this finding is
+            --source-properties=: Source specific properties.
+            --source=: (Optional) If the full resource name isn't provided e.g. organizations/123/sources/456, then
+            --state=: 'State is one of: [ACTIVE, INACTIVE].'
+          completion:
+            flag:
+                api-version:
+                    - v1
+                    - v2enabled
+                state:
+                    - active
+                    - inactive
+                    - state-unspecified
+        - name: export-to-bigquery
+          description: Export Security Command Center findings to bigquery.
+          flags:
+            --dataset=!: BigQuery dataset to export findings to.
+            --location=: When data residency controls are enabled, this attribute specifies the location in which
+            --source=: Source id.
+        - name: group
+          description: Filter an organization or source's findings and groups them by their specified properties.
+          flags:
+            --api-version=&: ""
+            --compare-duration=: '(DEPRECATED) '
+            --filter=: Expression that defines the filter to apply across findings.
+            --group-by=: Expression that defines what findings fields to use for grouping
+            --location=: When data residency controls are enabled, this attribute specifies the location in which
+            --page-size=: Maximum number of results to return in a single response.
+            --page-token=: Response objects will return a non-null value for page-token to
+            --read-time=: '(DEPRECATED) '
+            --source=: Source id.
+          completion:
+            flag:
+                api-version:
+                    - v1
+                    - v2enabled
+        - name: list
+          description: List an organization or source's findings.
+          flags:
+            --api-version=&: ""
+            --compare-duration=: '(DEPRECATED) '
+            --field-mask=: Field mask to specify the finding fields listed in the response.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --folder=: The folder ID (e.g., 456) that contains the finding.
+            --limit=: Maximum number of resources to list.
+            --location=: When data residency controls are enabled, this attribute specifies the location in which
+            --order-by=: Expression that defines what fields and order to use for sorting.
+            --organization=: The organization ID (e.g., 123) that contains the finding.
+            --page-size=: Some services group resource list output into pages.
+            --page-token=: Response objects will return a non-null value for page-token to
+            --read-time=: '(DEPRECATED) '
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --source=: Source id.
+          completion:
+            flag:
+                api-version:
+                    - v1
+                    - v2enabled
+        - name: list-marks
+          description: List a finding's security marks.
+          flags:
+            --api-version=&: ""
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --folder=: The folder ID (e.g., 456) that contains the finding.
+            --limit=: Maximum number of resources to list.
+            --location=: When data residency controls are enabled, this attribute specifies the location in which
+            --organization=: The organization ID (e.g., 123) that contains the finding.
+            --page-size=: Some services group resource list output into pages.
+            --page-token=: Response objects will return a non-null value for page-token to
+            --read-time=: '(DEPRECATED) '
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --source=: Source id.
+          completion:
+            flag:
+                api-version:
+                    - v1
+                    - v2enabled
+        - name: set-mute
+          description: Update a Security Command Center finding's mute state.
+          flags:
+            --api-version=&: ""
+            --folder=: Folder where the finding resides.
+            --location=: When data residency controls are enabled, this attribute specifies the location in which
+            --mute=!: Desired mute state of the finding.
+            --organization=: Organization where the finding resides.
+            --source=: ID of the source.
+          completion:
+            flag:
+                api-version:
+                    - v1
+                    - v2enabled
+                mute:
+                    - muted
+                    - unmuted
+                    - undefined
+        - name: update
+          description: Update a Security Command Center finding.
+          flags:
+            --api-version=&: ""
+            --event-time=: Time at which the event took place.
+            --external-uri=: URI that, if available, points to a web page outside of Cloud SCC (Security Command Center)
+            --folder=: The folder ID (e.g., 456) that contains the finding.
+            --location=: When data residency controls are enabled, this attribute specifies the location in which
+            --organization=: The organization ID (e.g., 123) that contains the finding.
+            --source-properties=: Source specific properties.
+            --source=: Source id.
+            --state=: 'State is one of: [ACTIVE, INACTIVE].'
+            --update-mask=: 'Optional: If left unspecified (default), an update-mask is automatically'
+          completion:
+            flag:
+                api-version:
+                    - v1
+                    - v2enabled
+                state:
+                    - active
+                    - inactive
+                    - state-unspecified
+        - name: update-marks
+          description: Update Security Command Center finding's security marks.
+          flags:
+            --api-version=&: ""
+            --folder=: The folder ID (e.g., 456) that contains the finding.
+            --location=: When data residency controls are enabled, this attribute specifies the location in which
+            --organization=: The organization ID (e.g., 123) that contains the finding.
+            --security-marks=: SecurityMarks resource to be passed as the request body.
+            --source=: Source id.
+            --start-time=: Time at which the updated SecurityMarks take effect.
+            --update-mask=: Use update-mask if you want to selectively update marks represented by
+          completion:
+            flag:
+                api-version:
+                    - v1
+                    - v2enabled
+    - name: iac-remediation
+      description: Manage Cloud Security Command Center (SCC) IaC remediations.
+      hidden: true
+      commands:
+        - name: create
+          description: Remediates a Security Command Center finding.
+          hidden: true
+          flags:
+            --finding-name=!: Canonical name of the finding
+            --finding-org-id=!: Organization ID of the finding
+            --git-config-path=!: Path to the git config file in YAML format to raise the PR.
+            --project-id=!: Project ID of the LLM enabled project
+            --tfstate-file-paths=: Comma seperated list of paths to terraform state files.
+    - name: iac-validation-reports
+      description: Manage Cloud SCC (Security Command Center) iac-validation-reports.
+      commands:
+        - name: create
+          description: Create a Cloud Security Command Center (SCC) IaC Validation Report.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --tf-plan-file=!: Path to a JSON file containing the IaC plan to be validated.
+        - name: describe
+          description: Describe a Cloud Security Command Center (SCC) IaC Validation Report.
+          flags:
+            --location=: ID of the location where the resource exists (for example, global).
+            --organization=: ID of the organization which is the parent of the resource.
+        - name: list
+          description: Lists all the Cloud Security Command Center (SCC) IaC validation reports for an organization.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: When data residency controls are enabled, this attribute specifies the location in which the resource is located and applicable.
+            --organization=!: The organization ID (e.g., 123) that contains the resource.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
     - name: manage
       description: Manage Cloud SCC (Security Command Center) settings.
       commands:
@@ -202,16 +426,34 @@ commands:
             - name: etd
               description: Manage custom modules.
               commands:
-                - name: validate
-                  description: Command to validate an ETD custom module.
+                - name: create
+                  description: Create an Event Threat Detection custom module.
                   flags:
                     --custom-config-file=!: Path to a JSON custom configuration file of the ETD custom module.
+                    --display-name=!: The display name of the custom module.
+                    --enablement-state=!: Sets the enablement state of the Event Threat Detection custom module.
                     --folder=: Folder associated with the custom module.
                     --module-type=!: Type of the custom module.
+                    --no-validate-only&: If present, the request is validated (including IAM checks) but no action is taken.
                     --organization=: Organization associated with the custom module.
                     --parent=: Parent associated with the custom module.
+                    --validate-only: If present, the request is validated (including IAM checks) but no action is taken.
+                - name: delete
+                  description: Delete an Event Threat Detection custom module.
+                  flags:
+                    --folder=: Folder associated with the custom module.
+                    --no-validate-only&: If present, the request is validated (including IAM checks) but no action is taken.
+                    --organization=: Organization associated with the custom module.
+                    --parent=: Parent associated with the custom module.
+                    --validate-only: If present, the request is validated (including IAM checks) but no action is taken.
                 - name: describe
                   description: Get the details of a Event Threat Detection custom module.
+                  flags:
+                    --folder=: Folder associated with the custom module.
+                    --organization=: Organization associated with the custom module.
+                    --parent=: Parent associated with the custom module.
+                - name: describe-effective
+                  description: Get the effective details of a Event Threat Detection effective custom module.
                   flags:
                     --folder=: Folder associated with the custom module.
                     --organization=: Organization associated with the custom module.
@@ -246,32 +488,6 @@ commands:
                     --page-size=: Some services group resource list output into pages.
                     --parent=: Parent associated with the custom module.
                     --sort-by=: Comma-separated list of resource field key names to sort by.
-                - name: create
-                  description: Create an Event Threat Detection custom module.
-                  flags:
-                    --custom-config-file=!: Path to a JSON custom configuration file of the ETD custom module.
-                    --display-name=!: The display name of the custom module.
-                    --enablement-state=!: Sets the enablement state of the Event Threat Detection custom module.
-                    --folder=: Folder associated with the custom module.
-                    --module-type=!: Type of the custom module.
-                    --no-validate-only&: If present, the request is validated (including IAM checks) but no action is taken.
-                    --organization=: Organization associated with the custom module.
-                    --parent=: Parent associated with the custom module.
-                    --validate-only: If present, the request is validated (including IAM checks) but no action is taken.
-                - name: delete
-                  description: Delete an Event Threat Detection custom module.
-                  flags:
-                    --folder=: Folder associated with the custom module.
-                    --no-validate-only&: If present, the request is validated (including IAM checks) but no action is taken.
-                    --organization=: Organization associated with the custom module.
-                    --parent=: Parent associated with the custom module.
-                    --validate-only: If present, the request is validated (including IAM checks) but no action is taken.
-                - name: describe-effective
-                  description: Get the effective details of a Event Threat Detection effective custom module.
-                  flags:
-                    --folder=: Folder associated with the custom module.
-                    --organization=: Organization associated with the custom module.
-                    --parent=: Parent associated with the custom module.
                 - name: update
                   description: Update an Event Threat Detection custom module.
                   flags:
@@ -282,6 +498,14 @@ commands:
                     --organization=: Organization associated with the custom module.
                     --parent=: Parent associated with the custom module.
                     --validate-only: If present, the request is validated (including IAM checks) but no action is taken.
+                - name: validate
+                  description: Command to validate an ETD custom module.
+                  flags:
+                    --custom-config-file=!: Path to a JSON custom configuration file of the ETD custom module.
+                    --folder=: Folder associated with the custom module.
+                    --module-type=!: Type of the custom module.
+                    --organization=: Organization associated with the custom module.
+                    --parent=: Parent associated with the custom module.
             - name: sha
               description: Manage Security Health Analytics custom modules.
               commands:
@@ -310,6 +534,12 @@ commands:
                     --folder=: Folder associated with the custom module.
                     --organization=: Organization associated with the custom module.
                     --parent=: Parent associated with the custom module.
+                - name: describe-effective
+                  description: Get effective the details of a Security Health Analytics effective custom module.
+                  flags:
+                    --folder=: Folder associated with the custom module.
+                    --organization=: Organization associated with the custom module.
+                    --parent=: Parent associated with the custom module.
                 - name: list
                   description: List the details of Security Health Analyics custom modules.
                   flags:
@@ -320,20 +550,6 @@ commands:
                     --page-size=: Some services group resource list output into pages.
                     --parent=: Parent associated with the custom module.
                     --sort-by=: Comma-separated list of resource field key names to sort by.
-                - name: simulate
-                  description: Command to simulate a SHA custom module.
-                  flags:
-                    --custom-config-from-file=!: Path to a YAML custom configuration file.
-                    --folder=: Folder associated with the custom module.
-                    --organization=: Organization associated with the custom module.
-                    --parent=: Parent associated with the custom module.
-                    --resource-from-file=!: Path to a YAML file that contains the resource data to validate the Security Health Analytics custom module against.
-                - name: describe-effective
-                  description: Get effective the details of a Security Health Analytics effective custom module.
-                  flags:
-                    --folder=: Folder associated with the custom module.
-                    --organization=: Organization associated with the custom module.
-                    --parent=: Parent associated with the custom module.
                 - name: list-descendant
                   description: List the details of the resident and descendant Security Health Analytics custom modules.
                   flags:
@@ -354,6 +570,14 @@ commands:
                     --page-size=: Some services group resource list output into pages.
                     --parent=: Parent associated with the custom module.
                     --sort-by=: Comma-separated list of resource field key names to sort by.
+                - name: simulate
+                  description: Command to simulate a SHA custom module.
+                  flags:
+                    --custom-config-from-file=!: Path to a YAML custom configuration file.
+                    --folder=: Folder associated with the custom module.
+                    --organization=: Organization associated with the custom module.
+                    --parent=: Parent associated with the custom module.
+                    --resource-from-file=!: Path to a YAML file that contains the resource data to validate the Security Health Analytics custom module against.
                 - name: update
                   description: Update a Security Health Analytics custom module.
                   flags:
@@ -367,6 +591,13 @@ commands:
         - name: services
           description: Manage Cloud SCC (Security Command Center) services.
           commands:
+            - name: describe
+              description: Get the details of a Security Command Center service.
+              flags:
+                --filter-modules=: If provided, only prints module information for modules specified
+                --folder=: Folder associated with the custom module.
+                --organization=: Organization associated with the custom module.
+                --parent=: Parent associated with the custom module.
             - name: list
               description: List the details of Security Command Center services.
               flags:
@@ -387,13 +618,6 @@ commands:
                 --organization=: Organization associated with the custom module.
                 --parent=: Parent associated with the custom module.
                 --validate-only: If present, the request is validated (including IAM checks) but no action is taken.
-            - name: describe
-              description: Get the details of a Security Command Center service.
-              flags:
-                --filter-modules=: If provided, only prints module information for modules specified
-                --folder=: Folder associated with the custom module.
-                --organization=: Organization associated with the custom module.
-                --parent=: Parent associated with the custom module.
     - name: muteconfigs
       description: Manage Cloud SCC (Security Command Center) mute configs.
       commands:
@@ -472,369 +696,6 @@ commands:
                 api-version:
                     - v1
                     - v2enabled
-    - name: operations
-      description: Manage Cloud SCC (Security Command Center) operations.
-      commands:
-        - name: describe
-          description: Describe a Cloud SCC's long running scan operation.
-          flags:
-            --organization=: (Optional) If the full resource name isn't provided e.g. organizations/123, then provide the
-    - name: posture-operations
-      description: Manage Cloud Security Command Center (SCC) posture operations.
-      commands:
-        - name: describe
-          description: Describe a Cloud Security Command Center (SCC) posture long running operation.
-    - name: posture-templates
-      description: Manage Cloud Security Command Center (SCC) posture templates.
-      commands:
-        - name: describe
-          description: Describe a Cloud Security Command Center (SCC) posture template.
-          flags:
-            --location=: ID of the location where the resource exists (for example, global).
-            --organization=: ID of the organization which is the parent of the resource.
-            --revision-id=: ID of the specific posture template revision to be described.
-        - name: list
-          description: List the details of the Cloud Security Command Center (SCC) posture templates.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=!: When data residency controls are enabled, this attribute specifies the location in which the resource is located and applicable.
-            --organization=!: The organization ID (e.g., 123) that contains the resource.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-    - name: postures
-      description: Manage Cloud Security Command Center (SCC) postures.
-      commands:
-        - name: delete
-          description: Delete a Cloud Security Command Center (SCC) posture.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --etag=: Etag is an optional flag.
-            --location=: ID of the location where the resource exists (for example, global).
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --organization=: ID of the organization which is the parent of the resource.
-        - name: describe
-          description: Describe a Cloud Security Command Center (SCC) posture.
-          flags:
-            --location=: ID of the location where the resource exists (for example, global).
-            --organization=: ID of the organization which is the parent of the resource.
-            --revision-id=: ID of the specific posture revision to described.
-        - name: extract
-          description: Extract a Cloud Security Command Center (SCC) posture from a workload.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: ID of the location where the resource exists (for example, global).
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --organization=: ID of the organization which is the parent of the resource.
-            --workload=!: Workload from where policies has to be extracted into a posture.
-        - name: list
-          description: Lists all the Cloud Security Command Center postures for an organization.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=!: When data residency controls are enabled, this attribute specifies the location in which the resource is located and applicable.
-            --organization=!: The organization ID (e.g., 123) that contains the resource.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: list-revisions
-          description: List the revisions of a Cloud Security Command Center (SCC) posture.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: ID of the location where the resource exists (for example, global).
-            --organization=: ID of the organization which is the parent of the resource.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: update
-          description: Update the given Cloud Security Command Center (SCC) posture.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: ID of the location where the resource exists (for example, global).
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --organization=: ID of the organization which is the parent of the resource.
-            --posture-from-file=!: Path of the file containing the details of the field to be updated.
-            --revision-id=!: Revision ID of the posture to be updated.
-            --update-mask=: Comma separated string containing list of fields to be updated.
-        - name: create
-          description: Create a Cloud Security Command Center (SCC) posture.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: ID of the location where the resource exists (for example, global).
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --organization=: ID of the organization which is the parent of the resource.
-            --posture-from-file=!: YAML file containing the body of the posture to be created.
-    - name: bqexports
-      description: Manage Cloud SCC (Security Command Center) BigQuery exports.
-      commands:
-        - name: delete
-          description: Delete a Security Command Center BigQuery export.
-          flags:
-            --api-version=&: ""
-            --folder=: Folder where the BigQuery export resides.
-            --location=: When data residency controls are enabled, this attribute specifies the location in which
-            --organization=: Organization where the BigQuery export resides.
-          completion:
-            flag:
-                api-version:
-                    - v1
-                    - v2enabled
-        - name: get
-          description: Get a Security Command Center BigQuery export.
-          flags:
-            --api-version=&: ""
-            --folder=: Folder where the BigQuery export resides.
-            --location=: When data residency controls are enabled, this attribute specifies the location in which
-            --organization=: Organization where the BigQuery export resides.
-          completion:
-            flag:
-                api-version:
-                    - v1
-                    - v2enabled
-        - name: list
-          description: List Security Command Center BigQuery exports.
-          flags:
-            --api-version=&: ""
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --folder=: Folder where the BigQuery export resides.
-            --limit=: Maximum number of resources to list.
-            --location=: When data residency controls are enabled, this attribute specifies the location in which
-            --organization=: Organization where the BigQuery export resides.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-          completion:
-            flag:
-                api-version:
-                    - v1
-                    - v2enabled
-        - name: update
-          description: Update a Security Command Center BigQuery export.
-          flags:
-            --api-version=&: ""
-            --dataset=: The dataset to write findings updates to.
-            --description=: The text that will be used to describe a BigQuery export.
-            --filter=: The filter string which will applied to findings muted by a BigQuery export.
-            --folder=: Folder where the BigQuery export resides.
-            --location=: When data residency controls are enabled, this attribute specifies the location in which
-            --organization=: Organization where the BigQuery export resides.
-            --update-mask=: 'Optional: If left unspecified (default), an update-mask is'
-          completion:
-            flag:
-                api-version:
-                    - v1
-                    - v2enabled
-        - name: create
-          description: Create a Security Command Center BigQuery export.
-          flags:
-            --api-version=&: ""
-            --dataset=!: The dataset to write findings updates to.
-            --description=: The text that will be used to describe a BigQuery export.
-            --filter=: The filter string which will applied to findings muted by a BigQuery export.
-            --folder=: Folder where the BigQuery export resides.
-            --location=: When data residency controls are enabled, this attribute specifies the location in which
-            --organization=: Organization where the BigQuery export resides.
-          completion:
-            flag:
-                api-version:
-                    - v1
-                    - v2enabled
-    - name: findings
-      description: Manage Cloud SCC (Security Command Center) findings.
-      commands:
-        - name: group
-          description: Filter an organization or source's findings and groups them by their specified properties.
-          flags:
-            --api-version=&: ""
-            --compare-duration=: '(DEPRECATED) '
-            --filter=: Expression that defines the filter to apply across findings.
-            --group-by=: Expression that defines what findings fields to use for grouping
-            --location=: When data residency controls are enabled, this attribute specifies the location in which
-            --page-size=: Maximum number of results to return in a single response.
-            --page-token=: Response objects will return a non-null value for page-token to
-            --read-time=: '(DEPRECATED) '
-            --source=: Source id.
-          completion:
-            flag:
-                api-version:
-                    - v1
-                    - v2enabled
-        - name: list
-          description: List an organization or source's findings.
-          flags:
-            --api-version=&: ""
-            --compare-duration=: '(DEPRECATED) '
-            --field-mask=: Field mask to specify the finding fields listed in the response.
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --folder=: The folder ID (e.g., 456) that contains the finding.
-            --limit=: Maximum number of resources to list.
-            --location=: When data residency controls are enabled, this attribute specifies the location in which
-            --order-by=: Expression that defines what fields and order to use for sorting.
-            --organization=: The organization ID (e.g., 123) that contains the finding.
-            --page-size=: Some services group resource list output into pages.
-            --page-token=: Response objects will return a non-null value for page-token to
-            --read-time=: '(DEPRECATED) '
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --source=: Source id.
-          completion:
-            flag:
-                api-version:
-                    - v1
-                    - v2enabled
-        - name: update
-          description: Update a Security Command Center finding.
-          flags:
-            --api-version=&: ""
-            --event-time=: Time at which the event took place.
-            --external-uri=: URI that, if available, points to a web page outside of Cloud SCC (Security Command Center)
-            --folder=: The folder ID (e.g., 456) that contains the finding.
-            --location=: When data residency controls are enabled, this attribute specifies the location in which
-            --organization=: The organization ID (e.g., 123) that contains the finding.
-            --source-properties=: Source specific properties.
-            --source=: Source id.
-            --state=: 'State is one of: [ACTIVE, INACTIVE].'
-            --update-mask=: 'Optional: If left unspecified (default), an update-mask is automatically'
-          completion:
-            flag:
-                api-version:
-                    - v1
-                    - v2enabled
-                state:
-                    - active
-                    - inactive
-                    - state-unspecified
-        - name: create
-          description: Create a Security Command Center finding.
-          flags:
-            --api-version=&: ""
-            --category=!: Taxonomy group within findings from a given source.
-            --event-time=!: Time at which the event took place.
-            --external-uri=: URI that, if available, points to a web page outside of Cloud SCC (Security Command Center)
-            --location=: When data residency controls are enabled, this attribute specifies the location in which
-            --organization=: (Optional) If the full resource name isn't provided e.g. organizations/123, then provide the
-            --resource-name=!: Full resource name of the Google Cloud Platform resource this finding is
-            --source-properties=: Source specific properties.
-            --source=: (Optional) If the full resource name isn't provided e.g. organizations/123/sources/456, then
-            --state=: 'State is one of: [ACTIVE, INACTIVE].'
-          completion:
-            flag:
-                api-version:
-                    - v1
-                    - v2enabled
-                state:
-                    - active
-                    - inactive
-                    - state-unspecified
-        - name: export-to-bigquery
-          description: Export Security Command Center findings to bigquery.
-          flags:
-            --dataset=!: BigQuery dataset to export findings to.
-            --location=: When data residency controls are enabled, this attribute specifies the location in which
-            --source=: Source id.
-        - name: list-marks
-          description: List a finding's security marks.
-          flags:
-            --api-version=&: ""
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --folder=: The folder ID (e.g., 456) that contains the finding.
-            --limit=: Maximum number of resources to list.
-            --location=: When data residency controls are enabled, this attribute specifies the location in which
-            --organization=: The organization ID (e.g., 123) that contains the finding.
-            --page-size=: Some services group resource list output into pages.
-            --page-token=: Response objects will return a non-null value for page-token to
-            --read-time=: '(DEPRECATED) '
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --source=: Source id.
-          completion:
-            flag:
-                api-version:
-                    - v1
-                    - v2enabled
-        - name: set-mute
-          description: Update a Security Command Center finding's mute state.
-          flags:
-            --api-version=&: ""
-            --folder=: Folder where the finding resides.
-            --location=: When data residency controls are enabled, this attribute specifies the location in which
-            --mute=!: Desired mute state of the finding.
-            --organization=: Organization where the finding resides.
-            --source=: ID of the source.
-          completion:
-            flag:
-                api-version:
-                    - v1
-                    - v2enabled
-                mute:
-                    - muted
-                    - unmuted
-                    - undefined
-        - name: update-marks
-          description: Update Security Command Center finding's security marks.
-          flags:
-            --api-version=&: ""
-            --folder=: The folder ID (e.g., 456) that contains the finding.
-            --location=: When data residency controls are enabled, this attribute specifies the location in which
-            --organization=: The organization ID (e.g., 123) that contains the finding.
-            --security-marks=: SecurityMarks resource to be passed as the request body.
-            --source=: Source id.
-            --start-time=: Time at which the updated SecurityMarks take effect.
-            --update-mask=: Use update-mask if you want to selectively update marks represented by
-          completion:
-            flag:
-                api-version:
-                    - v1
-                    - v2enabled
-        - name: bulk-mute
-          description: Bulk mute Security Command Center findings based on a filter.
-          flags:
-            --api-version=&: ""
-            --filter=!: Expression that identifies findings that should be muted.
-            --folder=: Folder where the findings reside.
-            --location=: When data residency controls are enabled, this attribute specifies the location in which
-            --mute-state=: Desired mute state of the finding.
-            --organization=: Organization where the findings reside.
-          completion:
-            flag:
-                api-version:
-                    - v1
-                    - v2enabled
-                mute-state:
-                    - muted
-                    - undefined
-    - name: iac-remediation
-      description: Manage Cloud Security Command Center (SCC) IaC remediations.
-      hidden: true
-      commands:
-        - name: create
-          description: Remediates a Security Command Center finding.
-          hidden: true
-          flags:
-            --finding-name=!: Canonical name of the finding
-            --finding-org-id=!: Organization ID of the finding
-            --git-config-path=!: Path to the git config file in YAML format to raise the PR.
-            --project-id=!: Project ID of the LLM enabled project
-            --tfstate-file-paths=: Comma seperated list of paths to terraform state files.
-    - name: iac-validation-reports
-      description: Manage Cloud SCC (Security Command Center) iac-validation-reports.
-      commands:
-        - name: create
-          description: Create a Cloud Security Command Center (SCC) IaC Validation Report.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --tf-plan-file=!: Path to a JSON file containing the IaC plan to be validated.
-        - name: describe
-          description: Describe a Cloud Security Command Center (SCC) IaC Validation Report.
-          flags:
-            --location=: ID of the location where the resource exists (for example, global).
-            --organization=: ID of the organization which is the parent of the resource.
-        - name: list
-          description: Lists all the Cloud Security Command Center (SCC) IaC validation reports for an organization.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=!: When data residency controls are enabled, this attribute specifies the location in which the resource is located and applicable.
-            --organization=!: The organization ID (e.g., 123) that contains the resource.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
     - name: notifications
       description: Manage Cloud SCC (Security Command Center) notifications.
       commands:
@@ -908,6 +769,145 @@ commands:
                 api-version:
                     - v1
                     - v2enabled
+    - name: operations
+      description: Manage Cloud SCC (Security Command Center) operations.
+      commands:
+        - name: describe
+          description: Describe a Cloud SCC's long running scan operation.
+          flags:
+            --organization=: (Optional) If the full resource name isn't provided e.g. organizations/123, then provide the
+    - name: posture-deployments
+      description: Manage Cloud Security Command Center (SCC) posture deployments.
+      commands:
+        - name: create
+          description: Create a Cloud Security Command Center (SCC) posture deployment.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: User-provided description of the posture deployment.
+            --location=: ID of the location where the resource exists (for example, global).
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: ID of the organization which is the parent of the resource.
+            --posture-name=!: Posture that needs to be deployed.
+            --posture-revision-id=!: Posture revision that needs to be deployed.
+            --target-resource=!: Name of the workload on which posture deployment is to be created.
+        - name: delete
+          description: Delete a Cloud Security Command Center (SCC) posture deployment.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --etag=: Etag is an optional flag.
+            --location=: ID of the location where the resource exists (for example, global).
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: ID of the organization which is the parent of the resource.
+        - name: describe
+          description: Describe a Cloud Security Command Center (SCC) posture deployment.
+          flags:
+            --location=: ID of the location where the resource exists (for example, global).
+            --organization=: ID of the organization which is the parent of the resource.
+        - name: list
+          description: List the details of the Cloud Security Command Center (SCC) posture deployments.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: When data residency controls are enabled, this attribute specifies the location in which the resource is located and applicable.
+            --organization=!: The organization ID (e.g., 123) that contains the resource.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: update
+          description: Update the given Cloud Security Command Center (SCC) posture deployment.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: Updated description of posture deployment.
+            --etag=: Etag is an optional flag.
+            --location=: ID of the location where the resource exists (for example, global).
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: ID of the organization which is the parent of the resource.
+            --posture-id=!: Relative name of the posture to be updated, like `organizations/<organizationID>/locations/<location>/postures/<postureID>`.
+            --posture-revision-id=!: Revision ID of the posture to be updated.
+            --update-mask=: Comma-separated string containing list of fields to be updated.
+    - name: posture-operations
+      description: Manage Cloud Security Command Center (SCC) posture operations.
+      commands:
+        - name: describe
+          description: Describe a Cloud Security Command Center (SCC) posture long running operation.
+    - name: posture-templates
+      description: Manage Cloud Security Command Center (SCC) posture templates.
+      commands:
+        - name: describe
+          description: Describe a Cloud Security Command Center (SCC) posture template.
+          flags:
+            --location=: ID of the location where the resource exists (for example, global).
+            --organization=: ID of the organization which is the parent of the resource.
+            --revision-id=: ID of the specific posture template revision to be described.
+        - name: list
+          description: List the details of the Cloud Security Command Center (SCC) posture templates.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: When data residency controls are enabled, this attribute specifies the location in which the resource is located and applicable.
+            --organization=!: The organization ID (e.g., 123) that contains the resource.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+    - name: postures
+      description: Manage Cloud Security Command Center (SCC) postures.
+      commands:
+        - name: create
+          description: Create a Cloud Security Command Center (SCC) posture.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: ID of the location where the resource exists (for example, global).
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: ID of the organization which is the parent of the resource.
+            --posture-from-file=!: YAML file containing the body of the posture to be created.
+        - name: delete
+          description: Delete a Cloud Security Command Center (SCC) posture.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --etag=: Etag is an optional flag.
+            --location=: ID of the location where the resource exists (for example, global).
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: ID of the organization which is the parent of the resource.
+        - name: describe
+          description: Describe a Cloud Security Command Center (SCC) posture.
+          flags:
+            --location=: ID of the location where the resource exists (for example, global).
+            --organization=: ID of the organization which is the parent of the resource.
+            --revision-id=: ID of the specific posture revision to described.
+        - name: extract
+          description: Extract a Cloud Security Command Center (SCC) posture from a workload.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: ID of the location where the resource exists (for example, global).
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: ID of the organization which is the parent of the resource.
+            --workload=!: Workload from where policies has to be extracted into a posture.
+        - name: list
+          description: Lists all the Cloud Security Command Center postures for an organization.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: When data residency controls are enabled, this attribute specifies the location in which the resource is located and applicable.
+            --organization=!: The organization ID (e.g., 123) that contains the resource.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list-revisions
+          description: List the revisions of a Cloud Security Command Center (SCC) posture.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location where the resource exists (for example, global).
+            --organization=: ID of the organization which is the parent of the resource.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: update
+          description: Update the given Cloud Security Command Center (SCC) posture.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: ID of the location where the resource exists (for example, global).
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: ID of the organization which is the parent of the resource.
+            --posture-from-file=!: Path of the file containing the details of the field to be updated.
+            --revision-id=!: Revision ID of the posture to be updated.
+            --update-mask=: Comma separated string containing list of fields to be updated.
     - name: sources
       description: Manage Cloud SCC (Security Command Center) finding sources.
       commands:

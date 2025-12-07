@@ -2,9 +2,164 @@
 name: ai-platform
 description: Manage AI Platform jobs and models.
 commands:
+    - name: jobs
+      description: AI Platform Jobs commands.
+      commands:
+        - name: cancel
+          description: Cancel a running AI Platform job.
+        - name: describe
+          description: Describe an AI Platform job.
+          flags:
+            --no-summarize&: Summarize job output in a set of human readable tables instead of
+            --summarize: Summarize job output in a set of human readable tables instead of
+        - name: list
+          description: List existing AI Platform jobs.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: stream-logs
+          description: Show logs from a running AI Platform job.
+          flags:
+            --allow-multiline-logs: Output multiline log messages as single records.
+            --no-allow-multiline-logs&: Output multiline log messages as single records.
+            --polling-interval=: Number of seconds to wait between efforts to fetch the latest log messages.
+            --task-name=: If set, display only the logs for this particular task.
+        - name: submit
+          description: AI Platform Jobs submit commands.
+          commands:
+            - name: prediction
+              description: Start an AI Platform batch prediction job.
+              flags:
+                --batch-size=: The number of records per batch.
+                --data-format=!: Data format of the input files.
+                --input-paths=!: Cloud Storage paths to the instances to run prediction on.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --max-worker-count=: The maximum number of workers to be used for parallel processing.
+                --model-dir=: Cloud Storage location where the model files are located.
+                --model=: Name of the model to use for prediction.
+                --output-path=!: Cloud Storage path to which to save the output.
+                --region=!: The Compute Engine region to run the job in.
+                --runtime-version=: AI Platform runtime version for this job.
+                --signature-name=: Name of the signature defined in the SavedModel to use for
+              completion:
+                flag:
+                    data-format:
+                        - text
+                        - tf-record
+                        - tf-record-gzip
+            - name: training
+              description: Submit an AI Platform training job.
+              flags:
+                --async: (DEPRECATED) Display information about the operation in progress without waiting for the operation to complete.
+                --config=: Path to the job configuration file.
+                --enable-web-access: Whether you want AI Platform Training to enable [interactive shell
+                --job-dir=: Cloud Storage path in which to store training outputs and other data
+                --kms-key=!: ID of the key or fully qualified identifier for the key.
+                --kms-keyring=: The KMS keyring of the key.
+                --kms-location=: The Google Cloud location for the key.
+                --kms-project=: The Google Cloud project for the key.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --master-accelerator=: Hardware accelerator config for the master worker.
+                --master-image-uri=: Docker image to run on each master worker.
+                --master-machine-type=: Specifies the type of virtual machine to use for training job's master worker.
+                --module-name=: Name of the module to run.
+                --no-async&: (DEPRECATED) Display information about the operation in progress without waiting for the operation to complete.
+                --no-enable-web-access&: Whether you want AI Platform Training to enable [interactive shell
+                --no-stream-logs&: Block until job completion and stream the logs while the job runs.
+                --package-path=: Path to a Python package to build.
+                --packages=: Path to Python archives used for training.
+                --parameter-server-accelerator=: Hardware accelerator config for the parameter servers.
+                --parameter-server-count=!: Number of parameter servers to use for the training job.
+                --parameter-server-image-uri=: Docker image to run on each parameter server.
+                --parameter-server-machine-type=!: Type of virtual machine to use for training job's parameter servers.
+                --python-version=: Version of Python used during training.
+                --region=: Region of the machine learning training job to submit.
+                --runtime-version=: AI Platform runtime version for this job.
+                --scale-tier=: Specify the machine types, the number of replicas for workers, and parameter servers.
+                --service-account=: The email address of a service account to use when running the
+                --staging-bucket=: Bucket in which to stage training archives.
+                --stream-logs: Block until job completion and stream the logs while the job runs.
+                --use-chief-in-tf-config=: Use "chief" role in the cluster instead of "master".
+                --worker-accelerator=: Hardware accelerator config for the worker nodes.
+                --worker-count=!: Number of worker nodes to use for the training job.
+                --worker-image-uri=: Docker image to run on each worker node.
+                --worker-machine-type=!: Type of virtual machine to use for training job's worker nodes.
+              completion:
+                flag:
+                    scale-tier:
+                        - basic
+                        - basic-gpu
+                        - basic-tpu
+                        - custom
+                        - premium-1
+                        - standard-1
+        - name: update
+          description: Update an AI Platform job.
+          flags:
+            --clear-labels: Remove all labels.
+            --no-clear-labels&: Remove all labels.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+    - name: local
+      description: AI Platform Local commands.
+      commands:
+        - name: predict
+          description: Run prediction locally.
+          flags:
+            --framework=: ML framework used to train this version of the model.
+            --json-instances=: Path to a local file from which instances are read.
+            --json-request=: Path to a local file containing the body of JSON request.
+            --model-dir=!: Path to the model.
+            --signature-name=: Name of the signature defined in the SavedModel to use for
+            --text-instances=: Path to a local file from which instances are read.
+          completion:
+            flag:
+                framework:
+                    - scikit-learn
+                    - tensorflow
+                    - xgboost
+        - name: train
+          description: Run an AI Platform training job locally.
+          flags:
+            --distributed: Runs the provided code in distributed mode by providing cluster configurations as environment variables to subprocesses
+            --evaluator-count=: Number of evaluators with which to run.
+            --job-dir=: Cloud Storage path or local_directory in which to store training outputs and other data
+            --module-name=!: Name of the module to run.
+            --no-distributed&: Runs the provided code in distributed mode by providing cluster configurations as environment variables to subprocesses
+            --package-path=: Path to a Python package to build.
+            --parameter-server-count=: Number of parameter servers with which to run.
+            --start-port=: Start of the range of ports reserved by the local cluster.
+            --worker-count=: Number of workers with which to run.
     - name: models
       description: AI Platform Models commands.
       commands:
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding for a model.
+          flags:
+            --member=!: The principal to add the binding for.
+            --region=: Google Cloud region of the regional endpoint to use for this command.
+            --role=!: Role name to assign to the principal.
+          completion:
+            flag:
+                region:
+                    - global
+                    - asia-east1
+                    - asia-northeast1
+                    - asia-southeast1
+                    - australia-southeast1
+                    - europe-west1
+                    - europe-west2
+                    - europe-west3
+                    - europe-west4
+                    - northamerica-northeast1
+                    - us-central1
+                    - us-east1
+                    - us-east4
+                    - us-west1
         - name: create
           description: Create a new AI Platform model.
           flags:
@@ -14,78 +169,6 @@ commands:
             --no-enable-logging&: If set, enables StackDriver Logging for online prediction.
             --region=: Google Cloud region of the regional endpoint to use for this command.
             --regions=: The Google Cloud region where the model will be deployed (currently only a
-          completion:
-            flag:
-                region:
-                    - global
-                    - asia-east1
-                    - asia-northeast1
-                    - asia-southeast1
-                    - australia-southeast1
-                    - europe-west1
-                    - europe-west2
-                    - europe-west3
-                    - europe-west4
-                    - northamerica-northeast1
-                    - us-central1
-                    - us-east1
-                    - us-east4
-                    - us-west1
-        - name: remove-iam-policy-binding
-          description: Remove IAM policy binding for a model.
-          flags:
-            --member=!: The principal to remove the binding for.
-            --region=: Google Cloud region of the regional endpoint to use for this command.
-            --role=!: The role to remove the principal from.
-          completion:
-            flag:
-                region:
-                    - global
-                    - asia-east1
-                    - asia-northeast1
-                    - asia-southeast1
-                    - australia-southeast1
-                    - europe-west1
-                    - europe-west2
-                    - europe-west3
-                    - europe-west4
-                    - northamerica-northeast1
-                    - us-central1
-                    - us-east1
-                    - us-east4
-                    - us-west1
-        - name: update
-          description: Update an existing AI Platform model.
-          flags:
-            --clear-labels: Remove all labels.
-            --description=: Description of the model.
-            --no-clear-labels&: Remove all labels.
-            --region=: Google Cloud region of the regional endpoint to use for this command.
-            --remove-labels=: List of label keys to remove.
-            --update-labels=: List of label KEY=VALUE pairs to update.
-          completion:
-            flag:
-                region:
-                    - global
-                    - asia-east1
-                    - asia-northeast1
-                    - asia-southeast1
-                    - australia-southeast1
-                    - europe-west1
-                    - europe-west2
-                    - europe-west3
-                    - europe-west4
-                    - northamerica-northeast1
-                    - us-central1
-                    - us-east1
-                    - us-east4
-                    - us-west1
-        - name: add-iam-policy-binding
-          description: Add IAM policy binding for a model.
-          flags:
-            --member=!: The principal to add the binding for.
-            --region=: Google Cloud region of the regional endpoint to use for this command.
-            --role=!: Role name to assign to the principal.
           completion:
             flag:
                 region:
@@ -197,10 +280,59 @@ commands:
                     - us-east1
                     - us-east4
                     - us-west1
+        - name: remove-iam-policy-binding
+          description: Remove IAM policy binding for a model.
+          flags:
+            --member=!: The principal to remove the binding for.
+            --region=: Google Cloud region of the regional endpoint to use for this command.
+            --role=!: The role to remove the principal from.
+          completion:
+            flag:
+                region:
+                    - global
+                    - asia-east1
+                    - asia-northeast1
+                    - asia-southeast1
+                    - australia-southeast1
+                    - europe-west1
+                    - europe-west2
+                    - europe-west3
+                    - europe-west4
+                    - northamerica-northeast1
+                    - us-central1
+                    - us-east1
+                    - us-east4
+                    - us-west1
         - name: set-iam-policy
           description: Set the IAM policy for a model.
           flags:
             --region=: Google Cloud region of the regional endpoint to use for this command.
+          completion:
+            flag:
+                region:
+                    - global
+                    - asia-east1
+                    - asia-northeast1
+                    - asia-southeast1
+                    - australia-southeast1
+                    - europe-west1
+                    - europe-west2
+                    - europe-west3
+                    - europe-west4
+                    - northamerica-northeast1
+                    - us-central1
+                    - us-east1
+                    - us-east4
+                    - us-west1
+        - name: update
+          description: Update an existing AI Platform model.
+          flags:
+            --clear-labels: Remove all labels.
+            --description=: Description of the model.
+            --no-clear-labels&: Remove all labels.
+            --region=: Google Cloud region of the regional endpoint to use for this command.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
           completion:
             flag:
                 region:
@@ -336,34 +468,6 @@ commands:
     - name: versions
       description: AI Platform Versions commands.
       commands:
-        - name: update
-          description: Update an AI Platform version.
-          flags:
-            --clear-labels: Remove all labels.
-            --config=: Path to a YAML configuration file containing configuration parameters
-            --description=: Description of the version.
-            --model=: Model for the version.
-            --no-clear-labels&: Remove all labels.
-            --region=: Google Cloud region of the regional endpoint to use for this command.
-            --remove-labels=: List of label keys to remove.
-            --update-labels=: List of label KEY=VALUE pairs to update.
-          completion:
-            flag:
-                region:
-                    - global
-                    - asia-east1
-                    - asia-northeast1
-                    - asia-southeast1
-                    - australia-southeast1
-                    - europe-west1
-                    - europe-west2
-                    - europe-west3
-                    - europe-west4
-                    - northamerica-northeast1
-                    - us-central1
-                    - us-east1
-                    - us-east4
-                    - us-west1
         - name: create
           description: Create a new AI Platform version.
           flags:
@@ -499,135 +603,31 @@ commands:
                     - us-east1
                     - us-east4
                     - us-west1
-    - name: jobs
-      description: AI Platform Jobs commands.
-      commands:
-        - name: cancel
-          description: Cancel a running AI Platform job.
-        - name: describe
-          description: Describe an AI Platform job.
-          flags:
-            --no-summarize&: Summarize job output in a set of human readable tables instead of
-            --summarize: Summarize job output in a set of human readable tables instead of
-        - name: list
-          description: List existing AI Platform jobs.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: stream-logs
-          description: Show logs from a running AI Platform job.
-          flags:
-            --allow-multiline-logs: Output multiline log messages as single records.
-            --no-allow-multiline-logs&: Output multiline log messages as single records.
-            --polling-interval=: Number of seconds to wait between efforts to fetch the latest log messages.
-            --task-name=: If set, display only the logs for this particular task.
-        - name: submit
-          description: AI Platform Jobs submit commands.
-          commands:
-            - name: training
-              description: Submit an AI Platform training job.
-              flags:
-                --async: (DEPRECATED) Display information about the operation in progress without waiting for the operation to complete.
-                --config=: Path to the job configuration file.
-                --enable-web-access: Whether you want AI Platform Training to enable [interactive shell
-                --job-dir=: Cloud Storage path in which to store training outputs and other data
-                --kms-key=!: ID of the key or fully qualified identifier for the key.
-                --kms-keyring=: The KMS keyring of the key.
-                --kms-location=: The Google Cloud location for the key.
-                --kms-project=: The Google Cloud project for the key.
-                --labels=: List of label KEY=VALUE pairs to add.
-                --master-accelerator=: Hardware accelerator config for the master worker.
-                --master-image-uri=: Docker image to run on each master worker.
-                --master-machine-type=: Specifies the type of virtual machine to use for training job's master worker.
-                --module-name=: Name of the module to run.
-                --no-async&: (DEPRECATED) Display information about the operation in progress without waiting for the operation to complete.
-                --no-enable-web-access&: Whether you want AI Platform Training to enable [interactive shell
-                --no-stream-logs&: Block until job completion and stream the logs while the job runs.
-                --package-path=: Path to a Python package to build.
-                --packages=: Path to Python archives used for training.
-                --parameter-server-accelerator=: Hardware accelerator config for the parameter servers.
-                --parameter-server-count=!: Number of parameter servers to use for the training job.
-                --parameter-server-image-uri=: Docker image to run on each parameter server.
-                --parameter-server-machine-type=!: Type of virtual machine to use for training job's parameter servers.
-                --python-version=: Version of Python used during training.
-                --region=: Region of the machine learning training job to submit.
-                --runtime-version=: AI Platform runtime version for this job.
-                --scale-tier=: Specify the machine types, the number of replicas for workers, and parameter servers.
-                --service-account=: The email address of a service account to use when running the
-                --staging-bucket=: Bucket in which to stage training archives.
-                --stream-logs: Block until job completion and stream the logs while the job runs.
-                --use-chief-in-tf-config=: Use "chief" role in the cluster instead of "master".
-                --worker-accelerator=: Hardware accelerator config for the worker nodes.
-                --worker-count=!: Number of worker nodes to use for the training job.
-                --worker-image-uri=: Docker image to run on each worker node.
-                --worker-machine-type=!: Type of virtual machine to use for training job's worker nodes.
-              completion:
-                flag:
-                    scale-tier:
-                        - basic
-                        - basic-gpu
-                        - basic-tpu
-                        - custom
-                        - premium-1
-                        - standard-1
-            - name: prediction
-              description: Start an AI Platform batch prediction job.
-              flags:
-                --batch-size=: The number of records per batch.
-                --data-format=!: Data format of the input files.
-                --input-paths=!: Cloud Storage paths to the instances to run prediction on.
-                --labels=: List of label KEY=VALUE pairs to add.
-                --max-worker-count=: The maximum number of workers to be used for parallel processing.
-                --model-dir=: Cloud Storage location where the model files are located.
-                --model=: Name of the model to use for prediction.
-                --output-path=!: Cloud Storage path to which to save the output.
-                --region=!: The Compute Engine region to run the job in.
-                --runtime-version=: AI Platform runtime version for this job.
-                --signature-name=: Name of the signature defined in the SavedModel to use for
-              completion:
-                flag:
-                    data-format:
-                        - text
-                        - tf-record
-                        - tf-record-gzip
         - name: update
-          description: Update an AI Platform job.
+          description: Update an AI Platform version.
           flags:
             --clear-labels: Remove all labels.
+            --config=: Path to a YAML configuration file containing configuration parameters
+            --description=: Description of the version.
+            --model=: Model for the version.
             --no-clear-labels&: Remove all labels.
+            --region=: Google Cloud region of the regional endpoint to use for this command.
             --remove-labels=: List of label keys to remove.
             --update-labels=: List of label KEY=VALUE pairs to update.
-    - name: local
-      description: AI Platform Local commands.
-      commands:
-        - name: predict
-          description: Run prediction locally.
-          flags:
-            --framework=: ML framework used to train this version of the model.
-            --json-instances=: Path to a local file from which instances are read.
-            --json-request=: Path to a local file containing the body of JSON request.
-            --model-dir=!: Path to the model.
-            --signature-name=: Name of the signature defined in the SavedModel to use for
-            --text-instances=: Path to a local file from which instances are read.
           completion:
             flag:
-                framework:
-                    - scikit-learn
-                    - tensorflow
-                    - xgboost
-        - name: train
-          description: Run an AI Platform training job locally.
-          flags:
-            --distributed: Runs the provided code in distributed mode by providing cluster configurations as environment variables to subprocesses
-            --evaluator-count=: Number of evaluators with which to run.
-            --job-dir=: Cloud Storage path or local_directory in which to store training outputs and other data
-            --module-name=!: Name of the module to run.
-            --no-distributed&: Runs the provided code in distributed mode by providing cluster configurations as environment variables to subprocesses
-            --package-path=: Path to a Python package to build.
-            --parameter-server-count=: Number of parameter servers with which to run.
-            --start-port=: Start of the range of ports reserved by the local cluster.
-            --worker-count=: Number of workers with which to run.
+                region:
+                    - global
+                    - asia-east1
+                    - asia-northeast1
+                    - asia-southeast1
+                    - australia-southeast1
+                    - europe-west1
+                    - europe-west2
+                    - europe-west3
+                    - europe-west4
+                    - northamerica-northeast1
+                    - us-central1
+                    - us-east1
+                    - us-east4
+                    - us-west1

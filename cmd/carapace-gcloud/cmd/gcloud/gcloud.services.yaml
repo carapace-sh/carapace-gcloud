@@ -2,6 +2,86 @@
 name: services
 description: List, enable and disable APIs and services.
 commands:
+    - name: api-keys
+      description: Manage API keys.
+      commands:
+        - name: create
+          description: Create an API key.
+          flags:
+            --allowed-application=: Repeatable.
+            --allowed-bundle-ids=: iOS app's bundle ids that are allowed to use the key.
+            --allowed-ips=: A list of the caller IP addresses that are allowed to make API calls with this key.
+            --allowed-referrers=: A list of regular expressions for the referrer URLs that are allowed to make API calls with this key.
+            --annotations=: Annotations are key resource.
+            --api-target=: Repeatable.
+            --async: Return immediately, without waiting for the operation in progress to
+            --display-name=: Display name of the key to create.
+            --key-id=: User-specified ID of the key to create.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --service-account=: The email of the service account the key is bound to.
+        - name: delete
+          description: Delete an API key.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Location of the key.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe an API key's metadata.
+          flags:
+            --location=: Location of the key.
+        - name: get-key-string
+          description: Get the key string of an API key.
+          flags:
+            --location=: Location of the key.
+        - name: list
+          description: Lists API keys.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-show-deleted&: Show soft-deleted keys by specifying this flag.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --show-deleted: Show soft-deleted keys by specifying this flag.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: lookup
+          description: Look up resource name of a key string.
+        - name: undelete
+          description: Undelete an API key.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --key-string=: Key String of the key.
+            --location=: Location of the key.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: update
+          description: Update an API key's metadata.
+          flags:
+            --allowed-application=: Repeatable.
+            --allowed-bundle-ids=: iOS app's bundle ids that are allowed to use the key.
+            --allowed-ips=: A list of the caller IP addresses that are allowed to make API calls with this key.
+            --allowed-referrers=: A list of regular expressions for the referrer URLs that are allowed to make API calls with this key.
+            --annotations=: Annotations are key resource.
+            --api-target=: Repeatable.
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-annotations: If set, clear all annotations on the key.
+            --clear-restrictions: If set, clear all restrictions on the key.
+            --display-name=: Display name of the key to update.
+            --location=: Location of the key.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-annotations&: If set, clear all annotations on the key.
+            --no-clear-restrictions&: If set, clear all restrictions on the key.
+    - name: disable
+      description: Disable a service for consumption for a project.
+      flags:
+        --async: Return immediately, without waiting for the operation in progress to
+        --force: If specified, the disable call will proceed even if there are enabled services which depend on the service to be disabled or disable the service used in last 30 days or was enabled in recent 3 days.
+        --no-async&: Return immediately, without waiting for the operation in progress to
+        --no-force&: If specified, the disable call will proceed even if there are enabled services which depend on the service to be disabled or disable the service used in last 30 days or was enabled in recent 3 days.
+    - name: enable
+      description: Enables a service for consumption for a project.
+      flags:
+        --async: Return immediately, without waiting for the operation in progress to
+        --no-async&: Return immediately, without waiting for the operation in progress to
     - name: list
       description: List services for a project.
       flags:
@@ -108,83 +188,3 @@ commands:
             --no-force&: If specified, the update call will proceed even if the update can be destructive.
             --ranges=: The names of IP CIDR ranges for service to use.
             --service=: The service to connect to
-    - name: api-keys
-      description: Manage API keys.
-      commands:
-        - name: list
-          description: Lists API keys.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --no-show-deleted&: Show soft-deleted keys by specifying this flag.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --show-deleted: Show soft-deleted keys by specifying this flag.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: lookup
-          description: Look up resource name of a key string.
-        - name: undelete
-          description: Undelete an API key.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --key-string=: Key String of the key.
-            --location=: Location of the key.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: update
-          description: Update an API key's metadata.
-          flags:
-            --allowed-application=: Repeatable.
-            --allowed-bundle-ids=: iOS app's bundle ids that are allowed to use the key.
-            --allowed-ips=: A list of the caller IP addresses that are allowed to make API calls with this key.
-            --allowed-referrers=: A list of regular expressions for the referrer URLs that are allowed to make API calls with this key.
-            --annotations=: Annotations are key resource.
-            --api-target=: Repeatable.
-            --async: Return immediately, without waiting for the operation in progress to
-            --clear-annotations: If set, clear all annotations on the key.
-            --clear-restrictions: If set, clear all restrictions on the key.
-            --display-name=: Display name of the key to update.
-            --location=: Location of the key.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-clear-annotations&: If set, clear all annotations on the key.
-            --no-clear-restrictions&: If set, clear all restrictions on the key.
-        - name: create
-          description: Create an API key.
-          flags:
-            --allowed-application=: Repeatable.
-            --allowed-bundle-ids=: iOS app's bundle ids that are allowed to use the key.
-            --allowed-ips=: A list of the caller IP addresses that are allowed to make API calls with this key.
-            --allowed-referrers=: A list of regular expressions for the referrer URLs that are allowed to make API calls with this key.
-            --annotations=: Annotations are key resource.
-            --api-target=: Repeatable.
-            --async: Return immediately, without waiting for the operation in progress to
-            --display-name=: Display name of the key to create.
-            --key-id=: User-specified ID of the key to create.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --service-account=: The email of the service account the key is bound to.
-        - name: delete
-          description: Delete an API key.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: Location of the key.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: describe
-          description: Describe an API key's metadata.
-          flags:
-            --location=: Location of the key.
-        - name: get-key-string
-          description: Get the key string of an API key.
-          flags:
-            --location=: Location of the key.
-    - name: disable
-      description: Disable a service for consumption for a project.
-      flags:
-        --async: Return immediately, without waiting for the operation in progress to
-        --force: If specified, the disable call will proceed even if there are enabled services which depend on the service to be disabled or disable the service used in last 30 days or was enabled in recent 3 days.
-        --no-async&: Return immediately, without waiting for the operation in progress to
-        --no-force&: If specified, the disable call will proceed even if there are enabled services which depend on the service to be disabled or disable the service used in last 30 days or was enabled in recent 3 days.
-    - name: enable
-      description: Enables a service for consumption for a project.
-      flags:
-        --async: Return immediately, without waiting for the operation in progress to
-        --no-async&: Return immediately, without waiting for the operation in progress to

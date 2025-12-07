@@ -2,73 +2,6 @@
 name: colab
 description: Manage Colab Enterprise resources.
 commands:
-    - name: schedules
-      description: Manage Colab Enterprise notebook execution schedules.
-      commands:
-        - name: list
-          description: List your Colab Enterprise notebook execution schedules.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --region=: ID of the region or fully qualified identifier for the region.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: pause
-          description: Pause a schedule.
-          flags:
-            --region=: Cloud region for the schedule.
-        - name: resume
-          description: Resume a schedule.
-          flags:
-            --enable-catch-up: Enables backfilling missed runs when the schedule is resumed from PAUSED state.
-            --no-enable-catch-up&: Enables backfilling missed runs when the schedule is resumed from PAUSED state.
-            --region=: Cloud region for the schedule.
-        - name: update
-          description: Update a schedule.
-          flags:
-            --cron-schedule=: Cron schedule (https://en.wikipedia.org/wiki/Cron) to launch scheduled runs.
-            --display-name=: The display name of the schedule.
-            --enable-queueing: Enables new scheduled runs to be queued when max_concurrent_runs limit is reached.
-            --end-time=: Timestamp after which no new runs can be scheduled.
-            --max-concurrent-runs=: Maximum number of runs that can be started concurrently for this Schedule.
-            --max-runs=: The max runs for the schedule.
-            --no-enable-queueing&: Enables new scheduled runs to be queued when max_concurrent_runs limit is reached.
-            --region=: Cloud region for the schedule.
-            --start-time=: The timestamp after which the first run can be scheduled.
-        - name: create
-          description: Create a schedule.
-          flags:
-            --commit-sha=: The commit SHA to read from the Dataform repository.
-            --cron-schedule=!: Cron schedule (https://en.wikipedia.org/wiki/Cron) to launch scheduled runs.
-            --dataform-repository-name=!: ID of the dataform repository or fully qualified identifier for the dataform repository.
-            --display-name=!: The display name of the schedule.
-            --enable-queueing: Enables new scheduled runs to be queued when max_concurrent_runs limit is reached.
-            --end-time=: Timestamp after which no new runs can be scheduled.
-            --execution-display-name=!: The display name of the execution.
-            --execution-timeout=: The max running time of the execution job, as a duration.
-            --gcs-notebook-uri=!: The Cloud Storage uri pointing to the notebook.
-            --gcs-output-uri=!: The Cloud Storage location to upload notebook execution results to.
-            --generation=: The version of the Cloud Storage object to read.
-            --max-concurrent-runs=: Maximum number of runs that can be started concurrently for this Schedule.
-            --max-runs=: The max runs for the schedule.
-            --no-enable-queueing&: Enables new scheduled runs to be queued when max_concurrent_runs limit is reached.
-            --notebook-runtime-template=!: ID of the notebook runtime template or fully qualified identifier for the notebook runtime template.
-            --region=: ID of the region or fully qualified identifier for the region.
-            --service-account=: The service account to run the execution as.
-            --start-time=: The timestamp after which the first run can be scheduled.
-            --user-email=: The user email to run the execution as.
-        - name: delete
-          description: Delete a schedule.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --region=: Cloud region for the schedule.
-        - name: describe
-          description: Describe a schedule.
-          flags:
-            --region=: Cloud region for the schedule.
     - name: executions
       description: Manage Colab Enterprise notebook execution jobs.
       commands:
@@ -113,44 +46,6 @@ commands:
     - name: runtime-templates
       description: Manage Colab Enterprise runtime templates.
       commands:
-        - name: delete
-          description: Delete a runtime template.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --region=: Cloud region for the runtime template.
-        - name: describe
-          description: Describe a runtime template.
-          flags:
-            --region=: Cloud region for the runtime template.
-        - name: get-iam-policy
-          description: Get IAM policy for a Colab Enterprise runtime template.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --page-size=: Some services group resource list output into pages.
-            --region=: Cloud region for the runtime template.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: list
-          description: List your runtime templates.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --region=: ID of the region or fully qualified identifier for the region.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: remove-iam-policy-binding
-          description: Remove an IAM policy binding from a Colab Enterprise runtime template.
-          flags:
-            --member=!: The principal to remove the binding for.
-            --region=: Cloud region for the runtime template.
-            --role=!: The role to remove the principal from.
-        - name: set-iam-policy
-          description: Set IAM policy for a Colab Enterprise runtime template as defined in a JSON or YAML file.
-          flags:
-            --region=: Cloud region for the runtime template.
         - name: add-iam-policy-binding
           description: Add an IAM policy binding to a Colab Enterprise runtime template.
           flags:
@@ -209,6 +104,44 @@ commands:
                     - RUN_ONCE
                     - RUN_EVERY_START
                     - DOWNLOAD_AND_RUN_EVERY_START
+        - name: delete
+          description: Delete a runtime template.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: Cloud region for the runtime template.
+        - name: describe
+          description: Describe a runtime template.
+          flags:
+            --region=: Cloud region for the runtime template.
+        - name: get-iam-policy
+          description: Get IAM policy for a Colab Enterprise runtime template.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --region=: Cloud region for the runtime template.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: List your runtime templates.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: ID of the region or fully qualified identifier for the region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: remove-iam-policy-binding
+          description: Remove an IAM policy binding from a Colab Enterprise runtime template.
+          flags:
+            --member=!: The principal to remove the binding for.
+            --region=: Cloud region for the runtime template.
+            --role=!: The role to remove the principal from.
+        - name: set-iam-policy
+          description: Set IAM policy for a Colab Enterprise runtime template as defined in a JSON or YAML file.
+          flags:
+            --region=: Cloud region for the runtime template.
     - name: runtimes
       description: Manage Colab Enterprise runtimes.
       commands:
@@ -262,3 +195,70 @@ commands:
             --async: Return immediately, without waiting for the operation in progress to
             --no-async&: Return immediately, without waiting for the operation in progress to
             --region=: Cloud region for the runtime.
+    - name: schedules
+      description: Manage Colab Enterprise notebook execution schedules.
+      commands:
+        - name: create
+          description: Create a schedule.
+          flags:
+            --commit-sha=: The commit SHA to read from the Dataform repository.
+            --cron-schedule=!: Cron schedule (https://en.wikipedia.org/wiki/Cron) to launch scheduled runs.
+            --dataform-repository-name=!: ID of the dataform repository or fully qualified identifier for the dataform repository.
+            --display-name=!: The display name of the schedule.
+            --enable-queueing: Enables new scheduled runs to be queued when max_concurrent_runs limit is reached.
+            --end-time=: Timestamp after which no new runs can be scheduled.
+            --execution-display-name=!: The display name of the execution.
+            --execution-timeout=: The max running time of the execution job, as a duration.
+            --gcs-notebook-uri=!: The Cloud Storage uri pointing to the notebook.
+            --gcs-output-uri=!: The Cloud Storage location to upload notebook execution results to.
+            --generation=: The version of the Cloud Storage object to read.
+            --max-concurrent-runs=: Maximum number of runs that can be started concurrently for this Schedule.
+            --max-runs=: The max runs for the schedule.
+            --no-enable-queueing&: Enables new scheduled runs to be queued when max_concurrent_runs limit is reached.
+            --notebook-runtime-template=!: ID of the notebook runtime template or fully qualified identifier for the notebook runtime template.
+            --region=: ID of the region or fully qualified identifier for the region.
+            --service-account=: The service account to run the execution as.
+            --start-time=: The timestamp after which the first run can be scheduled.
+            --user-email=: The user email to run the execution as.
+        - name: delete
+          description: Delete a schedule.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: Cloud region for the schedule.
+        - name: describe
+          description: Describe a schedule.
+          flags:
+            --region=: Cloud region for the schedule.
+        - name: list
+          description: List your Colab Enterprise notebook execution schedules.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: ID of the region or fully qualified identifier for the region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: pause
+          description: Pause a schedule.
+          flags:
+            --region=: Cloud region for the schedule.
+        - name: resume
+          description: Resume a schedule.
+          flags:
+            --enable-catch-up: Enables backfilling missed runs when the schedule is resumed from PAUSED state.
+            --no-enable-catch-up&: Enables backfilling missed runs when the schedule is resumed from PAUSED state.
+            --region=: Cloud region for the schedule.
+        - name: update
+          description: Update a schedule.
+          flags:
+            --cron-schedule=: Cron schedule (https://en.wikipedia.org/wiki/Cron) to launch scheduled runs.
+            --display-name=: The display name of the schedule.
+            --enable-queueing: Enables new scheduled runs to be queued when max_concurrent_runs limit is reached.
+            --end-time=: Timestamp after which no new runs can be scheduled.
+            --max-concurrent-runs=: Maximum number of runs that can be started concurrently for this Schedule.
+            --max-runs=: The max runs for the schedule.
+            --no-enable-queueing&: Enables new scheduled runs to be queued when max_concurrent_runs limit is reached.
+            --region=: Cloud region for the schedule.
+            --start-time=: The timestamp after which the first run can be scheduled.

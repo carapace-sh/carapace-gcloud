@@ -2,6 +2,56 @@
 name: anthos
 description: Anthos command Group.
 commands:
+    - name: auth
+      description: Authenticate clusters using the Anthos client.
+      commands:
+        - name: login
+          description: Authenticate clusters using the Anthos client.
+          flags:
+            --cluster=: Cluster to authenticate against.
+            --dry-run: Print out the generated kubectl commands but do not execute them.
+            --kubeconfig=: Specifies the destination kubeconfig file where credentials will be stored.
+            --login-config-cert=: Specifies the CA certificate file to be added to trusted pool for making HTTPS connections to a `--login-config` URL.
+            --login-config=: Specifies the configuration yaml file for login.
+            --no-browser: Option to indicate login completion on a second device with browser.Used with `server` option.
+            --no-dry-run&: Print out the generated kubectl commands but do not execute them.
+            --no-set-preferred-auth&: If set, forces update of preferred authentication for given cluster
+            --no-show-exec-error&: If true and command fails, print the underlying command that was executed and its exit status.
+            --remote-bootstrap=: Option to complete login that was started using `no-browser` optionon a remote device that does not have a browser.
+            --server=: Specifies the URL of API server of the cluster to authenticate against.
+            --set-preferred-auth: If set, forces update of preferred authentication for given cluster
+            --show-exec-error&: If true and command fails, print the underlying command that was executed and its exit status.
+            --user=: If configuring multiple user accounts in the same kubecconfig file, you can specify a user to differentiate between them.
+        - name: token
+          description: Creates a token for authentication.
+          hidden: true
+          flags:
+            --access-token-expiry=: Expiration time of access token received from identity provider after authorization flow.
+            --access-token=: Access Token received from identity provider after authorization flow.
+            --aws-sts-region=: Region for AWS STS endpoint.
+            --client-id=: ClientID is the id for OIDC client application.
+            --client-secret=: Client Secret is the shared secret between OIDC client application and OIDC provider.
+            --cluster=: Name of the cluster for which token is created.
+            --id-token=: ID Token received from identity provider after authorization flow.
+            --idp-certificate-authority-data=: PEM-encoded certificate authority certificate for OIDC provider.
+            --idp-issuer-url=: URI for the OIDC provider.
+            --kubeconfig-path=: Path to the kubeconfig path that would be updated with ID and access token on expiry.
+            --no-show-exec-error&: If true and command fails, print the underlying command that was executed and its exit status.
+            --refresh-token=: Refresh Token received from identity provider after authorization flow.
+            --show-exec-error&: If true and command fails, print the underlying command that was executed and its exit status.
+            --type=!: Type of token to be created.
+            --user=: User used in kubeconfig.
+          completion:
+            flag:
+                type:
+                    - aws
+                    - oidc
+        - name: version
+          description: Get version info for the Anthos Auth client.
+          hidden: true
+          flags:
+            --no-show-exec-error&: If true and command fails, print the underlying command that was executed and its exit status.
+            --show-exec-error&: If true and command fails, print the underlying command that was executed and its exit status.
     - name: config
       description: Anthos configuration command group.
       commands:
@@ -77,53 +127,3 @@ commands:
         --no-show-exec-error&: If true and command fails, print the underlying command that was executed and its exit status.
         --output=: Destination to write login configuration file.
         --show-exec-error&: If true and command fails, print the underlying command that was executed and its exit status.
-    - name: auth
-      description: Authenticate clusters using the Anthos client.
-      commands:
-        - name: login
-          description: Authenticate clusters using the Anthos client.
-          flags:
-            --cluster=: Cluster to authenticate against.
-            --dry-run: Print out the generated kubectl commands but do not execute them.
-            --kubeconfig=: Specifies the destination kubeconfig file where credentials will be stored.
-            --login-config-cert=: Specifies the CA certificate file to be added to trusted pool for making HTTPS connections to a `--login-config` URL.
-            --login-config=: Specifies the configuration yaml file for login.
-            --no-browser: Option to indicate login completion on a second device with browser.Used with `server` option.
-            --no-dry-run&: Print out the generated kubectl commands but do not execute them.
-            --no-set-preferred-auth&: If set, forces update of preferred authentication for given cluster
-            --no-show-exec-error&: If true and command fails, print the underlying command that was executed and its exit status.
-            --remote-bootstrap=: Option to complete login that was started using `no-browser` optionon a remote device that does not have a browser.
-            --server=: Specifies the URL of API server of the cluster to authenticate against.
-            --set-preferred-auth: If set, forces update of preferred authentication for given cluster
-            --show-exec-error&: If true and command fails, print the underlying command that was executed and its exit status.
-            --user=: If configuring multiple user accounts in the same kubecconfig file, you can specify a user to differentiate between them.
-        - name: token
-          description: Creates a token for authentication.
-          hidden: true
-          flags:
-            --access-token-expiry=: Expiration time of access token received from identity provider after authorization flow.
-            --access-token=: Access Token received from identity provider after authorization flow.
-            --aws-sts-region=: Region for AWS STS endpoint.
-            --client-id=: ClientID is the id for OIDC client application.
-            --client-secret=: Client Secret is the shared secret between OIDC client application and OIDC provider.
-            --cluster=: Name of the cluster for which token is created.
-            --id-token=: ID Token received from identity provider after authorization flow.
-            --idp-certificate-authority-data=: PEM-encoded certificate authority certificate for OIDC provider.
-            --idp-issuer-url=: URI for the OIDC provider.
-            --kubeconfig-path=: Path to the kubeconfig path that would be updated with ID and access token on expiry.
-            --no-show-exec-error&: If true and command fails, print the underlying command that was executed and its exit status.
-            --refresh-token=: Refresh Token received from identity provider after authorization flow.
-            --show-exec-error&: If true and command fails, print the underlying command that was executed and its exit status.
-            --type=!: Type of token to be created.
-            --user=: User used in kubeconfig.
-          completion:
-            flag:
-                type:
-                    - aws
-                    - oidc
-        - name: version
-          description: Get version info for the Anthos Auth client.
-          hidden: true
-          flags:
-            --no-show-exec-error&: If true and command fails, print the underlying command that was executed and its exit status.
-            --show-exec-error&: If true and command fails, print the underlying command that was executed and its exit status.

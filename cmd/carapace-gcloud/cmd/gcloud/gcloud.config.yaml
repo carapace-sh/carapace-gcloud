@@ -2,6 +2,45 @@
 name: config
 description: View and edit Google Cloud CLI properties.
 commands:
+    - name: config-helper
+      description: A helper for providing auth and config data to external tools.
+      hidden: true
+      flags:
+        --force-auth-refresh: Force a refresh of the credentials even if they have not yet expired.
+        --min-expiry=: If given, refresh the credentials if they are within MIN_EXPIRY from expiration.
+        --no-force-auth-refresh&: Force a refresh of the credentials even if they have not yet expired.
+    - name: configurations
+      description: Manage the set of gcloud named configurations.
+      commands:
+        - name: activate
+          description: Activates an existing named configuration.
+        - name: create
+          description: Creates a new named configuration.
+          flags:
+            --activate: If true, activate this configuration upon create.
+            --no-activate&: If true, activate this configuration upon create.
+        - name: delete
+          description: Deletes a named configuration.
+        - name: describe
+          description: Describes a named configuration by listing its properties.
+          flags:
+            --all: Include unset properties in output.
+            --no-all&: Include unset properties in output.
+        - name: list
+          description: Lists existing named configurations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: rename
+          description: Renames a named configuration.
+          flags:
+            --new-name=!: Specifies the new name of the configuration.
+    - name: get
+      description: Print the value of a Google Cloud CLI property.
+    - name: get-value
+      description: Alias for `gcloud config get`, for backwards compatibility.
+      hidden: true
     - name: list
       description: List Google Cloud CLI properties for the currently active configuration.
       flags:
@@ -67,42 +106,3 @@ commands:
         - name: update
           description: Update modules installed in a virtualenv environment.
           hidden: true
-    - name: config-helper
-      description: A helper for providing auth and config data to external tools.
-      hidden: true
-      flags:
-        --force-auth-refresh: Force a refresh of the credentials even if they have not yet expired.
-        --min-expiry=: If given, refresh the credentials if they are within MIN_EXPIRY from expiration.
-        --no-force-auth-refresh&: Force a refresh of the credentials even if they have not yet expired.
-    - name: configurations
-      description: Manage the set of gcloud named configurations.
-      commands:
-        - name: activate
-          description: Activates an existing named configuration.
-        - name: create
-          description: Creates a new named configuration.
-          flags:
-            --activate: If true, activate this configuration upon create.
-            --no-activate&: If true, activate this configuration upon create.
-        - name: delete
-          description: Deletes a named configuration.
-        - name: describe
-          description: Describes a named configuration by listing its properties.
-          flags:
-            --all: Include unset properties in output.
-            --no-all&: Include unset properties in output.
-        - name: list
-          description: Lists existing named configurations.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: rename
-          description: Renames a named configuration.
-          flags:
-            --new-name=!: Specifies the new name of the configuration.
-    - name: get
-      description: Print the value of a Google Cloud CLI property.
-    - name: get-value
-      description: Alias for `gcloud config get`, for backwards compatibility.
-      hidden: true

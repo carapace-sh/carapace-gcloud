@@ -34,6 +34,14 @@ commands:
         - name: credentials
           description: Create and manage OAuth client credentials.
           commands:
+            - name: create
+              description: Create an OAuth client credential.
+              flags:
+                --disabled: Disables the OAuth client credential.
+                --display-name=: A display name for the OAuth client credential.
+                --location=: The location name.
+                --no-disabled&: Disables the OAuth client credential.
+                --oauth-client=: ID to use for the OAuth client, which becomes the final component of the resource name.
             - name: delete
               description: Delete an OAuth client credential.
               flags:
@@ -54,14 +62,6 @@ commands:
                 --sort-by=: Comma-separated list of resource field key names to sort by.
             - name: update
               description: Update an OAuth client credential.
-              flags:
-                --disabled: Disables the OAuth client credential.
-                --display-name=: A display name for the OAuth client credential.
-                --location=: The location name.
-                --no-disabled&: Disables the OAuth client credential.
-                --oauth-client=: ID to use for the OAuth client, which becomes the final component of the resource name.
-            - name: create
-              description: Create an OAuth client credential.
               flags:
                 --disabled: Disables the OAuth client credential.
                 --display-name=: A display name for the OAuth client credential.
@@ -101,29 +101,128 @@ commands:
             --display-name=: A display name for the OAuth client.
             --location=: The location name.
             --no-disabled&: Disables the OAuth client.
-    - name: principal-access-boundary-policies
-      description: Manage principal access boundary policies.
+    - name: policies
+      description: Manage IAM deny policies.
       commands:
-        - name: update
-          description: Update PrincipalAccessBoundaryPolicy instance.
+        - name: create
+          description: Create a policy on the given attachment point with the given name.
           flags:
-            --add-details-rules=: Add new value to details_rules list.
+            --attachment-point=!: Resource to which the policy is attached.
+            --kind=!: Policy type.
+            --policy-file=!: Path to the file that contains the policy, in JSON or YAML format.
+        - name: delete
+          description: Delete a policy on the given attachment point with the given name.
+          flags:
+            --attachment-point=!: Resource to which the policy is attached.
+            --etag=: Etag that identifies the version of the existing policy.
+            --kind=!: Policy type.
+        - name: get
+          description: Get a policy on the given attachment point with the given name.
+          flags:
+            --attachment-point=!: Resource to which the policy is attached.
+            --kind=!: Policy type.
+        - name: list
+          description: List the policies on the given attachment point.
+          flags:
+            --attachment-point=!: Resource to which the policy is attached.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --kind=!: Policy type.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --page-token=: Page token received from a previous call.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: update
+          description: Update the policy on the given attachment point with the given name.
+          flags:
+            --attachment-point=!: Resource to which the policy is attached.
+            --etag=: Etag that identifies the version of the existing policy.
+            --kind=!: Policy type.
+            --policy-file=!: Path to the file that contains the policy, in JSON or YAML format.
+    - name: policy-bindings
+      description: Manage policy bindings.
+      commands:
+        - name: create
+          description: Create PolicyBinding instance.
+          flags:
+            --annotations=: User defined annotations.
+            --async: Return immediately, without waiting for the operation in progress to
+            --condition-description=: Description of the expression.
+            --condition-expression=: Textual representation of an expression in Common Expression Language
+            --condition-location=: String indicating the location of the expression for error
+            --condition-title=: Title for the expression, i.e. a short string describing
+            --display-name=: The description of the policy binding.
+            --etag=: The etag for the policy binding.
+            --folder=: The folder id of the policyBinding resource.
+            --location=: The location id of the policyBinding resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: The organization id of the policyBinding resource.
+            --policy-kind=: The kind of the policy to attach in this binding.
+            --policy=!: The resource name of the policy to be bound.
+            --target-principal-set=: Full Resource Name used for principal access boundary policy bindings
+          completion:
+            flag:
+                policy-kind:
+                    - principal-access-boundary
+        - name: delete
+          description: Delete PolicyBinding instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --etag=: The etag of the policy binding.
+            --folder=: The folder id of the policyBinding resource.
+            --location=: The location id of the policyBinding resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: The organization id of the policyBinding resource.
+        - name: describe
+          description: Get PolicyBinding instance.
+          flags:
+            --folder=: The folder id of the policyBinding resource.
+            --location=: The location id of the policyBinding resource.
+            --organization=: The organization id of the policyBinding resource.
+        - name: list
+          description: List PolicyBinding instances.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --folder=: The folder id of the location resource.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --organization=: The organization id of the location resource.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: search-target-policy-bindings
+          description: Search policy bindings by target.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --folder=: The folder id of the location resource.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --organization=: The organization id of the location resource.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --target=!: The target resource, which is bound to the policy in the binding.
+        - name: update
+          description: Update PolicyBinding instance.
+          flags:
             --annotations=: Set annotations to new value.
             --async: Return immediately, without waiting for the operation in progress to
             --clear-annotations: Clear annotations value and set to empty map.
-            --clear-details-rules: Clear details_rules value and set to empty list.
-            --details-enforcement-version=: +
-            --details-rules=: Set details_rules to new value.
-            --display-name=: The description of the principal access boundary policy.
-            --etag=: The etag for the principal access boundary.
-            --location=: The location id of the principalAccessBoundaryPolicy resource.
+            --condition-description=: Description of the expression.
+            --condition-expression=: Textual representation of an expression in Common Expression Language
+            --condition-location=: String indicating the location of the expression for error
+            --condition-title=: Title for the expression, i.e. a short string describing
+            --display-name=: The description of the policy binding.
+            --etag=: The etag for the policy binding.
+            --folder=: The folder id of the policyBinding resource.
+            --location=: The location id of the policyBinding resource.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-clear-annotations&: Clear annotations value and set to empty map.
-            --no-clear-details-rules&: Clear details_rules value and set to empty list.
-            --organization=: The organization id of the principalAccessBoundaryPolicy resource.
+            --organization=: The organization id of the policyBinding resource.
             --remove-annotations=: Remove existing value from map annotations.
-            --remove-details-rules=: Remove existing value from details_rules list.
             --update-annotations=: Update annotations value or add key value pair.
+    - name: principal-access-boundary-policies
+      description: Manage principal access boundary policies.
+      commands:
         - name: create
           description: Create PrincipalAccessBoundaryPolicy instance.
           flags:
@@ -171,6 +270,26 @@ commands:
             --organization=: The organization id of the principalAccessBoundaryPolicy resource.
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: update
+          description: Update PrincipalAccessBoundaryPolicy instance.
+          flags:
+            --add-details-rules=: Add new value to details_rules list.
+            --annotations=: Set annotations to new value.
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-annotations: Clear annotations value and set to empty map.
+            --clear-details-rules: Clear details_rules value and set to empty list.
+            --details-enforcement-version=: +
+            --details-rules=: Set details_rules to new value.
+            --display-name=: The description of the principal access boundary policy.
+            --etag=: The etag for the principal access boundary.
+            --location=: The location id of the principalAccessBoundaryPolicy resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-annotations&: Clear annotations value and set to empty map.
+            --no-clear-details-rules&: Clear details_rules value and set to empty list.
+            --organization=: The organization id of the principalAccessBoundaryPolicy resource.
+            --remove-annotations=: Remove existing value from map annotations.
+            --remove-details-rules=: Remove existing value from details_rules list.
+            --update-annotations=: Update annotations value or add key value pair.
     - name: roles
       description: Create and manipulate roles.
       commands:
@@ -234,6 +353,19 @@ commands:
             --condition=: A condition to include in the binding.
             --member=!: The principal to add the binding for.
             --role=!: Role name to assign to the principal.
+        - name: create
+          description: Create a service account for a project.
+          flags:
+            --description=: A textual description for the account.
+            --display-name=: A textual name to display for the account.
+        - name: delete
+          description: Delete a service account from a project.
+        - name: describe
+          description: Show metadata for a service account from a project.
+        - name: disable
+          description: Disable an IAM service account.
+        - name: enable
+          description: Enable an IAM service account.
         - name: get-iam-policy
           description: Get the IAM policy for a service account.
           flags:
@@ -241,36 +373,6 @@ commands:
             --limit=: Maximum number of resources to list.
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: sign-jwt
-          description: Sign a JWT with a managed service account key.
-          flags:
-            --iam-account=!: The service account to sign as.
-        - name: undelete
-          description: Undelete a service account for a project.
-        - name: delete
-          description: Delete a service account from a project.
-        - name: disable
-          description: Disable an IAM service account.
-        - name: create
-          description: Create a service account for a project.
-          flags:
-            --description=: A textual description for the account.
-            --display-name=: A textual name to display for the account.
-        - name: enable
-          description: Enable an IAM service account.
-        - name: remove-iam-policy-binding
-          description: Remove IAM policy binding from a service account.
-          flags:
-            --all: Remove all bindings with this role and principal, irrespective of any
-            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
-            --condition=: The condition of the binding that you want to remove.
-            --member=!: The principal to remove the binding for.
-            --no-all&: ""
-            --role=!: The role to remove the principal from.
-        - name: set-iam-policy
-          description: Set IAM policy for a service account.
-        - name: describe
-          description: Show metadata for a service account from a project.
         - name: keys
           description: Manage service account keys.
           commands:
@@ -324,857 +426,32 @@ commands:
             --no-uri&: Print a list of resource URIs instead of the default output, and change the
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: remove-iam-policy-binding
+          description: Remove IAM policy binding from a service account.
+          flags:
+            --all: Remove all bindings with this role and principal, irrespective of any
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: The condition of the binding that you want to remove.
+            --member=!: The principal to remove the binding for.
+            --no-all&: ""
+            --role=!: The role to remove the principal from.
+        - name: set-iam-policy
+          description: Set IAM policy for a service account.
         - name: sign-blob
           description: Sign a blob with a managed service account key.
           flags:
             --iam-account=!: The service account to sign as.
+        - name: sign-jwt
+          description: Sign a JWT with a managed service account key.
+          flags:
+            --iam-account=!: The service account to sign as.
+        - name: undelete
+          description: Undelete a service account for a project.
         - name: update
           description: Update an IAM service account.
           flags:
             --description=: The new textual description for the account.
             --display-name=: The new textual name to display for the account.
-    - name: workload-identity-pools
-      description: Manage IAM workload identity pools.
-      commands:
-        - name: update
-          description: Update a workload identity pool.
-          flags:
-            --certificate-lifetime=: Lifetime of the workload certificates issued by the CA pool.
-            --description=: A description of the pool.
-            --disabled: Whether the pool is disabled.
-            --display-name=: A display name for the pool.
-            --enable-mesh-ca-compatibility&: Whether to enable mesh CA compatibility for the trust domain.
-            --inline-certificate-issuance-config-file=: YAML file with configuration for certificate issuance.
-            --inline-trust-config-file=: YAML file with configuration for providing additional trust bundles.
-            --key-algorithm=: Key algorithm to use when generating the key pair.
-            --location=: The location name.
-            --no-disabled&: Whether the pool is disabled.
-            --no-enable-mesh-ca-compatibility&: Whether to enable mesh CA compatibility for the trust domain.
-            --no-use-default-shared-ca&: Whether to use the default shared CA to issue certificates.
-            --rotation-window-percentage=: Rotation window percentage indicating when certificate rotation should be initiated based on
-            --session-duration=&: Overrides the lifespan of access tokens issued issued for identities in this pool.
-            --use-default-shared-ca&: Whether to use the default shared CA to issue certificates.
-          completion:
-            flag:
-                key-algorithm:
-                    - ecdsa-p256
-                    - ecdsa-p384
-                    - key-algorithm-unspecified
-                    - rsa-2048
-                    - rsa-3072
-                    - rsa-4096
-        - name: create
-          description: Create a new workload identity pool.
-          flags:
-            --description=: A description of the pool.
-            --disabled: Whether the pool is disabled.
-            --display-name=: A display name for the pool.
-            --enable-mesh-ca-compatibility&: Whether to enable mesh CA compatibility for the trust domain.
-            --inline-certificate-issuance-config-file=: YAML file with configuration for certificate issuance.
-            --inline-trust-config-file=: YAML file with configuration for providing additional trust bundles.
-            --location=: The location name.
-            --mode=: The mode of the pool.
-            --no-disabled&: Whether the pool is disabled.
-            --no-enable-mesh-ca-compatibility&: Whether to enable mesh CA compatibility for the trust domain.
-            --no-use-default-shared-ca&: Whether to use the default shared CA to issue certificates.
-            --session-duration=&: Overrides the lifespan of access tokens issued issued for identities in this pool.
-            --use-default-shared-ca&: Whether to use the default shared CA to issue certificates.
-          completion:
-            flag:
-                mode:
-                    - federation-only
-                    - mode-unspecified
-                    - trust-domain
-        - name: list-attestation-rules
-          description: List the attestation rules on a workload identity pool.
-          hidden: true
-          flags:
-            --container-id-filter=: Apply a filter on the container ids of the attestation rules
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: The location name.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: managed-identities
-          description: Manage IAM workload identity pool managed identities.
-          commands:
-            - name: create
-              description: Create a workload identity pool managed identity.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --description=: A description of the managed identity.
-                --disabled: Whether the managed identity is disabled.
-                --location=: The location name.
-                --namespace=: The ID to use for the namespace.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --no-disabled&: Whether the managed identity is disabled.
-                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: delete
-              description: Delete a workload identity pool managed identity.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --location=: The location name.
-                --namespace=: The ID to use for the namespace.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: list-attestation-rules
-              description: List the attestation rules on a workload identity pool managed identity.
-              flags:
-                --container-id-filter=: Apply a filter on the container ids of the attestation rules
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --limit=: Maximum number of resources to list.
-                --location=: The location name.
-                --namespace=: The ID to use for the namespace.
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: operations
-              description: Manage IAM workload identity pool managed identity long running operations.
-              commands:
-                - name: describe
-                  description: Describe a workload identity pool managed identity operation.
-                  flags:
-                    --location=: The location name.
-                    --managed-identity=: The ID to use for the managed identity.
-                    --namespace=: The ID to use for the namespace.
-                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: remove-attestation-rule
-              description: Remove an attestation rule on a workload identity pool managed identity.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --google-cloud-resource=!: A single workload operating on Google Cloud.
-                --location=: The location name.
-                --namespace=: The ID to use for the namespace.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: set-attestation-rules
-              description: Set attestation rules on a workload identity pool managed identity.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --location=: The location name.
-                --namespace=: The ID to use for the namespace.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --policy-file=!: Path to a local JSON-formatted or YAML-formatted file containing an
-                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: update
-              description: Update workload identity pool managed identity.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --description=: A description of the managed identity.
-                --disabled: Whether the managed identity is disabled.
-                --location=: The location name.
-                --namespace=: The ID to use for the namespace.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --no-disabled&: Whether the managed identity is disabled.
-                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: describe
-              description: Describe a workload identity pool managed identity.
-              flags:
-                --location=: The location name.
-                --namespace=: The ID to use for the namespace.
-                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: list
-              description: List workload identity pool managed identities.
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --limit=: Maximum number of resources to list.
-                --location=: The location name.
-                --namespace=!: ID of the workload identity pool namespace or fully qualified identifier for the workload identity pool namespace.
-                --no-show-deleted&: Whether to return soft-deleted resources.
-                --page-size=: Some services group resource list output into pages.
-                --show-deleted: Whether to return soft-deleted resources.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: undelete
-              description: Undelete a workload identity pool managed identity.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --location=: The location name.
-                --namespace=: The ID to use for the namespace.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: workload-sources
-              description: Manage IAM workload identity pool managed identity workload sources.
-              hidden: true
-              commands:
-                - name: operations
-                  description: Manage IAM workload identity pool managed identity workload source long running operations.
-                  hidden: true
-                  commands:
-                    - name: describe
-                      description: Describe a workload identity pool managed identity workload source operation.
-                      hidden: true
-                      flags:
-                        --location=: The location name.
-                        --managed-identity=: The ID to use for the managed identity.
-                        --namespace=: The ID to use for the namespace.
-                        --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-                        --workload-source=: The ID of the workload source, which becomes the final component of the resource name.
-                - name: update
-                  description: Update a workload source for a workload identity pool managed identity.
-                  hidden: true
-                  flags:
-                    --add-single-attribute-selectors=: Add an attribute that a workload can attest for it to be allowed to receive a managed identity.
-                    --async: Return immediately, without waiting for the operation in progress to
-                    --location=: The location name.
-                    --managed-identity=: The ID to use for the managed identity.
-                    --namespace=: The ID to use for the namespace.
-                    --no-async&: Return immediately, without waiting for the operation in progress to
-                    --remove-single-attribute-selectors=: Removes an attribute that a workload can attest for it to be allowed to receive a managed identity.
-                    --single-attribute-selectors=: Add an attribute that a workload can attest for it to be allowed to receive a managed identity.
-                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-                - name: create
-                  description: Create a workload source for a workload identity pool managed identity.
-                  hidden: true
-                  flags:
-                    --async: Return immediately, without waiting for the operation in progress to
-                    --location=: The location name.
-                    --managed-identity=: The ID to use for the managed identity.
-                    --namespace=: The ID to use for the namespace.
-                    --no-async&: Return immediately, without waiting for the operation in progress to
-                    --single-attribute-selectors=: The attributes that a workload can attest for it to be allowed to receive a managed identity.
-                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-                - name: delete
-                  description: Delete a workload identity pool managed identity workload source.
-                  hidden: true
-                  flags:
-                    --async: Return immediately, without waiting for the operation in progress to
-                    --location=: The location name.
-                    --managed-identity=: The ID to use for the managed identity.
-                    --namespace=: The ID to use for the namespace.
-                    --no-async&: Return immediately, without waiting for the operation in progress to
-                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-                - name: describe
-                  description: Describe a workload identity pool managed identity workload source.
-                  hidden: true
-                  flags:
-                    --location=: The location name.
-                    --managed-identity=: The ID to use for the managed identity.
-                    --namespace=: The ID to use for the namespace.
-                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-                - name: list
-                  description: List workload identity pool managed identity workload sources.
-                  hidden: true
-                  flags:
-                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                    --limit=: Maximum number of resources to list.
-                    --location=: The location name.
-                    --managed-identity=!: ID of the workload identity pool managed identity or fully qualified identifier for the workload identity pool managed identity.
-                    --namespace=: The ID to use for the namespace.
-                    --page-size=: Some services group resource list output into pages.
-                    --sort-by=: Comma-separated list of resource field key names to sort by.
-                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: add-attestation-rule
-              description: Add an attestation rule on a workload identity pool managed identity.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --google-cloud-resource=!: A single workload operating on Google Cloud.
-                --location=: The location name.
-                --namespace=: The ID to use for the namespace.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-        - name: providers
-          description: Manage IAM workload identity pool providers.
-          commands:
-            - name: update-oidc
-              description: Update an OIDC workload identity pool provider.
-              flags:
-                --allowed-audiences=: Acceptable values for the `aud` field (audience) in the OIDC token.
-                --attribute-condition=: '[A Common Expression Language](https://opensource.google/projects/cel)'
-                --attribute-mapping=: Maps attributes from authentication credentials issued by an external
-                --description=: A description for the provider.
-                --disabled: Whether the provider is disabled.
-                --display-name=: A display name for the provider.
-                --issuer-uri=: The OIDC issuer URL.
-                --jwk-json-path=: Optional file containing jwk public keys.
-                --location=: The location name.
-                --no-disabled&: Whether the provider is disabled.
-                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: update-saml
-              description: Update a SAML workload identity pool provider.
-              flags:
-                --attribute-condition=: '[A Common Expression Language](https://opensource.google/projects/cel)'
-                --attribute-mapping=: Maps attributes from authentication credentials issued by an external
-                --description=: A description for the provider.
-                --disabled: Whether the provider is disabled.
-                --display-name=: A display name for the provider.
-                --idp-metadata-path=: XML file with configuration metadata for the SAML identity provider.
-                --location=: The location name.
-                --no-disabled&: Whether the provider is disabled.
-                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: create-aws
-              description: Create a new AWS workload identity pool provider.
-              flags:
-                --account-id=!: The AWS account ID.
-                --attribute-condition=: '[A Common Expression Language](https://opensource.google/projects/cel)'
-                --attribute-mapping=: Maps attributes from authentication credentials issued by an external
-                --description=: A description for the provider.
-                --disabled: Whether the provider is disabled.
-                --display-name=: A display name for the provider.
-                --location=: The location name.
-                --no-disabled&: Whether the provider is disabled.
-                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: create-saml
-              description: Create a new SAML workload identity pool provider.
-              flags:
-                --attribute-condition=: '[A Common Expression Language](https://opensource.google/projects/cel)'
-                --attribute-mapping=!: Maps attributes from authentication credentials issued by an external
-                --description=: A description for the provider.
-                --disabled: Whether the provider is disabled.
-                --display-name=: A display name for the provider.
-                --idp-metadata-path=!: XML file with configuration metadata for the SAML identity provider.
-                --location=: The location name.
-                --no-disabled&: Whether the provider is disabled.
-                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: describe
-              description: Describe a workload identity pool provider.
-              flags:
-                --location=: The location name.
-                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: keys
-              description: Manage IAM workload identity pool provider keys.
-              commands:
-                - name: describe
-                  description: Describe a workload identity pool provider key.
-                  flags:
-                    --location=: The location name.
-                    --provider=: The ID for the provider, which becomes the final component of the resource name.
-                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-                - name: list
-                  description: List workload identity pool provider keys.
-                  flags:
-                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                    --limit=: Maximum number of resources to list.
-                    --location=: The location name.
-                    --no-show-deleted&: Whether to return soft-deleted resources.
-                    --page-size=: Some services group resource list output into pages.
-                    --provider=!: ID of the workload identity pool provider or fully qualified identifier for the workload identity pool provider.
-                    --show-deleted: Whether to return soft-deleted resources.
-                    --sort-by=: Comma-separated list of resource field key names to sort by.
-                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-                - name: operations
-                  description: Manage IAM workload identity pool provider key long running operations.
-                  commands:
-                    - name: describe
-                      description: Describe a workload identity pool provider key operation.
-                      flags:
-                        --key=: The ID for the key, which becomes the final component of the resource name.
-                        --location=: The location name.
-                        --provider=: The ID for the provider, which becomes the final component of the resource name.
-                        --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-                - name: undelete
-                  description: Undelete a workload identity pool provider key.
-                  flags:
-                    --async: Return immediately, without waiting for the operation in progress to
-                    --location=: The location name.
-                    --no-async&: Return immediately, without waiting for the operation in progress to
-                    --provider=: The ID for the provider, which becomes the final component of the resource name.
-                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-                - name: create
-                  description: Create a new workload identity pool provider key.
-                  flags:
-                    --async: Return immediately, without waiting for the operation in progress to
-                    --location=: The location name.
-                    --no-async&: Return immediately, without waiting for the operation in progress to
-                    --provider=: The ID for the provider, which becomes the final component of the resource name.
-                    --spec=!: The specifications for the key.
-                    --use=!: The purpose of the key.
-                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-                  completion:
-                    flag:
-                        spec:
-                            - key-spec-unspecified
-                            - rsa-2048
-                            - rsa-3072
-                            - rsa-4096
-                        use:
-                            - encryption
-                            - key-use-unspecified
-                - name: delete
-                  description: Delete a workload identity pool provider key.
-                  flags:
-                    --async: Return immediately, without waiting for the operation in progress to
-                    --location=: The location name.
-                    --no-async&: Return immediately, without waiting for the operation in progress to
-                    --provider=: The ID for the provider, which becomes the final component of the resource name.
-                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: list
-              description: List workload identity pool providers.
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --limit=: Maximum number of resources to list.
-                --location=: The location name.
-                --no-show-deleted&: Whether to return soft-deleted resources.
-                --page-size=: Some services group resource list output into pages.
-                --show-deleted: Whether to return soft-deleted resources.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --workload-identity-pool=!: ID of the workload identity pool or fully qualified identifier for the workload identity pool.
-            - name: update-aws
-              description: Update an AWS workload identity pool provider.
-              flags:
-                --account-id=: The AWS account ID.
-                --attribute-condition=: '[A Common Expression Language](https://opensource.google/projects/cel)'
-                --attribute-mapping=: Maps attributes from authentication credentials issued by an external
-                --description=: A description for the provider.
-                --disabled: Whether the provider is disabled.
-                --display-name=: A display name for the provider.
-                --location=: The location name.
-                --no-disabled&: Whether the provider is disabled.
-                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: update-x509
-              description: Update an X.509 workload identity pool provider.
-              flags:
-                --attribute-condition=: '[A Common Expression Language](https://opensource.google/projects/cel)'
-                --attribute-mapping=: Maps attributes from authentication credentials issued by an external
-                --description=: A description for the provider.
-                --disabled: Whether the provider is disabled.
-                --display-name=: A display name for the provider.
-                --location=: The location name.
-                --no-disabled&: Whether the provider is disabled.
-                --trust-store-config-path=: YAML file with configuration metadata for the X.509 identity provider.
-                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: create-oidc
-              description: Create a new OIDC workload identity pool provider.
-              flags:
-                --allowed-audiences=: Acceptable values for the `aud` field (audience) in the OIDC token.
-                --attribute-condition=: '[A Common Expression Language](https://opensource.google/projects/cel)'
-                --attribute-mapping=!: Maps attributes from authentication credentials issued by an external
-                --description=: A description for the provider.
-                --disabled: Whether the provider is disabled.
-                --display-name=: A display name for the provider.
-                --issuer-uri=!: The OIDC issuer URL.
-                --jwk-json-path=: Optional file containing jwk public keys.
-                --location=: The location name.
-                --no-disabled&: Whether the provider is disabled.
-                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: create-x509
-              description: Create a new X.509 workload identity pool provider.
-              flags:
-                --attribute-condition=: '[A Common Expression Language](https://opensource.google/projects/cel)'
-                --attribute-mapping=: Maps attributes from authentication credentials issued by an external
-                --description=: A description for the provider.
-                --disabled: Whether the provider is disabled.
-                --display-name=: A display name for the provider.
-                --location=: The location name.
-                --no-disabled&: Whether the provider is disabled.
-                --trust-store-config-path=!: YAML file with configuration metadata for the X.509 identity provider.
-                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: delete
-              description: Delete a workload identity pool provider.
-              flags:
-                --location=: The location name.
-                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: operations
-              description: Manage IAM workload identity pool provider long running operations.
-              commands:
-                - name: describe
-                  description: Describe a workload identity pool provider operation.
-                  flags:
-                    --location=: The location name.
-                    --provider=: The ID for the provider, which becomes the final component of the resource name.
-                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: undelete
-              description: Undelete a workload identity pool provider.
-              flags:
-                --location=: The location name.
-                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-        - name: remove-attestation-rule
-          description: Remove an attestation rule on a workload identity pool.
-          hidden: true
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --google-cloud-resource=!: A single workload operating on Google Cloud.
-            --location=: The location name.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: get-iam-policy
-          description: Get the IAM policy for a workload identity pool.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: The location name.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: namespaces
-          description: Manage IAM workload identity pool namespaces.
-          commands:
-            - name: operations
-              description: Manage IAM workload identity pool namespace long running operations.
-              commands:
-                - name: describe
-                  description: Describe a workload identity pool namespace operation.
-                  flags:
-                    --location=: The location name.
-                    --namespace=: The ID to use for the namespace.
-                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: set-attestation-rules
-              description: Set attestation rules on a workload identity pool namespace.
-              hidden: true
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --location=: The location name.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --policy-file=!: Path to a local JSON-formatted or YAML-formatted file containing an
-                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: undelete
-              description: Undelete a workload identity pool namespace.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --location=: The location name.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: add-attestation-rule
-              description: Add an attestation rule on a workload identity pool namespace.
-              hidden: true
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --google-cloud-resource=!: A single workload operating on Google Cloud.
-                --location=: The location name.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: remove-attestation-rule
-              description: Remove an attestation rule on a workload identity pool namespace.
-              hidden: true
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --google-cloud-resource=!: A single workload operating on Google Cloud.
-                --location=: The location name.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: update
-              description: Update workload identity pool namespace.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --description=: A description of the namespace.
-                --disabled: Whether the namespace is disabled.
-                --location=: The location name.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --no-disabled&: Whether the namespace is disabled.
-                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: workload-sources
-              description: Manage IAM workload identity pool namespace workload sources.
-              hidden: true
-              commands:
-                - name: delete
-                  description: Delete a workload identity pool namespace workload source.
-                  hidden: true
-                  flags:
-                    --async: Return immediately, without waiting for the operation in progress to
-                    --location=: The location name.
-                    --namespace=: The ID to use for the namespace.
-                    --no-async&: Return immediately, without waiting for the operation in progress to
-                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-                - name: describe
-                  description: Describe a workload identity pool namespace workload source.
-                  hidden: true
-                  flags:
-                    --location=: The location name.
-                    --namespace=: The ID to use for the namespace.
-                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-                - name: list
-                  description: List workload identity pool namespace workload sources.
-                  hidden: true
-                  flags:
-                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                    --limit=: Maximum number of resources to list.
-                    --location=: The location name.
-                    --namespace=!: ID of the workload identity pool namespace or fully qualified identifier for the workload identity pool namespace.
-                    --page-size=: Some services group resource list output into pages.
-                    --sort-by=: Comma-separated list of resource field key names to sort by.
-                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-                - name: operations
-                  description: Manage IAM workload identity pool namespace workload source long running operations.
-                  hidden: true
-                  commands:
-                    - name: describe
-                      description: Describe a workload identity pool namespace workload source operation.
-                      hidden: true
-                      flags:
-                        --location=: The location name.
-                        --namespace=: The ID to use for the namespace.
-                        --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-                        --workload-source=: The ID of the workload source, which becomes the final component of the resource name.
-                - name: update
-                  description: Update a workload source for a workload identity pool namespace.
-                  hidden: true
-                  flags:
-                    --allow-identity-self-selection: Allows matched workloads to request any identity within the namespace.
-                    --async: Return immediately, without waiting for the operation in progress to
-                    --location=: The location name.
-                    --namespace=: The ID to use for the namespace.
-                    --no-allow-identity-self-selection&: Allows matched workloads to request any identity within the namespace.
-                    --no-async&: Return immediately, without waiting for the operation in progress to
-                    --single-attribute-selectors=: An attribute that a workload can attest for it to be allow to receive a managed identity.
-                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-                - name: create
-                  description: Create a workload source for a workload identity pool namespace.
-                  hidden: true
-                  flags:
-                    --allow-identity-self-selection: Allows matched workloads to request any identity within the namespace.
-                    --async: Return immediately, without waiting for the operation in progress to
-                    --location=: The location name.
-                    --namespace=: The ID to use for the namespace.
-                    --no-allow-identity-self-selection&: Allows matched workloads to request any identity within the namespace.
-                    --no-async&: Return immediately, without waiting for the operation in progress to
-                    --single-attribute-selectors=: Attributes that a workload must attest for it to be matched by the workload source.
-                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: create
-              description: Create a workload identity pool namespace.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --description=: A description of the namespace.
-                --disabled: Whether the namespace is disabled.
-                --location=: The location name.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --no-disabled&: Whether the namespace is disabled.
-                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: delete
-              description: Delete a workload identity pool namespace.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --location=: The location name.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: describe
-              description: Describe a workload identity pool namespace.
-              flags:
-                --location=: The location name.
-                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-            - name: list
-              description: List workload identity pool namespaces.
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --limit=: Maximum number of resources to list.
-                --location=: The location name.
-                --no-show-deleted&: Whether to return soft-deleted resources.
-                --page-size=: Some services group resource list output into pages.
-                --show-deleted: Whether to return soft-deleted resources.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --workload-identity-pool=!: ID of the workload identity pool or fully qualified identifier for the workload identity pool.
-            - name: list-attestation-rules
-              description: List the attestation rules on a workload identity pool namespace.
-              hidden: true
-              flags:
-                --container-id-filter=: Apply a filter on the container ids of the attestation rules
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --limit=: Maximum number of resources to list.
-                --location=: The location name.
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-        - name: operations
-          description: Manage IAM workload identity pool long running operations.
-          commands:
-            - name: describe
-              description: Describe a workload identity pool operation.
-              flags:
-                --location=: The location name.
-                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
-        - name: set-attestation-rules
-          description: Set attestation rules on a workload identity pool.
-          hidden: true
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: The location name.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --policy-file=!: Path to a local JSON-formatted or YAML-formatted file containing an
-        - name: set-iam-policy
-          description: Set the IAM policy for a workload identity pool.
-          flags:
-            --location=: The location name.
-        - name: delete
-          description: Delete a workload identity pool.
-          flags:
-            --location=: The location name.
-        - name: describe
-          description: Describe a workload identity pool.
-          flags:
-            --location=: The location name.
-        - name: list
-          description: List workload identity pools.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=!: ID of the location or fully qualified identifier for the location.
-            --no-show-deleted&: Whether to return soft-deleted pools.
-            --page-size=: Some services group resource list output into pages.
-            --show-deleted: Whether to return soft-deleted pools.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: remove-iam-policy-binding
-          description: Remove IAM policy binding from a workload identity pool.
-          flags:
-            --all: Remove all bindings with this role and principal, irrespective of any
-            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
-            --condition=: The condition of the binding that you want to remove.
-            --location=: The location name.
-            --member=!: The principal to remove the binding for.
-            --no-all&: ""
-            --role=!: The role to remove the principal from.
-        - name: undelete
-          description: Undelete a workload identity pool.
-          flags:
-            --location=: The location name.
-        - name: add-attestation-rule
-          description: Add an attestation rule on a workload identity pool.
-          hidden: true
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --google-cloud-resource=!: A single workload running on Google Cloud.
-            --location=: The location name.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: add-iam-policy-binding
-          description: Add IAM policy binding for a workload identity pool.
-          flags:
-            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
-            --condition=: A condition to include in the binding.
-            --location=: The location name.
-            --member=!: The principal to add the binding for.
-            --role=!: Role name to assign to the principal.
-        - name: create-cred-config
-          description: Create a configuration file for generated credentials.
-          flags:
-            --app-id-uri=: The custom Application ID URI for the Azure access token.
-            --aws: Use AWS.
-            --azure: Use Azure.
-            --credential-cert-configuration-output-file=: Path for the certificate configuration file.
-            --credential-cert-path=: Path of the X.509 certificate file.
-            --credential-cert-private-key-path=!: Path of the X.509 private key file.
-            --credential-cert-trust-chain-path=: Path for the trust chain file.
-            --credential-source-field-name=: Subject token field name (key) in a JSON credential source.
-            --credential-source-file=: Location of the credential source file.
-            --credential-source-headers=: Headers to use when querying the credential-source-url.
-            --credential-source-type=: Format of the credential source (JSON or text).
-            --credential-source-url=: URL to obtain the credential from.
-            --enable-imdsv2: Adds the AWS IMDSv2 session token Url to the credential source to enforce the AWS IMDSv2 flow.
-            --executable-command=: The full command to run to retrieve the credential.
-            --executable-output-file=: Absolute path to the file storing the executable response.
-            --executable-timeout-millis=: Timeout duration, in milliseconds, to wait for the executable to finish.
-            --no-aws&: Use AWS.
-            --no-azure&: Use Azure.
-            --no-enable-imdsv2&: Adds the AWS IMDSv2 session token Url to the credential source to enforce the AWS IMDSv2 flow.
-            --output-file=!: Location to store the generated credential configuration file.
-            --service-account-token-lifetime-seconds=: Lifetime duration of the service account access token in seconds.
-            --service-account=!: Email of the service account to impersonate.
-            --sts-location=: The location to use for the Security Token Service token endpoint.
-            --subject-token-type=: The type of token being used for authorization.
-    - name: policies
-      description: Manage IAM deny policies.
-      commands:
-        - name: create
-          description: Create a policy on the given attachment point with the given name.
-          flags:
-            --attachment-point=!: Resource to which the policy is attached.
-            --kind=!: Policy type.
-            --policy-file=!: Path to the file that contains the policy, in JSON or YAML format.
-        - name: delete
-          description: Delete a policy on the given attachment point with the given name.
-          flags:
-            --attachment-point=!: Resource to which the policy is attached.
-            --etag=: Etag that identifies the version of the existing policy.
-            --kind=!: Policy type.
-        - name: get
-          description: Get a policy on the given attachment point with the given name.
-          flags:
-            --attachment-point=!: Resource to which the policy is attached.
-            --kind=!: Policy type.
-        - name: list
-          description: List the policies on the given attachment point.
-          flags:
-            --attachment-point=!: Resource to which the policy is attached.
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --kind=!: Policy type.
-            --limit=: Maximum number of resources to list.
-            --page-size=: Some services group resource list output into pages.
-            --page-token=: Page token received from a previous call.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: update
-          description: Update the policy on the given attachment point with the given name.
-          flags:
-            --attachment-point=!: Resource to which the policy is attached.
-            --etag=: Etag that identifies the version of the existing policy.
-            --kind=!: Policy type.
-            --policy-file=!: Path to the file that contains the policy, in JSON or YAML format.
-    - name: policy-bindings
-      description: Manage policy bindings.
-      commands:
-        - name: list
-          description: List PolicyBinding instances.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --folder=: The folder id of the location resource.
-            --limit=: Maximum number of resources to list.
-            --location=!: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --organization=: The organization id of the location resource.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: search-target-policy-bindings
-          description: Search policy bindings by target.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --folder=: The folder id of the location resource.
-            --limit=: Maximum number of resources to list.
-            --location=!: ID of the location or fully qualified identifier for the location.
-            --organization=: The organization id of the location resource.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --target=!: The target resource, which is bound to the policy in the binding.
-        - name: update
-          description: Update PolicyBinding instance.
-          flags:
-            --annotations=: Set annotations to new value.
-            --async: Return immediately, without waiting for the operation in progress to
-            --clear-annotations: Clear annotations value and set to empty map.
-            --condition-description=: Description of the expression.
-            --condition-expression=: Textual representation of an expression in Common Expression Language
-            --condition-location=: String indicating the location of the expression for error
-            --condition-title=: Title for the expression, i.e. a short string describing
-            --display-name=: The description of the policy binding.
-            --etag=: The etag for the policy binding.
-            --folder=: The folder id of the policyBinding resource.
-            --location=: The location id of the policyBinding resource.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-clear-annotations&: Clear annotations value and set to empty map.
-            --organization=: The organization id of the policyBinding resource.
-            --remove-annotations=: Remove existing value from map annotations.
-            --update-annotations=: Update annotations value or add key value pair.
-        - name: create
-          description: Create PolicyBinding instance.
-          flags:
-            --annotations=: User defined annotations.
-            --async: Return immediately, without waiting for the operation in progress to
-            --condition-description=: Description of the expression.
-            --condition-expression=: Textual representation of an expression in Common Expression Language
-            --condition-location=: String indicating the location of the expression for error
-            --condition-title=: Title for the expression, i.e. a short string describing
-            --display-name=: The description of the policy binding.
-            --etag=: The etag for the policy binding.
-            --folder=: The folder id of the policyBinding resource.
-            --location=: The location id of the policyBinding resource.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --organization=: The organization id of the policyBinding resource.
-            --policy-kind=: The kind of the policy to attach in this binding.
-            --policy=!: The resource name of the policy to be bound.
-            --target-principal-set=: Full Resource Name used for principal access boundary policy bindings
-          completion:
-            flag:
-                policy-kind:
-                    - principal-access-boundary
-        - name: delete
-          description: Delete PolicyBinding instance.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --etag=: The etag of the policy binding.
-            --folder=: The folder id of the policyBinding resource.
-            --location=: The location id of the policyBinding resource.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --organization=: The organization id of the policyBinding resource.
-        - name: describe
-          description: Get PolicyBinding instance.
-          flags:
-            --folder=: The folder id of the policyBinding resource.
-            --location=: The location id of the policyBinding resource.
-            --organization=: The organization id of the policyBinding resource.
     - name: simulator
       description: Understand how an IAM policy change could impact access before deploying the change.
       commands:
@@ -1183,37 +460,6 @@ commands:
     - name: workforce-pools
       description: Create and manage workforce pools.
       commands:
-        - name: operations
-          description: Manage IAM workforce pool long-running operations.
-          commands:
-            - name: describe
-              description: Describe a workforce pool operation.
-              flags:
-                --location=: The location for the workforce pool.
-                --workforce-pool=: The ID to use for the workforce pool, which becomes the final component of the
-        - name: set-iam-policy
-          description: Set the IAM policy for a workforce pool.
-          flags:
-            --location=: The location for the workforce pool.
-        - name: undelete
-          description: Undelete a workforce pool.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: The location for the workforce pool.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: update
-          description: Update a workforce pool.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --description=: A description for the workforce pool.
-            --disable-programmatic-signin: Disables the programmatic sign-in for workforce pool users.
-            --disabled: Disables the workforce pool.
-            --display-name=: A display name for the workforce pool.
-            --location=: The location for the workforce pool.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-disable-programmatic-signin&: Disables the programmatic sign-in for workforce pool users.
-            --no-disabled&: Disables the workforce pool.
-            --session-duration=: How long the Google Cloud access tokens, console sign-in sessions, and gcloud sign-in sessions
         - name: create
           description: Create a new workforce pool under an organization.
           flags:
@@ -1229,6 +475,25 @@ commands:
             --no-disabled&: Whether or not the workforce pool is disabled.
             --organization=!: The parent organization of the workforce pool to create.
             --session-duration=: How long the Google Cloud access tokens, console sign-in sessions, and gcloud sign-in sessions from this workforce pool are valid.
+        - name: create-cred-config
+          description: Create a configuration file for generated credentials.
+          flags:
+            --credential-source-field-name=: Subject token field name (key) in a JSON credential source.
+            --credential-source-file=: The location of the file which stores the credential.
+            --credential-source-headers=: Headers to use when querying the credential-source-url.
+            --credential-source-type=: Format of the credential source (JSON or text).
+            --credential-source-url=: The URL to obtain the credential from.
+            --enable-mtls&: Use mTLS for STS endpoints.
+            --executable-command=: The full command to run to retrieve the credential.
+            --executable-interactive-timeout-millis=: Timeout duration, in milliseconds, to wait for the executable to finish when the command is running in interactive mode.
+            --executable-output-file=: Absolute path to the file storing the executable response.
+            --executable-timeout-millis=: Timeout duration, in milliseconds, to wait for the executable to finish.
+            --no-enable-mtls&: Use mTLS for STS endpoints.
+            --output-file=!: Location to store the generated credential configuration file.
+            --service-account-token-lifetime-seconds=: Lifetime duration of the service account access token in seconds.
+            --service-account=!: Email of the service account to impersonate.
+            --subject-token-type=: The type of token being used for authorization.
+            --workforce-pool-user-project=!: The client project number used to identify the application (client project) to the server when calling Google APIs.
         - name: create-login-config
           description: Create a login configuration file to enable sign-in via a web-based authorization flow using Workforce Identity Federation.
           flags:
@@ -1244,6 +509,10 @@ commands:
             --async: Return immediately, without waiting for the operation in progress to
             --location=: The location for the workforce pool.
             --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe a workforce pool.
+          flags:
+            --location=: The location for the workforce pool.
         - name: get-iam-policy
           description: Get the IAM policy for a workforce pool.
           flags:
@@ -1263,9 +532,64 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --show-deleted: Show soft-deleted workforce pools by specifying this flag.
             --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: operations
+          description: Manage IAM workforce pool long-running operations.
+          commands:
+            - name: describe
+              description: Describe a workforce pool operation.
+              flags:
+                --location=: The location for the workforce pool.
+                --workforce-pool=: The ID to use for the workforce pool, which becomes the final component of the
         - name: providers
           description: Create and manage workforce pool providers.
           commands:
+            - name: create-oidc
+              description: Create a new OIDC workforce pool provider.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --attribute-condition=: A [Common Expression Language](https://opensource.google/projects/cel) expression, in plain
+                --attribute-mapping=!: Maps claims from the authentication credentials issued by the Identity Provider into Google
+                --attribute-sync-interval=&: An interval that determines how often user attributes are synced from the
+                --client-id=!: The OIDC client ID.
+                --client-secret-value=: The OIDC client secret.
+                --description=: A description for the workforce pool provider.
+                --detailed-audit-logging: Enables detailed audit logging for this provider, which populates additional debug information
+                --disabled: Disables the workforce pool provider.
+                --display-name=: A display name for the workforce pool provider.
+                --extended-attributes-client-id=!: The OAuth 2.0 client ID for retrieving extended attributes from the identity provider.
+                --extended-attributes-client-secret-value=!: The OAuth 2.0 client secret for retrieving extended attributes from the identity provider.
+                --extended-attributes-filter=: The filter used to request specific records from the IdP.
+                --extended-attributes-issuer-uri=!: OIDC identity provider's issuer URI.
+                --extended-attributes-type=!: Represents the identity provider and type of claims that should be fetched.
+                --extra-attributes-client-id=!: The OAuth 2.0 client ID for retrieving extra attributes from the identity provider.
+                --extra-attributes-client-secret-value=!: The OAuth 2.0 client secret for retrieving extra attributes from the identity provider.
+                --extra-attributes-filter=: The filter used to request specific records from the IdP.
+                --extra-attributes-issuer-uri=!: OIDC identity provider's issuer URI.
+                --extra-attributes-type=!: Represents the identity provider and type of claims that should be fetched.
+                --issuer-uri=!: The OIDC issuer URI.
+                --jwk-json-path=: Optional file containing JSON Web Key (JWK) public keys.
+                --location=: The location for the workforce pool.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-detailed-audit-logging&: Enables detailed audit logging for this provider, which populates additional debug information
+                --no-disabled&: Disables the workforce pool provider.
+                --scim-usage=: Specifies whether the workforce identity pool provider uses SCIM-managed
+                --web-sso-additional-scopes=: Additional scopes to request for the OIDC authentication on
+                --web-sso-assertion-claims-behavior=!: The behavior for how OIDC Claims are included in the `assertion` object used for attribute mapping and attribute condition.
+                --web-sso-response-type=!: Response Type to request for in the OIDC Authorization Request for web sign-in.
+                --workforce-pool=: The ID to use for the workforce pool, which becomes the final component of the
+              completion:
+                flag:
+                    scim-usage:
+                        - enabled-for-groups
+                        - scim-usage-unspecified
+                    web-sso-assertion-claims-behavior:
+                        - assertion-claims-behavior-unspecified
+                        - merge-user-info-over-id-token-claims
+                        - only-id-token-claims
+                    web-sso-response-type:
+                        - code
+                        - id-token
+                        - response-type-unspecified
             - name: create-saml
               description: Create a new SAML workforce pool provider.
               flags:
@@ -1313,6 +637,35 @@ commands:
             - name: keys
               description: Create and manage IAM workforce pool provider keys.
               commands:
+                - name: create
+                  description: Create a new workforce pool provider key.
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --location=: The location for the workforce pool.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --provider=: The ID to use for the workforce pool provider, which becomes the final component of the
+                    --spec=!: The specifications for the key.
+                    --use=!: The purpose of the key.
+                    --workforce-pool=: The ID to use for the workforce pool, which becomes the final component of the
+                  completion:
+                    flag:
+                        spec:
+                            - key-spec-unspecified
+                            - rsa-2048
+                            - rsa-3072
+                            - rsa-4096
+                        use:
+                            - encryption
+                            - key-use-unspecified
+                            - signing
+                - name: delete
+                  description: Delete a workforce pool provider key.
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --location=: The location for the workforce pool.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --provider=: The ID to use for the workforce pool provider, which becomes the final component of the
+                    --workforce-pool=: The ID to use for the workforce pool, which becomes the final component of the
                 - name: describe
                   description: Describe a workforce pool provider key.
                   flags:
@@ -1349,35 +702,6 @@ commands:
                     --no-async&: Return immediately, without waiting for the operation in progress to
                     --provider=: The ID to use for the workforce pool provider, which becomes the final component of the
                     --workforce-pool=: The ID to use for the workforce pool, which becomes the final component of the
-                - name: create
-                  description: Create a new workforce pool provider key.
-                  flags:
-                    --async: Return immediately, without waiting for the operation in progress to
-                    --location=: The location for the workforce pool.
-                    --no-async&: Return immediately, without waiting for the operation in progress to
-                    --provider=: The ID to use for the workforce pool provider, which becomes the final component of the
-                    --spec=!: The specifications for the key.
-                    --use=!: The purpose of the key.
-                    --workforce-pool=: The ID to use for the workforce pool, which becomes the final component of the
-                  completion:
-                    flag:
-                        spec:
-                            - key-spec-unspecified
-                            - rsa-2048
-                            - rsa-3072
-                            - rsa-4096
-                        use:
-                            - encryption
-                            - key-use-unspecified
-                            - signing
-                - name: delete
-                  description: Delete a workforce pool provider key.
-                  flags:
-                    --async: Return immediately, without waiting for the operation in progress to
-                    --location=: The location for the workforce pool.
-                    --no-async&: Return immediately, without waiting for the operation in progress to
-                    --provider=: The ID to use for the workforce pool provider, which becomes the final component of the
-                    --workforce-pool=: The ID to use for the workforce pool, which becomes the final component of the
             - name: list
               description: List workforce pool providers.
               flags:
@@ -1389,6 +713,15 @@ commands:
                 --show-deleted: Show soft-deleted workforce pool providers by specifying this flag.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --workforce-pool=!: ID of the workforce pool or fully qualified identifier for the workforce pool.
+            - name: operations
+              description: Manage IAM workforce pool provider long-running operations.
+              commands:
+                - name: describe
+                  description: Describe a workforce pool provider operation.
+                  flags:
+                    --location=: The location for the workforce pool.
+                    --provider=: The ID to use for the workforce pool provider, which becomes the final component of the
+                    --workforce-pool=: The ID to use for the workforce pool, which becomes the final component of the
             - name: scim-tenants
               description: Manage IAM workforce identity pool provider SCIM tenants.
               commands:
@@ -1430,6 +763,14 @@ commands:
                 - name: tokens
                   description: Manage IAM workforce identity pool provider SCIM tenant tokens.
                   commands:
+                    - name: create
+                      description: Create an IAM workforce identity pool provider SCIM tenant token.
+                      flags:
+                        --display-name=: Optional, user-specified display name for the SCIM token (max 32 characters).
+                        --location=: The location for the workforce pool.
+                        --provider=: The ID to use for the workforce pool provider, which becomes the final component of the
+                        --scim-tenant=: The ID for the SCIM tenant, which becomes the final component of the resource name.
+                        --workforce-pool=: The ID to use for the workforce pool, which becomes the final component of the
                     - name: delete
                       description: Delete an IAM workforce identity pool provider SCIM tenant token.
                       flags:
@@ -1472,14 +813,6 @@ commands:
                         --provider=: The ID to use for the workforce pool provider, which becomes the final component of the
                         --scim-tenant=: The ID for the SCIM tenant, which becomes the final component of the resource name.
                         --workforce-pool=: The ID to use for the workforce pool, which becomes the final component of the
-                    - name: create
-                      description: Create an IAM workforce identity pool provider SCIM tenant token.
-                      flags:
-                        --display-name=: Optional, user-specified display name for the SCIM token (max 32 characters).
-                        --location=: The location for the workforce pool.
-                        --provider=: The ID to use for the workforce pool provider, which becomes the final component of the
-                        --scim-tenant=: The ID for the SCIM tenant, which becomes the final component of the resource name.
-                        --workforce-pool=: The ID to use for the workforce pool, which becomes the final component of the
                 - name: undelete
                   description: Undelete an IAM workforce identity pool provider SCIM tenant.
                   flags:
@@ -1495,6 +828,13 @@ commands:
                     --location=: The location for the workforce pool.
                     --provider=: The ID to use for the workforce pool provider, which becomes the final component of the
                     --workforce-pool=: The ID to use for the workforce pool, which becomes the final component of the resource name.
+            - name: undelete
+              description: Undelete a workforce pool provider.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location for the workforce pool.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --workforce-pool=: The ID to use for the workforce pool, which becomes the final component of the
             - name: update-oidc
               description: Update an OIDC workforce pool provider.
               flags:
@@ -1548,22 +888,6 @@ commands:
                         - code
                         - id-token
                         - response-type-unspecified
-            - name: operations
-              description: Manage IAM workforce pool provider long-running operations.
-              commands:
-                - name: describe
-                  description: Describe a workforce pool provider operation.
-                  flags:
-                    --location=: The location for the workforce pool.
-                    --provider=: The ID to use for the workforce pool provider, which becomes the final component of the
-                    --workforce-pool=: The ID to use for the workforce pool, which becomes the final component of the
-            - name: undelete
-              description: Undelete a workforce pool provider.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --location=: The location for the workforce pool.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --workforce-pool=: The ID to use for the workforce pool, which becomes the final component of the
             - name: update-saml
               description: Update a new SAML workforce pool provider.
               flags:
@@ -1600,56 +924,20 @@ commands:
                     scim-usage:
                         - enabled-for-groups
                         - scim-usage-unspecified
-            - name: create-oidc
-              description: Create a new OIDC workforce pool provider.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --attribute-condition=: A [Common Expression Language](https://opensource.google/projects/cel) expression, in plain
-                --attribute-mapping=!: Maps claims from the authentication credentials issued by the Identity Provider into Google
-                --attribute-sync-interval=&: An interval that determines how often user attributes are synced from the
-                --client-id=!: The OIDC client ID.
-                --client-secret-value=: The OIDC client secret.
-                --description=: A description for the workforce pool provider.
-                --detailed-audit-logging: Enables detailed audit logging for this provider, which populates additional debug information
-                --disabled: Disables the workforce pool provider.
-                --display-name=: A display name for the workforce pool provider.
-                --extended-attributes-client-id=!: The OAuth 2.0 client ID for retrieving extended attributes from the identity provider.
-                --extended-attributes-client-secret-value=!: The OAuth 2.0 client secret for retrieving extended attributes from the identity provider.
-                --extended-attributes-filter=: The filter used to request specific records from the IdP.
-                --extended-attributes-issuer-uri=!: OIDC identity provider's issuer URI.
-                --extended-attributes-type=!: Represents the identity provider and type of claims that should be fetched.
-                --extra-attributes-client-id=!: The OAuth 2.0 client ID for retrieving extra attributes from the identity provider.
-                --extra-attributes-client-secret-value=!: The OAuth 2.0 client secret for retrieving extra attributes from the identity provider.
-                --extra-attributes-filter=: The filter used to request specific records from the IdP.
-                --extra-attributes-issuer-uri=!: OIDC identity provider's issuer URI.
-                --extra-attributes-type=!: Represents the identity provider and type of claims that should be fetched.
-                --issuer-uri=!: The OIDC issuer URI.
-                --jwk-json-path=: Optional file containing JSON Web Key (JWK) public keys.
-                --location=: The location for the workforce pool.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --no-detailed-audit-logging&: Enables detailed audit logging for this provider, which populates additional debug information
-                --no-disabled&: Disables the workforce pool provider.
-                --scim-usage=: Specifies whether the workforce identity pool provider uses SCIM-managed
-                --web-sso-additional-scopes=: Additional scopes to request for the OIDC authentication on
-                --web-sso-assertion-claims-behavior=!: The behavior for how OIDC Claims are included in the `assertion` object used for attribute mapping and attribute condition.
-                --web-sso-response-type=!: Response Type to request for in the OIDC Authorization Request for web sign-in.
-                --workforce-pool=: The ID to use for the workforce pool, which becomes the final component of the
-              completion:
-                flag:
-                    scim-usage:
-                        - enabled-for-groups
-                        - scim-usage-unspecified
-                    web-sso-assertion-claims-behavior:
-                        - assertion-claims-behavior-unspecified
-                        - merge-user-info-over-id-token-claims
-                        - only-id-token-claims
-                    web-sso-response-type:
-                        - code
-                        - id-token
-                        - response-type-unspecified
+        - name: set-iam-policy
+          description: Set the IAM policy for a workforce pool.
+          flags:
+            --location=: The location for the workforce pool.
         - name: subjects
           description: Create and manage workforce pool subjects.
           commands:
+            - name: delete
+              description: Delete a workforce pool subject.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location for the workforce pool.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --workforce-pool=: The ID to use for the workforce pool, which becomes the final component of the
             - name: operations
               description: Manage IAM workforce pool subject long-running operations.
               commands:
@@ -1666,33 +954,745 @@ commands:
                 --location=: The location for the workforce pool.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --workforce-pool=: The ID to use for the workforce pool, which becomes the final component of the
-            - name: delete
-              description: Delete a workforce pool subject.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --location=: The location for the workforce pool.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --workforce-pool=: The ID to use for the workforce pool, which becomes the final component of the
+        - name: undelete
+          description: Undelete a workforce pool.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location for the workforce pool.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: update
+          description: Update a workforce pool.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: A description for the workforce pool.
+            --disable-programmatic-signin: Disables the programmatic sign-in for workforce pool users.
+            --disabled: Disables the workforce pool.
+            --display-name=: A display name for the workforce pool.
+            --location=: The location for the workforce pool.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-disable-programmatic-signin&: Disables the programmatic sign-in for workforce pool users.
+            --no-disabled&: Disables the workforce pool.
+            --session-duration=: How long the Google Cloud access tokens, console sign-in sessions, and gcloud sign-in sessions
+    - name: workload-identity-pools
+      description: Manage IAM workload identity pools.
+      commands:
+        - name: add-attestation-rule
+          description: Add an attestation rule on a workload identity pool.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --google-cloud-resource=!: A single workload running on Google Cloud.
+            --location=: The location name.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding for a workload identity pool.
+          flags:
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: A condition to include in the binding.
+            --location=: The location name.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: create
+          description: Create a new workload identity pool.
+          flags:
+            --description=: A description of the pool.
+            --disabled: Whether the pool is disabled.
+            --display-name=: A display name for the pool.
+            --enable-mesh-ca-compatibility&: Whether to enable mesh CA compatibility for the trust domain.
+            --inline-certificate-issuance-config-file=: YAML file with configuration for certificate issuance.
+            --inline-trust-config-file=: YAML file with configuration for providing additional trust bundles.
+            --location=: The location name.
+            --mode=: The mode of the pool.
+            --no-disabled&: Whether the pool is disabled.
+            --no-enable-mesh-ca-compatibility&: Whether to enable mesh CA compatibility for the trust domain.
+            --no-use-default-shared-ca&: Whether to use the default shared CA to issue certificates.
+            --session-duration=&: Overrides the lifespan of access tokens issued issued for identities in this pool.
+            --use-default-shared-ca&: Whether to use the default shared CA to issue certificates.
+          completion:
+            flag:
+                mode:
+                    - federation-only
+                    - mode-unspecified
+                    - trust-domain
         - name: create-cred-config
           description: Create a configuration file for generated credentials.
           flags:
+            --app-id-uri=: The custom Application ID URI for the Azure access token.
+            --aws: Use AWS.
+            --azure: Use Azure.
+            --credential-cert-configuration-output-file=: Path for the certificate configuration file.
+            --credential-cert-path=: Path of the X.509 certificate file.
+            --credential-cert-private-key-path=!: Path of the X.509 private key file.
+            --credential-cert-trust-chain-path=: Path for the trust chain file.
             --credential-source-field-name=: Subject token field name (key) in a JSON credential source.
-            --credential-source-file=: The location of the file which stores the credential.
+            --credential-source-file=: Location of the credential source file.
             --credential-source-headers=: Headers to use when querying the credential-source-url.
             --credential-source-type=: Format of the credential source (JSON or text).
-            --credential-source-url=: The URL to obtain the credential from.
-            --enable-mtls&: Use mTLS for STS endpoints.
+            --credential-source-url=: URL to obtain the credential from.
+            --enable-imdsv2: Adds the AWS IMDSv2 session token Url to the credential source to enforce the AWS IMDSv2 flow.
             --executable-command=: The full command to run to retrieve the credential.
-            --executable-interactive-timeout-millis=: Timeout duration, in milliseconds, to wait for the executable to finish when the command is running in interactive mode.
             --executable-output-file=: Absolute path to the file storing the executable response.
             --executable-timeout-millis=: Timeout duration, in milliseconds, to wait for the executable to finish.
-            --no-enable-mtls&: Use mTLS for STS endpoints.
+            --no-aws&: Use AWS.
+            --no-azure&: Use Azure.
+            --no-enable-imdsv2&: Adds the AWS IMDSv2 session token Url to the credential source to enforce the AWS IMDSv2 flow.
             --output-file=!: Location to store the generated credential configuration file.
             --service-account-token-lifetime-seconds=: Lifetime duration of the service account access token in seconds.
             --service-account=!: Email of the service account to impersonate.
+            --sts-location=: The location to use for the Security Token Service token endpoint.
             --subject-token-type=: The type of token being used for authorization.
-            --workforce-pool-user-project=!: The client project number used to identify the application (client project) to the server when calling Google APIs.
-        - name: describe
-          description: Describe a workforce pool.
+        - name: delete
+          description: Delete a workload identity pool.
           flags:
-            --location=: The location for the workforce pool.
+            --location=: The location name.
+        - name: describe
+          description: Describe a workload identity pool.
+          flags:
+            --location=: The location name.
+        - name: get-iam-policy
+          description: Get the IAM policy for a workload identity pool.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: The location name.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: List workload identity pools.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-show-deleted&: Whether to return soft-deleted pools.
+            --page-size=: Some services group resource list output into pages.
+            --show-deleted: Whether to return soft-deleted pools.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list-attestation-rules
+          description: List the attestation rules on a workload identity pool.
+          hidden: true
+          flags:
+            --container-id-filter=: Apply a filter on the container ids of the attestation rules
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: The location name.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: managed-identities
+          description: Manage IAM workload identity pool managed identities.
+          commands:
+            - name: add-attestation-rule
+              description: Add an attestation rule on a workload identity pool managed identity.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --google-cloud-resource=!: A single workload operating on Google Cloud.
+                --location=: The location name.
+                --namespace=: The ID to use for the namespace.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: create
+              description: Create a workload identity pool managed identity.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --description=: A description of the managed identity.
+                --disabled: Whether the managed identity is disabled.
+                --location=: The location name.
+                --namespace=: The ID to use for the namespace.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-disabled&: Whether the managed identity is disabled.
+                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: delete
+              description: Delete a workload identity pool managed identity.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location name.
+                --namespace=: The ID to use for the namespace.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: describe
+              description: Describe a workload identity pool managed identity.
+              flags:
+                --location=: The location name.
+                --namespace=: The ID to use for the namespace.
+                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: list
+              description: List workload identity pool managed identities.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location name.
+                --namespace=!: ID of the workload identity pool namespace or fully qualified identifier for the workload identity pool namespace.
+                --no-show-deleted&: Whether to return soft-deleted resources.
+                --page-size=: Some services group resource list output into pages.
+                --show-deleted: Whether to return soft-deleted resources.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: list-attestation-rules
+              description: List the attestation rules on a workload identity pool managed identity.
+              flags:
+                --container-id-filter=: Apply a filter on the container ids of the attestation rules
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location name.
+                --namespace=: The ID to use for the namespace.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: operations
+              description: Manage IAM workload identity pool managed identity long running operations.
+              commands:
+                - name: describe
+                  description: Describe a workload identity pool managed identity operation.
+                  flags:
+                    --location=: The location name.
+                    --managed-identity=: The ID to use for the managed identity.
+                    --namespace=: The ID to use for the namespace.
+                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: remove-attestation-rule
+              description: Remove an attestation rule on a workload identity pool managed identity.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --google-cloud-resource=!: A single workload operating on Google Cloud.
+                --location=: The location name.
+                --namespace=: The ID to use for the namespace.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: set-attestation-rules
+              description: Set attestation rules on a workload identity pool managed identity.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location name.
+                --namespace=: The ID to use for the namespace.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --policy-file=!: Path to a local JSON-formatted or YAML-formatted file containing an
+                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: undelete
+              description: Undelete a workload identity pool managed identity.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location name.
+                --namespace=: The ID to use for the namespace.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: update
+              description: Update workload identity pool managed identity.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --description=: A description of the managed identity.
+                --disabled: Whether the managed identity is disabled.
+                --location=: The location name.
+                --namespace=: The ID to use for the namespace.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-disabled&: Whether the managed identity is disabled.
+                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: workload-sources
+              description: Manage IAM workload identity pool managed identity workload sources.
+              hidden: true
+              commands:
+                - name: create
+                  description: Create a workload source for a workload identity pool managed identity.
+                  hidden: true
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --location=: The location name.
+                    --managed-identity=: The ID to use for the managed identity.
+                    --namespace=: The ID to use for the namespace.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --single-attribute-selectors=: The attributes that a workload can attest for it to be allowed to receive a managed identity.
+                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+                - name: delete
+                  description: Delete a workload identity pool managed identity workload source.
+                  hidden: true
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --location=: The location name.
+                    --managed-identity=: The ID to use for the managed identity.
+                    --namespace=: The ID to use for the namespace.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+                - name: describe
+                  description: Describe a workload identity pool managed identity workload source.
+                  hidden: true
+                  flags:
+                    --location=: The location name.
+                    --managed-identity=: The ID to use for the managed identity.
+                    --namespace=: The ID to use for the namespace.
+                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+                - name: list
+                  description: List workload identity pool managed identity workload sources.
+                  hidden: true
+                  flags:
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --location=: The location name.
+                    --managed-identity=!: ID of the workload identity pool managed identity or fully qualified identifier for the workload identity pool managed identity.
+                    --namespace=: The ID to use for the namespace.
+                    --page-size=: Some services group resource list output into pages.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+                - name: operations
+                  description: Manage IAM workload identity pool managed identity workload source long running operations.
+                  hidden: true
+                  commands:
+                    - name: describe
+                      description: Describe a workload identity pool managed identity workload source operation.
+                      hidden: true
+                      flags:
+                        --location=: The location name.
+                        --managed-identity=: The ID to use for the managed identity.
+                        --namespace=: The ID to use for the namespace.
+                        --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+                        --workload-source=: The ID of the workload source, which becomes the final component of the resource name.
+                - name: update
+                  description: Update a workload source for a workload identity pool managed identity.
+                  hidden: true
+                  flags:
+                    --add-single-attribute-selectors=: Add an attribute that a workload can attest for it to be allowed to receive a managed identity.
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --location=: The location name.
+                    --managed-identity=: The ID to use for the managed identity.
+                    --namespace=: The ID to use for the namespace.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --remove-single-attribute-selectors=: Removes an attribute that a workload can attest for it to be allowed to receive a managed identity.
+                    --single-attribute-selectors=: Add an attribute that a workload can attest for it to be allowed to receive a managed identity.
+                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+        - name: namespaces
+          description: Manage IAM workload identity pool namespaces.
+          commands:
+            - name: add-attestation-rule
+              description: Add an attestation rule on a workload identity pool namespace.
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --google-cloud-resource=!: A single workload operating on Google Cloud.
+                --location=: The location name.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: create
+              description: Create a workload identity pool namespace.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --description=: A description of the namespace.
+                --disabled: Whether the namespace is disabled.
+                --location=: The location name.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-disabled&: Whether the namespace is disabled.
+                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: delete
+              description: Delete a workload identity pool namespace.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location name.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: describe
+              description: Describe a workload identity pool namespace.
+              flags:
+                --location=: The location name.
+                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: list
+              description: List workload identity pool namespaces.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location name.
+                --no-show-deleted&: Whether to return soft-deleted resources.
+                --page-size=: Some services group resource list output into pages.
+                --show-deleted: Whether to return soft-deleted resources.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --workload-identity-pool=!: ID of the workload identity pool or fully qualified identifier for the workload identity pool.
+            - name: list-attestation-rules
+              description: List the attestation rules on a workload identity pool namespace.
+              hidden: true
+              flags:
+                --container-id-filter=: Apply a filter on the container ids of the attestation rules
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location name.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: operations
+              description: Manage IAM workload identity pool namespace long running operations.
+              commands:
+                - name: describe
+                  description: Describe a workload identity pool namespace operation.
+                  flags:
+                    --location=: The location name.
+                    --namespace=: The ID to use for the namespace.
+                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: remove-attestation-rule
+              description: Remove an attestation rule on a workload identity pool namespace.
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --google-cloud-resource=!: A single workload operating on Google Cloud.
+                --location=: The location name.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: set-attestation-rules
+              description: Set attestation rules on a workload identity pool namespace.
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location name.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --policy-file=!: Path to a local JSON-formatted or YAML-formatted file containing an
+                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: undelete
+              description: Undelete a workload identity pool namespace.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location name.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: update
+              description: Update workload identity pool namespace.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --description=: A description of the namespace.
+                --disabled: Whether the namespace is disabled.
+                --location=: The location name.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-disabled&: Whether the namespace is disabled.
+                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: workload-sources
+              description: Manage IAM workload identity pool namespace workload sources.
+              hidden: true
+              commands:
+                - name: create
+                  description: Create a workload source for a workload identity pool namespace.
+                  hidden: true
+                  flags:
+                    --allow-identity-self-selection: Allows matched workloads to request any identity within the namespace.
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --location=: The location name.
+                    --namespace=: The ID to use for the namespace.
+                    --no-allow-identity-self-selection&: Allows matched workloads to request any identity within the namespace.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --single-attribute-selectors=: Attributes that a workload must attest for it to be matched by the workload source.
+                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+                - name: delete
+                  description: Delete a workload identity pool namespace workload source.
+                  hidden: true
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --location=: The location name.
+                    --namespace=: The ID to use for the namespace.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+                - name: describe
+                  description: Describe a workload identity pool namespace workload source.
+                  hidden: true
+                  flags:
+                    --location=: The location name.
+                    --namespace=: The ID to use for the namespace.
+                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+                - name: list
+                  description: List workload identity pool namespace workload sources.
+                  hidden: true
+                  flags:
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --location=: The location name.
+                    --namespace=!: ID of the workload identity pool namespace or fully qualified identifier for the workload identity pool namespace.
+                    --page-size=: Some services group resource list output into pages.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+                - name: operations
+                  description: Manage IAM workload identity pool namespace workload source long running operations.
+                  hidden: true
+                  commands:
+                    - name: describe
+                      description: Describe a workload identity pool namespace workload source operation.
+                      hidden: true
+                      flags:
+                        --location=: The location name.
+                        --namespace=: The ID to use for the namespace.
+                        --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+                        --workload-source=: The ID of the workload source, which becomes the final component of the resource name.
+                - name: update
+                  description: Update a workload source for a workload identity pool namespace.
+                  hidden: true
+                  flags:
+                    --allow-identity-self-selection: Allows matched workloads to request any identity within the namespace.
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --location=: The location name.
+                    --namespace=: The ID to use for the namespace.
+                    --no-allow-identity-self-selection&: Allows matched workloads to request any identity within the namespace.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --single-attribute-selectors=: An attribute that a workload can attest for it to be allow to receive a managed identity.
+                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+        - name: operations
+          description: Manage IAM workload identity pool long running operations.
+          commands:
+            - name: describe
+              description: Describe a workload identity pool operation.
+              flags:
+                --location=: The location name.
+                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+        - name: providers
+          description: Manage IAM workload identity pool providers.
+          commands:
+            - name: create-aws
+              description: Create a new AWS workload identity pool provider.
+              flags:
+                --account-id=!: The AWS account ID.
+                --attribute-condition=: '[A Common Expression Language](https://opensource.google/projects/cel)'
+                --attribute-mapping=: Maps attributes from authentication credentials issued by an external
+                --description=: A description for the provider.
+                --disabled: Whether the provider is disabled.
+                --display-name=: A display name for the provider.
+                --location=: The location name.
+                --no-disabled&: Whether the provider is disabled.
+                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: create-oidc
+              description: Create a new OIDC workload identity pool provider.
+              flags:
+                --allowed-audiences=: Acceptable values for the `aud` field (audience) in the OIDC token.
+                --attribute-condition=: '[A Common Expression Language](https://opensource.google/projects/cel)'
+                --attribute-mapping=!: Maps attributes from authentication credentials issued by an external
+                --description=: A description for the provider.
+                --disabled: Whether the provider is disabled.
+                --display-name=: A display name for the provider.
+                --issuer-uri=!: The OIDC issuer URL.
+                --jwk-json-path=: Optional file containing jwk public keys.
+                --location=: The location name.
+                --no-disabled&: Whether the provider is disabled.
+                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: create-saml
+              description: Create a new SAML workload identity pool provider.
+              flags:
+                --attribute-condition=: '[A Common Expression Language](https://opensource.google/projects/cel)'
+                --attribute-mapping=!: Maps attributes from authentication credentials issued by an external
+                --description=: A description for the provider.
+                --disabled: Whether the provider is disabled.
+                --display-name=: A display name for the provider.
+                --idp-metadata-path=!: XML file with configuration metadata for the SAML identity provider.
+                --location=: The location name.
+                --no-disabled&: Whether the provider is disabled.
+                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: create-x509
+              description: Create a new X.509 workload identity pool provider.
+              flags:
+                --attribute-condition=: '[A Common Expression Language](https://opensource.google/projects/cel)'
+                --attribute-mapping=: Maps attributes from authentication credentials issued by an external
+                --description=: A description for the provider.
+                --disabled: Whether the provider is disabled.
+                --display-name=: A display name for the provider.
+                --location=: The location name.
+                --no-disabled&: Whether the provider is disabled.
+                --trust-store-config-path=!: YAML file with configuration metadata for the X.509 identity provider.
+                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: delete
+              description: Delete a workload identity pool provider.
+              flags:
+                --location=: The location name.
+                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: describe
+              description: Describe a workload identity pool provider.
+              flags:
+                --location=: The location name.
+                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: keys
+              description: Manage IAM workload identity pool provider keys.
+              commands:
+                - name: create
+                  description: Create a new workload identity pool provider key.
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --location=: The location name.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --provider=: The ID for the provider, which becomes the final component of the resource name.
+                    --spec=!: The specifications for the key.
+                    --use=!: The purpose of the key.
+                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+                  completion:
+                    flag:
+                        spec:
+                            - key-spec-unspecified
+                            - rsa-2048
+                            - rsa-3072
+                            - rsa-4096
+                        use:
+                            - encryption
+                            - key-use-unspecified
+                - name: delete
+                  description: Delete a workload identity pool provider key.
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --location=: The location name.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --provider=: The ID for the provider, which becomes the final component of the resource name.
+                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+                - name: describe
+                  description: Describe a workload identity pool provider key.
+                  flags:
+                    --location=: The location name.
+                    --provider=: The ID for the provider, which becomes the final component of the resource name.
+                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+                - name: list
+                  description: List workload identity pool provider keys.
+                  flags:
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --location=: The location name.
+                    --no-show-deleted&: Whether to return soft-deleted resources.
+                    --page-size=: Some services group resource list output into pages.
+                    --provider=!: ID of the workload identity pool provider or fully qualified identifier for the workload identity pool provider.
+                    --show-deleted: Whether to return soft-deleted resources.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+                - name: operations
+                  description: Manage IAM workload identity pool provider key long running operations.
+                  commands:
+                    - name: describe
+                      description: Describe a workload identity pool provider key operation.
+                      flags:
+                        --key=: The ID for the key, which becomes the final component of the resource name.
+                        --location=: The location name.
+                        --provider=: The ID for the provider, which becomes the final component of the resource name.
+                        --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+                - name: undelete
+                  description: Undelete a workload identity pool provider key.
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --location=: The location name.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --provider=: The ID for the provider, which becomes the final component of the resource name.
+                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: list
+              description: List workload identity pool providers.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location name.
+                --no-show-deleted&: Whether to return soft-deleted resources.
+                --page-size=: Some services group resource list output into pages.
+                --show-deleted: Whether to return soft-deleted resources.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --workload-identity-pool=!: ID of the workload identity pool or fully qualified identifier for the workload identity pool.
+            - name: operations
+              description: Manage IAM workload identity pool provider long running operations.
+              commands:
+                - name: describe
+                  description: Describe a workload identity pool provider operation.
+                  flags:
+                    --location=: The location name.
+                    --provider=: The ID for the provider, which becomes the final component of the resource name.
+                    --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: undelete
+              description: Undelete a workload identity pool provider.
+              flags:
+                --location=: The location name.
+                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: update-aws
+              description: Update an AWS workload identity pool provider.
+              flags:
+                --account-id=: The AWS account ID.
+                --attribute-condition=: '[A Common Expression Language](https://opensource.google/projects/cel)'
+                --attribute-mapping=: Maps attributes from authentication credentials issued by an external
+                --description=: A description for the provider.
+                --disabled: Whether the provider is disabled.
+                --display-name=: A display name for the provider.
+                --location=: The location name.
+                --no-disabled&: Whether the provider is disabled.
+                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: update-oidc
+              description: Update an OIDC workload identity pool provider.
+              flags:
+                --allowed-audiences=: Acceptable values for the `aud` field (audience) in the OIDC token.
+                --attribute-condition=: '[A Common Expression Language](https://opensource.google/projects/cel)'
+                --attribute-mapping=: Maps attributes from authentication credentials issued by an external
+                --description=: A description for the provider.
+                --disabled: Whether the provider is disabled.
+                --display-name=: A display name for the provider.
+                --issuer-uri=: The OIDC issuer URL.
+                --jwk-json-path=: Optional file containing jwk public keys.
+                --location=: The location name.
+                --no-disabled&: Whether the provider is disabled.
+                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: update-saml
+              description: Update a SAML workload identity pool provider.
+              flags:
+                --attribute-condition=: '[A Common Expression Language](https://opensource.google/projects/cel)'
+                --attribute-mapping=: Maps attributes from authentication credentials issued by an external
+                --description=: A description for the provider.
+                --disabled: Whether the provider is disabled.
+                --display-name=: A display name for the provider.
+                --idp-metadata-path=: XML file with configuration metadata for the SAML identity provider.
+                --location=: The location name.
+                --no-disabled&: Whether the provider is disabled.
+                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+            - name: update-x509
+              description: Update an X.509 workload identity pool provider.
+              flags:
+                --attribute-condition=: '[A Common Expression Language](https://opensource.google/projects/cel)'
+                --attribute-mapping=: Maps attributes from authentication credentials issued by an external
+                --description=: A description for the provider.
+                --disabled: Whether the provider is disabled.
+                --display-name=: A display name for the provider.
+                --location=: The location name.
+                --no-disabled&: Whether the provider is disabled.
+                --trust-store-config-path=: YAML file with configuration metadata for the X.509 identity provider.
+                --workload-identity-pool=: The ID to use for the pool, which becomes the final component of the resource name.
+        - name: remove-attestation-rule
+          description: Remove an attestation rule on a workload identity pool.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --google-cloud-resource=!: A single workload operating on Google Cloud.
+            --location=: The location name.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: remove-iam-policy-binding
+          description: Remove IAM policy binding from a workload identity pool.
+          flags:
+            --all: Remove all bindings with this role and principal, irrespective of any
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: The condition of the binding that you want to remove.
+            --location=: The location name.
+            --member=!: The principal to remove the binding for.
+            --no-all&: ""
+            --role=!: The role to remove the principal from.
+        - name: set-attestation-rules
+          description: Set attestation rules on a workload identity pool.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location name.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --policy-file=!: Path to a local JSON-formatted or YAML-formatted file containing an
+        - name: set-iam-policy
+          description: Set the IAM policy for a workload identity pool.
+          flags:
+            --location=: The location name.
+        - name: undelete
+          description: Undelete a workload identity pool.
+          flags:
+            --location=: The location name.
+        - name: update
+          description: Update a workload identity pool.
+          flags:
+            --certificate-lifetime=: Lifetime of the workload certificates issued by the CA pool.
+            --description=: A description of the pool.
+            --disabled: Whether the pool is disabled.
+            --display-name=: A display name for the pool.
+            --enable-mesh-ca-compatibility&: Whether to enable mesh CA compatibility for the trust domain.
+            --inline-certificate-issuance-config-file=: YAML file with configuration for certificate issuance.
+            --inline-trust-config-file=: YAML file with configuration for providing additional trust bundles.
+            --key-algorithm=: Key algorithm to use when generating the key pair.
+            --location=: The location name.
+            --no-disabled&: Whether the pool is disabled.
+            --no-enable-mesh-ca-compatibility&: Whether to enable mesh CA compatibility for the trust domain.
+            --no-use-default-shared-ca&: Whether to use the default shared CA to issue certificates.
+            --rotation-window-percentage=: Rotation window percentage indicating when certificate rotation should be initiated based on
+            --session-duration=&: Overrides the lifespan of access tokens issued issued for identities in this pool.
+            --use-default-shared-ca&: Whether to use the default shared CA to issue certificates.
+          completion:
+            flag:
+                key-algorithm:
+                    - ecdsa-p256
+                    - ecdsa-p384
+                    - key-algorithm-unspecified
+                    - rsa-2048
+                    - rsa-3072
+                    - rsa-4096

@@ -3,113 +3,6 @@ name: meta
 description: Cloud meta introspection commands.
 hidden: true
 commands:
-    - name: generate-command
-      description: Generate YAML file to implement given command.
-      hidden: true
-      flags:
-        --output-dir=: The directory where the generated command YAML files will be written.
-    - name: lint-gcloud-commands
-      description: Generate YAML file to implement given command.
-      hidden: true
-      flags:
-        --command-string=: Gcloud command to statically validate.
-        --commands-file=: JSON file containing list of gcloud commands to validate.
-        --commands-text-file=: Raw text containing gcloud command(s) to validate.
-        --no-serialize&: Output results in a dictionary serialized by reference id.
-        --serialize: Output results in a dictionary serialized by reference id.
-    - name: list-commands
-      description: List all possible gcloud commands excluding flags.
-      hidden: true
-      flags:
-        --completions: Write the static TAB completion data on the standard output.
-        --flag-values: Include the non-global flags and flag values/types for each
-        --flags: Include the non-global flags for each command/group.
-        --hidden: Include hidden commands and groups.
-        --no-completions&: Write the static TAB completion data on the standard output.
-        --no-flag-values&: Include the non-global flags and flag values/types for each
-        --no-flags&: Include the non-global flags for each command/group.
-        --no-hidden&: Include hidden commands and groups.
-        --no-universe-compatible-commands&: Exclusively show universe compatible commands.
-        --universe-compatible-commands&: Exclusively show universe compatible commands.
-    - name: render-markdown
-      description: Uses gcloud's markdown renderer to render the given markdown file.
-      hidden: true
-      flags:
-        --style=: The renderer output format.
-      completion:
-        flag:
-            style:
-                - devsite
-                - html
-                - linter
-                - man
-                - markdown
-                - text
-    - name: debug
-      description: Run an interactive debug console with the Cloud SDK libraries loaded.
-      hidden: true
-      flags:
-        --mode=: The debug console mode to run in.
-      completion:
-        flag:
-            mode:
-                - ipdb
-                - pdb
-                - pudb
-                - python
-    - name: generate-config-commands
-      description: Generate declarative config commands with surface specs and tests.
-      hidden: true
-      flags:
-        --collections=: List of apitools collections to generate commands for.
-        --enable-overwrites: When enabled, allows overwriting of existing commands, surface specs, and test files.
-        --no-enable-overwrites&: When enabled, allows overwriting of existing commands, surface specs, and test files.
-        --output-root=!: Root of the directory within which to generate config config export commands.
-        --release-tracks=: List of release tracks to generate commands for.
-    - name: generate-help-docs
-      description: Generate and/or update help document directories.
-      hidden: true
-      flags:
-        --devsite-dir=: The directory where the generated DevSite reference document subtree will be written.
-        --help-text-dir=: The directory where the generated help text reference document subtree will be written.
-        --hidden: Include documents for hidden commands and groups.
-        --html-dir=: The directory where the standalone manpage HTML files will be generated.
-        --linter-dir=: The directory where the generated documentation linter errors for the help text reference document subtree will be written.
-        --manpage-dir=: The directory where the generated manpage document subtree will be written.
-        --no-hidden&: Include documents for hidden commands and groups.
-        --no-test&: Show but do not apply --update actions.
-        --no-update&: Update destination directories to match the current CLI.
-        --test: Show but do not apply --update actions.
-        --update: Update destination directories to match the current CLI.
-        --update-help-text-dir=&: Deprecated.
-    - name: resources
-      description: Cloud SDK resource parser test commands.
-      hidden: true
-      commands:
-        - name: generate
-          description: Cloud SDK resource test URI generator.
-          hidden: true
-          flags:
-            --api-version=: The resource collection API version.
-            --collection=!: The resource collection name of the resource to parse.
-            --count=: The number of test resource URIs to generate.
-        - name: parse
-          description: Cloud SDK resource parser module tester.
-          hidden: true
-          flags:
-            --api-version=: The resource collection API version.
-            --collection=: The resource collection name of the resource to parse.
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --no-stack-trace&: Enable all exception stack traces, including Cloud SDK core exceptions.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --stack-trace: Enable all exception stack traces, including Cloud SDK core exceptions.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-    - name: validate-yaml
-      description: Validate a YAML file against a JSON Schema.
-      hidden: true
     - name: apis
       description: Inspect the APIs registered in gcloud.
       hidden: true
@@ -150,6 +43,9 @@ commands:
           description: Inspect the Google Cloud Platform APIs through the discovery service.
           hidden: true
           commands:
+            - name: describe
+              description: Describe the details of an API in discovery service.
+              hidden: true
             - name: list
               description: List the APIs available via discovery service.
               hidden: true
@@ -159,9 +55,6 @@ commands:
                 --no-uri&: Print a list of resource URIs instead of the default output, and change the
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
-            - name: describe
-              description: Describe the details of an API in discovery service.
-              hidden: true
         - name: list
           description: List the APIs registered in gcloud.
           hidden: true
@@ -199,16 +92,6 @@ commands:
           description: Inspect the methods for an API collection registered in gcloud.
           hidden: true
           commands:
-            - name: list
-              description: List the methods of a resource collection for an API.
-              hidden: true
-              flags:
-                --api-version=: The version of the given API to use.
-                --api=: The name of the API to get the methods for.
-                --collection=: The name of the collection for which to list methods.
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --limit=: Maximum number of resources to list.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
             - name: call
               description: Calls an API method with specific parameters.
               hidden: true
@@ -225,6 +108,16 @@ commands:
               flags:
                 --api-version=: The version of the given API to use.
                 --collection=!: The name of the collection to specify the method for.
+            - name: list
+              description: List the methods of a resource collection for an API.
+              hidden: true
+              flags:
+                --api-version=: The version of the given API to use.
+                --api=: The name of the API to get the methods for.
+                --collection=: The name of the collection for which to list methods.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
         - name: regen
           description: Regenerate given API(s) in gcloud.
           hidden: true
@@ -232,68 +125,6 @@ commands:
             --api-discovery-doc=: Path to json file describing the api.
             --base-dir=: Directory where generated code will be written.
             --config=: Regeneration config yaml filename.
-    - name: lint
-      description: Validate gcloud flags according to Cloud SDK CLI Style.
-      hidden: true
-    - name: list-files-for-upload
-      description: List files for upload.
-      hidden: true
-    - name: resource-maps
-      description: Command group for resource map related commands.
-      hidden: true
-      commands:
-        - name: update-resource-map
-          description: Command used for updating resource maps.
-          hidden: true
-          flags:
-            --all: Update all resource maps.
-            --base: Update the base resource map.
-            --declarative: Update the declarative resource map.
-            --no-all&: Update all resource maps.
-            --no-base&: Update the base resource map.
-            --no-declarative&: Update the declarative resource map.
-    - name: daemon
-      description: (DEBUG MODE) Precomputes gcloud CLI and runs a single-request server.
-      hidden: true
-    - name: test
-      description: Run miscellaneous gcloud command and CLI test scenarios.
-      hidden: true
-      flags:
-        --arg-dict=: ArgDict flag value test.
-        --arg-list=: ArgList flag value test.
-        --argumenterror-outside-argparse: Trigger a calliope.parser_errors.ArgumentError exception outside of argparse.
-        --core-exception: Trigger a core exception.
-        --exec-file=: Runs `bash SCRIPT_FILE`.
-        --feature-flag: Print the value of a feature flag.
-        --interrupt: Kill the command with SIGINT.
-        --is-interactive: Call console_io.IsInteractive(heuristic=True) and exit 0 if the return value is True, 1 if False.
-        --no-argumenterror-outside-argparse&: Trigger a calliope.parser_errors.ArgumentError exception outside of argparse.
-        --no-core-exception&: Trigger a core exception.
-        --no-feature-flag&: Print the value of a feature flag.
-        --no-interrupt&: Kill the command with SIGINT.
-        --no-is-interactive&: Call console_io.IsInteractive(heuristic=True) and exit 0 if the return value is True, 1 if False.
-        --no-staged-progress-tracker&: Run example staged progress tracker.
-        --no-uncaught-exception&: Trigger an exception that is not caught.
-        --progress-tracker=: Run the progress tracker for SECONDS seconds and exit.
-        --prompt-completer=: Call console_io.PromptResponse() with a MODULE_PATH completer and print the response on the standard output.
-        --sleep=: Sleep for SECONDS seconds and exit.
-        --staged-progress-tracker: Run example staged progress tracker.
-        --uncaught-exception: Trigger an exception that is not caught.
-    - name: list-from-json
-      description: Read JSON data and list it on the standard output.
-      hidden: true
-      flags:
-        --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-        --limit=: Maximum number of resources to list.
-        --page-size=: Some services group resource list output into pages.
-        --sort-by=: Comma-separated list of resource field key names to sort by.
-    - name: list-gcloud
-      description: List the gcloud CLI command tree with flag, positional and help details.
-      hidden: true
-      flags:
-        --branch=: The branch of the CLI subtree to generate as a dotted command path.
-        --completions: List the static completion CLI tree.
-        --no-completions&: List the static completion CLI tree.
     - name: cache
       description: Cloud SDK persistent cache commands.
       hidden: true
@@ -360,3 +191,172 @@ commands:
             --no-skip-completions&: Skip updating the static completion CLI tree.
             --skip-completions: Skip updating the static completion CLI tree.
             --tarball=: For packaging CLI trees.
+    - name: daemon
+      description: (DEBUG MODE) Precomputes gcloud CLI and runs a single-request server.
+      hidden: true
+    - name: debug
+      description: Run an interactive debug console with the Cloud SDK libraries loaded.
+      hidden: true
+      flags:
+        --mode=: The debug console mode to run in.
+      completion:
+        flag:
+            mode:
+                - ipdb
+                - pdb
+                - pudb
+                - python
+    - name: generate-command
+      description: Generate YAML file to implement given command.
+      hidden: true
+      flags:
+        --output-dir=: The directory where the generated command YAML files will be written.
+    - name: generate-config-commands
+      description: Generate declarative config commands with surface specs and tests.
+      hidden: true
+      flags:
+        --collections=: List of apitools collections to generate commands for.
+        --enable-overwrites: When enabled, allows overwriting of existing commands, surface specs, and test files.
+        --no-enable-overwrites&: When enabled, allows overwriting of existing commands, surface specs, and test files.
+        --output-root=!: Root of the directory within which to generate config config export commands.
+        --release-tracks=: List of release tracks to generate commands for.
+    - name: generate-help-docs
+      description: Generate and/or update help document directories.
+      hidden: true
+      flags:
+        --devsite-dir=: The directory where the generated DevSite reference document subtree will be written.
+        --help-text-dir=: The directory where the generated help text reference document subtree will be written.
+        --hidden: Include documents for hidden commands and groups.
+        --html-dir=: The directory where the standalone manpage HTML files will be generated.
+        --linter-dir=: The directory where the generated documentation linter errors for the help text reference document subtree will be written.
+        --manpage-dir=: The directory where the generated manpage document subtree will be written.
+        --no-hidden&: Include documents for hidden commands and groups.
+        --no-test&: Show but do not apply --update actions.
+        --no-update&: Update destination directories to match the current CLI.
+        --test: Show but do not apply --update actions.
+        --update: Update destination directories to match the current CLI.
+        --update-help-text-dir=&: Deprecated.
+    - name: lint
+      description: Validate gcloud flags according to Cloud SDK CLI Style.
+      hidden: true
+    - name: lint-gcloud-commands
+      description: Generate YAML file to implement given command.
+      hidden: true
+      flags:
+        --command-string=: Gcloud command to statically validate.
+        --commands-file=: JSON file containing list of gcloud commands to validate.
+        --commands-text-file=: Raw text containing gcloud command(s) to validate.
+        --no-serialize&: Output results in a dictionary serialized by reference id.
+        --serialize: Output results in a dictionary serialized by reference id.
+    - name: list-commands
+      description: List all possible gcloud commands excluding flags.
+      hidden: true
+      flags:
+        --completions: Write the static TAB completion data on the standard output.
+        --flag-values: Include the non-global flags and flag values/types for each
+        --flags: Include the non-global flags for each command/group.
+        --hidden: Include hidden commands and groups.
+        --no-completions&: Write the static TAB completion data on the standard output.
+        --no-flag-values&: Include the non-global flags and flag values/types for each
+        --no-flags&: Include the non-global flags for each command/group.
+        --no-hidden&: Include hidden commands and groups.
+        --no-universe-compatible-commands&: Exclusively show universe compatible commands.
+        --universe-compatible-commands&: Exclusively show universe compatible commands.
+    - name: list-files-for-upload
+      description: List files for upload.
+      hidden: true
+    - name: list-from-json
+      description: Read JSON data and list it on the standard output.
+      hidden: true
+      flags:
+        --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+        --limit=: Maximum number of resources to list.
+        --page-size=: Some services group resource list output into pages.
+        --sort-by=: Comma-separated list of resource field key names to sort by.
+    - name: list-gcloud
+      description: List the gcloud CLI command tree with flag, positional and help details.
+      hidden: true
+      flags:
+        --branch=: The branch of the CLI subtree to generate as a dotted command path.
+        --completions: List the static completion CLI tree.
+        --no-completions&: List the static completion CLI tree.
+    - name: render-markdown
+      description: Uses gcloud's markdown renderer to render the given markdown file.
+      hidden: true
+      flags:
+        --style=: The renderer output format.
+      completion:
+        flag:
+            style:
+                - devsite
+                - html
+                - linter
+                - man
+                - markdown
+                - text
+    - name: resource-maps
+      description: Command group for resource map related commands.
+      hidden: true
+      commands:
+        - name: update-resource-map
+          description: Command used for updating resource maps.
+          hidden: true
+          flags:
+            --all: Update all resource maps.
+            --base: Update the base resource map.
+            --declarative: Update the declarative resource map.
+            --no-all&: Update all resource maps.
+            --no-base&: Update the base resource map.
+            --no-declarative&: Update the declarative resource map.
+    - name: resources
+      description: Cloud SDK resource parser test commands.
+      hidden: true
+      commands:
+        - name: generate
+          description: Cloud SDK resource test URI generator.
+          hidden: true
+          flags:
+            --api-version=: The resource collection API version.
+            --collection=!: The resource collection name of the resource to parse.
+            --count=: The number of test resource URIs to generate.
+        - name: parse
+          description: Cloud SDK resource parser module tester.
+          hidden: true
+          flags:
+            --api-version=: The resource collection API version.
+            --collection=: The resource collection name of the resource to parse.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-stack-trace&: Enable all exception stack traces, including Cloud SDK core exceptions.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --stack-trace: Enable all exception stack traces, including Cloud SDK core exceptions.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: test
+      description: Run miscellaneous gcloud command and CLI test scenarios.
+      hidden: true
+      flags:
+        --arg-dict=: ArgDict flag value test.
+        --arg-list=: ArgList flag value test.
+        --argumenterror-outside-argparse: Trigger a calliope.parser_errors.ArgumentError exception outside of argparse.
+        --core-exception: Trigger a core exception.
+        --exec-file=: Runs `bash SCRIPT_FILE`.
+        --feature-flag: Print the value of a feature flag.
+        --interrupt: Kill the command with SIGINT.
+        --is-interactive: Call console_io.IsInteractive(heuristic=True) and exit 0 if the return value is True, 1 if False.
+        --no-argumenterror-outside-argparse&: Trigger a calliope.parser_errors.ArgumentError exception outside of argparse.
+        --no-core-exception&: Trigger a core exception.
+        --no-feature-flag&: Print the value of a feature flag.
+        --no-interrupt&: Kill the command with SIGINT.
+        --no-is-interactive&: Call console_io.IsInteractive(heuristic=True) and exit 0 if the return value is True, 1 if False.
+        --no-staged-progress-tracker&: Run example staged progress tracker.
+        --no-uncaught-exception&: Trigger an exception that is not caught.
+        --progress-tracker=: Run the progress tracker for SECONDS seconds and exit.
+        --prompt-completer=: Call console_io.PromptResponse() with a MODULE_PATH completer and print the response on the standard output.
+        --sleep=: Sleep for SECONDS seconds and exit.
+        --staged-progress-tracker: Run example staged progress tracker.
+        --uncaught-exception: Trigger an exception that is not caught.
+    - name: validate-yaml
+      description: Validate a YAML file against a JSON Schema.
+      hidden: true

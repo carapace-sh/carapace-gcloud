@@ -5,6 +5,22 @@ commands:
     - name: endpoints
       description: Manage Service Directory endpoints.
       commands:
+        - name: create
+          description: Creates an endpoint.
+          flags:
+            --address=: IPv4 or IPv6 address of the endpoint.
+            --annotations=: Annotations for the endpoint.
+            --location=: The name of the region for the endpoint.
+            --namespace=: The name of the namespace for the endpoint.
+            --network=: Specifies the Google Compute Engine Network (VPC) of the Endpoint.
+            --port=: Port that the endpoint is running on, must be in the range of
+            --service=: The name of the service for the endpoint.
+        - name: delete
+          description: Deletes an endpoint.
+          flags:
+            --location=: The name of the region for the endpoint.
+            --namespace=: The name of the namespace for the endpoint.
+            --service=: The name of the service for the endpoint.
         - name: describe
           description: Describes an endpoint.
           flags:
@@ -29,22 +45,6 @@ commands:
             --namespace=: The name of the namespace for the endpoint.
             --port=: Port that the endpoint is running on, must be in the range of
             --service=: The name of the service for the endpoint.
-        - name: create
-          description: Creates an endpoint.
-          flags:
-            --address=: IPv4 or IPv6 address of the endpoint.
-            --annotations=: Annotations for the endpoint.
-            --location=: The name of the region for the endpoint.
-            --namespace=: The name of the namespace for the endpoint.
-            --network=: Specifies the Google Compute Engine Network (VPC) of the Endpoint.
-            --port=: Port that the endpoint is running on, must be in the range of
-            --service=: The name of the service for the endpoint.
-        - name: delete
-          description: Deletes an endpoint.
-          flags:
-            --location=: The name of the region for the endpoint.
-            --namespace=: The name of the namespace for the endpoint.
-            --service=: The name of the service for the endpoint.
     - name: locations
       description: Manage Service Directory locations.
       commands:
@@ -61,6 +61,11 @@ commands:
             --location=: The name of the region for the namespace.
             --member=!: The principal to add the binding for.
             --role=!: Role name to assign to the principal.
+        - name: create
+          description: Creates a namespace.
+          flags:
+            --labels=: Resource labels associated with the namespace.
+            --location=: The name of the region for the namespace.
         - name: delete
           description: Deletes a namespace.
           flags:
@@ -69,6 +74,14 @@ commands:
           description: Describes a namespace.
           flags:
             --location=: The name of the region for the namespace.
+        - name: get-iam-policy
+          description: Gets IAM policy for a namespace.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: The name of the region for the namespace.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
         - name: list
           description: Lists namespaces.
           flags:
@@ -82,19 +95,6 @@ commands:
             --location=: The name of the region for the namespace.
             --member=!: The principal to remove the binding for.
             --role=!: The role to remove the principal from.
-        - name: create
-          description: Creates a namespace.
-          flags:
-            --labels=: Resource labels associated with the namespace.
-            --location=: The name of the region for the namespace.
-        - name: get-iam-policy
-          description: Gets IAM policy for a namespace.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: The name of the region for the namespace.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
         - name: set-iam-policy
           description: Sets IAM policy for a namespace.
           flags:
@@ -107,6 +107,19 @@ commands:
     - name: services
       description: Manage Service Directory services.
       commands:
+        - name: add-iam-policy-binding
+          description: Adds IAM policy binding to a service.
+          flags:
+            --location=: The name of the region for the service.
+            --member=!: The principal to add the binding for.
+            --namespace=: The name of the namespace for the service.
+            --role=!: Role name to assign to the principal.
+        - name: create
+          description: Creates a service.
+          flags:
+            --annotations=: Annotations for the service.
+            --location=: The name of the region for the service.
+            --namespace=: The name of the namespace for the service.
         - name: delete
           description: Deletes a service.
           flags:
@@ -115,24 +128,6 @@ commands:
         - name: describe
           description: Describes a service.
           flags:
-            --location=: The name of the region for the service.
-            --namespace=: The name of the namespace for the service.
-        - name: resolve
-          description: Resolves a service.
-          flags:
-            --endpoint-filter=: Apply a Boolean filter EXPRESSION to each endpoint in the service.
-            --location=: The name of the region for the service.
-            --max-endpoints=: Maximum number of endpoints to return.
-            --namespace=: The name of the namespace for the service.
-        - name: set-iam-policy
-          description: Sets IAM policy for a service.
-          flags:
-            --location=: The name of the region for the service.
-            --namespace=: The name of the namespace for the service.
-        - name: update
-          description: Updates a service.
-          flags:
-            --annotations=: Annotations for the service.
             --location=: The name of the region for the service.
             --namespace=: The name of the namespace for the service.
         - name: get-iam-policy
@@ -159,15 +154,20 @@ commands:
             --member=!: The principal to remove the binding for.
             --namespace=: The name of the namespace for the service.
             --role=!: The role to remove the principal from.
-        - name: add-iam-policy-binding
-          description: Adds IAM policy binding to a service.
+        - name: resolve
+          description: Resolves a service.
+          flags:
+            --endpoint-filter=: Apply a Boolean filter EXPRESSION to each endpoint in the service.
+            --location=: The name of the region for the service.
+            --max-endpoints=: Maximum number of endpoints to return.
+            --namespace=: The name of the namespace for the service.
+        - name: set-iam-policy
+          description: Sets IAM policy for a service.
           flags:
             --location=: The name of the region for the service.
-            --member=!: The principal to add the binding for.
             --namespace=: The name of the namespace for the service.
-            --role=!: Role name to assign to the principal.
-        - name: create
-          description: Creates a service.
+        - name: update
+          description: Updates a service.
           flags:
             --annotations=: Annotations for the service.
             --location=: The name of the region for the service.

@@ -2,31 +2,139 @@
 name: backup-dr
 description: Manage Backup and DR resources.
 commands:
+    - name: backup-plan-associations
+      description: Manage Backup and DR backup plan associations.
+      commands:
+        - name: create
+          description: Create a new backup plan association.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --backup-plan=!: ID of the Backup Plan or fully qualified identifier for the Backup Plan.
+            --location=: The location of the Backup Plan Association.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --resource-type=!: Type of resource to which the backup plan should be applied.
+            --resource=!: The resource to which the backup plan is to be applied.
+            --workload-project=: Cloud project id for the Backup Plan Association.
+        - name: delete
+          description: Delete the specified backup plan association.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location of the Backup Plan Association.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --workload-project=: Cloud project id for the Backup Plan Association.
+        - name: describe
+          description: Show details of the backup plan association.
+          flags:
+            --location=: Location ID of the resource.
+        - name: fetch-for-resource-type
+          description: Fetch Backup Plan Associations for a given resource type and location.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: Location for which backup plan associations should be fetched.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: list
+          description: List Backup and DR backup plan associations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: trigger-backup
+          description: Create an on-demand backup for a resource.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --backup-rule-id=: Name of an existing backup rule to use for creating an on-demand backup.
+            --custom-retention-days=: Duration for which backup data will be retained.
+            --labels=: Labels to be applied to the backup.
+            --location=: The location of the Backup Plan Association.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --workload-project=: Cloud project id for the Backup Plan Association.
+        - name: update
+          description: Update a specific backup plan within a backup plan association.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --backup-plan=!: ID of the Backup Plan or fully qualified identifier for the Backup Plan.
+            --location=: The location of the Backup Plan Association.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --workload-project=: Cloud project id for the Backup Plan Association.
+    - name: backup-plan-revisions
+      description: View Backup and DR backup plan revisions.
+      commands:
+        - name: describe
+          description: Show details of the backup plan revision.
+          flags:
+            --backup-plan=: The ID of the Backup Plan
+            --location=: Location ID of the resource.
+        - name: list
+          description: List backup plan revisions.
+          flags:
+            --backup-plan=: ID of the backup_plan or fully qualified identifier for the backup_plan.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Location ID of the resource.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: backup-plans
+      description: Manage Backup and DR backup plans.
+      commands:
+        - name: create
+          description: Creates a new Backup Plan.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --backup-rule=!: Backup rule that defines parameters for when and how a backup
+            --backup-vault=!: ID of the Backup Vault or fully qualified identifier for the Backup Vault.
+            --description=: Provide a description of the backup plan, such as specific use cases and
+            --labels=: If you have assigned labels to your resources for grouping, you can
+            --location=: The location of the Backup Plan.
+            --log-retention-days=&: Configures how long logs will be stored.
+            --max-custom-on-demand-retention-days=: Configure the maximum retention period for on-demand backups.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --resource-type=!: Type of resource to which the backup plan should be applied.
+        - name: delete
+          description: Deletes a Backup Plan.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location of the Backup Plan.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Show details of the backup plan.
+          flags:
+            --location=: Location ID of the resource.
+        - name: list
+          description: List backup plans in the project.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a specific backup plan.
+          flags:
+            --add-backup-rule=: Parameters of backup rule to be added to the Backup Plan.
+            --async: Return immediately, without waiting for the operation in progress to
+            --backup-rule=: Full definition of an existing backup rule with updated values.
+            --backup-rules-from-file=: Path to a YAML or JSON file containing backup rules.
+            --description=: Provide a description of the backup plan, such as specific use cases and
+            --location=: The location of the Backup Plan.
+            --log-retention-days=&: Configures how long logs will be stored.
+            --max-custom-on-demand-retention-days=: Configure the maximum retention period for on-demand backups.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --remove-backup-rule=: Name of an existing backup rule to be removed from the Backup Plan.
     - name: backup-vaults
       description: Manage Backup and DR backup vaults.
       commands:
-        - name: update
-          description: Update a Backup and DR backup vault.
-          flags:
-            --access-restriction=: Authorize certain sources and destinations for data being sent into, or restored from the current backup vault.
-            --backup-min-enforced-retention=: Backups will be kept for this minimum period before they can be deleted.
-            --description=: Optional description for the backup vault (2048 characters or less).
-            --effective-time=: The time at which the enforced retention period becomes locked.
-            --force-update: If set, allow update to extend the minimum enforced retention for backup vault.
-            --force-update-access-restriction: If set, the access restriction can be updated even if there are non-compliant data sources.
-            --location=: The location of the Backup Vault.
-            --no-async: Wait for the operation in progress to complete.
-            --no-force-update&: If set, allow update to extend the minimum enforced retention for backup vault.
-            --no-force-update-access-restriction&: If set, the access restriction can be updated even if there are non-compliant data sources.
-            --no-unlock-backup-min-enforced-retention&: Removes the lock on the backup minimum enforced retention period, and resets the effective time.
-            --unlock-backup-min-enforced-retention: Removes the lock on the backup minimum enforced retention period, and resets the effective time.
-          completion:
-            flag:
-                access-restriction:
-                    - within-project
-                    - within-org
-                    - unrestricted
-                    - within-org-but-unrestricted-for-ba
         - name: create
           description: Create a Backup and DR backup vault.
           flags:
@@ -74,208 +182,69 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
-    - name: data-source-references
-      description: Command group for Backup and DR Data Source References.
-      commands:
-        - name: describe
-          description: Show details of the data source reference.
-          flags:
-            --location=: Location ID of the resource.
-        - name: fetch-for-resource-type
-          description: Fetch Data Source References for a given resource type and location.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=!: Location for which data source references should be fetched.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: list
-          description: List Backup and DR data source references.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-    - name: locations
-      description: Manage Backup and DR locations.
-      commands:
-        - name: list
-          description: List available Backup and DR locations.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-    - name: management-servers
-      description: Manage Backup and DR management server.
-      commands:
-        - name: describe
-          description: Show details of the management server.
-          flags:
-            --location=: Location ID of the resource.
-        - name: list
-          description: List management servers in the project.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: create
-          description: Create a new management server in the project.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: The location of the Management Server.
-            --network=: (DEPRECATED) Name of an existing VPC network with private service access configured in the format - projects/<project>/global/networks/<network>.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: delete
-          description: Delete the specified Management Server.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: The location of the Management Server.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-    - name: backup-plan-associations
-      description: Manage Backup and DR backup plan associations.
-      commands:
-        - name: describe
-          description: Show details of the backup plan association.
-          flags:
-            --location=: Location ID of the resource.
-        - name: fetch-for-resource-type
-          description: Fetch Backup Plan Associations for a given resource type and location.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=!: Location for which backup plan associations should be fetched.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: list
-          description: List Backup and DR backup plan associations.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: trigger-backup
-          description: Create an on-demand backup for a resource.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --backup-rule-id=: Name of an existing backup rule to use for creating an on-demand backup.
-            --custom-retention-days=: Duration for which backup data will be retained.
-            --labels=: Labels to be applied to the backup.
-            --location=: The location of the Backup Plan Association.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --workload-project=: Cloud project id for the Backup Plan Association.
         - name: update
-          description: Update a specific backup plan within a backup plan association.
+          description: Update a Backup and DR backup vault.
           flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --backup-plan=!: ID of the Backup Plan or fully qualified identifier for the Backup Plan.
-            --location=: The location of the Backup Plan Association.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --workload-project=: Cloud project id for the Backup Plan Association.
-        - name: create
-          description: Create a new backup plan association.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --backup-plan=!: ID of the Backup Plan or fully qualified identifier for the Backup Plan.
-            --location=: The location of the Backup Plan Association.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --resource-type=!: Type of resource to which the backup plan should be applied.
-            --resource=!: The resource to which the backup plan is to be applied.
-            --workload-project=: Cloud project id for the Backup Plan Association.
-        - name: delete
-          description: Delete the specified backup plan association.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: The location of the Backup Plan Association.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --workload-project=: Cloud project id for the Backup Plan Association.
-    - name: backup-plan-revisions
-      description: View Backup and DR backup plan revisions.
-      commands:
-        - name: describe
-          description: Show details of the backup plan revision.
-          flags:
-            --backup-plan=: The ID of the Backup Plan
-            --location=: Location ID of the resource.
-        - name: list
-          description: List backup plan revisions.
-          flags:
-            --backup-plan=: ID of the backup_plan or fully qualified identifier for the backup_plan.
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: Location ID of the resource.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-    - name: backup-plans
-      description: Manage Backup and DR backup plans.
-      commands:
-        - name: list
-          description: List backup plans in the project.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: update
-          description: Update a specific backup plan.
-          flags:
-            --add-backup-rule=: Parameters of backup rule to be added to the Backup Plan.
-            --async: Return immediately, without waiting for the operation in progress to
-            --backup-rule=: Full definition of an existing backup rule with updated values.
-            --backup-rules-from-file=: Path to a YAML or JSON file containing backup rules.
-            --description=: Provide a description of the backup plan, such as specific use cases and
-            --location=: The location of the Backup Plan.
-            --log-retention-days=&: Configures how long logs will be stored.
-            --max-custom-on-demand-retention-days=: Configure the maximum retention period for on-demand backups.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --remove-backup-rule=: Name of an existing backup rule to be removed from the Backup Plan.
-        - name: create
-          description: Creates a new Backup Plan.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --backup-rule=!: Backup rule that defines parameters for when and how a backup
-            --backup-vault=!: ID of the Backup Vault or fully qualified identifier for the Backup Vault.
-            --description=: Provide a description of the backup plan, such as specific use cases and
-            --labels=: If you have assigned labels to your resources for grouping, you can
-            --location=: The location of the Backup Plan.
-            --log-retention-days=&: Configures how long logs will be stored.
-            --max-custom-on-demand-retention-days=: Configure the maximum retention period for on-demand backups.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --resource-type=!: Type of resource to which the backup plan should be applied.
-        - name: delete
-          description: Deletes a Backup Plan.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: The location of the Backup Plan.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: describe
-          description: Show details of the backup plan.
-          flags:
-            --location=: Location ID of the resource.
+            --access-restriction=: Authorize certain sources and destinations for data being sent into, or restored from the current backup vault.
+            --backup-min-enforced-retention=: Backups will be kept for this minimum period before they can be deleted.
+            --description=: Optional description for the backup vault (2048 characters or less).
+            --effective-time=: The time at which the enforced retention period becomes locked.
+            --force-update: If set, allow update to extend the minimum enforced retention for backup vault.
+            --force-update-access-restriction: If set, the access restriction can be updated even if there are non-compliant data sources.
+            --location=: The location of the Backup Vault.
+            --no-async: Wait for the operation in progress to complete.
+            --no-force-update&: If set, allow update to extend the minimum enforced retention for backup vault.
+            --no-force-update-access-restriction&: If set, the access restriction can be updated even if there are non-compliant data sources.
+            --no-unlock-backup-min-enforced-retention&: Removes the lock on the backup minimum enforced retention period, and resets the effective time.
+            --unlock-backup-min-enforced-retention: Removes the lock on the backup minimum enforced retention period, and resets the effective time.
+          completion:
+            flag:
+                access-restriction:
+                    - within-project
+                    - within-org
+                    - unrestricted
+                    - within-org-but-unrestricted-for-ba
     - name: backups
       description: Manage Backup and DR backups.
       commands:
+        - name: delete
+          description: Delete the specified Backup.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --backup-vault=: The ID of the Backup Vault.
+            --data-source=: The ID of the Data Source.
+            --location=: The location of the Backup.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Show details of the backup.
+          flags:
+            --backup-vault=: The ID of the Backup Vault.
+            --data-source=: The ID of the Data Source.
+            --location=: Location ID of the resource.
+        - name: fetch-for-resource-type
+          description: Fetch Backups for a given resource type and location.
+          flags:
+            --backup-vault=: The ID of the Backup Vault.
+            --data-source=!: ID of the Data Source or fully qualified identifier for the Data Source.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: The location of the Data Source.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: list
+          description: List Backups.
+          flags:
+            --backup-vault=: The ID of the Backup Vault.
+            --data-source=: ID of the dataSource or fully qualified identifier for the dataSource.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Location ID of the resource.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
         - name: restore
           description: Manage restore operations for resources.
           commands:
@@ -397,40 +366,29 @@ commands:
             --expire-time=: The date when this backup is automatically expired.
             --location=: The location of the Backup.
             --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: delete
-          description: Delete the specified Backup.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --backup-vault=: The ID of the Backup Vault.
-            --data-source=: The ID of the Data Source.
-            --location=: The location of the Backup.
-            --no-async&: Return immediately, without waiting for the operation in progress to
+    - name: data-source-references
+      description: Command group for Backup and DR Data Source References.
+      commands:
         - name: describe
-          description: Show details of the backup.
+          description: Show details of the data source reference.
           flags:
-            --backup-vault=: The ID of the Backup Vault.
-            --data-source=: The ID of the Data Source.
             --location=: Location ID of the resource.
         - name: fetch-for-resource-type
-          description: Fetch Backups for a given resource type and location.
+          description: Fetch Data Source References for a given resource type and location.
           flags:
-            --backup-vault=: The ID of the Backup Vault.
-            --data-source=!: ID of the Data Source or fully qualified identifier for the Data Source.
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
-            --location=: The location of the Data Source.
+            --location=!: Location for which data source references should be fetched.
             --no-uri&: Print a list of resource URIs instead of the default output, and change the
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
         - name: list
-          description: List Backups.
+          description: List Backup and DR data source references.
           flags:
-            --backup-vault=: The ID of the Backup Vault.
-            --data-source=: ID of the dataSource or fully qualified identifier for the dataSource.
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
-            --location=: Location ID of the resource.
+            --location=: ID of the location or fully qualified identifier for the location.
             --no-uri&: Print a list of resource URIs instead of the default output, and change the
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
@@ -438,6 +396,11 @@ commands:
     - name: data-sources
       description: View Backup and DR data sources.
       commands:
+        - name: describe
+          description: Show details of the data source.
+          flags:
+            --backup-vault=: The ID of the Backup Vault.
+            --location=: Location ID of the resource.
         - name: list
           description: List Data Sources.
           flags:
@@ -449,11 +412,48 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: describe
-          description: Show details of the data source.
+    - name: locations
+      description: Manage Backup and DR locations.
+      commands:
+        - name: list
+          description: List available Backup and DR locations.
           flags:
-            --backup-vault=: The ID of the Backup Vault.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: management-servers
+      description: Manage Backup and DR management server.
+      commands:
+        - name: create
+          description: Create a new management server in the project.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location of the Management Server.
+            --network=: (DEPRECATED) Name of an existing VPC network with private service access configured in the format - projects/<project>/global/networks/<network>.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: delete
+          description: Delete the specified Management Server.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location of the Management Server.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Show details of the management server.
+          flags:
             --location=: Location ID of the resource.
+        - name: list
+          description: List management servers in the project.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
     - name: operations
       description: Manage Backup and DR operations.
       commands:

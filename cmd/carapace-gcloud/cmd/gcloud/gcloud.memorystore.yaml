@@ -57,122 +57,6 @@ commands:
     - name: instances
       description: Manage Instance resources.
       commands:
-        - name: reschedule-maintenance
-          description: Reschedule maintenance window for an instance.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: The location id of the instance resource.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --reschedule-type=!: If reschedule type is SPECIFIC_TIME, schedule_time must be set.
-            --schedule-time=: Timestamp when the maintenance shall be rescheduled to if
-          completion:
-            flag:
-                reschedule-type:
-                    - immediate
-                    - specific-time
-        - name: update
-          description: Update the configuration of a Memorystore instance.
-          flags:
-            --add-cross-instance-replication-config-secondary-instances=: Add new value to cross_instance_replication_config_secondary_instances list.
-            --add-endpoints=: Add new value to endpoints list.
-            --add-maintenance-policy-weekly-window=: Add new value to maintenance_policy_weekly_window list.
-            --aof-config-append-fsync=: The fsync mode.
-            --async: Return immediately, without waiting for the operation in progress to
-            --async-instance-endpoints-deletion-enabled: If true, instance endpoints that are created and registered by customers
-            --automated-backup-config-mode=: The automated backup mode.
-            --automated-backup-config-retention=: How long to keep automated backups before the backups are deleted.
-            --clear-automated-backup-config: Set instance.automatedBackupConfig back to default value.
-            --clear-cross-instance-replication-config: Set instance.crossInstanceReplicationConfig back to default value.
-            --clear-cross-instance-replication-config-secondary-instances: Clear cross_instance_replication_config_secondary_instances value and set to empty list.
-            --clear-endpoints: Clear endpoints value and set to empty list.
-            --clear-engine-configs: Clear engine_configs value and set to empty map.
-            --clear-kms-key: Clear kms_key value and set to null.
-            --clear-labels: Clear labels value and set to empty map.
-            --clear-maintenance-policy: Set instance.maintenancePolicy back to default value.
-            --clear-maintenance-policy-weekly-window: Clear maintenance_policy_weekly_window value and set to empty list.
-            --clear-persistence-config: Set instance.persistenceConfig back to default value.
-            --clear-primary-instance: Clear primary_instance value and set to null.
-            --cross-instance-replication-config-role=: The role of the instance in cross instance replication.
-            --cross-instance-replication-config-secondary-instances=: Set cross_instance_replication_config_secondary_instances to new value.
-            --deletion-protection-enabled: If set to true deletion of the instance will fail.
-            --endpoints=: Set endpoints to new value.
-            --engine-configs=: Set engine_configs to new value.
-            --engine-version=: Engine version of the instance.
-            --fixed-frequency-schedule-start-time-hours=: Hours of a day in 24 hour format.
-            --fixed-frequency-schedule-start-time-minutes=: Minutes of an hour.
-            --fixed-frequency-schedule-start-time-nanos=: Fractions of seconds, in nanoseconds.
-            --fixed-frequency-schedule-start-time-seconds=: Seconds of a minute.
-            --key-ring=: The keyRing id of the cryptoKey resource.
-            --kms-key=!: ID of the cryptoKey or fully qualified identifier for the cryptoKey.
-            --labels=: Set labels to new value.
-            --location=: For resources [instance, kms-key, primary-instance], provides fallback value for resource location attribute.
-            --maintenance-policy-weekly-window=: Set maintenance_policy_weekly_window to new value.
-            --maintenance-version=: This field can be used to trigger self service update to indicate the
-            --mode=: The mode config for the instance.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-async-instance-endpoints-deletion-enabled&: If true, instance endpoints that are created and registered by customers
-            --no-clear-automated-backup-config&: Set instance.automatedBackupConfig back to default value.
-            --no-clear-cross-instance-replication-config&: Set instance.crossInstanceReplicationConfig back to default value.
-            --no-clear-cross-instance-replication-config-secondary-instances&: Clear cross_instance_replication_config_secondary_instances value and set to empty list.
-            --no-clear-endpoints&: Clear endpoints value and set to empty list.
-            --no-clear-engine-configs&: Clear engine_configs value and set to empty map.
-            --no-clear-kms-key&: Clear kms_key value and set to null.
-            --no-clear-labels&: Clear labels value and set to empty map.
-            --no-clear-maintenance-policy&: Set instance.maintenancePolicy back to default value.
-            --no-clear-maintenance-policy-weekly-window&: Clear maintenance_policy_weekly_window value and set to empty list.
-            --no-clear-persistence-config&: Set instance.persistenceConfig back to default value.
-            --no-clear-primary-instance&: Clear primary_instance value and set to null.
-            --no-deletion-protection-enabled&: If set to true deletion of the instance will fail.
-            --no-ondemand-maintenance&: Ondemand maintenance for the instance.
-            --no-simulate-maintenance-event&: Simulate a maintenance event.
-            --node-type=: Machine type for individual nodes of the instance.
-            --ondemand-maintenance: Ondemand maintenance for the instance.
-            --persistence-config-mode=: Current persistence mode.
-            --primary-instance=!: ID of the instance or fully qualified identifier for the instance.
-            --rdb-config-snapshot-period=: Period between RDB snapshots.
-            --rdb-config-snapshot-start-time=: Time that the first snapshot was/will be attempted, and to which future
-            --remove-cross-instance-replication-config-secondary-instances=: Remove existing value from cross_instance_replication_config_secondary_instances list.
-            --remove-endpoints=: Remove existing value from endpoints list.
-            --remove-engine-configs=: Remove existing value from map engine_configs.
-            --remove-labels=: Remove existing value from map labels.
-            --remove-maintenance-policy-weekly-window=: Remove existing value from maintenance_policy_weekly_window list.
-            --replica-count=: Number of replica nodes per shard.
-            --request-id=: An optional request ID to identify requests.
-            --shard-count=: Number of shards for the instance.
-            --simulate-maintenance-event: Simulate a maintenance event.
-            --update-engine-configs=: Update engine_configs value or add key value pair.
-            --update-labels=: Update labels value or add key value pair.
-          completion:
-            flag:
-                aof-config-append-fsync:
-                    - always
-                    - every-sec
-                    - never
-                automated-backup-config-mode:
-                    - disabled
-                    - enabled
-                cross-instance-replication-config-role:
-                    - none
-                    - primary
-                    - secondary
-                mode:
-                    - cluster
-                    - cluster-disabled
-                    - standalone
-                node-type:
-                    - highmem-medium
-                    - highmem-xlarge
-                    - shared-core-nano
-                    - standard-small
-                persistence-config-mode:
-                    - aof
-                    - disabled
-                    - rdb
-                rdb-config-snapshot-period:
-                    - one-hour
-                    - six-hours
-                    - twelve-hours
-                    - twenty-four-hours
         - name: backup
           description: backup instances.
           flags:
@@ -294,6 +178,122 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: reschedule-maintenance
+          description: Reschedule maintenance window for an instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the instance resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --reschedule-type=!: If reschedule type is SPECIFIC_TIME, schedule_time must be set.
+            --schedule-time=: Timestamp when the maintenance shall be rescheduled to if
+          completion:
+            flag:
+                reschedule-type:
+                    - immediate
+                    - specific-time
+        - name: update
+          description: Update the configuration of a Memorystore instance.
+          flags:
+            --add-cross-instance-replication-config-secondary-instances=: Add new value to cross_instance_replication_config_secondary_instances list.
+            --add-endpoints=: Add new value to endpoints list.
+            --add-maintenance-policy-weekly-window=: Add new value to maintenance_policy_weekly_window list.
+            --aof-config-append-fsync=: The fsync mode.
+            --async: Return immediately, without waiting for the operation in progress to
+            --async-instance-endpoints-deletion-enabled: If true, instance endpoints that are created and registered by customers
+            --automated-backup-config-mode=: The automated backup mode.
+            --automated-backup-config-retention=: How long to keep automated backups before the backups are deleted.
+            --clear-automated-backup-config: Set instance.automatedBackupConfig back to default value.
+            --clear-cross-instance-replication-config: Set instance.crossInstanceReplicationConfig back to default value.
+            --clear-cross-instance-replication-config-secondary-instances: Clear cross_instance_replication_config_secondary_instances value and set to empty list.
+            --clear-endpoints: Clear endpoints value and set to empty list.
+            --clear-engine-configs: Clear engine_configs value and set to empty map.
+            --clear-kms-key: Clear kms_key value and set to null.
+            --clear-labels: Clear labels value and set to empty map.
+            --clear-maintenance-policy: Set instance.maintenancePolicy back to default value.
+            --clear-maintenance-policy-weekly-window: Clear maintenance_policy_weekly_window value and set to empty list.
+            --clear-persistence-config: Set instance.persistenceConfig back to default value.
+            --clear-primary-instance: Clear primary_instance value and set to null.
+            --cross-instance-replication-config-role=: The role of the instance in cross instance replication.
+            --cross-instance-replication-config-secondary-instances=: Set cross_instance_replication_config_secondary_instances to new value.
+            --deletion-protection-enabled: If set to true deletion of the instance will fail.
+            --endpoints=: Set endpoints to new value.
+            --engine-configs=: Set engine_configs to new value.
+            --engine-version=: Engine version of the instance.
+            --fixed-frequency-schedule-start-time-hours=: Hours of a day in 24 hour format.
+            --fixed-frequency-schedule-start-time-minutes=: Minutes of an hour.
+            --fixed-frequency-schedule-start-time-nanos=: Fractions of seconds, in nanoseconds.
+            --fixed-frequency-schedule-start-time-seconds=: Seconds of a minute.
+            --key-ring=: The keyRing id of the cryptoKey resource.
+            --kms-key=!: ID of the cryptoKey or fully qualified identifier for the cryptoKey.
+            --labels=: Set labels to new value.
+            --location=: For resources [instance, kms-key, primary-instance], provides fallback value for resource location attribute.
+            --maintenance-policy-weekly-window=: Set maintenance_policy_weekly_window to new value.
+            --maintenance-version=: This field can be used to trigger self service update to indicate the
+            --mode=: The mode config for the instance.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-async-instance-endpoints-deletion-enabled&: If true, instance endpoints that are created and registered by customers
+            --no-clear-automated-backup-config&: Set instance.automatedBackupConfig back to default value.
+            --no-clear-cross-instance-replication-config&: Set instance.crossInstanceReplicationConfig back to default value.
+            --no-clear-cross-instance-replication-config-secondary-instances&: Clear cross_instance_replication_config_secondary_instances value and set to empty list.
+            --no-clear-endpoints&: Clear endpoints value and set to empty list.
+            --no-clear-engine-configs&: Clear engine_configs value and set to empty map.
+            --no-clear-kms-key&: Clear kms_key value and set to null.
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --no-clear-maintenance-policy&: Set instance.maintenancePolicy back to default value.
+            --no-clear-maintenance-policy-weekly-window&: Clear maintenance_policy_weekly_window value and set to empty list.
+            --no-clear-persistence-config&: Set instance.persistenceConfig back to default value.
+            --no-clear-primary-instance&: Clear primary_instance value and set to null.
+            --no-deletion-protection-enabled&: If set to true deletion of the instance will fail.
+            --no-ondemand-maintenance&: Ondemand maintenance for the instance.
+            --no-simulate-maintenance-event&: Simulate a maintenance event.
+            --node-type=: Machine type for individual nodes of the instance.
+            --ondemand-maintenance: Ondemand maintenance for the instance.
+            --persistence-config-mode=: Current persistence mode.
+            --primary-instance=!: ID of the instance or fully qualified identifier for the instance.
+            --rdb-config-snapshot-period=: Period between RDB snapshots.
+            --rdb-config-snapshot-start-time=: Time that the first snapshot was/will be attempted, and to which future
+            --remove-cross-instance-replication-config-secondary-instances=: Remove existing value from cross_instance_replication_config_secondary_instances list.
+            --remove-endpoints=: Remove existing value from endpoints list.
+            --remove-engine-configs=: Remove existing value from map engine_configs.
+            --remove-labels=: Remove existing value from map labels.
+            --remove-maintenance-policy-weekly-window=: Remove existing value from maintenance_policy_weekly_window list.
+            --replica-count=: Number of replica nodes per shard.
+            --request-id=: An optional request ID to identify requests.
+            --shard-count=: Number of shards for the instance.
+            --simulate-maintenance-event: Simulate a maintenance event.
+            --update-engine-configs=: Update engine_configs value or add key value pair.
+            --update-labels=: Update labels value or add key value pair.
+          completion:
+            flag:
+                aof-config-append-fsync:
+                    - always
+                    - every-sec
+                    - never
+                automated-backup-config-mode:
+                    - disabled
+                    - enabled
+                cross-instance-replication-config-role:
+                    - none
+                    - primary
+                    - secondary
+                mode:
+                    - cluster
+                    - cluster-disabled
+                    - standalone
+                node-type:
+                    - highmem-medium
+                    - highmem-xlarge
+                    - shared-core-nano
+                    - standard-small
+                persistence-config-mode:
+                    - aof
+                    - disabled
+                    - rdb
+                rdb-config-snapshot-period:
+                    - one-hour
+                    - six-hours
+                    - twelve-hours
+                    - twenty-four-hours
     - name: locations
       description: Manage Memorystore for Valkey locations.
       commands:

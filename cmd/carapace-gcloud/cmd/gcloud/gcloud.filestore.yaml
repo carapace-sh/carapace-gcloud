@@ -53,64 +53,6 @@ commands:
     - name: instances
       description: Create and manage Filestore instances.
       commands:
-        - name: update
-          description: Update a Filestore instance.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --clear-labels: Remove all labels.
-            --clear-nfs-export-options: Clears the NfsExportOptions.
-            --deletion-protection: Enables deletion protection for the instance.
-            --deletion-protection-reason=: The reason for enabling deletion protection for the instance.
-            --description=: A description of the Cloud Filestore instance.
-            --disconnect-ldap&: Disconnect the instance from LDAP.
-            --file-share=!: File share configuration for an instance.
-            --ldap=&: LDAP configuration for an instance.
-            --location=: Location of the Cloud Filestore instance/operation.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-clear-labels&: Remove all labels.
-            --no-clear-nfs-export-options&: Clears the NfsExportOptions.
-            --no-deletion-protection&: Enables deletion protection for the instance.
-            --no-disconnect-ldap&: Disconnect the instance from LDAP.
-            --performance=: Performance configuration for the instance.
-            --region=: Region of the Cloud Filestore instance.
-            --remove-labels=: List of label keys to remove.
-            --update-labels=: List of label KEY=VALUE pairs to update.
-            --zone=: The zone of the instance.
-        - name: describe
-          description: Show metadata for a Filestore instance.
-          flags:
-            --location=: Location of the Cloud Filestore instance/operation.
-            --region=: Region of the Cloud Filestore instance.
-            --zone=: The zone of the instance.
-        - name: list
-          description: List Filestore instances.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: Location of the Cloud Filestore instance/operation.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --region=: Region of the Cloud Filestore instance.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-            --zone=: ID of the zone or fully qualified identifier for the zone.
-        - name: promote-replica
-          description: Promote a Filestore standby replication instance.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: Location of the Filestore instance to promote.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --peer-instance=: The name of the standby peer instance to promote.
-            --zone=: The zone of the Filestore instance.
-        - name: restore
-          description: Restore a Filestore instance from a backup.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --file-share=!: File share to restore from the backup.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --source-backup-region=!: Region of the Filestore backup to restore from.
-            --source-backup=!: Name of the Filestore backup to restore from.
-            --zone=: The zone of the Filestore instance.
         - name: create
           description: Create a Filestore instance.
           flags:
@@ -160,6 +102,41 @@ commands:
             --no-force&: Forces the deletion of an instance and its child resources,
             --region=: Region of the Cloud Filestore instance.
             --zone=: The zone of the instance.
+        - name: describe
+          description: Show metadata for a Filestore instance.
+          flags:
+            --location=: Location of the Cloud Filestore instance/operation.
+            --region=: Region of the Cloud Filestore instance.
+            --zone=: The zone of the instance.
+        - name: list
+          description: List Filestore instances.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Location of the Cloud Filestore instance/operation.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: Region of the Cloud Filestore instance.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+            --zone=: ID of the zone or fully qualified identifier for the zone.
+        - name: promote-replica
+          description: Promote a Filestore standby replication instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Location of the Filestore instance to promote.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --peer-instance=: The name of the standby peer instance to promote.
+            --zone=: The zone of the Filestore instance.
+        - name: restore
+          description: Restore a Filestore instance from a backup.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --file-share=!: File share to restore from the backup.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --source-backup-region=!: Region of the Filestore backup to restore from.
+            --source-backup=!: Name of the Filestore backup to restore from.
+            --zone=: The zone of the Filestore instance.
         - name: revert
           description: Revert a Filestore instance.
           flags:
@@ -170,6 +147,30 @@ commands:
         - name: snapshots
           description: Create and manage Filestore snapshots.
           commands:
+            - name: create
+              description: Create a Filestore snapshot.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --description=: Description of the snapshot.
+                --instance-location=: Location of the Filestore instance.
+                --instance-region=: Region of the Filestore instance.
+                --instance=!: Name of the Filestore instance that you want to create a snapshot of.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: delete
+              description: Delete a Filestore snapshot.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --instance-location=: Location of the Filestore instance.
+                --instance-region=: Region of the Filestore instance.
+                --instance=!: Name of the Filestore instance the snapshot belongs to.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: describe
+              description: Display information about a Filestore snapshot.
+              flags:
+                --instance-location=: Location of the Filestore instance.
+                --instance-region=: Region of the Filestore instance.
+                --instance=!: Name of the Filestore instance the snapshot belongs to.
             - name: list
               description: List Filestore snapshots.
               flags:
@@ -195,30 +196,29 @@ commands:
                 --no-clear-labels&: Remove all labels.
                 --remove-labels=: List of label keys to remove.
                 --update-labels=: List of label KEY=VALUE pairs to update.
-            - name: create
-              description: Create a Filestore snapshot.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --description=: Description of the snapshot.
-                --instance-location=: Location of the Filestore instance.
-                --instance-region=: Region of the Filestore instance.
-                --instance=!: Name of the Filestore instance that you want to create a snapshot of.
-                --labels=: List of label KEY=VALUE pairs to add.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-            - name: delete
-              description: Delete a Filestore snapshot.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --instance-location=: Location of the Filestore instance.
-                --instance-region=: Region of the Filestore instance.
-                --instance=!: Name of the Filestore instance the snapshot belongs to.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-            - name: describe
-              description: Display information about a Filestore snapshot.
-              flags:
-                --instance-location=: Location of the Filestore instance.
-                --instance-region=: Region of the Filestore instance.
-                --instance=!: Name of the Filestore instance the snapshot belongs to.
+        - name: update
+          description: Update a Filestore instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Remove all labels.
+            --clear-nfs-export-options: Clears the NfsExportOptions.
+            --deletion-protection: Enables deletion protection for the instance.
+            --deletion-protection-reason=: The reason for enabling deletion protection for the instance.
+            --description=: A description of the Cloud Filestore instance.
+            --disconnect-ldap&: Disconnect the instance from LDAP.
+            --file-share=!: File share configuration for an instance.
+            --ldap=&: LDAP configuration for an instance.
+            --location=: Location of the Cloud Filestore instance/operation.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --no-clear-nfs-export-options&: Clears the NfsExportOptions.
+            --no-deletion-protection&: Enables deletion protection for the instance.
+            --no-disconnect-ldap&: Disconnect the instance from LDAP.
+            --performance=: Performance configuration for the instance.
+            --region=: Region of the Cloud Filestore instance.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+            --zone=: The zone of the instance.
     - name: locations
       description: List locations where Filestore is available.
       commands:
@@ -236,6 +236,11 @@ commands:
     - name: operations
       description: Read and manipulate Filestore operations.
       commands:
+        - name: cancel
+          description: Cancel a Filestore operation.
+          flags:
+            --location=: Location of the Cloud Filestore instance/operation.
+            --zone=: The zone of the operation.
         - name: describe
           description: Describe a Filestore operation.
           flags:
@@ -252,11 +257,6 @@ commands:
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
             --zone=: ID of the zone or fully qualified identifier for the zone.
-        - name: cancel
-          description: Cancel a Filestore operation.
-          flags:
-            --location=: Location of the Cloud Filestore instance/operation.
-            --zone=: The zone of the operation.
     - name: regions
       description: List regions where Filestore is available.
       commands:

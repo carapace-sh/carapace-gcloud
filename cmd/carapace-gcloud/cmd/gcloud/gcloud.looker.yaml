@@ -2,53 +2,9 @@
 name: looker
 description: Manage Looker resources.
 commands:
-    - name: operations
-      description: Manage Looker operations.
-      commands:
-        - name: cancel
-          description: Cancel a Looker import or export operation.
-          flags:
-            --region=: The name of the Looker region of the operation.
-        - name: describe
-          description: Show metadata for a Looker operation.
-          flags:
-            --region=: The name of the Looker region of the operation.
-        - name: list
-          description: List Looker operations.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --region=: ID of the region or fully qualified identifier for the region.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-    - name: regions
-      description: Manage Looker regions.
-      commands:
-        - name: list
-          description: List Looker regions.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
     - name: backups
       description: Manage Looker instances.
       commands:
-        - name: list
-          description: List backups of a Looker instance.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --instance=!: ID of the instance or fully qualified identifier for the instance.
-            --limit=: Maximum number of resources to list.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --region=: The name of the Looker region of the instance.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
         - name: create
           description: Create a backup of a Looker instance.
           flags:
@@ -66,35 +22,20 @@ commands:
           flags:
             --instance=: The name of the Looker instance.
             --region=: The name of the Looker region of the backup.
+        - name: list
+          description: List backups of a Looker instance.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --instance=!: ID of the instance or fully qualified identifier for the instance.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: The name of the Looker region of the instance.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
     - name: instances
       description: Manage Looker instances.
       commands:
-        - name: delete
-          description: Delete a Looker instance.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --force: Force delete an instance.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-force&: Force delete an instance.
-            --region=: The name of the Looker region of the instance.
-        - name: import
-          description: Import a Looker instance.
-          flags:
-            --region=: The region of the instance.
-            --source-gcs-uri=: The path to the folder in Google Cloud Storage where the import will be retrieved from.
-        - name: restart
-          description: Restart a Looker instance.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --region=: The name of the Looker region of the instance.
-        - name: restore
-          description: Restore a Looker instance from a backup.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --backup=!: The ID of the backup instance in the format
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --region=: The name of the Looker region of the instance.
         - name: create
           description: Create a Looker instance.
           flags:
@@ -147,6 +88,14 @@ commands:
                     - thursday
                     - tuesday
                     - wednesday
+        - name: delete
+          description: Delete a Looker instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --force: Force delete an instance.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-force&: Force delete an instance.
+            --region=: The name of the Looker region of the instance.
         - name: describe
           description: Show metadata for a Looker instance.
           flags:
@@ -157,6 +106,11 @@ commands:
             --kms-key=!: Fully qualified identifier (name) for the key.
             --region=: The region of the instance.
             --target-gcs-uri=: The path to the folder in Google Cloud Storage where the export will be stored.
+        - name: import
+          description: Import a Looker instance.
+          flags:
+            --region=: The region of the instance.
+            --source-gcs-uri=: The path to the folder in Google Cloud Storage where the import will be retrieved from.
         - name: list
           description: List Looker instances.
           flags:
@@ -167,6 +121,19 @@ commands:
             --region=: ID of the region or fully qualified identifier for the region.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: restart
+          description: Restart a Looker instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The name of the Looker region of the instance.
+        - name: restore
+          description: Restore a Looker instance from a backup.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --backup=!: The ID of the backup instance in the format
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The name of the Looker region of the instance.
         - name: update
           description: Update a Looker instance.
           flags:
@@ -213,3 +180,36 @@ commands:
                     - thursday
                     - tuesday
                     - wednesday
+    - name: operations
+      description: Manage Looker operations.
+      commands:
+        - name: cancel
+          description: Cancel a Looker import or export operation.
+          flags:
+            --region=: The name of the Looker region of the operation.
+        - name: describe
+          description: Show metadata for a Looker operation.
+          flags:
+            --region=: The name of the Looker region of the operation.
+        - name: list
+          description: List Looker operations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: ID of the region or fully qualified identifier for the region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: regions
+      description: Manage Looker regions.
+      commands:
+        - name: list
+          description: List Looker regions.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the

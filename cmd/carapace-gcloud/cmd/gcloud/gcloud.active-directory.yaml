@@ -5,12 +5,99 @@ commands:
     - name: domains
       description: Manage Managed Microsoft AD domains.
       commands:
+        - name: backups
+          description: Managed Microsoft AD Backups.
+          commands:
+            - name: create
+              description: Create a Managed Microsoft AD domain backup.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --domain=: The fully-qualified domain name of the Microsoft Active Directory domain.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: delete
+              description: Delete a Managed Microsoft AD domain backup.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --domain=: The fully-qualified domain name of the Microsoft Active Directory domain.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: describe
+              description: Describe a Managed Microsoft AD domain backup.
+              flags:
+                --domain=: The fully-qualified domain name of the Microsoft Active Directory domain.
+            - name: list
+              description: List all Managed Microsoft AD domain backups.
+              flags:
+                --domain=!: ID of the domain or fully qualified identifier for the domain.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Update a Managed Microsoft AD domain backup.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-labels: Remove all labels.
+                --domain=: The fully-qualified domain name of the Microsoft Active Directory domain.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Remove all labels.
+                --remove-labels=: List of label keys to remove.
+                --update-labels=: List of label KEY=VALUE pairs to update.
+        - name: create
+          description: Create a Managed Microsoft AD domain.
+          flags:
+            --admin-name=: Name of the administrator that may be used to perform Active Directory
+            --async: Return immediately, without waiting for the operation in progress to
+            --authorized-networks=: Names of the Google Compute Engine networks to which the domain will be connected.
+            --enable-audit-logs: If specified, Active Directory data audit logs are enabled for the domain.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-enable-audit-logs&: If specified, Active Directory data audit logs are enabled for the domain.
+            --region=!: Google Compute Engine region in which to provision domain controllers.
+            --reserved-ip-range=!: Classless Inter-Domain Routing range of internal addresses that
+            --tags=&: List of tag KEY=VALUE pairs to add.
+        - name: delete
+          description: Delete a managed Microsoft Active Directory domain.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe a Managed Microsoft AD domain.
+        - name: describe-ldaps-settings
+          description: Describe the LDAPS settings of a Managed Microsoft AD domain.
+        - name: extend-schema
+          description: Initiate schema extension for a Managed Microsoft AD domain.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=!: Description of schema change.
+            --ldif-file=!: Local LDIF file path that contains commands for schema extension.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: get-iam-policy
+          description: Describe the IAM policy for a Managed Microsoft AD domain.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: List Managed Microsoft AD domains.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: reset-admin-password
+          description: Reset the admin password for a Managed Microsoft AD domain.
         - name: restore
           description: Restore a domain from the specified backup.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
             --backup=!: Name of the domain backup from which you want to restore the Managed Microsoft AD domain.
             --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: set-iam-policy
+          description: Set the IAM policy for a Managed Microsoft AD domain.
         - name: trusts
           description: Manage Managed Microsoft AD domains.
           commands:
@@ -56,33 +143,6 @@ commands:
                 --async: Return immediately, without waiting for the operation in progress to
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --target-domain-name=!: Target domain name of the Managed Microsoft AD Active Directory trust you want to validate.
-        - name: update-ldaps-settings
-          description: Update the LDAPS settings for a domain.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --certificate-password=: Password used to encrypt the PKCS#12 certificate.
-            --certificate-pfx-file=!: PKCS#12-formatted pfx file that specifies the certificate chain used to configure LDAPS.
-            --clear-certificates: Disable LDAPS by deleting all existing certificates.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-clear-certificates&: Disable LDAPS by deleting all existing certificates.
-        - name: delete
-          description: Delete a managed Microsoft Active Directory domain.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: describe
-          description: Describe a Managed Microsoft AD domain.
-        - name: describe-ldaps-settings
-          description: Describe the LDAPS settings of a Managed Microsoft AD domain.
-        - name: list
-          description: List Managed Microsoft AD domains.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: set-iam-policy
-          description: Set the IAM policy for a Managed Microsoft AD domain.
         - name: update
           description: Update a Managed Microsoft AD domain.
           flags:
@@ -98,75 +158,15 @@ commands:
             --remove-labels=: List of label keys to remove.
             --remove-region=: A region to de-provision this domain from.
             --update-labels=: List of label KEY=VALUE pairs to update.
-        - name: backups
-          description: Managed Microsoft AD Backups.
-          commands:
-            - name: update
-              description: Update a Managed Microsoft AD domain backup.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --clear-labels: Remove all labels.
-                --domain=: The fully-qualified domain name of the Microsoft Active Directory domain.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --no-clear-labels&: Remove all labels.
-                --remove-labels=: List of label keys to remove.
-                --update-labels=: List of label KEY=VALUE pairs to update.
-            - name: create
-              description: Create a Managed Microsoft AD domain backup.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --domain=: The fully-qualified domain name of the Microsoft Active Directory domain.
-                --labels=: List of label KEY=VALUE pairs to add.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-            - name: delete
-              description: Delete a Managed Microsoft AD domain backup.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --domain=: The fully-qualified domain name of the Microsoft Active Directory domain.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-            - name: describe
-              description: Describe a Managed Microsoft AD domain backup.
-              flags:
-                --domain=: The fully-qualified domain name of the Microsoft Active Directory domain.
-            - name: list
-              description: List all Managed Microsoft AD domain backups.
-              flags:
-                --domain=!: ID of the domain or fully qualified identifier for the domain.
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --limit=: Maximum number of resources to list.
-                --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: create
-          description: Create a Managed Microsoft AD domain.
-          flags:
-            --admin-name=: Name of the administrator that may be used to perform Active Directory
-            --async: Return immediately, without waiting for the operation in progress to
-            --authorized-networks=: Names of the Google Compute Engine networks to which the domain will be connected.
-            --enable-audit-logs: If specified, Active Directory data audit logs are enabled for the domain.
-            --labels=: List of label KEY=VALUE pairs to add.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-enable-audit-logs&: If specified, Active Directory data audit logs are enabled for the domain.
-            --region=!: Google Compute Engine region in which to provision domain controllers.
-            --reserved-ip-range=!: Classless Inter-Domain Routing range of internal addresses that
-            --tags=&: List of tag KEY=VALUE pairs to add.
-        - name: extend-schema
-          description: Initiate schema extension for a Managed Microsoft AD domain.
+        - name: update-ldaps-settings
+          description: Update the LDAPS settings for a domain.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
-            --description=!: Description of schema change.
-            --ldif-file=!: Local LDIF file path that contains commands for schema extension.
+            --certificate-password=: Password used to encrypt the PKCS#12 certificate.
+            --certificate-pfx-file=!: PKCS#12-formatted pfx file that specifies the certificate chain used to configure LDAPS.
+            --clear-certificates: Disable LDAPS by deleting all existing certificates.
             --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: get-iam-policy
-          description: Describe the IAM policy for a Managed Microsoft AD domain.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: reset-admin-password
-          description: Reset the admin password for a Managed Microsoft AD domain.
+            --no-clear-certificates&: Disable LDAPS by deleting all existing certificates.
     - name: operations
       description: Manage Managed Microsoft AD operations.
       commands:
@@ -184,6 +184,18 @@ commands:
     - name: peerings
       description: Managed Microsoft AD peerings.
       commands:
+        - name: create
+          description: Create a Managed Microsoft Active Directory domain peering.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --authorized-network=!: Name of the Network that is authorized to communicate with Managed Microsoft AD domain.
+            --domain=!: Name of the managed Managed Microsoft AD domain you want to peer to.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: delete
+          description: Delete a Managed Microsoft Active Directory domain peering.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
         - name: describe
           description: Describe a Managed Microsoft Active Directory domain peering.
         - name: list
@@ -204,15 +216,3 @@ commands:
             --no-clear-labels&: Remove all labels.
             --remove-labels=: List of label keys to remove.
             --update-labels=: List of label KEY=VALUE pairs to update.
-        - name: create
-          description: Create a Managed Microsoft Active Directory domain peering.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --authorized-network=!: Name of the Network that is authorized to communicate with Managed Microsoft AD domain.
-            --domain=!: Name of the managed Managed Microsoft AD domain you want to peer to.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: delete
-          description: Delete a Managed Microsoft Active Directory domain peering.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --no-async&: Return immediately, without waiting for the operation in progress to

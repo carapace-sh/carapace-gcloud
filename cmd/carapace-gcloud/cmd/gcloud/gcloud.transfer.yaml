@@ -2,6 +2,34 @@
 name: transfer
 description: Manage Transfer Service jobs, operations, and agents.
 commands:
+    - name: agent-pools
+      description: Manage on-premise transfer agent pools.
+      commands:
+        - name: create
+          description: Create a Transfer Service agent pool.
+          flags:
+            --bandwidth-limit=: Set how much of your bandwidth to make available to this pool's agents.
+            --display-name=: A modifiable name to help you identify this pool.
+            --no-async: Block other tasks in your terminal until the pool has been created.
+        - name: delete
+          description: Delete a Transfer Service agent pool.
+        - name: describe
+          description: Get details about a specific agent pool.
+        - name: list
+          description: List Transfer Service transfer agent pools.
+          flags:
+            --limit=: Return the first items from the API up to this limit.
+            --names=: The names of the agent pools you want to list.
+            --page-size=: Retrieve batches of this many items from the API.
+        - name: update
+          description: Update a Transfer Service agent pool.
+          flags:
+            --bandwidth-limit=: Set how much of your bandwidth to make available to this pool's agents.
+            --clear-bandwidth-limit: Remove the agent pool's bandwidth limit, which enables the pool's agents to use all bandwidth available to them.
+            --clear-display-name: Remove the display name from the agent pool.
+            --display-name=: A modifiable name to help you identify this pool.
+            --no-clear-bandwidth-limit&: Remove the agent pool's bandwidth limit, which enables the pool's agents to use all bandwidth available to them.
+            --no-clear-display-name&: Remove the display name from the agent pool.
     - name: agents
       description: Manage Transfer Service agents.
       commands:
@@ -51,6 +79,77 @@ commands:
     - name: jobs
       description: Manage transfer jobs.
       commands:
+        - name: create
+          description: Create a Transfer Service transfer job.
+          flags:
+            --custom-storage-class=: Specifies the storage class to set on objects being transferred to Cloud Storage buckets.
+            --delete-from=: By default, transfer jobs won't delete any data from your source or destination.
+            --description=: An optional description to help identify the job using details that don't fit in its name.
+            --destination-agent-pool=: If using a POSIX filesystem destination, specify the ID of the agent pool associated with destination filesystem.
+            --do-not-run: Disable default Transfer Service behavior of running job upon creation if no schedule is set.
+            --enable-posix-transfer-logs: Sets whether to generate logs for transfers with a POSIX filesystem source.
+            --event-stream-expires=: Set when to stop listening for events UTC using the %Y-%m-%dT%H:%M:%S%z datetime format (e.g., 2020-04-12T06:42:12+04:00).
+            --event-stream-name=: Specify an event stream that Storage Transfer Service can use to listen for when objects are created or updated.
+            --event-stream-starts=: Set when to start listening for events UTC using the %Y-%m-%dT%H:%M:%S%z datetime format (e.g., 2020-04-12T06:42:12+04:00).
+            --exclude-prefixes=: Exclude any objects that start with the prefix(es) entered.
+            --include-modified-after-absolute=: Include objects last modified after an absolute date/time.
+            --include-modified-after-relative=: Include objects that were modified after a relative date/time in the past.
+            --include-modified-before-absolute=: Include objects last modified before an absolute date/time.
+            --include-modified-before-relative=: Include objects that were modified before a relative date/time in the past.
+            --include-prefixes=: Include only objects that start with the specified prefix(es).
+            --intermediate-storage-path=: If transferring between filesystems, specify the path to a folder in a Google Cloud Storage bucket (gs://example-bucket/example-folder) to use as intermediary storage.
+            --log-action-states=: The states in which the actions specified in --log-actions are logged.
+            --log-actions=: Define the transfer operation actions to report in logs.
+            --manifest-file=: Path to a .csv file containing a list of files to transfer from your source.
+            --name=: A unique identifier for the job.
+            --no-async: For jobs set to run upon creation, this flag blocks other tasks in your terminal until the job's initial, immediate transfer operation has completed.
+            --no-do-not-run&: Disable default Transfer Service behavior of running job upon creation if no schedule is set.
+            --no-enable-posix-transfer-logs&: Sets whether to generate logs for transfers with a POSIX filesystem source.
+            --no-replication&: Enable replication to automatically copy all new and existing objects from the source to the destination.
+            --notification-event-types=: Define which change of transfer operation status will trigger Pub/Sub notifications.
+            --notification-payload-format=: If 'none', no transfer operation details are included with notifications.
+            --notification-pubsub-topic=: Pub/Sub topic used for notifications.
+            --overwrite-when=: Determine when destination objects are overwritten by source objects.
+            --preserve-metadata=: Specify object metadata values that can optionally be preserved.
+            --replication: Enable replication to automatically copy all new and existing objects from the source to the destination.
+            --s3-cloudfront-domain=: For transfers from S3, optionally route egress traffic through a CloudFront instance.
+            --schedule-repeats-every=: Set the frequency of the job using the absolute duration format (e.g., 1 month is p1m; 1 hour 30 minutes is 1h30m).
+            --schedule-repeats-until=: Set when the job will stop recurring using the %Y-%m-%dT%H:%M:%S%z datetime format (e.g., 2020-04-12T06:42:12+04:00).
+            --schedule-starts=: Set when the job will start using the %Y-%m-%dT%H:%M:%S%z datetime format (e.g., 2020-04-12T06:42:12+04:00).
+            --source-agent-pool=: If using a POSIX filesystem source, specify the ID of the agent pool associated with source filesystem.
+            --source-auth-method=: For transfers from S3-compatible sources, choose a process for adding authentication information to S3 API requests.
+            --source-creds-file=: Path to a local file on your machine that includes credentials for an Amazon S3 or Azure Blob Storage source (not required for Google Cloud Storage sources).
+            --source-endpoint=: For transfers from S3-compatible sources, specify your storage system's endpoint.
+            --source-list-api=: For transfers from S3-compatible sources, choose the version of the S3 listing API for returning objects from the bucket.
+            --source-network-protocol=: For transfers from S3-compatible sources, choose the network protocol agents should use for this job.
+            --source-request-model=: For transfers from S3-compatible sources, choose which addressing style to use.
+            --source-signing-region=: For transfers from S3-compatible sources, specify a region for signing requests.
+          completion:
+            flag:
+                delete-from:
+                    - destination-if-unique
+                    - source-after-transfer
+                notification-payload-format:
+                    - json
+                    - none
+                overwrite-when:
+                    - always
+                    - different
+                    - never
+                source-auth-method:
+                    - AWS_SIGNATURE_V2
+                    - AWS_SIGNATURE_V4
+                source-list-api:
+                    - LIST_OBJECTS
+                    - LIST_OBJECTS_V2
+                source-network-protocol:
+                    - HTTP
+                    - HTTPS
+                source-request-model:
+                    - PATH_STYLE
+                    - VIRTUAL_HOSTED_STYLE
+        - name: delete
+          description: Delete a Transfer Service transfer job.
         - name: describe
           description: Get configuration and latest operation details about transfer job.
         - name: list
@@ -198,77 +297,6 @@ commands:
                     - deleted
                     - disabled
                     - enabled
-        - name: create
-          description: Create a Transfer Service transfer job.
-          flags:
-            --custom-storage-class=: Specifies the storage class to set on objects being transferred to Cloud Storage buckets.
-            --delete-from=: By default, transfer jobs won't delete any data from your source or destination.
-            --description=: An optional description to help identify the job using details that don't fit in its name.
-            --destination-agent-pool=: If using a POSIX filesystem destination, specify the ID of the agent pool associated with destination filesystem.
-            --do-not-run: Disable default Transfer Service behavior of running job upon creation if no schedule is set.
-            --enable-posix-transfer-logs: Sets whether to generate logs for transfers with a POSIX filesystem source.
-            --event-stream-expires=: Set when to stop listening for events UTC using the %Y-%m-%dT%H:%M:%S%z datetime format (e.g., 2020-04-12T06:42:12+04:00).
-            --event-stream-name=: Specify an event stream that Storage Transfer Service can use to listen for when objects are created or updated.
-            --event-stream-starts=: Set when to start listening for events UTC using the %Y-%m-%dT%H:%M:%S%z datetime format (e.g., 2020-04-12T06:42:12+04:00).
-            --exclude-prefixes=: Exclude any objects that start with the prefix(es) entered.
-            --include-modified-after-absolute=: Include objects last modified after an absolute date/time.
-            --include-modified-after-relative=: Include objects that were modified after a relative date/time in the past.
-            --include-modified-before-absolute=: Include objects last modified before an absolute date/time.
-            --include-modified-before-relative=: Include objects that were modified before a relative date/time in the past.
-            --include-prefixes=: Include only objects that start with the specified prefix(es).
-            --intermediate-storage-path=: If transferring between filesystems, specify the path to a folder in a Google Cloud Storage bucket (gs://example-bucket/example-folder) to use as intermediary storage.
-            --log-action-states=: The states in which the actions specified in --log-actions are logged.
-            --log-actions=: Define the transfer operation actions to report in logs.
-            --manifest-file=: Path to a .csv file containing a list of files to transfer from your source.
-            --name=: A unique identifier for the job.
-            --no-async: For jobs set to run upon creation, this flag blocks other tasks in your terminal until the job's initial, immediate transfer operation has completed.
-            --no-do-not-run&: Disable default Transfer Service behavior of running job upon creation if no schedule is set.
-            --no-enable-posix-transfer-logs&: Sets whether to generate logs for transfers with a POSIX filesystem source.
-            --no-replication&: Enable replication to automatically copy all new and existing objects from the source to the destination.
-            --notification-event-types=: Define which change of transfer operation status will trigger Pub/Sub notifications.
-            --notification-payload-format=: If 'none', no transfer operation details are included with notifications.
-            --notification-pubsub-topic=: Pub/Sub topic used for notifications.
-            --overwrite-when=: Determine when destination objects are overwritten by source objects.
-            --preserve-metadata=: Specify object metadata values that can optionally be preserved.
-            --replication: Enable replication to automatically copy all new and existing objects from the source to the destination.
-            --s3-cloudfront-domain=: For transfers from S3, optionally route egress traffic through a CloudFront instance.
-            --schedule-repeats-every=: Set the frequency of the job using the absolute duration format (e.g., 1 month is p1m; 1 hour 30 minutes is 1h30m).
-            --schedule-repeats-until=: Set when the job will stop recurring using the %Y-%m-%dT%H:%M:%S%z datetime format (e.g., 2020-04-12T06:42:12+04:00).
-            --schedule-starts=: Set when the job will start using the %Y-%m-%dT%H:%M:%S%z datetime format (e.g., 2020-04-12T06:42:12+04:00).
-            --source-agent-pool=: If using a POSIX filesystem source, specify the ID of the agent pool associated with source filesystem.
-            --source-auth-method=: For transfers from S3-compatible sources, choose a process for adding authentication information to S3 API requests.
-            --source-creds-file=: Path to a local file on your machine that includes credentials for an Amazon S3 or Azure Blob Storage source (not required for Google Cloud Storage sources).
-            --source-endpoint=: For transfers from S3-compatible sources, specify your storage system's endpoint.
-            --source-list-api=: For transfers from S3-compatible sources, choose the version of the S3 listing API for returning objects from the bucket.
-            --source-network-protocol=: For transfers from S3-compatible sources, choose the network protocol agents should use for this job.
-            --source-request-model=: For transfers from S3-compatible sources, choose which addressing style to use.
-            --source-signing-region=: For transfers from S3-compatible sources, specify a region for signing requests.
-          completion:
-            flag:
-                delete-from:
-                    - destination-if-unique
-                    - source-after-transfer
-                notification-payload-format:
-                    - json
-                    - none
-                overwrite-when:
-                    - always
-                    - different
-                    - never
-                source-auth-method:
-                    - AWS_SIGNATURE_V2
-                    - AWS_SIGNATURE_V4
-                source-list-api:
-                    - LIST_OBJECTS
-                    - LIST_OBJECTS_V2
-                source-network-protocol:
-                    - HTTP
-                    - HTTPS
-                source-request-model:
-                    - PATH_STYLE
-                    - VIRTUAL_HOSTED_STYLE
-        - name: delete
-          description: Delete a Transfer Service transfer job.
     - name: operations
       description: Manage transfer operations.
       commands:
@@ -292,31 +320,3 @@ commands:
           description: Pause a currently running transfer operation.
         - name: resume
           description: Resume a currently paused transfer operation.
-    - name: agent-pools
-      description: Manage on-premise transfer agent pools.
-      commands:
-        - name: create
-          description: Create a Transfer Service agent pool.
-          flags:
-            --bandwidth-limit=: Set how much of your bandwidth to make available to this pool's agents.
-            --display-name=: A modifiable name to help you identify this pool.
-            --no-async: Block other tasks in your terminal until the pool has been created.
-        - name: delete
-          description: Delete a Transfer Service agent pool.
-        - name: describe
-          description: Get details about a specific agent pool.
-        - name: list
-          description: List Transfer Service transfer agent pools.
-          flags:
-            --limit=: Return the first items from the API up to this limit.
-            --names=: The names of the agent pools you want to list.
-            --page-size=: Retrieve batches of this many items from the API.
-        - name: update
-          description: Update a Transfer Service agent pool.
-          flags:
-            --bandwidth-limit=: Set how much of your bandwidth to make available to this pool's agents.
-            --clear-bandwidth-limit: Remove the agent pool's bandwidth limit, which enables the pool's agents to use all bandwidth available to them.
-            --clear-display-name: Remove the display name from the agent pool.
-            --display-name=: A modifiable name to help you identify this pool.
-            --no-clear-bandwidth-limit&: Remove the agent pool's bandwidth limit, which enables the pool's agents to use all bandwidth available to them.
-            --no-clear-display-name&: Remove the display name from the agent pool.

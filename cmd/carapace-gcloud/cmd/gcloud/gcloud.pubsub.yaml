@@ -2,22 +2,26 @@
 name: pubsub
 description: Manage Cloud Pub/Sub topics, subscriptions, and snapshots.
 commands:
+    - name: lite-operations
+      description: Manage Pub/Sub Lite operations.
+      commands:
+        - name: describe
+          description: Describe a Pub/Sub Lite operation.
+          flags:
+            --location=: ID of the location of the Pub/Sub Lite resource.
+        - name: list
+          description: List Pub/Sub Lite operations.
+          flags:
+            --done: Filter operations by completion status.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --subscription=: Filter operations by target subscription.
     - name: lite-reservations
       description: Manage Pub/Sub Lite reservations.
       commands:
-        - name: list-topics
-          description: List Pub/Sub Lite topics for a given Lite reservation.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: ID of the location of the Pub/Sub Lite resource.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: update
-          description: Update a Pub/Sub Lite reservation.
-          flags:
-            --location=: ID of the location of the Pub/Sub Lite resource.
-            --throughput-capacity=: Reservation throughput capacity.
         - name: create
           description: Create a Pub/Sub Lite reservation.
           flags:
@@ -39,130 +43,63 @@ commands:
             --location=!: ID of the location or fully qualified identifier for the location.
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
-    - name: message-transforms
-      description: Manage Cloud Pub/Sub message transforms.
-      commands:
-        - name: test
-          description: Tests message transforms against a given message.
-          flags:
-            --attribute=: Comma-separated list of attributes to attach to the message.
-            --message-transforms-file=: Path to YAML or JSON file containing message transforms.
-            --message=: Message body to test the message transforms against.
-            --subscription=!: ID of the subscription or fully qualified identifier for the subscription.
-            --topic-project=: Project ID of the Google Cloud project for the topic.
-            --topic=!: ID of the topic or fully qualified identifier for the topic.
-        - name: validate
-          description: Validates a message transform.
-          flags:
-            --message-transform-file=!: Path to YAML or JSON file containing a message transform.
-    - name: schemas
-      description: Manage Pub/Sub schemas.
-      commands:
-        - name: list-revisions
-          description: List revisions of a Pub/Sub schema.
+        - name: list-topics
+          description: List Pub/Sub Lite topics for a given Lite reservation.
           flags:
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --location=: ID of the location of the Pub/Sub Lite resource.
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-            --view=: There are two possible views, 'basic' and 'full', default is 'basic'.
-          completion:
-            flag:
-                view:
-                    - basic
-                    - full
-        - name: rollback
-          description: Roll back a Pub/Sub schema to a specified revision.
-          flags:
-            --revision-id=!: The revision to roll back to.
-        - name: commit
-          description: Commit a Pub/Sub schema revision.
-          flags:
-            --definition-file=: File containing the new schema definition.
-            --definition=: The new definition of the schema.
-            --type=!: The type of the schema.
-        - name: create
-          description: Create a Pub/Sub schema.
-          flags:
-            --definition-file=: File containing schema definition.
-            --definition=: Inline schema definition.
-            --type=!: Type of the schema.
-          completion:
-            flag:
-                type:
-                    - avro
-                    - protocol-buffer
-        - name: describe
-          description: Show details of a Pub/Sub schema.
-        - name: list
-          description: List Pub/Sub schemas.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-            --view=: There are two possible views, 'basic' and 'full', default is 'basic'.
-          completion:
-            flag:
-                view:
-                    - basic
-                    - full
-        - name: validate-message
-          description: Validate a message against a Pub/Sub schema.
-          flags:
-            --definition-file=: File containing schema definition.
-            --definition=: Inline schema definition.
-            --message-encoding=!: The encoding of the message.
-            --message=!: The message to validate against the schema.
-            --schema-name=: Name or full path of an existing schema.
-            --type=!: Type of inline schema.
-          completion:
-            flag:
-                message-encoding:
-                    - binary
-                    - json
-                type:
-                    - avro
-                    - protocol-buffer
-        - name: validate-schema
-          description: Validate a Pub/Sub schema.
-          flags:
-            --definition-file=: File containing schema definition.
-            --definition=: Inline schema definition.
-            --type=!: Type of the schema.
-          completion:
-            flag:
-                type:
-                    - avro
-                    - protocol-buffer
-        - name: delete
-          description: Delete a Pub/Sub schema.
-        - name: delete-revision
-          description: Delete a Pub/Sub schema revision.
-    - name: lite-operations
-      description: Manage Pub/Sub Lite operations.
-      commands:
-        - name: list
-          description: List Pub/Sub Lite operations.
-          flags:
-            --done: Filter operations by completion status.
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=!: ID of the location or fully qualified identifier for the location.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --subscription=: Filter operations by target subscription.
-        - name: describe
-          description: Describe a Pub/Sub Lite operation.
+        - name: update
+          description: Update a Pub/Sub Lite reservation.
           flags:
             --location=: ID of the location of the Pub/Sub Lite resource.
+            --throughput-capacity=: Reservation throughput capacity.
     - name: lite-subscriptions
       description: Manage Pub/Sub Lite subscriptions.
       commands:
+        - name: ack-up-to
+          description: Acknowledge messages on a Pub/Sub Lite subscription.
+          flags:
+            --location=: ID of the location of the Pub/Sub Lite resource.
+            --offset=!: The offset of a message within a topic partition.
+            --partition=!: The topic partition.
+            --zone=&: (DEPRECATED) ID of the location of the Pub/Sub Lite resource.
+        - name: create
+          description: Create a Pub/Sub Lite subscription.
+          flags:
+            --delivery-requirement=: When this subscription should send messages to subscribers relative to
+            --event-time=: The event time to which you seek a subscription.
+            --export-dead-letter-topic=: The name of the Pub/Sub Lite topic to write messages that cannot be exported.
+            --export-desired-state=: The desired state of the export.
+            --export-pubsub-topic=!: The name of the destination Pub/Sub topic to which messages are exported.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --publish-time=: The publish time to which you seek a subscription.
+            --starting-offset=: The offset at which a newly created or seeked subscription starts receiving messages.
+            --topic=!: Topic ID associated with the subscription.
+            --zone=&: (DEPRECATED) ID of the location of the Pub/Sub Lite resource.
+          completion:
+            flag:
+                delivery-requirement:
+                    - deliver-after-stored
+                    - deliver-immediately
+                export-desired-state:
+                    - active
+                    - paused
+                starting-offset:
+                    - beginning
+                    - end
+        - name: delete
+          description: Delete a Pub/Sub Lite subscription.
+          flags:
+            --location=: ID of the location of the Pub/Sub Lite resource.
+            --zone=&: (DEPRECATED) ID of the location of the Pub/Sub Lite resource.
+        - name: describe
+          description: Describe a Pub/Sub Lite subscription.
+          flags:
+            --location=: ID of the location of the Pub/Sub Lite resource.
+            --zone=&: (DEPRECATED) ID of the location of the Pub/Sub Lite resource.
         - name: list
           description: List Pub/Sub Lite subscriptions.
           flags:
@@ -211,50 +148,25 @@ commands:
                 export-desired-state:
                     - active
                     - paused
-        - name: ack-up-to
-          description: Acknowledge messages on a Pub/Sub Lite subscription.
-          flags:
-            --location=: ID of the location of the Pub/Sub Lite resource.
-            --offset=!: The offset of a message within a topic partition.
-            --partition=!: The topic partition.
-            --zone=&: (DEPRECATED) ID of the location of the Pub/Sub Lite resource.
-        - name: create
-          description: Create a Pub/Sub Lite subscription.
-          flags:
-            --delivery-requirement=: When this subscription should send messages to subscribers relative to
-            --event-time=: The event time to which you seek a subscription.
-            --export-dead-letter-topic=: The name of the Pub/Sub Lite topic to write messages that cannot be exported.
-            --export-desired-state=: The desired state of the export.
-            --export-pubsub-topic=!: The name of the destination Pub/Sub topic to which messages are exported.
-            --location=: ID of the location or fully qualified identifier for the location.
-            --publish-time=: The publish time to which you seek a subscription.
-            --starting-offset=: The offset at which a newly created or seeked subscription starts receiving messages.
-            --topic=!: Topic ID associated with the subscription.
-            --zone=&: (DEPRECATED) ID of the location of the Pub/Sub Lite resource.
-          completion:
-            flag:
-                delivery-requirement:
-                    - deliver-after-stored
-                    - deliver-immediately
-                export-desired-state:
-                    - active
-                    - paused
-                starting-offset:
-                    - beginning
-                    - end
-        - name: delete
-          description: Delete a Pub/Sub Lite subscription.
-          flags:
-            --location=: ID of the location of the Pub/Sub Lite resource.
-            --zone=&: (DEPRECATED) ID of the location of the Pub/Sub Lite resource.
-        - name: describe
-          description: Describe a Pub/Sub Lite subscription.
-          flags:
-            --location=: ID of the location of the Pub/Sub Lite resource.
-            --zone=&: (DEPRECATED) ID of the location of the Pub/Sub Lite resource.
     - name: lite-topics
       description: Manage Pub/Sub Lite topics.
       commands:
+        - name: create
+          description: Create a Pub/Sub Lite topic.
+          flags:
+            --location=: ID of the location or fully qualified identifier for the location.
+            --message-retention-period=: How long a published message is retained.
+            --partitions=!: Number of partitions in the topic.
+            --per-partition-bytes=!: Provisioned storage, in bytes, per partition.
+            --per-partition-publish-mib=: Topic partition publish throughput capacity in MiB/s.
+            --per-partition-subscribe-mib=: Topic partition subscribe throughput capacity in MiB/s.
+            --throughput-reservation=: Reservation ID to use for topic throughput.
+            --zone=&: (DEPRECATED) ID of the location of the Pub/Sub Lite resource.
+        - name: delete
+          description: Delete a Pub/Sub Lite topic.
+          flags:
+            --location=: ID of the location of the Pub/Sub Lite resource.
+            --zone=&: (DEPRECATED) ID of the location of the Pub/Sub Lite resource.
         - name: describe
           description: Describe a Pub/Sub Lite topic.
           flags:
@@ -297,22 +209,110 @@ commands:
             --per-partition-subscribe-mib=: Topic partition subscribe throughput capacity in MiB/s.
             --throughput-reservation=: Reservation ID to use for topic throughput.
             --zone=&: (DEPRECATED) ID of the location of the Pub/Sub Lite resource.
+    - name: message-transforms
+      description: Manage Cloud Pub/Sub message transforms.
+      commands:
+        - name: test
+          description: Tests message transforms against a given message.
+          flags:
+            --attribute=: Comma-separated list of attributes to attach to the message.
+            --message-transforms-file=: Path to YAML or JSON file containing message transforms.
+            --message=: Message body to test the message transforms against.
+            --subscription=!: ID of the subscription or fully qualified identifier for the subscription.
+            --topic-project=: Project ID of the Google Cloud project for the topic.
+            --topic=!: ID of the topic or fully qualified identifier for the topic.
+        - name: validate
+          description: Validates a message transform.
+          flags:
+            --message-transform-file=!: Path to YAML or JSON file containing a message transform.
+    - name: schemas
+      description: Manage Pub/Sub schemas.
+      commands:
+        - name: commit
+          description: Commit a Pub/Sub schema revision.
+          flags:
+            --definition-file=: File containing the new schema definition.
+            --definition=: The new definition of the schema.
+            --type=!: The type of the schema.
         - name: create
-          description: Create a Pub/Sub Lite topic.
+          description: Create a Pub/Sub schema.
           flags:
-            --location=: ID of the location or fully qualified identifier for the location.
-            --message-retention-period=: How long a published message is retained.
-            --partitions=!: Number of partitions in the topic.
-            --per-partition-bytes=!: Provisioned storage, in bytes, per partition.
-            --per-partition-publish-mib=: Topic partition publish throughput capacity in MiB/s.
-            --per-partition-subscribe-mib=: Topic partition subscribe throughput capacity in MiB/s.
-            --throughput-reservation=: Reservation ID to use for topic throughput.
-            --zone=&: (DEPRECATED) ID of the location of the Pub/Sub Lite resource.
+            --definition-file=: File containing schema definition.
+            --definition=: Inline schema definition.
+            --type=!: Type of the schema.
+          completion:
+            flag:
+                type:
+                    - avro
+                    - protocol-buffer
         - name: delete
-          description: Delete a Pub/Sub Lite topic.
+          description: Delete a Pub/Sub schema.
+        - name: delete-revision
+          description: Delete a Pub/Sub schema revision.
+        - name: describe
+          description: Show details of a Pub/Sub schema.
+        - name: list
+          description: List Pub/Sub schemas.
           flags:
-            --location=: ID of the location of the Pub/Sub Lite resource.
-            --zone=&: (DEPRECATED) ID of the location of the Pub/Sub Lite resource.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+            --view=: There are two possible views, 'basic' and 'full', default is 'basic'.
+          completion:
+            flag:
+                view:
+                    - basic
+                    - full
+        - name: list-revisions
+          description: List revisions of a Pub/Sub schema.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+            --view=: There are two possible views, 'basic' and 'full', default is 'basic'.
+          completion:
+            flag:
+                view:
+                    - basic
+                    - full
+        - name: rollback
+          description: Roll back a Pub/Sub schema to a specified revision.
+          flags:
+            --revision-id=!: The revision to roll back to.
+        - name: validate-message
+          description: Validate a message against a Pub/Sub schema.
+          flags:
+            --definition-file=: File containing schema definition.
+            --definition=: Inline schema definition.
+            --message-encoding=!: The encoding of the message.
+            --message=!: The message to validate against the schema.
+            --schema-name=: Name or full path of an existing schema.
+            --type=!: Type of inline schema.
+          completion:
+            flag:
+                message-encoding:
+                    - binary
+                    - json
+                type:
+                    - avro
+                    - protocol-buffer
+        - name: validate-schema
+          description: Validate a Pub/Sub schema.
+          flags:
+            --definition-file=: File containing schema definition.
+            --definition=: Inline schema definition.
+            --type=!: Type of the schema.
+          completion:
+            flag:
+                type:
+                    - avro
+                    - protocol-buffer
     - name: snapshots
       description: Manage Cloud Pub/Sub snapshots.
       commands:
@@ -421,6 +421,11 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: modify-message-ack-deadline
+          description: Modifies the ACK deadline for a specific Cloud Pub/Sub message.
+          flags:
+            --ack-deadline=!: The number of seconds the system will wait for a subscriber to acknowledge receiving a message before re-attempting delivery.
+            --ack-ids=!: One or more ACK_IDs to modify the deadline for.
         - name: modify-push-config
           description: Modifies the push configuration of a Cloud Pub/Sub subscription.
           flags:
@@ -431,11 +436,6 @@ commands:
             --push-endpoint=!: A URL to use as the endpoint for this subscription.
             --push-no-wrapper!: When set, the message data is delivered directly as the HTTP body.
             --push-no-wrapper-write-metadata: When true, writes the Pub/Sub message metadata to `x-goog-pubsub-<KEY>:<VAL>` headers of the HTTP request.
-        - name: modify-message-ack-deadline
-          description: Modifies the ACK deadline for a specific Cloud Pub/Sub message.
-          flags:
-            --ack-deadline=!: The number of seconds the system will wait for a subscriber to acknowledge receiving a message before re-attempting delivery.
-            --ack-ids=!: One or more ACK_IDs to modify the deadline for.
         - name: pull
           description: Pulls one or more Cloud Pub/Sub messages from a subscription.
           flags:
@@ -530,46 +530,6 @@ commands:
           flags:
             --member=!: The principal to add the binding for.
             --role=!: Role name to assign to the principal.
-        - name: delete
-          description: Deletes one or more Cloud Pub/Sub topics.
-        - name: describe
-          description: Describes a Cloud Pub/Sub topic.
-        - name: get-iam-policy
-          description: Get the IAM policy for a Cloud Pub/Sub Topic.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: list
-          description: Lists Cloud Pub/Sub topics within a project.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: list-subscriptions
-          description: Lists Cloud Pub/Sub subscriptions from a given topic.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: publish
-          description: Publishes a message to the specified topic.
-          flags:
-            --attribute=: Comma-separated list of attributes.
-            --message=: The body of the message to publish to the given topic name.
-            --ordering-key=: The key for ordering delivery to subscribers.
-        - name: remove-iam-policy-binding
-          description: Remove IAM policy binding of a topic.
-          flags:
-            --member=!: The principal to remove the binding for.
-            --role=!: The role to remove the principal from.
         - name: create
           description: Creates one or more Cloud Pub/Sub topics.
           flags:
@@ -615,8 +575,48 @@ commands:
             --topic-encryption-key-location=: The Google Cloud location for the key.
             --topic-encryption-key-project=: The Google Cloud project for the key.
             --topic-encryption-key=!: ID of the key or fully qualified identifier for the key.
+        - name: delete
+          description: Deletes one or more Cloud Pub/Sub topics.
+        - name: describe
+          description: Describes a Cloud Pub/Sub topic.
         - name: detach-subscription
           description: Detaches one or more Cloud Pub/Sub subscriptions.
+        - name: get-iam-policy
+          description: Get the IAM policy for a Cloud Pub/Sub Topic.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: Lists Cloud Pub/Sub topics within a project.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: list-subscriptions
+          description: Lists Cloud Pub/Sub subscriptions from a given topic.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: publish
+          description: Publishes a message to the specified topic.
+          flags:
+            --attribute=: Comma-separated list of attributes.
+            --message=: The body of the message to publish to the given topic name.
+            --ordering-key=: The key for ordering delivery to subscribers.
+        - name: remove-iam-policy-binding
+          description: Remove IAM policy binding of a topic.
+          flags:
+            --member=!: The principal to remove the binding for.
+            --role=!: The role to remove the principal from.
         - name: set-iam-policy
           description: Set IAM policy for a topic.
         - name: update

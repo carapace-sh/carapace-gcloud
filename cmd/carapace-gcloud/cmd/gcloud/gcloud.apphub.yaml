@@ -42,6 +42,16 @@ commands:
                 scope-type:
                     - GLOBAL
                     - REGIONAL
+        - name: delete
+          description: Delete an Apphub application.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to complete.
+            --location=: The Cloud location for the application.
+            --no-async&: Return immediately, without waiting for the operation in progress to complete.
+        - name: describe
+          description: Describe an Apphub application.
+          flags:
+            --location=: The Cloud location for the application.
         - name: get-iam-policy
           description: Get the IAM policy for an Apphub application.
           flags:
@@ -149,16 +159,6 @@ commands:
                         - STAGING
                         - TEST
                         - TYPE_UNSPECIFIED
-        - name: delete
-          description: Delete an Apphub application.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to complete.
-            --location=: The Cloud location for the application.
-            --no-async&: Return immediately, without waiting for the operation in progress to complete.
-        - name: describe
-          description: Describe an Apphub application.
-          flags:
-            --location=: The Cloud location for the application.
         - name: set-iam-policy
           description: Set the IAM policy for an Apphub application as defined in a JSON/YAML file.
           flags:
@@ -193,6 +193,35 @@ commands:
         - name: workloads
           description: Manage App Hub Application Workloads.
           commands:
+            - name: create
+              description: Create an Apphub application workload.
+              flags:
+                --application=: Name for the application
+                --async: Return immediately, without waiting for the operation in progress to complete.
+                --business-owners=: Business owners of the workload
+                --criticality-type=: Criticality Type of the workload.
+                --description=: Description of the Workload
+                --developer-owners=: Developer owners of the workload
+                --discovered-workload=!: ID of the discoveredWorkload or fully qualified identifier for the discoveredWorkload.
+                --display-name=: Human-friendly display name
+                --environment-type=: Environment Type of the workload.
+                --location=: The Cloud location for the workload.
+                --no-async&: Return immediately, without waiting for the operation in progress to complete.
+                --operator-owners=: Operator owners of the workload
+              completion:
+                flag:
+                    criticality-type:
+                        - HIGH
+                        - LOW
+                        - MEDIUM
+                        - MISSION_CRITICAL
+                        - TYPE_UNSPECIFIED
+                    environment-type:
+                        - DEVELOPMENT
+                        - PRODUCTION
+                        - STAGING
+                        - TEST
+                        - TYPE_UNSPECIFIED
             - name: delete
               description: Delete an Apphub application workload.
               flags:
@@ -244,38 +273,13 @@ commands:
                         - STAGING
                         - TEST
                         - TYPE_UNSPECIFIED
-            - name: create
-              description: Create an Apphub application workload.
-              flags:
-                --application=: Name for the application
-                --async: Return immediately, without waiting for the operation in progress to complete.
-                --business-owners=: Business owners of the workload
-                --criticality-type=: Criticality Type of the workload.
-                --description=: Description of the Workload
-                --developer-owners=: Developer owners of the workload
-                --discovered-workload=!: ID of the discoveredWorkload or fully qualified identifier for the discoveredWorkload.
-                --display-name=: Human-friendly display name
-                --environment-type=: Environment Type of the workload.
-                --location=: The Cloud location for the workload.
-                --no-async&: Return immediately, without waiting for the operation in progress to complete.
-                --operator-owners=: Operator owners of the workload
-              completion:
-                flag:
-                    criticality-type:
-                        - HIGH
-                        - LOW
-                        - MEDIUM
-                        - MISSION_CRITICAL
-                        - TYPE_UNSPECIFIED
-                    environment-type:
-                        - DEVELOPMENT
-                        - PRODUCTION
-                        - STAGING
-                        - TEST
-                        - TYPE_UNSPECIFIED
     - name: discovered-services
       description: Manage App Hub Discovered Services.
       commands:
+        - name: describe
+          description: Describe an Apphub discovered service.
+          flags:
+            --location=: The Cloud location for the discoveredService.
         - name: list
           description: List Apphub discovered services.
           flags:
@@ -291,10 +295,6 @@ commands:
           flags:
             --location=!: ID of the location or fully qualified identifier for the location.
             --uri=!: Google Cloud Platform resource URI to look up service for.
-        - name: describe
-          description: Describe an Apphub discovered service.
-          flags:
-            --location=: The Cloud location for the discoveredService.
     - name: discovered-workloads
       description: Manage App Hub Discovered Workloads.
       commands:

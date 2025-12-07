@@ -2,131 +2,53 @@
 name: dataplex
 description: Manage Dataplex resources.
 commands:
-    - name: entries
-      description: Manage Dataplex Catalog Entries resources.
+    - name: aspect-types
+      description: Manage Dataplex Aspect Types.
       commands:
-        - name: lookup
-          description: Lookup a Dataplex entry.
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding to a Dataplex Aspect Type.
           flags:
-            --aspect-types=: Limits the aspects returned to the provided aspect types.
-            --entry-group=: Entry group containing Dataplex Entries.
-            --location=: Location of the Dataplex resource.
-            --paths=: Limits the aspects returned to those associated with the provided paths within the Entry.
-            --view=: Controls which parts of an entry are to be returned.
-          completion:
-            flag:
-                view:
-                    - all
-                    - basic
-                    - custom
-                    - full
-        - name: search
-          description: Searches for Dataplex entries.
-          flags:
-            --limit=: Maximum number of resources.
-            --order-by=: Specifies the ordering of results, currently supported case-sensitive
-            --page-size=: Maximum number of resources per page.
-            --scope=: The scope under which the search should be operating.
-        - name: update
-          description: Update a Dataplex Entry.
-          flags:
-            --clear-entry-source-create-time: Clear the value for the create_time field in the Entry Source.
-            --clear-entry-source-description: Clear the value for the description field in the Entry Source.
-            --clear-entry-source-display-name: Clear the value for the display_name field in the Entry Source.
-            --clear-entry-source-labels: Clear the labels for the Entry Source.
-            --clear-entry-source-platform: Clear the value for the platform field in the Entry Source.
-            --clear-entry-source-resource: Clear the value for the resource field in the Entry Source.
-            --clear-entry-source-system: Clear the value for the system field in the Entry Source.
-            --clear-fully-qualified-name: Clear the FQN for the Entry.
-            --entry-group=: Entry group containing Dataplex Entries.
-            --entry-source-create-time=: The creation date and time of the resource in the source system.
-            --entry-source-description=: Description of the Entry.
-            --entry-source-display-name=: User friendly display name.
-            --entry-source-labels=: List of label KEY=VALUE pairs to add.
-            --entry-source-platform=: The platform containing the source system.
-            --entry-source-resource=: The name of the resource in the source system.
-            --entry-source-system=: The name of the source system.
-            --entry-source-update-time=!: The update date and time of the resource in the source system.
-            --fully-qualified-name=: FQN, a name for the entry that can reference it in an external system.
-            --location=: Location of the Dataplex resource.
-            --no-clear-entry-source-create-time&: Clear the value for the create_time field in the Entry Source.
-            --no-clear-entry-source-description&: Clear the value for the description field in the Entry Source.
-            --no-clear-entry-source-display-name&: Clear the value for the display_name field in the Entry Source.
-            --no-clear-entry-source-labels&: Remove all labels.
-            --no-clear-entry-source-platform&: Clear the value for the platform field in the Entry Source.
-            --no-clear-entry-source-resource&: Clear the value for the resource field in the Entry Source.
-            --no-clear-entry-source-system&: Clear the value for the system field in the Entry Source.
-            --no-clear-fully-qualified-name&: Clear the FQN for the Entry.
-            --remove-aspects=: List of Aspect keys, identifying Aspects to remove from the entry.
-            --update-aspects=: Path to a YAML or JSON file containing Aspects to add or update.
-        - name: update-aspects
-          description: Add or update aspects for a Dataplex Entry.
-          flags:
-            --aspects=!: Path to a YAML or JSON file containing Aspects to add or update.
-            --entry-group=: Entry group containing Dataplex Entries.
-            --location=: Location of the Dataplex resource.
+            --location=: The location of the Dataplex resource.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
         - name: create
-          description: Create a Dataplex Entry resource.
+          description: Create a Dataplex Aspect Type.
           flags:
-            --aspects=: Path to a YAML or JSON file containing Aspects to add or update.
-            --entry-group=: Entry group containing Dataplex Entries.
-            --entry-source-ancestors=: Information about individual items in the hierarchy of an Entry.
-            --entry-source-create-time=: The creation date and time of the resource in the source system.
-            --entry-source-description=: Description of the Entry.
-            --entry-source-display-name=: User friendly display name.
-            --entry-source-labels=: List of label KEY=VALUE pairs to add.
-            --entry-source-platform=: The platform containing the source system.
-            --entry-source-resource=: The name of the resource in the source system.
-            --entry-source-system=: The name of the source system.
-            --entry-source-update-time=: The update date and time of the resource in the source system.
-            --entry-type-location=: The location of the EntryType resource.
-            --entry-type-project=: The project of the EntryType resource.
-            --entry-type=!: ID of the entry type or fully qualified identifier for the entry type.
-            --fully-qualified-name=: A name for the entry that can reference it in an external system.
-            --location=: Location of the Dataplex resource.
-            --parent-entry=!: ID of the entry or fully qualified identifier for the entry.
-        - name: describe
-          description: Describe a Dataplex entry.
-          flags:
-            --aspect-types=: Limits the aspects returned to the provided aspect types.
-            --entry-group=: Entry group containing Dataplex Entries.
-            --location=: Location of the Dataplex resource.
-            --paths=: Limits the aspects returned to those associated with the provided paths within the Entry.
-            --view=: Controls which parts of an entry are to be returned.
+            --async: Return immediately, without waiting for the operation in progress to
+            --data-classification=: Data classification of the Aspect Type.
+            --description=: Description of the Aspect Type.
+            --display-name=: Display name of the Aspect Type.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The location of the Dataplex resource.
+            --metadata-template-file-name=!: The name of the JSON or YAML file to define Metadata Template.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-validate-only&: Validate the create action, but don't actually perform it.
+            --validate-only: Validate the create action, but don't actually perform it.
           completion:
             flag:
-                view:
-                    - all
-                    - basic
-                    - custom
-                    - full
-        - name: list
-          description: List Dataplex entries.
+                data-classification:
+                    - METADATA_AND_DATA
+        - name: delete
+          description: Delete a Dataplex Aspect Type.
           flags:
-            --entry-group=!: ID of the entry group or fully qualified identifier for the entry group.
+            --async: Return immediately, without waiting for the operation in progress to
+            --etag=: etag for the Aspect Type you want to delete.
+            --location=: Location of the Dataplex resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe a Dataplex Aspect Type.
+          flags:
+            --location=: Location of the Dataplex resource.
+        - name: get-iam-policy
+          description: Retrieve a Dataplex Aspect Type IAM policy.
+          flags:
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
             --location=: Location of the Dataplex resource.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: remove-aspects
-          description: Remove aspects from a Dataplex Entry.
-          flags:
-            --entry-group=: Entry group containing Dataplex Entries.
-            --keys=!: List of Aspect keys, identifying Aspects to remove from the entry.
-            --location=: Location of the Dataplex resource.
-        - name: delete
-          description: Delete a Dataplex entry.
-          flags:
-            --entry-group=: Entry group containing Dataplex Entries.
-            --location=: Location of the Dataplex resource.
-    - name: glossaries
-      description: Manage Dataplex glossaries.
-      commands:
         - name: list
-          description: List Glossaries.
+          description: List Dataplex Aspect Types.
           flags:
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
@@ -136,565 +58,28 @@ commands:
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
         - name: remove-iam-policy-binding
-          description: Removes IAM policy binding from a Dataplex Glossary.
+          description: Remove IAM policy binding from a Dataplex Aspect Type.
           flags:
             --location=: The location of the Dataplex resource.
             --member=!: The principal to remove the binding for.
             --role=!: The role to remove the principal from.
+        - name: set-iam-policy
+          description: Set an IAM policy binding for a Dataplex Aspect Type as defined in a JSON or YAML file.
+          flags:
+            --location=: The location of the Dataplex resource.
         - name: update
-          description: Updates a Dataplex Glossary.
+          description: Update a Dataplex Aspect Type.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
-            --description=: Description of the Glossary.
-            --display-name=: Display Name of the Glossary.
-            --etag=: etag value for particular Glossary.
+            --description=: Description of the Aspect Type.
+            --display-name=: Display name of the Aspect Type.
+            --etag=: etag value for particular Aspect Type.
             --labels=: List of label KEY=VALUE pairs to add.
             --location=: The location of the Dataplex resource.
+            --metadata-template-file-name=: The name of the JSON or YAML file to define Metadata Template.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-validate-only&: Validate the update action, but don't actually perform it.
             --validate-only: Validate the update action, but don't actually perform it.
-        - name: categories
-          description: Manage Dataplex glossary categories.
-          commands:
-            - name: create
-              description: Creates a glossary category.
-              flags:
-                --description=: Description of the glossary category.
-                --display-name=: Display name of the glossary category.
-                --glossary=: The name of glossary category to use.
-                --labels=: List of label KEY=VALUE pairs to add.
-                --location=: The location of the Dataplex resource.
-                --parent=!: Immediate parent of the created glossary category.
-            - name: delete
-              description: Deletes a glossary category.
-              flags:
-                --glossary=: Identifier of the Dataplex Glossary resource.
-                --location=: Location of the Dataplex resource.
-            - name: describe
-              description: Describes a glossary category.
-              flags:
-                --glossary=: Identifier of the Dataplex Glossary resource.
-                --location=: Location of the Dataplex resource.
-            - name: list
-              description: List glossary categories.
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --glossary=!: ID of the glossary or fully qualified identifier for the glossary.
-                --limit=: Maximum number of resources to list.
-                --location=: Location of the Dataplex resource.
-                --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --uri: Print a list of resource URIs instead of the default output, and change the
-            - name: update
-              description: Updates a glossary category.
-              flags:
-                --description=: Description of the glossary category.
-                --display-name=: Display Name of the glossary category.
-                --glossary=: The name of glossary category to use.
-                --labels=: List of label KEY=VALUE pairs to add.
-                --location=: The location of the Dataplex resource.
-                --parent=: Immediate parent of the created glossary category.
-        - name: create
-          description: Create a Dataplex Glossary resource.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --description=: Description of the Glossary.
-            --display-name=: Display Name of the Glossary.
-            --labels=: List of label KEY=VALUE pairs to add.
-            --location=: The location of the Dataplex resource.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-validate-only&: Validate the create action, but don't actually perform it.
-            --validate-only: Validate the create action, but don't actually perform it.
-        - name: delete
-          description: Delete a Dataplex Glossary.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --etag=: etag value for particular Glossary.
-            --location=: Location of the Dataplex resource.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: set-iam-policy
-          description: Set an IAM policy binding for a Dataplex Glossary as defined in a JSON or YAML file.
-          flags:
-            --location=: The location of the Dataplex resource.
-        - name: terms
-          description: Manage Dataplex glossary terms.
-          commands:
-            - name: update
-              description: Updates a glossary term.
-              flags:
-                --description=: Description of the glossary term.
-                --display-name=: Display name of the glossary term.
-                --glossary=: The name of glossary term to use.
-                --labels=: List of label KEY=VALUE pairs to add.
-                --location=: The location of the Dataplex resource.
-                --parent=: Immediate parent of the created glossary term.
-            - name: create
-              description: Creates a glossary term.
-              flags:
-                --description=: Description of the glossary term.
-                --display-name=: Display name of the glossary term.
-                --glossary=: The name of glossary term to use.
-                --labels=: List of label KEY=VALUE pairs to add.
-                --location=: The location of the Dataplex resource.
-                --parent=!: Immediate parent of the created glossary term.
-            - name: delete
-              description: Deletes a glossary term.
-              flags:
-                --glossary=: Identifier of the Dataplex Glossary resource.
-                --location=: Location of the Dataplex resource.
-            - name: describe
-              description: Describes a glossary term.
-              flags:
-                --glossary=: Identifier of the Dataplex Glossary resource.
-                --location=: Location of the Dataplex resource.
-            - name: list
-              description: List glossary terms.
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --glossary=!: ID of the glossary or fully qualified identifier for the glossary.
-                --limit=: Maximum number of resources to list.
-                --location=: Location of the Dataplex resource.
-                --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: add-iam-policy-binding
-          description: Add IAM policy binding to a Dataplex Glossary.
-          flags:
-            --location=: The location of the Dataplex resource.
-            --member=!: The principal to add the binding for.
-            --role=!: Role name to assign to the principal.
-        - name: describe
-          description: Describe a Glossary.
-          flags:
-            --location=: Location of the Dataplex resource.
-        - name: get-iam-policy
-          description: Retrieve a Dataplex Glossary IAM policy.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: Location of the Dataplex resource.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-    - name: lakes
-      description: Manage Dataplex Lake resources.
-      commands:
-        - name: actions
-          description: Manage Dataplex lake resource actions.
-          commands:
-            - name: list
-              description: List Dataplex lake actions.
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --lake=!: ID of the lake or fully qualified identifier for the lake.
-                --limit=: Maximum number of resources to list.
-                --location=: Location of the Dataplex resource.
-                --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: add-iam-policy-binding
-          description: Add IAM policy binding to a Dataplex lake resource.
-          flags:
-            --location=: The location of the Dataplex resource.
-            --member=!: The principal to add the binding for.
-            --role=!: Role name to assign to the principal.
-        - name: deauthorize
-          description: Deauthorize a service agent from managing resources.
-          flags:
-            --bigquery-dataset-resource=!: The identifier of the BigQuery dataset that the service agent will no longer manage.
-            --project-resource=: The identifier of the project whose resources the service agent will no longer manage.
-            --secondary-project=!: The identifier of the project where the BigQuery dataset is located.
-            --storage-bucket-resource=: The identifier of the Cloud Storage bucket that the service agent will no longer manage.
-        - name: delete
-          description: Delete a Dataplex lake resource.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: Location of the Dataplex resource.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: describe
-          description: Describe a Dataplex lake resource.
-          flags:
-            --location=: Location of the Dataplex resource.
-        - name: list
-          description: List Dataplex lake resources under a project.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: remove-iam-policy-binding
-          description: Remove IAM policy binding from a Dataplex lake resource.
-          flags:
-            --location=: The location of the Dataplex resource.
-            --member=!: The principal to remove the binding for.
-            --role=!: The role to remove the principal from.
-        - name: authorize
-          description: Authorize a service agent to manage resources.
-          flags:
-            --bigquery-dataset-resource=!: The identifier of the BigQuery dataset that the service agent will manage.
-            --project-resource=: The identifier of the project whose resources the service agent will manage.
-            --secondary-project=!: The identifier of the project where the BigQuery dataset is located.
-            --storage-bucket-resource=: The identifier of the Cloud Storage bucket that the service agent will manage.
-        - name: create
-          description: Create a Dataplex lake resource.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --description=: Description of the lake.
-            --display-name=: Display name of the lake.
-            --labels=: List of label KEY=VALUE pairs to add.
-            --location=: The location of the Dataplex resource.
-            --metastore-service=: A relative reference to the Dataproc Metastore
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-validate-only&: Validate the create action, but don't actually perform it.
-            --validate-only: Validate the create action, but don't actually perform it.
-        - name: get-iam-policy
-          description: Get the IAM policy for a Dataplex lake resource.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: Location of the Dataplex resource.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: set-iam-policy
-          description: Set the IAM policy to a Dataplex lake as defined in a JSON or YAML file.
-          flags:
-            --location=: The location of the Dataplex resource.
-        - name: update
-          description: Update a Dataplex lake resource.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --description=: Description of the lake
-            --display-name=: Display Name
-            --labels=: List of label KEY=VALUE pairs to add.
-            --location=: The location of the Dataplex resource.
-            --metastore-service=: A relative reference to the Dataproc Metastore
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-validate-only&: Validate the update action, but don't actually perform it.
-            --validate-only: Validate the update action, but don't actually perform it.
-    - name: tasks
-      description: Manage Dataplex Task services.
-      commands:
-        - name: run
-          description: Trigger one-time run of a Dataplex task.
-          flags:
-            --labels=: List of label KEY=VALUE pairs to add.
-            --lake=: The identifier of the Dataplex lake resource.
-            --location=: The location of the Dataplex resource.
-        - name: update
-          description: Update a Dataplex task resource.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --batch-executors-count=: Total number of job executors.
-            --batch-max-executors-count=: Max configurable executors.
-            --clear-labels: Remove all labels.
-            --container-image-java-jars=: A list of Java JARS to add to the classpath.
-            --container-image-properties=: Override to common configuration of open source components installed on
-            --container-image-python-packages=: A list of python packages to be installed.
-            --container-image=: Optional custom container image for the job.
-            --description=: Description of the task.
-            --display-name=: Display name of the task.
-            --execution-args=: The arguments to pass to the task.
-            --execution-project=: The project in which jobs are run.
-            --execution-service-account=: Service account to use to execute a task.
-            --kms-key=: 'The Cloud KMS key to use for encryption, of the form:'
-            --lake=: Identifier of the Dataplex lake resource.
-            --location=: Location of the Dataplex resource.
-            --max-job-execution-lifetime=: The maximum duration before the job execution expires.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-clear-labels&: Remove all labels.
-            --no-trigger-disabled&: Prevent the task from executing.
-            --notebook-archive-uris=: Google Cloud Storage URIs of archives to be extracted into the working directory of
-            --notebook-batch-executors-count=: Total number of job executors.
-            --notebook-batch-max-executors-count=: Max configurable executors.
-            --notebook-container-image-java-jars=: A list of Java JARS to add to the classpath.
-            --notebook-container-image-properties=: Override to common configuration of open source components installed on
-            --notebook-container-image=: Optional custom container image for the job.
-            --notebook-file-uris=: Google Cloud Storage URIs of files to be placed in the working directory of each
-            --notebook-vpc-network-name=: The Cloud VPC network in which the job is run.
-            --notebook-vpc-network-tags=: List of network tags to apply to the job.
-            --notebook-vpc-sub-network-name=: The Cloud VPC sub-network in which the job is run.
-            --notebook=: Google Cloud Storage URIs of the notebook file or the path to a Notebook Content.
-            --remove-labels=: List of label keys to remove.
-            --spark-archive-uris=: Google Cloud Storage URIs of archives to be extracted into the working directory of
-            --spark-file-uris=: Google Cloud Storage URIs of files to be placed in the working directory of each
-            --spark-main-class=: The name of the driver's main class.
-            --spark-main-jar-file-uri=: The Google Cloud Storage URI of the jar file that contains the main class.
-            --spark-python-script-file=: The Google Cloud Storage URI of the main Python file to use as the driver.
-            --spark-sql-script-file=: A reference to a query file.
-            --spark-sql-script=: The SQL query text.
-            --trigger-disabled: Prevent the task from executing.
-            --trigger-max-retires=: Number of retry attempts before aborting.
-            --trigger-schedule=: Cron schedule (https://en.wikipedia.org/wiki/Cron) for running
-            --trigger-start-time=: The first run of the task will be after this time.
-            --update-labels=: List of label KEY=VALUE pairs to update.
-            --vpc-network-name=: The Cloud VPC network in which the job is run.
-            --vpc-network-tags=: List of network tags to apply to the job.
-            --vpc-sub-network-name=: The Cloud VPC sub-network in which the job is run.
-        - name: create
-          description: Create a Dataplex task resource.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --batch-executors-count=: Total number of job executors.
-            --batch-max-executors-count=: Max configurable executors.
-            --container-image-java-jars=: A list of Java JARS to add to the classpath.
-            --container-image-properties=: The properties to set on daemon config files.
-            --container-image-python-packages=: A list of python packages to be installed.
-            --container-image=: Optional custom container image for the job.
-            --description=: Description of the Dataplex task.
-            --display-name=: Display name of the Dataplex task.
-            --execution-args=: The arguments to pass to the task.
-            --execution-project=: The project in which jobs are run.
-            --execution-service-account=!: Service account to use to execute a task.
-            --kms-key=: 'The Cloud KMS key to use for encryption, of the form:'
-            --labels=: List of label KEY=VALUE pairs to add.
-            --lake=: Identifier of the Dataplex lake resource.
-            --location=: Location of the Dataplex resource.
-            --max-job-execution-lifetime=: The maximum duration before the job execution expires.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-trigger-disabled&: Prevent the task from executing.
-            --notebook-archive-uris=: Google Cloud Storage URIs of archives to be extracted into the working directory of
-            --notebook-batch-executors-count=: Total number of job executors.
-            --notebook-batch-max-executors-count=: Max configurable executors.
-            --notebook-container-image-java-jars=: A list of Java JARS to add to the classpath.
-            --notebook-container-image-properties=: The properties to set on daemon config files.
-            --notebook-container-image=: Optional custom container image for the job.
-            --notebook-file-uris=: Google Cloud Storage URIs of files to be placed in the working directory of each
-            --notebook-vpc-network-name=: The Cloud VPC network in which the job is run.
-            --notebook-vpc-network-tags=: List of network tags to apply to the job.
-            --notebook-vpc-sub-network-name=: The Cloud VPC sub-network in which the job is run.
-            --notebook=!: Path to input notebook.
-            --spark-archive-uris=: Google Cloud Storage URIs of archives to be extracted into the working directory of
-            --spark-file-uris=: Google Cloud Storage URIs of files to be placed in the working directory of each
-            --spark-main-class=: The name of the driver's main class.
-            --spark-main-jar-file-uri=: The Google Cloud Storage URI of the jar file that contains the main class.
-            --spark-python-script-file=: The Google Cloud Storage URI of the main Python file to use as the driver.
-            --spark-sql-script-file=: A reference to a query file.
-            --spark-sql-script=: The SQL query text.
-            --trigger-disabled: Prevent the task from executing.
-            --trigger-max-retires=: Number of retry attempts before aborting.
-            --trigger-schedule=: Cron schedule (https://en.wikipedia.org/wiki/Cron) for running
-            --trigger-start-time=: The first run of the task begins after this time.
-            --trigger-type=!: Trigger type of the user-specified Dataplex Task.
-            --vpc-network-name=: The Cloud VPC network in which the job is run.
-            --vpc-network-tags=: List of network tags to apply to the job.
-            --vpc-sub-network-name=: The Cloud VPC sub-network in which the job is run.
-          completion:
-            flag:
-                trigger-type:
-                    - on-demand
-                    - recurring
-        - name: describe
-          description: Describe a Dataplex task resource.
-          flags:
-            --lake=: Identifier of the Dataplex lake resource.
-            --location=: Location of the Dataplex resource.
-        - name: get-iam-policy
-          description: Get the IAM policy for a Dataplex task resource.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --lake=: Identifier of the Dataplex lake resource.
-            --limit=: Maximum number of resources to list.
-            --location=: Location of the Dataplex resource.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: jobs
-          description: Manage Dataplex Jobs services.
-          commands:
-            - name: list
-              description: List job runs of a Dataplex task resource.
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --lake=: Identifier of the Dataplex lake resource.
-                --limit=: Maximum number of resources to list.
-                --location=: Location of the Dataplex resource.
-                --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --task=!: ID of the task or fully qualified identifier for the task.
-                --uri: Print a list of resource URIs instead of the default output, and change the
-            - name: cancel
-              description: Cancel a Dataplex Job running a particular task.
-              flags:
-                --lake=: Identifier of the Dataplex lake resource.
-                --location=: Location of the Dataplex resource.
-                --task=: Identifier of the Dataplex task resource.
-            - name: describe
-              description: Describe a Dataplex job running a particular task.
-              flags:
-                --lake=: Identifier of the Dataplex lake resource.
-                --location=: Location of the Dataplex resource.
-                --task=: Identifier of the Dataplex task resource.
-        - name: list
-          description: List Dataplex task resources under a lake.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --lake=!: ID of the lake or fully qualified identifier for the lake.
-            --limit=: Maximum number of resources to list.
-            --location=: Location of the Dataplex resource.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: set-iam-policy
-          description: Set the IAM policy to a Dataplex task as defined in a JSON or YAML file.
-          flags:
-            --lake=: The identifier of the Dataplex lake resource.
-            --location=: The location of the Dataplex resource.
-        - name: add-iam-policy-binding
-          description: Add IAM policy binding to a Dataplex task resource.
-          flags:
-            --lake=: The identifier of the Dataplex lake resource.
-            --location=: The location of the Dataplex resource.
-            --member=!: The principal to add the binding for.
-            --role=!: Role name to assign to the principal.
-        - name: delete
-          description: Delete a Dataplex task resource.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --lake=: Identifier of the Dataplex lake resource.
-            --location=: Location of the Dataplex resource.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: remove-iam-policy-binding
-          description: Remove IAM policy binding from a Dataplex task resource.
-          flags:
-            --lake=: The identifier of the Dataplex lake resource.
-            --location=: The location of the Dataplex resource.
-            --member=!: The principal to remove the binding for.
-            --role=!: The role to remove the principal from.
-    - name: zones
-      description: Manage Dataplex Zone resources.
-      commands:
-        - name: actions
-          description: Manage Dataplex zone resource actions.
-          commands:
-            - name: list
-              description: List Dataplex zone actions.
-              flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --lake=: Identifier of the Dataplex lake resource.
-                --limit=: Maximum number of resources to list.
-                --location=: Location of the Dataplex resource.
-                --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-                --uri: Print a list of resource URIs instead of the default output, and change the
-                --zone=!: ID of the zone or fully qualified identifier for the zone.
-        - name: add-iam-policy-binding
-          description: Add IAM policy binding to a Dataplex zone resource.
-          flags:
-            --lake=: The identifier of the Dataplex lake resource.
-            --location=: The location of the Dataplex resource.
-            --member=!: The principal to add the binding for.
-            --role=!: Role name to assign to the principal.
-        - name: create
-          description: Create a zone.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --csv-delimiter=: The delimiter being used to separate values.
-            --csv-disable-type-inference: Whether to disable the inference of data type for CSV data.
-            --csv-encoding=: The character encoding of the data.
-            --csv-header-rows=: The number of rows to interpret as header rows that should be skipped when reading data rows.
-            --description=: Description of the zone.
-            --discovery-enabled: Whether discovery is enabled.
-            --discovery-exclude-patterns=: The list of patterns to apply for selecting data to exclude
-            --discovery-include-patterns=: The list of patterns to apply for selecting data to include
-            --discovery-schedule=: '[Cron schedule](https://en.wikipedia.org/wiki/Cron) for running'
-            --display-name=: Display name of the zone.
-            --json-disable-type-inference: Whether to disable the inference of data type for Json data.
-            --json-encoding=: The character encoding of the data.
-            --labels=: List of label KEY=VALUE pairs to add.
-            --lake=: The identifier of the Dataplex lake resource.
-            --location=: The location of the Dataplex resource.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-csv-disable-type-inference&: Whether to disable the inference of data type for CSV data.
-            --no-discovery-enabled&: Whether discovery is enabled.
-            --no-json-disable-type-inference&: Whether to disable the inference of data type for Json data.
-            --no-validate-only&: Validate the create action, but don't actually perform it.
-            --resource-location-type=!: Location type of the resources attached to a zone.
-            --type=!: Type.
-            --validate-only: Validate the create action, but don't actually perform it.
-          completion:
-            flag:
-                resource-location-type:
-                    - MULTI_REGION
-                    - SINGLE_REGION
-                type:
-                    - CURATED
-                    - RAW
-        - name: delete
-          description: Delete a Dataplex zone resource.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --lake=: Identifier of the Dataplex lake resource.
-            --location=: Location of the Dataplex resource.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: get-iam-policy
-          description: Get the IAM policy for a Dataplex zone resource.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --lake=: Identifier of the Dataplex lake resource.
-            --limit=: Maximum number of resources to list.
-            --location=: Location of the Dataplex resource.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: list
-          description: List Dataplex zone resources under a lake.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --lake=!: ID of the lake or fully qualified identifier for the lake.
-            --limit=: Maximum number of resources to list.
-            --location=: Location of the Dataplex resource.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: remove-iam-policy-binding
-          description: Remove IAM policy binding from a Dataplex zone resource.
-          flags:
-            --lake=: The identifier of the Dataplex lake resource.
-            --location=: The location of the Dataplex resource.
-            --member=!: The principal to remove the binding for.
-            --role=!: The role to remove the principal from.
-        - name: update
-          description: Update a Dataplex zone resource.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --csv-delimiter=: The delimiter being used to separate values.
-            --csv-disable-type-inference: Whether to disable the inference of data type for CSV data.
-            --csv-encoding=: The character encoding of the data.
-            --csv-header-rows=: The number of rows to interpret as header rows that should be skipped when reading data rows.
-            --description=: Description of the zone
-            --discovery-enabled: Whether discovery is enabled.
-            --discovery-exclude-patterns=: The list of patterns to apply for selecting data to exclude
-            --discovery-include-patterns=: The list of patterns to apply for selecting data to include
-            --discovery-schedule=: '[Cron schedule](https://en.wikipedia.org/wiki/Cron) for running'
-            --display-name=: Display Name
-            --json-disable-type-inference: Whether to disable the inference of data type for Json data.
-            --json-encoding=: The character encoding of the data.
-            --labels=: List of label KEY=VALUE pairs to add.
-            --lake=: The identifier of the Dataplex lake resource.
-            --location=: The location of the Dataplex resource.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-csv-disable-type-inference&: Whether to disable the inference of data type for CSV data.
-            --no-discovery-enabled&: Whether discovery is enabled.
-            --no-json-disable-type-inference&: Whether to disable the inference of data type for Json data.
-            --no-validate-only&: Validate the create action, but don't actually perform it.
-            --validate-only: Validate the create action, but don't actually perform it.
-        - name: describe
-          description: Describe a Dataplex zone resource.
-          flags:
-            --lake=: Identifier of the Dataplex lake resource.
-            --location=: Location of the Dataplex resource.
-        - name: set-iam-policy
-          description: Set the IAM policy to a Dataplex zone as defined in a JSON or YAML file.
-          flags:
-            --lake=: The identifier of the Dataplex lake resource.
-            --location=: The location of the Dataplex resource.
     - name: assets
       description: Manage Dataplex Asset resources.
       commands:
@@ -714,6 +99,14 @@ commands:
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
                 --zone=: Identifier of the Dataplex zone resource.
+        - name: add-iam-policy-binding
+          description: Adds IAM policy binding to a Dataplex asset resource.
+          flags:
+            --lake=: The identifier of the Dataplex lake resource.
+            --location=: The location of the Dataplex resource.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+            --zone=: The identifier of the Dataplex zone resource.
         - name: create
           description: Create a Dataplex asset resource.
           flags:
@@ -751,38 +144,6 @@ commands:
                 resource-type:
                     - BIGQUERY_DATASET
                     - STORAGE_BUCKET
-        - name: get-iam-policy
-          description: Get the IAM policy for a Dataplex asset resource.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --lake=: Identifier of the Dataplex lake resource.
-            --limit=: Maximum number of resources to list.
-            --location=: Location of the Dataplex resource.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --zone=: Identifier of the Dataplex zone resource.
-        - name: remove-iam-policy-binding
-          description: Remove IAM policy binding from a Dataplex asset resource.
-          flags:
-            --lake=: The identifier of the Dataplex lake resource.
-            --location=: The location of the Dataplex resource.
-            --member=!: The principal to remove the binding for.
-            --role=!: The role to remove the principal from.
-            --zone=: The identifier of the Dataplex zone resource.
-        - name: set-iam-policy
-          description: Set the IAM policy to a Dataplex asset as defined in a JSON or YAML file.
-          flags:
-            --lake=: The identifier of the Dataplex lake resource.
-            --location=: The location of the Dataplex resource.
-            --zone=: The identifier of the Dataplex zone resource.
-        - name: add-iam-policy-binding
-          description: Adds IAM policy binding to a Dataplex asset resource.
-          flags:
-            --lake=: The identifier of the Dataplex lake resource.
-            --location=: The location of the Dataplex resource.
-            --member=!: The principal to add the binding for.
-            --role=!: Role name to assign to the principal.
-            --zone=: The identifier of the Dataplex zone resource.
         - name: delete
           description: Delete a Dataplex asset resource.
           flags:
@@ -797,6 +158,16 @@ commands:
             --lake=: Identifier of the Dataplex lake resource.
             --location=: Location of the Dataplex resource.
             --zone=: Identifier of the Dataplex zone resource.
+        - name: get-iam-policy
+          description: Get the IAM policy for a Dataplex asset resource.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --lake=: Identifier of the Dataplex lake resource.
+            --limit=: Maximum number of resources to list.
+            --location=: Location of the Dataplex resource.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --zone=: Identifier of the Dataplex zone resource.
         - name: list
           description: List Dataplex asset resources.
           flags:
@@ -809,6 +180,20 @@ commands:
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
             --zone=!: ID of the zone or fully qualified identifier for the zone.
+        - name: remove-iam-policy-binding
+          description: Remove IAM policy binding from a Dataplex asset resource.
+          flags:
+            --lake=: The identifier of the Dataplex lake resource.
+            --location=: The location of the Dataplex resource.
+            --member=!: The principal to remove the binding for.
+            --role=!: The role to remove the principal from.
+            --zone=: The identifier of the Dataplex zone resource.
+        - name: set-iam-policy
+          description: Set the IAM policy to a Dataplex asset as defined in a JSON or YAML file.
+          flags:
+            --lake=: The identifier of the Dataplex lake resource.
+            --location=: The location of the Dataplex resource.
+            --zone=: The identifier of the Dataplex zone resource.
         - name: update
           description: Update a Dataplex asset resource.
           flags:
@@ -844,33 +229,6 @@ commands:
     - name: content
       description: Manage Dataplex Content.
       commands:
-        - name: describe
-          description: Retrieve a Dataplex Content Resource.
-          flags:
-            --lake=: Identifier of the Dataplex lake resource.
-            --location=: Location of the Dataplex resource.
-            --view=: There are two possible views, 'basic' and 'full'.
-          completion:
-            flag:
-                view:
-                    - basic
-                    - full
-        - name: list
-          description: List Dataplex Content Resources.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --lake=!: ID of the lake or fully qualified identifier for the lake.
-            --limit=: Maximum number of resources to list.
-            --location=: Location of the Dataplex resource.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: set-iam-policy
-          description: Set the IAM policy to a Dataplex Content as defined in a JSON or YAML file.
-          flags:
-            --lake=: The identifier of the Dataplex lake resource.
-            --location=: The location of the Dataplex resource.
         - name: add-iam-policy-binding
           description: Adds IAM policy binding to a Dataplex Content.
           flags:
@@ -902,6 +260,17 @@ commands:
           flags:
             --lake=: Identifier of the Dataplex lake resource.
             --location=: Location of the Dataplex resource.
+        - name: describe
+          description: Retrieve a Dataplex Content Resource.
+          flags:
+            --lake=: Identifier of the Dataplex lake resource.
+            --location=: Location of the Dataplex resource.
+            --view=: There are two possible views, 'basic' and 'full'.
+          completion:
+            flag:
+                view:
+                    - basic
+                    - full
         - name: get-iam-policy
           description: Retrieve the IAM policy for a Dataplex Content.
           flags:
@@ -911,6 +280,17 @@ commands:
             --location=: Location of the Dataplex resource.
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: List Dataplex Content Resources.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --lake=!: ID of the lake or fully qualified identifier for the lake.
+            --limit=: Maximum number of resources to list.
+            --location=: Location of the Dataplex resource.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
         - name: remove-iam-policy-binding
           description: Removes IAM policy binding from a Dataplex Content.
           flags:
@@ -918,6 +298,11 @@ commands:
             --location=: The location of the Dataplex resource.
             --member=!: The principal to remove the binding for.
             --role=!: The role to remove the principal from.
+        - name: set-iam-policy
+          description: Set the IAM policy to a Dataplex Content as defined in a JSON or YAML file.
+          flags:
+            --lake=: The identifier of the Dataplex lake resource.
+            --location=: The location of the Dataplex resource.
         - name: update
           description: Update a Dataplex Content Resource with the given configurations.
           flags:
@@ -940,39 +325,41 @@ commands:
     - name: datascans
       description: Manage Dataplex Datascan.
       commands:
-        - name: delete
-          description: Delete a Dataplex Datascan resource.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: Location of the Dataplex resource.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: describe
-          description: Describe a Dataplex datascan resource.
-          flags:
-            --location=: Location of the Dataplex resource.
-            --view=: Displays spec data based on the argument value.
-          completion:
-            flag:
-                view:
-                    - basic
-                    - full
-        - name: list
-          description: List Dataplex Datascan resources under a project.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --location=: ID of the location or fully qualified identifier for the location.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: set-iam-policy
-          description: Set the IAM policy to a Dataplex datascan as defined in a JSON or YAML file.
-          flags:
-            --location=: The location of the Dataplex resource.
         - name: create
           description: Manage Dataplex Datascans creation.
           commands:
+            - name: data-discovery
+              description: Create a Dataplex data discovery scan job.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --bigquery-publishing-connection=: BigQuery connection to use for auto discovering cloud resource bucket to BigLake tables in format `projects/{project_id}/locations/{location_id}/connections/{connection_id}`.
+                --bigquery-publishing-dataset-location=: The location of the BigQuery dataset to publish BigLake external or non-BigLake external tables to.
+                --bigquery-publishing-dataset-project=: The project of the BigQuery dataset to publish BigLake external or non-BigLake external tables to.
+                --bigquery-publishing-table-type=: BigQuery table type to discover the cloud resource bucket.
+                --csv-delimiter=: Delimiter used to separate values in the CSV file.
+                --csv-disable-type-inference=: Whether to disable the inference of data types for CSV data.
+                --csv-encoding=: Character encoding of the CSV file.
+                --csv-header-row-count=: The number of rows to interpret as header rows that should be skipped when reading data rows.
+                --csv-quote-character=: The character used to quote column values.
+                --data-source-resource=!: 'Fully-qualified service resource name of the cloud resource bucket that contains the data for the data discovery scan, of the form: `//storage.googleapis.com/projects/{project_id_or_number}/buckets/{bucket_id}`.'
+                --description=: Description of the data discovery scan.
+                --display-name=: Display name of the data discovery scan.
+                --json-disable-type-inference=: Whether to disable the inference of data types for JSON data.
+                --json-encoding=: Character encoding of the JSON file.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --location=: The location of the Dataplex resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-validate-only&: Validate the create action, but don't actually perform it.
+                --on-demand=: If set, the scan runs one-time shortly after data discovery scan creation.
+                --schedule=: Cron schedule (https://en.wikipedia.org/wiki/Cron) for running scans periodically.
+                --storage-exclude-patterns=: List of patterns that identify the data to exclude during discovery.
+                --storage-include-patterns=: List of patterns that identify the data to include during discovery when only a subset of the data should be considered.
+                --validate-only: Validate the create action, but don't actually perform it.
+              completion:
+                flag:
+                    bigquery-publishing-table-type:
+                        - BIGLAKE
+                        - EXTERNAL
             - name: data-documentation
               description: Create a Dataplex data documentation scan job.
               flags:
@@ -1027,38 +414,22 @@ commands:
                 --on-demand=: If set, the scan runs one-time shortly after data quality scan creation.
                 --schedule=: Cron schedule (https://en.wikipedia.org/wiki/Cron) for running scans periodically.
                 --validate-only: Validate the create action, but don't actually perform it.
-            - name: data-discovery
-              description: Create a Dataplex data discovery scan job.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --bigquery-publishing-connection=: BigQuery connection to use for auto discovering cloud resource bucket to BigLake tables in format `projects/{project_id}/locations/{location_id}/connections/{connection_id}`.
-                --bigquery-publishing-dataset-location=: The location of the BigQuery dataset to publish BigLake external or non-BigLake external tables to.
-                --bigquery-publishing-dataset-project=: The project of the BigQuery dataset to publish BigLake external or non-BigLake external tables to.
-                --bigquery-publishing-table-type=: BigQuery table type to discover the cloud resource bucket.
-                --csv-delimiter=: Delimiter used to separate values in the CSV file.
-                --csv-disable-type-inference=: Whether to disable the inference of data types for CSV data.
-                --csv-encoding=: Character encoding of the CSV file.
-                --csv-header-row-count=: The number of rows to interpret as header rows that should be skipped when reading data rows.
-                --csv-quote-character=: The character used to quote column values.
-                --data-source-resource=!: 'Fully-qualified service resource name of the cloud resource bucket that contains the data for the data discovery scan, of the form: `//storage.googleapis.com/projects/{project_id_or_number}/buckets/{bucket_id}`.'
-                --description=: Description of the data discovery scan.
-                --display-name=: Display name of the data discovery scan.
-                --json-disable-type-inference=: Whether to disable the inference of data types for JSON data.
-                --json-encoding=: Character encoding of the JSON file.
-                --labels=: List of label KEY=VALUE pairs to add.
-                --location=: The location of the Dataplex resource.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --no-validate-only&: Validate the create action, but don't actually perform it.
-                --on-demand=: If set, the scan runs one-time shortly after data discovery scan creation.
-                --schedule=: Cron schedule (https://en.wikipedia.org/wiki/Cron) for running scans periodically.
-                --storage-exclude-patterns=: List of patterns that identify the data to exclude during discovery.
-                --storage-include-patterns=: List of patterns that identify the data to include during discovery when only a subset of the data should be considered.
-                --validate-only: Validate the create action, but don't actually perform it.
-              completion:
-                flag:
-                    bigquery-publishing-table-type:
-                        - BIGLAKE
-                        - EXTERNAL
+        - name: delete
+          description: Delete a Dataplex Datascan resource.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Location of the Dataplex resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe a Dataplex datascan resource.
+          flags:
+            --location=: Location of the Dataplex resource.
+            --view=: Displays spec data based on the argument value.
+          completion:
+            flag:
+                view:
+                    - basic
+                    - full
         - name: get-iam-policy
           description: Get the IAM policy for a Dataplex datascan resource.
           flags:
@@ -1092,10 +463,24 @@ commands:
                 --page-size=: Some services group resource list output into pages.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: list
+          description: List Dataplex Datascan resources under a project.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
         - name: run
           description: Run a Dataplex DataScan resource.
           flags:
             --location=: Location of the Dataplex resource.
+        - name: set-iam-policy
+          description: Set the IAM policy to a Dataplex datascan as defined in a JSON or YAML file.
+          flags:
+            --location=: The location of the Dataplex resource.
         - name: update
           description: Manage Dataplex Datascans updation.
           commands:
@@ -1191,9 +576,157 @@ commands:
             --location=: The location of the Dataplex resource.
             --no-enable-metastore-encryption&: Helps user to explicitly enable cmek encryption for dataplex metadata storage.
             --organization=: The name of encryption config to use.
+    - name: entries
+      description: Manage Dataplex Catalog Entries resources.
+      commands:
+        - name: create
+          description: Create a Dataplex Entry resource.
+          flags:
+            --aspects=: Path to a YAML or JSON file containing Aspects to add or update.
+            --entry-group=: Entry group containing Dataplex Entries.
+            --entry-source-ancestors=: Information about individual items in the hierarchy of an Entry.
+            --entry-source-create-time=: The creation date and time of the resource in the source system.
+            --entry-source-description=: Description of the Entry.
+            --entry-source-display-name=: User friendly display name.
+            --entry-source-labels=: List of label KEY=VALUE pairs to add.
+            --entry-source-platform=: The platform containing the source system.
+            --entry-source-resource=: The name of the resource in the source system.
+            --entry-source-system=: The name of the source system.
+            --entry-source-update-time=: The update date and time of the resource in the source system.
+            --entry-type-location=: The location of the EntryType resource.
+            --entry-type-project=: The project of the EntryType resource.
+            --entry-type=!: ID of the entry type or fully qualified identifier for the entry type.
+            --fully-qualified-name=: A name for the entry that can reference it in an external system.
+            --location=: Location of the Dataplex resource.
+            --parent-entry=!: ID of the entry or fully qualified identifier for the entry.
+        - name: delete
+          description: Delete a Dataplex entry.
+          flags:
+            --entry-group=: Entry group containing Dataplex Entries.
+            --location=: Location of the Dataplex resource.
+        - name: describe
+          description: Describe a Dataplex entry.
+          flags:
+            --aspect-types=: Limits the aspects returned to the provided aspect types.
+            --entry-group=: Entry group containing Dataplex Entries.
+            --location=: Location of the Dataplex resource.
+            --paths=: Limits the aspects returned to those associated with the provided paths within the Entry.
+            --view=: Controls which parts of an entry are to be returned.
+          completion:
+            flag:
+                view:
+                    - all
+                    - basic
+                    - custom
+                    - full
+        - name: list
+          description: List Dataplex entries.
+          flags:
+            --entry-group=!: ID of the entry group or fully qualified identifier for the entry group.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Location of the Dataplex resource.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: lookup
+          description: Lookup a Dataplex entry.
+          flags:
+            --aspect-types=: Limits the aspects returned to the provided aspect types.
+            --entry-group=: Entry group containing Dataplex Entries.
+            --location=: Location of the Dataplex resource.
+            --paths=: Limits the aspects returned to those associated with the provided paths within the Entry.
+            --view=: Controls which parts of an entry are to be returned.
+          completion:
+            flag:
+                view:
+                    - all
+                    - basic
+                    - custom
+                    - full
+        - name: remove-aspects
+          description: Remove aspects from a Dataplex Entry.
+          flags:
+            --entry-group=: Entry group containing Dataplex Entries.
+            --keys=!: List of Aspect keys, identifying Aspects to remove from the entry.
+            --location=: Location of the Dataplex resource.
+        - name: search
+          description: Searches for Dataplex entries.
+          flags:
+            --limit=: Maximum number of resources.
+            --order-by=: Specifies the ordering of results, currently supported case-sensitive
+            --page-size=: Maximum number of resources per page.
+            --scope=: The scope under which the search should be operating.
+        - name: update
+          description: Update a Dataplex Entry.
+          flags:
+            --clear-entry-source-create-time: Clear the value for the create_time field in the Entry Source.
+            --clear-entry-source-description: Clear the value for the description field in the Entry Source.
+            --clear-entry-source-display-name: Clear the value for the display_name field in the Entry Source.
+            --clear-entry-source-labels: Clear the labels for the Entry Source.
+            --clear-entry-source-platform: Clear the value for the platform field in the Entry Source.
+            --clear-entry-source-resource: Clear the value for the resource field in the Entry Source.
+            --clear-entry-source-system: Clear the value for the system field in the Entry Source.
+            --clear-fully-qualified-name: Clear the FQN for the Entry.
+            --entry-group=: Entry group containing Dataplex Entries.
+            --entry-source-create-time=: The creation date and time of the resource in the source system.
+            --entry-source-description=: Description of the Entry.
+            --entry-source-display-name=: User friendly display name.
+            --entry-source-labels=: List of label KEY=VALUE pairs to add.
+            --entry-source-platform=: The platform containing the source system.
+            --entry-source-resource=: The name of the resource in the source system.
+            --entry-source-system=: The name of the source system.
+            --entry-source-update-time=!: The update date and time of the resource in the source system.
+            --fully-qualified-name=: FQN, a name for the entry that can reference it in an external system.
+            --location=: Location of the Dataplex resource.
+            --no-clear-entry-source-create-time&: Clear the value for the create_time field in the Entry Source.
+            --no-clear-entry-source-description&: Clear the value for the description field in the Entry Source.
+            --no-clear-entry-source-display-name&: Clear the value for the display_name field in the Entry Source.
+            --no-clear-entry-source-labels&: Remove all labels.
+            --no-clear-entry-source-platform&: Clear the value for the platform field in the Entry Source.
+            --no-clear-entry-source-resource&: Clear the value for the resource field in the Entry Source.
+            --no-clear-entry-source-system&: Clear the value for the system field in the Entry Source.
+            --no-clear-fully-qualified-name&: Clear the FQN for the Entry.
+            --remove-aspects=: List of Aspect keys, identifying Aspects to remove from the entry.
+            --update-aspects=: Path to a YAML or JSON file containing Aspects to add or update.
+        - name: update-aspects
+          description: Add or update aspects for a Dataplex Entry.
+          flags:
+            --aspects=!: Path to a YAML or JSON file containing Aspects to add or update.
+            --entry-group=: Entry group containing Dataplex Entries.
+            --location=: Location of the Dataplex resource.
     - name: entry-groups
       description: Manage Dataplex Entry Groups.
       commands:
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding to a Dataplex Entry Group.
+          flags:
+            --location=: The location of the Dataplex resource.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: create
+          description: Create a Dataplex Entry Group.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: Description of the Entry Group.
+            --display-name=: Display name of the Entry Group.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The location of the Dataplex resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-validate-only&: Validate the create action, but don't actually perform it.
+            --validate-only: Validate the create action, but don't actually perform it.
+        - name: delete
+          description: Delete a Dataplex Entry Group.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --etag=: etag for the Entry Group you want to delete.
+            --location=: Location of the Dataplex resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe a Dataplex Entry Group.
+          flags:
+            --location=: Location of the Dataplex resource.
         - name: get-iam-policy
           description: Retrieve a Dataplex Entry Group IAM policy.
           flags:
@@ -1234,63 +767,9 @@ commands:
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-validate-only&: Validate the update action, but don't actually perform it.
             --validate-only: Validate the update action, but don't actually perform it.
-        - name: create
-          description: Create a Dataplex Entry Group.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --description=: Description of the Entry Group.
-            --display-name=: Display name of the Entry Group.
-            --labels=: List of label KEY=VALUE pairs to add.
-            --location=: The location of the Dataplex resource.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-validate-only&: Validate the create action, but don't actually perform it.
-            --validate-only: Validate the create action, but don't actually perform it.
-        - name: add-iam-policy-binding
-          description: Add IAM policy binding to a Dataplex Entry Group.
-          flags:
-            --location=: The location of the Dataplex resource.
-            --member=!: The principal to add the binding for.
-            --role=!: Role name to assign to the principal.
-        - name: delete
-          description: Delete a Dataplex Entry Group.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --etag=: etag for the Entry Group you want to delete.
-            --location=: Location of the Dataplex resource.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: describe
-          description: Describe a Dataplex Entry Group.
-          flags:
-            --location=: Location of the Dataplex resource.
     - name: entry-types
       description: Manage Dataplex Entry Types.
       commands:
-        - name: describe
-          description: Describe a Dataplex Entry Type.
-          flags:
-            --location=: Location of the Dataplex resource.
-        - name: remove-iam-policy-binding
-          description: Remove IAM policy binding from a Dataplex Entry Type.
-          flags:
-            --location=: The location of the Dataplex resource.
-            --member=!: The principal to remove the binding for.
-            --role=!: The role to remove the principal from.
-        - name: update
-          description: Update a Dataplex Entry Type.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --description=: Description of the Entry Type.
-            --display-name=: Display name of the Entry Type.
-            --etag=: etag value for particular Entry Type.
-            --labels=: List of label KEY=VALUE pairs to add.
-            --location=: The location of the Dataplex resource.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-validate-only&: Validate the update action, but don't actually perform it.
-            --platform=: The platform that Entries of this type belongs to.
-            --required-aspects=: Required aspect type for the entry type.
-            --system=: The system that Entries of this type belongs to.
-            --type-aliases=: Indicates the class this Entry Type belongs to.
-            --validate-only: Validate the update action, but don't actually perform it.
         - name: add-iam-policy-binding
           description: Add IAM policy binding to a Dataplex Entry Type.
           flags:
@@ -1312,6 +791,17 @@ commands:
             --system=: The system that Entries of this type belongs to.
             --type-aliases=: Indicates the class this Entry Type belongs to.
             --validate-only: Validate the create action, but don't actually perform it.
+        - name: delete
+          description: Delete a Dataplex Entry Type.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --etag=: etag for the Entry Type you want to delete.
+            --location=: Location of the Dataplex resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe a Dataplex Entry Type.
+          flags:
+            --location=: Location of the Dataplex resource.
         - name: get-iam-policy
           description: Retrieve a Dataplex Entry Type IAM policy.
           flags:
@@ -1330,47 +820,42 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: remove-iam-policy-binding
+          description: Remove IAM policy binding from a Dataplex Entry Type.
+          flags:
+            --location=: The location of the Dataplex resource.
+            --member=!: The principal to remove the binding for.
+            --role=!: The role to remove the principal from.
         - name: set-iam-policy
           description: Set an IAM policy binding for a Dataplex Entry Type as defined in a JSON or YAML file.
           flags:
             --location=: The location of the Dataplex resource.
-        - name: delete
-          description: Delete a Dataplex Entry Type.
+        - name: update
+          description: Update a Dataplex Entry Type.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
-            --etag=: etag for the Entry Type you want to delete.
-            --location=: Location of the Dataplex resource.
+            --description=: Description of the Entry Type.
+            --display-name=: Display name of the Entry Type.
+            --etag=: etag value for particular Entry Type.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The location of the Dataplex resource.
             --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-validate-only&: Validate the update action, but don't actually perform it.
+            --platform=: The platform that Entries of this type belongs to.
+            --required-aspects=: Required aspect type for the entry type.
+            --system=: The system that Entries of this type belongs to.
+            --type-aliases=: Indicates the class this Entry Type belongs to.
+            --validate-only: Validate the update action, but don't actually perform it.
     - name: environments
       description: Manage Dataplex Environments.
       commands:
-        - name: get-iam-policy
-          description: Retrieve a Dataplex Environment IAM policy.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --lake=: Identifier of the Dataplex lake resource.
-            --limit=: Maximum number of resources to list.
-            --location=: Location of the Dataplex resource.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: list
-          description: List Dataplex Environments.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --lake=!: ID of the lake or fully qualified identifier for the lake.
-            --limit=: Maximum number of resources to list.
-            --location=: Location of the Dataplex resource.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: remove-iam-policy-binding
-          description: Removes IAM policy binding from a Dataplex Environment.
+        - name: add-iam-policy-binding
+          description: Adds IAM policy binding to a Dataplex Environment.
           flags:
             --lake=: The identifier of the Dataplex lake resource.
             --location=: The location of the Dataplex resource.
-            --member=!: The principal to remove the binding for.
-            --role=!: The role to remove the principal from.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
         - name: create
           description: Create a Dataplex Environment.
           flags:
@@ -1400,6 +885,38 @@ commands:
             --lake=: Identifier of the Dataplex lake resource.
             --location=: Location of the Dataplex resource.
             --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Retrieve a Dataplex Environment.
+          flags:
+            --lake=: Identifier of the Dataplex lake resource.
+            --location=: Location of the Dataplex resource.
+        - name: get-iam-policy
+          description: Retrieve a Dataplex Environment IAM policy.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --lake=: Identifier of the Dataplex lake resource.
+            --limit=: Maximum number of resources to list.
+            --location=: Location of the Dataplex resource.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: List Dataplex Environments.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --lake=!: ID of the lake or fully qualified identifier for the lake.
+            --limit=: Maximum number of resources to list.
+            --location=: Location of the Dataplex resource.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: remove-iam-policy-binding
+          description: Removes IAM policy binding from a Dataplex Environment.
+          flags:
+            --lake=: The identifier of the Dataplex lake resource.
+            --location=: The location of the Dataplex resource.
+            --member=!: The principal to remove the binding for.
+            --role=!: The role to remove the principal from.
         - name: sessions
           description: Manage Dataplex Sessions services.
           commands:
@@ -1440,18 +957,260 @@ commands:
             --session-enable-fast-startup: Enables fast startup.
             --session-max-idle-duration=: The idle time configuration of the session.
             --validate-only: Validate the create action, but don't actually perform it.
+    - name: glossaries
+      description: Manage Dataplex glossaries.
+      commands:
         - name: add-iam-policy-binding
-          description: Adds IAM policy binding to a Dataplex Environment.
+          description: Add IAM policy binding to a Dataplex Glossary.
           flags:
-            --lake=: The identifier of the Dataplex lake resource.
             --location=: The location of the Dataplex resource.
             --member=!: The principal to add the binding for.
             --role=!: Role name to assign to the principal.
-        - name: describe
-          description: Retrieve a Dataplex Environment.
+        - name: categories
+          description: Manage Dataplex glossary categories.
+          commands:
+            - name: create
+              description: Creates a glossary category.
+              flags:
+                --description=: Description of the glossary category.
+                --display-name=: Display name of the glossary category.
+                --glossary=: The name of glossary category to use.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --location=: The location of the Dataplex resource.
+                --parent=!: Immediate parent of the created glossary category.
+            - name: delete
+              description: Deletes a glossary category.
+              flags:
+                --glossary=: Identifier of the Dataplex Glossary resource.
+                --location=: Location of the Dataplex resource.
+            - name: describe
+              description: Describes a glossary category.
+              flags:
+                --glossary=: Identifier of the Dataplex Glossary resource.
+                --location=: Location of the Dataplex resource.
+            - name: list
+              description: List glossary categories.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --glossary=!: ID of the glossary or fully qualified identifier for the glossary.
+                --limit=: Maximum number of resources to list.
+                --location=: Location of the Dataplex resource.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Updates a glossary category.
+              flags:
+                --description=: Description of the glossary category.
+                --display-name=: Display Name of the glossary category.
+                --glossary=: The name of glossary category to use.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --location=: The location of the Dataplex resource.
+                --parent=: Immediate parent of the created glossary category.
+        - name: create
+          description: Create a Dataplex Glossary resource.
           flags:
-            --lake=: Identifier of the Dataplex lake resource.
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: Description of the Glossary.
+            --display-name=: Display Name of the Glossary.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The location of the Dataplex resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-validate-only&: Validate the create action, but don't actually perform it.
+            --validate-only: Validate the create action, but don't actually perform it.
+        - name: delete
+          description: Delete a Dataplex Glossary.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --etag=: etag value for particular Glossary.
             --location=: Location of the Dataplex resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe a Glossary.
+          flags:
+            --location=: Location of the Dataplex resource.
+        - name: get-iam-policy
+          description: Retrieve a Dataplex Glossary IAM policy.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Location of the Dataplex resource.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: List Glossaries.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: remove-iam-policy-binding
+          description: Removes IAM policy binding from a Dataplex Glossary.
+          flags:
+            --location=: The location of the Dataplex resource.
+            --member=!: The principal to remove the binding for.
+            --role=!: The role to remove the principal from.
+        - name: set-iam-policy
+          description: Set an IAM policy binding for a Dataplex Glossary as defined in a JSON or YAML file.
+          flags:
+            --location=: The location of the Dataplex resource.
+        - name: terms
+          description: Manage Dataplex glossary terms.
+          commands:
+            - name: create
+              description: Creates a glossary term.
+              flags:
+                --description=: Description of the glossary term.
+                --display-name=: Display name of the glossary term.
+                --glossary=: The name of glossary term to use.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --location=: The location of the Dataplex resource.
+                --parent=!: Immediate parent of the created glossary term.
+            - name: delete
+              description: Deletes a glossary term.
+              flags:
+                --glossary=: Identifier of the Dataplex Glossary resource.
+                --location=: Location of the Dataplex resource.
+            - name: describe
+              description: Describes a glossary term.
+              flags:
+                --glossary=: Identifier of the Dataplex Glossary resource.
+                --location=: Location of the Dataplex resource.
+            - name: list
+              description: List glossary terms.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --glossary=!: ID of the glossary or fully qualified identifier for the glossary.
+                --limit=: Maximum number of resources to list.
+                --location=: Location of the Dataplex resource.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Updates a glossary term.
+              flags:
+                --description=: Description of the glossary term.
+                --display-name=: Display name of the glossary term.
+                --glossary=: The name of glossary term to use.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --location=: The location of the Dataplex resource.
+                --parent=: Immediate parent of the created glossary term.
+        - name: update
+          description: Updates a Dataplex Glossary.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: Description of the Glossary.
+            --display-name=: Display Name of the Glossary.
+            --etag=: etag value for particular Glossary.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The location of the Dataplex resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-validate-only&: Validate the update action, but don't actually perform it.
+            --validate-only: Validate the update action, but don't actually perform it.
+    - name: lakes
+      description: Manage Dataplex Lake resources.
+      commands:
+        - name: actions
+          description: Manage Dataplex lake resource actions.
+          commands:
+            - name: list
+              description: List Dataplex lake actions.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --lake=!: ID of the lake or fully qualified identifier for the lake.
+                --limit=: Maximum number of resources to list.
+                --location=: Location of the Dataplex resource.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding to a Dataplex lake resource.
+          flags:
+            --location=: The location of the Dataplex resource.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: authorize
+          description: Authorize a service agent to manage resources.
+          flags:
+            --bigquery-dataset-resource=!: The identifier of the BigQuery dataset that the service agent will manage.
+            --project-resource=: The identifier of the project whose resources the service agent will manage.
+            --secondary-project=!: The identifier of the project where the BigQuery dataset is located.
+            --storage-bucket-resource=: The identifier of the Cloud Storage bucket that the service agent will manage.
+        - name: create
+          description: Create a Dataplex lake resource.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: Description of the lake.
+            --display-name=: Display name of the lake.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The location of the Dataplex resource.
+            --metastore-service=: A relative reference to the Dataproc Metastore
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-validate-only&: Validate the create action, but don't actually perform it.
+            --validate-only: Validate the create action, but don't actually perform it.
+        - name: deauthorize
+          description: Deauthorize a service agent from managing resources.
+          flags:
+            --bigquery-dataset-resource=!: The identifier of the BigQuery dataset that the service agent will no longer manage.
+            --project-resource=: The identifier of the project whose resources the service agent will no longer manage.
+            --secondary-project=!: The identifier of the project where the BigQuery dataset is located.
+            --storage-bucket-resource=: The identifier of the Cloud Storage bucket that the service agent will no longer manage.
+        - name: delete
+          description: Delete a Dataplex lake resource.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Location of the Dataplex resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe a Dataplex lake resource.
+          flags:
+            --location=: Location of the Dataplex resource.
+        - name: get-iam-policy
+          description: Get the IAM policy for a Dataplex lake resource.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Location of the Dataplex resource.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: List Dataplex lake resources under a project.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: remove-iam-policy-binding
+          description: Remove IAM policy binding from a Dataplex lake resource.
+          flags:
+            --location=: The location of the Dataplex resource.
+            --member=!: The principal to remove the binding for.
+            --role=!: The role to remove the principal from.
+        - name: set-iam-policy
+          description: Set the IAM policy to a Dataplex lake as defined in a JSON or YAML file.
+          flags:
+            --location=: The location of the Dataplex resource.
+        - name: update
+          description: Update a Dataplex lake resource.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: Description of the lake
+            --display-name=: Display Name
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The location of the Dataplex resource.
+            --metastore-service=: A relative reference to the Dataproc Metastore
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-validate-only&: Validate the update action, but don't actually perform it.
+            --validate-only: Validate the update action, but don't actually perform it.
     - name: metadata-jobs
       description: Manage Dataplex metadata jobs.
       commands:
@@ -1514,81 +1273,322 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
-    - name: aspect-types
-      description: Manage Dataplex Aspect Types.
+    - name: tasks
+      description: Manage Dataplex Task services.
       commands:
         - name: add-iam-policy-binding
-          description: Add IAM policy binding to a Dataplex Aspect Type.
+          description: Add IAM policy binding to a Dataplex task resource.
           flags:
+            --lake=: The identifier of the Dataplex lake resource.
             --location=: The location of the Dataplex resource.
             --member=!: The principal to add the binding for.
             --role=!: Role name to assign to the principal.
-        - name: delete
-          description: Delete a Dataplex Aspect Type.
+        - name: create
+          description: Create a Dataplex task resource.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
-            --etag=: etag for the Aspect Type you want to delete.
+            --batch-executors-count=: Total number of job executors.
+            --batch-max-executors-count=: Max configurable executors.
+            --container-image-java-jars=: A list of Java JARS to add to the classpath.
+            --container-image-properties=: The properties to set on daemon config files.
+            --container-image-python-packages=: A list of python packages to be installed.
+            --container-image=: Optional custom container image for the job.
+            --description=: Description of the Dataplex task.
+            --display-name=: Display name of the Dataplex task.
+            --execution-args=: The arguments to pass to the task.
+            --execution-project=: The project in which jobs are run.
+            --execution-service-account=!: Service account to use to execute a task.
+            --kms-key=: 'The Cloud KMS key to use for encryption, of the form:'
+            --labels=: List of label KEY=VALUE pairs to add.
+            --lake=: Identifier of the Dataplex lake resource.
+            --location=: Location of the Dataplex resource.
+            --max-job-execution-lifetime=: The maximum duration before the job execution expires.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-trigger-disabled&: Prevent the task from executing.
+            --notebook-archive-uris=: Google Cloud Storage URIs of archives to be extracted into the working directory of
+            --notebook-batch-executors-count=: Total number of job executors.
+            --notebook-batch-max-executors-count=: Max configurable executors.
+            --notebook-container-image-java-jars=: A list of Java JARS to add to the classpath.
+            --notebook-container-image-properties=: The properties to set on daemon config files.
+            --notebook-container-image=: Optional custom container image for the job.
+            --notebook-file-uris=: Google Cloud Storage URIs of files to be placed in the working directory of each
+            --notebook-vpc-network-name=: The Cloud VPC network in which the job is run.
+            --notebook-vpc-network-tags=: List of network tags to apply to the job.
+            --notebook-vpc-sub-network-name=: The Cloud VPC sub-network in which the job is run.
+            --notebook=!: Path to input notebook.
+            --spark-archive-uris=: Google Cloud Storage URIs of archives to be extracted into the working directory of
+            --spark-file-uris=: Google Cloud Storage URIs of files to be placed in the working directory of each
+            --spark-main-class=: The name of the driver's main class.
+            --spark-main-jar-file-uri=: The Google Cloud Storage URI of the jar file that contains the main class.
+            --spark-python-script-file=: The Google Cloud Storage URI of the main Python file to use as the driver.
+            --spark-sql-script-file=: A reference to a query file.
+            --spark-sql-script=: The SQL query text.
+            --trigger-disabled: Prevent the task from executing.
+            --trigger-max-retires=: Number of retry attempts before aborting.
+            --trigger-schedule=: Cron schedule (https://en.wikipedia.org/wiki/Cron) for running
+            --trigger-start-time=: The first run of the task begins after this time.
+            --trigger-type=!: Trigger type of the user-specified Dataplex Task.
+            --vpc-network-name=: The Cloud VPC network in which the job is run.
+            --vpc-network-tags=: List of network tags to apply to the job.
+            --vpc-sub-network-name=: The Cloud VPC sub-network in which the job is run.
+          completion:
+            flag:
+                trigger-type:
+                    - on-demand
+                    - recurring
+        - name: delete
+          description: Delete a Dataplex task resource.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --lake=: Identifier of the Dataplex lake resource.
             --location=: Location of the Dataplex resource.
             --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe a Dataplex task resource.
+          flags:
+            --lake=: Identifier of the Dataplex lake resource.
+            --location=: Location of the Dataplex resource.
         - name: get-iam-policy
-          description: Retrieve a Dataplex Aspect Type IAM policy.
+          description: Get the IAM policy for a Dataplex task resource.
           flags:
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --lake=: Identifier of the Dataplex lake resource.
+            --limit=: Maximum number of resources to list.
+            --location=: Location of the Dataplex resource.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: jobs
+          description: Manage Dataplex Jobs services.
+          commands:
+            - name: cancel
+              description: Cancel a Dataplex Job running a particular task.
+              flags:
+                --lake=: Identifier of the Dataplex lake resource.
+                --location=: Location of the Dataplex resource.
+                --task=: Identifier of the Dataplex task resource.
+            - name: describe
+              description: Describe a Dataplex job running a particular task.
+              flags:
+                --lake=: Identifier of the Dataplex lake resource.
+                --location=: Location of the Dataplex resource.
+                --task=: Identifier of the Dataplex task resource.
+            - name: list
+              description: List job runs of a Dataplex task resource.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --lake=: Identifier of the Dataplex lake resource.
+                --limit=: Maximum number of resources to list.
+                --location=: Location of the Dataplex resource.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --task=!: ID of the task or fully qualified identifier for the task.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: list
+          description: List Dataplex task resources under a lake.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --lake=!: ID of the lake or fully qualified identifier for the lake.
+            --limit=: Maximum number of resources to list.
+            --location=: Location of the Dataplex resource.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: remove-iam-policy-binding
+          description: Remove IAM policy binding from a Dataplex task resource.
+          flags:
+            --lake=: The identifier of the Dataplex lake resource.
+            --location=: The location of the Dataplex resource.
+            --member=!: The principal to remove the binding for.
+            --role=!: The role to remove the principal from.
+        - name: run
+          description: Trigger one-time run of a Dataplex task.
+          flags:
+            --labels=: List of label KEY=VALUE pairs to add.
+            --lake=: The identifier of the Dataplex lake resource.
+            --location=: The location of the Dataplex resource.
+        - name: set-iam-policy
+          description: Set the IAM policy to a Dataplex task as defined in a JSON or YAML file.
+          flags:
+            --lake=: The identifier of the Dataplex lake resource.
+            --location=: The location of the Dataplex resource.
+        - name: update
+          description: Update a Dataplex task resource.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --batch-executors-count=: Total number of job executors.
+            --batch-max-executors-count=: Max configurable executors.
+            --clear-labels: Remove all labels.
+            --container-image-java-jars=: A list of Java JARS to add to the classpath.
+            --container-image-properties=: Override to common configuration of open source components installed on
+            --container-image-python-packages=: A list of python packages to be installed.
+            --container-image=: Optional custom container image for the job.
+            --description=: Description of the task.
+            --display-name=: Display name of the task.
+            --execution-args=: The arguments to pass to the task.
+            --execution-project=: The project in which jobs are run.
+            --execution-service-account=: Service account to use to execute a task.
+            --kms-key=: 'The Cloud KMS key to use for encryption, of the form:'
+            --lake=: Identifier of the Dataplex lake resource.
+            --location=: Location of the Dataplex resource.
+            --max-job-execution-lifetime=: The maximum duration before the job execution expires.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --no-trigger-disabled&: Prevent the task from executing.
+            --notebook-archive-uris=: Google Cloud Storage URIs of archives to be extracted into the working directory of
+            --notebook-batch-executors-count=: Total number of job executors.
+            --notebook-batch-max-executors-count=: Max configurable executors.
+            --notebook-container-image-java-jars=: A list of Java JARS to add to the classpath.
+            --notebook-container-image-properties=: Override to common configuration of open source components installed on
+            --notebook-container-image=: Optional custom container image for the job.
+            --notebook-file-uris=: Google Cloud Storage URIs of files to be placed in the working directory of each
+            --notebook-vpc-network-name=: The Cloud VPC network in which the job is run.
+            --notebook-vpc-network-tags=: List of network tags to apply to the job.
+            --notebook-vpc-sub-network-name=: The Cloud VPC sub-network in which the job is run.
+            --notebook=: Google Cloud Storage URIs of the notebook file or the path to a Notebook Content.
+            --remove-labels=: List of label keys to remove.
+            --spark-archive-uris=: Google Cloud Storage URIs of archives to be extracted into the working directory of
+            --spark-file-uris=: Google Cloud Storage URIs of files to be placed in the working directory of each
+            --spark-main-class=: The name of the driver's main class.
+            --spark-main-jar-file-uri=: The Google Cloud Storage URI of the jar file that contains the main class.
+            --spark-python-script-file=: The Google Cloud Storage URI of the main Python file to use as the driver.
+            --spark-sql-script-file=: A reference to a query file.
+            --spark-sql-script=: The SQL query text.
+            --trigger-disabled: Prevent the task from executing.
+            --trigger-max-retires=: Number of retry attempts before aborting.
+            --trigger-schedule=: Cron schedule (https://en.wikipedia.org/wiki/Cron) for running
+            --trigger-start-time=: The first run of the task will be after this time.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+            --vpc-network-name=: The Cloud VPC network in which the job is run.
+            --vpc-network-tags=: List of network tags to apply to the job.
+            --vpc-sub-network-name=: The Cloud VPC sub-network in which the job is run.
+    - name: zones
+      description: Manage Dataplex Zone resources.
+      commands:
+        - name: actions
+          description: Manage Dataplex zone resource actions.
+          commands:
+            - name: list
+              description: List Dataplex zone actions.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --lake=: Identifier of the Dataplex lake resource.
+                --limit=: Maximum number of resources to list.
+                --location=: Location of the Dataplex resource.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+                --zone=!: ID of the zone or fully qualified identifier for the zone.
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding to a Dataplex zone resource.
+          flags:
+            --lake=: The identifier of the Dataplex lake resource.
+            --location=: The location of the Dataplex resource.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: create
+          description: Create a zone.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --csv-delimiter=: The delimiter being used to separate values.
+            --csv-disable-type-inference: Whether to disable the inference of data type for CSV data.
+            --csv-encoding=: The character encoding of the data.
+            --csv-header-rows=: The number of rows to interpret as header rows that should be skipped when reading data rows.
+            --description=: Description of the zone.
+            --discovery-enabled: Whether discovery is enabled.
+            --discovery-exclude-patterns=: The list of patterns to apply for selecting data to exclude
+            --discovery-include-patterns=: The list of patterns to apply for selecting data to include
+            --discovery-schedule=: '[Cron schedule](https://en.wikipedia.org/wiki/Cron) for running'
+            --display-name=: Display name of the zone.
+            --json-disable-type-inference: Whether to disable the inference of data type for Json data.
+            --json-encoding=: The character encoding of the data.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --lake=: The identifier of the Dataplex lake resource.
+            --location=: The location of the Dataplex resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-csv-disable-type-inference&: Whether to disable the inference of data type for CSV data.
+            --no-discovery-enabled&: Whether discovery is enabled.
+            --no-json-disable-type-inference&: Whether to disable the inference of data type for Json data.
+            --no-validate-only&: Validate the create action, but don't actually perform it.
+            --resource-location-type=!: Location type of the resources attached to a zone.
+            --type=!: Type.
+            --validate-only: Validate the create action, but don't actually perform it.
+          completion:
+            flag:
+                resource-location-type:
+                    - MULTI_REGION
+                    - SINGLE_REGION
+                type:
+                    - CURATED
+                    - RAW
+        - name: delete
+          description: Delete a Dataplex zone resource.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --lake=: Identifier of the Dataplex lake resource.
+            --location=: Location of the Dataplex resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe a Dataplex zone resource.
+          flags:
+            --lake=: Identifier of the Dataplex lake resource.
+            --location=: Location of the Dataplex resource.
+        - name: get-iam-policy
+          description: Get the IAM policy for a Dataplex zone resource.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --lake=: Identifier of the Dataplex lake resource.
             --limit=: Maximum number of resources to list.
             --location=: Location of the Dataplex resource.
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
         - name: list
-          description: List Dataplex Aspect Types.
+          description: List Dataplex zone resources under a lake.
           flags:
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --lake=!: ID of the lake or fully qualified identifier for the lake.
             --limit=: Maximum number of resources to list.
-            --location=: ID of the location or fully qualified identifier for the location.
+            --location=: Location of the Dataplex resource.
             --no-uri&: Print a list of resource URIs instead of the default output, and change the
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: create
-          description: Create a Dataplex Aspect Type.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --data-classification=: Data classification of the Aspect Type.
-            --description=: Description of the Aspect Type.
-            --display-name=: Display name of the Aspect Type.
-            --labels=: List of label KEY=VALUE pairs to add.
-            --location=: The location of the Dataplex resource.
-            --metadata-template-file-name=!: The name of the JSON or YAML file to define Metadata Template.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-validate-only&: Validate the create action, but don't actually perform it.
-            --validate-only: Validate the create action, but don't actually perform it.
-          completion:
-            flag:
-                data-classification:
-                    - METADATA_AND_DATA
-        - name: describe
-          description: Describe a Dataplex Aspect Type.
-          flags:
-            --location=: Location of the Dataplex resource.
         - name: remove-iam-policy-binding
-          description: Remove IAM policy binding from a Dataplex Aspect Type.
+          description: Remove IAM policy binding from a Dataplex zone resource.
           flags:
+            --lake=: The identifier of the Dataplex lake resource.
             --location=: The location of the Dataplex resource.
             --member=!: The principal to remove the binding for.
             --role=!: The role to remove the principal from.
         - name: set-iam-policy
-          description: Set an IAM policy binding for a Dataplex Aspect Type as defined in a JSON or YAML file.
+          description: Set the IAM policy to a Dataplex zone as defined in a JSON or YAML file.
           flags:
+            --lake=: The identifier of the Dataplex lake resource.
             --location=: The location of the Dataplex resource.
         - name: update
-          description: Update a Dataplex Aspect Type.
+          description: Update a Dataplex zone resource.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
-            --description=: Description of the Aspect Type.
-            --display-name=: Display name of the Aspect Type.
-            --etag=: etag value for particular Aspect Type.
+            --csv-delimiter=: The delimiter being used to separate values.
+            --csv-disable-type-inference: Whether to disable the inference of data type for CSV data.
+            --csv-encoding=: The character encoding of the data.
+            --csv-header-rows=: The number of rows to interpret as header rows that should be skipped when reading data rows.
+            --description=: Description of the zone
+            --discovery-enabled: Whether discovery is enabled.
+            --discovery-exclude-patterns=: The list of patterns to apply for selecting data to exclude
+            --discovery-include-patterns=: The list of patterns to apply for selecting data to include
+            --discovery-schedule=: '[Cron schedule](https://en.wikipedia.org/wiki/Cron) for running'
+            --display-name=: Display Name
+            --json-disable-type-inference: Whether to disable the inference of data type for Json data.
+            --json-encoding=: The character encoding of the data.
             --labels=: List of label KEY=VALUE pairs to add.
+            --lake=: The identifier of the Dataplex lake resource.
             --location=: The location of the Dataplex resource.
-            --metadata-template-file-name=: The name of the JSON or YAML file to define Metadata Template.
             --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-validate-only&: Validate the update action, but don't actually perform it.
-            --validate-only: Validate the update action, but don't actually perform it.
+            --no-csv-disable-type-inference&: Whether to disable the inference of data type for CSV data.
+            --no-discovery-enabled&: Whether discovery is enabled.
+            --no-json-disable-type-inference&: Whether to disable the inference of data type for Json data.
+            --no-validate-only&: Validate the create action, but don't actually perform it.
+            --validate-only: Validate the create action, but don't actually perform it.

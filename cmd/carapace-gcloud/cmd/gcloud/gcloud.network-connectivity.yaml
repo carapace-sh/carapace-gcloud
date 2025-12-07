@@ -5,28 +5,52 @@ commands:
     - name: hubs
       description: Manage Network Connectivity Center hubs.
       commands:
-        - name: list
-          description: List hubs.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: reject-spoke
-          description: Reject a spoke from a hub.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --details=: Additional details behind the rejection
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --spoke=!: URI of the spoke to reject
-        - name: set-iam-policy
-          description: Set the IAM policy of a hub resource.
         - name: accept-spoke
           description: Accept a spoke into a hub.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
             --no-async&: Return immediately, without waiting for the operation in progress to
             --spoke=!: URI of the spoke to accept
+        - name: accept-spoke-update
+          description: Accept a proposal to update a spoke in a hub.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --spoke-etag=!: Etag of the spoke to accept update
+            --spoke=!: URI of the spoke to accept update
+        - name: add-iam-policy-binding
+          description: Add an IAM policy binding to the IAM policy of a hub resource.
+          flags:
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: create
+          description: Create a new hub.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: Description of the hub.
+            --export-psc: This boolean controls whether Private Service Connect transitivity is enabled for the hub.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-export-psc&: This boolean controls whether Private Service Connect transitivity is enabled for the hub.
+            --policy-mode=: Policy mode of the hub.
+            --preset-topology=: Topology of the hub.
+          completion:
+            flag:
+                policy-mode:
+                    - policy-mode-unspecified
+                    - preset
+                preset-topology:
+                    - hybrid-inspection
+                    - mesh
+                    - preset-topology-unspecified
+                    - star
+        - name: delete
+          description: Delete a hub.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe a hub.
         - name: get-iam-policy
           description: Get the IAM policy for a hub resource.
           flags:
@@ -37,31 +61,6 @@ commands:
         - name: groups
           description: Manage Network Connectivity Center groups.
           commands:
-            - name: remove-iam-policy-binding
-              description: Remove an IAM policy binding from the IAM policy of a group resource.
-              flags:
-                --hub=: Id of the hub.
-                --member=!: The principal to remove the binding for.
-                --role=!: The role to remove the principal from.
-            - name: set-iam-policy
-              description: Set the IAM policy of a group resource.
-              flags:
-                --hub=: Id of the hub.
-            - name: update
-              description: Update a group.
-              flags:
-                --add-auto-accept-projects=: Append the given values to the current auto-accept projects.
-                --async: Return immediately, without waiting for the operation in progress to
-                --clear-auto-accept-projects: Empty the current auto-accept projects.
-                --clear-labels: Remove all labels.
-                --description=: New description of the group.
-                --hub=: The hub Id.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --no-clear-auto-accept-projects&: Empty the current auto-accept projects.
-                --no-clear-labels&: Remove all labels.
-                --remove-auto-accept-projects=: Remove the given values from the current auto-accept projects.
-                --remove-labels=: List of label keys to remove.
-                --update-labels=: List of label KEY=VALUE pairs to update.
             - name: add-iam-policy-binding
               description: Add an IAM policy binding to the IAM policy of a group resource.
               flags:
@@ -88,6 +87,38 @@ commands:
                 --limit=: Maximum number of resources to list.
                 --page-size=: Some services group resource list output into pages.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
+            - name: remove-iam-policy-binding
+              description: Remove an IAM policy binding from the IAM policy of a group resource.
+              flags:
+                --hub=: Id of the hub.
+                --member=!: The principal to remove the binding for.
+                --role=!: The role to remove the principal from.
+            - name: set-iam-policy
+              description: Set the IAM policy of a group resource.
+              flags:
+                --hub=: Id of the hub.
+            - name: update
+              description: Update a group.
+              flags:
+                --add-auto-accept-projects=: Append the given values to the current auto-accept projects.
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-auto-accept-projects: Empty the current auto-accept projects.
+                --clear-labels: Remove all labels.
+                --description=: New description of the group.
+                --hub=: The hub Id.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-auto-accept-projects&: Empty the current auto-accept projects.
+                --no-clear-labels&: Remove all labels.
+                --remove-auto-accept-projects=: Remove the given values from the current auto-accept projects.
+                --remove-labels=: List of label keys to remove.
+                --update-labels=: List of label KEY=VALUE pairs to update.
+        - name: list
+          description: List hubs.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
         - name: list-spokes
           description: List hub spokes.
           flags:
@@ -110,6 +141,13 @@ commands:
             --limit=: Maximum number of resources to list.
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: reject-spoke
+          description: Reject a spoke from a hub.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --details=: Additional details behind the rejection
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --spoke=!: URI of the spoke to reject
         - name: reject-spoke-update
           description: Reject a proposal to update a spoke in a hub.
           flags:
@@ -118,58 +156,11 @@ commands:
             --no-async&: Return immediately, without waiting for the operation in progress to
             --spoke-etag=!: Etag of the spoke to reject update
             --spoke=!: URI of the spoke to reject update
-        - name: update
-          description: Update a hub.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --clear-labels: Remove all labels.
-            --description=: New description of the hub.
-            --export-psc: Whether Private Service Connect transitivity is enabled for the hub.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-clear-labels&: Remove all labels.
-            --no-export-psc&: Whether Private Service Connect transitivity is enabled for the hub.
-            --remove-labels=: List of label keys to remove.
-            --update-labels=: List of label KEY=VALUE pairs to update.
-        - name: accept-spoke-update
-          description: Accept a proposal to update a spoke in a hub.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --spoke-etag=!: Etag of the spoke to accept update
-            --spoke=!: URI of the spoke to accept update
-        - name: add-iam-policy-binding
-          description: Add an IAM policy binding to the IAM policy of a hub resource.
-          flags:
-            --member=!: The principal to add the binding for.
-            --role=!: Role name to assign to the principal.
-        - name: describe
-          description: Describe a hub.
         - name: remove-iam-policy-binding
           description: Remove an IAM policy binding from the IAM policy of a hub resource.
           flags:
             --member=!: The principal to remove the binding for.
             --role=!: The role to remove the principal from.
-        - name: create
-          description: Create a new hub.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --description=: Description of the hub.
-            --export-psc: This boolean controls whether Private Service Connect transitivity is enabled for the hub.
-            --labels=: List of label KEY=VALUE pairs to add.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-export-psc&: This boolean controls whether Private Service Connect transitivity is enabled for the hub.
-            --policy-mode=: Policy mode of the hub.
-            --preset-topology=: Topology of the hub.
-          completion:
-            flag:
-                policy-mode:
-                    - policy-mode-unspecified
-                    - preset
-                preset-topology:
-                    - hybrid-inspection
-                    - mesh
-                    - preset-topology-unspecified
-                    - star
         - name: route-tables
           description: Manage Network Connectivity Center route tables.
           commands:
@@ -203,37 +194,23 @@ commands:
                     --page-size=: Some services group resource list output into pages.
                     --route-table=: ID of the route table or fully qualified identifier for the route table.
                     --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: delete
-          description: Delete a hub.
+        - name: set-iam-policy
+          description: Set the IAM policy of a hub resource.
+        - name: update
+          description: Update a hub.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Remove all labels.
+            --description=: New description of the hub.
+            --export-psc: Whether Private Service Connect transitivity is enabled for the hub.
             --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --no-export-psc&: Whether Private Service Connect transitivity is enabled for the hub.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
     - name: internal-ranges
       description: Manage internal ranges.
       commands:
-        - name: list
-          description: List internal ranges.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --page-size=: Some services group resource list output into pages.
-            --region=: ID of the region or fully qualified identifier for the region.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: update
-          description: Update an internal range.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --clear-labels: Clear existing labels for the range.
-            --clear-overlaps: Clear existing overlap fields for the range.
-            --description=: Description of the Internal Range
-            --ip-cidr-range=: IP range that this internal range defines.
-            --labels=: List of label KEY=VALUE pairs for the range being updated.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-clear-labels&: Clear existing labels for the range.
-            --no-clear-overlaps&: Clear existing overlap fields for the range.
-            --overlaps=: Overlap specifications for the range being updated.
-            --prefix-length=: An alternative to ip-cidr-range.
-            --region=: The location ID.
         - name: create
           description: Create a new internal range.
           flags:
@@ -280,6 +257,29 @@ commands:
         - name: describe
           description: Describe an internal range.
           flags:
+            --region=: The location ID.
+        - name: list
+          description: List internal ranges.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --region=: ID of the region or fully qualified identifier for the region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: update
+          description: Update an internal range.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Clear existing labels for the range.
+            --clear-overlaps: Clear existing overlap fields for the range.
+            --description=: Description of the Internal Range
+            --ip-cidr-range=: IP range that this internal range defines.
+            --labels=: List of label KEY=VALUE pairs for the range being updated.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Clear existing labels for the range.
+            --no-clear-overlaps&: Clear existing overlap fields for the range.
+            --overlaps=: Overlap specifications for the range being updated.
+            --prefix-length=: An alternative to ip-cidr-range.
             --region=: The location ID.
     - name: locations
       description: Get information about supported Network Connectivity Center locations.
@@ -445,21 +445,52 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --region=!: ID of the region or fully qualified identifier for the region.
             --sort-by=: Comma-separated list of resource field key names to sort by.
-    - name: regional-endpoints
-      description: Manage Network Connectivity RegionalEndpoints.
+    - name: policy-based-routes
+      description: Manage Policy-based Routes.
       commands:
-        - name: describe
-          description: Describe a regional endpoint.
+        - name: create
+          description: Create a new policy-based route.
           flags:
-            --region=: The location Id.
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: Optional description of this resource.
+            --destination-range=: Destination IP range of outgoing packets that this policy-based route applies to.
+            --interconnect-attachment-region=: Cloud region to install this policy-based route on interconnect attachment.
+            --ip-protocol=: IP protocol that this policy-based route applies to.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --network=!: Fully-qualified URL of the network that this route applies to.
+            --next-hop-ilb-ip=: IP of a global access enabled L4 ILB that should be the next hop to handle packets.
+            --next-hop-other-routes=: Next hop should be other routes that handle packets.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --priority=: Priority of this policy-based route.
+            --protocol-version=: Internet protocol versions that this policy-based route applies to.
+            --source-range=: Source IP range of outgoing packets that this policy-based route applies to.
+            --tags=: List of VM instance tags that this route applies to.
+          completion:
+            flag:
+                next-hop-other-routes:
+                    - default-routing
+                    - other-routes-unspecified
+                protocol-version:
+                    - ipv4
+                    - ipv6
+                    - protocol-version-unspecified
+        - name: delete
+          description: Delete a policy-based route.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe a policy-based route.
         - name: list
-          description: List regional endpoints.
+          description: List policy-based routes.
           flags:
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
             --page-size=: Some services group resource list output into pages.
-            --region=!: ID of the region or fully qualified identifier for the region.
             --sort-by=: Comma-separated list of resource field key names to sort by.
+    - name: regional-endpoints
+      description: Manage Network Connectivity RegionalEndpoints.
+      commands:
         - name: create
           description: Create a new regional endpoint.
           flags:
@@ -480,9 +511,46 @@ commands:
             --async: Return immediately, without waiting for the operation in progress to
             --no-async&: Return immediately, without waiting for the operation in progress to
             --region=: The location Id.
+        - name: describe
+          description: Describe a regional endpoint.
+          flags:
+            --region=: The location Id.
+        - name: list
+          description: List regional endpoints.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --region=!: ID of the region or fully qualified identifier for the region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
     - name: service-connection-policies
       description: Manage Service Connection Policies.
       commands:
+        - name: create
+          description: Create a new Service Connection Policy.
+          flags:
+            --allowed-google-producers-resource-hierarchy-level=: List of projects, folders, or orgs where the producer instance can be located in the form "projects/123456789", folders/123456789", or "organizations/123456789".
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: Description of the Service Connection Policy to be created.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --network=!: ID of the network or fully qualified identifier for the network.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --producer-instance-location=: Option that determines where the producer instances can be located for which connections can be created in the network controlled by this policy.
+            --psc-connection-limit=: Max number of PSC connections for this policy.
+            --region=: For resources [service_connection_policy, subnets], provides fallback value for resource region attribute.
+            --service-class=!: Service class that this policy is created for.
+            --subnets=!: IDs of the subnetworks or fully qualified identifiers for the subnetworks.
+          completion:
+            flag:
+                producer-instance-location:
+                    - custom-resource-hierarchy-levels
+                    - none
+        - name: delete
+          description: Delete a service connection policy.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The location Id.
         - name: describe
           description: Describe a service connection policy.
           flags:
@@ -512,74 +580,6 @@ commands:
                 producer-instance-location:
                     - custom-resource-hierarchy-levels
                     - none
-        - name: create
-          description: Create a new Service Connection Policy.
-          flags:
-            --allowed-google-producers-resource-hierarchy-level=: List of projects, folders, or orgs where the producer instance can be located in the form "projects/123456789", folders/123456789", or "organizations/123456789".
-            --async: Return immediately, without waiting for the operation in progress to
-            --description=: Description of the Service Connection Policy to be created.
-            --labels=: List of label KEY=VALUE pairs to add.
-            --network=!: ID of the network or fully qualified identifier for the network.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --producer-instance-location=: Option that determines where the producer instances can be located for which connections can be created in the network controlled by this policy.
-            --psc-connection-limit=: Max number of PSC connections for this policy.
-            --region=: For resources [service_connection_policy, subnets], provides fallback value for resource region attribute.
-            --service-class=!: Service class that this policy is created for.
-            --subnets=!: IDs of the subnetworks or fully qualified identifiers for the subnetworks.
-          completion:
-            flag:
-                producer-instance-location:
-                    - custom-resource-hierarchy-levels
-                    - none
-        - name: delete
-          description: Delete a service connection policy.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --region=: The location Id.
-    - name: policy-based-routes
-      description: Manage Policy-based Routes.
-      commands:
-        - name: delete
-          description: Delete a policy-based route.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: describe
-          description: Describe a policy-based route.
-        - name: list
-          description: List policy-based routes.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: create
-          description: Create a new policy-based route.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --description=: Optional description of this resource.
-            --destination-range=: Destination IP range of outgoing packets that this policy-based route applies to.
-            --interconnect-attachment-region=: Cloud region to install this policy-based route on interconnect attachment.
-            --ip-protocol=: IP protocol that this policy-based route applies to.
-            --labels=: List of label KEY=VALUE pairs to add.
-            --network=!: Fully-qualified URL of the network that this route applies to.
-            --next-hop-ilb-ip=: IP of a global access enabled L4 ILB that should be the next hop to handle packets.
-            --next-hop-other-routes=: Next hop should be other routes that handle packets.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --priority=: Priority of this policy-based route.
-            --protocol-version=: Internet protocol versions that this policy-based route applies to.
-            --source-range=: Source IP range of outgoing packets that this policy-based route applies to.
-            --tags=: List of VM instance tags that this route applies to.
-          completion:
-            flag:
-                next-hop-other-routes:
-                    - default-routing
-                    - other-routes-unspecified
-                protocol-version:
-                    - ipv4
-                    - ipv6
-                    - protocol-version-unspecified
     - name: spokes
       description: Manage Network Connectivity Center spokes.
       commands:
@@ -646,6 +646,38 @@ commands:
                 --region=: The location Id.
                 --remove-labels=: List of label keys to remove.
                 --update-labels=: List of label KEY=VALUE pairs to update.
+        - name: linked-producer-vpc-network
+          description: Manage Producer VPC spokes.
+          commands:
+            - name: create
+              description: Create a new Producer VPC spoke.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --description=: Description of the spoke to create.
+                --exclude-export-ranges=: Subnet IP address range(s) to hide from other VPC networks that are
+                --global: Indicates that the spoke is global.
+                --group=&: Group that the spoke will be part of.
+                --hub=!: Hub that the spoke will attach to.
+                --include-export-ranges=: Subnet IP address range(s) to export to other VPC networks that are
+                --labels=: List of label KEY=VALUE pairs to add.
+                --network=!: Your VPC network that contains the peering to the Producer VPC,
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --peering=!: Peering between your network and the Producer VPC, which this
+                --region=&: A Google Cloud region.
+            - name: update
+              description: Update a Producer VPC spoke.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-labels: Remove all labels.
+                --description=: New description of the spoke.
+                --exclude-export-ranges=: New exclude export ranges of the spoke.
+                --global: Indicates that the spoke is global.
+                --include-export-ranges=: New include export ranges of the spoke.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Remove all labels.
+                --region=&: A Google Cloud region.
+                --remove-labels=: List of label keys to remove.
+                --update-labels=: List of label KEY=VALUE pairs to update.
         - name: linked-router-appliances
           description: Manage Router appliance spokes.
           commands:
@@ -681,6 +713,37 @@ commands:
                 --region=: The location Id.
                 --remove-labels=: List of label keys to remove.
                 --router-appliance=: Router appliance instance(s) with which to replace the set of instances already
+                --update-labels=: List of label KEY=VALUE pairs to update.
+        - name: linked-vpc-network
+          description: Manage VPC spokes.
+          commands:
+            - name: create
+              description: Create a new VPC spoke.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --description=: Description of the spoke to create.
+                --exclude-export-ranges=: Subnet IP address range(s) to hide from other VPC networks that are
+                --global: Indicates that the spoke is global.
+                --group=&: Group that the spoke will be part of.
+                --hub=!: Hub that the spoke will attach to.
+                --include-export-ranges=: Subnet IP address range(s) to export to other VPC networks that are
+                --labels=: List of label KEY=VALUE pairs to add.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --region=&: A Google Cloud region.
+                --vpc-network=!: VPC network that the spoke provides connectivity to.
+            - name: update
+              description: Update a VPC spoke.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-labels: Remove all labels.
+                --description=: New description of the spoke.
+                --exclude-export-ranges=: New exclude export ranges of the spoke.
+                --global: Indicates that the spoke is global.
+                --include-export-ranges=: New include export ranges of the spoke.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Remove all labels.
+                --region=&: A Google Cloud region.
+                --remove-labels=: List of label keys to remove.
                 --update-labels=: List of label KEY=VALUE pairs to update.
         - name: linked-vpn-tunnels
           description: Manage VPN spokes.
@@ -726,66 +789,3 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --region=: A Google Cloud region.
             --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: linked-producer-vpc-network
-          description: Manage Producer VPC spokes.
-          commands:
-            - name: create
-              description: Create a new Producer VPC spoke.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --description=: Description of the spoke to create.
-                --exclude-export-ranges=: Subnet IP address range(s) to hide from other VPC networks that are
-                --global: Indicates that the spoke is global.
-                --group=&: Group that the spoke will be part of.
-                --hub=!: Hub that the spoke will attach to.
-                --include-export-ranges=: Subnet IP address range(s) to export to other VPC networks that are
-                --labels=: List of label KEY=VALUE pairs to add.
-                --network=!: Your VPC network that contains the peering to the Producer VPC,
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --peering=!: Peering between your network and the Producer VPC, which this
-                --region=&: A Google Cloud region.
-            - name: update
-              description: Update a Producer VPC spoke.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --clear-labels: Remove all labels.
-                --description=: New description of the spoke.
-                --exclude-export-ranges=: New exclude export ranges of the spoke.
-                --global: Indicates that the spoke is global.
-                --include-export-ranges=: New include export ranges of the spoke.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --no-clear-labels&: Remove all labels.
-                --region=&: A Google Cloud region.
-                --remove-labels=: List of label keys to remove.
-                --update-labels=: List of label KEY=VALUE pairs to update.
-        - name: linked-vpc-network
-          description: Manage VPC spokes.
-          commands:
-            - name: create
-              description: Create a new VPC spoke.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --description=: Description of the spoke to create.
-                --exclude-export-ranges=: Subnet IP address range(s) to hide from other VPC networks that are
-                --global: Indicates that the spoke is global.
-                --group=&: Group that the spoke will be part of.
-                --hub=!: Hub that the spoke will attach to.
-                --include-export-ranges=: Subnet IP address range(s) to export to other VPC networks that are
-                --labels=: List of label KEY=VALUE pairs to add.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --region=&: A Google Cloud region.
-                --vpc-network=!: VPC network that the spoke provides connectivity to.
-            - name: update
-              description: Update a VPC spoke.
-              flags:
-                --async: Return immediately, without waiting for the operation in progress to
-                --clear-labels: Remove all labels.
-                --description=: New description of the spoke.
-                --exclude-export-ranges=: New exclude export ranges of the spoke.
-                --global: Indicates that the spoke is global.
-                --include-export-ranges=: New include export ranges of the spoke.
-                --no-async&: Return immediately, without waiting for the operation in progress to
-                --no-clear-labels&: Remove all labels.
-                --region=&: A Google Cloud region.
-                --remove-labels=: List of label keys to remove.
-                --update-labels=: List of label KEY=VALUE pairs to update.

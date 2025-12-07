@@ -39,6 +39,16 @@ commands:
     - name: keys
       description: Managed reCAPTCHA Keys.
       commands:
+        - name: add-ip-override
+          description: Add an IP override to a key.
+          flags:
+            --ip=!: IP address to override for the key.
+            --override=!: If set to allow, the IP address/CIDR range will be allowlisted for the key.
+          completion:
+            flag:
+                override:
+                    - allow
+                    - override-type-unspecified
         - name: create
           description: Create a Key.
           flags:
@@ -105,23 +115,6 @@ commands:
           description: Delete one or more reCAPTCHA Keys.
         - name: describe
           description: Describe reCAPTCHA Key.
-        - name: list-ip-overrides
-          description: List IP overrides for a key.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --limit=: Maximum number of resources to list.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: add-ip-override
-          description: Add an IP override to a key.
-          flags:
-            --ip=!: IP address to override for the key.
-            --override=!: If set to allow, the IP address/CIDR range will be allowlisted for the key.
-          completion:
-            flag:
-                override:
-                    - allow
-                    - override-type-unspecified
         - name: list
           description: List reCAPTCHA Keys.
           flags:
@@ -131,6 +124,13 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: list-ip-overrides
+          description: List IP overrides for a key.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
         - name: migrate
           description: Migrate a key to reCAPTCHA Enterprise.
           flags:

@@ -2,6 +2,35 @@
 name: functions
 description: Manage Google Cloud Functions.
 commands:
+    - name: add-iam-policy-binding
+      description: Adds an IAM policy binding for a Google Cloud Function.
+      flags:
+        --gen2&: If enabled, this command will use Cloud Functions (Second generation).
+        --member=!: The principal to add the binding for.
+        --no-gen2&: If enabled, this command will use Cloud Functions (Second generation).
+        --region=: The Cloud region for the function.
+        --role=!: Role name to assign to the principal.
+    - name: add-invoker-policy-binding
+      description: Adds an invoker binding to the IAM policy of a Google Cloud Function.
+      flags:
+        --gen2&: If enabled, this command will use Cloud Functions (Second generation).
+        --member=!: The principal to add to the IAM policy.
+        --no-gen2&: If enabled, this command will use Cloud Functions (Second generation).
+        --region=: The Cloud region for the function.
+    - name: call
+      description: Triggers execution of a Google Cloud Function.
+      flags:
+        --cloud-event=: JSON encoded string with a CloudEvent in structured content mode.
+        --data=: JSON string with data that will be passed to the function.
+        --gen2&: If enabled, this command will use Cloud Functions (Second generation).
+        --no-gen2&: If enabled, this command will use Cloud Functions (Second generation).
+        --region=: The Cloud region for the function.
+    - name: delete
+      description: Delete a Google Cloud Function.
+      flags:
+        --gen2&: If enabled, this command will use Cloud Functions (Second generation).
+        --no-gen2&: If enabled, this command will use Cloud Functions (Second generation).
+        --region=: The Cloud region for the function.
     - name: deploy
       description: Create or update a Google Cloud Function.
       flags:
@@ -112,6 +141,10 @@ commands:
         --no-v2&: If specified, this command will use Cloud Functions v2 APIs and return the result in the v2 format (See https://cloud.google.com/functions/docs/reference/rest/v2/projects.locations.functions#Function).
         --region=: The Cloud region for the function.
         --v2: If specified, this command will use Cloud Functions v2 APIs and return the result in the v2 format (See https://cloud.google.com/functions/docs/reference/rest/v2/projects.locations.functions#Function).
+    - name: detach
+      description: Detach a Cloud Functions v2 function from its existing environment and make it a native Cloud Run function.
+      flags:
+        --region=: The Cloud region for the function.
     - name: event-types
       description: List types of events that can be a trigger for a Google Cloud Function.
       commands:
@@ -120,17 +153,6 @@ commands:
           flags:
             --gen2: If enabled, this command will use Cloud Functions (Second generation).
             --no-gen2&: If enabled, this command will use Cloud Functions (Second generation).
-    - name: add-invoker-policy-binding
-      description: Adds an invoker binding to the IAM policy of a Google Cloud Function.
-      flags:
-        --gen2&: If enabled, this command will use Cloud Functions (Second generation).
-        --member=!: The principal to add to the IAM policy.
-        --no-gen2&: If enabled, this command will use Cloud Functions (Second generation).
-        --region=: The Cloud region for the function.
-    - name: detach
-      description: Detach a Cloud Functions v2 function from its existing environment and make it a native Cloud Run function.
-      flags:
-        --region=: The Cloud region for the function.
     - name: get-iam-policy
       description: Get IAM policy for a Google Cloud Function.
       flags:
@@ -143,20 +165,6 @@ commands:
         --region=: The Cloud region for the function.
         --sort-by=: Comma-separated list of resource field key names to sort by.
         --uri: Print a list of resource URIs instead of the default output, and change the
-    - name: regions
-      description: List regions available to Google Cloud Functions.
-      commands:
-        - name: list
-          description: List regions available to Google Cloud Functions.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --gen2: If enabled, this command will use Cloud Functions (Second generation).
-            --limit=: Maximum number of resources to list.
-            --no-gen2&: If enabled, this command will use Cloud Functions (Second generation).
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
     - name: list
       description: List Google Cloud Functions.
       flags:
@@ -192,25 +200,20 @@ commands:
                     - debug
                     - info
                     - error
-    - name: runtimes
-      description: List runtimes available to Google Cloud Functions.
+    - name: regions
+      description: List regions available to Google Cloud Functions.
       commands:
         - name: list
-          description: List runtimes available to Google Cloud Functions.
+          description: List regions available to Google Cloud Functions.
           flags:
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --gen2: If enabled, this command will use Cloud Functions (Second generation).
             --limit=: Maximum number of resources to list.
+            --no-gen2&: If enabled, this command will use Cloud Functions (Second generation).
             --no-uri&: Print a list of resource URIs instead of the default output, and change the
             --page-size=: Some services group resource list output into pages.
-            --region=: Only show runtimes within the region.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
-    - name: delete
-      description: Delete a Google Cloud Function.
-      flags:
-        --gen2&: If enabled, this command will use Cloud Functions (Second generation).
-        --no-gen2&: If enabled, this command will use Cloud Functions (Second generation).
-        --region=: The Cloud region for the function.
     - name: remove-iam-policy-binding
       description: Removes an IAM policy binding from a Google Cloud Function.
       flags:
@@ -226,25 +229,22 @@ commands:
         --member=!: The principal to remove from the IAM policy.
         --no-gen2&: If enabled, this command will use Cloud Functions (Second generation).
         --region=: The Cloud region for the function.
+    - name: runtimes
+      description: List runtimes available to Google Cloud Functions.
+      commands:
+        - name: list
+          description: List runtimes available to Google Cloud Functions.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: Only show runtimes within the region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
     - name: set-iam-policy
       description: Sets IAM policy for a Google Cloud Function.
       flags:
-        --gen2&: If enabled, this command will use Cloud Functions (Second generation).
-        --no-gen2&: If enabled, this command will use Cloud Functions (Second generation).
-        --region=: The Cloud region for the function.
-    - name: add-iam-policy-binding
-      description: Adds an IAM policy binding for a Google Cloud Function.
-      flags:
-        --gen2&: If enabled, this command will use Cloud Functions (Second generation).
-        --member=!: The principal to add the binding for.
-        --no-gen2&: If enabled, this command will use Cloud Functions (Second generation).
-        --region=: The Cloud region for the function.
-        --role=!: Role name to assign to the principal.
-    - name: call
-      description: Triggers execution of a Google Cloud Function.
-      flags:
-        --cloud-event=: JSON encoded string with a CloudEvent in structured content mode.
-        --data=: JSON string with data that will be passed to the function.
         --gen2&: If enabled, this command will use Cloud Functions (Second generation).
         --no-gen2&: If enabled, this command will use Cloud Functions (Second generation).
         --region=: The Cloud region for the function.

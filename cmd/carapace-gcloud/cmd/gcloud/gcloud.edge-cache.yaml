@@ -5,6 +5,31 @@ commands:
     - name: keysets
       description: Interact with and manage EdgeCacheKeyset resources.
       commands:
+        - name: create
+          description: Create an EdgeCacheKeyset resource.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: Human-readable description of the resource.
+            --labels=: List of KEY=VALUE labels to attach to this resource.
+            --location=: The location Id.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --public-key=: Set of public keys to use for validating signed requests, when associated with a route.
+            --validation-shared-key=: An ordered list of shared keys to use for validating signed requests.
+        - name: delete
+          description: Delete an EdgeCacheKeyset resource.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location Id.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Show details about an EdgeCacheKeyset resource.
+          flags:
+            --location=: The location Id.
+        - name: export
+          description: Export an EdgeCacheKeyset resource.
+          flags:
+            --destination=: Path to a YAML file where the configuration will be exported.
+            --location=: The location Id.
         - name: import
           description: Import an EdgeCacheKeyset resource.
           flags:
@@ -31,31 +56,6 @@ commands:
             --no-async&: Return immediately, without waiting for the operation in progress to
             --public-key=: Set of public keys to use for validating signed requests, when associated with a route.
             --validation-shared-key=: An ordered list of shared keys to use for validating signed requests.
-        - name: create
-          description: Create an EdgeCacheKeyset resource.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --description=: Human-readable description of the resource.
-            --labels=: List of KEY=VALUE labels to attach to this resource.
-            --location=: The location Id.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --public-key=: Set of public keys to use for validating signed requests, when associated with a route.
-            --validation-shared-key=: An ordered list of shared keys to use for validating signed requests.
-        - name: delete
-          description: Delete an EdgeCacheKeyset resource.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: The location Id.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: describe
-          description: Show details about an EdgeCacheKeyset resource.
-          flags:
-            --location=: The location Id.
-        - name: export
-          description: Export an EdgeCacheKeyset resource.
-          flags:
-            --destination=: Path to a YAML file where the configuration will be exported.
-            --location=: The location Id.
     - name: operations
       description: Manage EdgeCache operations.
       commands:
@@ -73,6 +73,42 @@ commands:
     - name: origins
       description: Interact with and manage EdgeCacheOrigin resources.
       commands:
+        - name: create
+          description: Create an EdgeCacheOrigin resource.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: Human-readable description of the resource.
+            --failover-origin=: Origin resource to try when the current origin cannot be reached.
+            --flex-shielding=: Whenever possible, content will be fetched from origin and cached in or near the specified region.
+            --labels=: List of KEY=VALUE labels to attach to this resource.
+            --location=: The location Id.
+            --max-attempts=: Maximum number of attempts to cache fill from this origin.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --origin-address=!: A fully qualified domain name (FQDN) or IP address reachable over the
+            --port=: Port to connect to the origin on.
+            --protocol=: Protocol to use to connect to the configured origin.
+            --response-timeout=: Maximum duration to wait for data to arrive when reading from the
+            --retry-conditions=: Specifies one or more retry conditions for the configured origin.
+          completion:
+            flag:
+                flex-shielding:
+                    - ""
+                    - africa_south1
+                    - me_central1
+                protocol:
+                    - http
+                    - http2
+                    - https
+        - name: delete
+          description: Delete an EdgeCacheOrigin resource.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location Id.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Show details about an EdgeCacheOrigin resource.
+          flags:
+            --location=: The location Id.
         - name: export
           description: Export an EdgeCacheOrigin resource.
           flags:
@@ -120,42 +156,6 @@ commands:
                     - http
                     - http2
                     - https
-        - name: create
-          description: Create an EdgeCacheOrigin resource.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --description=: Human-readable description of the resource.
-            --failover-origin=: Origin resource to try when the current origin cannot be reached.
-            --flex-shielding=: Whenever possible, content will be fetched from origin and cached in or near the specified region.
-            --labels=: List of KEY=VALUE labels to attach to this resource.
-            --location=: The location Id.
-            --max-attempts=: Maximum number of attempts to cache fill from this origin.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --origin-address=!: A fully qualified domain name (FQDN) or IP address reachable over the
-            --port=: Port to connect to the origin on.
-            --protocol=: Protocol to use to connect to the configured origin.
-            --response-timeout=: Maximum duration to wait for data to arrive when reading from the
-            --retry-conditions=: Specifies one or more retry conditions for the configured origin.
-          completion:
-            flag:
-                flex-shielding:
-                    - ""
-                    - africa_south1
-                    - me_central1
-                protocol:
-                    - http
-                    - http2
-                    - https
-        - name: delete
-          description: Delete an EdgeCacheOrigin resource.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --location=: The location Id.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: describe
-          description: Show details about an EdgeCacheOrigin resource.
-          flags:
-            --location=: The location Id.
     - name: services
       description: Interact with and manage EdgeCacheService resources.
       commands:
