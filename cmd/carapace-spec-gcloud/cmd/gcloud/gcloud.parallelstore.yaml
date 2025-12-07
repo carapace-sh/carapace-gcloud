@@ -1,0 +1,179 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: parallelstore
+description: Manage Parallelstore resources.
+hidden: true
+commands:
+    - name: instances
+      description: Manage Parallelstore instance resources.
+      hidden: true
+      commands:
+        - name: update
+          description: Updates the parameters of a single Parallelstore instance.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Clear labels value and set to empty map.
+            --description=: The description of the instance.
+            --labels=: Set labels to new value.
+            --location=: The location id of the instance resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --remove-labels=: Remove existing value from map labels.
+            --request-id=: An optional request ID to identify requests.
+            --update-labels=: Update labels value or add key value pair.
+        - name: create
+          description: Creates a Parallelstore instance.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --capacity-gib=!: The instance's storage capacity in Gibibytes (GiB).
+            --deployment-type=: The deployment type of the instance.
+            --description=: The description of the instance.
+            --directory-stripe-level=: Stripe level for directories.
+            --file-stripe-level=: Stripe level for files.
+            --labels=: Cloud Labels are a flexible and lightweight mechanism for organizing cloud
+            --location=: The location id of the instance resource.
+            --network=!: ID of the network or fully qualified identifier for the network.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The region id of the address resource.
+            --request-id=: An optional request ID to identify requests.
+            --reserved-ip-range=!: ID of the address or fully qualified identifier for the address.
+          completion:
+            flag:
+                deployment-type:
+                    - persistent
+                    - scratch
+                directory-stripe-level:
+                    - directory-stripe-level-balanced
+                    - directory-stripe-level-max
+                    - directory-stripe-level-min
+                file-stripe-level:
+                    - file-stripe-level-balanced
+                    - file-stripe-level-max
+                    - file-stripe-level-min
+        - name: delete
+          description: Deletes a single Parallelstore instance.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the instance resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --request-id=: An optional request ID to identify requests.
+        - name: describe
+          description: Gets details of a single Parallelstore instance.
+          hidden: true
+          flags:
+            --location=: The location id of the instance resource.
+        - name: export-data
+          description: Exports data from Parallelstore instance to Cloud Storage.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --destination-gcs-bucket-uri=!: 'URI to a Cloud Storage bucket in the format:'
+            --location=: The location id of the instance resource.
+            --metadata-options-gid=: The GID preservation behavior.
+            --metadata-options-mode=: The mode preservation behavior.
+            --metadata-options-uid=: The UID preservation behavior.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --request-id=: An optional request ID to identify requests.
+            --service-account=!: ID of the serviceAccount or fully qualified identifier for the serviceAccount.
+            --source-parallelstore-path=: Root directory path to the Paralellstore filesystem, starting with `/`.
+          completion:
+            flag:
+                metadata-options-gid:
+                    - gid-number-preserve
+                    - gid-skip
+                metadata-options-mode:
+                    - mode-preserve
+                    - mode-skip
+                metadata-options-uid:
+                    - uid-number-preserve
+                    - uid-skip
+        - name: import-data
+          description: Imports data from Cloud Storage to Parallelstore instance.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --destination-parallelstore-path=: Root directory path to the Paralellstore filesystem, starting with `/`.
+            --location=: The location id of the instance resource.
+            --metadata-options-gid=: The GID preservation behavior.
+            --metadata-options-mode=: The mode preservation behavior.
+            --metadata-options-uid=: The UID preservation behavior.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --request-id=: An optional request ID to identify requests.
+            --service-account=!: ID of the serviceAccount or fully qualified identifier for the serviceAccount.
+            --source-gcs-bucket-uri=!: 'URI to a Cloud Storage bucket in the format:'
+          completion:
+            flag:
+                metadata-options-gid:
+                    - gid-number-preserve
+                    - gid-skip
+                metadata-options-mode:
+                    - mode-preserve
+                    - mode-skip
+                metadata-options-uid:
+                    - uid-number-preserve
+                    - uid-skip
+        - name: list
+          description: List Parallelstore instances.
+          hidden: true
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: locations
+      description: View Locations resources.
+      hidden: true
+      commands:
+        - name: describe
+          description: Describe locations.
+          hidden: true
+        - name: list
+          description: List locations.
+          hidden: true
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: operations
+      description: Manage Operation resources.
+      hidden: true
+      commands:
+        - name: cancel
+          description: Cancel operations.
+          hidden: true
+          flags:
+            --location=: The location id of the operation resource.
+        - name: delete
+          description: Delete operations.
+          hidden: true
+          flags:
+            --location=: The location id of the operation resource.
+        - name: describe
+          description: Describe operations.
+          hidden: true
+          flags:
+            --location=: The location id of the operation resource.
+        - name: list
+          description: List operations.
+          hidden: true
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: wait
+          description: Wait operations.
+          hidden: true
+          flags:
+            --location=: The location id of the operation resource.

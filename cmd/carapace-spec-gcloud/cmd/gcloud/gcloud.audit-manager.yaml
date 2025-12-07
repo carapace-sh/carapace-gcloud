@@ -1,0 +1,52 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: audit-manager
+description: Enroll resources, audit workloads and generate reports.
+commands:
+    - name: audit-reports
+      description: Command group for Audit Manager Audit Reports.
+      commands:
+        - name: generate
+          description: Generate Audit Report.
+          flags:
+            --compliance-framework=!: Compliance Framework against which the Report must be generated.
+            --folder=: Folder Id for which to generate audit report
+            --gcs-uri=: Destination Cloud storage bucket where report and evidence must be uploaded.
+            --location=!: The location where the report should be generated.
+            --report-format=!: The format in which the audit report should be created.
+          completion:
+            flag:
+                report-format:
+                    - odf
+    - name: audit-scopes
+      description: Command group for Audit Manager Audit Scopes.
+      commands:
+        - name: generate
+          description: Generate Audit Scope.
+          flags:
+            --compliance-framework=!: Compliance Framework against which the Report must be generated.
+            --folder=: Folder Id for which to generate audit scope
+            --location=!: The location where the scope should be generated.
+            --output-directory=: The directory path where the scope report should be created .
+            --output-file-name=!: The name by while scope report should be created .
+            --report-format=!: The format in which the audit scope report should be created.
+          completion:
+            flag:
+                report-format:
+                    - odf
+    - name: enrollments
+      description: Command group for Audit Manager Enrollments.
+      commands:
+        - name: add
+          description: Enroll a new scope.
+          flags:
+            --eligible-gcs-buckets=: Eligible cloud storage buckets where report and evidence can be uploaded.
+            --folder=: Folder Id to enroll
+            --organization=: Organization Id to enroll
+    - name: operations
+      description: Check audit operation status.
+      commands:
+        - name: describe
+          description: Describe Audit operation.
+          flags:
+            --folder=: The folder for the operation.
+            --location=: The location for the operation.

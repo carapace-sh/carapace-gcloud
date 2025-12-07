@@ -1,0 +1,319 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: resource-manager
+description: Manage Cloud Resources.
+commands:
+    - name: capabilities
+      description: Manage Cloud Folder Capabilities.
+      hidden: true
+      commands:
+        - name: update
+          description: Update a folder capability.
+          hidden: true
+          flags:
+            --enable!: Enable the Capability.
+            --no-enable!&: Enable the Capability
+            --update-mask=: Update Mask.
+        - name: describe
+          description: Show whether a Capability is enabled.
+          hidden: true
+    - name: folders
+      description: Manage Cloud Folders.
+      commands:
+        - name: remove-iam-policy-binding
+          description: Remove IAM policy binding for a folder.
+          flags:
+            --all: Remove all bindings with this role and principal, irrespective of any
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: The condition of the binding that you want to remove.
+            --member=!: The principal to remove the binding for.
+            --no-all&: ""
+            --role=!: The role to remove the principal from.
+        - name: set-iam-policy
+          description: Set IAM policy for a folder.
+        - name: update
+          description: Update the display name of a folder.
+          flags:
+            --display-name=!: New display name for the folder (unique under the same parent).
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding for a folder.
+          flags:
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: A condition to include in the binding.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: describe
+          description: Show metadata for a folder.
+        - name: get-ancestors-iam-policy
+          description: Get IAM policies for a folder and its ancestors.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --include-deny: Include deny policies on the project and its ancestors in the result
+            --limit=: Maximum number of resources to list.
+            --no-include-deny&: Include deny policies on the project and its ancestors in the result
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: get-iam-policy
+          description: Get IAM policy for a folder.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: undelete
+          description: Undelete a folder.
+        - name: create
+          description: Create a new folder.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --display-name=!: Friendly display name to use for the new folder.
+            --folder=: ID for the folder to use as a parent
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: ID for the organization to use as a parent
+            --tags=: List of tags KEY=VALUE pairs to bind.
+        - name: delete
+          description: Delete a folder.
+        - name: list
+          description: List folders accessible by the active account.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --folder=: ID for the folder to list folders under
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --organization=: ID for the organization to list folders under
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: move
+          description: Move a folder to a new position within the same organization.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --folder=: ID for the folder to use as a parent
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: ID for the organization to use as a parent
+    - name: org-policies
+      description: Manage Org Policies.
+      commands:
+        - name: allow
+          description: Add values to an Organization Policy allowed_values list policy.
+          flags:
+            --folder=: Folder ID.
+            --organization=: Organization ID.
+        - name: delete
+          description: Delete an Organization Policy.
+          flags:
+            --folder=: Folder ID.
+            --organization=: Organization ID.
+        - name: deny
+          description: Add values to an Organization Policy denied_values list policy.
+          flags:
+            --folder=: Folder ID.
+            --organization=: Organization ID.
+        - name: describe
+          description: Describe an Organization Policy.
+          flags:
+            --effective: Show the effective policy.
+            --folder=: Folder ID.
+            --no-effective&: Show the effective policy.
+            --organization=: Organization ID.
+        - name: disable-enforce
+          description: Turns off enforcement of boolean Organization Policy constraint.
+          flags:
+            --folder=: Folder ID.
+            --organization=: Organization ID.
+        - name: enable-enforce
+          description: Turns on enforcement of boolean Organization Policy constraint.
+          flags:
+            --folder=: Folder ID.
+            --organization=: Organization ID.
+        - name: list
+          description: List Organization Policies associated with the specified resource.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --folder=: Folder ID.
+            --limit=: Maximum number of resources to list.
+            --no-show-unset&: ""
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --organization=: Organization ID.
+            --page-size=: Some services group resource list output into pages.
+            --show-unset: Show available constraints.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: set-policy
+          description: Set Organization Policy.
+          flags:
+            --folder=: Folder ID.
+            --organization=: Organization ID.
+    - name: tags
+      description: Create and manipulate tag keys, values and bindings.
+      commands:
+        - name: bindings
+          description: Create and manipulate TagBindings.
+          commands:
+            - name: delete
+              description: Deletes a TagBinding.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: Region or zone of the resource to unbind from the TagValue.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --parent=!: Full resource name of the resource attached to the tagValue.
+                --tag-value=!: Tag value name or namespaced name.
+            - name: list
+              description: Lists TagBindings bound to the specified resource.
+              flags:
+                --effective: Show all effective TagBindings on the resource.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: Region or zone of the resource for listing TagBindings.
+                --no-effective&: Show all effective TagBindings on the resource.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --parent=!: Full resource name attached to the binding
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: create
+              description: Creates a TagBinding resource.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: Region or zone of the resource to bind to the TagValue.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --parent=!: Full resource name of the resource to attach to the tagValue.
+                --tag-value=!: Tag value name or namespaced name.
+        - name: holds
+          description: Create and manipulate TagHolds.
+          commands:
+            - name: delete
+              description: Delete a TagHold.
+              flags:
+                --location=: Region where the TagHold is stored.
+            - name: list
+              description: List TagHolds under the specified TagValue.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --holder=: The holder field of the TagHold to match exactly.
+                --limit=: Maximum number of resources to list.
+                --location=: Region where the matching TagHolds are stored.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --origin=: The origin field of the TagHold to match exactly.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: create
+              description: Create a TagHold resource.
+              flags:
+                --help-link=: A URL where an end user can learn more about removing this hold.
+                --holder=!: The name of the resource where the TagValue is being used.
+                --location=: Region or zone where the TagHold will be stored.
+                --origin=: An optional string representing the origin of this request.
+        - name: keys
+          description: Create and manipulate TagKeys.
+          commands:
+            - name: update
+              description: Updates the specified TagKey resource's description.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --description=: User-assigned description of the TagKey or TagValue.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: create
+              description: Creates a TagKey resource under the specified tag parent.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --description=: User-assigned description of the TagKey or TagValue.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --parent=!: Parent of the TagKey in the form of organizations/{org_id}.
+                --purpose-data=: Purpose data of the TagKey that can only be set on creation.
+                --purpose=: Purpose specifier of the TagKey that can only be set on creation.
+              completion:
+                flag:
+                    purpose:
+                        - GCE_FIREWALL
+                        - DATA_GOVERNANCE
+            - name: delete
+              description: Deletes the specified TagKey resource.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: describe
+              description: Describes a TagKey resource.
+            - name: remove-iam-policy-binding
+              description: Removes a policy binding from the IAM policy of a TagKey.
+              flags:
+                --all: Remove all bindings with this role and principal, irrespective of any
+                --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+                --condition=: The condition of the binding that you want to remove.
+                --member=!: The principal to remove the binding for.
+                --no-all&: ""
+                --role=!: The role to remove the principal from.
+            - name: set-iam-policy
+              description: Sets IAM policy for a TagKey resource.
+            - name: add-iam-policy-binding
+              description: Adds a policy binding to the IAM policy of a TagKey.
+              flags:
+                --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+                --condition=: A condition to include in the binding.
+                --member=!: The principal to add the binding for.
+                --role=!: Role name to assign to the principal.
+            - name: get-iam-policy
+              description: Gets the IAM policy for a TagKey resource.
+            - name: list
+              description: Lists TagKeys under the specified parent resource.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --parent=!: Parent of the TagKey in the form of organizations/{org_id}.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: values
+          description: Create and manipulate TagValues.
+          commands:
+            - name: add-iam-policy-binding
+              description: Adds a policy binding to the IAM policy of a TagValue.
+              flags:
+                --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+                --condition=: A condition to include in the binding.
+                --member=!: The principal to add the binding for.
+                --role=!: Role name to assign to the principal.
+            - name: create
+              description: Creates a TagValue resource.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --description=: User-assigned description of the TagKey or TagValue.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --parent=!: Parent of the TagValue in either in the form of tagKeys/{id} or {org_id}/{tagkey_short_name}
+            - name: describe
+              description: Describes a TagValue resource.
+            - name: get-iam-policy
+              description: Gets the IAM policy for a TagValue resource.
+            - name: remove-iam-policy-binding
+              description: Removes a policy binding from the IAM policy of a TagValue.
+              flags:
+                --all: Remove all bindings with this role and principal, irrespective of any
+                --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+                --condition=: The condition of the binding that you want to remove.
+                --member=!: The principal to remove the binding for.
+                --no-all&: ""
+                --role=!: The role to remove the principal from.
+            - name: update
+              description: Updates the specified TagValue resource's description.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --description=: User-assigned description of the TagKey or TagValue.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: delete
+              description: Deletes the specified TagValue resource.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: list
+              description: Lists TagValues under the specified parent resource.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --parent=!: Parent of the TagValue in either in the form of tagKeys/{id} or {org_id}/{tagkey_short_name}
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: set-iam-policy
+              description: Sets IAM policy for a TagValue resource.

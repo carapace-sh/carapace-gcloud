@@ -1,0 +1,211 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: domains
+description: Manage domains for your Google Cloud projects.
+commands:
+    - name: list-user-verified
+      description: Lists the user's verified domains.
+    - name: registrations
+      description: Manage Cloud Domains registrations.
+      commands:
+        - name: update
+          description: Update a Cloud Domains registration.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Remove all labels.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+        - name: export
+          description: '*(REMOVED)*  Export a Cloud Domains registration.'
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: configure
+          description: Configure Cloud Domains registrations' management, DNS or contact settings.
+          commands:
+            - name: management
+              description: Configure management settings of a Cloud Domains registration.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --preferred-renewal-method=: Preferred Renewal Method of a registration.
+                --transfer-lock-state=: Transfer Lock of a registration.
+              completion:
+                flag:
+                    preferred-renewal-method:
+                        - automatic-renewal
+                        - renewal-disabled
+                    transfer-lock-state:
+                        - locked
+                        - unlocked
+            - name: contacts
+              description: Configure contact settings of a Cloud Domains registration.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --contact-data-from-file=: 'A YAML file containing the contact data for the domain''s three contacts:'
+                --contact-privacy=: The contact privacy mode to use.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-validate-only&: Don't actually configure contact settings of the registration.
+                --notices=: Notices about special properties of contacts.
+                --validate-only: Don't actually configure contact settings of the registration.
+              completion:
+                flag:
+                    contact-privacy:
+                        - private-contact-data
+                        - public-contact-data
+                        - redacted-contact-data
+            - name: dns
+              description: Configure DNS settings of a Cloud Domains registration.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --cloud-dns-zone=: The name of the Cloud DNS managed-zone to set as the name server for the domain.
+                --disable-dnssec: Use this flag to disable DNSSEC, or to skip enabling it when switching
+                --dns-settings-from-file=: A YAML file containing the required DNS settings.
+                --name-servers=: List of DNS name servers for the domain.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-disable-dnssec&: Use this flag to disable DNSSEC, or to skip enabling it when switching
+                --no-unsafe-dns-update&: (DEPRECATED) Use this flag to allow DNS changes that may make your domain stop serving.
+                --no-use-google-domains-dns&: (DEPRECATED) Use free name servers provided by Google Domains.
+                --no-validate-only&: Don't actually configure DNS settings of the registration.
+                --unsafe-dns-update: (DEPRECATED) Use this flag to allow DNS changes that may make your domain stop serving.
+                --use-google-domains-dns: (DEPRECATED) Use free name servers provided by Google Domains.
+                --validate-only: Don't actually configure DNS settings of the registration.
+        - name: list
+          description: List Cloud Domains registrations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: register
+          description: Register a new domain.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --cloud-dns-zone=: The name of the Cloud DNS managed-zone to set as the name server for the domain.
+            --contact-data-from-file=: 'A YAML file containing the contact data for the domain''s three contacts:'
+            --contact-privacy=: The contact privacy mode to use.
+            --disable-dnssec: Use this flag to disable DNSSEC, or to skip enabling it when switching
+            --labels=: List of label KEY=VALUE pairs to add.
+            --name-servers=: List of DNS name servers for the domain.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-disable-dnssec&: Use this flag to disable DNSSEC, or to skip enabling it when switching
+            --no-use-google-domains-dns&: (REMOVED) Use free name servers provided by Google Domains.
+            --no-validate-only&: Don't actually create registration.
+            --notices=: Notices about special properties of certain domains or contacts.
+            --use-google-domains-dns: (REMOVED) Use free name servers provided by Google Domains.
+            --validate-only: Don't actually create registration.
+            --yearly-price=: Accept the domain's yearly price in the interactive flow or by using this flag.
+          completion:
+            flag:
+                contact-privacy:
+                    - private-contact-data
+                    - public-contact-data
+                    - redacted-contact-data
+        - name: renew-domain
+          description: Renew a recently expired Cloud Domains registration.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-validate-only&: Don't actually renew registration.
+            --validate-only: Don't actually renew registration.
+            --yearly-price=: Accept the domain's yearly price in the interactive flow or by using this flag.
+        - name: authorization-code
+          description: Manage Cloud Domains registration's authorization code.
+          commands:
+            - name: reset
+              description: Resets authorization code of a specific Cloud Domains registration.
+            - name: get
+              description: Get authorization code of a specific Cloud Domains registration.
+        - name: describe
+          description: Describe an existing Cloud Domains registration.
+        - name: get-register-parameters
+          description: Get register parameters (including availability) of a specific domain.
+        - name: get-transfer-parameters
+          description: '*(REMOVED)*  Get transfer parameters of a specific domain.'
+          hidden: true
+        - name: list-importable-domains
+          description: '*(REMOVED)*  List Google Domains registrations importable into Cloud Domains.'
+          hidden: true
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: transfer
+          description: '*(REMOVED)*  Transfer a domain from another registrar.'
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --authorization-code-from-file=: A file containing the authorizaton code.
+            --cloud-dns-zone=: The name of the Cloud DNS managed-zone to set as the name server for the domain.
+            --contact-data-from-file=: 'A YAML file containing the contact data for the domain''s three contacts:'
+            --contact-privacy=: The contact privacy mode to use.
+            --keep-dns-settings: Keep the domain's current DNS configuration from its current registrar.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-keep-dns-settings&: Keep the domain's current DNS configuration from its current registrar.
+            --no-use-google-domains-dns&: (DEPRECATED) Use free name servers provided by Google Domains.
+            --no-validate-only&: Don't actually transfer domain.
+            --notices=: Notices about special properties of certain domains or contacts.
+            --use-google-domains-dns: (DEPRECATED) Use free name servers provided by Google Domains.
+            --validate-only: Don't actually transfer domain.
+            --yearly-price=: Accept the domain's yearly price in the interactive flow or by using this flag.
+          completion:
+            flag:
+                contact-privacy:
+                    - private-contact-data
+                    - public-contact-data
+                    - redacted-contact-data
+        - name: delete
+          description: Delete a Cloud Domains registration.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: google-domains-dns
+          description: Manage deprecated Google Domains DNS configuration.
+          commands:
+            - name: export-dns-record-sets
+              description: Export your registration's Google Domains DNS zone's record-sets into a file.
+              flags:
+                --no-zone-file-format&: Indicates that records-file should be in the zone file format.
+                --records-file=!: File to which record-sets should be exported.
+                --zone-file-format: Indicates that records-file should be in the zone file format.
+            - name: get-forwarding-config
+              description: Get forwarding configuration of a specific Cloud Domains registration.
+        - name: import
+          description: '*(REMOVED)*  Import a domain from Google Domains registrar to Cloud Domains.'
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --labels=: List of label KEY=VALUE pairs to add.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: initiate-push-transfer
+          description: Initiates the push transfer process.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --tag=: The Tag of the new registrar.
+        - name: operations
+          description: Manage Cloud Domains operations.
+          commands:
+            - name: describe
+              description: Show details about a Cloud Domains operation.
+            - name: list
+              description: List Cloud Domains operations.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: wait
+              description: Wait for asynchronous operation to complete.
+        - name: search-domains
+          description: Search for available domains.
+    - name: verify
+      description: Verifies a domain via an in-browser workflow.

@@ -1,0 +1,123 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: identity
+description: Manage Cloud Identity Groups and Memberships resources.
+commands:
+    - name: groups
+      description: Manage Cloud Identity Groups.
+      commands:
+        - name: delete
+          description: Delete an existing group.
+        - name: describe
+          description: Describe an existing group.
+        - name: memberships
+          description: Manage Cloud Identity Groups Memberships.
+          commands:
+            - name: delete
+              description: Delete a membership from an existing group.
+              flags:
+                --group-email=!: The email address of the group the new membership is being removed from.
+                --member-email=!: The email address of the group or user being removed from the group identified by group-email.
+            - name: describe
+              description: Describe a membership in a group.
+              flags:
+                --group-email=!: The email address of the group whose membership is being described.
+                --member-email=!: The email address of the member whose membership is being described.
+            - name: get-membership-graph
+              description: Get a membership graph of just a member or both a member and a group.
+              flags:
+                --group-email=: The email address of the group to constrain the membership graph with.
+                --labels=!: The labels of the groups in the membership graph.
+                --member-email=!: The email address of the member to get the membership graph for.
+            - name: list
+              description: List memberships in an existing group.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --group-email=!: The email address of the group to show members for.
+                --limit=: Maximum number of resources to list.
+                --page-size=: Some services group resource list output into pages.
+                --page-token=: The next_page_token value returned from a previous list request, if any.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --view=: There are two possible views, 'basic' and 'full', default is 'basic'.
+              completion:
+                flag:
+                    view:
+                        - basic
+                        - full
+            - name: check-transitive-membership
+              description: Check a potential member for transitive membership in a group.
+              flags:
+                --group-email=!: The email address of the group to check transitive membership for.
+                --member-email=!: The email address of the member to check transitive membership for.
+            - name: modify-membership-roles
+              description: Add/remove/modify membership roles of a membership in a group.
+              flags:
+                --add-roles=: Membership roles to be added.
+                --group-email=!: The email address of the group that member-email belongs to.
+                --member-email=!: The email address of the group or user that is being updated
+                --remove-roles=: Membership role names to be removed.
+                --update-roles-params=: Resource representing the parameters to update membership roles.
+            - name: search-transitive-groups
+              description: Search transitive groups of a member.
+              flags:
+                --labels=!: The labels of the transitive groups.
+                --member-email=!: The email address of the member to search transitive groups for.
+                --page-size=: The maximum number of results to return.
+                --page-token=: The next_page_token value returned from a previous search request, if any.
+            - name: search-transitive-memberships
+              description: Search transitive memberships of a group.
+              flags:
+                --group-email=!: The email address of the group to search transitive memberships for.
+                --page-size=: The maximum number of results to return.
+                --page-token=: The next_page_token value returned from a previous search request, if any.
+            - name: add
+              description: Create a new membership in an existing group.
+              flags:
+                --expiration=: Optional time of expiration for the membership.
+                --group-email=!: The email address of the group the new membership is being added to.
+                --member-email=!: The email address of the group or user being added to a group.
+                --roles=: A comma-separated list of roles for a member within the Group.
+        - name: search
+          description: Searches for Groups matching a specified query.
+          flags:
+            --customer=: The customer ID for the customer's G Suite account.
+            --labels=!: One or more label entries that apply to the Group.
+            --organization=: The organization ID for the groups being searched.
+            --page-size=: The maximum number of results to return.
+            --page-token=: The nextPageToken value returned from a previous search request, if any.
+            --view=: The level of detail to be returned.
+          completion:
+            flag:
+                view:
+                    - basic
+                    - full
+        - name: update
+          description: Update a group.
+          flags:
+            --clear-description: Clear existing description on group being updated.
+            --clear-display-name: Clear existing display name on group being updated.
+            --description=: Replace existing description on group being updated.
+            --display-name=: Replace existing display name on group being updated.
+            --dynamic-user-query=: Query that determines the memberships of the dynamic group.
+            --labels=: One or more label entries that apply to the group.
+            --no-clear-description&: Clear existing description on group being updated.
+            --no-clear-display-name&: Clear existing display name on group being updated.
+        - name: create
+          description: Create a new group.
+          flags:
+            --customer=: The customer ID for the customer\'s G Suite account.
+            --description=: An extended description to help users determine the purpose of a Group.
+            --display-name=: The Group's display name.
+            --dynamic-user-query=: Query that determines the memberships of the dynamic group.
+            --group-type=: The type of group to create.
+            --labels=: Labels for group resource.
+            --organization=: The organization the Group being created belongs to.
+            --with-initial-owner=: If specified the user making the request will be added as the initial owner of the group being
+          completion:
+            flag:
+                group-type:
+                    - discussion
+                    - dynamic
+                    - security
+                with-initial-owner:
+                    - empty
+                    - with-initial-owner

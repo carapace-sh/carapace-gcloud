@@ -1,0 +1,774 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: kms
+description: Manage cryptographic keys in the cloud.
+commands:
+    - name: mac-sign
+      description: Sign a user input file using a MAC key version.
+      flags:
+        --input-file=!: Path to the input file to sign.
+        --key=: to use for signing.
+        --keyring=: Key ring of the key.
+        --location=: Location of the keyring.
+        --no-skip-integrity-verification&: Skip integrity verification on request and response API fields.
+        --signature-file=!: Path to the signature file to output.
+        --skip-integrity-verification: Skip integrity verification on request and response API fields.
+    - name: encrypt
+      description: Encrypt a plaintext file using a key.
+      flags:
+        --additional-authenticated-data-file=: File path to the optional file containing the additional authenticated data.
+        --ciphertext-file=!: File path of the ciphertext file to output.
+        --key=: The key to use for encryption.
+        --keyring=: Key ring of the key.
+        --location=: Location of the keyring.
+        --no-skip-integrity-verification&: Skip integrity verification on request and response API fields.
+        --plaintext-file=!: File path of the plaintext file to encrypt.
+        --skip-integrity-verification: Skip integrity verification on request and response API fields.
+    - name: import-jobs
+      description: Create and manage import jobs.
+      commands:
+        - name: create
+          description: Create a new import job.
+          flags:
+            --import-method=!: The wrapping method to be used for incoming key material.
+            --keyring=: Key ring of the import job.
+            --location=: Location of the import job.
+            --protection-level=!: Protection level of the import job.
+          completion:
+            flag:
+                import-method:
+                    - rsa-oaep-3072-sha1-aes-256
+                    - rsa-oaep-3072-sha256
+                    - rsa-oaep-3072-sha256-aes-256
+                    - rsa-oaep-4096-sha1-aes-256
+                    - rsa-oaep-4096-sha256
+                    - rsa-oaep-4096-sha256-aes-256
+                protection-level:
+                    - software
+                    - hsm
+        - name: describe
+          description: Get metadata for a given import job.
+          flags:
+            --attestation-file=: Path to the output attestation file.
+            --keyring=: Key ring of the import job.
+            --location=: Location of the import job.
+        - name: get-iam-policy
+          description: Get the IAM policy for an import job.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --keyring=: The containing keyring.
+            --limit=: Maximum number of resources to list.
+            --location=: The location of the resource.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: Lists import jobs within a keyring.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --keyring=: Key ring of the import job.
+            --limit=: Maximum number of resources to list.
+            --location=: Location of the import job.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: remove-iam-policy-binding
+          description: Remove IAM policy binding for a KMS import job.
+          flags:
+            --keyring=: The containing keyring.
+            --location=: The location of the resource.
+            --member=!: The principal to remove the binding for.
+            --role=!: The role to remove the principal from.
+        - name: set-iam-policy
+          description: Set the IAM policy binding for a KMS import job.
+          flags:
+            --keyring=: The containing keyring.
+            --location=: The location of the resource.
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding to a KMS import job.
+          flags:
+            --keyring=: The containing keyring.
+            --location=: The location of the resource.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+    - name: mac-verify
+      description: Verify a user signature file using a MAC key version.
+      flags:
+        --input-file=!: Path to the input file to use for verification.
+        --key=: to use for signing.
+        --keyring=: Key ring of the key.
+        --location=: Location of the keyring.
+        --no-skip-integrity-verification&: Skip integrity verification on request and response API fields.
+        --signature-file=!: Path to the signature file to be verified.
+        --skip-integrity-verification: Skip integrity verification on request and response API fields.
+    - name: raw-decrypt
+      description: Decrypt a ciphertext file using a raw key.
+      flags:
+        --additional-authenticated-data-file=: File path to the optional file containing the additional authenticated data.
+        --ciphertext-file=!: File path of the ciphertext file to decrypt.
+        --initialization-vector-file=: File path to the optional file containing the initialization vector for decryption.
+        --key=: The (raw) key to use for decryption.
+        --keyring=: Key ring of the key.
+        --location=: Location of the keyring.
+        --no-skip-integrity-verification&: Skip integrity verification on request and response API fields.
+        --plaintext-file=!: File path of the plaintext file to store the decrypted data.
+        --skip-integrity-verification: Skip integrity verification on request and response API fields.
+    - name: autokey-config
+      description: Update and retrieve the AutokeyConfig.
+      commands:
+        - name: describe
+          description: Describe the AutokeyConfig of a folder.
+          flags:
+            --folder=!: The folder id in which the AutokeyConfig resource exists.
+        - name: show-effective-config
+          description: Gets the effective Cloud KMS AutokeyConfig for a given project.
+        - name: update
+          description: Updates the AutokeyConfig for a folder.
+    - name: locations
+      description: View locations available for a project.
+      commands:
+        - name: list
+          description: List the project's locations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: asymmetric-decrypt
+      description: Decrypt an input file using an asymmetric-encryption key version.
+      flags:
+        --ciphertext-file=!: File path of the ciphertext file to decrypt.
+        --key=: to use for asymmetric-decryption.
+        --keyring=: Key ring of the key.
+        --location=: Location of the keyring.
+        --no-skip-integrity-verification&: Skip integrity verification on request and response API fields.
+        --plaintext-file=!: File path of the plaintext file to output.
+        --skip-integrity-verification: Skip integrity verification on request and response API fields.
+    - name: asymmetric-sign
+      description: Sign a user input file using an asymmetric-signing key version.
+      flags:
+        --digest-algorithm=: The algorithm to digest the input.
+        --input-file=!: Path to the input file to sign.
+        --key=: to use for signing.
+        --keyring=: Key ring of the key.
+        --location=: Location of the keyring.
+        --no-skip-integrity-verification&: Skip integrity verification on request and response API fields.
+        --signature-file=!: Path to the signature file to output.
+        --skip-integrity-verification: Skip integrity verification on request and response API fields.
+      completion:
+        flag:
+            digest-algorithm:
+                - sha256
+                - sha384
+                - sha512
+    - name: decrypt
+      description: Decrypt a ciphertext file using a Cloud KMS key.
+      flags:
+        --additional-authenticated-data-file=: File path to the optional file containing the additional authenticated data.
+        --ciphertext-file=!: File path of the ciphertext file to decrypt.
+        --key=: Cloud KMS key to use for decryption.
+        --keyring=: Key ring of the key.
+        --location=: Location of the keyring.
+        --no-skip-integrity-verification&: Skip integrity verification on request and response API fields.
+        --plaintext-file=!: File path of the plaintext file to output.
+        --skip-integrity-verification: Skip integrity verification on request and response API fields.
+    - name: ekm-config
+      description: Update and retrieve the EkmConfig.
+      commands:
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding to an EkmConfig.
+          flags:
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: A condition to include in the binding.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: describe
+          description: Describe the EkmConfig.
+          flags:
+            --location=!: ID of the location or fully qualified identifier for the location.
+        - name: get-iam-policy
+          description: Get the IAM policy for an EkmConfig.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: remove-iam-policy-binding
+          description: Remove IAM policy binding from an EkmConfig.
+          flags:
+            --all: Remove all bindings with this role and principal, irrespective of any
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: The condition of the binding that you want to remove.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --member=!: The principal to remove the binding for.
+            --no-all&: ""
+            --role=!: The role to remove the principal from.
+        - name: set-iam-policy
+          description: Set the IAM policy for an EkmConfig.
+          flags:
+            --location=!: ID of the location or fully qualified identifier for the location.
+        - name: update
+          description: Update the EkmConfig.
+          flags:
+            --default-ekm-connection=: The resource name of the EkmConnection to be used as the default EkmConnection for all `external-vpc` CryptoKeys in a project and location.
+            --location=!: ID of the location or fully qualified identifier for the location.
+    - name: inventory
+      description: Manages the KMS Inventory and Key Tracking commands.
+      commands:
+        - name: search-protected-resources
+          description: Searches the resources protected by a key.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --keyname=!: ID of the key or fully qualified identifier for the key.
+            --keyring=: The KMS keyring of the key.
+            --limit=: Maximum number of resources to list.
+            --location=: The Google Cloud location for the key.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --resource-types=: A list of resource types that this request searches for.
+            --scope=!: Organization ID.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: get-protected-resources-summary
+          description: Gets the protected resources summary.
+          flags:
+            --keyname=!: ID of the key or fully qualified identifier for the key.
+            --keyring=: The KMS keyring of the key.
+            --location=: The Google Cloud location for the key.
+        - name: list-keys
+          description: Lists the keys in a project.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: key-handles
+      description: Create and manage KeyHandle resources.
+      commands:
+        - name: create
+          description: Create a new KeyHandle.
+          flags:
+            --generate-key-handle-id: Generate a KeyHandle id for the new KeyHandle resource.
+            --key-handle-id=: The KeyHandle id for the new KeyHandle resource.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-generate-key-handle-id&: Generate a KeyHandle id for the new KeyHandle resource.
+            --resource-type=!: The resource type selector for KeyHandle resources of the form {{SERVICE}}.{{UNIVERSE_DOMAIN}}/{{TYPE}}.
+        - name: describe
+          description: Get metadata for a KeyHandle.
+          flags:
+            --location=: The location of the resource.
+        - name: list
+          description: List KeyHandle resources within a project and location.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --resource-type=!: The resource type selector for KeyHandle resources of the form {{SERVICE}}.{{UNIVERSE_DOMAIN}}/{{TYPE}}.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: raw-encrypt
+      description: Encrypt a plaintext file using a raw key.
+      flags:
+        --additional-authenticated-data-file=: File path to the optional file containing the additional authenticated data.
+        --ciphertext-file=!: File path of the ciphertext file to output.
+        --initialization-vector-file=: File path to the optional file containing the initialization vector for encryption.
+        --key=: The key to use for encryption.
+        --keyring=: Key ring of the key.
+        --location=: Location of the keyring.
+        --no-skip-integrity-verification&: Skip integrity verification on request and response API fields.
+        --plaintext-file=!: File path of the plaintext file to encrypt.
+        --skip-integrity-verification: Skip integrity verification on request and response API fields.
+    - name: decapsulate
+      description: Decapsulate an input file using a key-encapsulation key version.
+      flags:
+        --ciphertext-file=!: File path of the ciphertext file to decapsulate.
+        --key=: to use for decapsulation.
+        --keyring=: Key ring of the key.
+        --location=: Location of the keyring.
+        --no-skip-integrity-verification&: Skip integrity verification on request and response API fields.
+        --shared-secret-file=!: File path of the shared secret file to output.
+        --skip-integrity-verification: Skip integrity verification on request and response API fields.
+    - name: ekm-connections
+      description: Create and manage ekm connections.
+      commands:
+        - name: create
+          description: Create a new ekm connection.
+          flags:
+            --crypto-space-path=: Crypto space path for the EkmConnection.
+            --endpoint-filter=: The filter applied to the endpoints of the resolved service.
+            --hostname=!: The hostname of the EKM replica used at TLS and HTTP layers.
+            --key-management-mode=: Key management mode of the ekm connection.
+            --location=: The Google Cloud location for the ekmconnection.
+            --server-certificates-files=!: A list of filenames of leaf server certificates used to authenticate HTTPS connections to the EKM replica in PEM format.
+            --service-directory-service=!: The resource name of the Service Directory service pointing to an EKM replica.
+          completion:
+            flag:
+                key-management-mode:
+                    - manual
+                    - cloud-kms
+        - name: describe
+          description: Get metadata for an ekmconnection.
+          flags:
+            --location=: The Google Cloud location for the ekmconnection.
+        - name: get-iam-policy
+          description: Get the IAM policy for an ekm connection.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: The location of the resource.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: List ekmconnections within a location.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: remove-iam-policy-binding
+          description: Remove IAM policy binding for a kms ekm connection.
+          flags:
+            --all: Remove all bindings with this role and principal, irrespective of any
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: The condition of the binding that you want to remove.
+            --location=: The location of the resource.
+            --member=!: The principal to remove the binding for.
+            --no-all&: ""
+            --role=!: The role to remove the principal from.
+        - name: set-iam-policy
+          description: Set the IAM policy binding for a KMS ekm connection.
+          flags:
+            --location=: The location of the resource.
+        - name: update
+          description: Update an ekmconnection.
+          flags:
+            --crypto-space-path=: Crypto space path for the EkmConnection.
+            --endpoint-filter=: The filter applied to the endpoints of the resolved service.
+            --hostname=: The hostname of the EKM replica used at TLS and HTTP layers.
+            --key-management-mode=: Key management mode of the ekm connection.
+            --location=: The Google Cloud location for the ekmconnection.
+            --server-certificates-files=: A list of filenames of leaf server certificates used to authenticate HTTPS connections to the EKM replica in PEM format.
+            --service-directory-service=: The resource name of the Service Directory service pointing to an EKM replica.
+          completion:
+            flag:
+                key-management-mode:
+                    - manual
+                    - cloud-kms
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding for a kms ekm connection.
+          flags:
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: A condition to include in the binding.
+            --location=: The location of the resource.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+    - name: keyrings
+      description: Create and manage keyrings.
+      commands:
+        - name: set-iam-policy
+          description: Set the IAM policy for a keyring.
+          flags:
+            --location=: Location of the keyring.
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding for a kms keyring.
+          flags:
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: A condition to include in the binding.
+            --location=: The location of the resource.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: create
+          description: Create a new keyring.
+          flags:
+            --location=: The Google Cloud location for the keyring.
+        - name: describe
+          description: Get metadata for a keyring.
+          flags:
+            --location=: The Google Cloud location for the keyring.
+        - name: get-iam-policy
+          description: Get the IAM policy for a keyring.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Location of the keyring.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: List keyrings within a location.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: remove-iam-policy-binding
+          description: Remove IAM policy binding for a kms keyring.
+          flags:
+            --all: Remove all bindings with this role and principal, irrespective of any
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: The condition of the binding that you want to remove.
+            --location=: The location of the resource.
+            --member=!: The principal to remove the binding for.
+            --no-all&: ""
+            --role=!: The role to remove the principal from.
+    - name: keys
+      description: Create and manage keys.
+      commands:
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding for a kms key.
+          flags:
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: A condition to include in the binding.
+            --keyring=: The containing keyring.
+            --location=: The location of the resource.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: create
+          description: Create a new key.
+          flags:
+            --allowed-access-reasons=: The list of allowed Key Access Justifications access reasons on the key.
+            --crypto-key-backend=: The resource name of the backend environment where the key material for all CryptoKeyVersions associated with this CryptoKey reside and where all related cryptographic operations are performed.
+            --default-algorithm=: The default algorithm for the crypto key.
+            --destroy-scheduled-duration=: The amount of time that versions of the key should spend in the DESTROY_SCHEDULED state before transitioning to DESTROYED.
+            --import-only: Restrict this key to imported versions only.
+            --keyring=: The KMS keyring of the key.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The Google Cloud location for the key.
+            --next-rotation-time=: Next automatic rotation time of the key.
+            --no-import-only&: Restrict this key to imported versions only.
+            --no-skip-initial-version-creation&: Skip creating the first version in a key and setting it as primary during creation.
+            --protection-level=: Protection level of the key.
+            --purpose=!: The "purpose" of the key.
+            --rotation-period=: Automatic rotation period of the key.
+            --skip-initial-version-creation: Skip creating the first version in a key and setting it as primary during creation.
+          completion:
+            flag:
+                default-algorithm:
+                    - aes-128-cbc
+                    - aes-128-ctr
+                    - aes-128-gcm
+                    - aes-256-cbc
+                    - aes-256-ctr
+                    - aes-256-gcm
+                    - ec-sign-ed25519
+                    - ec-sign-p256-sha256
+                    - ec-sign-p384-sha384
+                    - ec-sign-secp256k1-sha256
+                    - external-symmetric-encryption
+                    - google-symmetric-encryption
+                    - hmac-sha1
+                    - hmac-sha224
+                    - hmac-sha256
+                    - hmac-sha384
+                    - hmac-sha512
+                    - kem-xwing
+                    - ml-kem-1024
+                    - ml-kem-768
+                    - pq-sign-hash-slh-dsa-sha2-128s-sha256
+                    - pq-sign-ml-dsa-65
+                    - pq-sign-slh-dsa-sha2-128s
+                    - rsa-decrypt-oaep-2048-sha1
+                    - rsa-decrypt-oaep-2048-sha256
+                    - rsa-decrypt-oaep-3072-sha1
+                    - rsa-decrypt-oaep-3072-sha256
+                    - rsa-decrypt-oaep-4096-sha1
+                    - rsa-decrypt-oaep-4096-sha256
+                    - rsa-decrypt-oaep-4096-sha512
+                    - rsa-sign-pkcs1-2048-sha256
+                    - rsa-sign-pkcs1-3072-sha256
+                    - rsa-sign-pkcs1-4096-sha256
+                    - rsa-sign-pkcs1-4096-sha512
+                    - rsa-sign-pss-2048-sha256
+                    - rsa-sign-pss-3072-sha256
+                    - rsa-sign-pss-4096-sha256
+                    - rsa-sign-pss-4096-sha512
+                    - rsa-sign-raw-pkcs1-2048
+                    - rsa-sign-raw-pkcs1-3072
+                    - rsa-sign-raw-pkcs1-4096
+                protection-level:
+                    - software
+                    - hsm
+                    - external
+                    - external-vpc
+                purpose:
+                    - asymmetric-encryption
+                    - asymmetric-signing
+                    - encryption
+                    - key-encapsulation
+                    - mac
+                    - raw-encryption
+        - name: describe
+          description: Get metadata for a given key.
+          flags:
+            --keyring=: The KMS keyring of the key.
+            --location=: The Google Cloud location for the key.
+        - name: remove-iam-policy-binding
+          description: Remove IAM policy binding for a kms key.
+          flags:
+            --all: Remove all bindings with this role and principal, irrespective of any
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: The condition of the binding that you want to remove.
+            --keyring=: The containing keyring.
+            --location=: The location of the resource.
+            --member=!: The principal to remove the binding for.
+            --no-all&: ""
+            --role=!: The role to remove the principal from.
+        - name: set-iam-policy
+          description: Set the IAM policy for a key.
+          flags:
+            --keyring=: The KMS keyring of the key.
+            --location=: The Google Cloud location for the key.
+        - name: set-primary-version
+          description: Set the primary version of a key.
+          flags:
+            --keyring=: The KMS keyring of the key.
+            --location=: The Google Cloud location for the key.
+        - name: set-rotation-schedule
+          description: Update the rotation schedule for a key.
+          flags:
+            --keyring=: The KMS keyring of the key.
+            --location=: The Google Cloud location for the key.
+            --next-rotation-time=: Next automatic rotation time of the key.
+            --rotation-period=: Automatic rotation period of the key.
+        - name: get-iam-policy
+          description: Get the IAM policy for a key.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --keyring=: The KMS keyring of the key.
+            --limit=: Maximum number of resources to list.
+            --location=: The Google Cloud location for the key.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: List the keys within a keyring.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --keyring=!: ID of the keyring or fully qualified identifier for the keyring.
+            --limit=: Maximum number of resources to list.
+            --location=: The Google Cloud location for the keyring.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: remove-rotation-schedule
+          description: Remove the rotation schedule for a key.
+          flags:
+            --keyring=: The KMS keyring of the key.
+            --location=: The Google Cloud location for the key.
+        - name: update
+          description: Update a key.
+          flags:
+            --allowed-access-reasons=: The list of allowed Key Access Justifications access reasons on the key.
+            --clear-labels: Remove all labels.
+            --default-algorithm=: The default algorithm for the crypto key.
+            --keyring=: The KMS keyring of the key.
+            --location=: The Google Cloud location for the key.
+            --next-rotation-time=: Next automatic rotation time of the key.
+            --no-clear-labels&: Remove all labels.
+            --no-remove-key-access-justifications-policy&: Removes the Key Access Justifications policy on the key, making all justification codes allowed.
+            --no-remove-rotation-schedule&: Remove any existing rotation schedule on the key.
+            --primary-version=: Primary version to make primary.
+            --remove-key-access-justifications-policy: Removes the Key Access Justifications policy on the key, making all justification codes allowed.
+            --remove-labels=: List of label keys to remove.
+            --remove-rotation-schedule: Remove any existing rotation schedule on the key.
+            --rotation-period=: Automatic rotation period of the key.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+          completion:
+            flag:
+                default-algorithm:
+                    - aes-128-cbc
+                    - aes-128-ctr
+                    - aes-128-gcm
+                    - aes-256-cbc
+                    - aes-256-ctr
+                    - aes-256-gcm
+                    - ec-sign-ed25519
+                    - ec-sign-p256-sha256
+                    - ec-sign-p384-sha384
+                    - ec-sign-secp256k1-sha256
+                    - external-symmetric-encryption
+                    - google-symmetric-encryption
+                    - hmac-sha1
+                    - hmac-sha224
+                    - hmac-sha256
+                    - hmac-sha384
+                    - hmac-sha512
+                    - kem-xwing
+                    - ml-kem-1024
+                    - ml-kem-768
+                    - pq-sign-hash-slh-dsa-sha2-128s-sha256
+                    - pq-sign-ml-dsa-65
+                    - pq-sign-slh-dsa-sha2-128s
+                    - rsa-decrypt-oaep-2048-sha1
+                    - rsa-decrypt-oaep-2048-sha256
+                    - rsa-decrypt-oaep-3072-sha1
+                    - rsa-decrypt-oaep-3072-sha256
+                    - rsa-decrypt-oaep-4096-sha1
+                    - rsa-decrypt-oaep-4096-sha256
+                    - rsa-decrypt-oaep-4096-sha512
+                    - rsa-sign-pkcs1-2048-sha256
+                    - rsa-sign-pkcs1-3072-sha256
+                    - rsa-sign-pkcs1-4096-sha256
+                    - rsa-sign-pkcs1-4096-sha512
+                    - rsa-sign-pss-2048-sha256
+                    - rsa-sign-pss-3072-sha256
+                    - rsa-sign-pss-4096-sha256
+                    - rsa-sign-pss-4096-sha512
+                    - rsa-sign-raw-pkcs1-2048
+                    - rsa-sign-raw-pkcs1-3072
+                    - rsa-sign-raw-pkcs1-4096
+        - name: versions
+          description: Create and manage versions.
+          commands:
+            - name: create
+              description: Create a new version.
+              flags:
+                --ekm-connection-key-path=: The path to the external key material on the EKM for keys with protection level "external-vpc".
+                --external-key-uri=: The URI of the external key for keys with protection level "external".
+                --key=: The containing key.
+                --keyring=: Key ring of the key.
+                --location=: Location of the keyring.
+                --no-primary&: If specified, immediately makes the new version primary.
+                --primary: If specified, immediately makes the new version primary.
+            - name: destroy
+              description: Schedule a version to be destroyed.
+              flags:
+                --key=: The containing key.
+                --keyring=: Key ring of the key.
+                --location=: Location of the keyring.
+            - name: disable
+              description: Disable a given version.
+              flags:
+                --key=: The containing key.
+                --keyring=: Key ring of the key.
+                --location=: Location of the keyring.
+            - name: get-certificate-chain
+              description: Get a certificate chain for a given version.
+              flags:
+                --certificate-chain-type=: Certificate chain to retrieve.
+                --key=: The containing key.
+                --keyring=: Key ring of the key.
+                --location=: Location of the keyring.
+                --output-file=: Path to the output file to store PEM.
+              completion:
+                flag:
+                    certificate-chain-type:
+                        - all
+                        - cavium
+                        - google-card
+                        - google-partition
+            - name: import
+              description: Import a version into an existing crypto key.
+              flags:
+                --algorithm=!: The algorithm to assign to the new key version.
+                --import-job=!: Name of the import job to import from.
+                --key=: The containing key to import into.
+                --keyring=: Key ring of the key.
+                --location=: Location of the keyring.
+                --public-key-file=: Path to the public key of the ImportJob, used to wrap the key for import.
+                --rsa-aes-wrapped-key-file=&: (DEPRECATED) Path to the wrapped RSA AES key file to import.
+                --target-key-file=: Path to the unwrapped target key to import into a Cloud KMS key version.
+                --wrapped-key-file=: Path to the RSA/RSA+AES wrapped key file to import.
+              completion:
+                flag:
+                    algorithm:
+                        - aes-128-cbc
+                        - aes-128-ctr
+                        - aes-128-gcm
+                        - aes-256-cbc
+                        - aes-256-ctr
+                        - aes-256-gcm
+                        - ec-sign-ed25519
+                        - ec-sign-p256-sha256
+                        - ec-sign-p384-sha384
+                        - ec-sign-secp256k1-sha256
+                        - google-symmetric-encryption
+                        - hmac-sha1
+                        - hmac-sha224
+                        - hmac-sha256
+                        - hmac-sha384
+                        - hmac-sha512
+                        - kem-xwing
+                        - ml-kem-1024
+                        - ml-kem-768
+                        - pq-sign-hash-slh-dsa-sha2-128s-sha256
+                        - pq-sign-ml-dsa-65
+                        - pq-sign-slh-dsa-sha2-128s
+                        - rsa-decrypt-oaep-2048-sha1
+                        - rsa-decrypt-oaep-2048-sha256
+                        - rsa-decrypt-oaep-3072-sha1
+                        - rsa-decrypt-oaep-3072-sha256
+                        - rsa-decrypt-oaep-4096-sha1
+                        - rsa-decrypt-oaep-4096-sha256
+                        - rsa-decrypt-oaep-4096-sha512
+                        - rsa-sign-pkcs1-2048-sha256
+                        - rsa-sign-pkcs1-3072-sha256
+                        - rsa-sign-pkcs1-4096-sha256
+                        - rsa-sign-pkcs1-4096-sha512
+                        - rsa-sign-pss-2048-sha256
+                        - rsa-sign-pss-3072-sha256
+                        - rsa-sign-pss-4096-sha256
+                        - rsa-sign-pss-4096-sha512
+                        - rsa-sign-raw-pkcs1-2048
+                        - rsa-sign-raw-pkcs1-3072
+                        - rsa-sign-raw-pkcs1-4096
+            - name: restore
+              description: Restore a version scheduled for destruction.
+              flags:
+                --key=: The containing key.
+                --keyring=: Key ring of the key.
+                --location=: Location of the keyring.
+            - name: update
+              description: Update a key version.
+              flags:
+                --ekm-connection-key-path=: The path to the external key material on the EKM for keys with protection level "external-vpc".
+                --external-key-uri=: The URI of the external key for keys with protection level "external".
+                --key=: The containing key.
+                --keyring=: Key ring of the key.
+                --location=: Location of the keyring.
+                --state=: State of the key version.
+            - name: describe
+              description: Get metadata for a given version.
+              flags:
+                --attestation-file=: Path to the output attestation file.
+                --key=: The containing key.
+                --keyring=: Key ring of the key.
+                --location=: Location of the keyring.
+            - name: enable
+              description: Enable a given version.
+              flags:
+                --key=: The containing key.
+                --keyring=: Key ring of the key.
+                --location=: Location of the keyring.
+            - name: get-public-key
+              description: Get the public key for a given version.
+              flags:
+                --key=: The containing key.
+                --keyring=: Key ring of the key.
+                --location=: Location of the keyring.
+                --output-file=: Path to the output file to store public key.
+                --public-key-format=: The format in which the public key will be returned.
+            - name: list
+              description: List the versions within a key.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --key=: The containing key.
+                --keyring=: Key ring of the key.
+                --limit=: Maximum number of resources to list.
+                --location=: Location of the keyring.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the

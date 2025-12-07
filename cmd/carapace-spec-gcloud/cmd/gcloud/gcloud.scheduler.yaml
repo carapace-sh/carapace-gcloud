@@ -1,0 +1,281 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: scheduler
+description: Manage Cloud Scheduler jobs and schedules.
+commands:
+    - name: locations
+      description: Get information about Cloud Scheduler locations.
+      commands:
+        - name: list
+          description: Lists the locations where Cloud Scheduler is available.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: describe
+          description: Show details about a location.
+    - name: operations
+      description: Get information about Cloud Scheduler operations.
+      commands:
+        - name: describe
+          description: Show the latest status of an operation.
+          flags:
+            --name=!: The full name of the Cloud Scheduler operation to describe.
+    - name: cmek-config
+      description: Manage CMEK configuration for Cloud Scheduler.
+      commands:
+        - name: describe
+          description: Get CMEK configuration for Cloud Scheduler in the specified location.
+          flags:
+            --location=!: Google Cloud location for the KMS key.
+        - name: update
+          description: Update CMEK configuration for Cloud Scheduler in the specified location.
+          flags:
+            --clear-kms-key!: Disables CMEK for Cloud Scheduler in the specified location by clearing the Cloud KMS cryptokey from the Cloud Scheduler project and CMEK configuration.
+            --kms-key-name=!: Fully qualified identifier for the key or just the key ID.
+            --kms-keyring=: KMS keyring of the KMS key.
+            --kms-project=: Google Cloud project for the KMS key.
+            --location=: Google Cloud location for the KMS key.
+            --no-clear-kms-key!&: Disables CMEK for Cloud Scheduler in the specified location by clearing the Cloud KMS cryptokey from the Cloud Scheduler project and CMEK configuration.
+    - name: jobs
+      description: Manage Cloud Scheduler jobs.
+      commands:
+        - name: run
+          description: Trigger an on-demand execution of a job.
+          flags:
+            --location=: The location of the job.
+        - name: update
+          description: Update Cloud Scheduler jobs for various types of targets.
+          commands:
+            - name: app-engine
+              description: Update a Cloud Scheduler job with an App Engine target.
+              flags:
+                --attempt-deadline=: The deadline for job attempts.
+                --clear-headers: Clear the list of HTTP headers.
+                --clear-max-backoff: Clear the field corresponding to `--max-backoff`.
+                --clear-max-doublings: Clear the field corresponding to `--max-doublings`.
+                --clear-max-retry-attempts: Clear the field corresponding to `--max-retry-attempts`.
+                --clear-max-retry-duration: Clear the field corresponding to `--max-retry-duration`.
+                --clear-message-body: Clear the field corresponding to `--message-body` or `--message-body-from-file`.
+                --clear-min-backoff: Clear the field corresponding to `--min-backoff`.
+                --clear-relative-url: Clear the field corresponding to `--relative-url`.
+                --clear-service: Clear the field corresponding to `--service`.
+                --clear-time-zone: Clear the field corresponding to `--time-zone`.
+                --description=: Human-readable description of the job.
+                --http-method=: HTTP method to use for the request.
+                --location=: The location of the job.
+                --max-backoff=: Maximum amount of time to wait before retrying a job after it
+                --max-doublings=: Maximum number of times that the interval between failed job
+                --max-retry-attempts=: Number of times to retry the request if it fails or times out.
+                --max-retry-duration=: Time limit for retrying a failed job, measured from when the job was
+                --message-body-from-file=: Path to file containing the data payload to be included as the
+                --message-body=: Data payload to be included as the body of the HTTP
+                --min-backoff=: Minimum amount of time to wait before retrying a job after it
+                --no-clear-headers&: Clear the list of HTTP headers.
+                --no-clear-max-backoff&: Clear the field corresponding to `--max-backoff`.
+                --no-clear-max-doublings&: Clear the field corresponding to `--max-doublings`.
+                --no-clear-max-retry-attempts&: Clear the field corresponding to `--max-retry-attempts`.
+                --no-clear-max-retry-duration&: Clear the field corresponding to `--max-retry-duration`.
+                --no-clear-message-body&: Clear the field corresponding to `--message-body` or `--message-body-from-file`.
+                --no-clear-min-backoff&: Clear the field corresponding to `--min-backoff`.
+                --no-clear-relative-url&: Clear the field corresponding to `--relative-url`.
+                --no-clear-service&: Clear the field corresponding to `--service`.
+                --no-clear-time-zone&: Clear the field corresponding to `--time-zone`.
+                --relative-url=: Relative URL to use for the request (beginning with "/").
+                --remove-headers=: KEY1,KEY2 list of HTTP headers to remove from the request.
+                --schedule=: Schedule on which the job will be executed.
+                --service=: ID of the App Engine service to send the request to.
+                --time-zone=: Specifies the time zone to be used in interpreting --schedule.
+                --update-headers=: KEY=VALUE pairs of HTTP headers to include in the request.
+              completion:
+                flag:
+                    http-method:
+                        - delete
+                        - get
+                        - head
+                        - post
+                        - put
+            - name: http
+              description: Update a Cloud Scheduler job that triggers an action via HTTP.
+              flags:
+                --attempt-deadline=: The deadline for job attempts.
+                --clear-auth-token: 'Clear the auth token fields: `--oidc-service-account-email`,'
+                --clear-headers: Clear the list of HTTP headers.
+                --clear-max-backoff: Clear the field corresponding to `--max-backoff`.
+                --clear-max-doublings: Clear the field corresponding to `--max-doublings`.
+                --clear-max-retry-attempts: Clear the field corresponding to `--max-retry-attempts`.
+                --clear-max-retry-duration: Clear the field corresponding to `--max-retry-duration`.
+                --clear-message-body: Clear the field corresponding to `--message-body` or `--message-body-from-file`.
+                --clear-min-backoff: Clear the field corresponding to `--min-backoff`.
+                --clear-time-zone: Clear the field corresponding to `--time-zone`.
+                --description=: Human-readable description of the job.
+                --http-method=: HTTP method to use for the request.
+                --location=: The location of the job.
+                --max-backoff=: Maximum amount of time to wait before retrying a job after it
+                --max-doublings=: Maximum number of times that the interval between failed job
+                --max-retry-attempts=: Number of times to retry the request if it fails or times out.
+                --max-retry-duration=: Time limit for retrying a failed job, measured from when the job was
+                --message-body-from-file=: Path to file containing the data payload to be included as the
+                --message-body=: Data payload to be included as the body of the HTTP
+                --min-backoff=: Minimum amount of time to wait before retrying a job after it
+                --no-clear-auth-token&: 'Clear the auth token fields: `--oidc-service-account-email`,'
+                --no-clear-headers&: Clear the list of HTTP headers.
+                --no-clear-max-backoff&: Clear the field corresponding to `--max-backoff`.
+                --no-clear-max-doublings&: Clear the field corresponding to `--max-doublings`.
+                --no-clear-max-retry-attempts&: Clear the field corresponding to `--max-retry-attempts`.
+                --no-clear-max-retry-duration&: Clear the field corresponding to `--max-retry-duration`.
+                --no-clear-message-body&: Clear the field corresponding to `--message-body` or `--message-body-from-file`.
+                --no-clear-min-backoff&: Clear the field corresponding to `--min-backoff`.
+                --no-clear-time-zone&: Clear the field corresponding to `--time-zone`.
+                --oauth-service-account-email=!: The service account email to be used for generating an OAuth2
+                --oauth-token-scope=: The scope to be used when generating an OAuth2 access token to
+                --oidc-service-account-email=!: The service account email to be used for generating an OpenId
+                --oidc-token-audience=: The audience to be used when generating an OpenId Connect token
+                --remove-headers=: KEY1,KEY2 list of HTTP headers to remove from the request.
+                --schedule=: Schedule on which the job will be executed.
+                --time-zone=: Specifies the time zone to be used in interpreting --schedule.
+                --update-headers=: KEY=VALUE pairs of HTTP headers to include in the request.
+                --uri=: The full URI path that the request will be sent to.
+              completion:
+                flag:
+                    http-method:
+                        - delete
+                        - get
+                        - head
+                        - post
+                        - put
+            - name: pubsub
+              description: Update a Cloud Scheduler job with a Pub/Sub target.
+              flags:
+                --clear-attributes: Clear the field corresponding to `--attributes`.
+                --clear-max-backoff: Clear the field corresponding to `--max-backoff`.
+                --clear-max-doublings: Clear the field corresponding to `--max-doublings`.
+                --clear-max-retry-attempts: Clear the field corresponding to `--max-retry-attempts`.
+                --clear-max-retry-duration: Clear the field corresponding to `--max-retry-duration`.
+                --clear-min-backoff: Clear the field corresponding to `--min-backoff`.
+                --clear-time-zone: Clear the field corresponding to `--time-zone`.
+                --description=: Human-readable description of the job.
+                --location=: The location of the job.
+                --max-backoff=: Maximum amount of time to wait before retrying a job after it
+                --max-doublings=: Maximum number of times that the interval between failed job
+                --max-retry-attempts=: Number of times to retry the request if it fails or times out.
+                --max-retry-duration=: Time limit for retrying a failed job, measured from when the job was
+                --message-body-from-file=: Path to a file containing the body of the message.
+                --message-body=: Body of the message.
+                --min-backoff=: Minimum amount of time to wait before retrying a job after it
+                --no-clear-attributes&: Clear the field corresponding to `--attributes`.
+                --no-clear-max-backoff&: Clear the field corresponding to `--max-backoff`.
+                --no-clear-max-doublings&: Clear the field corresponding to `--max-doublings`.
+                --no-clear-max-retry-attempts&: Clear the field corresponding to `--max-retry-attempts`.
+                --no-clear-max-retry-duration&: Clear the field corresponding to `--max-retry-duration`.
+                --no-clear-min-backoff&: Clear the field corresponding to `--min-backoff`.
+                --no-clear-time-zone&: Clear the field corresponding to `--time-zone`.
+                --remove-attributes=: Comma-separated list of attribute keys to remove with the form
+                --schedule=: Schedule on which the job will be executed.
+                --time-zone=: Specifies the time zone to be used in interpreting --schedule.
+                --topic=: Name of the Google Cloud Pub/Sub topic to publish to when the job runs.
+                --update-attributes=: Comma-separated list of attributes.
+        - name: create
+          description: Create Cloud Scheduler jobs for various types of targets.
+          commands:
+            - name: app-engine
+              description: Create a Cloud Scheduler job with an App Engine target.
+              flags:
+                --attempt-deadline=: The deadline for job attempts.
+                --description=: Human-readable description of the job.
+                --headers=: KEY=VALUE pairs of HTTP headers to include in the request.
+                --http-method=: HTTP method to use for the request.
+                --location=: The location of the job.
+                --max-backoff=: Maximum amount of time to wait before retrying a job after it
+                --max-doublings=: Maximum number of times that the interval between failed job
+                --max-retry-attempts=: Number of times to retry the request if it fails or times out.
+                --max-retry-duration=: Time limit for retrying a failed job, measured from when the job was
+                --message-body-from-file=: Path to file containing the data payload to be included as the
+                --message-body=: Data payload to be included as the body of the HTTP
+                --min-backoff=: Minimum amount of time to wait before retrying a job after it
+                --relative-url=: Relative URL to use for the request (beginning with "/").
+                --schedule=!: Schedule on which the job will be executed.
+                --service=: ID of the App Engine service to send the request to.
+                --time-zone=: Specifies the time zone to be used in interpreting --schedule.
+              completion:
+                flag:
+                    http-method:
+                        - delete
+                        - get
+                        - head
+                        - post
+                        - put
+            - name: http
+              description: Create a Cloud Scheduler job that triggers an action via HTTP.
+              flags:
+                --attempt-deadline=: The deadline for job attempts.
+                --description=: Human-readable description of the job.
+                --headers=: KEY=VALUE pairs of HTTP headers to include in the request.
+                --http-method=: HTTP method to use for the request.
+                --location=: The location of the job.
+                --max-backoff=: Maximum amount of time to wait before retrying a job after it
+                --max-doublings=: Maximum number of times that the interval between failed job
+                --max-retry-attempts=: Number of times to retry the request if it fails or times out.
+                --max-retry-duration=: Time limit for retrying a failed job, measured from when the job was
+                --message-body-from-file=: Path to file containing the data payload to be included as the
+                --message-body=: Data payload to be included as the body of the HTTP
+                --min-backoff=: Minimum amount of time to wait before retrying a job after it
+                --oauth-service-account-email=!: The service account email to be used for generating an OAuth2
+                --oauth-token-scope=: The scope to be used when generating an OAuth2 access token to
+                --oidc-service-account-email=!: The service account email to be used for generating an OpenId
+                --oidc-token-audience=: The audience to be used when generating an OpenId Connect token
+                --schedule=!: Schedule on which the job will be executed.
+                --time-zone=: Specifies the time zone to be used in interpreting --schedule.
+                --uri=!: The full URI path that the request will be sent to.
+              completion:
+                flag:
+                    http-method:
+                        - delete
+                        - get
+                        - head
+                        - post
+                        - put
+            - name: pubsub
+              description: Create a Cloud Scheduler job with a Pub/Sub target.
+              flags:
+                --attributes=: Comma-separated list of attributes.
+                --description=: Human-readable description of the job.
+                --location=: The location of the job.
+                --max-backoff=: Maximum amount of time to wait before retrying a job after it
+                --max-doublings=: Maximum number of times that the interval between failed job
+                --max-retry-attempts=: Number of times to retry the request if it fails or times out.
+                --max-retry-duration=: Time limit for retrying a failed job, measured from when the job was
+                --message-body-from-file=: Path to a file containing the body of the message.
+                --message-body=: Body of the message.
+                --min-backoff=: Minimum amount of time to wait before retrying a job after it
+                --schedule=!: Schedule on which the job will be executed.
+                --time-zone=: Specifies the time zone to be used in interpreting --schedule.
+                --topic=!: Name of the Google Cloud Pub/Sub topic to publish to when the job runs.
+        - name: delete
+          description: Delete a job.
+          flags:
+            --location=: The location of the job.
+        - name: describe
+          description: Show details about a job.
+          flags:
+            --location=: The location of the job.
+        - name: list
+          description: List jobs.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: pause
+          description: Pause the execution of a job.
+          flags:
+            --location=: The location of the job.
+        - name: resume
+          description: Resume execution of a paused job.
+          flags:
+            --location=: The location of the job.

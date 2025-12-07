@@ -1,0 +1,36 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: emulators
+description: Set up your local development environment using emulators.
+commands:
+    - name: firestore
+      description: Manage your local Firestore emulator.
+      commands:
+        - name: start
+          description: Start a local Firestore emulator.
+          flags:
+            --database-mode=: The database mode to start the Firestore Emulator in.
+            --export-on-exit=: Directory path in which emulator data will be saved upon shutdown.
+            --host-port=: The host:port to which the emulator should be bound.
+            --import-data=: File path to the data to be loaded into the emulator upon start up.
+            --licenses: If set, the emulator will print open-source dependencies and licenses, then exit.
+            --no-licenses&: If set, the emulator will print open-source dependencies and licenses, then exit.
+            --no-use-firestore-in-datastore-mode&: Runs the emulator in Datastore Mode.
+            --rules=: If set, all projects will use the security rules in this file.
+            --use-firestore-in-datastore-mode&: Runs the emulator in Datastore Mode.
+    - name: spanner
+      description: Manage your local Spanner emulator.
+      commands:
+        - name: env-init
+          description: Print the commands required to export Spanner emulator's env variables.
+        - name: notices
+          description: Print third-party notices for the local Cloud Spanner emulator.
+          flags:
+            --no-use-docker&: Use the Cloud Spanner emulator docker image even if the platform has a native binary available in the gcloud CLI.
+            --use-docker: Use the Cloud Spanner emulator docker image even if the platform has a native binary available in the gcloud CLI.
+        - name: start
+          description: Start a local Cloud Spanner emulator.
+          flags:
+            --enable-fault-injection=: If true, the emulator will randomly inject faults into transactions.
+            --host-port=: The host:port to which the emulator should be bound.
+            --rest-port=: The port at which REST requests are served.
+            --use-docker=: Use the Cloud Spanner emulator docker image even if the platform has a native binary available in the gcloud CLI.

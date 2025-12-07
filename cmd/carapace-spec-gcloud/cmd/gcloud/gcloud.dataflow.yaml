@@ -1,0 +1,254 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: dataflow
+description: Manage Google Cloud Dataflow resources.
+commands:
+    - name: flex-template
+      description: A group of subcommands for working with Dataflow flex template.
+      commands:
+        - name: build
+          description: Builds a flex template file from the specified parameters.
+          flags:
+            --additional-experiments=: Default experiments to pass to the job.
+            --additional-user-labels=: Default user labels to pass to the job.
+            --cloud-build-service-account=: Service account to run the Cloud Build in the format projects/{project}/serviceAccounts/{service_account}.
+            --dataflow-kms-key=: Default Cloud KMS key to protect the job resources.
+            --disable-public-ips: Cloud Dataflow workers must not use public IP addresses.
+            --enable-streaming-engine: Enable Streaming Engine for the streaming job by default.
+            --env=!: Environment variables to create for the Dockerfile.
+            --flex-template-base-image=!: Flex template base image to be used while building the container image.
+            --gcs-log-dir=: Google Cloud Storage directory to save build logs.(Must
+            --go-binary-path=: Local path to your compiled dataflow pipeline Go binary.
+            --image-gcr-path=!: The Google Container Registry or Google Artifact Registry location to store the flex template image to be built.
+            --image-repository-cert-path=: The full URL to self-signed certificate of private registry in Cloud Storage.
+            --image-repository-password-secret-id=: Secret Manager secret id for the password to authenticate to private registry.
+            --image-repository-username-secret-id=: Secret Manager secret id for the username to authenticate to private registry.
+            --image=: Path to the any image registry location of the prebuilt flex template image.
+            --jar=: Local path to your dataflow pipeline jar file and all their dependent jar files required for the flex template classpath.
+            --max-workers=: Default maximum number of workers to run.
+            --metadata-file=: Local path to the metadata json file for the flex template.
+            --network=: Default Compute Engine network for launching instances to run your pipeline.
+            --no-disable-public-ips&: Cloud Dataflow workers must not use public IP addresses.
+            --no-enable-streaming-engine&: Enable Streaming Engine for the streaming job by default.
+            --no-print-only&: Prints the container spec to stdout.
+            --num-workers=: Initial number of workers to use by default.
+            --print-only: Prints the container spec to stdout.
+            --py-path=: Local path to your dataflow pipeline python files and all their dependent files required for the flex template classpath.
+            --sdk-language=!: SDK language of the flex template job.
+            --service-account-email=: Default service account to run the workers as.
+            --staging-location=: Default Google Cloud Storage location to stage local files.(Must
+            --subnetwork=: Default Compute Engine subnetwork for launching instances to run your pipeline.
+            --temp-location=: Default Google Cloud Storage location to stage temporary files.
+            --worker-machine-type=: Default type of machine to use for workers.
+            --worker-region=: Default region to run the workers in.
+            --worker-zone=: Default zone to run the workers in.
+            --yaml-image=: Path to the any image registry location of the prebuilt yaml template image.
+            --yaml-pipeline-path=!: Local path to your YAML pipeline file.
+          completion:
+            flag:
+                sdk-language:
+                    - JAVA
+                    - PYTHON
+                    - GO
+                    - YAML
+        - name: run
+          description: Runs a job from the specified path.
+          flags:
+            --additional-experiments=: Additional experiments to pass to the job.
+            --additional-pipeline-options=: Additional pipeline options to pass to the job.
+            --additional-user-labels=: Additional user labels to pass to the job.
+            --dataflow-kms-key=: Cloud KMS key to protect the job resources.
+            --disable-public-ips: Cloud Dataflow workers must not use public IP addresses.
+            --enable-streaming-engine: Enabling Streaming Engine for the streaming job.
+            --flexrs-goal=: FlexRS goal for the flex template job.
+            --launcher-machine-type=: The machine type to use for launching the job.
+            --max-workers=: Maximum number of workers to run.
+            --network=: Compute Engine network for launching instances to run your pipeline.
+            --no-disable-public-ips&: Cloud Dataflow workers must not use public IP addresses.
+            --no-enable-streaming-engine&: Enabling Streaming Engine for the streaming job.
+            --no-update!&: Set this to true for streaming update jobs.
+            --num-workers=: Initial number of workers to use.
+            --parameters=: Parameters to pass to the job.
+            --region=: Region ID of the job's regional endpoint.
+            --service-account-email=: Service account to run the workers as.
+            --staging-location=: Default Google Cloud Storage location to stage local files.(Must
+            --subnetwork=: Compute Engine subnetwork for launching instances to run your pipeline.
+            --temp-location=: Default Google Cloud Storage location to stage temporary files.
+            --template-file-gcs-location=!: Google Cloud Storage location of the flex template to run.
+            --transform-name-mappings=: Transform name mappings for the streaming update job.
+            --update!: Set this to true for streaming update jobs.
+            --worker-machine-type=: Type of machine to use for workers.
+            --worker-region=: Region to run the workers in.
+            --worker-zone=: Zone to run the workers in.
+          completion:
+            flag:
+                flexrs-goal:
+                    - COST_OPTIMIZED
+                    - SPEED_OPTIMIZED
+    - name: jobs
+      description: A group of subcommands for working with Dataflow jobs.
+      commands:
+        - name: drain
+          description: Drains all jobs that match the command line arguments.
+          flags:
+            --region=: Region ID of the jobs' regional endpoint.
+        - name: list
+          description: Lists all jobs in a particular project, optionally filtered by region.
+          flags:
+            --created-after=: Filter the jobs to those created after the given time.
+            --created-before=: Filter the jobs to those created before the given time.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: Only resources from the given region are queried.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --status=: Filter the jobs to those with the selected status.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+          completion:
+            flag:
+                status:
+                    - active
+                    - all
+                    - terminated
+        - name: run
+          description: Runs a job from the specified path.
+          flags:
+            --additional-experiments=: Additional experiments to pass to the job.
+            --additional-user-labels=: Additional user labels to pass to the job.
+            --dataflow-kms-key=: The Cloud KMS key to protect the job resources.
+            --disable-public-ips: The Cloud Dataflow workers must not use public IP addresses.
+            --enable-streaming-engine: Enabling Streaming Engine for the streaming job.
+            --gcs-location=!: The Google Cloud Storage location of the job template to run.
+            --max-workers=: The maximum number of workers to run.
+            --network=: The Compute Engine network for launching instances to run your pipeline.
+            --no-disable-public-ips&: The Cloud Dataflow workers must not use public IP addresses.
+            --no-enable-streaming-engine&: Enabling Streaming Engine for the streaming job.
+            --no-update!&: Set this to true for streaming update jobs.
+            --num-workers=: The initial number of workers to use.
+            --parameters=: The parameters to pass to the job.
+            --region=: Region ID of the job's regional endpoint.
+            --service-account-email=: The service account to run the workers as.
+            --staging-location=: The Google Cloud Storage location to stage temporary files.
+            --subnetwork=: The Compute Engine subnetwork for launching instances to run your pipeline.
+            --transform-name-mappings=: Transform name mappings for the streaming update job.
+            --update!: Set this to true for streaming update jobs.
+            --worker-machine-type=: The type of machine to use for workers.
+            --worker-region=: The region to run the workers in.
+            --worker-zone=: The zone to run the workers in.
+            --zone=: (DEPRECATED) The zone to run the workers in.
+        - name: show
+          description: Shows a short description of the given job.
+          flags:
+            --environment: If present, the environment will be listed.
+            --no-environment&: If present, the environment will be listed.
+            --no-steps&: If present, the steps will be listed.
+            --region=: Region ID of the job's regional endpoint.
+            --steps: If present, the steps will be listed.
+        - name: update-options
+          description: Update pipeline options on-the-fly for running Dataflow jobs.
+          flags:
+            --max-num-workers=: Upper-bound for autoscaling, between 1-1000.
+            --min-num-workers=: Lower-bound for autoscaling, between 1-1000.
+            --no-unset-worker-utilization-hint&: Unset --worker-utilization-hint.
+            --region=: Region ID of the job's regional endpoint.
+            --unset-worker-utilization-hint: Unset --worker-utilization-hint.
+            --worker-utilization-hint=: Target CPU utilization for autoscaling, ranging from 0.1 to 0.9. Only supported for streaming-engine jobs with autoscaling enabled.
+        - name: archive
+          description: Archives a job.
+          flags:
+            --region=: Region ID of the job's regional endpoint.
+        - name: cancel
+          description: Cancels all jobs that match the command line arguments.
+          flags:
+            --force: Forcibly cancels a Dataflow job.
+            --no-force&: Forcibly cancels a Dataflow job.
+            --region=: Region ID of the jobs' regional endpoint.
+        - name: describe
+          description: Outputs the Job object resulting from the Get API.
+          flags:
+            --full: Retrieve the full Job rather than the summary view
+            --region=: Region ID of the job's regional endpoint.
+    - name: snapshots
+      description: A group of subcommands for working with Cloud Dataflow snapshots.
+      commands:
+        - name: create
+          description: Creates a snapshot for a Cloud Dataflow job.
+          flags:
+            --job-id=!: The job ID to snapshot.
+            --region=!: The region ID of the snapshot and job's regional endpoint.
+            --snapshot-sources=: If true, snapshots will also be created for the Cloud Pub/Sub sources of the Cloud Dataflow job.
+            --snapshot-ttl=: Time to live for the snapshot.
+        - name: delete
+          description: Delete a Cloud Dataflow snapshot.
+          flags:
+            --region=!: Region ID of the snapshot regional endpoint.
+        - name: describe
+          description: Describe a Cloud Dataflow snapshot.
+          flags:
+            --region=!: Region ID of the snapshot regional endpoint.
+        - name: list
+          description: List all Cloud Dataflow snapshots in a project in the specified region, optionally filtered by job ID.
+          flags:
+            --job-id=: The job ID to use to filter the snapshots list.
+            --region=!: The region ID of the snapshot and job's regional endpoint.
+    - name: sql
+      description: '*(REMOVED)*  A group of subcommands for working with Dataflow SQL.'
+      hidden: true
+      commands:
+        - name: query
+          description: '*(REMOVED)*  Execute the user-specified SQL query on Dataflow.'
+          hidden: true
+          flags:
+            --bigquery-dataset=: The BigQuery dataset ID.
+            --bigquery-project=: The BigQuery project ID.
+            --bigquery-table=!: ID of the BigQuery table or fully qualified identifier for the BigQuery table.
+            --bigquery-write-disposition=: The behavior of the BigQuery write operation.
+            --dataflow-kms-key=: The Cloud KMS key to protect the job resources.
+            --disable-public-ips: The Cloud Dataflow workers must not use public IP addresses.
+            --dry-run: Construct but do not run the SQL pipeline, for smoke testing.
+            --job-name=!: The unique name to assign to the Cloud Dataflow job.
+            --max-workers=: The maximum number of workers to run.
+            --network=: The Compute Engine network for launching instances to run your pipeline.
+            --no-disable-public-ips&: The Cloud Dataflow workers must not use public IP addresses.
+            --no-dry-run&: Construct but do not run the SQL pipeline, for smoke testing.
+            --num-workers=: The initial number of workers to use.
+            --parameter=: Parameters to pass to a query.
+            --parameters-file=: Path to a file containing query parameters in JSON format.
+            --pubsub-create-disposition=: The behavior of the Pub/Sub create operation.
+            --pubsub-project=: The Pub/Sub project ID.
+            --pubsub-topic=!: ID of the Pub/Sub topic or fully qualified identifier for the Pub/Sub topic.
+            --region=!: Region ID of the job's regional endpoint.
+            --service-account-email=: The service account to run the workers as.
+            --sql-launcher-template-engine=&: The template engine to use for the SQL launcher template.
+            --sql-launcher-template=&: The full GCS path to a SQL launcher template spec, e.g. gs://dataflow-sql-templates-us-west1/cloud_dataflow_sql_launcher_template_20201208_RC00/sql_launcher_flex_template.
+            --subnetwork=: The Compute Engine subnetwork for launching instances to run your pipeline.
+            --worker-machine-type=: The type of machine to use for workers.
+            --worker-region=: The region to run the workers in.
+            --worker-zone=: The zone to run the workers in.
+            --zone=: (DEPRECATED) The zone to run the workers in.
+          completion:
+            flag:
+                bigquery-write-disposition:
+                    - write-empty
+                    - write-truncate
+                    - write-append
+                pubsub-create-disposition:
+                    - create-if-not-found
+                    - fail-if-not-found
+                sql-launcher-template-engine:
+                    - flex
+                    - dynamic
+    - name: yaml
+      description: A group of subcommands for launching Beam YAML jobs on Dataflow.
+      commands:
+        - name: run
+          description: Runs a job from the specified path.
+          flags:
+            --jinja-variables=: Jinja2 variables to be used in reifying the yaml.
+            --network=: Compute Engine network for launching worker instances to run the pipeline.
+            --pipeline-options=: Pipeline options to pass to the job.
+            --region=: Region ID of the job's regional endpoint.
+            --subnetwork=: Compute Engine subnetwork for launching worker instances to run the pipeline.
+            --template-file-gcs-location=: Google Cloud Storage location of the YAML template to run.
+            --yaml-pipeline-file=: Path of a file defining the YAML pipeline to run.
+            --yaml-pipeline=: Inline definition of the YAML pipeline to run.

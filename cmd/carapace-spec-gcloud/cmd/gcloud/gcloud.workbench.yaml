@@ -1,0 +1,251 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: workbench
+description: Workbench Command Group.
+commands:
+    - name: instances
+      description: Workbench Instances command group.
+      commands:
+        - name: create
+          description: Creates a workbench instance.
+          flags:
+            --accelerator-core-count=: Count of cores of this accelerator.
+            --accelerator-type=: Type of this accelerator.
+            --async: Return immediately, without waiting for the operation in progress to
+            --boot-disk-encryption-key-keyring=: The KMS keyring of the key.
+            --boot-disk-encryption-key-location=: The Google Cloud location for the key.
+            --boot-disk-encryption-key-project=: The Google Cloud project for the key.
+            --boot-disk-encryption=: Disk encryption method used on the boot disk, defaults to GMEK.
+            --boot-disk-kms-key=!: ID of the key or fully qualified identifier for the key.
+            --boot-disk-size=: Size of boot disk in GB attached to this instance, up to a maximum of 64000 GB (64 TB).
+            --boot-disk-type=: Type of boot disk attached to this instance, defaults to standard persistent disk (`PD_STANDARD`).
+            --confidential-compute-type=: String.
+            --container-repository=!: The path to the container image repository.
+            --container-tag=: The tag of the container image.
+            --custom-gpu-driver-path=: Specify a custom Cloud Storage path where the GPU driver is stored.
+            --data-disk-encryption-key-keyring=: The KMS keyring of the key.
+            --data-disk-encryption-key-location=: The Google Cloud location for the key.
+            --data-disk-encryption-key-project=: The Google Cloud project for the key.
+            --data-disk-encryption=: Disk encryption method used on the data disk, defaults to GMEK.
+            --data-disk-kms-key=!: ID of the key or fully qualified identifier for the key.
+            --data-disk-resource-policies=: Resource policies to apply to the data disk.
+            --data-disk-size=: Size of data disk in GB attached to this instance, up to a maximum of 64000 GB (64 TB).
+            --data-disk-type=: Type of data disk attached to this instance, defaults to standard persistent disk (`PD_STANDARD`).
+            --disable-proxy-access: If true, the notebook instance will not register with the proxy.
+            --disable-public-ip: If specified, no public IP will be assigned to this instance.
+            --enable-ip-forwarding: If specified, IP forwarding will be enabled for this instance.
+            --enable-third-party-identity: If true, the notebook instance provide a proxy endpoint which allows for third party identity.
+            --install-gpu-driver: Whether the end user authorizes Google Cloud to install a GPU driver on this instance.
+            --instance-owners=: The owners of this instance after creation.
+            --labels=: Labels to apply to this instance.
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --machine-type=: The [Compute Engine machine type](https://cloud.google.com/sdk/gcloud/reference/compute/machine-types) of this instance.
+            --metadata=: Custom metadata to apply to this instance.
+            --min-cpu-platform=: The minimum CPU platform to use for this instance.
+            --network=!: ID of the network or fully qualified identifier for the network.
+            --nic-type=: Type of the network interface card.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-disable-proxy-access&: If true, the notebook instance will not register with the proxy.
+            --no-disable-public-ip&: If specified, no public IP will be assigned to this instance.
+            --no-enable-ip-forwarding&: If specified, IP forwarding will be enabled for this instance.
+            --no-enable-third-party-identity&: If true, the notebook instance provide a proxy endpoint which allows for third party identity.
+            --no-install-gpu-driver&: Whether the end user authorizes Google Cloud to install a GPU driver on this instance.
+            --reservation-key=: The label key of a reservation resource.
+            --reservation-type=: Type of the reservation.
+            --reservation-values=: The label value of a reservation resource.
+            --service-account-email=: The service account on this instance, giving access to other Google Cloud services.
+            --shielded-integrity-monitoring=: Boolean.
+            --shielded-secure-boot=: Boolean.
+            --shielded-vtpm=: Boolean.
+            --subnet-region=: Google Cloud region of this subnetwork https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --subnet=!: ID of the subnetwork or fully qualified identifier for the subnetwork.
+            --tags=: Tags to apply to this instance.
+            --vm-image-family=: Use this VM image family to find the image; the newest image in this family will be used.
+            --vm-image-name=: Use this VM image name to find the image.
+            --vm-image-project=: The ID of the Google Cloud project that this VM image belongs to.
+          completion:
+            flag:
+                accelerator-type:
+                    - NVIDIA_TESLA_K80
+                    - NVIDIA_TESLA_P100
+                    - NVIDIA_TESLA_V100
+                    - NVIDIA_TESLA_P4
+                    - NVIDIA_TESLA_T4
+                    - NVIDIA_TESLA_A100
+                    - NVIDIA_A100_80GB
+                    - NVIDIA_TESLA_T4_VWS
+                    - NVIDIA_TESLA_P100_VWS
+                    - NVIDIA_TESLA_P4_VWS
+                    - NVIDIA_L4
+                    - NVIDIA_H100_80GB
+                    - NVIDIA_H100_MEGA_80GB
+                boot-disk-encryption:
+                    - GMEK
+                    - CMEK
+                boot-disk-type:
+                    - PD_STANDARD
+                    - PD_SSD
+                    - PD_BALANCED
+                    - PD_EXTREME
+                data-disk-encryption:
+                    - GMEK
+                    - CMEK
+                data-disk-type:
+                    - PD_STANDARD
+                    - PD_SSD
+                    - PD_BALANCED
+                    - PD_EXTREME
+                nic-type:
+                    - VIRTIGO_NET
+                    - GVNIC
+                reservation-type:
+                    - none
+                    - any
+                    - specific
+        - name: delete
+          description: Deletes a workbench instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: remove-iam-policy-binding
+          description: Removes IAM policy binding for a workbench instance.
+          flags:
+            --location=: The location of the workbench instance.
+            --member=!: The principal to remove the binding for.
+            --role=!: The role to remove the principal from.
+        - name: restore
+          description: Restores the workbench instance to a snapshot state.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --snapshot-project=!: The project id of the snapshot to be restored from.
+            --snapshot=!: The snapshot name to be restored from.
+        - name: start
+          description: Starts a workbench instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: diagnose
+          description: Diagnoses a workbench instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --enable-copy-home-files: Enables flag to copy all `/home/jupyter` folder contents
+            --enable-packet-capture: Enables flag to capture packets from the instance for 30 seconds
+            --enable-repair: Enables flag to repair service for instance
+            --gcs-bucket=!: The Cloud Storage bucket where the log files generated from the diagnose command will be stored.
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-enable-copy-home-files&: Enables flag to copy all `/home/jupyter` folder contents
+            --no-enable-packet-capture&: Enables flag to capture packets from the instance for 30 seconds
+            --no-enable-repair&: Enables flag to repair service for instance
+            --relative-path=: Defines the relative storage path in the Cloud Storage bucket where the diagnostic logs will be written.
+        - name: resize-disk
+          description: Resizes the workbench instance's disk.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --boot-disk-size=: Size of boot disk in GB attached to this instance, up to a maximum of 64000 GB (64 TB).
+            --data-disk-size=: Size of data disk in GB attached to this instance, up to a maximum of 64000 GB (64 TB).
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: set-iam-policy
+          description: Sets the IAM policy for a workbench instance.
+          flags:
+            --location=: The location of the workbench instance.
+        - name: stop
+          description: Stops a workbench instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describes a workbench instance.
+          flags:
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+        - name: get-iam-policy
+          description: Gets IAM policy for a workbench instance.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: The location of the workbench instance.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: Lists workbench instances.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: reset
+          description: Resets a workbench instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: rollback
+          description: Rolls back a workbench instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --target-snapshot=!: The saved snapshot to rollback to.
+        - name: update
+          description: Updates a workbench instance.
+          flags:
+            --accelerator-core-count=: Count of cores of this accelerator.
+            --accelerator-type=: Type of this accelerator.
+            --async: Return immediately, without waiting for the operation in progress to
+            --container-repository=!: The path to the container image repository.
+            --container-tag=: The tag of the container image.
+            --custom-gpu-driver-path=: custom gpu driver path
+            --install-gpu-driver=: Install gpu driver
+            --labels=: Labels to apply to this instance.
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --machine-type=: The [Compute Engine machine type](https://cloud.google.com/sdk/gcloud/reference/compute/machine-types) of this instance.
+            --metadata=: Custom metadata to apply to this instance.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --shielded-integrity-monitoring=: Boolean.
+            --shielded-secure-boot=: Boolean.
+            --shielded-vtpm=: Boolean.
+            --tags=: Tags to apply to this instance.
+          completion:
+            flag:
+                accelerator-type:
+                    - NVIDIA_TESLA_K80
+                    - NVIDIA_TESLA_P100
+                    - NVIDIA_TESLA_V100
+                    - NVIDIA_TESLA_P4
+                    - NVIDIA_TESLA_T4
+                    - NVIDIA_TESLA_A100
+                    - NVIDIA_A100_80GB
+                    - NVIDIA_TESLA_T4_VWS
+                    - NVIDIA_TESLA_P100_VWS
+                    - NVIDIA_TESLA_P4_VWS
+                    - NVIDIA_L4
+                    - NVIDIA_H100_80GB
+                    - NVIDIA_H100_MEGA_80GB
+        - name: upgrade
+          description: Upgrades a workbench instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: add-iam-policy-binding
+          description: Adds IAM policy binding for a workbench instance.
+          flags:
+            --location=: The location of the workbench instance.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: check-instance-upgradability
+          description: Checks if a workbench instance is upgradeable.
+          flags:
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+        - name: get-config
+          description: Describes the valid configurations for workbench instances.
+          flags:
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.

@@ -1,0 +1,391 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: firestore
+description: Manage your Cloud Firestore resources.
+commands:
+    - name: backups
+      description: The set of commands to manage backups for Cloud Firestore.
+      commands:
+        - name: delete
+          description: Deletes a Cloud Firestore backup.
+          flags:
+            --backup=!: The backup to operate on.
+            --location=!: The location to operate on.
+        - name: describe
+          description: Retrieves information about a Cloud Firestore backup.
+          flags:
+            --backup=!: The backup to operate on.
+            --location=!: The location to operate on.
+        - name: list
+          description: List backups available to Cloud Firestore.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: The location to operate on.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: schedules
+          description: Manage the backup schedules for a Cloud Firestore Database.
+          commands:
+            - name: create
+              description: Creates a Cloud Firestore backup schedule.
+              flags:
+                --database=!: The database to operate on.
+                --day-of-week=: The day of week (UTC time zone) of when backups are created.
+                --recurrence=!: The recurrence settings of a backup schedule.
+                --retention=!: The rention of the backup.
+              completion:
+                flag:
+                    day-of-week:
+                        - SUN
+                        - MON
+                        - TUE
+                        - WED
+                        - THU
+                        - FRI
+                        - SAT
+            - name: delete
+              description: Deletes a Cloud Firestore backup schedule.
+              flags:
+                --backup-schedule=!: The backup schedule to operate on.
+                --database=!: The database to operate on.
+            - name: describe
+              description: Describes a Cloud Firestore backup schedule.
+              flags:
+                --backup-schedule=!: The backup schedule to operate on.
+                --database=!: The database to operate on.
+            - name: list
+              description: Lists backup schedules under a Cloud Firestore database.
+              flags:
+                --database=!: The database to operate on.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Updates a Cloud Firestore backup schedule.
+              flags:
+                --backup-schedule=!: The backup schedule to operate on.
+                --database=!: The database to operate on.
+                --retention=: The rention of the backup.
+    - name: fields
+      description: Manage field metadata for Cloud Firestore.
+      commands:
+        - name: ttls
+          description: Manage Time-to-live metadata for Cloud Firestore.
+          commands:
+            - name: list
+              description: List all fields used as a Time To Live expiration setting.
+              flags:
+                --collection-group=: ID of the collection group or fully qualified identifier for the collection group.
+                --database=: Database of the collection group.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Update the TTL configuration of the given field.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --collection-group=: Collection group of the field.
+                --database=: Database of the field.
+                --disable-ttl: Set to make this field no longer the TTL for its collection group.
+                --enable-ttl: Set to enable this field as the TTL for its collection group.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-disable-ttl&: Set to make this field no longer the TTL for its collection group.
+                --no-enable-ttl&: Set to enable this field as the TTL for its collection group.
+    - name: operations
+      description: Manage Long Running Operations for Cloud Firestore.
+      commands:
+        - name: delete
+          description: Delete a completed Cloud Firestore admin operation.
+          flags:
+            --database=: The database to operate on.
+        - name: describe
+          description: Retrieves information about a Cloud Firestore admin operation.
+          flags:
+            --database=: The database to operate on.
+        - name: list
+          description: List pending Cloud Firestore admin operations and their status.
+          flags:
+            --database=: The database to operate on.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: cancel
+          description: Cancel a currently-running Cloud Firestore admin operation.
+          flags:
+            --database=: The database to operate on.
+    - name: bulk-delete
+      description: bulk delete Cloud Firestore documents.
+      flags:
+        --async: Return immediately, without waiting for the operation in progress to
+        --collection-ids=: List specifying which collection groups will be included in the operation.
+        --database=: The database to operate on.
+        --namespace-ids=: List specifying which namespaces will be included in the operation.
+        --no-async&: Return immediately, without waiting for the operation in progress to
+    - name: databases
+      description: Manage Creation of Cloud Firestore in Native mode Database.
+      commands:
+        - name: clone
+          description: Clone a Google Cloud Firestore database from another.
+          flags:
+            --destination-database=!: Destination database to clone to.
+            --encryption-type=!: The encryption type of the destination database.
+            --kms-key-name=: The resource ID of a Cloud KMS key.
+            --snapshot-time=!: Snapshot time at which to clone.
+            --source-database=!: The source database to clone from.
+            --tags=: Tags to attach to the destination database.
+          completion:
+            flag:
+                encryption-type:
+                    - use-source-encryption
+                    - customer-managed-encryption
+                    - google-default-encryption
+        - name: create
+          description: Create a Google Cloud Firestore database via Firestore API.
+          flags:
+            --database=: The ID to use for the database, which will become the final
+            --delete-protection: Whether to enable delete protection on the created database.
+            --edition=: The edition of the database.
+            --enable-pitr: Whether to enable Point In Time Recovery (PITR) on the created database.
+            --kms-key-name=: The resource ID of a Cloud KMS key.
+            --location=!: The location to operate on.
+            --no-delete-protection&: Whether to enable delete protection on the created database.
+            --no-enable-pitr&: Whether to enable Point In Time Recovery (PITR) on the created database.
+            --tags=: Tags to attach to the destination database.
+            --type=: The type of the database.
+          completion:
+            flag:
+                edition:
+                    - standard
+                    - enterprise
+                type:
+                    - firestore-native
+                    - datastore-mode
+        - name: delete
+          description: Delete a Google Cloud Firestore database.
+          flags:
+            --database=!: The database to operate on.
+            --etag=: The current etag of the Database.
+        - name: list
+          description: Lists all Firestore databases under the project.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-show-deleted&: Show the deleted databases.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --show-deleted: Show the deleted databases.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: ping
+          description: Times the connection and ping time for a Firestore with MongoDB compatibility database.
+          flags:
+            --database=!: The database to operate on.
+        - name: restore
+          description: Restores a Cloud Firestore database from a backup.
+          flags:
+            --destination-database=!: Destination database to restore to.
+            --encryption-type=!: The encryption type of the destination database.
+            --kms-key-name=: The resource ID of a Cloud KMS key.
+            --source-backup=!: The source backup to restore from.
+            --tags=: Tags to attach to the destination database.
+          completion:
+            flag:
+                encryption-type:
+                    - use-source-encryption
+                    - customer-managed-encryption
+                    - google-default-encryption
+        - name: connection-string
+          description: Prints the mongo connection string for the given Firestore database.
+          flags:
+            --auth=: The auth configuration for the connection string.
+            --database=!: The database to operate on.
+            --validate=: Validate the specified connection string for the current database.
+          completion:
+            flag:
+                auth:
+                    - none
+                    - gce-vm
+                    - access-token
+                    - scram-sha-256
+        - name: describe
+          description: Describes information about a Cloud Firestore database.
+          flags:
+            --database=: The database to operate on.
+        - name: update
+          description: Update the database configuration of a Cloud Firestore database.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --database=: ID of the database or fully qualified identifier for the database.
+            --delete-protection: If set to true, the Firestore database will be updated to have database delete protection
+            --enable-pitr: If set to true, the Firestore database will be updated to enable Point In Time Recovery.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-delete-protection&: If set to true, the Firestore database will be updated to have database delete protection
+            --no-enable-pitr&: If set to true, the Firestore database will be updated to enable Point In Time Recovery.
+            --type=: The database type.
+          completion:
+            flag:
+                type:
+                    - datastore-mode
+                    - firestore-native
+    - name: export
+      description: export Cloud Firestore documents to Google Cloud Storage.
+      flags:
+        --async: Return immediately, without waiting for the operation in progress to
+        --collection-ids=: List specifying which collection groups will be included in the operation.
+        --database=: The database to operate on.
+        --namespace-ids=: List specifying which namespaces will be included in the operation.
+        --no-async&: Return immediately, without waiting for the operation in progress to
+        --snapshot-time=: The version of the database to export.
+    - name: import
+      description: import Cloud Firestore documents from Google Cloud Storage.
+      flags:
+        --async: Return immediately, without waiting for the operation in progress to
+        --collection-ids=: List specifying which collection groups will be included in the operation.
+        --database=: The database to operate on.
+        --namespace-ids=: List specifying which namespaces will be included in the operation.
+        --no-async&: Return immediately, without waiting for the operation in progress to
+    - name: indexes
+      description: Manage indexes for Cloud Firestore.
+      commands:
+        - name: composite
+          description: Manage composite indexes for Cloud Firestore.
+          commands:
+            - name: create
+              description: Create a new composite index.
+              flags:
+                --api-scope=: Api scope the index applies to.
+                --async: Return immediately, without waiting for the operation in progress to
+                --collection-group=!: ID of the collection group or fully qualified identifier for the collection group.
+                --database=: Database of the collection group.
+                --density=: Density of the index.
+                --field-config=!: Required, Configuration for an index field.
+                --multikey: Optional.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-multikey&: Optional.
+                --no-unique&: Optional.
+                --query-scope=: Query scope the index applies to.
+                --unique: Optional.
+              completion:
+                flag:
+                    api-scope:
+                        - any-api
+                        - datastore-mode-api
+                        - mongodb-compatible-api
+                    density:
+                        - dense
+                        - density-unspecified
+                        - sparse-all
+                        - sparse-any
+                    query-scope:
+                        - collection
+                        - collection-group
+                        - collection-recursive
+            - name: delete
+              description: Delete the given composite index.
+              flags:
+                --database=: Database of the composite index.
+            - name: describe
+              description: Describe the given composite index.
+              flags:
+                --database=: Database of the composite index.
+            - name: list
+              description: List composite indexes.
+              flags:
+                --database=: Database of the collection group.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: fields
+          description: Manage single-field indexes for Cloud Firestore.
+          commands:
+            - name: describe
+              description: Describe the index configuration of the given field.
+              flags:
+                --collection-group=: Collection group of the field.
+                --database=: Database of the field.
+            - name: list
+              description: List fields with non-default index settings.
+              flags:
+                --collection-group=: ID of the collection group or fully qualified identifier for the collection group.
+                --database=: Database of the collection group.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Update the index configuration of the given field.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-exemption: If provided, the field's current index configuration will be
+                --collection-group=: Collection group of the field.
+                --database=: Database of the field.
+                --disable-indexes: If provided, the field will no longer be indexed at all.
+                --index=: An index for the field.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-exemption&: If provided, the field's current index configuration will be
+                --no-disable-indexes&: If provided, the field will no longer be indexed at all.
+    - name: locations
+      description: The set of commands to manage Locations for Cloud Firestore.
+      commands:
+        - name: list
+          description: List locations available to Google Cloud Firestore.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: user-creds
+      description: Manage the user creds for a Cloud Firestore Database.
+      commands:
+        - name: disable
+          description: Disables a Cloud Firestore user creds.
+          flags:
+            --database=!: The database to operate on.
+        - name: enable
+          description: Enables a Cloud Firestore user creds.
+          flags:
+            --database=!: The database to operate on.
+        - name: list
+          description: Lists user creds under a Cloud Firestore database.
+          flags:
+            --database=!: The database to operate on.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: reset-password
+          description: Resets a Cloud Firestore user creds.
+          flags:
+            --database=!: The database to operate on.
+        - name: create
+          description: Creates a Cloud Firestore user creds.
+          flags:
+            --database=!: The database to operate on.
+        - name: delete
+          description: Deletes a Cloud Firestore user creds.
+          flags:
+            --database=!: The database to operate on.
+        - name: describe
+          description: Describes a Cloud Firestore user creds.
+          flags:
+            --database=!: The database to operate on.

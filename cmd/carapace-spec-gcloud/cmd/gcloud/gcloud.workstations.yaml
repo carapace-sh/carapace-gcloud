@@ -1,0 +1,338 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: workstations
+description: Manage Cloud Workstations resources.
+commands:
+    - name: start-tcp-tunnel
+      description: Start a tunnel through which a local process can forward TCP traffic to the workstation.
+      flags:
+        --cluster=: The cluster for the workstation.
+        --config=: The config for the workstation.
+        --local-host-port=: '`LOCAL_HOST:LOCAL_PORT` on which gcloud should bind and listen for connections'
+        --region=: The region for the workstation.
+    - name: stop
+      description: Stop a workstation.
+      flags:
+        --async: Return immediately, without waiting for the operation in progress to
+        --cluster=: The cluster for the workstation.
+        --config=: The config for the workstation.
+        --no-async&: Return immediately, without waiting for the operation in progress to
+        --region=: The region for the workstation.
+    - name: clusters
+      description: Manage Cloud Workstations cluster resources.
+      commands:
+        - name: create
+          description: Create a workstation cluster.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --domain=: Domain used by Workstations for HTTP ingress.
+            --enable-private-endpoint: Default is false.
+            --labels=: Labels that are applied to the cluster and propagated to the underlying Compute Engine
+            --network=: Fully specified network path for instances created in this cluster.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-enable-private-endpoint&: Default is false.
+            --region=: The name of the region of the cluster.
+            --subnetwork=: Fully specified subnetwork path for instances created in this cluster.
+            --tags=: Resource manager tags to be bound to this cluster.
+        - name: delete
+          description: Delete a workstation cluster.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The name of the region of the cluster.
+        - name: describe
+          description: Describe a cluster.
+          flags:
+            --region=: The name of the region of the cluster.
+        - name: list
+          description: List workstation clusters.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --region=: ID of the region or fully qualified identifier for the region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+    - name: create
+      description: Create a workstation.
+      flags:
+        --async: Return immediately, without waiting for the operation in progress to
+        --cluster=: The name of the cluster containing the workstation.
+        --config=: The name of the config containing the workstation.
+        --env=: Environment variables passed to the Workstation.
+        --labels=: Labels that are applied to the workstation and propagated to the underlying Compute Engine
+        --no-async&: Return immediately, without waiting for the operation in progress to
+        --region=: The name of the region of the workstation.
+        --source-workstation=: Source workstation from which this workstations persistent directories are cloned on
+    - name: delete
+      description: Delete a workstation.
+      flags:
+        --async: Return immediately, without waiting for the operation in progress to
+        --cluster=: The name of the cluster containing the workstation.
+        --config=: The name of the config containing the workstation.
+        --no-async&: Return immediately, without waiting for the operation in progress to
+        --region=: The name of the region of the workstation.
+    - name: describe
+      description: Describe a workstation.
+      flags:
+        --cluster=: The name of the cluster containing the workstation.
+        --config=: The name of the config containing the workstation.
+        --region=: The name of the region of the workstation.
+    - name: get-iam-policy
+      description: Get the IAM policy for a workstation.
+      flags:
+        --cluster=: The name of the cluster containing the workstation.
+        --config=: The name of the config containing the workstation.
+        --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+        --limit=: Maximum number of resources to list.
+        --page-size=: Some services group resource list output into pages.
+        --region=: The name of the region of the workstation.
+        --sort-by=: Comma-separated list of resource field key names to sort by.
+    - name: list
+      description: List workstations.
+      flags:
+        --cluster=: The name of the cluster containing the config.
+        --config=: ID of the config or fully qualified identifier for the config.
+        --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+        --limit=: Maximum number of resources to list.
+        --page-size=: Some services group resource list output into pages.
+        --region=: The name of the region of the config.
+        --sort-by=: Comma-separated list of resource field key names to sort by.
+    - name: list-usable
+      description: List usable workstations.
+      flags:
+        --cluster=: The cluster for the config.
+        --config=: ID of the config or fully qualified identifier for the config.
+        --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+        --limit=: Maximum number of resources to list.
+        --page-size=: Some services group resource list output into pages.
+        --region=: The region for the config.
+        --sort-by=: Comma-separated list of resource field key names to sort by.
+    - name: set-iam-policy
+      description: Set the IAM policy for a workstation.
+      flags:
+        --cluster=: The name of the cluster containing the workstation.
+        --config=: The name of the config containing the workstation.
+        --region=: The name of the region of the workstation.
+    - name: configs
+      description: Manage Cloud Workstations configuration resources.
+      commands:
+        - name: create
+          description: Create a workstation configuration.
+          flags:
+            --accelerator-count=!: The number of accelerator cards exposed to the instance.
+            --accelerator-type=: The type of accelerator resource to attach to the instance, for example,
+            --allowed-ports=: A Single or Range of ports externally accessible in the workstation.
+            --async: Return immediately, without waiting for the operation in progress to
+            --boot-disk-size=: Size of the boot disk in GB.
+            --cluster=: The cluster for the config.
+            --container-args=: Arguments passed to the entrypoint.
+            --container-command=: If set, overrides the default ENTRYPOINT specified by the image.
+            --container-custom-image=: A docker image for the workstation.
+            --container-env=: Environment variables passed to the container.
+            --container-predefined-image=: Code editor on base images.
+            --container-run-as-user=: If set, overrides the USER specified in the image with the given
+            --container-working-dir=: If set, overrides the default DIR specified by the image.
+            --disable-public-ip-addresses: Default value is false.
+            --disable-ssh-to-vm: (DEPRECATED)   Default value is False.
+            --disable-tcp-connections: Default value is false.
+            --enable-audit-agent: Whether to enable Linux `auditd` logging on the workstation.
+            --enable-confidential-compute: Default value is false.
+            --enable-nested-virtualization: Default value is false.
+            --enable-ssh-to-vm: Default value is False.
+            --ephemeral-directory=: Ephemeral directory which won't persist across workstation sessions.
+            --grant-workstation-admin-role-on-create: Default value is false.
+            --idle-timeout=: How long (in seconds) to wait before automatically stopping an instance that
+            --kms-key-service-account=: The service account associated with the provided customer-managed encryption
+            --kms-key=!: The customer-managed encryption key to use for this config.
+            --labels=: Labels that are applied to the configuration and propagated to the underlying
+            --machine-type=: Machine type determines the specifications of the Compute Engine machines
+            --max-usable-workstations-count=: Maximum number of workstations under this configuration a user can have
+            --network-tags=: Network tags to add to the Google Compute Engine machines backing the
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-disable-public-ip-addresses&: Default value is false.
+            --no-disable-ssh-to-vm&: (DEPRECATED)   Default value is False.
+            --no-disable-tcp-connections&: Default value is false.
+            --no-enable-audit-agent&: Whether to enable Linux `auditd` logging on the workstation.
+            --no-enable-confidential-compute&: Default value is false.
+            --no-enable-nested-virtualization&: Default value is false.
+            --no-enable-ssh-to-vm&: Default value is False.
+            --no-grant-workstation-admin-role-on-create&: Default value is false.
+            --no-persistent-storage: If set, workstations under this configuration will not have a persistent directory.
+            --no-shielded-integrity-monitoring&: Default value is false.
+            --no-shielded-secure-boot&: Default value is false.
+            --no-shielded-vtpm&: Default value is false.
+            --pd-disk-size=: Size of the persistent directory in GB.
+            --pd-disk-type=: Type of the persistent directory.
+            --pd-reclaim-policy=: What should happen to the disk after the Workstation is deleted.
+            --pd-source-snapshot=: Name of the snapshot to use as the source for the home disk.
+            --pool-size=: Number of instances to pool for faster Workstation startup.
+            --region=: The region for the config.
+            --replica-zones=: Specifies the zones the VM and disk resources will be
+            --running-timeout=: How long (in seconds) to wait before automatically stopping a workstation
+            --service-account-scopes=: Scopes to grant to the service_account.
+            --service-account=: Email address of the service account that will be used on VM instances used to
+            --shielded-integrity-monitoring: Default value is false.
+            --shielded-secure-boot: Default value is false.
+            --shielded-vtpm: Default value is false.
+            --vm-tags=: Resource manager tags to be bound to the instance.
+          completion:
+            flag:
+                container-predefined-image:
+                    - base-image
+                    - clion
+                    - codeoss
+                    - codeoss-cuda
+                    - goland
+                    - intellij
+                    - phpstorm
+                    - pycharm
+                    - rider
+                    - rubymine
+                    - webstorm
+                pd-disk-size:
+                    - '%!s(float64=10)'
+                    - '%!s(float64=50)'
+                    - '%!s(float64=100)'
+                    - '%!s(float64=200)'
+                    - '%!s(float64=500)'
+                    - '%!s(float64=1000)'
+                pd-disk-type:
+                    - pd-standard
+                    - pd-balanced
+                    - pd-ssd
+                pd-reclaim-policy:
+                    - delete
+                    - retain
+        - name: delete
+          description: Delete a workstation configuration.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --cluster=: The name of the cluster containing the config.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The name of the region of the config.
+        - name: describe
+          description: Describe a config.
+          flags:
+            --cluster=: The name of the cluster containing the config.
+            --region=: The name of the region of the config.
+        - name: get-iam-policy
+          description: Get the IAM policy for a configuration..
+          flags:
+            --cluster=: The name of the cluster containing the config.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --region=: The name of the region of the config.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: List workstation configurations.
+          flags:
+            --cluster=: ID of the cluster or fully qualified identifier for the cluster.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --region=: The name of the region of the cluster.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: set-iam-policy
+          description: Set the IAM policy for a configuration.
+          flags:
+            --cluster=: The name of the cluster containing the config.
+            --region=: The name of the region of the config.
+        - name: update
+          description: Updates a workstation configuration.
+          flags:
+            --accelerator-count=!: The number of accelerator cards exposed to the instance.
+            --accelerator-type=: The type of accelerator resource to attach to the instance, for example,
+            --allowed-ports=: A Single or Range of ports externally accessible in the workstation.
+            --async: Return immediately, without waiting for the operation in progress to
+            --boot-disk-size=: Size of the boot disk in GB.
+            --cluster=: The cluster for the config.
+            --container-args=: Arguments passed to the entrypoint.
+            --container-command=: If set, overrides the default ENTRYPOINT specified by the image.
+            --container-custom-image=: A docker image for the workstation.
+            --container-env=: Environment variables passed to the container.
+            --container-predefined-image=: Code editor on base images.
+            --container-run-as-user=: If set, overrides the USER specified in the image with the given
+            --container-working-dir=: If set, overrides the default DIR specified by the image.
+            --disable-public-ip-addresses: Default value is false.
+            --disable-ssh-to-vm: If set, workstations disable SSH connections to the root VM.
+            --disable-tcp-connections: If set, workstations don't allow plain TCP connections.
+            --enable-audit-agent: Whether to enable Linux `auditd` logging on the workstation.
+            --enable-confidential-compute: Default value is false.
+            --enable-nested-virtualization: Default value is false.
+            --enable-ssh-to-vm: If set, workstations enable SSH connections to the root VM.
+            --enable-tcp-connections: If set, workstations allow plain TCP connections.
+            --grant-workstation-admin-role-on-create: Default value is false.
+            --idle-timeout=: How long (in seconds) to wait before automatically stopping an instance that
+            --labels=: Labels that are applied to the configuration and propagated to the underlying
+            --machine-type=: Machine type determines the specifications of the Compute Engine machines
+            --max-usable-workstations-count=: Maximum number of workstations under this configuration a user can have
+            --network-tags=: Network tags to add to the Google Compute Engine machines backing the
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-disable-public-ip-addresses&: Default value is false.
+            --no-disable-ssh-to-vm&: If set, workstations disable SSH connections to the root VM.
+            --no-disable-tcp-connections&: If set, workstations don't allow plain TCP connections.
+            --no-enable-audit-agent&: Whether to enable Linux `auditd` logging on the workstation.
+            --no-enable-confidential-compute&: Default value is false.
+            --no-enable-nested-virtualization&: Default value is false.
+            --no-enable-ssh-to-vm&: If set, workstations enable SSH connections to the root VM.
+            --no-enable-tcp-connections&: If set, workstations allow plain TCP connections.
+            --no-grant-workstation-admin-role-on-create&: Default value is false.
+            --no-shielded-integrity-monitoring&: Default value is false.
+            --no-shielded-secure-boot&: Default value is false.
+            --no-shielded-vtpm&: Default value is false.
+            --pd-disk-size=: Size of the persistent directory in GB.
+            --pd-disk-type=: Type of the persistent directory.
+            --pd-source-snapshot=: Name of the snapshot to use as the source for the persistent directory.
+            --pool-size=: Number of instances to pool for faster Workstation startup.
+            --region=: The region for the config.
+            --running-timeout=: How long (in seconds) to wait before automatically stopping a workstation
+            --service-account-scopes=: Scopes to grant to the service_account.
+            --service-account=: Email address of the service account that will be used on VM instances used to
+            --shielded-integrity-monitoring: Default value is false.
+            --shielded-secure-boot: Default value is false.
+            --shielded-vtpm: Default value is false.
+            --vm-tags=: Resource manager tags to be bound to the instance.
+          completion:
+            flag:
+                container-predefined-image:
+                    - base-image
+                    - clion
+                    - codeoss
+                    - codeoss-cuda
+                    - goland
+                    - intellij
+                    - phpstorm
+                    - pycharm
+                    - rider
+                    - rubymine
+                    - webstorm
+                pd-disk-size:
+                    - '%!s(float64=10)'
+                    - '%!s(float64=50)'
+                    - '%!s(float64=100)'
+                    - '%!s(float64=200)'
+                    - '%!s(float64=500)'
+                    - '%!s(float64=1000)'
+                pd-disk-type:
+                    - pd-standard
+                    - pd-balanced
+                    - pd-ssd
+    - name: ssh
+      description: SSH into a running workstation.
+      flags:
+        --cluster=: The cluster for the workstation.
+        --command=: A command to run on the workstation.
+        --config=: The config for the workstation.
+        --local-host-port=: '`LOCAL_HOST:LOCAL_PORT` on which gcloud should bind and listen for connections'
+        --port=: The port on the workstation to which traffic should be sent.
+        --region=: The region for the workstation.
+        --ssh-flag=: Additional flags to be passed to *ssh(1)*.
+        --user=: The username with which to SSH.
+    - name: start
+      description: Start a workstation.
+      flags:
+        --async: Return immediately, without waiting for the operation in progress to
+        --cluster=: The cluster for the workstation.
+        --config=: The config for the workstation.
+        --no-async&: Return immediately, without waiting for the operation in progress to
+        --region=: The region for the workstation.

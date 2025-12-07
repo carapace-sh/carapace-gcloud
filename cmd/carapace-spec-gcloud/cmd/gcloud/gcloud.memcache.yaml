@@ -1,0 +1,165 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: memcache
+description: Manage Cloud Memorystore Memcached resources.
+commands:
+    - name: instances
+      description: Manage Cloud Memorystore Memcached instances.
+      commands:
+        - name: list
+          description: List Memorystore Memcached instances.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: ID of the region or fully qualified identifier for the region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: upgrade
+          description: Upgrade memcache instance to a newer memcached version.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --memcached-version=!: Memcached engine version to which instance should be upgraded to.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The name of the Memcached region of the instance.
+          completion:
+            flag:
+                memcached-version:
+                    - 1.6.15
+        - name: create
+          description: Create a Memorystore Memcached instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --authorized-network=: Full name of the Google Compute Engine network to which the instance
+            --display-name=: An arbitrary and optional user provided name for the instance.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --maintenance-window-day=: The day of week when the window starts, e.g. `sunday`.
+            --maintenance-window-duration=: Duration in integer hours (`3` to `8`) of the maintenance window.
+            --maintenance-window-start-time=: Hour of day (`0` to `23`) for the start of maintenance window, in UTC time zone.
+            --memcached-version=: Optional major version of Memcached software to use with the instance.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --node-count=!: Number of memcache nodes in this instance.
+            --node-cpu=!: Number of cpus per node in this instance.
+            --node-memory=!: Amount of memory allocated per node in this instance.
+            --parameters=: User defined parameters to apply to the memcached process on each node.
+            --region=: The name of the Memcached region of the instance.
+            --reserved-ip-range-id=: Contains the name of allocated IP address ranges associated with
+            --tags=&: List of tag KEY=VALUE pairs to add.
+            --zones=: List of zones for the memcache nodes.
+          completion:
+            flag:
+                maintenance-window-day:
+                    - friday
+                    - monday
+                    - saturday
+                    - sunday
+                    - thursday
+                    - tuesday
+                    - wednesday
+                memcached-version:
+                    - "1.5"
+                    - 1.6.15
+        - name: delete
+          description: Delete a Memorystore Memcached instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The name of the Memcached region of the instance.
+        - name: describe
+          description: Display metadata for a Memorystore Memcached instance.
+          flags:
+            --region=: The name of the Memcached region of the instance.
+        - name: reschedule-maintenance
+          description: Reschedule maintenance window for a Memcache instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The name of the Memcached region of the instance.
+            --reschedule-type=!: Reschedule type to use for the reschedule maintenance window.
+            --schedule-time=: 'Time in RFC3339 format, for example: 2012-11-15T16:19:00.094Z'
+          completion:
+            flag:
+                reschedule-type:
+                    - immediate
+                    - next-available-window
+                    - specific-time
+        - name: update
+          description: Update a Memorystore Memcached instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --display-name=: An arbitrary and optional user provided name for the instance.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --maintenance-window-any: Removes the user-specified maintenance window.
+            --maintenance-window-day=: The day of week when the window starts, e.g. 'sunday'.
+            --maintenance-window-duration=: Duration in integer hours (`3` to `8`) of the maintenance window.
+            --maintenance-window-start-time=: Hour of day (0 to 23) for the start of maintenance window, in UTC time zone.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-maintenance-window-any&: Removes the user-specified maintenance window.
+            --node-count=: Number of memcache nodes in this instance.
+            --parameters=: User defined parameters to apply to the memcached process on each node.
+            --region=: The name of the Memcached region of the instance.
+            --tags=&: List of tag KEY=VALUE pairs to add.
+          completion:
+            flag:
+                maintenance-window-day:
+                    - friday
+                    - monday
+                    - saturday
+                    - sunday
+                    - thursday
+                    - tuesday
+                    - wednesday
+        - name: apply-parameters
+          description: Apply parameter update to nodes in a Memorystore Memcached instance.
+          flags:
+            --apply-all: Apply the parameter update onto all nodes.
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-apply-all&: Apply the parameter update onto all nodes.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --node-ids=: Nodes on which to apply the parameter update.
+            --region=: The name of the Memcached region of the instance.
+        - name: apply-software-update
+          description: Apply software update to nodes in a Memorystore Memcached instance.
+          hidden: true
+          flags:
+            --apply-all: Apply the software update onto all nodes.
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-apply-all&: Apply the software update onto all nodes.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --node-ids=: Nodes on which to apply the software update.
+            --region=: The name of the Memcached region of the instance.
+    - name: operations
+      description: Manage Cloud Memorystore Memcached operations.
+      commands:
+        - name: delete
+          description: Delete a Memorystore Memcached operation.
+          flags:
+            --region=: The name of the Memcached region of the operation.
+        - name: describe
+          description: Display metadata for a Memorystore Memcached operation.
+          flags:
+            --region=: The name of the Memcached region of the operation.
+        - name: list
+          description: List Memorystore Memcached operations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: ID of the region or fully qualified identifier for the region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: regions
+      description: Manage Cloud Memorystore Memcached regions.
+      commands:
+        - name: describe
+          description: Display metadata for a Memorystore Memcached region.
+        - name: list
+          description: List Memorystore Memcached regions.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the

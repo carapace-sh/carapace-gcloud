@@ -1,0 +1,74 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: source
+description: Cloud git repository commands.
+commands:
+    - name: project-configs
+      description: Manage Cloud Source Repositories configuration of a project.
+      commands:
+        - name: describe
+          description: Show details about the configuration of a project.
+        - name: update
+          description: Update the Cloud Source Repositories configuration of the current project.
+          flags:
+            --add-topic=!: ID of the topic or fully qualified identifier for the topic.
+            --disable-pushblock: Disable PushBlock for all repositories under current project.
+            --enable-pushblock: Enable PushBlock for all repositories under current project.
+            --message-format=: The format of the message to publish to the topic.
+            --no-disable-pushblock&: Disable PushBlock for all repositories under current project.
+            --no-enable-pushblock&: Enable PushBlock for all repositories under current project.
+            --remove-topic=!: ID of the topic or fully qualified identifier for the topic.
+            --service-account=: Email address of the service account used for publishing Cloud Pub/Sub messages.
+            --topic-project=: Cloud project for the topic.
+            --update-topic=!: ID of the topic or fully qualified identifier for the topic.
+          completion:
+            flag:
+                message-format:
+                    - json
+                    - protobuf
+    - name: repos
+      description: Manage cloud source repositories.
+      commands:
+        - name: create
+          description: Create a cloud source repository.
+        - name: delete
+          description: Delete a cloud source repository.
+          flags:
+            --force: (REMOVED) If provided, skip the delete confirmation prompt.
+            --no-force&: (REMOVED) If provided, skip the delete confirmation prompt.
+        - name: describe
+          description: Describe a cloud source repository.
+        - name: get-iam-policy
+          description: Get the IAM policy for the named cloud source repository.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: List the repositories the currently active project.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: set-iam-policy
+          description: Set the IAM policy for the named repository.
+        - name: update
+          description: Update the configuration of a Cloud Source Repository.
+          flags:
+            --add-topic=!: ID of the topic or fully qualified identifier for the topic.
+            --message-format=: The format of the message to publish to the topic.
+            --remove-topic=!: ID of the topic or fully qualified identifier for the topic.
+            --service-account=: Email address of the service account used for publishing Cloud Pub/Sub messages.
+            --topic-project=: Cloud project for the topic.
+            --update-topic=!: ID of the topic or fully qualified identifier for the topic.
+          completion:
+            flag:
+                message-format:
+                    - json
+                    - protobuf
+        - name: clone
+          description: Clone a cloud source repository.
+          flags:
+            --dry-run: If provided, prints the command that would be run to standard out instead of executing it.
+            --no-dry-run&: If provided, prints the command that would be run to standard out instead of executing it.

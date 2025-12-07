@@ -1,0 +1,241 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: infra-manager
+description: Manage Infra Manager resources.
+commands:
+    - name: resources
+      description: List or describe resources under a Revision.
+      commands:
+        - name: describe
+          description: Describe resources.
+          flags:
+            --deployment=: deployments TBD
+            --location=: locations TBD
+            --revision=: revisions TBD
+        - name: list
+          description: List resources.
+          flags:
+            --deployment=: deployments TBD
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: locations TBD
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --revision=!: ID of the revision or fully qualified identifier for the revision.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: revisions
+      description: Manage Revision resources.
+      commands:
+        - name: export-statefile
+          description: Export a terraform state file.
+          flags:
+            --deployment=: The deployment for the revision.
+            --location=: The Cloud location for the revision.
+        - name: list
+          description: List revisions.
+          flags:
+            --deployment=!: ID of the deployment or fully qualified identifier for the deployment.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: locations TBD
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: describe
+          description: Describe revisions.
+          flags:
+            --deployment=: deployments TBD
+            --location=: locations TBD
+    - name: terraform-versions
+      description: Manage Terraform version resources.
+      commands:
+        - name: describe
+          description: Describe Terraform versions.
+          flags:
+            --location=: locations TBD
+        - name: list
+          description: List Terraform versions.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: deployments
+      description: Manage Deployment resources.
+      commands:
+        - name: apply
+          description: Create or update a deployment.
+          flags:
+            --annotations=: Annotations to apply to the deployment.
+            --artifacts-gcs-bucket=: user-defined location of Cloud Build logs, artifacts, and Terraform state files in Google Cloud Storage.
+            --async: Return immediately, without waiting for the operation in progress to
+            --gcs-source=: URI of an object in Google Cloud Storage.
+            --git-source-directory=: Subdirectory inside the repository.
+            --git-source-ref=: Subdirectory inside the repository.
+            --git-source-repo=: Repository URL.
+            --ignore-file=: Override the `.gcloudignore` file and use the specified file instead.
+            --import-existing-resources: By default, Infrastructure Manager will return a failure when Terraform encounters a 409 code (resource conflict error) during actuation.
+            --input-values=: Input variable values for the Terraform blueprint.
+            --inputs-file=: A .tfvars file containing terraform variable values.
+            --labels=: Labels to apply to the deployment.
+            --local-source=: Local storage path where config files are stored.
+            --location=: The Cloud location for the deployment.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-import-existing-resources&: By default, Infrastructure Manager will return a failure when Terraform encounters a 409 code (resource conflict error) during actuation.
+            --provider-source=&: Input to control from where to fetch providers.
+            --quota-validation=: Input to control quota checks for resources in terraform configuration files.
+            --service-account=: User-specified Service Account (SA) to be used as credential to manage resources.
+            --stage-bucket=&: Use in conjunction with `--local-source` to specify a destination storage bucket for
+            --tf-version-constraint=: User-specified Terraform version constraint, for example "=1.3.10".
+            --worker-pool=: User-specified Worker Pool resource in which the Cloud Build job will execute.
+        - name: delete
+          description: Delete deployments.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --delete-policy=: Policy on how resources actuated by the deployment should be deleted.
+            --location=: locations TBD
+            --no-async&: Return immediately, without waiting for the operation in progress to
+          completion:
+            flag:
+                delete-policy:
+                    - abandon
+                    - delete
+                    - delete-policy-unspecified
+        - name: describe
+          description: Describe deployments.
+          flags:
+            --location=: locations TBD
+        - name: import-statefile
+          description: Import a terraform state file.
+          flags:
+            --file=: File path for importing statefile into a deployment.
+            --location=: The Cloud location for the deployment.
+            --lock-id=!: Lock ID of the lock file to verify person importing owns lock.
+        - name: list
+          description: List deployments.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: export-lock
+          description: Exports lock info of a deployment.
+          flags:
+            --location=: The Cloud location for the deployment.
+        - name: export-statefile
+          description: Export a terraform state file.
+          flags:
+            --draft: If this flag is set to true, the exported deployment state file will be the draft state
+            --file=: File name for statefile.
+            --location=: The Cloud location for the deployment.
+            --no-draft&: If this flag is set to true, the exported deployment state file will be the draft state
+        - name: lock
+          description: Locks the deployment.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The Cloud location for the deployment.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: unlock
+          description: Unlocks the deployment.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The Cloud location for the deployment.
+            --lock-id=!: Lock ID of the lock file to verify person importing owns lock.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+    - name: previews
+      description: Manage Preview resources.
+      commands:
+        - name: describe
+          description: Describe previews.
+          flags:
+            --location=: locations TBD
+        - name: export
+          description: Export preview results.
+          flags:
+            --file=: File name for preview export artifacts.
+            --location=: The Cloud location for the preview.
+        - name: list
+          description: List previews.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: create
+          description: Create a preview.
+          flags:
+            --annotations=: Preview annotations cannot be updated after creation.
+            --artifacts-gcs-bucket=: user-defined location of Cloud Build logs, artifacts, and Terraform state files in Google Cloud Storage.
+            --async: Return immediately, without waiting for the operation in progress to
+            --deployment=: Deployment reference for preview.
+            --gcs-source=: URI of an object in Google Cloud Storage.
+            --git-source-directory=: Subdirectory inside the repository.
+            --git-source-ref=: Subdirectory inside the repository.
+            --git-source-repo=: Repository URL.
+            --ignore-file=: Override the `.gcloudignore` file and use the specified file instead.
+            --input-values=: Input variable values for the Terraform blueprint.
+            --inputs-file=: A .tfvars file containing terraform variable values.
+            --labels=: Preview labels cannot be updated after creation.
+            --local-source=: Local storage path where config files are stored.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --preview-mode=: Preview mode to set it to either default or delete.
+            --provider-source=&: Input to control from where to fetch providers.
+            --service-account=: User-specified Service Account (SA) to be used as credential to manage resources.
+            --stage-bucket=&: Use in conjunction with `--local-source` to specify a destination storage bucket for
+            --tf-version-constraint=: User-specified Terraform version constraint, for example "=1.3.10".
+            --worker-pool=: User-specified Worker Pool resource in which the Cloud Build job will execute.
+        - name: delete
+          description: Delete previews.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: locations TBD
+            --no-async&: Return immediately, without waiting for the operation in progress to
+    - name: resource-changes
+      description: Manage resource change resources.
+      commands:
+        - name: describe
+          description: Describe resource changes.
+          flags:
+            --location=: locations TBD
+            --preview=: preview TBD
+        - name: list
+          description: List resource changes.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: locations TBD
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --preview=!: ID of the preview or fully qualified identifier for the preview.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: resource-drifts
+      description: Manage resource drift resources.
+      commands:
+        - name: describe
+          description: Describe resource drifts.
+          flags:
+            --location=: locations TBD
+            --preview=: preview TBD
+        - name: list
+          description: List resource drifts.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: locations TBD
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --preview=!: ID of the preview or fully qualified identifier for the preview.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the

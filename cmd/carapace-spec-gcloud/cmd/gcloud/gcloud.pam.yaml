@@ -1,0 +1,184 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: pam
+description: Manage Privileged Access Manager (PAM) entitlements and grants.
+commands:
+    - name: check-onboarding-status
+      description: Check Privileged Access Manager (PAM) onboarding status for a resource.
+      flags:
+        --folder=: The name of the folder
+        --location=!: ID of the location or fully qualified identifier for the location.
+        --organization=: The name of the organization
+    - name: entitlements
+      description: Manage Privileged Access Manager (PAM) entitlements.
+      commands:
+        - name: export
+          description: Export a Privileged Access Manager (PAM) entitlement into a local YAML file.
+          flags:
+            --destination=: Path to a YAML file where the configuration will be exported.
+            --folder=: The name of the folder
+            --location=: The resource location
+            --organization=: The name of the organization
+        - name: list
+          description: List all Privileged Access Manager (PAM) entitlements under a parent.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --folder=: The name of the folder
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --organization=: The name of the organization
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: search
+          description: Search and list all Privileged Access Manager (PAM) entitlements in a parent for which you are a requester/approver.
+          flags:
+            --caller-access-type=!: Search for entitlements based on whether you are a requester or approver.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --folder=: The name of the folder
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --organization=: The name of the organization
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+          completion:
+            flag:
+                caller-access-type:
+                    - grant-approver
+                    - grant-requester
+        - name: update
+          description: Update an existing Privileged Access Manager (PAM) entitlement.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --entitlement-file=!: YAML file containing the new configuration of the entitlement.
+            --folder=: The name of the folder
+            --location=: The resource location
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: The name of the organization
+        - name: create
+          description: Create a new Privileged Access Manager (PAM) entitlement.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --entitlement-file=!: YAML file containing the configuration of the entitlement.
+            --folder=: The name of the folder
+            --location=: The resource location
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: The name of the organization
+        - name: delete
+          description: Delete a Privileged Access Manager (PAM) entitlement.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --folder=: The name of the folder
+            --location=: The resource location
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: The name of the organization
+        - name: describe
+          description: Show details of a Privileged Access Manager (PAM) entitlement.
+          flags:
+            --folder=: The name of the folder
+            --location=: The resource location
+            --organization=: The name of the organization
+    - name: grants
+      description: Manage Privileged Access Manager (PAM) grants.
+      commands:
+        - name: approve
+          description: Approve a Privileged Access Manager (PAM) grant.
+          flags:
+            --entitlement=: The entitlement id
+            --folder=: The name of the folder
+            --location=: The resource location
+            --organization=: The name of the organization
+            --reason=: Reason for approving the grant.
+        - name: create
+          description: Create a new Privileged Access Manager (PAM) grant.
+          flags:
+            --additional-email-recipients=: Additional email addresses that are notified for all actions performed on the grant.
+            --entitlement=!: ID of the entitlement or fully qualified identifier for the entitlement.
+            --folder=: The name of the folder
+            --justification=: Justification for the grant.
+            --location=: The resource location
+            --organization=: The name of the organization
+            --requested-duration=!: Duration of the grant being created.
+        - name: deny
+          description: Deny a Privileged Access Manager (PAM) grant.
+          flags:
+            --entitlement=: The entitlement id
+            --folder=: The name of the folder
+            --location=: The resource location
+            --organization=: The name of the organization
+            --reason=: Reason for denying the grant.
+        - name: describe
+          description: Show details of a Privileged Access Manager (PAM) grant.
+          flags:
+            --entitlement=: The entitlement id
+            --folder=: The name of the folder
+            --location=: The resource location
+            --organization=: The name of the organization
+        - name: list
+          description: List all Privileged Access Manager (PAM) grants associated with an entitlement.
+          flags:
+            --entitlement=!: ID of the entitlement or fully qualified identifier for the entitlement.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --folder=: The name of the folder
+            --limit=: Maximum number of resources to list.
+            --location=: The resource location
+            --organization=: The name of the organization
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: revoke
+          description: Revoke a Privileged Access Manager (PAM) grant.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --entitlement=: The entitlement id
+            --folder=: The name of the folder
+            --location=: The resource location
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: The name of the organization
+            --reason=: Reason for revoking the grant.
+        - name: search
+          description: Search for and list all Privileged Access Manager (PAM) grants you have created, have approved, or can approve.
+          flags:
+            --caller-relationship=!: Whether to return grants you have created, have approved, or can approve.
+            --entitlement=!: ID of the entitlement or fully qualified identifier for the entitlement.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --folder=: The name of the folder
+            --limit=: Maximum number of resources to list.
+            --location=: The resource location
+            --organization=: The name of the organization
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+          completion:
+            flag:
+                caller-relationship:
+                    - can-approve
+                    - had-approved
+                    - had-created
+    - name: operations
+      description: Manage Privileged Access Manager (PAM) Long Running Operations.
+      commands:
+        - name: delete
+          description: Delete a Privileged Access Manager (PAM) long running operation.
+          flags:
+            --folder=: The name of the folder
+            --location=: The resource location
+            --organization=: The name of the organization
+        - name: describe
+          description: Show details of a Privileged Access Manager (PAM) long running operation.
+          flags:
+            --folder=: The name of the folder
+            --location=: The resource location
+            --organization=: The name of the organization
+        - name: list
+          description: List all Privileged Access Manager (PAM) long running operations under a location.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --folder=: The name of the folder
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --organization=: The name of the organization
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: wait
+          description: Poll a Privileged Access Manager (PAM) long running operation.
+          flags:
+            --folder=: The name of the folder
+            --location=: The resource location
+            --organization=: The name of the organization

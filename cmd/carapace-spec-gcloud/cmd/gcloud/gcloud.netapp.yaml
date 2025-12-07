@@ -1,0 +1,777 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: netapp
+description: Create and manipulate Cloud NetApp Files resources.
+commands:
+    - name: active-directories
+      description: Create and manage Cloud NetApp Active Directories.
+      commands:
+        - name: list
+          description: List Cloud NetApp Active Directories.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a Cloud NetApp Active Directory.
+          flags:
+            --administrators=: Members of the Active Directory built-in Administrators group.
+            --async: Return immediately, without waiting for the operation in progress to
+            --backup-operators=: Users to be added to the Built-in Backup Operator Active Directory group.
+            --clear-labels: Remove all labels.
+            --description=: A description of the Cloud NetApp Active Directory
+            --dns=!: A comma separated list of DNS server IP addresses for the Active Directory domain.
+            --domain=!: The Active Directory domain.
+            --enable-aes=: The Boolean value indiciating whether AES encryption will be enabled for SMB communication.
+            --enable-ldap-signing=: Boolean flag that specifies whether or not LDAP traffic needs to be signed.
+            --encrypt-dc-connections=: Boolean flag that specifies whether traffic between SMB server to Domain Controller (DC) will be encrypted.
+            --kdc-hostname=: Name of the Active Directory machine.
+            --kdc-ip=: KDC server IP address for the Active Directory machine.
+            --location=: The location of the active_directory.
+            --net-bios-prefix=!: NetBIOS prefix name of the server.
+            --nfs-users-with-ldap=: Boolean flag that allows access to local users and LDAP users.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --organizational-unit=: The Organizational Unit (OU) within the Windows Active Directory the user belongs to.
+            --password=!: Password of the Active Directory domain administrator.
+            --remove-labels=: List of label keys to remove.
+            --security-operators=: Domain users to be given the Security privilege.
+            --site=: The Active Directory site the service          will limit Domain Controller discovery to.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+            --username=!: Username of the Active Directory domain administrator.
+        - name: create
+          description: Create a Cloud NetApp Active Directory.
+          flags:
+            --administrators=: Members of the Active Directory built-in Administrators group.
+            --async: Return immediately, without waiting for the operation in progress to
+            --backup-operators=: Users to be added to the Built-in Backup Operator Active Directory group.
+            --description=: A description of the Cloud NetApp Active Directory
+            --dns=!: A comma separated list of DNS server IP addresses for the Active Directory domain.
+            --domain=!: The Active Directory domain.
+            --enable-aes=: The Boolean value indiciating whether AES encryption will be enabled for SMB communication.
+            --enable-ldap-signing=: Boolean flag that specifies whether or not LDAP traffic needs to be signed.
+            --encrypt-dc-connections=: Boolean flag that specifies whether traffic between SMB server to Domain Controller (DC) will be encrypted.
+            --kdc-hostname=: Name of the Active Directory machine.
+            --kdc-ip=: KDC server IP address for the Active Directory machine.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The location of the active_directory.
+            --net-bios-prefix=!: NetBIOS prefix name of the server.
+            --nfs-users-with-ldap=: Boolean flag that allows access to local users and LDAP users.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organizational-unit=: The Organizational Unit (OU) within the Windows Active Directory the user belongs to.
+            --password=!: Password of the Active Directory domain administrator.
+            --security-operators=: Domain users to be given the Security privilege.
+            --site=: The Active Directory site the service          will limit Domain Controller discovery to.
+            --username=!: Username of the Active Directory domain administrator.
+        - name: delete
+          description: Delete a Cloud NetApp Active Directory.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location of the active_directory.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Show metadata for a Cloud NetApp Active Directory.
+          flags:
+            --location=: The location of the active_directory.
+    - name: locations
+      description: Get and list locations where Cloud NetApp Files is available.
+      commands:
+        - name: describe
+          description: Describe a Cloud NetApp Files location.
+        - name: list
+          description: List all Cloud NetApp Files locations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: storage-pools
+      description: Create and manage Cloud NetApp Storage Pools.
+      commands:
+        - name: update
+          description: Update a Cloud NetApp Storage Pool.
+          flags:
+            --active-directory=!: ID of the active_directory or fully qualified identifier for the active_directory.
+            --allow-auto-tiering=: Boolean flag indicating whether Storage Pool is allowed to use auto-tiering
+            --async: Return immediately, without waiting for the operation in progress to
+            --capacity=: The desired capacity of the Storage Pool in GiB or TiB units.If no capacity unit is specified, GiB is assumed.
+            --clear-labels: Remove all labels.
+            --description=: A description of the Cloud NetApp Storage Pool
+            --location=: The location of the storage_pool.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --qos-type=: Quality of service (QoS) type for the Storage Pool.
+            --remove-labels=: List of label keys to remove.
+            --replica-zone=: String indicating replica zone for the Storage Pool
+            --total-iops=: Integer indicating total IOPS of the Storage Pool
+            --total-throughput=: The total throughput of the Storage Pool in MiB/s or GiB/s units.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+            --zone=: String indicating active zone of the Storage Pool
+          completion:
+            flag:
+                qos-type:
+                    - auto
+                    - manual
+                    - qos-type-unspecified
+        - name: validate-directory-service
+          description: Validate directory service for a Cloud Netapp storage pool.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --directory-service-type=: String indicating directory service type for the Storage Pool
+            --location=: The location of the storage_pool.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: create
+          description: Create a Cloud NetApp Storage Pool.
+          flags:
+            --active-directory=!: ID of the active_directory or fully qualified identifier for the active_directory.
+            --allow-auto-tiering=: Boolean flag indicating whether Storage Pool is allowed to use auto-tiering
+            --async: Return immediately, without waiting for the operation in progress to
+            --capacity=!: The desired capacity of the Storage Pool in GiB or TiB units.If no capacity unit is specified, GiB is assumed.
+            --custom-performance-enabled=: Boolean flag indicating whether Storage Pool is a custom performance Storage Pool or not
+            --description=: A description of the Cloud NetApp Storage Pool
+            --enable-ldap=: Boolean flag indicating whether Storage Pool is a NFS LDAP Storage Pool or not
+            --kms-config=!: ID of the kms_config or fully qualified identifier for the kms_config.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The location of the storage_pool.
+            --network=!: Network configuration for a Cloud NetApp Files Storage Pool.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --qos-type=: Quality of service (QoS) type for the Storage Pool.
+            --replica-zone=: String indicating replica zone for the Storage Pool
+            --service-level=!: The service level for the Cloud NetApp Storage Pool.
+            --total-iops=: Integer indicating total IOPS of the Storage Pool
+            --total-throughput=: The total throughput of the Storage Pool in MiB/s or GiB/s units.
+            --type=: The type of the Storage Pool.
+            --zone=: String indicating active zone of the Storage Pool
+          completion:
+            flag:
+                qos-type:
+                    - auto
+                    - manual
+                    - qos-type-unspecified
+                service-level:
+                    - extreme
+                    - flex
+                    - premium
+                    - standard
+                type:
+                    - file
+                    - unified
+        - name: delete
+          description: Delete a Cloud NetApp Storage Pool.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location of the storage_pool.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Show metadata for a Cloud NetApp Storage Pool.
+          flags:
+            --location=: The location of the storage_pool.
+        - name: list
+          description: List Cloud NetApp Storage Pools.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: switch
+          description: Switch a Regional Cloud NetApp Flex Storage Pool zone.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location of the storage_pool.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+    - name: volumes
+      description: Create and manage Cloud NetApp Volumes.
+      commands:
+        - name: create
+          description: Create a Cloud NetApp Volume.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --backup-config=: Backup Config contains backup related config on a volume.
+            --backup-vault=: The Backup Vault of the backup.
+            --block-devices=: A block device to be created with the volume.
+            --cache-parameters=: Cache Parameters contains cache parameters of a volume.
+            --capacity=!: The desired capacity of the Volume in GiB or TiB units.If no capacity unit is specified, GiB is assumed.
+            --description=: A description of the Cloud NetApp Volume
+            --enable-kerberos=: Boolean flag indicating whether Volume is a kerberos Volume or not
+            --export-policy=: Export Policy of a Cloud NetApp Files Volume.
+            --hybrid-replication-parameters=: Hybrid Replication Parameters contains hybrid replication parameters on a volume.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --large-capacity=: Boolean flag indicating whether Volume is a large capacity Volume or not
+            --location=: The location of the volume.
+            --multiple-endpoints=: Boolean flag indicating whether Volume is a multiple endpoints Volume or not
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --protocols=!: Type of File System protocols for the Cloud NetApp Files Volume.
+            --restricted-actions=: Actions to be restricted for a volume.
+            --security-style=: The security style of the Volume.
+            --share-name=: Share name of the Mount path clients will use.
+            --smb-settings=: List of settings specific to SMB protocol for a Cloud NetApp Files Volume.
+            --snap-reserve=: (DEPRECATED) The percentage of volume storage reserved for snapshot storage.
+            --snapshot-daily=: Make a snapshot every day e.g. at 06:00, 05:20, 23:50
+            --snapshot-directory=: Snapshot Directory if enabled (true) makes the Volume
+            --snapshot-hourly=: Make a snapshot every hour e.g. at 04:00, 05:20, 06:00
+            --snapshot-monthly=: Make a snapshot once a month e.g. at 2nd 04:00, 7th 05:20, 24th 23:50
+            --snapshot-weekly=: Make a snapshot every week e.g. at Monday 04:00, Wednesday 05:20,
+            --source-backup=!: ID of the backup or fully qualified identifier for the backup.
+            --source-snapshot=!: ID of the snapshot or fully qualified identifier for the snapshot.
+            --storage-pool=!: ID of the storage_pool or fully qualified identifier for the storage_pool.
+            --throughput-mibps=: The desired throughput of the volume in MiB/s.
+            --tiering-policy=: Tiering Policy contains auto tiering policy on a volume.
+            --unix-permissions=: Unix permissions the mount point will be created with.
+          completion:
+            flag:
+                security-style:
+                    - ntfs
+                    - unix
+        - name: describe
+          description: Show metadata for a Cloud NetApp Volume.
+          flags:
+            --location=: The location of the volume.
+        - name: list
+          description: List Cloud NetApp Volumes.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: quota-rules
+          description: Create and manage Cloud NetApp Volume QuotaRules.
+          commands:
+            - name: list
+              description: List Cloud NetApp Volume QuotaRules.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+                --volume=: ID of the volume or fully qualified identifier for the volume.
+            - name: update
+              description: Update a Cloud NetApp Volume QuotaRule.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-labels: Remove all labels.
+                --description=: A description of the Cloud NetApp Quota rule
+                --disk-limit-mib=: The disk limit in MiB for the quota rule.
+                --location=: The location of the quota_rule.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Remove all labels.
+                --remove-labels=: List of label keys to remove.
+                --update-labels=: List of label KEY=VALUE pairs to update.
+                --volume=: ID of the volume or fully qualified identifier for the volume.
+            - name: create
+              description: Create a Cloud NetApp Volume Quota Rule.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --description=: A description of the Cloud NetApp Quota rule
+                --disk-limit-mib=!: The disk limit in MiB for the quota rule.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --location=: The location of the quota_rule.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --target=: The target of the quota rule.
+                --type=!: String indicating the type of quota rule.
+                --volume=: ID of the volume or fully qualified identifier for the volume.
+            - name: delete
+              description: Delete a Cloud NetApp Volume QuotaRule.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location of the quota_rule.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --volume=: ID of the volume or fully qualified identifier for the volume.
+            - name: describe
+              description: Describe a Cloud NetApp Volume Quota Rule.
+              flags:
+                --location=: The location of the quota_rule.
+                --volume=: ID of the volume or fully qualified identifier for the volume.
+        - name: replications
+          description: Create and manage Cloud NetApp Volume Replications.
+          commands:
+            - name: update
+              description: Update a Cloud NetApp Volume Replication.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-labels: Remove all labels.
+                --cluster-location=: Location of the user cluster.
+                --description=: A description of the Cloud NetApp Replication
+                --location=: The location of the replication.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Remove all labels.
+                --remove-labels=: List of label keys to remove.
+                --replication-schedule=: The schedule for the Replication.
+                --update-labels=: List of label KEY=VALUE pairs to update.
+                --volume=: ID of the volume or fully qualified identifier for the volume.
+            - name: create
+              description: Create a Cloud NetApp Volume Replication.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --cluster-location=: Location of the user cluster.
+                --description=: A description of the Cloud NetApp Replication
+                --destination-volume-parameters=!: Required, sets `destination_volume_parameters` value.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --location=: The location of the replication.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --replication-schedule=!: The schedule for the Replication.
+                --volume=: ID of the volume or fully qualified identifier for the volume.
+            - name: delete
+              description: Delete a Cloud NetApp Volume Replication.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location of the replication.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --volume=: ID of the volume or fully qualified identifier for the volume.
+            - name: describe
+              description: Describe a Cloud NetApp Volume Replication.
+              flags:
+                --location=: The location of the replication.
+                --volume=: ID of the volume or fully qualified identifier for the volume.
+            - name: establish-peering
+              description: Establish peering for Hybrid replication.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location of the replication.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --peer-cluster-name=!: Name of the destination cluster to be peered
+                --peer-ip-addresses=: List of ip addresses to be used for peering.
+                --peer-svm-name=!: Name of the local source vserver svm to be peered
+                --peer-volume-name=!: Name of the source volume to be peered
+                --volume=: ID of the volume or fully qualified identifier for the volume.
+            - name: resume
+              description: Resume a Cloud NetApp Volume Replication.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location of the replication.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --volume=: ID of the volume or fully qualified identifier for the volume.
+            - name: reverse
+              description: Reverse a Cloud NetApp Volume Replication's direction.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location of the replication.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --volume=: ID of the volume or fully qualified identifier for the volume.
+            - name: list
+              description: List Cloud NetApp Volume Replications.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+                --volume=: ID of the volume or fully qualified identifier for the volume.
+            - name: stop
+              description: Stop a Cloud NetApp Volume Replication.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --force: Indicates whether to stop replication forcefully while data transfer is in progress.
+                --location=: The location of the replication.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-force&: Indicates whether to stop replication forcefully while data transfer is in progress.
+                --volume=: ID of the volume or fully qualified identifier for the volume.
+            - name: sync
+              description: Sync a Cloud NetApp Volume Replication.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location of the replication.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --volume=: ID of the volume or fully qualified identifier for the volume.
+        - name: restore-backup-files
+          description: Restore specific files from a backup to a Volume.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --backup-vault=: The Backup Vault of the backup.
+            --backup=!: ID of the backup or fully qualified identifier for the backup.
+            --file-list=!: List of files to be restored in the form of their absolute path as in source volume.
+            --location=: The location of the volume.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --restore-destination-path=: Name of the absolute directory path in the destination volume..
+        - name: update
+          description: Update a Cloud NetApp Volume.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --backup-config=: Backup Config contains backup related config on a volume.
+            --backup-vault=: The Backup Vault of the backup.
+            --block-devices=: A block device to be created with the volume.
+            --cache-parameters=: Cache Parameters contains cache parameters of a volume.
+            --capacity=: The desired capacity of the Volume in GiB or TiB units.If no capacity unit is specified, GiB is assumed.
+            --clear-labels: Remove all labels.
+            --description=: A description of the Cloud NetApp Volume
+            --enable-kerberos=: Boolean flag indicating whether Volume is a kerberos Volume or not
+            --export-policy=: Export Policy of a Cloud NetApp Files Volume.
+            --location=: The location of the volume.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --protocols=: Type of File System protocols for the Cloud NetApp Files Volume.
+            --remove-labels=: List of label keys to remove.
+            --restricted-actions=: Actions to be restricted for a volume.
+            --security-style=: The security style of the Volume.
+            --share-name=: Share name of the Mount path clients will use.
+            --smb-settings=: List of settings specific to SMB protocol for a Cloud NetApp Files Volume.
+            --snap-reserve=: (DEPRECATED) The percentage of volume storage reserved for snapshot storage.
+            --snapshot-daily=: Make a snapshot every day e.g. at 06:00, 05:20, 23:50
+            --snapshot-directory=: Snapshot Directory if enabled (true) makes the Volume
+            --snapshot-hourly=: Make a snapshot every hour e.g. at 04:00, 05:20, 06:00
+            --snapshot-monthly=: Make a snapshot once a month e.g. at 2nd 04:00, 7th 05:20, 24th 23:50
+            --snapshot-weekly=: Make a snapshot every week e.g. at Monday 04:00, Wednesday 05:20,
+            --source-backup=!: ID of the backup or fully qualified identifier for the backup.
+            --source-snapshot=!: ID of the snapshot or fully qualified identifier for the snapshot.
+            --storage-pool=!: ID of the storage_pool or fully qualified identifier for the storage_pool.
+            --throughput-mibps=: The desired throughput of the volume in MiB/s.
+            --tiering-policy=: Tiering Policy contains auto tiering policy on a volume.
+            --unix-permissions=: Unix permissions the mount point will be created with.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+          completion:
+            flag:
+                security-style:
+                    - ntfs
+                    - unix
+        - name: delete
+          description: Delete a Cloud NetApp Volume.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --force: Forces the deletion of a volume and its child resources, such as snapshots.
+            --location=: The location of the volume.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-force&: Forces the deletion of a volume and its child resources, such as snapshots.
+        - name: revert
+          description: Revert a Cloud NetApp Volume back to a specified Snapshot.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location of the volume.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --snapshot=!: ID of the snapshot or fully qualified identifier for the snapshot.
+        - name: snapshots
+          description: Create and manage Cloud NetApp Volume Snapshots.
+          commands:
+            - name: create
+              description: Create a Cloud NetApp Volume Snapshot.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --description=: A description of the Cloud NetApp Snapshot
+                --labels=: List of label KEY=VALUE pairs to add.
+                --location=: The location of the snapshot.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --volume=: ID of the volume or fully qualified identifier for the volume.
+            - name: delete
+              description: Delete a Cloud NetApp Volume Snapshot.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location of the snapshot.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --volume=: ID of the volume or fully qualified identifier for the volume.
+            - name: describe
+              description: Describe a Cloud NetApp Volume Snapshot.
+              flags:
+                --location=: The location of the snapshot.
+                --volume=: ID of the volume or fully qualified identifier for the volume.
+            - name: list
+              description: List Cloud NetApp Volume Snapshots.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+                --volume=: ID of the volume or fully qualified identifier for the volume.
+            - name: update
+              description: Update a Cloud NetApp Volume Snapshot.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-labels: Remove all labels.
+                --description=: A description of the Cloud NetApp Snapshot
+                --location=: The location of the snapshot.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Remove all labels.
+                --remove-labels=: List of label keys to remove.
+                --update-labels=: List of label KEY=VALUE pairs to update.
+                --volume=: ID of the volume or fully qualified identifier for the volume.
+    - name: backup-policies
+      description: Create and manage Cloud NetApp Backup Policies.
+      commands:
+        - name: list
+          description: List Cloud NetApp Volumes Backup Policies.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a Cloud NetApp Volumes Backup Policies.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Remove all labels.
+            --daily-backup-limit=: Maximum number of daily backups to keep.
+            --description=: A description of the Cloud NetApp Backup Policy
+            --enabled=: The Boolean value indiciating whether backups are made automatically according to the schedules.
+            --location=: The location of the backup_policy.
+            --monthly-backup-limit=: Number of monthly backups to keep.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+            --weekly-backup-limit=: Number of weekly backups to keep.
+        - name: create
+          description: Create a Cloud NetApp Backup Policy.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --daily-backup-limit=: Maximum number of daily backups to keep.
+            --description=: A description of the Cloud NetApp Backup Policy
+            --enabled=: The Boolean value indiciating whether backups are made automatically according to the schedules.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The location of the backup_policy.
+            --monthly-backup-limit=: Number of monthly backups to keep.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --weekly-backup-limit=: Number of weekly backups to keep.
+        - name: delete
+          description: Delete a Cloud NetApp Volumes Backup Policy.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location of the backup_policy.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Show metadata for a Cloud NetApp Volumes Backup Policy.
+          flags:
+            --location=: The location of the backup_policy.
+    - name: backup-vaults
+      description: Create and manage Cloud NetApp Backup Vaults.
+      commands:
+        - name: list
+          description: List Cloud NetApp Volumes Backup Vaults.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a Cloud NetApp Volumes Backup Vault.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --backup-retention-policy=: Backup Retention Policy of the Backup Vault.
+            --clear-labels: Remove all labels.
+            --description=: A description of the Cloud NetApp Backup Vault
+            --location=: The location of the backup_vault.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+        - name: backups
+          description: Create and manage Cloud NetApp Backups.
+          commands:
+            - name: list
+              description: List Cloud NetApp Backups.
+              flags:
+                --backup-vault=: ID of the backup_vault or fully qualified identifier for the backup_vault.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Update a Cloud NetApp Backup.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --backup-vault=: ID of the backup_vault or fully qualified identifier for the backup_vault.
+                --clear-labels: Remove all labels.
+                --description=: A description of the Cloud NetApp Backup
+                --location=: The location of the backup.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Remove all labels.
+                --remove-labels=: List of label keys to remove.
+                --update-labels=: List of label KEY=VALUE pairs to update.
+            - name: create
+              description: Create a Cloud NetApp Backup.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --backup-vault=: ID of the backup_vault or fully qualified identifier for the backup_vault.
+                --description=: A description of the Cloud NetApp Backup Vault
+                --labels=: List of label KEY=VALUE pairs to add.
+                --location=: The location of the backup.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --source-snapshot=!: ID of the snapshot or fully qualified identifier for the snapshot.
+                --source-volume=: ID of the volume or fully qualified identifier for the volume.
+            - name: delete
+              description: Delete a Cloud NetApp Backup.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --backup-vault=: ID of the backup_vault or fully qualified identifier for the backup_vault.
+                --location=: The location of the backup.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: describe
+              description: Describe a Cloud NetApp Backup.
+              flags:
+                --backup-vault=: ID of the backup_vault or fully qualified identifier for the backup_vault.
+                --location=: The location of the backup.
+        - name: create
+          description: Create a Cloud NetApp Backup Vault.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --backup-retention-policy=: Backup Retention Policy of the Backup Vault.
+            --description=: A description of the Cloud NetApp Backup Vault
+            --kms-config=&: ID of the kms_config or fully qualified identifier for the kms_config.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The location of the backup_vault.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: delete
+          description: Delete a Cloud NetApp Volumes Backup Vault.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location of the backup_vault.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Show metadata for a Cloud NetApp Volumes Backup Vault.
+          flags:
+            --location=: The location of the backup_vault.
+    - name: host-groups
+      description: Create and manage Cloud NetApp Host Groups.
+      commands:
+        - name: create
+          description: Create a Cloud NetApp Host Group.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: A description of the Cloud NetApp Host Group
+            --hosts=!: List of hosts in the host group.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The location of the host_group.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --os-type=!: String indicating the OS type of the hosts in the host group.
+            --type=!: String indicating the type of host group.
+          completion:
+            flag:
+                os-type:
+                    - LINUX
+                    - WINDOWS
+                    - ESXI
+                type:
+                    - ISCSI_INITIATOR
+        - name: delete
+          description: Delete a Cloud NetApp Host Group.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location of the host_group.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe a Cloud NetApp Host Group.
+          flags:
+            --location=: The location of the host_group.
+        - name: list
+          description: List Cloud NetApp Host Groups.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a Cloud NetApp Host Group.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Remove all labels.
+            --description=: A description of the Cloud NetApp Host Group
+            --hosts=: List of hosts in the host group.
+            --location=: The location of the host_group.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+    - name: kms-configs
+      description: Create and manage Cloud NetApp Volumes KMS Configs.
+      commands:
+        - name: create
+          description: Create a Cloud NetApp Volumes KMS Config.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: A description of the Cloud NetApp KMS Config
+            --kms-key=!: ID of the kms_key or fully qualified identifier for the kms_key.
+            --kms-keyring=: The KMS keyring of the kms_key
+            --kms-location=: The Cloud location for the kms_key.
+            --kms-project=: The Cloud project for the kms_key.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The location of the kms_config.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: delete
+          description: Delete a Cloud NetApp Volumes KMS Config.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location of the kms_config.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Show metadata for a Cloud NetApp Volumes KMS Config.
+          flags:
+            --location=: The location of the kms_config.
+        - name: encrypt
+          description: Encrypt all existing volumes and storage pools in the same region with the desired Cloud NetApp Volumes KMS Config.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location of the kms_config.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: list
+          description: List Cloud NetApp Volumes KMS Configs.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a Cloud NetApp Volumes KMS Config.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Remove all labels.
+            --description=: A description of the Cloud NetApp KMS Config
+            --kms-key=!: ID of the kms_key or fully qualified identifier for the kms_key.
+            --kms-keyring=: The KMS keyring of the kms_key
+            --kms-location=: The Cloud location for the kms_key.
+            --kms-project=: The Cloud project for the kms_key.
+            --location=: The location of the kms_config.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+        - name: verify
+          description: Verify that the Cloud NetApp Volumes KMS Config is reachable.
+          flags:
+            --location=: The location of the kms_config.
+    - name: operations
+      description: Read and manage Cloud NetApp Files Operations.
+      commands:
+        - name: describe
+          description: Describe a Cloud NetApp Files operation.
+          flags:
+            --location=: The location of the operation.
+        - name: list
+          description: List Cloud NetApp Files operations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the

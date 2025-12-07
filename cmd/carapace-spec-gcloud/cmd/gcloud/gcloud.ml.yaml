@@ -1,0 +1,307 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: ml
+description: Use Google Cloud machine learning capabilities.
+commands:
+    - name: speech
+      description: Use Google Cloud Speech to get transcripts of audio.
+      commands:
+        - name: operations
+          description: Interact with Google Cloud Speech operations.
+          commands:
+            - name: describe
+              description: Get description of a long-running speech recognition operation.
+            - name: wait
+              description: Poll long-running speech recognition operation until it completes.
+        - name: recognize
+          description: Get transcripts of short (less than 60 seconds) audio from an audio file.
+          flags:
+            --audio-channel-count=!: The number of channels in the input audio data.
+            --enable-automatic-punctuation: Adds punctuation to recognition result hypotheses.
+            --encoding=: The type of encoding of the file.
+            --filter-profanity: If True, the server will attempt to filter out profanities, replacing all but the initial character in each filtered word with asterisks, e.g. ```f***```.
+            --hints=: A list of strings containing word and phrase "hints" so that the speech recognition is more likely to recognize them.
+            --include-word-time-offsets: If True, the top result includes a list of words with the start and end time offsets (timestamps) for those words.
+            --language-code=: The language of the supplied audio as a BCP-47 (https://www.rfc-editor.org/rfc/bcp/bcp47.txt) language tag.
+            --language=&: (DEPRECATED) The language of the supplied audio as a BCP-47 (https://www.rfc-editor.org/rfc/bcp/bcp47.txt) language tag.
+            --max-alternatives=: Maximum number of recognition hypotheses to be returned.
+            --model=: Select the model best suited to your domain to get best results.
+            --no-enable-automatic-punctuation&: Adds punctuation to recognition result hypotheses.
+            --no-filter-profanity&: If True, the server will attempt to filter out profanities, replacing all but the initial character in each filtered word with asterisks, e.g. ```f***```.
+            --no-include-word-time-offsets&: If True, the top result includes a list of words with the start and end time offsets (timestamps) for those words.
+            --no-separate-channel-recognition!&: Recognition result will contain a `channel_tag` field to state which channel that result belongs to.
+            --sample-rate=: The sample rate in Hertz.
+            --separate-channel-recognition!: Recognition result will contain a `channel_tag` field to state which channel that result belongs to.
+          completion:
+            flag:
+                encoding:
+                    - alaw
+                    - amr
+                    - amr-wb
+                    - encoding-unspecified
+                    - flac
+                    - linear16
+                    - mp3
+                    - mulaw
+                    - ogg-opus
+                    - speex-with-header-byte
+                    - webm-opus
+                model:
+                    - command_and_search
+                    - default
+                    - latest_long
+                    - latest_short
+                    - medical_conversation
+                    - medical_dictation
+                    - phone_call
+                    - phone_call_enhanced
+                    - telephony
+                    - telephony_short
+                    - video_enhanced
+        - name: recognize-long-running
+          description: Get transcripts of longer audio from an audio file.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --audio-channel-count=!: The number of channels in the input audio data.
+            --enable-automatic-punctuation: Adds punctuation to recognition result hypotheses.
+            --encoding=: The type of encoding of the file.
+            --filter-profanity: If True, the server will attempt to filter out profanities, replacing all but the initial character in each filtered word with asterisks, e.g. ```f***```.
+            --hints=: A list of strings containing word and phrase "hints" so that the speech recognition is more likely to recognize them.
+            --include-word-time-offsets: If True, the top result includes a list of words with the start and end time offsets (timestamps) for those words.
+            --language-code=: The language of the supplied audio as a BCP-47 (https://www.rfc-editor.org/rfc/bcp/bcp47.txt) language tag.
+            --language=&: (DEPRECATED) The language of the supplied audio as a BCP-47 (https://www.rfc-editor.org/rfc/bcp/bcp47.txt) language tag.
+            --max-alternatives=: Maximum number of recognition hypotheses to be returned.
+            --model=: Select the model best suited to your domain to get best results.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-enable-automatic-punctuation&: Adds punctuation to recognition result hypotheses.
+            --no-filter-profanity&: If True, the server will attempt to filter out profanities, replacing all but the initial character in each filtered word with asterisks, e.g. ```f***```.
+            --no-include-word-time-offsets&: If True, the top result includes a list of words with the start and end time offsets (timestamps) for those words.
+            --no-separate-channel-recognition!&: Recognition result will contain a `channel_tag` field to state which channel that result belongs to.
+            --output-uri=: Location to which the results should be written.
+            --sample-rate=: The sample rate in Hertz.
+            --separate-channel-recognition!: Recognition result will contain a `channel_tag` field to state which channel that result belongs to.
+          completion:
+            flag:
+                encoding:
+                    - alaw
+                    - amr
+                    - amr-wb
+                    - encoding-unspecified
+                    - flac
+                    - linear16
+                    - mp3
+                    - mulaw
+                    - ogg-opus
+                    - speex-with-header-byte
+                    - webm-opus
+                model:
+                    - command_and_search
+                    - default
+                    - latest_long
+                    - latest_short
+                    - medical_conversation
+                    - medical_dictation
+                    - phone_call
+                    - phone_call_enhanced
+                    - telephony
+                    - telephony_short
+                    - video_enhanced
+    - name: video
+      description: Cloud ML Video-Intelligence command groups.
+      commands:
+        - name: detect-explicit-content
+          description: Detect explicit content in videos.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --output-uri=: Location to which the results should be written.
+            --region=: Optional Cloud region where annotation should take place.
+            --segments=: Segments from the video which you want to analyze (by default, the
+          completion:
+            flag:
+                region:
+                    - asia-east1
+                    - europe-west1
+                    - us-east1
+                    - us-west1
+        - name: detect-labels
+          description: Detect general labels for videos.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --detection-mode=: The mode of label detection requested.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --output-uri=: Location to which the results should be written.
+            --region=: Optional Cloud region where annotation should take place.
+            --segments=: Segments from the video which you want to analyze (by default, the
+          completion:
+            flag:
+                detection-mode:
+                    - frame
+                    - shot
+                    - shot-and-frame
+                region:
+                    - asia-east1
+                    - europe-west1
+                    - us-east1
+                    - us-west1
+        - name: detect-shot-changes
+          description: Detect shot changes in videos.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --output-uri=: Location to which the results should be written.
+            --region=: Optional Cloud region where annotation should take place.
+            --segments=: Segments from the video which you want to analyze (by default, the
+          completion:
+            flag:
+                region:
+                    - asia-east1
+                    - europe-west1
+                    - us-east1
+                    - us-west1
+        - name: operations
+          description: Command group for working with Cloud Video Intelligence operations.
+          commands:
+            - name: describe
+              description: Get description of a long-running video analysis operation.
+              flags:
+                --location=: Location of the operation.
+            - name: wait
+              description: Poll long-running video analysis operation until it completes.
+              flags:
+                --location=: Location of the operation.
+    - name: vision
+      description: Use Google Cloud Vision to analyze images.
+      commands:
+        - name: detect-logos
+          description: Detect popular product logos within an image.
+          flags:
+            --max-results=: Maximum number of results to be provided.
+        - name: detect-objects
+          description: Detect and extract multiple objects in an image with object localization.
+        - name: detect-safe-search
+          description: Detect explicit content in an image.
+        - name: detect-text-pdf
+          description: Detect and transcribe text from PDF files stored in Google Cloud Storage.
+          flags:
+            --batch-size=: Maximum number of response protos to put into each output JSON file on
+        - name: detect-text-tiff
+          description: Detect and transcribe text from TIFF files stored in Google Cloud Storage.
+          flags:
+            --batch-size=: Maximum number of response protos to put into each output JSON file on
+        - name: detect-web
+          description: Detect entities in an image from similar images on the web.
+          flags:
+            --max-results=: Maximum number of results to be provided.
+        - name: detect-document
+          description: Detect dense text in an image.
+          flags:
+            --language-hints=: List of languages to use for text detection.
+        - name: detect-faces
+          description: Detect faces within an image.
+          flags:
+            --max-results=: Maximum number of results to be provided.
+        - name: detect-image-properties
+          description: Detect general attributes of an image.
+        - name: detect-labels
+          description: Detect broad sets of categories within an image.
+          flags:
+            --max-results=: Maximum number of results to be provided.
+        - name: detect-landmarks
+          description: Detect popular natural and man-made structures within an image.
+          flags:
+            --max-results=: Maximum number of results to be provided.
+        - name: detect-text
+          description: Detect and extract text within an image.
+          flags:
+            --language-hints=: List of languages to use for text detection.
+        - name: suggest-crop
+          description: Suggest a bounding box in an image.
+          flags:
+            --aspect-ratios=: A list of aspect ratio hints for the suggested bounding box.
+    - name: language
+      description: Use the Google Cloud Natural Language API to analyze text.
+      commands:
+        - name: analyze-entity-sentiment
+          description: Use Google Cloud Natural Language API to identify entity-level sentiment.
+          flags:
+            --content-file=: Specify a local file or Google Cloud Storage (format
+            --content-type=: Specify the format of the input text.
+            --content=: Specify input text on the command line.
+            --encoding-type=: The encoding type used by the API to calculate offsets.
+            --language=: Specify the language of the input text.
+          completion:
+            flag:
+                content-type:
+                    - html
+                    - plain-text
+                encoding-type:
+                    - none
+                    - utf16
+                    - utf32
+                    - utf8
+        - name: analyze-sentiment
+          description: Use Google Cloud Natural Language API to identify sentiments in a text.
+          flags:
+            --content-file=: Specify a local file or Google Cloud Storage (format
+            --content-type=: Specify the format of the input text.
+            --content=: Specify input text on the command line.
+            --encoding-type=: The encoding type used by the API to calculate offsets.
+            --language=: Specify the language of the input text.
+          completion:
+            flag:
+                content-type:
+                    - html
+                    - plain-text
+                encoding-type:
+                    - none
+                    - utf16
+                    - utf32
+                    - utf8
+        - name: analyze-syntax
+          description: Use Google Cloud Natural Language API to identify linguistic information.
+          flags:
+            --content-file=: Specify a local file or Google Cloud Storage (format
+            --content-type=: Specify the format of the input text.
+            --content=: Specify input text on the command line.
+            --encoding-type=: The encoding type used by the API to calculate offsets.
+            --language=: Specify the language of the input text.
+          completion:
+            flag:
+                content-type:
+                    - html
+                    - plain-text
+                encoding-type:
+                    - none
+                    - utf16
+                    - utf32
+                    - utf8
+        - name: classify-text
+          description: Classifies input document into categories.
+          flags:
+            --content-file=: Specify a local file or Google Cloud Storage (format
+            --content-type=: Specify the format of the input text.
+            --content=: Specify input text on the command line.
+            --language=: Specify the language of the input text.
+          completion:
+            flag:
+                content-type:
+                    - html
+                    - plain-text
+        - name: analyze-entities
+          description: Use Google Cloud Natural Language API to identify entities in text.
+          flags:
+            --content-file=: Specify a local file or Google Cloud Storage (format
+            --content-type=: Specify the format of the input text.
+            --content=: Specify input text on the command line.
+            --encoding-type=: The encoding type used by the API to calculate offsets.
+            --language=: Specify the language of the input text.
+          completion:
+            flag:
+                content-type:
+                    - html
+                    - plain-text
+                encoding-type:
+                    - none
+                    - utf16
+                    - utf32
+                    - utf8

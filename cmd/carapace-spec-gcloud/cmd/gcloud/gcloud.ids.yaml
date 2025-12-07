@@ -1,0 +1,57 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: ids
+description: Manage Cloud IDS.
+commands:
+    - name: endpoints
+      description: Create and manage Cloud IDS Endpoints.
+      commands:
+        - name: create
+          description: Create a Cloud IDS endpoint.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: Description of the endpoint.
+            --enable-traffic-logs: Whether to enable traffic logs on the endpoint.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
+            --network=!: Name of the VPC network to monitor
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-enable-traffic-logs&: Whether to enable traffic logs on the endpoint.
+            --severity=!: Minimum severity of threats to report on.
+            --threat-exceptions=: List of threat IDs to be excepted from alerting.
+            --zone=: Zone of the endpoint.
+          completion:
+            flag:
+                severity:
+                    - INFORMATIONAL
+                    - LOW
+                    - MEDIUM
+                    - HIGH
+                    - CRITICAL
+        - name: delete
+          description: Delete a Cloud IDS endpoint.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --zone=: Zone of the endpoint.
+        - name: describe
+          description: Describe a Cloud IDS endpoint.
+          flags:
+            --zone=: Zone of the endpoint.
+        - name: list
+          description: List Cloud IDS endpoints.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update an existing Cloud IDS endpoint.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --threat-exceptions=: List of threat IDs to be excepted from alerting.
+            --zone=: Zone of the endpoint.

@@ -1,0 +1,510 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: redis
+description: Manage Cloud Memorystore Redis resources.
+commands:
+    - name: operations
+      description: Manage Cloud Memorystore Redis operations.
+      commands:
+        - name: cancel
+          description: Cancel a Memorystore Redis import or export operation.
+          flags:
+            --region=: The name of the Redis region of the operation.
+        - name: describe
+          description: Show metadata for a Memorystore Redis operation.
+          flags:
+            --region=: The name of the Redis region of the operation.
+        - name: list
+          description: List Memorystore Redis operations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: ID of the region or fully qualified identifier for the region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: regions
+      description: Manage Cloud Memorystore Redis regions.
+      commands:
+        - name: describe
+          description: Show metadata for a Memorystore Redis region.
+        - name: list
+          description: List Memorystore Redis regions.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: zones
+      description: Manage Cloud Memorystore Redis zones.
+      commands:
+        - name: list
+          description: List Memorystore Redis zones.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --region=: If provided, returns only resources from the given region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+    - name: clusters
+      description: Manage Memorystore for Redis Cluster instances.
+      commands:
+        - name: add-cluster-endpoints
+          description: Add more cluster endpoints.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --cluster-endpoint=!: Required, Resource details of a redis cluster endpoint.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The name of the Redis region of the cluster.
+        - name: describe
+          description: Show metadata for a Memorystore for Redis Cluster instance.
+          flags:
+            --region=: The name of the Redis region of the cluster.
+        - name: list
+          description: List Memorystore for Redis Cluster instances.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: ID of the region or fully qualified identifier for the region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: reschedule-maintenance
+          description: Reschedule maintenance window for a Memorystore for     Redis Cluster instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The name of the Redis region of the cluster.
+            --reschedule-type=!: Reschedule type to use for the reschedule maintenance window.
+            --schedule-time=: 'Time in RFC3339 format, for example: 2012-11-15T16:19:00.094Z'
+          completion:
+            flag:
+                reschedule-type:
+                    - immediate
+                    - specific-time
+        - name: switchover
+          description: Switchover to a secondary cluster.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The name of the Redis region of the cluster.
+        - name: backups
+          description: Manage backups of Memorystore for Redis Cluster instances.
+          commands:
+            - name: describe
+              description: Show metadata for a Memorystore for Redis Cluster backup.
+              flags:
+                --backup-collection=: The name of the Redis cluster backup collection.
+                --region=: The name of the Redis region of the backup.
+            - name: export
+              description: Export a Redis cluster backup to a Google Cloud Storage bucket.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --backup-collection=: The name of the Redis cluster backup collection.
+                --gcs-bucket=!: The name of the Google Cloud Storage bucket to export the backup to.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --region=: The name of the Redis region of the backup.
+            - name: list
+              description: List backups under a backup collection in a region.
+              flags:
+                --backup-collection=!: ID of the backup collection or fully qualified identifier for the backup collection.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --region=: The name of the Redis region of the backup collection.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: delete
+              description: Delete a Memorystore for Redis Cluster backup.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --backup-collection=: The name of the Redis cluster backup collection.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --region=: The name of the Redis region of the backup.
+        - name: delete
+          description: Delete a Memorystore for Redis Cluster instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The name of the Redis region of the cluster.
+        - name: detach
+          description: Detach a secondary cluster.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The name of the Redis region of the cluster.
+        - name: get-cluster-certificate-authority
+          description: Get the certificate authority information for a Memorystore for Redis Cluster instance.
+          flags:
+            --region=: The name of the Redis region of the cluster.
+        - name: remove-cluster-endpoints
+          description: Remove existing Memorystore cluster endpoints.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --cluster-endpoint=!: Required, Resource details of a redis cluster endpoint.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The name of the Redis region of the cluster.
+        - name: backup-collections
+          description: Manage backup collections of Memorystore for Redis Cluster instances.
+          commands:
+            - name: describe
+              description: Show metadata for a backup collection.
+              flags:
+                --region=: The name of the Redis region of the backup collection.
+            - name: list
+              description: List backup collections in a region.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --region=: ID of the region or fully qualified identifier for the region.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update Memorystore Cluster for Redis instance.
+          flags:
+            --aof-append-fsync=: Fsync configuration.
+            --async: Return immediately, without waiting for the operation in progress to
+            --automated-backup-mode=: Automated backup mode.
+            --automated-backup-start-time=: One-hour window when you want automated-backup operations to start.
+            --automated-backup-ttl=: Time to live for automated backups.
+            --deletion-protection: Enable deletion protection for the Redis Cluster.
+            --maintenance-version=: The maintenance version of the cluster.
+            --maintenance-window-any: Removes the user-specified maintenance window.
+            --maintenance-window-day=: The day of week when the window starts, e.g. `sunday`.
+            --maintenance-window-hour=: Hour of day (`0` to `23`) for the start of maintenance window, in UTC time zone.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-deletion-protection&: Enable deletion protection for the Redis Cluster.
+            --no-maintenance-window-any&: Removes the user-specified maintenance window.
+            --no-simulate-maintenance-event&: Trigger a simulation for maintenance event.
+            --node-type=: Node Type of the redis cluster Node.
+            --persistence-mode=: Operation mode for persistence.
+            --rdb-snapshot-period=: Attempted period between RDB snapshots.
+            --rdb-snapshot-start-time=: Date and time of the first snapshot in the ISO 1801 format, and alignment time for future snapshots.
+            --region=: The name of the Redis region of the cluster.
+            --remove-redis-config=: A list of Redis Cluster config parameters to remove.
+            --replica-count=: The replica count of each shard.
+            --shard-count=: The shard count of the cluster.
+            --simulate-maintenance-event: Trigger a simulation for maintenance event.
+            --update-redis-config=: A list of Redis Cluster config KEY=VALUE pairs to update.
+          completion:
+            flag:
+                aof-append-fsync:
+                    - always
+                    - everysec
+                    - "no"
+                automated-backup-mode:
+                    - disabled
+                    - enabled
+                maintenance-window-day:
+                    - friday
+                    - monday
+                    - saturday
+                    - sunday
+                    - thursday
+                    - tuesday
+                    - wednesday
+                node-type:
+                    - redis-highmem-medium
+                    - redis-highmem-xlarge
+                    - redis-shared-core-nano
+                    - redis-standard-small
+                persistence-mode:
+                    - aof
+                    - disabled
+                    - rdb
+                rdb-snapshot-period:
+                    - 12h
+                    - 1h
+                    - 24h
+                    - 6h
+        - name: create
+          description: Create a new Memorystore for Redis Cluster instance.
+          flags:
+            --aof-append-fsync=: Fsync configuration.
+            --async: Return immediately, without waiting for the operation in progress to
+            --auth-mode=: Available authorization mode of a Redis cluster.
+            --automated-backup-mode=: Automated backup mode.
+            --automated-backup-start-time=: One-hour window when you want automated-backup operations to start.
+            --automated-backup-ttl=: Time to live for automated backups.
+            --cross-cluster-replication-role=: The role of the cluster in cross cluster replication.
+            --deletion-protection: Enable deletion protection for the Redis Cluster.
+            --import-gcs-object-uris=: URIs of Google Cloud Storage objects to import from.
+            --import-managed-backup=: Managed backup to import from.
+            --kms-key=: The resource name of the customer-managed encryption key (CMEK) to use for the cluster.
+            --maintenance-window-day=: Day of week when the window starts, e.g. `sunday`.
+            --maintenance-window-hour=: Hour of day (`0` to `23`) for the start of maintenance window, in UTC time zone.
+            --network=: The network used to create your instance.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-deletion-protection&: Enable deletion protection for the Redis Cluster.
+            --node-type=: Node Type of the redis cluster Node.
+            --persistence-mode=: Operation mode for persistence.
+            --primary-cluster=: The primary cluster that the secondary cluster will replicate from.
+            --rdb-snapshot-period=: Attempted period between RDB snapshots.
+            --rdb-snapshot-start-time=: Date and time of the first snapshot in the ISO 1801 format, and alignment time for future snapshots.
+            --redis-config=: A list of Redis config KEY=VALUE pairs to set on the Redis Cluster according to
+            --region=: The name of the Redis region of the cluster.
+            --replica-count=: The replica count of each shard.
+            --shard-count=: The shard count of the cluster.
+            --transit-encryption-mode=: Transit encryption mode used for the Redis cluster.
+            --zone-distribution-mode=: Determines how the cluster nodes are distributed across zones.
+            --zone=: The zone used to allocate the cluster nodes.
+          completion:
+            flag:
+                aof-append-fsync:
+                    - always
+                    - everysec
+                    - "no"
+                auth-mode:
+                    - disabled
+                    - iam-auth
+                automated-backup-mode:
+                    - disabled
+                    - enabled
+                cross-cluster-replication-role:
+                    - secondary
+                maintenance-window-day:
+                    - friday
+                    - monday
+                    - saturday
+                    - sunday
+                    - thursday
+                    - tuesday
+                    - wednesday
+                node-type:
+                    - redis-highmem-medium
+                    - redis-highmem-xlarge
+                    - redis-shared-core-nano
+                    - redis-standard-small
+                persistence-mode:
+                    - aof
+                    - disabled
+                    - rdb
+                rdb-snapshot-period:
+                    - 12h
+                    - 1h
+                    - 24h
+                    - 6h
+                transit-encryption-mode:
+                    - disabled
+                    - server-authentication
+                zone-distribution-mode:
+                    - multi-zone
+                    - single-zone
+        - name: create-backup
+          description: Create a backup of a Redis cluster.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --backup-id=: The ID of the backup.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The name of the Redis region of the cluster.
+            --ttl=: The time to live for the backup.
+        - name: detach-secondaries
+          description: Detach one or more secondary clusters from the primary cluster.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clusters-to-detach=!: Comma separated list of secondary clusters to detach from the primary cluster.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The name of the Redis region of the cluster.
+    - name: instances
+      description: Manage Cloud Memorystore Redis instances.
+      commands:
+        - name: delete
+          description: Delete a Redis instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The name of the Redis region of the instance.
+        - name: describe
+          description: Show metadata for a Memorystore Redis instance.
+          flags:
+            --region=: The name of the Redis region of the instance.
+        - name: failover
+          description: Failover a standard tier Cloud Memorystore for Redis instance from the master node to its replica.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --data-protection-mode=: Data protection mode to use for the failover.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The name of the Redis region of the instance.
+          completion:
+            flag:
+                data-protection-mode:
+                    - force-data-loss
+                    - limited-data-loss
+        - name: get-auth-string
+          description: Show AUTH string for a Memorystore Redis instance.
+          flags:
+            --region=: The name of the Redis region of the instance.
+        - name: list
+          description: List Memorystore Redis instances.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: ID of the region or fully qualified identifier for the region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: reschedule-maintenance
+          description: Reschedule maintenance window for a Redis instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The name of the Redis region of the instance.
+            --reschedule-type=!: Reschedule type to use for the reschedule maintenance window.
+            --schedule-time=: 'Time in RFC3339 format, for example: 2012-11-15T16:19:00.094Z'
+          completion:
+            flag:
+                reschedule-type:
+                    - immediate
+                    - next-available-window
+                    - specific-time
+        - name: create
+          description: Create a Memorystore Redis instance.
+          flags:
+            --alternative-zone=: A secondary zone for the Redis instance.
+            --async: Return immediately, without waiting for the operation in progress to
+            --connect-mode=: Network connection mode used by instances.
+            --customer-managed-key=: The KMS key reference that you want to use to encrypt the data at rest for this Redis
+            --display-name=: A human-readable name for the instance.
+            --enable-auth: Enables Redis AUTH for the instance.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --maintenance-window-day=: Day of week for maintenance window, in UTC time zone.
+            --maintenance-window-hour=: Hour of day (0 to 23) for maintenance window, in UTC time zone.
+            --network=: The name of the Google Compute Engine network to which the instance
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-enable-auth&: Enables Redis AUTH for the instance.
+            --persistence-mode=: Operation mode for automated persistence.
+            --rdb-snapshot-period=: Attempted period between RDB snapshots.
+            --rdb-snapshot-start-time=: Date and time of the first snapshot in the ISO 1801 format, and alignment time for future snapshots.
+            --read-replicas-mode=: Read replicas mode used by the instance.
+            --redis-config=: A list of Redis config KEY=VALUE pairs to set on the instance
+            --redis-version=: The version of Redis software.
+            --region=: The name of the Redis region of the instance.
+            --replica-count=: The replica count of the instance.
+            --reserved-ip-range=: For DIRECT_PEERING mode, the CIDR range of internal addresses that are reserved for this
+            --size=: The memory size of the instance in GiB.
+            --tags=&: List of tag KEY=VALUE pairs to add.
+            --tier=: The service tier of the instance.
+            --transit-encryption-mode=: Transit encryption mode used by the instance.
+            --zone=: The zone of the Redis instance.
+          completion:
+            flag:
+                connect-mode:
+                    - connect-mode-unspecified
+                    - direct-peering
+                    - private-service-access
+                maintenance-window-day:
+                    - day-of-week-unspecified
+                    - friday
+                    - monday
+                    - saturday
+                    - sunday
+                    - thursday
+                    - tuesday
+                    - wednesday
+                persistence-mode:
+                    - disabled
+                    - rdb
+                rdb-snapshot-period:
+                    - 12h
+                    - 1h
+                    - 24h
+                    - 6h
+                read-replicas-mode:
+                    - read-replicas-disabled
+                    - read-replicas-enabled
+                redis-version:
+                    - redis_3_2
+                    - redis_4_0
+                    - redis_5_0
+                    - redis_6_x
+                    - redis_7_0
+                    - redis_7_2
+                tier:
+                    - basic
+                    - standard
+                transit-encryption-mode:
+                    - disabled
+                    - server-authentication
+        - name: export
+          description: Export data from a Memorystore Redis instance to Google Cloud Storage.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The name of the Redis region of the instance.
+        - name: import
+          description: Import data to a Memorystore Redis instance from Google Cloud Storage.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The name of the Redis region of the instance.
+        - name: update
+          description: Update Memorystore Redis instances.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Remove all labels.
+            --display-name=: A human-readable name for the instance.
+            --enable-auth: Enables Redis AUTH for the instance.
+            --maintenance-version=: Specifies which maintenance version to apply to your instance during self-service maintenance.
+            --maintenance-window-any: Removes the user-specified maintenance window.
+            --maintenance-window-day=: Day of week for maintenance window, in UTC time zone.
+            --maintenance-window-hour=: Hour of day (0 to 23) for maintenance window, in UTC time zone.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --no-enable-auth&: Enables Redis AUTH for the instance.
+            --no-maintenance-window-any&: Removes the user-specified maintenance window.
+            --persistence-mode=: Operation mode for automated persistence.
+            --rdb-snapshot-period=: The attempted period between RDB snapshots.
+            --rdb-snapshot-start-time=: Date and time of the first snapshot in the ISO 1801 format, and alignment time for future snapshots.
+            --read-replicas-mode=: Read replicas mode used by the instance.
+            --region=: The name of the Redis region of the instance.
+            --remove-labels=: List of label keys to remove.
+            --remove-redis-config=: A list of Redis config parameters to remove.
+            --replica-count=: The replica count of the instance.
+            --secondary-ip-range=: Required only when read-replicas-mode is enabled on the instance.
+            --size=: The memory size of the instance in GiB.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+            --update-redis-config=: A list of Redis config KEY=VALUE pairs to update according to
+          completion:
+            flag:
+                maintenance-window-day:
+                    - day-of-week-unspecified
+                    - friday
+                    - monday
+                    - saturday
+                    - sunday
+                    - thursday
+                    - tuesday
+                    - wednesday
+                persistence-mode:
+                    - disabled
+                    - rdb
+                rdb-snapshot-period:
+                    - 12h
+                    - 1h
+                    - 24h
+                    - 6h
+                read-replicas-mode:
+                    - read-replicas-disabled
+                    - read-replicas-enabled
+        - name: upgrade
+          description: Upgrade a Memorystore for Redis instance to a specified Redis version.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --redis-version=!: Target version of Redis software.
+            --region=: The name of the Redis region of the instance.
+          completion:
+            flag:
+                redis-version:
+                    - redis_4_0
+                    - redis_5_0
+                    - redis_6_x
+                    - redis_7_0
+                    - redis_7_2

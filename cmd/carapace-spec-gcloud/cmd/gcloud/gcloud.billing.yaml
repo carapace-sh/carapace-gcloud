@@ -1,0 +1,158 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: billing
+description: Manage billing accounts and associate them with projects.
+commands:
+    - name: accounts
+      description: Manage billing accounts.
+      commands:
+        - name: describe
+          description: Show metadata for a billing account.
+        - name: get-iam-policy
+          description: Get the IAM policy for a Cloud Billing account.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: List all active billing accounts.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: remove-iam-policy-binding
+          description: Remove an IAM policy binding from a Cloud Billing account.
+          flags:
+            --member=!: The principal to remove the binding for.
+            --role=!: The role to remove the principal from.
+        - name: set-iam-policy
+          description: Set the IAM policy for a Cloud Billing account.
+        - name: add-iam-policy-binding
+          description: Add an IAM policy binding to a Cloud Billing account.
+          flags:
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+    - name: budgets
+      description: Manage the budgets of your billing accounts.
+      commands:
+        - name: create
+          description: Create a budget.
+          flags:
+            --billing-account=!: ID of the billing-account or fully qualified identifier for the billing-account.
+            --budget-amount=: Specify the amount of the budget.
+            --calendar-period=: Specified to track usage over recurring calendar period.
+            --credit-types-treatment=: Whether to include all credit types when calculating the actual spend against the budget.
+            --disable-default-iam-recipients: When set to true, disables default notifications sent when a threshold is exceeded.
+            --display-name=!: User data for display name in UI.
+            --end-date=: Specified to track usage before any end date.
+            --filter-credit-types=: Set of credit types, specifying that usage from only this set of credits should be included
+            --filter-labels=: Single label and value pair specifying that usage from only this set of labeled resources
+            --filter-projects=: Set of projects in the form `projects/{project_id}`, specifying that usage from only this
+            --filter-resource-ancestors=: A set of folder and organization names of the form `folders/{folderId}` or
+            --filter-services=: Set of services of the form `services/{service_id}`, specifying that usage from only this
+            --filter-subaccounts=: Set of subaccounts of the form `billingAccounts/{account_id}`, specifying that usage from
+            --last-period-amount: Use the amount of last period's budget.
+            --no-disable-default-iam-recipients&: When set to true, disables default notifications sent when a threshold is exceeded.
+            --no-last-period-amount&: Use the amount of last period's budget.
+            --notifications-rule-monitoring-notification-channels=: Targets to send notifications to when a threshold is exceeded.
+            --notifications-rule-pubsub-topic=: Name of the Cloud Pub/Sub topic where budget related messages will be published, in
+            --ownership-scope=: Sets the ownership scope of the budget.
+            --start-date=!: Specified to track usage after any start date.
+            --threshold-rule=: Rule that triggers alerts (notifications of thresholds being crossed) when spend
+          completion:
+            flag:
+                calendar-period:
+                    - calendar-period-unspecified
+                    - month
+                    - quarter
+                    - year
+                credit-types-treatment:
+                    - credit-types-treatment-unspecified
+                    - exclude-all-credits
+                    - include-all-credits
+                    - include-specified-credits
+                ownership-scope:
+                    - all-users
+                    - billing-account
+                    - ownership-scope-unspecified
+        - name: delete
+          description: Delete a budget.
+          flags:
+            --billing-account=: The billing account.
+        - name: describe
+          description: Describe a budget.
+          flags:
+            --billing-account=: The billing account.
+        - name: list
+          description: List budgets.
+          flags:
+            --billing-account=!: ID of the billing-account or fully qualified identifier for the billing-account.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: update
+          description: Update a budget.
+          flags:
+            --add-threshold-rule=: Rule that triggers alerts (notifications of thresholds being crossed) when spend
+            --billing-account=: The billing account.
+            --budget-amount=: Specify the amount of the budget.
+            --calendar-period=: Specified to track usage over recurring calendar period.
+            --clear-threshold-rules: Removes all threshold rules from the budget.
+            --credit-types-treatment=: Whether to include all credit types when calculating the actual spend against the budget.
+            --disable-default-iam-recipients: When set to true, disables default notifications sent when a threshold is exceeded.
+            --display-name=: User data for display name in UI.
+            --end-date=: Specified to track usage before any end date.
+            --filter-credit-types=: Set of credit types, specifying that usage from only this set of credits should be included
+            --filter-labels=: Single label and value pair specifying that usage from only this set of labeled resources
+            --filter-projects=: Set of projects in the form `projects/{project_id}`, specifying that usage from only this
+            --filter-resource-ancestors=: A set of folder and organization names of the form `folders/{folderId}` or
+            --filter-services=: Set of services of the form `services/{service_id}`, specifying that usage from only this
+            --filter-subaccounts=: Set of subaccounts of the form `billingAccounts/{account_id}`, specifying that usage from
+            --last-period-amount: Use the amount of last period's budget.
+            --no-clear-threshold-rules&: Removes all threshold rules from the budget.
+            --no-disable-default-iam-recipients&: When set to true, disables default notifications sent when a threshold is exceeded.
+            --no-last-period-amount&: Use the amount of last period's budget.
+            --notifications-rule-monitoring-notification-channels=: Targets to send notifications to when a threshold is exceeded.
+            --notifications-rule-pubsub-topic=: Name of the Cloud Pub/Sub topic where budget related messages will be published, in
+            --ownership-scope=: Sets the ownership scope of the budget.
+            --start-date=!: Specified to track usage after any start date.
+            --threshold-rules-from-file=: Import a file with the updated threshold rules.
+          completion:
+            flag:
+                calendar-period:
+                    - calendar-period-unspecified
+                    - month
+                    - quarter
+                    - year
+                credit-types-treatment:
+                    - credit-types-treatment-unspecified
+                    - exclude-all-credits
+                    - include-all-credits
+                    - include-specified-credits
+                ownership-scope:
+                    - all-users
+                    - billing-account
+                    - ownership-scope-unspecified
+    - name: projects
+      description: Manage the billing account configuration of your projects.
+      commands:
+        - name: unlink
+          description: Unlink the account (if any) linked with a project.
+        - name: describe
+          description: Show detailed billing information for a project.
+        - name: link
+          description: Link a project with a billing account.
+          flags:
+            --billing-account=!: Specify a billing account ID.
+        - name: list
+          description: List all active projects associated with the specified billing account.
+          flags:
+            --billing-account=!: Specify a billing account ID.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.

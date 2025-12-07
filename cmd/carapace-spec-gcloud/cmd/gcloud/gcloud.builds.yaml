@@ -1,0 +1,874 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: builds
+description: Create and manage builds for Google Cloud Build.
+commands:
+    - name: log
+      description: Stream the logs for a build.
+      flags:
+        --no-stream&: If a build is ongoing, stream the logs to stdout until the build completes.
+        --region=: The region of the Cloud Build Service to use.
+        --stream: If a build is ongoing, stream the logs to stdout until the build completes.
+    - name: submit
+      description: Submit a build using Cloud Build.
+      flags:
+        --async: Return immediately, without waiting for the operation in progress to
+        --config=: The YAML or JSON file to use as the build configuration file.
+        --default-buckets-behavior=: How default buckets are setup.
+        --dir=: Directory, relative to the source root, in which to run the build.
+        --disk-size=: Machine disk size (GB) to run the build.
+        --gcs-log-dir=: A directory in Google Cloud Storage to hold build logs.
+        --gcs-source-staging-dir=: A directory in Google Cloud Storage to copy the source used for staging the build.
+        --git-source-dir=: Directory, relative to the source root, in which to run the build.
+        --git-source-revision=: Revision to fetch from the Git repository such as a branch, a tag, a commit
+        --ignore-file=: Override the `.gcloudignore` file and use the specified file instead.
+        --machine-type=: Machine type used to run the build.
+        --no-async&: Return immediately, without waiting for the operation in progress to
+        --no-cache: If set, disable layer caching when building with Kaniko.
+        --no-source: Specify that no source should be uploaded with this build.
+        --no-suppress-logs&: If set, build logs not streamed to stdout.
+        --pack=: Uses CNCF [buildpack](https://buildpacks.io/) to create the app image.
+        --polling-interval=: Amount of time in seconds to wait between polling build status.
+        --region=: The region of the Cloud Build Service to use.
+        --revision=: Revision to fetch from the Git repository such as a branch, a tag, a commit
+        --service-account=: The service account to use with this build.
+        --substitutions=: Parameters to be substituted in the build specification.
+        --suppress-logs: If set, build logs not streamed to stdout.
+        --tag=: The tag to use with a "docker build" image creation.
+        --timeout=: Maximum time a build is run before it is failed as `TIMEOUT`.
+        --worker-pool=: Specify a worker pool for the build to run in.
+      completion:
+        flag:
+            default-buckets-behavior:
+                - default-logs-bucket-behavior-unspecified
+                - legacy-bucket
+                - regional-user-owned-bucket
+            machine-type:
+                - e2-highcpu-32
+                - e2-highcpu-8
+                - e2-medium
+                - n1-highcpu-32
+                - n1-highcpu-8
+    - name: triggers
+      description: Create and manage build triggers for Google Cloud Build.
+      commands:
+        - name: delete
+          description: Delete a build trigger.
+          flags:
+            --region=: The Cloud location for the trigger.
+        - name: describe
+          description: Get information about a particular trigger.
+          flags:
+            --region=: The Cloud location for the trigger.
+        - name: import
+          description: Import a build trigger.
+          flags:
+            --region=: The region of the Cloud Build Service to use.
+            --source=!: File path where trigger should be imported from.
+        - name: list
+          description: List Cloud Build triggers for a project.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: The region of the Cloud Build Service to use.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: run
+          description: Run a build trigger.
+          flags:
+            --branch=: Branch to run.
+            --region=: The Cloud location for the trigger.
+            --sha=: SHA to run.
+            --substitutions=: Parameters to be substituted in the build specification.
+            --tag=: Tag to run.
+        - name: update
+          description: Update Triggers in Google Cloud Build.
+          commands:
+            - name: bitbucketserver
+              description: Updates Bitbucket Server trigger used by Cloud Build.
+              flags:
+                --bitbucket-server-config-resource=: Bitbucket Server config resource name.
+                --branch-pattern=: A regular expression specifying which git branches to match.
+                --build-config=: Path to a YAML or JSON file containing the build configuration in the repository.
+                --clear-substitutions: Clear existing substitutions.
+                --comment-control=: Require a repository collaborator or owner to comment '/gcbrun' on a pull
+                --description=: Build trigger description.
+                --dockerfile-dir=: Location of the directory containing the Dockerfile in the repository.
+                --dockerfile-image=!: Docker image name to build.
+                --dockerfile=!: Path of Dockerfile to use for builds in the repository.
+                --ignored-files=: Glob filter.
+                --included-files=: Glob filter.
+                --inline-config=: Local path to a YAML or JSON file containing a build configuration.
+                --no-clear-substitutions&: Clear existing substitutions.
+                --no-require-approval&: Require manual approval for triggered builds.
+                --project-key=: Bitbucket Server project key.
+                --pull-request-pattern=: A regular expression specifying which base git branch to match for
+                --region=: The Cloud location for the trigger.
+                --remove-substitutions=: Remove existing substitutions if present.
+                --repo-slug=: Bitbucket Server repository slug.
+                --require-approval: Require manual approval for triggered builds.
+                --service-account=: The service account used for all user-controlled operations including UpdateBuildTrigger, RunBuildTrigger, CreateBuild, and CancelBuild.
+                --tag-pattern=: A regular expression specifying which git tags to match.
+                --trigger-config=: Path to Build Trigger config file (JSON or YAML format).
+                --update-substitutions=: Update or add to existing substitutions.
+              completion:
+                flag:
+                    comment-control:
+                        - COMMENTS_DISABLED
+                        - COMMENTS_ENABLED
+                        - COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY
+            - name: cloud-source-repositories
+              description: Updates Cloud Source Repositories trigger used by Cloud Build.
+              flags:
+                --branch-pattern=: A regular expression specifying which git branches to match.
+                --build-config=: Path to a YAML or JSON file containing the build configuration in the repository.
+                --clear-substitutions: Clear existing substitutions.
+                --description=: Build trigger description.
+                --dockerfile-dir=: Location of the directory containing the Dockerfile in the repository.
+                --dockerfile-image=!: Docker image name to build.
+                --dockerfile=!: Path of Dockerfile to use for builds in the repository.
+                --ignored-files=: Glob filter.
+                --included-files=: Glob filter.
+                --inline-config=: Local path to a YAML or JSON file containing a build configuration.
+                --no-clear-substitutions&: Clear existing substitutions.
+                --no-require-approval&: Require manual approval for triggered builds.
+                --region=: The Cloud location for the trigger.
+                --remove-substitutions=: Remove existing substitutions if present.
+                --repo=!: ID of the repo or fully qualified identifier for the repo.
+                --require-approval: Require manual approval for triggered builds.
+                --service-account=: The service account used for all user-controlled operations including UpdateBuildTrigger, RunBuildTrigger, CreateBuild, and CancelBuild.
+                --tag-pattern=: A regular expression specifying which git tags to match.
+                --trigger-config=: Path to Build Trigger config file (JSON or YAML format).
+                --update-substitutions=: Update or add to existing substitutions.
+            - name: github
+              description: Update GitHub trigger used by Cloud Build.
+              flags:
+                --branch-pattern=: A regular expression specifying which git branches to match.
+                --build-config=: Path to a YAML or JSON file containing the build configuration in the repository.
+                --clear-substitutions: Clear existing substitutions.
+                --comment-control=: Require a repository collaborator or owner to comment '/gcbrun' on a pull request before running the build.
+                --description=: Build trigger description.
+                --dockerfile-dir=: Location of the directory containing the Dockerfile in the repository.
+                --dockerfile-image=!: Docker image name to build.
+                --dockerfile=!: Path of Dockerfile to use for builds in the repository.
+                --enterprise-config=: Resource name of the GitHub Enterprise config that should be applied to this
+                --ignored-files=: Glob filter.
+                --include-logs-with-status: Build logs will be sent back to GitHub as part of the checkrun result.
+                --included-files=: Glob filter.
+                --inline-config=: Local path to a YAML or JSON file containing a build configuration.
+                --no-clear-substitutions&: Clear existing substitutions.
+                --no-include-logs-with-status&: Build logs will be sent back to GitHub as part of the checkrun result.
+                --no-require-approval&: Require manual approval for triggered builds.
+                --pull-request-pattern=: A regular expression specifying which base git branch to match for
+                --region=: The Cloud location for the trigger.
+                --remove-substitutions=: Remove existing substitutions if present.
+                --repo-name=: Name of the GitHub Repository.
+                --repo-owner=: Owner of the GitHub Repository.
+                --repository=: Repository resource (2nd gen) to use, in the format
+                --require-approval: Require manual approval for triggered builds.
+                --service-account=: The service account used for all user-controlled operations including UpdateBuildTrigger, RunBuildTrigger, CreateBuild, and CancelBuild.
+                --tag-pattern=: A regular expression specifying which git tags to match.
+                --trigger-config=: Path to Build Trigger config file (JSON or YAML format).
+                --update-substitutions=: Update or add to existing substitutions.
+              completion:
+                flag:
+                    comment-control:
+                        - COMMENTS_DISABLED
+                        - COMMENTS_ENABLED
+                        - COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY
+            - name: pubsub
+              description: Update a Pub/Sub trigger used by Cloud Build.
+              flags:
+                --clear-subscription-filter: Clear existing subscription filter.
+                --clear-substitutions: Clear existing substitutions.
+                --description=: Build trigger description.
+                --dockerfile-dir=: Location of the directory containing the Dockerfile in the repository.
+                --dockerfile-image=: Docker image name to build.
+                --dockerfile=!: Path of Dockerfile to use for builds in the repository.
+                --git-file-source-branch=: The branch of the repository to clone when trigger is invoked.
+                --git-file-source-github-enterprise-config=: The resource name of the GitHub Enterprise config that should be applied to this source.
+                --git-file-source-path=: The file in the repository to clone when trigger is invoked.
+                --git-file-source-repo-type=!: The type of the repository to clone when trigger is invoked.
+                --git-file-source-repository=&: Repository resource (2nd gen) to use, in the format "projects/*/locations/*/connections/*/repositories/*".
+                --git-file-source-tag=: The tag of the repository to clone when trigger is invoked.
+                --git-file-source-uri=!: The URI of the repository to clone when trigger is invoked.
+                --inline-config=: Local path to a YAML or JSON file containing a build configuration.
+                --no-clear-subscription-filter&: Clear existing subscription filter.
+                --no-clear-substitutions&: Clear existing substitutions.
+                --no-require-approval&: Require manual approval for triggered builds.
+                --region=: The Cloud location for the trigger.
+                --remove-substitutions=: Remove existing substitutions if present.
+                --require-approval: Require manual approval for triggered builds.
+                --service-account=: The service account used for all user-controlled operations including UpdateBuildTrigger, RunBuildTrigger, CreateBuild, and CancelBuild.
+                --source-to-build-branch=: Branch to build.
+                --source-to-build-github-enterprise-config=: The resource name of the GitHub Enterprise config that should be applied to
+                --source-to-build-repo-type=!: Type of the repository (1st gen).
+                --source-to-build-repository=&: Repository resource (2nd gen) to use, in the format "projects/*/locations/*/connections/*/repositories/*".
+                --source-to-build-tag=: Tag to build.
+                --source-to-build-uri=!: The URI of the repository that should be applied to this source (1st gen).
+                --subscription-filter=: CEL filter expression for the trigger.
+                --topic=: The topic to which this trigger should subscribe.
+                --trigger-config=: Path to Build Trigger config file (JSON or YAML format).
+                --update-substitutions=: Update or add to existing substitutions.
+            - name: bitbucket-cloud
+              description: Updates Bitbucket Cloud trigger used by Cloud Build.
+              flags:
+                --branch-pattern=: A regular expression specifying which git branches to match.
+                --build-config=: Path to a YAML or JSON file containing the build configuration in the repository.
+                --clear-substitutions: Clear existing substitutions.
+                --comment-control=: Require a repository collaborator or owner to comment '/gcbrun' on a pull
+                --description=: Build trigger description.
+                --dockerfile-dir=: Location of the directory containing the Dockerfile in the repository.
+                --dockerfile-image=!: Docker image name to build.
+                --dockerfile=!: Path of Dockerfile to use for builds in the repository.
+                --ignored-files=: Glob filter.
+                --included-files=: Glob filter.
+                --inline-config=: Local path to a YAML or JSON file containing a build configuration.
+                --no-clear-substitutions&: Clear existing substitutions.
+                --no-require-approval&: Require manual approval for triggered builds.
+                --pull-request-pattern=: A regular expression specifying which base git branch to match for
+                --region=: The Cloud location for the trigger.
+                --remove-substitutions=: Remove existing substitutions if present.
+                --repository=: Repository resource (2nd gen) to use, in the format "projects/*/locations/*/connections/*/repositories/*".
+                --require-approval: Require manual approval for triggered builds.
+                --service-account=: The service account used for all user-controlled operations including UpdateBuildTrigger, RunBuildTrigger, CreateBuild, and CancelBuild.
+                --tag-pattern=: A regular expression specifying which git tags to match.
+                --trigger-config=: Path to Build Trigger config file (JSON or YAML format).
+                --update-substitutions=: Update or add to existing substitutions.
+              completion:
+                flag:
+                    comment-control:
+                        - COMMENTS_DISABLED
+                        - COMMENTS_ENABLED
+                        - COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY
+            - name: gitlab
+              description: Updates GitLab trigger used by Cloud Build.
+              flags:
+                --branch-pattern=: A regular expression specifying which git branches to match.
+                --build-config=: Path to a YAML or JSON file containing the build configuration in the repository.
+                --clear-substitutions: Clear existing substitutions.
+                --comment-control=: Require a repository collaborator or owner to comment '/gcbrun' on a pull
+                --description=: Build trigger description.
+                --dockerfile-dir=: Location of the directory containing the Dockerfile in the repository.
+                --dockerfile-image=!: Docker image name to build.
+                --dockerfile=!: Path of Dockerfile to use for builds in the repository.
+                --ignored-files=: Glob filter.
+                --included-files=: Glob filter.
+                --inline-config=: Local path to a YAML or JSON file containing a build configuration.
+                --no-clear-substitutions&: Clear existing substitutions.
+                --no-require-approval&: Require manual approval for triggered builds.
+                --pull-request-pattern=: A regular expression specifying which base git branch to match for
+                --region=: The Cloud location for the trigger.
+                --remove-substitutions=: Remove existing substitutions if present.
+                --repository=: Repository resource (2nd gen) to use, in the format "projects/*/locations/*/connections/*/repositories/*".
+                --require-approval: Require manual approval for triggered builds.
+                --service-account=: The service account used for all user-controlled operations including UpdateBuildTrigger, RunBuildTrigger, CreateBuild, and CancelBuild.
+                --tag-pattern=: A regular expression specifying which git tags to match.
+                --trigger-config=: Path to Build Trigger config file (JSON or YAML format).
+                --update-substitutions=: Update or add to existing substitutions.
+              completion:
+                flag:
+                    comment-control:
+                        - COMMENTS_DISABLED
+                        - COMMENTS_ENABLED
+                        - COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY
+            - name: manual
+              description: Updates a manual trigger used by Cloud Build.
+              flags:
+                --clear-substitutions: Clear existing substitutions.
+                --description=: Build trigger description.
+                --dockerfile-dir=: Location of the directory containing the Dockerfile in the repository.
+                --dockerfile-image=: Docker image name to build.
+                --dockerfile=!: Path of Dockerfile to use for builds in the repository.
+                --git-file-source-branch=: The branch of the repository to clone when trigger is invoked.
+                --git-file-source-github-enterprise-config=: The resource name of the GitHub Enterprise config that should be applied to this source.
+                --git-file-source-path=: The file in the repository to clone when trigger is invoked.
+                --git-file-source-repo-type=!: The type of the repository to clone when trigger is invoked.
+                --git-file-source-repository=&: Repository resource (2nd gen) to use, in the format "projects/*/locations/*/connections/*/repositories/*".
+                --git-file-source-tag=: The tag of the repository to clone when trigger is invoked.
+                --git-file-source-uri=!: The URI of the repository to clone when trigger is invoked.
+                --inline-config=: Local path to a YAML or JSON file containing a build configuration.
+                --no-clear-substitutions&: Clear existing substitutions.
+                --no-require-approval&: Require manual approval for triggered builds.
+                --region=: The Cloud location for the trigger.
+                --remove-substitutions=: Remove existing substitutions if present.
+                --require-approval: Require manual approval for triggered builds.
+                --service-account=: The service account used for all user-controlled operations including UpdateBuildTrigger, RunBuildTrigger, CreateBuild, and CancelBuild.
+                --source-to-build-branch=: Branch to build.
+                --source-to-build-github-enterprise-config=: The resource name of the GitHub Enterprise config that should be applied to
+                --source-to-build-repo-type=!: Type of the repository (1st gen).
+                --source-to-build-repository=&: Repository resource (2nd gen) to use, in the format "projects/*/locations/*/connections/*/repositories/*".
+                --source-to-build-tag=: Tag to build.
+                --source-to-build-uri=!: The URI of the repository that should be applied to this source (1st gen).
+                --trigger-config=: Path to Build Trigger config file (JSON or YAML format).
+                --update-substitutions=: Update or add to existing substitutions.
+            - name: webhook
+              description: Update a Webhook trigger used by Cloud Build.
+              flags:
+                --clear-substitutions: Clear existing substitutions.
+                --description=: Build trigger description.
+                --dockerfile-dir=: Location of the directory containing the Dockerfile in the repository.
+                --dockerfile-image=: Docker image name to build.
+                --dockerfile=!: Path of Dockerfile to use for builds in the repository.
+                --git-file-source-branch=: The branch of the repository to clone when trigger is invoked.
+                --git-file-source-github-enterprise-config=: The resource name of the GitHub Enterprise config that should be applied to this source.
+                --git-file-source-path=: The file in the repository to clone when trigger is invoked.
+                --git-file-source-repo-type=!: The type of the repository to clone when trigger is invoked.
+                --git-file-source-repository=&: Repository resource (2nd gen) to use, in the format "projects/*/locations/*/connections/*/repositories/*".
+                --git-file-source-tag=: The tag of the repository to clone when trigger is invoked.
+                --git-file-source-uri=!: The URI of the repository to clone when trigger is invoked.
+                --inline-config=: Local path to a YAML or JSON file containing a build configuration.
+                --no-clear-substitutions&: Clear existing substitutions.
+                --no-require-approval&: Require manual approval for triggered builds.
+                --region=: The Cloud location for the trigger.
+                --remove-substitutions=: Remove existing substitutions if present.
+                --require-approval: Require manual approval for triggered builds.
+                --secret=: The full path of the secret version required to validate webhook requests against this trigger.
+                --service-account=: The service account used for all user-controlled operations including UpdateBuildTrigger, RunBuildTrigger, CreateBuild, and CancelBuild.
+                --source-to-build-branch=: Branch to build.
+                --source-to-build-github-enterprise-config=: The resource name of the GitHub Enterprise config that should be applied to
+                --source-to-build-repo-type=!: Type of the repository (1st gen).
+                --source-to-build-repository=&: Repository resource (2nd gen) to use, in the format "projects/*/locations/*/connections/*/repositories/*".
+                --source-to-build-tag=: Tag to build.
+                --source-to-build-uri=!: The URI of the repository that should be applied to this source (1st gen).
+                --subscription-filter=: CEL filter expression for the trigger.
+                --trigger-config=: Path to Build Trigger config file (JSON or YAML format).
+                --update-substitutions=: Update or add to existing substitutions.
+            - name: bitbucket-data-center
+              description: Updates Bitbucket Data Center trigger used by Cloud Build.
+              flags:
+                --branch-pattern=: A regular expression specifying which git branches to match.
+                --build-config=: Path to a YAML or JSON file containing the build configuration in the repository.
+                --clear-substitutions: Clear existing substitutions.
+                --comment-control=: Require a repository collaborator or owner to comment '/gcbrun' on a pull
+                --description=: Build trigger description.
+                --dockerfile-dir=: Location of the directory containing the Dockerfile in the repository.
+                --dockerfile-image=!: Docker image name to build.
+                --dockerfile=!: Path of Dockerfile to use for builds in the repository.
+                --ignored-files=: Glob filter.
+                --included-files=: Glob filter.
+                --inline-config=: Local path to a YAML or JSON file containing a build configuration.
+                --no-clear-substitutions&: Clear existing substitutions.
+                --no-require-approval&: Require manual approval for triggered builds.
+                --pull-request-pattern=: A regular expression specifying which base git branch to match for
+                --region=: The Cloud location for the trigger.
+                --remove-substitutions=: Remove existing substitutions if present.
+                --repository=: Repository resource (2nd gen) to use, in the format "projects/*/locations/*/connections/*/repositories/*".
+                --require-approval: Require manual approval for triggered builds.
+                --service-account=: The service account used for all user-controlled operations including UpdateBuildTrigger, RunBuildTrigger, CreateBuild, and CancelBuild.
+                --tag-pattern=: A regular expression specifying which git tags to match.
+                --trigger-config=: Path to Build Trigger config file (JSON or YAML format).
+                --update-substitutions=: Update or add to existing substitutions.
+              completion:
+                flag:
+                    comment-control:
+                        - COMMENTS_DISABLED
+                        - COMMENTS_ENABLED
+                        - COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY
+        - name: create
+          description: Create build triggers for Google Cloud Build.
+          commands:
+            - name: github
+              description: Create a build trigger for a GitHub repository.
+              flags:
+                --branch-pattern=: A regular expression specifying which git branches to match.
+                --build-config=: Path to a YAML or JSON file containing the build configuration in the repository.
+                --comment-control=: Require a repository collaborator or owner to comment '/gcbrun' on a pull request before running the build.
+                --description=: Build trigger description.
+                --dockerfile-dir=: Location of the directory containing the Dockerfile in the repository.
+                --dockerfile-image=: Docker image name to build.
+                --dockerfile=!: Path of Dockerfile to use for builds in the repository.
+                --enterprise-config=: Resource name of the GitHub Enterprise config that should be applied to this
+                --ignored-files=: Glob filter.
+                --include-logs-with-status: Build logs will be sent back to GitHub as part of the checkrun result.
+                --included-files=: Glob filter.
+                --inline-config=: Local path to a YAML or JSON file containing a build configuration.
+                --name=: Build trigger name.
+                --no-include-logs-with-status&: Build logs will be sent back to GitHub as part of the checkrun result.
+                --no-require-approval&: Require manual approval for triggered builds.
+                --pull-request-pattern=!: A regular expression specifying which base git branch to match for
+                --region=: The region of the Cloud Build Service to use.
+                --repo-name=!: Name of the GitHub Repository (1st gen).
+                --repo-owner=!: Owner of the GitHub Repository (1st gen).
+                --repository=: Repository resource (2nd gen) to use, in the format
+                --require-approval: Require manual approval for triggered builds.
+                --service-account=: The service account used for all user-controlled operations including UpdateBuildTrigger, RunBuildTrigger, CreateBuild, and CancelBuild.
+                --substitutions=: Parameters to be substituted in the build specification.
+                --tag-pattern=: A regular expression specifying which git tags to match.
+                --trigger-config=: Path to Build Trigger config file (JSON or YAML format).
+              completion:
+                flag:
+                    comment-control:
+                        - COMMENTS_DISABLED
+                        - COMMENTS_ENABLED
+                        - COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY
+            - name: gitlab
+              description: Create a build trigger for a 2nd-gen GitLab repository.
+              flags:
+                --branch-pattern=: A regular expression specifying which git branches to match.
+                --build-config=: Path to a YAML or JSON file containing the build configuration in the repository.
+                --comment-control=: Require a repository collaborator or owner to comment '/gcbrun' on a pull request before running the build.
+                --description=: Build trigger description.
+                --dockerfile-dir=: Location of the directory containing the Dockerfile in the repository.
+                --dockerfile-image=!: Docker image name to build.
+                --dockerfile=!: Path of Dockerfile to use for builds in the repository.
+                --ignored-files=: Glob filter.
+                --included-files=: Glob filter.
+                --inline-config=: Local path to a YAML or JSON file containing a build configuration.
+                --name=: Build trigger name.
+                --no-require-approval&: Require manual approval for triggered builds.
+                --pull-request-pattern=!: Regular expression specifying which base git branch to match for
+                --region=: The region of the Cloud Build Service to use.
+                --repository=: Repository resource (2nd gen) to use, in the format "projects/*/locations/*/connections/*/repositories/*".
+                --require-approval: Require manual approval for triggered builds.
+                --service-account=: The service account used for all user-controlled operations including UpdateBuildTrigger, RunBuildTrigger, CreateBuild, and CancelBuild.
+                --substitutions=: Parameters to be substituted in the build specification.
+                --tag-pattern=: A regular expression specifying which git tags to match.
+                --trigger-config=: Path to Build Trigger config file (JSON or YAML format).
+              completion:
+                flag:
+                    comment-control:
+                        - COMMENTS_DISABLED
+                        - COMMENTS_ENABLED
+                        - COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY
+            - name: pubsub
+              description: Create a build trigger with a Pub/Sub trigger event.
+              flags:
+                --bitbucket-server-config=&: The resource name of the Bitbucket Server config that should be applied to this source (1st gen).
+                --branch=: Branch to build.
+                --build-config=: Path to a YAML or JSON file containing the build configuration in the repository.
+                --description=: Build trigger description.
+                --dockerfile-dir=: Location of the directory containing the Dockerfile in the repository.
+                --dockerfile-image=: Docker image name to build.
+                --dockerfile=!: Path of Dockerfile to use for builds in the repository.
+                --github-enterprise-config=: The resource name of the GitHub Enterprise config that should be applied to this source (1st gen).
+                --inline-config=: Local path to a YAML or JSON file containing a build configuration.
+                --name=: Build trigger name.
+                --no-require-approval&: Require manual approval for triggered builds.
+                --region=: The region of the Cloud Build Service to use.
+                --repo-type=!: Type of the repository (1st gen).
+                --repo=!: URI of the repository (1st gen).
+                --repository=: Repository resource (2nd gen) to use, in the format "projects/*/locations/*/connections/*/repositories/*".
+                --require-approval: Require manual approval for triggered builds.
+                --service-account=: The service account used for all user-controlled operations including UpdateBuildTrigger, RunBuildTrigger, CreateBuild, and CancelBuild.
+                --subscription-filter=: CEL filter expression for the trigger.
+                --substitutions=: Parameters to be substituted in the build specification.
+                --tag=: Tag to build.
+                --topic=!: The topic to which this trigger should subscribe.
+                --trigger-config=: Path to Build Trigger config file (JSON or YAML format).
+            - name: bitbucket-data-center
+              description: Create a build trigger for a 2nd-gen Bitbucket Data Center repository.
+              flags:
+                --branch-pattern=: A regular expression specifying which git branches to match.
+                --build-config=: Path to a YAML or JSON file containing the build configuration in the repository.
+                --comment-control=: Require a repository collaborator or owner to comment '/gcbrun' on a pull request before running the build.
+                --description=: Build trigger description.
+                --dockerfile-dir=: Location of the directory containing the Dockerfile in the repository.
+                --dockerfile-image=!: Docker image name to build.
+                --dockerfile=!: Path of Dockerfile to use for builds in the repository.
+                --ignored-files=: Glob filter.
+                --included-files=: Glob filter.
+                --inline-config=: Local path to a YAML or JSON file containing a build configuration.
+                --name=: Build trigger name.
+                --no-require-approval&: Require manual approval for triggered builds.
+                --pull-request-pattern=!: Regular expression specifying which base git branch to match for
+                --region=: The region of the Cloud Build Service to use.
+                --repository=: Repository resource (2nd gen) to use, in the format "projects/*/locations/*/connections/*/repositories/*".
+                --require-approval: Require manual approval for triggered builds.
+                --service-account=: The service account used for all user-controlled operations including UpdateBuildTrigger, RunBuildTrigger, CreateBuild, and CancelBuild.
+                --substitutions=: Parameters to be substituted in the build specification.
+                --tag-pattern=: A regular expression specifying which git tags to match.
+                --trigger-config=: Path to Build Trigger config file (JSON or YAML format).
+              completion:
+                flag:
+                    comment-control:
+                        - COMMENTS_DISABLED
+                        - COMMENTS_ENABLED
+                        - COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY
+            - name: cloud-source-repositories
+              description: Create a build trigger from a Cloud Source Repository.
+              flags:
+                --branch-pattern=: A regular expression specifying which git branches to match.
+                --build-config=: Path to a YAML or JSON file containing the build configuration in the repository.
+                --description=: Build trigger description.
+                --dockerfile-dir=: Location of the directory containing the Dockerfile in the repository.
+                --dockerfile-image=: Docker image name to build.
+                --dockerfile=!: Path of Dockerfile to use for builds in the repository.
+                --ignored-files=: Glob filter.
+                --included-files=: Glob filter.
+                --inline-config=: Local path to a YAML or JSON file containing a build configuration.
+                --name=: Build trigger name.
+                --no-require-approval&: Require manual approval for triggered builds.
+                --region=: The region of the Cloud Build Service to use.
+                --repo=!: ID of the repo or fully qualified identifier for the repo.
+                --require-approval: Require manual approval for triggered builds.
+                --service-account=: The service account used for all user-controlled operations including UpdateBuildTrigger, RunBuildTrigger, CreateBuild, and CancelBuild.
+                --substitutions=: Parameters to be substituted in the build specification.
+                --tag-pattern=: A regular expression specifying which git tags to match.
+                --trigger-config=: Path to Build Trigger config file (JSON or YAML format).
+            - name: manual
+              description: Create a build trigger with a manual trigger event.
+              flags:
+                --bitbucket-server-config=&: The resource name of the Bitbucket Server config that should be applied to this source (1st gen).
+                --branch=: Branch to build.
+                --build-config=: Path to a YAML or JSON file containing the build configuration in the repository.
+                --description=: Build trigger description.
+                --dockerfile-dir=: Location of the directory containing the Dockerfile in the repository.
+                --dockerfile-image=: Docker image name to build.
+                --dockerfile=!: Path of Dockerfile to use for builds in the repository.
+                --github-enterprise-config=: The resource name of the GitHub Enterprise config that should be applied to this source (1st gen).
+                --inline-config=: Local path to a YAML or JSON file containing a build configuration.
+                --name=: Build trigger name.
+                --no-require-approval&: Require manual approval for triggered builds.
+                --region=: The region of the Cloud Build Service to use.
+                --repo-type=!: Type of the repository (1st gen).
+                --repo=!: URI of the repository (1st gen).
+                --repository=: Repository resource (2nd gen) to use, in the format "projects/*/locations/*/connections/*/repositories/*".
+                --require-approval: Require manual approval for triggered builds.
+                --service-account=: The service account used for all user-controlled operations including UpdateBuildTrigger, RunBuildTrigger, CreateBuild, and CancelBuild.
+                --substitutions=: Parameters to be substituted in the build specification.
+                --tag=: Tag to build.
+                --trigger-config=: Path to Build Trigger config file (JSON or YAML format).
+            - name: webhook
+              description: Create a build trigger with a Webhook trigger event.
+              flags:
+                --bitbucket-server-config=&: The resource name of the Bitbucket Server config that should be applied to this source (1st gen).
+                --branch=: Branch to build.
+                --build-config=: Path to a YAML or JSON file containing the build configuration in the repository.
+                --description=: Build trigger description.
+                --dockerfile-dir=: Location of the directory containing the Dockerfile in the repository.
+                --dockerfile-image=: Docker image name to build.
+                --dockerfile=!: Path of Dockerfile to use for builds in the repository.
+                --github-enterprise-config=: The resource name of the GitHub Enterprise config that should be applied to this source (1st gen).
+                --inline-config=: Local path to a YAML or JSON file containing a build configuration.
+                --name=: Build trigger name.
+                --no-require-approval&: Require manual approval for triggered builds.
+                --region=: The region of the Cloud Build Service to use.
+                --repo-type=!: Type of the repository (1st gen).
+                --repo=!: URI of the repository (1st gen).
+                --repository=: Repository resource (2nd gen) to use, in the format "projects/*/locations/*/connections/*/repositories/*".
+                --require-approval: Require manual approval for triggered builds.
+                --secret=!: The full path of the secret version required to validate webhook requests
+                --service-account=: The service account used for all user-controlled operations including UpdateBuildTrigger, RunBuildTrigger, CreateBuild, and CancelBuild.
+                --subscription-filter=: CEL filter expression for the trigger.
+                --substitutions=: Parameters to be substituted in the build specification.
+                --tag=: Tag to build.
+                --trigger-config=: Path to Build Trigger config file (JSON or YAML format).
+            - name: bitbucket-cloud
+              description: Create a build trigger for a 2nd-gen Bitbucket Cloud repository.
+              flags:
+                --branch-pattern=: A regular expression specifying which git branches to match.
+                --build-config=: Path to a YAML or JSON file containing the build configuration in the repository.
+                --comment-control=: Require a repository collaborator or owner to comment '/gcbrun' on a pull request before running the build.
+                --description=: Build trigger description.
+                --dockerfile-dir=: Location of the directory containing the Dockerfile in the repository.
+                --dockerfile-image=!: Docker image name to build.
+                --dockerfile=!: Path of Dockerfile to use for builds in the repository.
+                --ignored-files=: Glob filter.
+                --included-files=: Glob filter.
+                --inline-config=: Local path to a YAML or JSON file containing a build configuration.
+                --name=: Build trigger name.
+                --no-require-approval&: Require manual approval for triggered builds.
+                --pull-request-pattern=!: Regular expression specifying which base git branch to match for
+                --region=: The region of the Cloud Build Service to use.
+                --repository=: Repository resource (2nd gen) to use, in the format "projects/*/locations/*/connections/*/repositories/*".
+                --require-approval: Require manual approval for triggered builds.
+                --service-account=: The service account used for all user-controlled operations including UpdateBuildTrigger, RunBuildTrigger, CreateBuild, and CancelBuild.
+                --substitutions=: Parameters to be substituted in the build specification.
+                --tag-pattern=: A regular expression specifying which git tags to match.
+                --trigger-config=: Path to Build Trigger config file (JSON or YAML format).
+              completion:
+                flag:
+                    comment-control:
+                        - COMMENTS_DISABLED
+                        - COMMENTS_ENABLED
+                        - COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY
+            - name: bitbucketserver
+              description: Create a build trigger for a Bitbucket Server repository.
+              flags:
+                --bitbucket-server-config-resource=!: Bitbucket Server config resource name.
+                --branch-pattern=: A regular expression specifying which git branches to match.
+                --build-config=: Path to a YAML or JSON file containing the build configuration in the repository.
+                --comment-control=: Require a repository collaborator or owner to comment '/gcbrun' on a pull request before running the build.
+                --description=: Build trigger description.
+                --dockerfile-dir=: Location of the directory containing the Dockerfile in the repository.
+                --dockerfile-image=: Docker image name to build.
+                --dockerfile=!: Path of Dockerfile to use for builds in the repository.
+                --ignored-files=: Glob filter.
+                --included-files=: Glob filter.
+                --inline-config=: Local path to a YAML or JSON file containing a build configuration.
+                --name=: Build trigger name.
+                --no-require-approval&: Require manual approval for triggered builds.
+                --project-key=!: Bitbucket Server project key.
+                --pull-request-pattern=!: Regular expression specifying which base git branch to match for
+                --region=: The region of the Cloud Build Service to use.
+                --repo-slug=!: Bitbucket Server repository slug.
+                --require-approval: Require manual approval for triggered builds.
+                --service-account=: The service account used for all user-controlled operations including UpdateBuildTrigger, RunBuildTrigger, CreateBuild, and CancelBuild.
+                --substitutions=: Parameters to be substituted in the build specification.
+                --tag-pattern=: A regular expression specifying which git tags to match.
+                --trigger-config=: Path to Build Trigger config file (JSON or YAML format).
+              completion:
+                flag:
+                    comment-control:
+                        - COMMENTS_DISABLED
+                        - COMMENTS_ENABLED
+                        - COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY
+    - name: describe
+      description: Get information about a particular build.
+      flags:
+        --region=: The region of the Cloud Build Service to use.
+    - name: get-default-service-account
+      description: Get the default service account for a project.
+      flags:
+        --region=: The region of the Cloud Build Service to use.
+    - name: list
+      description: List builds.
+      flags:
+        --filter=: Apply a Boolean filter EXPRESSION to each resource item to be listed.
+        --limit=: Maximum number of resources to list.
+        --no-ongoing&: Only list builds that are currently QUEUED or WORKING.
+        --no-uri&: Print a list of resource URIs instead of the default output, and change the
+        --ongoing: Only list builds that are currently QUEUED or WORKING.
+        --page-size=: Some services group resource list output into pages.
+        --region=: The region of the Cloud Build Service to use.
+        --sort-by=: Comma-separated list of resource field key names to sort by.
+        --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: repositories
+      description: Manage repositories for Cloud Build.
+      commands:
+        - name: describe
+          description: Describe a Cloud Build Repository.
+          flags:
+            --connection=: Connection ID.
+            --region=: The Google Cloud region.
+        - name: list
+          description: List all Cloud Build repositories in a connection.
+          flags:
+            --connection=!: ID of the connection or fully qualified identifier for the connection.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: The Google Cloud region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: create
+          description: Create a Cloud Build repository.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --connection=: Connection ID.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The Google Cloud region.
+            --remote-uri=!: The remote git clone URL of the repository.
+        - name: delete
+          description: Delete a Cloud Build Repository.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --connection=: Connection ID.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The Google Cloud region.
+    - name: worker-pools
+      description: Manage worker pools for Google Cloud Build.
+      commands:
+        - name: list
+          description: List all worker pools in a Google Cloud project.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: The Cloud region to list worker pools in.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a worker pool used by Cloud Build.
+          flags:
+            --config-from-file=: File that contains updates to the configuration for the worker pool.
+            --no-external-ip&: (DEPRECATED)   If set, workers in the worker pool are created without an external IP address.
+            --no-public-egress&: If set to true, workers in the worker pool are created with an external
+            --public-egress: If set to true, workers in the worker pool are created with an external
+            --region=: Cloud region where the worker pool is updated.
+            --worker-disk-size=: Size of the disk attached to the worker.
+            --worker-machine-type=: Compute Engine machine type for a worker pool.
+        - name: create
+          description: Create a worker pool for use by Google Cloud Build.
+          flags:
+            --config-from-file=: File that contains the configuration for the worker pool to be created.
+            --no-external-ip&: (DEPRECATED)   If set, workers in the worker pool are created without an external IP address.
+            --no-public-egress: If set, workers in the worker pool are created without an external IP address.
+            --peered-network-ip-range=: An IP range for your peered network.
+            --peered-network=: Existing network to which workers are peered.
+            --region=: Cloud region where the worker pool is created.
+            --worker-disk-size=: Size of the disk attached to the worker.
+            --worker-machine-type=: Compute Engine machine type for a worker pool.
+        - name: delete
+          description: Delete a worker pool from Cloud Build.
+          flags:
+            --region=: The Cloud region where the worker pool is.
+        - name: describe
+          description: Describe a worker pool used by Cloud Build.
+          flags:
+            --region=: The Cloud region where the worker pool is.
+    - name: cancel
+      description: Cancel an ongoing build.
+      flags:
+        --region=: The region of the Cloud Build Service to use.
+    - name: connections
+      description: Manage connections for Google Cloud Build.
+      commands:
+        - name: describe
+          description: Describe a Cloud Build Connection.
+          flags:
+            --region=: The Google Cloud region.
+        - name: get-iam-policy
+          description: Get the IAM policy for a Cloud Build connection.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --region=: The Google Cloud region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: List all Cloud Build connections for a project and region.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: ID of the region or fully qualified identifier for the region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: set-iam-policy
+          description: Set the IAM policy for a Cloud Build connection.
+          flags:
+            --region=: The Google Cloud region.
+        - name: update
+          description: Update Connections in Google Cloud Build.
+          commands:
+            - name: bitbucket-cloud
+              description: Update a Cloud Build Connection of type Bitbucket Cloud.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --authorizer-token-secret-version=: Secret containing the `repository_read`,`repository_admin`, `pullrequest_read`, `webhook` access token.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --read-authorizer-token-secret-version=: Secret containing the `repository_read` access token.
+                --region=: The Google Cloud region.
+                --webhook-secret-secret-version=: Secret containing the webhook secret string for validating webhook events sent by Bitbucket Cloud.
+                --workspace=: Workspace of the Bitbucket Cloud instance.
+            - name: bitbucket-data-center
+              description: Update a Cloud Build Connection of type Bitbucket Data Center.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --authorizer-token-secret-version=: Secret containing the REPO_ADMIN personal access token.
+                --host-uri=: URI of the Bitbucket Data Center instance.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --read-authorizer-token-secret-version=: Secret containing the REPO_READ personal access token.
+                --region=: The Google Cloud region.
+                --service-directory-service=: Service Directory service resource to use for accessing the Bitbucket Data Center.
+                --ssl-ca-file=: File containing the SSL_CA to be used.
+            - name: github
+              description: Update a Cloud Build Connection of type GitHub.
+              flags:
+                --app-installation-id=: Installation ID of the Cloud Build GitHub App.
+                --async: Return immediately, without waiting for the operation in progress to
+                --authorizer-token-secret-version=: Secret containing the authorizer user's token.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --region=: The Google Cloud region.
+            - name: github-enterprise
+              description: Update a Cloud Build Connection of type GitHub Enterprise.
+              flags:
+                --app-id=: App ID of the GitHub App in the GitHub Enterprise server.
+                --app-installation-id=: Installation ID of the Cloud Build GitHub App.
+                --app-slug=: App slug (url-friendly name) of the GitHub App.
+                --async: Return immediately, without waiting for the operation in progress to
+                --host-uri=: URI of the GitHub Enterprise server.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --private-key-secret-version=: Secret containing the private key of the GitHub App.
+                --region=: The Google Cloud region.
+                --service-directory-service=: Service Directory service resource to use for accessing the GitHub Enterprise Server.
+                --ssl-ca-file=: File containing the SSL_CA to be used.
+                --webhook-secret-secret-version=: Secret containing the webhook secret string for validating webhook events generated by
+            - name: gitlab
+              description: Update a Cloud Build Connection of type gitlab.com or GitLab Enterprise.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --authorizer-token-secret-version=: Secret containing the api personal access token.
+                --host-uri=: URI of the GitLab instance.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --read-authorizer-token-secret-version=: Secret containing the read_repository personal access token.
+                --region=: The Google Cloud region.
+                --service-directory-service=: Service Directory service resource to use for accessing the GitLab Enterprise Server.
+                --ssl-ca-file=: File containing the SSL_CA to be used.
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding to a Cloud Build connection.
+          flags:
+            --member=!: The principal to add the binding for.
+            --region=: The Google Cloud region.
+            --role=!: Role name to assign to the principal.
+        - name: create
+          description: Create Connections in Google Cloud Build.
+          commands:
+            - name: bitbucket-cloud
+              description: Create a Cloud Build Connection for Bitbucket Cloud.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --authorizer-token-secret-version=!: Secret containing the `repository_read`,`repository_admin`, `pullrequest_read`, `webhook` repository/project/workspace access token.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --read-authorizer-token-secret-version=!: Secret containing the `repository_read` repository/project/workspace access token.
+                --region=: The Google Cloud region.
+                --webhook-secret-secret-version=!: Secret containing the webhook secret string for validating webhook events sent by
+                --workspace=!: Workspace of the Bitbucket Cloud instance.
+            - name: bitbucket-data-center
+              description: Create a Cloud Build Connection for Bitbucket Data Center.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --authorizer-token-secret-version=!: Secret containing the REPO_ADMIN personal access token.
+                --host-uri=: URI of the Bitbucket Data Center instance.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --read-authorizer-token-secret-version=!: Secret containing the REPO_READ personal access token.
+                --region=: The Google Cloud region.
+                --service-directory-service=!: Service Directory service resource to use for accessing the Bitbucket Data Center.
+                --ssl-ca-file=: File containing the SSL_CA to be used.
+                --webhook-secret-secret-version=!: Secret containing the webhook secret string for validating webhook events sent by
+            - name: github
+              description: Create a Cloud Build Connection of type GitHub.
+              flags:
+                --app-installation-id=: Installation ID of the Cloud Build GitHub App.
+                --async: Return immediately, without waiting for the operation in progress to
+                --authorizer-token-secret-version=!: Secret containing the authorizer user's token.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --region=: The Google Cloud region.
+            - name: github-enterprise
+              description: Create a Cloud Build Connection of type GitHub Enterprise.
+              flags:
+                --app-id=!: App ID of the GitHub App in the GitHub Enterprise server.
+                --app-installation-id=: Installation ID of the Cloud Build GitHub App.
+                --app-slug=!: App slug (url-friendly name) of the GitHub App.
+                --async: Return immediately, without waiting for the operation in progress to
+                --host-uri=!: URI of the GitHub Enterprise server.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --private-key-secret-version=!: Secret containing the private key of the GitHub App.
+                --region=: The Google Cloud region.
+                --service-directory-service=!: Service Directory service resource to use for accessing the GitHub Enterprise Server.
+                --ssl-ca-file=: File containing the SSL_CA to be used.
+                --webhook-secret-secret-version=!: Secret containing the webhook secret string for validating webhook events generated by
+            - name: gitlab
+              description: Create a Cloud Build Connection for gitlab.com or GitLab Enterprise.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --authorizer-token-secret-version=!: Secret containing the api personal access token.
+                --host-uri=: URI of the GitLab instance.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --read-authorizer-token-secret-version=!: Secret containing the read_api personal access token.
+                --region=: The Google Cloud region.
+                --service-directory-service=!: Service Directory service resource to use for accessing the gitlab.com or GitLab Enterprise Server.
+                --ssl-ca-file=: File containing the SSL_CA to be used.
+                --webhook-secret-secret-version=!: Secret containing the webhook secret string for validating webhook events sent by
+        - name: delete
+          description: Delete a Cloud Build Connection.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The Google Cloud region.

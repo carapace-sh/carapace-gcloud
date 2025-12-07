@@ -1,0 +1,481 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: composer
+description: Create and manage Cloud Composer Environments.
+commands:
+    - name: environments
+      description: Create and manage Cloud Composer environments.
+      commands:
+        - name: list-upgrades
+          description: List the Cloud Composer image version upgrades for a specific environment.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Region where Composer environment runs or in which to create the environment.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: restart-web-server
+          description: Restart web server for a Cloud Composer environment.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Region where Composer environment runs or in which to create the environment.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: run
+          description: Run an Airflow sub-command remotely in a Cloud Composer environment.
+          flags:
+            --location=: Region where Composer environment runs or in which to create the environment.
+        - name: update
+          description: Update properties of a Cloud Composer environment.
+          flags:
+            --airflow-database-retention-days=: The number of days for the Airflow database retention period.
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-airflow-configs: Removes all Airflow config overrides from the environment.
+            --clear-env-variables: Removes all environment variables from the environment.
+            --clear-labels: Remove all labels.
+            --clear-maintenance-window: Clears the maintenance window settings.
+            --clear-pypi-packages: Removes all PyPI packages from the environment.
+            --cloud-sql-machine-type=: Cloud SQL machine type used by the Airflow database.
+            --dag-processor-count=: Number of dag processors, supported in Composer 3 environments or greater.
+            --dag-processor-cpu=: CPU allocated to Airflow dag processor, supported in Composer 3
+            --dag-processor-memory=: Memory allocated to Airflow dag processor, ex.
+            --dag-processor-storage=: Storage allocated to Airflow dag processor, ex.
+            --disable-cloud-data-lineage-integration: Disable Cloud Data Lineage integration, supported for Composer 2 Environments.
+            --disable-high-resilience: Disable high resilience, supported for Composer 2 Environments.
+            --disable-logs-in-cloud-logging-only: Disable logs in cloud logging only, supported for Composer 2 Environments.
+            --disable-master-authorized-networks: Disable Master Authorized Networks feature
+            --disable-private-builds-only: Builds performed during operations that install Python
+            --disable-private-environment: Enable internet connection from any Composer component,
+            --disable-scheduled-snapshot-creation: Disables automated snapshots creation.
+            --disable-triggerer: (DEPRECATED)     Disable a triggerer, supported in the Environments with Composer 2.0.31 and Airflow 2.2.5 and greater.
+            --disable-vpc-connectivity: Disable connectivity with a user's VPC network,
+            --enable-cloud-data-lineage-integration: Enable Cloud Data Lineage integration, supported for Composer 2 Environments.
+            --enable-high-resilience: Enable high resilience, supported for Composer 2 Environments.
+            --enable-logs-in-cloud-logging-only: Enable logs in cloud logging only, supported for Composer 2 Environments.
+            --enable-master-authorized-networks: Enable Master Authorized Networks feature
+            --enable-private-builds-only: Builds performed during operations that install Python
+            --enable-private-environment: Disable internet connection from any Composer component,
+            --enable-scheduled-snapshot-creation!: When specified, snapshots of the environment will be created according to a schedule.
+            --enable-triggerer: (DEPRECATED)     Enable use of a triggerer, supported in the Environments with Composer 2.0.31 and Airflow 2.2.5 and greater.
+            --environment-size=: Size of the environment.
+            --image-version=: Upgrade the environment to a later version in-place.
+            --location=: Region where Composer environment runs or in which to create the environment.
+            --maintenance-window-end=!: End time of the mantenance window in the form of the full date.
+            --maintenance-window-recurrence=!: An RFC 5545 RRULE, specifying how the maintenance window will recur.
+            --maintenance-window-start=!: Start time of the mantenance window in the form of the full date.
+            --master-authorized-networks=: Comma separated Master Authorized Networks specified in CIDR notation.
+            --max-workers=: Maximum number of workers in the Environment.
+            --min-workers=: Minimum number of workers in the Environment.
+            --network-attachment=: Cloud Composer Network Attachment, which provides connectivity with a user's VPC network,
+            --network=!: The Compute Engine Network to which the environment will be connected.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-airflow-configs&: Removes all Airflow config overrides from the environment.
+            --no-clear-env-variables&: Removes all environment variables from the environment.
+            --no-clear-labels&: Remove all labels.
+            --no-clear-maintenance-window&: Clears the maintenance window settings.
+            --no-clear-pypi-packages&: Removes all PyPI packages from the environment.
+            --no-disable-cloud-data-lineage-integration&: Disable Cloud Data Lineage integration, supported for Composer 2 Environments.
+            --no-disable-master-authorized-networks&: Disable Master Authorized Networks feature
+            --no-disable-private-environment&: Enable internet connection from any Composer component,
+            --no-enable-cloud-data-lineage-integration&: Enable Cloud Data Lineage integration, supported for Composer 2 Environments.
+            --no-enable-master-authorized-networks&: Enable Master Authorized Networks feature
+            --no-enable-private-environment&: Disable internet connection from any Composer component,
+            --no-support-web-server-plugins&: Enable the support for web server plugins, supported in Composer 3
+            --no-web-server-allow-all&: Allows all IP addresses to access the Airflow web server.
+            --no-web-server-deny-all&: Denies all incoming traffic to the Airflow web server.
+            --node-count=: The new number of nodes running the environment.
+            --remove-airflow-configs=: A list of Airflow config override keys to remove.
+            --remove-env-variables=: A list of environment variables to remove.
+            --remove-labels=: List of label keys to remove.
+            --remove-pypi-packages=: A list of PyPI package names to remove.
+            --scheduler-count=: Number of schedulers, supported in the Environments with Airflow 2.0.1 and later.
+            --scheduler-cpu=: CPU allocated to Airflow scheduler.
+            --scheduler-memory=: Memory allocated to Airflow scheduler, ex.
+            --scheduler-storage=: Storage allocated to Airflow scheduler, ex.
+            --snapshot-creation-schedule=!: Cron expression specifying when snapshots of the environment should be created.
+            --snapshot-location=!: The Cloud Storage location for storing automatically created snapshots.
+            --snapshot-schedule-timezone=!: Timezone that sets the context to interpret snapshot_creation_schedule.
+            --subnetwork=: The Compute Engine Subnetwork (https://cloud.google.com/compute/docs/subnetworks) to which the environment will be connected.
+            --support-web-server-plugins: Enable the support for web server plugins, supported in Composer 3
+            --triggerer-count=: Number of triggerers, supported in the Environments with Composer 2.0.31 and Airflow 2.2.5 and greater.
+            --triggerer-cpu=: CPU allocated to Airflow triggerer.
+            --triggerer-memory=: Memory allocated to Airflow triggerer, ex.
+            --update-airflow-configs=: A list of Airflow config override KEY=VALUE pairs to set.
+            --update-env-variables=: A list of environment variable NAME=VALUE pairs to set and provide to the
+            --update-labels=: List of label KEY=VALUE pairs to update.
+            --update-pypi-package=: A PyPI package to add to the environment.
+            --update-pypi-packages-from-file=: The path to a file containing a list of PyPI packages to install in
+            --update-web-server-allow-ip=: Specifies a list of IPv4 or IPv6 ranges that will be allowed to access the
+            --web-server-allow-all: Allows all IP addresses to access the Airflow web server.
+            --web-server-cpu=: CPU allocated to each Airflow web server
+            --web-server-deny-all: Denies all incoming traffic to the Airflow web server.
+            --web-server-machine-type=: machine type used by the Airflow web server.
+            --web-server-memory=: Memory allocated to Airflow web server, ex.
+            --web-server-storage=: Storage allocated to Airflow web server, ex.
+            --worker-cpu=: CPU allocated to each Airflow worker
+            --worker-memory=: Memory allocated to Airflow worker, ex.
+            --worker-storage=: Storage allocated to Airflow worker, ex.
+          completion:
+            flag:
+                environment-size:
+                    - extra-large
+                    - large
+                    - medium
+                    - small
+                    - unspecified
+        - name: check-upgrade
+          description: Check that upgrading a Cloud Composer environment does not result in PyPI module conflicts.
+          flags:
+            --airflow-version=: Upgrade the environment to a later Apache Airflow version in-place.
+            --async: Return immediately, without waiting for the operation in progress to
+            --image-version=: Upgrade the environment to a later version in-place.
+            --location=: Region where Composer environment runs or in which to create the environment.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: create
+          description: Create and initialize a Cloud Composer environment.
+          flags:
+            --airflow-configs=: A list of Airflow software configuration override KEY=VALUE pairs to set.
+            --airflow-database-retention-days=: The number of days for the Airflow database retention period.
+            --airflow-version=: Version of Apache Airflow to run in the environment.
+            --async: Return immediately, without waiting for the operation in progress to
+            --cloud-sql-ipv4-cidr=: IPv4 CIDR range to use for the Cloud SQL network.
+            --cloud-sql-machine-type=: Cloud SQL machine type used by the Airflow database.
+            --cloud-sql-preferred-zone=: Select cloud sql preferred zone, supported for Composer 2 Environments.
+            --cluster-ipv4-cidr=: IP address range for the pods in this cluster in CIDR notation
+            --cluster-secondary-range-name=: Secondary range to be used as the source for pod IPs.
+            --composer-internal-ipv4-cidr-block=: The IP range in CIDR notation to use internally by Cloud Composer.
+            --composer-network-ipv4-cidr=: IPv4 CIDR range to use for the Composer network.
+            --connection-subnetwork=: Subnetwork from which an IP address for internal communications will be
+            --connection-type=: Mode of internal communication within the Composer environment.
+            --dag-processor-count=: Number of dag processors, supported in Composer 3 environments or greater.
+            --dag-processor-cpu=: CPU allocated to Airflow dag processor, supported in Composer 3
+            --dag-processor-memory=: Memory allocated to Airflow dag processor, ex.
+            --dag-processor-storage=: Storage allocated to Airflow dag processor, ex.
+            --disable-cloud-data-lineage-integration: Disable Cloud Data Lineage integration, supported for Composer 2 Environments.
+            --disable-logs-in-cloud-logging-only: Disable logs in cloud logging only, supported for Composer 2 Environments.
+            --disable-private-builds-only: Builds performed during operations that install Python
+            --disable-private-environment: Enables internet connection for Composer components.
+            --disk-size=: The disk size for each VM node in the environment.
+            --enable-cloud-data-lineage-integration: Enable Cloud Data Lineage integration, supported for Composer 2 Environments.
+            --enable-high-resilience: Enable high resilience, supported for Composer 2 Environments.
+            --enable-ip-alias: Enable use of alias IPs (https://cloud.google.com/compute/docs/alias-ip/)
+            --enable-ip-masq-agent: When enabled, the IP Masquarade Agent
+            --enable-logs-in-cloud-logging-only: Enable logs in cloud logging only, supported for Composer 2 Environments.
+            --enable-master-authorized-networks: Enable Master Authorized Networks feature
+            --enable-private-builds-only: Builds performed during operations that install Python
+            --enable-private-endpoint: Environment cluster is managed using the private IP address of the master
+            --enable-private-environment: Disables internet connection from any Composer component.
+            --enable-privately-used-public-ips: When enabled GKE pods and services may use public(non-RFC1918) IP ranges
+            --enable-scheduled-snapshot-creation!: When specified, snapshots of the environment will be created according to a schedule.
+            --enable-triggerer: (DEPRECATED)     Enable use of a triggerer, supported in the Environments with Composer 2.0.31 and Airflow 2.2.5 and greater.
+            --env-variables=: A comma-delimited list of environment variable `NAME=VALUE` pairs to provide to the Airflow scheduler, worker, and webserver processes.
+            --environment-size=: Size of the environment.
+            --image-version=: Version of the image to run in the environment.
+            --kms-key=!: ID of the key or fully qualified identifier for the key.
+            --kms-keyring=: The KMS keyring of the key.
+            --kms-location=: The Google Cloud location for the key.
+            --kms-project=: The Google Cloud project for the key.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: Region where Composer environment runs or in which to create the environment.
+            --machine-type=: The Compute Engine machine type (https://cloud.google.com/compute/docs/machine-types) to use for nodes.
+            --maintenance-window-end=!: End time of the mantenance window in the form of the full date.
+            --maintenance-window-recurrence=!: An RFC 5545 RRULE, specifying how the maintenance window will recur.
+            --maintenance-window-start=!: Start time of the mantenance window in the form of the full date.
+            --master-authorized-networks=: Comma separated Master Authorized Networks specified in CIDR notation.
+            --master-ipv4-cidr=: IPv4 CIDR range to use for the cluster master network.
+            --max-workers=: Maximum number of workers in the Environment.
+            --min-workers=: Minimum number of workers in the Environment.
+            --network-attachment=: Cloud Composer Network Attachment, which provides connectivity with a user's VPC network,
+            --network=!: The Compute Engine Network to which the environment will be connected.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-disable-cloud-data-lineage-integration&: Disable Cloud Data Lineage integration, supported for Composer 2 Environments.
+            --no-disable-private-environment&: Enables internet connection for Composer components.
+            --no-enable-cloud-data-lineage-integration&: Enable Cloud Data Lineage integration, supported for Composer 2 Environments.
+            --no-enable-ip-alias&: Enable use of alias IPs (https://cloud.google.com/compute/docs/alias-ip/)
+            --no-enable-ip-masq-agent&: When enabled, the IP Masquarade Agent
+            --no-enable-master-authorized-networks&: Enable Master Authorized Networks feature
+            --no-enable-private-endpoint&: Environment cluster is managed using the private IP address of the master
+            --no-enable-private-environment&: Disables internet connection from any Composer component.
+            --no-enable-privately-used-public-ips&: When enabled GKE pods and services may use public(non-RFC1918) IP ranges
+            --no-support-web-server-plugins&: Enable the support for web server plugins, supported in Composer 3
+            --no-web-server-allow-all&: Allows all IP addresses to access the Airflow web server.
+            --no-web-server-deny-all&: Denies all incoming traffic to the Airflow web server.
+            --node-count=: The number of nodes to create to run the environment.
+            --oauth-scopes=: The set of Google API scopes to be made available on all of the node VMs.
+            --python-version=: The Python version to be used within the created environment.
+            --scheduler-count=: Number of schedulers, supported in the Environments with Airflow 2.0.1 and later.
+            --scheduler-cpu=: CPU allocated to Airflow scheduler.
+            --scheduler-memory=: Memory allocated to Airflow scheduler, ex.
+            --scheduler-storage=: Storage allocated to Airflow scheduler, ex.
+            --service-account=: The Google Cloud Platform service account to be used by the node VMs.
+            --services-ipv4-cidr=: IP range for the services IPs.
+            --services-secondary-range-name=: Secondary range to be used for services (e.g. ClusterIPs).
+            --snapshot-creation-schedule=!: Cron expression specifying when snapshots of the environment should be created.
+            --snapshot-location=!: The Cloud Storage location for storing automatically created snapshots.
+            --snapshot-schedule-timezone=!: Timezone that sets the context to interpret snapshot_creation_schedule.
+            --storage-bucket=: Name of an exisiting Cloud Storage bucket to be used by the environment.
+            --subnetwork=: The Compute Engine Subnetwork (https://cloud.google.com/compute/docs/subnetworks) to which the environment will be connected.
+            --support-web-server-plugins: Enable the support for web server plugins, supported in Composer 3
+            --tags=: The set of instance tags applied to all node VMs.
+            --triggerer-count=: Number of triggerers, supported in the Environments with Composer 2.0.31 and Airflow 2.2.5 and greater.
+            --triggerer-cpu=: CPU allocated to Airflow triggerer.
+            --triggerer-memory=: Memory allocated to Airflow triggerer, ex.
+            --web-server-allow-all: Allows all IP addresses to access the Airflow web server.
+            --web-server-allow-ip=: Specifies a list of IPv4 or IPv6 ranges that will be allowed to access the
+            --web-server-cpu=: CPU allocated to each Airflow web server
+            --web-server-deny-all: Denies all incoming traffic to the Airflow web server.
+            --web-server-ipv4-cidr=: IPv4 CIDR range to use for the Airflow web server network.
+            --web-server-machine-type=: machine type used by the Airflow web server.
+            --web-server-memory=: Memory allocated to Airflow web server, ex.
+            --web-server-storage=: Storage allocated to Airflow web server, ex.
+            --worker-cpu=: CPU allocated to each Airflow worker
+            --worker-memory=: Memory allocated to Airflow worker, ex.
+            --worker-storage=: Storage allocated to Airflow worker, ex.
+            --zone=: The Compute Engine zone in which the environment will be created.
+          completion:
+            flag:
+                connection-type:
+                    - connection-type-unspecified
+                    - private-service-connect
+                    - vpc-peering
+                environment-size:
+                    - extra-large
+                    - large
+                    - medium
+                    - small
+                    - unspecified
+                python-version:
+                    - "2"
+                    - "3"
+        - name: database-failover
+          description: Run a database failover operation.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Region where Composer environment runs or in which to create the environment.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: list-packages
+          description: List all PyPI modules installed in an Airflow worker.
+          flags:
+            --location=: Region where Composer environment runs or in which to create the environment.
+            --no-tree&: List PyPI packages, their versions and a dependency tree, as displayed by the "python -m pipdeptree --warn" command.
+            --tree: List PyPI packages, their versions and a dependency tree, as displayed by the "python -m pipdeptree --warn" command.
+        - name: snapshots
+          description: Save and load snapshots of environment.
+          commands:
+            - name: load
+              description: Load a snapshot into the environment.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: Region where Composer environment runs or in which to create the environment.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-skip-airflow-overrides-setting&: When specified, skips setting Airflow overrides from the snapshot.
+                --no-skip-environment-variables-setting&: When specified, skips setting environment variables from the snapshot.
+                --no-skip-gcs-data-copying&: When specified, skips copying dags, plugins and data folders from
+                --no-skip-pypi-packages-installation&: When specified, skips the installation of custom PyPI packages from
+                --skip-airflow-overrides-setting: When specified, skips setting Airflow overrides from the snapshot.
+                --skip-environment-variables-setting: When specified, skips setting environment variables from the snapshot.
+                --skip-gcs-data-copying: When specified, skips copying dags, plugins and data folders from
+                --skip-pypi-packages-installation: When specified, skips the installation of custom PyPI packages from
+                --snapshot-path=!: The Cloud Storage path to load the snapshot from.
+            - name: save
+              description: Save a snapshot of the environment.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: Region where Composer environment runs or in which to create the environment.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --snapshot-location=: The Cloud Storage location where to save the snapshot.
+        - name: user-workloads-config-maps
+          description: Create and manage user workloads ConfigMaps of environment.
+          commands:
+            - name: update
+              description: Update a user workloads ConfigMap.
+              flags:
+                --config-map-file-path=!: Path to a local file with a single Kubernetes ConfigMap in YAML format.
+                --environment=!: ID of the environment or fully qualified identifier for the environment.
+                --location=: Region where Composer environment runs or in which to create the environment.
+            - name: create
+              description: Create a user workloads ConfigMap.
+              flags:
+                --config-map-file-path=!: Path to a local file with a single Kubernetes ConfigMap in YAML format.
+                --environment=!: ID of the environment or fully qualified identifier for the environment.
+                --location=: Region where Composer environment runs or in which to create the environment.
+            - name: delete
+              description: Delete a user workloads ConfigMap.
+              flags:
+                --environment=!: ID of the environment or fully qualified identifier for the environment.
+                --location=: Region where Composer environment runs or in which to create the environment.
+            - name: describe
+              description: Get details about a user workloads ConfigMap.
+              flags:
+                --environment=!: ID of the environment or fully qualified identifier for the environment.
+                --location=: Region where Composer environment runs or in which to create the environment.
+            - name: list
+              description: List user workloads ConfigMaps.
+              flags:
+                --environment=!: ID of the environment or fully qualified identifier for the environment.
+                --location=: Region where Composer environment runs or in which to create the environment.
+        - name: delete
+          description: Delete one or more Cloud Composer environments.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Region where Composer environment runs or in which to create the environment.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: fetch-database-properties
+          description: Fetch database properties.
+          flags:
+            --location=: Region where Composer environment runs or in which to create the environment.
+        - name: list
+          description: List the Cloud Composer environments under a project and location.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --locations=!: IDs of the locations or fully qualified identifiers for the locations.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: list-workloads
+          description: List Composer workloads, supported in Composer 3 environments or greater.
+          flags:
+            --location=: Region where Composer environment runs or in which to create the environment.
+        - name: user-workloads-secrets
+          description: Create and manage user workloads Secrets of environment.
+          commands:
+            - name: create
+              description: Create a user workloads Secret.
+              flags:
+                --environment=!: ID of the environment or fully qualified identifier for the environment.
+                --location=: Region where Composer environment runs or in which to create the environment.
+                --secret-file-path=!: Path to a local file with a single Kubernetes Secret in YAML format.
+            - name: delete
+              description: Delete a user workloads Secret.
+              flags:
+                --environment=!: ID of the environment or fully qualified identifier for the environment.
+                --location=: Region where Composer environment runs or in which to create the environment.
+            - name: describe
+              description: Get details about a user workloads Secret.
+              flags:
+                --environment=!: ID of the environment or fully qualified identifier for the environment.
+                --location=: Region where Composer environment runs or in which to create the environment.
+            - name: list
+              description: List user workloads Secrets.
+              flags:
+                --environment=!: ID of the environment or fully qualified identifier for the environment.
+                --location=: Region where Composer environment runs or in which to create the environment.
+            - name: update
+              description: Update a user workloads Secret.
+              flags:
+                --environment=!: ID of the environment or fully qualified identifier for the environment.
+                --location=: Region where Composer environment runs or in which to create the environment.
+                --secret-file-path=!: Path to a local file with a single Kubernetes Secret in YAML format.
+        - name: describe
+          description: Get details about a Cloud Composer environment.
+          flags:
+            --location=: Region where Composer environment runs or in which to create the environment.
+        - name: storage
+          description: Manage Cloud Storage objects stored as part of Cloud Composer environments.
+          commands:
+            - name: dags
+              description: Manage DAGs for Cloud Composer environments.
+              commands:
+                - name: delete
+                  description: Delete DAG files from an Cloud Composer environment's Cloud Storage bucket.
+                  flags:
+                    --environment=!: ID of the environment or fully qualified identifier for the environment.
+                    --location=: Region where Composer environment runs or in which to create the environment.
+                - name: export
+                  description: Export DAGs from an environment into local storage or Cloud Storage.
+                  flags:
+                    --destination=!: The path to an existing local directory or a Cloud Storage
+                    --environment=!: ID of the environment or fully qualified identifier for the environment.
+                    --location=: Region where Composer environment runs or in which to create the environment.
+                    --source=: An optional relative path to a file or directory to be exported from the
+                - name: import
+                  description: Import DAGs from local storage or Cloud Storage into an environment.
+                  flags:
+                    --destination=: An optional subdirectory under the dags/ directory in the environment's
+                    --environment=!: ID of the environment or fully qualified identifier for the environment.
+                    --location=: Region where Composer environment runs or in which to create the environment.
+                    --source=!: Path to a local directory/file or Cloud Storage bucket/object to be
+                - name: list
+                  description: List the DAG files for a Cloud Composer environment.
+                  flags:
+                    --environment=!: ID of the environment or fully qualified identifier for the environment.
+                    --location=: Region where Composer environment runs or in which to create the environment.
+            - name: data
+              description: Manage data for Cloud Composer environments.
+              commands:
+                - name: delete
+                  description: Delete data from an Cloud Composer environment's Cloud Storage bucket.
+                  flags:
+                    --environment=!: ID of the environment or fully qualified identifier for the environment.
+                    --location=: Region where Composer environment runs or in which to create the environment.
+                - name: export
+                  description: Export data from an environment into local storage or Cloud Storage.
+                  flags:
+                    --destination=!: The path to an existing local directory or a Cloud Storage
+                    --environment=!: ID of the environment or fully qualified identifier for the environment.
+                    --location=: Region where Composer environment runs or in which to create the environment.
+                    --source=: An optional relative path to a file or directory to be exported from the
+                - name: import
+                  description: Import data from local storage or Cloud Storage into an environment.
+                  flags:
+                    --destination=: An optional subdirectory under the data/ directory in the environment's
+                    --environment=!: ID of the environment or fully qualified identifier for the environment.
+                    --location=: Region where Composer environment runs or in which to create the environment.
+                    --source=!: Path to a local directory/file or Cloud Storage bucket/object to be
+                - name: list
+                  description: List the data for a Cloud Composer environment.
+                  flags:
+                    --environment=!: ID of the environment or fully qualified identifier for the environment.
+                    --location=: Region where Composer environment runs or in which to create the environment.
+            - name: plugins
+              description: Manage plugins for Cloud Composer environments.
+              commands:
+                - name: delete
+                  description: Delete plugins from an Cloud Composer environment's Cloud Storage bucket.
+                  flags:
+                    --environment=!: ID of the environment or fully qualified identifier for the environment.
+                    --location=: Region where Composer environment runs or in which to create the environment.
+                - name: export
+                  description: Export plugins from an environment into local storage or Cloud Storage.
+                  flags:
+                    --destination=!: The path to an existing local directory or a Cloud Storage
+                    --environment=!: ID of the environment or fully qualified identifier for the environment.
+                    --location=: Region where Composer environment runs or in which to create the environment.
+                    --source=: An optional relative path to a file or directory to be exported from the
+                - name: import
+                  description: Import plugins from local storage or Cloud Storage into an environment.
+                  flags:
+                    --destination=: An optional subdirectory under the plugins/ directory in the environment's
+                    --environment=!: ID of the environment or fully qualified identifier for the environment.
+                    --location=: Region where Composer environment runs or in which to create the environment.
+                    --source=!: Path to a local directory/file or Cloud Storage bucket/object to be
+                - name: list
+                  description: List the plugins for a Cloud Composer environment.
+                  flags:
+                    --environment=!: ID of the environment or fully qualified identifier for the environment.
+                    --location=: Region where Composer environment runs or in which to create the environment.
+    - name: operations
+      description: Manage Cloud Composer operations.
+      commands:
+        - name: delete
+          description: Delete one or more completed Cloud Composer operations.
+          flags:
+            --location=: Compute Engine region in which to create the operations.
+        - name: describe
+          description: Get details about an asynchronous operation.
+          flags:
+            --location=: Compute Engine region in which to create the operation.
+        - name: list
+          description: Lists environment operations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --locations=!: IDs of the locations or fully qualified identifiers for the locations.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: wait
+          description: Wait for asynchronous operation to complete.
+          flags:
+            --location=: Compute Engine region in which to create the operation.

@@ -1,0 +1,708 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: gemini
+description: Manage resources associated with Gemini Code Assist and Gemini Cloud Assist.
+commands:
+    - name: operations
+      description: Manage Operation resources.
+      commands:
+        - name: describe
+          description: Describe operations.
+          flags:
+            --location=: The location id of the operation resource.
+        - name: list
+          description: List operations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: wait
+          description: Wait operations.
+          flags:
+            --location=: The location id of the operation resource.
+        - name: cancel
+          description: Cancel operations.
+          flags:
+            --location=: The location id of the operation resource.
+        - name: delete
+          description: Delete operations.
+          flags:
+            --location=: The location id of the operation resource.
+    - name: release-channel-settings
+      description: Manage Release Channel Setting resources.
+      commands:
+        - name: create
+          description: Create releaseChannelSettings.
+          flags:
+            --labels=: Labels as key value pairs.
+            --location=: The location id of the releaseChannelSetting resource.
+            --release-channel=: Release channel to be used.
+            --request-id=: An optional request ID to identify requests.
+          completion:
+            flag:
+                release-channel:
+                    - experimental
+                    - stable
+        - name: delete
+          description: Delete releaseChannelSettings.
+          flags:
+            --location=: The location id of the releaseChannelSetting resource.
+            --request-id=: An optional request ID to identify requests.
+        - name: describe
+          description: Describe releaseChannelSettings.
+          flags:
+            --location=: The location id of the releaseChannelSetting resource.
+        - name: list
+          description: List releaseChannelSettings.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: setting-bindings
+          description: Manage Setting Binding resources.
+          commands:
+            - name: create
+              description: Create settingBindings.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --labels=: Labels as key value pairs.
+                --location=: The location id of the settingBinding resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --product=: Product type of the setting binding.
+                --release-channel-setting=: The releaseChannelSetting id of the settingBinding resource.
+                --request-id=: An optional request ID to identify requests.
+                --target=!: Target of the binding.
+              completion:
+                flag:
+                    product:
+                        - gemini-cloud-assist
+                        - gemini-code-assist
+                        - gemini-in-bigquery
+            - name: delete
+              description: Delete settingBindings.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location id of the settingBinding resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --release-channel-setting=: The releaseChannelSetting id of the settingBinding resource.
+                --request-id=: An optional request ID to identify requests.
+            - name: describe
+              description: Describe settingBindings.
+              flags:
+                --location=: The location id of the settingBinding resource.
+                --release-channel-setting=: The releaseChannelSetting id of the settingBinding resource.
+            - name: list
+              description: List settingBindings.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the releaseChannelSetting resource.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --release-channel-setting=!: ID of the releaseChannelSetting or fully qualified identifier for the releaseChannelSetting.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Update settingBindings.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-labels: Clear labels value and set to empty map.
+                --labels=: Set labels to new value.
+                --location=: The location id of the settingBinding resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Clear labels value and set to empty map.
+                --product=: Product type of the setting binding.
+                --release-channel-setting=: The releaseChannelSetting id of the settingBinding resource.
+                --remove-labels=: Remove existing value from map labels.
+                --request-id=: An optional request ID to identify requests.
+                --target=: Target of the binding.
+                --update-labels=: Update labels value or add key value pair.
+              completion:
+                flag:
+                    product:
+                        - gemini-cloud-assist
+                        - gemini-code-assist
+                        - gemini-in-bigquery
+        - name: update
+          description: Update releaseChannelSettings.
+          flags:
+            --clear-labels: Clear labels value and set to empty map.
+            --labels=: Set labels to new value.
+            --location=: The location id of the releaseChannelSetting resource.
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --release-channel=: Release channel to be used.
+            --remove-labels=: Remove existing value from map labels.
+            --request-id=: An optional request ID to identify requests.
+            --update-labels=: Update labels value or add key value pair.
+          completion:
+            flag:
+                release-channel:
+                    - experimental
+                    - stable
+    - name: code-repository-indexes
+      description: Manage Code Repository Index resources.
+      commands:
+        - name: describe
+          description: Get details of a code repository index instance.
+          flags:
+            --location=: The location id of the codeRepositoryIndex resource.
+        - name: list
+          description: List all code repository index instances in a specified project and location.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: repository-groups
+          description: Manage Repository Group resources.
+          commands:
+            - name: create
+              description: Create a repository group for a given code repository index instance.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --code-repository-index=: The codeRepositoryIndex id of the repositoryGroup resource.
+                --labels=: Labels as key value pairs.
+                --location=: The location id of the repositoryGroup resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --repositories=!: Required, List of repositories to group.
+                --request-id=: An optional request ID to identify requests.
+            - name: delete
+              description: Delete a repository group from a given code repository index instance.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --code-repository-index=: The codeRepositoryIndex id of the repositoryGroup resource.
+                --location=: The location id of the repositoryGroup resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --request-id=: An optional request ID to identify requests.
+            - name: describe
+              description: Get details of a code repository index instance.
+              flags:
+                --code-repository-index=: The codeRepositoryIndex id of the repositoryGroup resource.
+                --location=: The location id of the repositoryGroup resource.
+            - name: get-iam-policy
+              description: Get the IAM policy for a code repository index repository group.
+              flags:
+                --code-repository-index=: ID of the code repository index resource.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: Location of the Gemini resource.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+            - name: list
+              description: List all repository group for a given code repository index instance.
+              flags:
+                --code-repository-index=!: ID of the codeRepositoryIndex or fully qualified identifier for the codeRepositoryIndex.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the codeRepositoryIndex resource.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: set-iam-policy
+              description: Get the IAM policy for a code repository index repository group.
+              flags:
+                --code-repository-index=: ID of the code repository index resource.
+                --location=: Location of the Gemini resource.
+            - name: update
+              description: Update the configuration of a repository group.
+              flags:
+                --add-repositories=: Add new value to repositories list.
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-labels: Clear labels value and set to empty map.
+                --clear-repositories: Clear repositories value and set to empty list.
+                --code-repository-index=: The codeRepositoryIndex id of the repositoryGroup resource.
+                --labels=: Set labels to new value.
+                --location=: The location id of the repositoryGroup resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Clear labels value and set to empty map.
+                --no-clear-repositories&: Clear repositories value and set to empty list.
+                --remove-labels=: Remove existing value from map labels.
+                --remove-repositories=: Remove existing value from repositories list.
+                --repositories=: Set repositories to new value.
+                --request-id=: An optional request ID to identify requests.
+                --update-labels=: Update labels value or add key value pair.
+        - name: update
+          description: Update the configuration of a code repository index instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Clear labels value and set to empty map.
+            --labels=: Set labels to new value.
+            --location=: The location id of the codeRepositoryIndex resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --remove-labels=: Remove existing value from map labels.
+            --request-id=: An optional request ID to identify requests.
+            --update-labels=: Update labels value or add key value pair.
+        - name: create
+          description: Create a code repository index instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --kms-key=: Customer-managed encryption key name, in the format
+            --labels=: Labels as key value pairs.
+            --location=: The location id of the codeRepositoryIndex resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --request-id=: An optional request ID to identify requests.
+        - name: delete
+          description: Delete a code repository index instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --force: If set to true, any RepositoryGroups from this CodeRepositoryIndex will
+            --location=: The location id of the codeRepositoryIndex resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-force&: If set to true, any RepositoryGroups from this CodeRepositoryIndex will
+            --request-id=: An optional request ID to identify requests.
+    - name: code-tools-settings
+      description: Manage Code Tools Setting resources.
+      commands:
+        - name: create
+          description: Create codeToolsSettings.
+          flags:
+            --enabled-tool=!: Required, Represents the full set of enabled tools.
+            --labels=: Labels as key value pairs.
+            --location=: The location id of the codeToolsSetting resource.
+            --request-id=: An optional request ID to identify requests.
+        - name: delete
+          description: Delete codeToolsSettings.
+          flags:
+            --force: If set to true, any code tools settings from this publisher will
+            --location=: The location id of the codeToolsSetting resource.
+            --no-force&: If set to true, any code tools settings from this publisher will
+            --request-id=: An optional request ID to identify requests.
+        - name: describe
+          description: Describe codeToolsSettings.
+          flags:
+            --location=: The location id of the codeToolsSetting resource.
+        - name: list
+          description: List codeToolsSettings.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: setting-bindings
+          description: Manage Setting Binding resources.
+          commands:
+            - name: create
+              description: Create settingBindings.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --code-tools-setting=: The codeToolsSetting id of the settingBinding resource.
+                --labels=: Labels as key value pairs.
+                --location=: The location id of the settingBinding resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --product=: Product type of the setting binding.
+                --request-id=: An optional request ID to identify requests.
+                --target=!: Target of the binding.
+              completion:
+                flag:
+                    product:
+                        - gemini-cloud-assist
+                        - gemini-code-assist
+                        - gemini-in-bigquery
+            - name: delete
+              description: Delete settingBindings.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --code-tools-setting=: The codeToolsSetting id of the settingBinding resource.
+                --location=: The location id of the settingBinding resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --request-id=: An optional request ID to identify requests.
+            - name: describe
+              description: Describe settingBindings.
+              flags:
+                --code-tools-setting=: The codeToolsSetting id of the settingBinding resource.
+                --location=: The location id of the settingBinding resource.
+            - name: list
+              description: List settingBindings.
+              flags:
+                --code-tools-setting=!: ID of the codeToolsSetting or fully qualified identifier for the codeToolsSetting.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the codeToolsSetting resource.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Update settingBindings.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-labels: Clear labels value and set to empty map.
+                --code-tools-setting=: The codeToolsSetting id of the settingBinding resource.
+                --labels=: Set labels to new value.
+                --location=: The location id of the settingBinding resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Clear labels value and set to empty map.
+                --product=: Product type of the setting binding.
+                --remove-labels=: Remove existing value from map labels.
+                --request-id=: An optional request ID to identify requests.
+                --target=: Target of the binding.
+                --update-labels=: Update labels value or add key value pair.
+              completion:
+                flag:
+                    product:
+                        - gemini-cloud-assist
+                        - gemini-code-assist
+                        - gemini-in-bigquery
+        - name: update
+          description: Update codeToolsSettings.
+          flags:
+            --add-enabled-tool=: Add new value to enabled_tool list.
+            --clear-enabled-tool: Clear enabled_tool value and set to empty list.
+            --clear-labels: Clear labels value and set to empty map.
+            --enabled-tool=: Set enabled_tool to new value.
+            --labels=: Set labels to new value.
+            --location=: The location id of the codeToolsSetting resource.
+            --no-clear-enabled-tool&: Clear enabled_tool value and set to empty list.
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --remove-enabled-tool=: Remove existing value from enabled_tool list.
+            --remove-labels=: Remove existing value from map labels.
+            --request-id=: An optional request ID to identify requests.
+            --update-labels=: Update labels value or add key value pair.
+    - name: data-sharing-with-google-settings
+      description: Manage Data Sharing With Google Setting resources.
+      commands:
+        - name: create
+          description: Create dataSharingWithGoogleSettings.
+          flags:
+            --enable-data-sharing: Whether data sharing should be enabled in GA products.
+            --enable-preview-data-sharing: Whether data sharing should be enabled in Preview products.
+            --labels=: Labels as key value pairs.
+            --location=: The location id of the dataSharingWithGoogleSetting resource.
+            --no-enable-data-sharing&: Whether data sharing should be enabled in GA products.
+            --no-enable-preview-data-sharing&: Whether data sharing should be enabled in Preview products.
+            --request-id=: An optional request ID to identify requests.
+        - name: delete
+          description: Delete dataSharingWithGoogleSettings.
+          flags:
+            --location=: The location id of the dataSharingWithGoogleSetting resource.
+            --request-id=: An optional request ID to identify requests.
+        - name: describe
+          description: Describe dataSharingWithGoogleSettings.
+          flags:
+            --location=: The location id of the dataSharingWithGoogleSetting resource.
+        - name: list
+          description: List dataSharingWithGoogleSettings.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: setting-bindings
+          description: Manage Setting Binding resources.
+          commands:
+            - name: create
+              description: Create settingBindings.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --data-sharing-with-google-setting=: The dataSharingWithGoogleSetting id of the settingBinding resource.
+                --labels=: Labels as key value pairs.
+                --location=: The location id of the settingBinding resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --product=: Product type of the setting binding.
+                --request-id=: An optional request ID to identify requests.
+                --target=!: Target of the binding.
+              completion:
+                flag:
+                    product:
+                        - gemini-cloud-assist
+                        - gemini-code-assist
+                        - gemini-in-bigquery
+            - name: delete
+              description: Delete settingBindings.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --data-sharing-with-google-setting=: The dataSharingWithGoogleSetting id of the settingBinding resource.
+                --location=: The location id of the settingBinding resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --request-id=: An optional request ID to identify requests.
+            - name: describe
+              description: Describe settingBindings.
+              flags:
+                --data-sharing-with-google-setting=: The dataSharingWithGoogleSetting id of the settingBinding resource.
+                --location=: The location id of the settingBinding resource.
+            - name: list
+              description: List settingBindings.
+              flags:
+                --data-sharing-with-google-setting=!: ID of the dataSharingWithGoogleSetting or fully qualified identifier for the dataSharingWithGoogleSetting.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the dataSharingWithGoogleSetting resource.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Update settingBindings.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-labels: Clear labels value and set to empty map.
+                --data-sharing-with-google-setting=: The dataSharingWithGoogleSetting id of the settingBinding resource.
+                --labels=: Set labels to new value.
+                --location=: The location id of the settingBinding resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Clear labels value and set to empty map.
+                --product=: Product type of the setting binding.
+                --remove-labels=: Remove existing value from map labels.
+                --request-id=: An optional request ID to identify requests.
+                --target=: Target of the binding.
+                --update-labels=: Update labels value or add key value pair.
+              completion:
+                flag:
+                    product:
+                        - gemini-cloud-assist
+                        - gemini-code-assist
+                        - gemini-in-bigquery
+        - name: update
+          description: Update dataSharingWithGoogleSettings.
+          flags:
+            --clear-labels: Clear labels value and set to empty map.
+            --enable-data-sharing: Whether data sharing should be enabled in GA products.
+            --enable-preview-data-sharing: Whether data sharing should be enabled in Preview products.
+            --labels=: Set labels to new value.
+            --location=: The location id of the dataSharingWithGoogleSetting resource.
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --no-enable-data-sharing&: Whether data sharing should be enabled in GA products.
+            --no-enable-preview-data-sharing&: Whether data sharing should be enabled in Preview products.
+            --remove-labels=: Remove existing value from map labels.
+            --request-id=: An optional request ID to identify requests.
+            --update-labels=: Update labels value or add key value pair.
+    - name: gemini-gcp-enablement-settings
+      description: Manage Gemini Gcp Enablement Setting resources.
+      commands:
+        - name: create
+          description: Create geminiGcpEnablementSettings.
+          flags:
+            --disable-web-grounding: Whether web grounding should be disabled.
+            --enable-customer-data-sharing: Whether customer data sharing should be enabled.
+            --labels=: Labels as key value pairs.
+            --location=: The location id of the geminiGcpEnablementSetting resource.
+            --no-disable-web-grounding&: Whether web grounding should be disabled.
+            --no-enable-customer-data-sharing&: Whether customer data sharing should be enabled.
+            --request-id=: An optional request ID to identify requests.
+        - name: delete
+          description: Delete geminiGcpEnablementSettings.
+          flags:
+            --location=: The location id of the geminiGcpEnablementSetting resource.
+            --request-id=: An optional request ID to identify requests.
+        - name: describe
+          description: Describe geminiGcpEnablementSettings.
+          flags:
+            --location=: The location id of the geminiGcpEnablementSetting resource.
+        - name: list
+          description: List geminiGcpEnablementSettings.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: setting-bindings
+          description: Manage Setting Binding resources.
+          commands:
+            - name: create
+              description: Create settingBindings.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --gemini-gcp-enablement-setting=: The geminiGcpEnablementSetting id of the settingBinding resource.
+                --labels=: Labels as key value pairs.
+                --location=: The location id of the settingBinding resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --product=: Product type of the setting binding.
+                --request-id=: An optional request ID to identify requests.
+                --target=!: Target of the binding.
+              completion:
+                flag:
+                    product:
+                        - gemini-cloud-assist
+                        - gemini-code-assist
+                        - gemini-in-bigquery
+            - name: delete
+              description: Delete settingBindings.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --gemini-gcp-enablement-setting=: The geminiGcpEnablementSetting id of the settingBinding resource.
+                --location=: The location id of the settingBinding resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --request-id=: An optional request ID to identify requests.
+            - name: describe
+              description: Describe settingBindings.
+              flags:
+                --gemini-gcp-enablement-setting=: The geminiGcpEnablementSetting id of the settingBinding resource.
+                --location=: The location id of the settingBinding resource.
+            - name: list
+              description: List settingBindings.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --gemini-gcp-enablement-setting=!: ID of the geminiGcpEnablementSetting or fully qualified identifier for the geminiGcpEnablementSetting.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the geminiGcpEnablementSetting resource.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Update settingBindings.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-labels: Clear labels value and set to empty map.
+                --gemini-gcp-enablement-setting=: The geminiGcpEnablementSetting id of the settingBinding resource.
+                --labels=: Set labels to new value.
+                --location=: The location id of the settingBinding resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Clear labels value and set to empty map.
+                --product=: Product type of the setting binding.
+                --remove-labels=: Remove existing value from map labels.
+                --request-id=: An optional request ID to identify requests.
+                --target=: Target of the binding.
+                --update-labels=: Update labels value or add key value pair.
+              completion:
+                flag:
+                    product:
+                        - gemini-cloud-assist
+                        - gemini-code-assist
+                        - gemini-in-bigquery
+        - name: update
+          description: Update geminiGcpEnablementSettings.
+          flags:
+            --clear-labels: Clear labels value and set to empty map.
+            --disable-web-grounding: Whether web grounding should be disabled.
+            --enable-customer-data-sharing: Whether customer data sharing should be enabled.
+            --labels=: Set labels to new value.
+            --location=: The location id of the geminiGcpEnablementSetting resource.
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --no-disable-web-grounding&: Whether web grounding should be disabled.
+            --no-enable-customer-data-sharing&: Whether customer data sharing should be enabled.
+            --remove-labels=: Remove existing value from map labels.
+            --request-id=: An optional request ID to identify requests.
+            --update-labels=: Update labels value or add key value pair.
+    - name: logging-settings
+      description: Manage Logging Setting resources.
+      commands:
+        - name: update
+          description: Update loggingSettings.
+          flags:
+            --clear-labels: Clear labels value and set to empty map.
+            --labels=: Set labels to new value.
+            --location=: The location id of the loggingSetting resource.
+            --log-metadata: Whether to log metadata.
+            --log-prompts-and-responses: Whether to log prompts and responses.
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --no-log-metadata&: Whether to log metadata.
+            --no-log-prompts-and-responses&: Whether to log prompts and responses.
+            --remove-labels=: Remove existing value from map labels.
+            --request-id=: An optional request ID to identify requests.
+            --update-labels=: Update labels value or add key value pair.
+        - name: create
+          description: Create loggingSettings.
+          flags:
+            --labels=: Labels as key value pairs.
+            --location=: The location id of the loggingSetting resource.
+            --log-metadata: Whether to log metadata.
+            --log-prompts-and-responses: Whether to log prompts and responses.
+            --no-log-metadata&: Whether to log metadata.
+            --no-log-prompts-and-responses&: Whether to log prompts and responses.
+            --request-id=: An optional request ID to identify requests.
+        - name: delete
+          description: Delete loggingSettings.
+          flags:
+            --location=: The location id of the loggingSetting resource.
+            --request-id=: An optional request ID to identify requests.
+        - name: describe
+          description: Describe loggingSettings.
+          flags:
+            --location=: The location id of the loggingSetting resource.
+        - name: list
+          description: List loggingSettings.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: setting-bindings
+          description: Manage Setting Binding resources.
+          commands:
+            - name: create
+              description: Create settingBindings.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --labels=: Labels as key value pairs.
+                --location=: The location id of the settingBinding resource.
+                --logging-setting=: The loggingSetting id of the settingBinding resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --product=: Product type of the setting binding.
+                --request-id=: An optional request ID to identify requests.
+                --target=!: Target of the binding.
+              completion:
+                flag:
+                    product:
+                        - gemini-cloud-assist
+                        - gemini-code-assist
+                        - gemini-in-bigquery
+            - name: delete
+              description: Delete settingBindings.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location id of the settingBinding resource.
+                --logging-setting=: The loggingSetting id of the settingBinding resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --request-id=: An optional request ID to identify requests.
+            - name: describe
+              description: Describe settingBindings.
+              flags:
+                --location=: The location id of the settingBinding resource.
+                --logging-setting=: The loggingSetting id of the settingBinding resource.
+            - name: list
+              description: List settingBindings.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the loggingSetting resource.
+                --logging-setting=!: ID of the loggingSetting or fully qualified identifier for the loggingSetting.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Update settingBindings.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-labels: Clear labels value and set to empty map.
+                --labels=: Set labels to new value.
+                --location=: The location id of the settingBinding resource.
+                --logging-setting=: The loggingSetting id of the settingBinding resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Clear labels value and set to empty map.
+                --product=: Product type of the setting binding.
+                --remove-labels=: Remove existing value from map labels.
+                --request-id=: An optional request ID to identify requests.
+                --target=: Target of the binding.
+                --update-labels=: Update labels value or add key value pair.
+              completion:
+                flag:
+                    product:
+                        - gemini-cloud-assist
+                        - gemini-code-assist
+                        - gemini-in-bigquery

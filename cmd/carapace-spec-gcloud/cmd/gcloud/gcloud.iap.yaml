@@ -1,0 +1,243 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: iap
+description: Manage IAP policies.
+commands:
+    - name: oauth-brands
+      description: '*(DEPRECATED)*  Manage IAP OAuth brands.'
+      commands:
+        - name: create
+          description: '*(DEPRECATED)*  Create a Cloud OAuth brand for the project.'
+          flags:
+            --application-title=!: Application name displayed on the OAuth consent screen.
+            --support-email=!: Support email displayed on the OAuth consent screen.
+        - name: describe
+          description: '*(DEPRECATED)*  Describe a Cloud OAuth brand.'
+        - name: list
+          description: '*(DEPRECATED)*  List Cloud OAuth brands in the project.'
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+    - name: oauth-clients
+      description: '*(DEPRECATED)*  Manage IAP OAuth clients.'
+      commands:
+        - name: create
+          description: '*(DEPRECATED)*  Create a Cloud IAP OAuth client in the project.'
+          flags:
+            --display-name=!: User friendly name for the Cloud IAP OAuth client.
+        - name: delete
+          description: '*(DEPRECATED)*  Delete a Cloud IAP OAuth client.'
+          flags:
+            --brand=: The name of the OAuth brand.
+        - name: describe
+          description: '*(DEPRECATED)*  Describe a Cloud IAP OAuth client.'
+          flags:
+            --brand=: The name of the OAuth brand.
+        - name: list
+          description: '*(DEPRECATED)*  List Cloud IAP OAuth clients in the Cloud OAuth brand.'
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: reset-secret
+          description: '*(DEPRECATED)*  Reset a Cloud IAP OAuth client secret.'
+          flags:
+            --brand=: The name of the OAuth brand.
+    - name: settings
+      description: Manage IAP settings.
+      commands:
+        - name: get
+          description: Get the setting for an IAP resource.
+          flags:
+            --folder=: Folder ID.
+            --organization=: Organization ID.
+            --region=: Region name.
+            --resource-type=: Resource type of the IAP resource.
+            --service=: Service name.
+          completion:
+            flag:
+                resource-type:
+                    - app-engine
+                    - iap_web
+                    - compute
+                    - organization
+                    - folder
+                    - backend-services
+                    - forwarding-rule
+        - name: set
+          description: Set the setting for an IAP resource.
+          flags:
+            --folder=: Folder ID.
+            --organization=: Organization ID.
+            --region=: Region name.
+            --resource-type=: Resource type of the IAP resource.
+            --service=: Service name.
+          completion:
+            flag:
+                resource-type:
+                    - app-engine
+                    - iap_web
+                    - compute
+                    - organization
+                    - folder
+                    - backend-services
+                    - forwarding-rule
+    - name: tcp
+      description: Manage IAP TCP resources.
+      commands:
+        - name: dest-groups
+          description: Manage IAP TCP Destination Group resources.
+          commands:
+            - name: describe
+              description: Describe the IAP TCP Destination Group resource.
+              flags:
+                --region=!: Region of the Destination Group.
+            - name: get-iam-policy
+              description: Get IAM policy for an IAP TCP Destination Group resource.
+              flags:
+                --dest-group=!: Name of the Destination Group.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --page-size=: Some services group resource list output into pages.
+                --region=!: Region of the Destination Group.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+            - name: add-iam-policy-binding
+              description: Add IAM policy binding to an IAP TCP Tunnel Destination Group resource.
+              flags:
+                --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+                --condition=: A condition to include in the binding.
+                --dest-group=!: Name of the Destination Group.
+                --member=!: The principal to add the binding for.
+                --region=!: Region of the Destination Group.
+                --role=!: Role name to assign to the principal.
+            - name: create
+              description: Create the IAP TCP Destination Group resource.
+              flags:
+                --fqdn-list=: List of FQDNs in the Destination Group.
+                --ip-range-list=: List of ip-ranges in the Destination Group.
+                --region=!: Region of the Destination Group.
+            - name: delete
+              description: Delete the IAP TCP Destination Group resource.
+              flags:
+                --region=!: Region of the Destination Group.
+            - name: list
+              description: Lists the IAP TCP Destination Group resource.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --page-size=: Some services group resource list output into pages.
+                --region=: Region of the Destination Group, will list all regions by default
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+            - name: remove-iam-policy-binding
+              description: Remove IAM policy binding from an IAP TCP Destination Group resource.
+              flags:
+                --all: Remove all bindings with this role and principal, irrespective of any
+                --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+                --condition=: The condition of the binding that you want to remove.
+                --dest-group=!: Name of the Destination Group.
+                --member=!: The principal to remove the binding for.
+                --no-all&: ""
+                --region=!: Region of the Destination Group.
+                --role=!: The role to remove the principal from.
+            - name: set-iam-policy
+              description: Set the IAM policy for an IAP TCP Destination Group resource.
+              flags:
+                --dest-group=!: Name of the Destination Group.
+                --region=!: Region of the Destination Group.
+            - name: update
+              description: Update the IAP TCP Destination Group resource.
+              flags:
+                --fqdn-list=: List of FQDNs in the Destination Group.
+                --ip-range-list=: List of ip-ranges in the Destination Group.
+                --region=!: Region of the Destination Group.
+    - name: web
+      description: Manage IAP web policies.
+      commands:
+        - name: remove-iam-policy-binding
+          description: Remove IAM policy binding from an IAP IAM resource.
+          flags:
+            --all: Remove all bindings with this role and principal, irrespective of any
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: The condition of the binding that you want to remove.
+            --member=!: The principal to remove the binding for.
+            --no-all&: ""
+            --region=: Region name.
+            --resource-type=: Resource type of the IAP resource.
+            --role=!: The role to remove the principal from.
+            --service=: Service name.
+          completion:
+            flag:
+                resource-type:
+                    - app-engine
+                    - backend-services
+                    - forwarding-rule
+        - name: set-iam-policy
+          description: Set the IAM policy for an IAP IAM resource.
+          flags:
+            --region=: Region name.
+            --resource-type=: Resource type of the IAP resource.
+            --service=: Service name.
+          completion:
+            flag:
+                resource-type:
+                    - app-engine
+                    - backend-services
+                    - forwarding-rule
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding to an IAP IAM resource.
+          flags:
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: A condition to include in the binding.
+            --member=!: The principal to add the binding for.
+            --region=: Region name.
+            --resource-type=: Resource type of the IAP resource.
+            --role=!: Role name to assign to the principal.
+            --service=: Service name.
+          completion:
+            flag:
+                resource-type:
+                    - app-engine
+                    - backend-services
+                    - forwarding-rule
+        - name: disable
+          description: Disable Cloud Identity-Aware Proxy (Cloud IAP) on an IAP resource.
+          flags:
+            --region=: Region name.
+            --resource-type=!: Resource type of the IAP resource.
+            --service=: Service name.
+          completion:
+            flag:
+                resource-type:
+                    - app-engine
+                    - backend-services
+        - name: enable
+          description: Enable Cloud Identity-Aware Proxy (Cloud IAP) on an IAP resource.
+          flags:
+            --oauth2-client-id=!: OAuth 2.0 client ID to use.
+            --oauth2-client-secret=!: OAuth 2.0 client secret to use.
+            --region=: Region name.
+            --resource-type=!: Resource type of the IAP resource.
+            --service=: Service name.
+          completion:
+            flag:
+                resource-type:
+                    - app-engine
+                    - backend-services
+        - name: get-iam-policy
+          description: Get IAM policy for an IAP IAM resource.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --region=: Region name.
+            --resource-type=: Resource type of the IAP resource.
+            --service=: Service name.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+          completion:
+            flag:
+                resource-type:
+                    - app-engine
+                    - backend-services
+                    - forwarding-rule

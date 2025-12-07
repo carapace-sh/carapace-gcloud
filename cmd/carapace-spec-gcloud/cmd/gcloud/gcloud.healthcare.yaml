@@ -1,0 +1,605 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: healthcare
+description: Manage Cloud Healthcare resources.
+commands:
+    - name: operations
+      description: Manage Cloud Healthcare API operations.
+      commands:
+        - name: describe
+          description: Describe a Cloud Healthcare API operation.
+          flags:
+            --dataset=: Cloud Healthcare dataset.
+            --location=: Google Cloud location.
+        - name: list
+          description: List Cloud Healthcare API operations.
+          flags:
+            --dataset=!: ID of the dataset or fully qualified identifier for the dataset.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Google Cloud location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: consent-stores
+      description: Manage Cloud Healthcare API consent stores.
+      commands:
+        - name: delete
+          description: Delete a Cloud Healthcare API consent store.
+          flags:
+            --dataset=: Cloud Healthcare dataset.
+            --location=: Google Cloud location.
+        - name: evaluate-user-consents
+          description: Check the consents for a particular user's data.
+          flags:
+            --consent-list=: List of user consents to evaluate the access request against.
+            --dataset=: Cloud Healthcare dataset.
+            --location=: Google Cloud location.
+            --page-size=: Limit on the number of user data mappings to return in a single response.
+            --page-token=: Token to retrieve the next page of results.
+            --request-attributes=: Comma-separated list of request attributes associated with this access request.
+            --resource-attributes=: Comma-separated list of resource attributes associated with this access request.
+            --response-view=: The requested view of information provided in the response (BASIC or FULL).
+            --user-id=!: The unique identifier of the user to evaluate consents for.
+          completion:
+            flag:
+                response-view:
+                    - basic
+                    - full
+                    - response-view-unspecified
+        - name: list
+          description: List Cloud Healthcare API consent stores.
+          flags:
+            --dataset=!: ID of the dataset or fully qualified identifier for the dataset.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Google Cloud location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: remove-iam-policy-binding
+          description: Remove an IAM policy binding from a Cloud Healthcare API consent store.
+          flags:
+            --all: Remove all bindings with this role and principal, irrespective of any
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: The condition of the binding that you want to remove.
+            --dataset=: Cloud Healthcare dataset.
+            --location=: Google Cloud location.
+            --member=!: The principal to remove the binding for.
+            --no-all&: ""
+            --role=!: The role to remove the principal from.
+        - name: set-iam-policy
+          description: Set the IAM policy for a Cloud Healthcare API consent store.
+          flags:
+            --dataset=: Cloud Healthcare dataset.
+            --location=: Google Cloud location.
+        - name: describe
+          description: Describe a Cloud Healthcare API consent store.
+          flags:
+            --dataset=: Cloud Healthcare dataset.
+            --location=: Google Cloud location.
+        - name: get-iam-policy
+          description: Retrieve the IAM policy for a Cloud Healthcare API consent store.
+          flags:
+            --dataset=: Cloud Healthcare dataset.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Google Cloud location.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: query-accessible-data
+          description: Queries all accessible data IDs.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --dataset=: Cloud Healthcare dataset.
+            --gcs-uri=!: The Cloud Storage destination for the result file.
+            --location=: Google Cloud location.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --request-attributes=: Comma-separated list of request attributes associated with this access request.
+            --resource-attributes=: Comma-separated list of resources attributes associated with the type of data being
+        - name: update
+          description: Update a Cloud Healthcare API consent store.
+          flags:
+            --clear-labels: Remove all labels.
+            --dataset=: Cloud Healthcare dataset.
+            --location=: Google Cloud location.
+            --no-clear-labels&: Remove all labels.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+        - name: add-iam-policy-binding
+          description: Add an IAM policy binding to a Cloud Healthcare API consent store.
+          flags:
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: A condition to include in the binding.
+            --dataset=: Cloud Healthcare dataset.
+            --location=: Google Cloud location.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: check-data-access
+          description: Check the consent for a particular data ID.
+          flags:
+            --data-id=!: The unique identifier of the data to check access for.
+            --dataset=: Cloud Healthcare dataset.
+            --location=: Google Cloud location.
+            --request-attributes=: Comma-separated list of request attributes associated with this access request.
+        - name: create
+          description: Create a Cloud Healthcare API consent store.
+          flags:
+            --dataset=: Cloud Healthcare dataset.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: Google Cloud location.
+    - name: datasets
+      description: Manage Cloud Healthcare API datasets.
+      commands:
+        - name: remove-iam-policy-binding
+          description: Remove an IAM policy binding to a Cloud Healthcare API dataset.
+          flags:
+            --all: Remove all bindings with this role and principal, irrespective of any
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: The condition of the binding that you want to remove.
+            --location=: Google Cloud location.
+            --member=!: The principal to remove the binding for.
+            --no-all&: ""
+            --role=!: The role to remove the principal from.
+        - name: set-iam-policy
+          description: Set the IAM policy for a Cloud Healthcare API dataset.
+          flags:
+            --location=: Google Cloud location.
+        - name: update
+          description: Update a Cloud Healthcare API dataset.
+          flags:
+            --location=: Google Cloud location.
+            --time-zone=: Default timezone used by this dataset.
+        - name: create
+          description: Create a Cloud Healthcare API dataset.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --encryption-key=: KMS encryption key that is used to secure this dataset and its sub-resources.
+            --location=: Google Cloud location.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --time-zone=: Default timezone used by this dataset.
+        - name: describe
+          description: Describe a Cloud Healthcare API dataset.
+          flags:
+            --location=: Google Cloud location.
+        - name: get-iam-policy
+          description: Retrieve the IAM policy for a Cloud Healthcare API dataset.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Google Cloud location.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: add-iam-policy-binding
+          description: Add an IAM policy binding to a Cloud Healthcare API dataset.
+          flags:
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: A condition to include in the binding.
+            --location=: Google Cloud location.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: deidentify
+          description: Create a new Cloud Healthcare API dataset containing de-identified data from the source dataset.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --default-fhir-config: Deidentify FHIR data with default configurations.
+            --destination-dataset=!: The name of the dataset resource to which the redacted data should be written
+            --dicom-filter-tags=: Tags to be filtered.
+            --location=: Google Cloud location.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-default-fhir-config&: Deidentify FHIR data with default configurations.
+            --text-redaction-mode=: Determines how to redact text from image.
+          completion:
+            flag:
+                text-redaction-mode:
+                    - all
+        - name: delete
+          description: Delete a Cloud Healthcare API dataset.
+          flags:
+            --location=: Google Cloud location.
+        - name: list
+          description: List Cloud Healthcare API datasets.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: dicom-stores
+      description: Manage Cloud Healthcare API DICOM stores.
+      commands:
+        - name: create
+          description: Create a Cloud Healthcare API DICOM store.
+          flags:
+            --dataset=: Cloud Healthcare dataset.
+            --location=: Google Cloud location.
+            --no-send-for-bulk-import&: Indicates whether or not to send Cloud Pub/Sub notifications on bulk import.
+            --pubsub-topic=: Google Cloud Pub/Sub topic to send updates to.
+            --send-for-bulk-import: Indicates whether or not to send Cloud Pub/Sub notifications on bulk import.
+            --stream-configs=: Configuration that indicates the BigQuery destinations for streaming instances of a DICOM store.
+        - name: delete
+          description: Delete a Cloud Healthcare API DICOM store.
+          flags:
+            --dataset=: Cloud Healthcare dataset.
+            --location=: Google Cloud location.
+        - name: describe
+          description: Describe a Cloud Healthcare API DICOM store.
+          flags:
+            --dataset=: Cloud Healthcare dataset.
+            --location=: Google Cloud location.
+        - name: import
+          description: Manage Cloud Healthcare API DICOM store imports.
+          commands:
+            - name: gcs
+              description: Import DICOM objects into a Cloud Healthcare API DICOM store.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --dataset=: Cloud Healthcare dataset.
+                --gcs-uri=!: Google Cloud Storage URI containing DICOM object data.
+                --location=: Google Cloud location.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: list
+          description: List Cloud Healthcare API DICOM stores.
+          flags:
+            --dataset=!: ID of the dataset or fully qualified identifier for the dataset.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Google Cloud location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: metrics
+          description: Get the metrics for a Cloud Healthcare API DICOM store.
+          flags:
+            --dataset=: Cloud Healthcare dataset.
+            --location=: Google Cloud location.
+        - name: remove-iam-policy-binding
+          description: Remove an IAM policy binding from a Cloud Healthcare API DICOM store.
+          flags:
+            --all: Remove all bindings with this role and principal, irrespective of any
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: The condition of the binding that you want to remove.
+            --dataset=: Cloud Healthcare dataset.
+            --location=: Google Cloud location.
+            --member=!: The principal to remove the binding for.
+            --no-all&: ""
+            --role=!: The role to remove the principal from.
+        - name: set-iam-policy
+          description: Set the IAM policy for a Cloud Healthcare API DICOM store.
+          flags:
+            --dataset=: Cloud Healthcare dataset.
+            --location=: Google Cloud location.
+        - name: add-iam-policy-binding
+          description: Add an IAM policy binding to a Cloud Healthcare API DICOM store.
+          flags:
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: A condition to include in the binding.
+            --dataset=: Cloud Healthcare dataset.
+            --location=: Google Cloud location.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: deidentify
+          description: De-identify data from the source store and write it to the destination store.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --dataset=: Cloud Healthcare dataset.
+            --destination-store=!: The name of the DICOM store to which the redacted data should be written
+            --dicom-filter-tags=: Tags to be filtered.
+            --location=: Google Cloud location.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --text-redaction-mode=: Determines how to redact text from image.
+          completion:
+            flag:
+                text-redaction-mode:
+                    - all
+        - name: export
+          description: Manage Cloud Healthcare API DICOM store exports.
+          commands:
+            - name: bq
+              description: Export a Cloud Healthcare API API DICOM store to BigQuery.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --bq-table=!: The BigQuery table where the DICOM store should
+                --dataset=: Cloud Healthcare dataset.
+                --location=: Google Cloud location.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-overwrite-table&: If the destination table already exists and this flag is
+                --overwrite-table: If the destination table already exists and this flag is
+                --write-disposition=: Determines whether the existing table in the destination is to be overwritten or appended to.
+              completion:
+                flag:
+                    write-disposition:
+                        - write-append
+                        - write-empty
+                        - write-truncate
+            - name: gcs
+              description: Export a Cloud Healthcare API DICOM store to Google Cloud Storage.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --dataset=: Cloud Healthcare dataset.
+                --gcs-uri-prefix=!: URI for a Google Cloud Storage directory to which result
+                --location=: Google Cloud location.
+                --mime-type=: '''MIME types supported by DICOM spec.'
+                --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: get-iam-policy
+          description: Retrieve the IAM policy for a Cloud Healthcare API DICOM store.
+          flags:
+            --dataset=: Cloud Healthcare dataset.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Google Cloud location.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: update
+          description: Update a Cloud Healthcare API DICOM store.
+          flags:
+            --dataset=: Cloud Healthcare dataset.
+            --location=: Google Cloud location.
+            --no-send-for-bulk-import&: Indicates whether or not to send Cloud Pub/Sub notifications on bulk import.
+            --pubsub-topic=: Google Cloud Pub/Sub topic to send updates to.
+            --send-for-bulk-import: Indicates whether or not to send Cloud Pub/Sub notifications on bulk import.
+            --stream-configs=: Configuration that indicates the BigQuery destinations for streaming instances of a DICOM store.
+    - name: fhir-stores
+      description: Manage Cloud Healthcare API FHIR stores.
+      commands:
+        - name: add-iam-policy-binding
+          description: Add an IAM policy binding to a Cloud Healthcare API FHIR store.
+          flags:
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: A condition to include in the binding.
+            --dataset=: Cloud Healthcare dataset.
+            --location=: Google Cloud location.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: create
+          description: Create a Cloud Healthcare API FHIR store.
+          flags:
+            --dataset=: Cloud Healthcare dataset.
+            --disable-referential-integrity: Whether to disable referential integrity in this FHIR store.
+            --disable-resource-versioning: Whether to disable resource versioning for this FHIR store.
+            --enable-update-create: Whether this FHIR store has the [updateCreate]
+            --location=: Google Cloud location.
+            --no-disable-referential-integrity&: Whether to disable referential integrity in this FHIR store.
+            --no-disable-resource-versioning&: Whether to disable resource versioning for this FHIR store.
+            --no-enable-update-create&: Whether this FHIR store has the [updateCreate]
+            --pubsub-topic=: Google Cloud Pub/Sub topic to send updates to.
+        - name: describe
+          description: Describe a Cloud Healthcare API FHIR store.
+          flags:
+            --dataset=: Cloud Healthcare dataset.
+            --location=: Google Cloud location.
+        - name: get-iam-policy
+          description: Retrieve the IAM policy for a Cloud Healthcare API FHIR store.
+          flags:
+            --dataset=: Cloud Healthcare dataset.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Google Cloud location.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: import
+          description: Manage Cloud Healthcare API FHIR store imports.
+          commands:
+            - name: gcs
+              description: Import FHIR resources from Google Cloud Storage into a Cloud Healthcare API FHIR store.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --content-structure=: Content structure in the source location.
+                --dataset=: Cloud Healthcare dataset.
+                --gcs-uri=!: Cloud Storage source data locations.
+                --location=: Google Cloud location.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+              completion:
+                flag:
+                    content-structure:
+                        - bundle
+                        - bundle-pretty
+                        - resource
+                        - resource-pretty
+        - name: remove-iam-policy-binding
+          description: Remove an IAM policy binding from a Cloud Healthcare API FHIR store.
+          flags:
+            --all: Remove all bindings with this role and principal, irrespective of any
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: The condition of the binding that you want to remove.
+            --dataset=: Cloud Healthcare dataset.
+            --location=: Google Cloud location.
+            --member=!: The principal to remove the binding for.
+            --no-all&: ""
+            --role=!: The role to remove the principal from.
+        - name: update
+          description: Update a Cloud Healthcare API FHIR store.
+          flags:
+            --dataset=: Cloud Healthcare dataset.
+            --enable-update-create: Whether this FHIR store has the [updateCreate]
+            --location=: Google Cloud location.
+            --no-enable-update-create&: Whether this FHIR store has the [updateCreate]
+            --pubsub-topic=: Google Cloud Pub/Sub topic to send updates to.
+        - name: deidentify
+          description: De-identify data from the source store and write it to the destination store.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --dataset=: Cloud Healthcare dataset.
+            --destination-store=!: The name of the FHIR store to which the redacted data should be written
+            --location=: Google Cloud location.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: delete
+          description: Delete a Cloud Healthcare API FHIR store.
+          flags:
+            --dataset=: Cloud Healthcare dataset.
+            --location=: Google Cloud location.
+        - name: export
+          description: Manage Cloud Healthcare API FHIR store exports.
+          commands:
+            - name: bq
+              description: Export Cloud Healthcare API FHIR resources to BigQuery.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --bq-dataset=!: BigQuery dataset that houses the BigQuery tables.
+                --dataset=: Cloud Healthcare dataset.
+                --location=: Google Cloud location.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --recursive-depth=: The depth for all recursive structures in the output analytics schema.
+                --resource-type=: String of comma-delimited FHIR resource types.
+                --schema-type=!: Specifies the output schema type.
+                --since=: If provided, only resources updated after this time are exported.
+                --write-disposition=: Determines whether existing tables in the destination dataset are overwritten or appended
+              completion:
+                flag:
+                    schema-type:
+                        - analytics
+                        - analytics_v2
+                    write-disposition:
+                        - write-append
+                        - write-empty
+                        - write-truncate
+            - name: gcs
+              description: Export Cloud Healthcare API FHIR resources to Google Cloud Storage.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --dataset=: Cloud Healthcare dataset.
+                --gcs-uri=!: The Cloud Storage destination location.
+                --location=: Google Cloud location.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --resource-type=: String of comma-delimited FHIR resource types.
+                --since=: If provided, only resources updated after this time are exported.
+        - name: list
+          description: List Cloud Healthcare API FHIR stores.
+          flags:
+            --dataset=!: ID of the dataset or fully qualified identifier for the dataset.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Google Cloud location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: metrics
+          description: Gets the metrics for a Cloud Healthcare API FHIR store.
+          flags:
+            --dataset=: Cloud Healthcare dataset.
+            --location=: Google Cloud location.
+        - name: set-iam-policy
+          description: Set the IAM policy for a Cloud Healthcare API FHIR store.
+          flags:
+            --dataset=: Cloud Healthcare dataset.
+            --location=: Google Cloud location.
+    - name: hl7v2-stores
+      description: Manage Cloud Healthcare API HL7v2 stores.
+      commands:
+        - name: update
+          description: Update a Cloud Healthcare API HL7v2 store.
+          flags:
+            --dataset=: Cloud Healthcare dataset.
+            --location=: Google Cloud location.
+            --notification-config=: A list of notification configs.
+        - name: add-iam-policy-binding
+          description: Add an IAM policy binding to a Cloud Healthcare API HL7v2 store.
+          flags:
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: A condition to include in the binding.
+            --dataset=: Cloud Healthcare dataset.
+            --location=: Google Cloud location.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: create
+          description: Create a Cloud Healthcare API HL7v2 store.
+          flags:
+            --dataset=: Cloud Healthcare dataset.
+            --location=: Google Cloud location.
+            --notification-config=: A list of notification configs.
+            --parser-version=: Immutable.
+          completion:
+            flag:
+                parser-version:
+                    - v1
+                    - v2
+                    - v3
+        - name: delete
+          description: Delete a Cloud Healthcare API HL7v2 store.
+          flags:
+            --dataset=: Cloud Healthcare dataset.
+            --location=: Google Cloud location.
+        - name: describe
+          description: Describe a Cloud Healthcare API HL7v2 store.
+          flags:
+            --dataset=: Cloud Healthcare dataset.
+            --location=: Google Cloud location.
+        - name: export
+          description: Manage Cloud Healthcare API HL7v2 store exports.
+          commands:
+            - name: gcs
+              description: Export Cloud Healthcare API HL7v2 messages to Google Cloud Storage.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --dataset=: Cloud Healthcare dataset.
+                --end-time=: The end of the range in message send_time (MSH.7) to process.
+                --gcs-uri=!: The Cloud Storage destination location.
+                --location=: Google Cloud location.
+                --message-view=: Specifies the parts of the Message resource to include in the export.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --start-time=: The start of the range in message send_time (MSH.7) to process.
+              completion:
+                flag:
+                    message-view:
+                        - basic
+                        - full
+                        - parsed-only
+                        - raw-only
+                        - schematized-only
+        - name: list
+          description: List Cloud Healthcare API HL7v2 stores.
+          flags:
+            --dataset=!: ID of the dataset or fully qualified identifier for the dataset.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Google Cloud location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: remove-iam-policy-binding
+          description: Remove an IAM policy binding from a Cloud Healthcare API HL7v2 store.
+          flags:
+            --all: Remove all bindings with this role and principal, irrespective of any
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: The condition of the binding that you want to remove.
+            --dataset=: Cloud Healthcare dataset.
+            --location=: Google Cloud location.
+            --member=!: The principal to remove the binding for.
+            --no-all&: ""
+            --role=!: The role to remove the principal from.
+        - name: set-iam-policy
+          description: Set the IAM policy for a Cloud Healthcare API HL7v2 store.
+          flags:
+            --dataset=: Cloud Healthcare dataset.
+            --location=: Google Cloud location.
+        - name: get-iam-policy
+          description: Retrieve the IAM policy for a Cloud Healthcare API HL7v2 store.
+          flags:
+            --dataset=: Cloud Healthcare dataset.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Google Cloud location.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: import
+          description: Manage Cloud Healthcare API HL7v2 store imports.
+          commands:
+            - name: gcs
+              description: Import HL7v2 messages from Google Cloud Storage into a Cloud Healthcare API HL7v2 store.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --dataset=: Cloud Healthcare dataset.
+                --gcs-uri=!: Cloud Storage source data locations.
+                --location=: Google Cloud location.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: metrics
+          description: Gets the metrics for a Cloud Healthcare API HL7v2 store.
+          flags:
+            --dataset=: Cloud Healthcare dataset.
+            --location=: Google Cloud location.

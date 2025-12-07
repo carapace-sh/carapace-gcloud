@@ -1,0 +1,39 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: policy-intelligence
+description: A platform to help better understand, use, and manage policies at scale.
+commands:
+    - name: query-activity
+      description: Query activities on cloud resource.
+      flags:
+        --activity-type=!: Type of the activities.
+        --limit=: Max number of query result.
+        --page-size=: Max page size for each http response.
+        --query-filter=: Filter on activities, separated by "OR" if multiple filters are specified.
+      completion:
+        flag:
+            activity-type:
+                - serviceAccountLastAuthentication
+                - serviceAccountKeyLastAuthentication
+    - name: simulate
+      description: Simulate changes to organization policies.
+      commands:
+        - name: orgpolicy
+          description: Understand how changes to organization policies could affect your       resources.
+          flags:
+            --custom-constraints=: Path to the JSON or YAML file that contains the custom constraints
+            --organization=!: Organization ID.
+            --policies=: Path to the JSON or YAML file that contains the organization
+    - name: troubleshoot-policy
+      description: Troubleshoot IAM policies.
+      commands:
+        - name: iam
+          description: Troubleshoot IAM allow and deny policies.
+          flags:
+            --destination-ip=: The request destination IP address to use when checking conditional bindings.
+            --destination-port=: The request destination port to use when checking conditional bindings.
+            --permission=!: IAM permission to check.
+            --principal-email=!: Email address that identifies the principal to check.
+            --request-time=: The request timestamp to use when checking conditional bindings.
+            --resource-name=: The resource name value to use when checking conditional bindings.
+            --resource-service=: The resource service value to use when checking conditional bindings.
+            --resource-type=: The resource type value to use when checking conditional bindings.

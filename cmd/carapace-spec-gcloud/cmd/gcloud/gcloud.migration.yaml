@@ -1,0 +1,139 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: migration
+description: The root group for various Cloud Migration teams.
+commands:
+    - name: vms
+      description: Provides Migrate to Virtual Machines (VM migration) service functionality.
+      commands:
+        - name: image-imports
+          description: Imports images to Google Compute Engine from Google Cloud Storage.
+          commands:
+            - name: create
+              description: import Virtual Disk images to Google Compute Engine.
+              flags:
+                --adaptation-modifiers=: A map of flags to pass to the OS adaptation process.
+                --additional-licenses=: Comma-separated list of the additional licenses to assign to the image.
+                --boot-conversion=: This property will trigger an internal process which will convert the
+                --description=: A description of the image.
+                --family-name=: The name of the image family to which the new image belongs.
+                --generalize: If true, generalize the imported image.
+                --guest-os-features=: Guest OS features to enable on the imported image.
+                --image-name=: The name of the image that will be imported to Google Compute Engine.
+                --kms-key=: Fully qualified identifier for the Cloud KMS (Key Management Service) cryptokey that will be used to protect the image.
+                --labels=: A map of labels to associate with the image.
+                --license-type=: The license to use post migration.
+                --location=: Resource location.
+                --no-generalize&: If true, generalize the imported image.
+                --no-single-region-storage&: If true, the location of the imported image will be the region of the import job.
+                --no-skip-os-adaptation&: If true, skip OS adaptation.
+                --rootfs-uuid=: Identifies the file system to adapt.
+                --single-region-storage: If true, the location of the imported image will be the region of the import job.
+                --skip-os-adaptation: If true, skip OS adaptation.
+                --source-file=!: The path to the Google Cloud Storage file from which the image should be imported.
+                --target-project=: The target project resource path to which the image will be imported.
+              completion:
+                flag:
+                    boot-conversion:
+                        - bios-to-efi
+                        - boot-conversion-unspecified
+                        - none
+                    license-type:
+                        - compute-engine-license-type-byol
+                        - compute-engine-license-type-default
+                        - compute-engine-license-type-payg
+            - name: delete
+              description: delete an Image Import resource.
+              flags:
+                --location=: Resource location.
+            - name: describe
+              description: describe an Image Import.
+              flags:
+                --location=: Resource location.
+            - name: list
+              description: list Image Imports.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: machine-image-imports
+          description: Imports machine images to Google Compute Engine from Google Cloud Storage.
+          commands:
+            - name: create
+              description: import machine images to Google Compute Engine.
+              flags:
+                --adaptation-modifiers=: A map of flags to pass to the OS adaptation process.
+                --additional-licenses=: Comma-separated list of the additional licenses to assign to the machine image.
+                --boot-conversion=: This property will trigger an internal process which will convert the
+                --description=: A description of the machine image.
+                --enable-integrity-monitoring: Defines whether the instance created by the machine image has integrity monitoring enabled.
+                --enable-vtpm: Defines whether the instance created by the machine image has vTPM enabled.
+                --generalize: If true, generalize the imported machine image.
+                --kms-key=: Fully qualified identifier for the Cloud KMS (Key Management Service) cryptokey that will be used to protect the image.
+                --labels=: A map of labels to associate with the machine image.
+                --license-type=: The license to use post migration.
+                --location=: Resource location.
+                --machine-image-name=: The name of the machine image that will be imported to Google Compute Engine.
+                --machine-type=: The machine type to create the machine image with.
+                --network-interface=: The network interface to use for the instance created by the machine image.
+                --no-enable-integrity-monitoring&: Defines whether the instance created by the machine image has integrity monitoring enabled.
+                --no-enable-vtpm&: Defines whether the instance created by the machine image has vTPM enabled.
+                --no-generalize&: If true, generalize the imported machine image.
+                --no-single-region-storage&: If true, the location of the imported machine image will be the region of the import job.
+                --no-skip-os-adaptation&: If true, skip OS adaptation.
+                --rootfs-uuid=: Identifies the file system to adapt.
+                --scopes=: The list of scopes to be made available for the service account.
+                --secure-boot=: Defines whether the instance created by the machine image has Secure Boot enabled.
+                --service-account=: The email address of the service account.
+                --single-region-storage: If true, the location of the imported machine image will be the region of the import job.
+                --skip-os-adaptation: If true, skip OS adaptation.
+                --source-file=!: The path to the Google Cloud Storage file from which the image should be imported.
+                --tags=: The tags to apply to the instance created by the machine image.
+                --target-project=: The target project resource path to which the machine image will be imported.
+              completion:
+                flag:
+                    boot-conversion:
+                        - bios-to-efi
+                        - boot-conversion-unspecified
+                        - none
+                    license-type:
+                        - compute-engine-license-type-byol
+                        - compute-engine-license-type-default
+                        - compute-engine-license-type-payg
+                    secure-boot:
+                        - "false"
+                        - secure-boot-unspecified
+                        - "true"
+            - name: delete
+              description: delete an Image Import resource.
+              flags:
+                --location=: Resource location.
+            - name: describe
+              description: describe an Image Import.
+              flags:
+                --location=: Resource location.
+            - name: list
+              description: list Image Imports.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: target-projects
+          description: Manage Target Projects.
+          commands:
+            - name: list
+              description: list Target Projects.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the

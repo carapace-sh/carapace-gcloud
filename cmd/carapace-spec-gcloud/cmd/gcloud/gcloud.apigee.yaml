@@ -1,0 +1,214 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: apigee
+description: Manage Apigee resources.
+commands:
+    - name: apis
+      description: Manage Apigee API proxies.
+      commands:
+        - name: deploy
+          description: Deploy an API proxy to an environment.
+          flags:
+            --api=: API proxy to be deployed.
+            --environment=: Environment in which to deploy the API proxy.
+            --no-override&: Force the deployment of the new revision, overriding any currently deployed revision that would conflict with it.
+            --organization=: Apigee organization of the proxy and environment.
+            --override: Force the deployment of the new revision, overriding any currently deployed revision that would conflict with it.
+        - name: describe
+          description: Describe an Apigee API proxy.
+          flags:
+            --no-verbose&: Include proxy revision info in the description.
+            --organization=: Apigee organization containing the API proxy.
+            --verbose: Include proxy revision info in the description.
+        - name: list
+          description: List Apigee API proxies.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --organization=: ID of the organization or fully qualified identifier for the organization.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: undeploy
+          description: Undeploy an Apigee API proxy from an environment.
+          flags:
+            --api=: API proxy to be undeployed.
+            --environment=: Environment from which to undeploy the API proxy.
+            --organization=: Apigee organization of the proxy and environment.
+    - name: applications
+      description: Manage third-party applications which call Apigee API proxies.
+      commands:
+        - name: list
+          description: List Apigee applications.
+          flags:
+            --developer=: ID of the developer or fully qualified identifier for the developer.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --organization=: Apigee organization containing the developer.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: describe
+          description: Describe an Apigee application.
+          flags:
+            --organization=: Apigee organization containing the application.
+    - name: deployments
+      description: Manage deployments of Apigee API proxies in runtime environments.
+      commands:
+        - name: describe
+          description: Describe an Apigee API proxy deployment.
+          flags:
+            --api=: Deployed API proxy.
+            --environment=: Environment in which the proxy was deployed.
+            --organization=: Apigee Organization of the proxy and environment.
+        - name: list
+          description: List Apigee API proxy deployments.
+          flags:
+            --api=: The API proxy whose deployments should be listed.
+            --environment=: The environment whose deployments should be listed.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --organization=: The organization whose deployments should be listed.If unspecified, the Cloud Platform project's associated organization will be used.
+            --page-size=: Some services group resource list output into pages.
+            --revision=: ID of the revision or fully qualified identifier for the revision.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: developers
+      description: Manage Apigee developers.
+      commands:
+        - name: describe
+          description: Describe an Apigee developer.
+          flags:
+            --organization=: Apigee organization containing the developer.
+        - name: list
+          description: List Apigee developers by email address.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --organization=: ID of the organization or fully qualified identifier for the organization.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: environments
+      description: Manage Apigee environments.
+      commands:
+        - name: list
+          description: List Apigee deployment environments.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --organization=: ID of the organization or fully qualified identifier for the organization.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: organizations
+      description: Manage Apigee organizations.
+      commands:
+        - name: list
+          description: List Apigee organizations and their paired Cloud Platform projects.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: products
+      description: Manage Apigee API products.
+      commands:
+        - name: create
+          description: Create an Apigee API product.
+          flags:
+            --all-environments: Make all environments accessible through this API product.
+            --all-proxies: Expose all available API proxies and their resources.
+            --apis=: Comma-separated names of API proxies to which this API product is bound.
+            --attributes=: Key-value attribute pairs that may be used to extend the default API product profile with customer-specific metadata.
+            --description=: Overview of the API product.
+            --display-name=: Name to be displayed in the UI or developer portal to developers registering for API access.
+            --environments=: Environments to which the API product is bound.
+            --internal-access: Prevent external access to this API product.
+            --manual-approval: Require manual approval of developer requests to access this API product before their consumer keys can be used.
+            --no-all-proxies&: Expose all available API proxies and their resources.
+            --no-manual-approval&: Require manual approval of developer requests to access this API product before their consumer keys can be used.
+            --oauth-scopes=: Comma-separated list of OAuth scopes that are validated at runtime.
+            --organization=: Apigee organization containing the API product.
+            --private-access: Hide this API product in the developer portal but make it accessible by external developers.
+            --public-access: Make this API product visible to developers in the Apigee developer portal.
+            --quota-interval=: Time interval over which the number of request messages is calculated.
+            --quota-unit=: Time unit for `--quota-interval`.
+            --quota=: Number of request messages permitted per app by this API product
+            --resources=: API resources to be bundled in the API product, separated by `#` signs.
+          completion:
+            flag:
+                quota-unit:
+                    - minute
+                    - hour
+                    - day
+                    - month
+        - name: delete
+          description: Delete an Apigee API product.
+          flags:
+            --organization=: Apigee organization containing the API product.
+        - name: describe
+          description: Describe an Apigee API product.
+          flags:
+            --organization=: Apigee organization containing the API product.
+        - name: list
+          description: List Apigee API products.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --organization=: ID of the organization or fully qualified identifier for the organization.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update an existing Apigee API product.
+          flags:
+            --add-api=: Adds a new API to the set of APIs.
+            --add-attribute=: Adds a new attribute to the set of attributes.
+            --add-environment=: Adds a new environment to the set of environments.
+            --add-oauth-scope=: Adds a new OAuth scope to the set of OAuth scopes.
+            --add-resource=: Adds a new resource to the set of resources.
+            --all-apis: Include all deployed API proxies in the product, so long as they match the other parameters.
+            --all-environments: Make all environments accessible through this API product.
+            --all-resources: Include all deployed API resources in the product, so long as they match the other parameters.
+            --automatic-approval: Allow developers to generate approved consumer keys without waiting for approval.
+            --clear-attributes: Removes all attributes.
+            --clear-description: Remove the API product's description.
+            --clear-oauth-scopes: Removes all OAuth scopes.
+            --clear-quota: Remove any quota currently imposed on the API product.
+            --description=: Overview of the API product.
+            --display-name=: Name to be displayed in the UI or developer portal to developers registering for API access.
+            --internal-access: Prevent external access to this API product.
+            --manual-approval: Require manual approval of developer requests to access this API product before their consumer keys can be used.
+            --no-all-apis&: Include all deployed API proxies in the product, so long as they match the other parameters.
+            --no-all-environments&: Make all environments accessible through this API product.
+            --no-all-resources&: Include all deployed API resources in the product, so long as they match the other parameters.
+            --no-clear-attributes&: Removes all attributes.
+            --no-clear-description&: Remove the API product's description.
+            --no-clear-oauth-scopes&: Removes all OAuth scopes.
+            --no-clear-quota&: Remove any quota currently imposed on the API product.
+            --organization=: Apigee organization containing the API product.
+            --private-access: Hide this API product in the developer portal but make it accessible by external developers.
+            --public-access: Make this API product visible to developers in the Apigee developer portal.
+            --quota-interval=: Time interval over which the number of request messages is calculated.
+            --quota-unit=: Time unit for `--quota-interval`.
+            --quota=: Number of request messages permitted per app by this API
+            --remove-api=: Removes an existing API from the set of APIs.
+            --remove-attribute=: Removes an existing attribute from the set of attributes.
+            --remove-environment=: Removes an existing environment from the set of environments.
+            --remove-oauth-scope=: Removes an existing OAuth scope from the set of OAuth scopes.
+            --remove-resource=: Removes an existing resource from the set of resources.
+          completion:
+            flag:
+                quota-unit:
+                    - minute
+                    - hour
+                    - day
+                    - month

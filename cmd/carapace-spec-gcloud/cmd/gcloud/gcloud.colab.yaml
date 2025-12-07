@@ -1,0 +1,264 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: colab
+description: Manage Colab Enterprise resources.
+commands:
+    - name: schedules
+      description: Manage Colab Enterprise notebook execution schedules.
+      commands:
+        - name: list
+          description: List your Colab Enterprise notebook execution schedules.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: ID of the region or fully qualified identifier for the region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: pause
+          description: Pause a schedule.
+          flags:
+            --region=: Cloud region for the schedule.
+        - name: resume
+          description: Resume a schedule.
+          flags:
+            --enable-catch-up: Enables backfilling missed runs when the schedule is resumed from PAUSED state.
+            --no-enable-catch-up&: Enables backfilling missed runs when the schedule is resumed from PAUSED state.
+            --region=: Cloud region for the schedule.
+        - name: update
+          description: Update a schedule.
+          flags:
+            --cron-schedule=: Cron schedule (https://en.wikipedia.org/wiki/Cron) to launch scheduled runs.
+            --display-name=: The display name of the schedule.
+            --enable-queueing: Enables new scheduled runs to be queued when max_concurrent_runs limit is reached.
+            --end-time=: Timestamp after which no new runs can be scheduled.
+            --max-concurrent-runs=: Maximum number of runs that can be started concurrently for this Schedule.
+            --max-runs=: The max runs for the schedule.
+            --no-enable-queueing&: Enables new scheduled runs to be queued when max_concurrent_runs limit is reached.
+            --region=: Cloud region for the schedule.
+            --start-time=: The timestamp after which the first run can be scheduled.
+        - name: create
+          description: Create a schedule.
+          flags:
+            --commit-sha=: The commit SHA to read from the Dataform repository.
+            --cron-schedule=!: Cron schedule (https://en.wikipedia.org/wiki/Cron) to launch scheduled runs.
+            --dataform-repository-name=!: ID of the dataform repository or fully qualified identifier for the dataform repository.
+            --display-name=!: The display name of the schedule.
+            --enable-queueing: Enables new scheduled runs to be queued when max_concurrent_runs limit is reached.
+            --end-time=: Timestamp after which no new runs can be scheduled.
+            --execution-display-name=!: The display name of the execution.
+            --execution-timeout=: The max running time of the execution job, as a duration.
+            --gcs-notebook-uri=!: The Cloud Storage uri pointing to the notebook.
+            --gcs-output-uri=!: The Cloud Storage location to upload notebook execution results to.
+            --generation=: The version of the Cloud Storage object to read.
+            --max-concurrent-runs=: Maximum number of runs that can be started concurrently for this Schedule.
+            --max-runs=: The max runs for the schedule.
+            --no-enable-queueing&: Enables new scheduled runs to be queued when max_concurrent_runs limit is reached.
+            --notebook-runtime-template=!: ID of the notebook runtime template or fully qualified identifier for the notebook runtime template.
+            --region=: ID of the region or fully qualified identifier for the region.
+            --service-account=: The service account to run the execution as.
+            --start-time=: The timestamp after which the first run can be scheduled.
+            --user-email=: The user email to run the execution as.
+        - name: delete
+          description: Delete a schedule.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: Cloud region for the schedule.
+        - name: describe
+          description: Describe a schedule.
+          flags:
+            --region=: Cloud region for the schedule.
+    - name: executions
+      description: Manage Colab Enterprise notebook execution jobs.
+      commands:
+        - name: create
+          description: Create an execution.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --commit-sha=: The commit SHA to read from the Dataform repository.
+            --dataform-repository-name=!: ID of the dataform repository or fully qualified identifier for the dataform repository.
+            --direct-content=: The direct notebook content as IPYNB.
+            --display-name=!: The display name of the execution.
+            --execution-job-id=&: The id to assign to the execution job.
+            --execution-timeout=: The max running time of the execution job, as a duration.
+            --gcs-notebook-uri=!: The Cloud Storage uri pointing to the notebook.
+            --gcs-output-uri=!: The Cloud Storage location to upload notebook execution results to.
+            --generation=: The version of the Cloud Storage object to read.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --notebook-runtime-template=!: ID of the notebook runtime template or fully qualified identifier for the notebook runtime template.
+            --region=: ID of the region or fully qualified identifier for the region.
+            --service-account=: The service account to run the execution as.
+            --user-email=: The user email to run the execution as.
+        - name: delete
+          description: Delete an execution.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: Cloud region for the notebook execution job.
+        - name: describe
+          description: Describe an execution.
+          flags:
+            --region=: Cloud region for the notebook execution job.
+        - name: list
+          description: List your Colab Enterprise notebook execution jobs.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: ID of the region or fully qualified identifier for the region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: runtime-templates
+      description: Manage Colab Enterprise runtime templates.
+      commands:
+        - name: delete
+          description: Delete a runtime template.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: Cloud region for the runtime template.
+        - name: describe
+          description: Describe a runtime template.
+          flags:
+            --region=: Cloud region for the runtime template.
+        - name: get-iam-policy
+          description: Get IAM policy for a Colab Enterprise runtime template.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --region=: Cloud region for the runtime template.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: List your runtime templates.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: ID of the region or fully qualified identifier for the region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: remove-iam-policy-binding
+          description: Remove an IAM policy binding from a Colab Enterprise runtime template.
+          flags:
+            --member=!: The principal to remove the binding for.
+            --region=: Cloud region for the runtime template.
+            --role=!: The role to remove the principal from.
+        - name: set-iam-policy
+          description: Set IAM policy for a Colab Enterprise runtime template as defined in a JSON or YAML file.
+          flags:
+            --region=: Cloud region for the runtime template.
+        - name: add-iam-policy-binding
+          description: Add an IAM policy binding to a Colab Enterprise runtime template.
+          flags:
+            --member=!: The principal to add the binding for.
+            --region=: Cloud region for the runtime template.
+            --role=!: Role name to assign to the principal.
+        - name: create
+          description: Create a runtime template.
+          flags:
+            --accelerator-count=: The number of accelerators used by the runtime.
+            --accelerator-type=: The type of hardware accelerator used by the runtime.
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: The description of the runtime template.
+            --disk-size-gb=: The disk size of the runtime in GB.
+            --disk-type=: The type of the persistent disk.
+            --display-name=!: The display name of the runtime template.
+            --enable-euc: Enable end user credential access for the runtime.
+            --enable-internet-access: Enable public internet access for the runtime.
+            --enable-secure-boot: Enables secure boot for the runtime.
+            --idle-shutdown-timeout=: The duration after which the runtime is automatically shut down.
+            --kms-key=!: ID of the key or fully qualified identifier for the key.
+            --kms-keyring=: KMS keyring id of the key.
+            --kms-location=: Cloud location for the key.
+            --kms-project=: Cloud project id for the key.
+            --labels=: Add labels to identify and group the runtime template.
+            --machine-type=: The Compute Engine machine type selected for the runtime.
+            --network-tags=: Applies the given Compute Engine tags to the runtime.
+            --network=!: ID of the network or fully qualified identifier for the network.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-enable-euc&: Enable end user credential access for the runtime.
+            --no-enable-internet-access&: Enable public internet access for the runtime.
+            --no-enable-secure-boot&: Enables secure boot for the runtime.
+            --post-startup-script-behavior=&: The behavior of the post startup script.
+            --post-startup-script-url=&: Post startup script URL to execute on the runtime.
+            --post-startup-script=&: Post startup script in raw string to execute on the runtime.
+            --region=: ID of the region or fully qualified identifier for the region.
+            --runtime-template-id=: The id of the runtime template.
+            --set-env-vars=&: Set environment variables used by the runtime.
+            --subnetwork-region=: Google Cloud region of this subnetwork https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --subnetwork=!: ID of the subnetwork or fully qualified identifier for the subnetwork.
+          completion:
+            flag:
+                accelerator-type:
+                    - NVIDIA_TESLA_V100
+                    - NVIDIA_TESLA_T4
+                    - NVIDIA_TESLA_A100
+                    - NVIDIA_A100_80GB
+                    - NVIDIA_L4
+                disk-type:
+                    - PD_STANDARD
+                    - PD_SSD
+                    - PD_BALANCED
+                    - PD_EXTREME
+                post-startup-script-behavior:
+                    - POST_STARTUP_SCRIPT_BEHAVIOR_UNSPECIFIED
+                    - RUN_ONCE
+                    - RUN_EVERY_START
+                    - DOWNLOAD_AND_RUN_EVERY_START
+    - name: runtimes
+      description: Manage Colab Enterprise runtimes.
+      commands:
+        - name: create
+          description: Create a notebook runtime.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: The description
+            --display-name=!: The display name of the runtime to create.
+            --labels=: Add labels to identify and group the runtime template.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: ID of the region or fully qualified identifier for the region.
+            --runtime-id=: The id of the runtime to create.
+            --runtime-template=!: ID of the runtime template or fully qualified identifier for the runtime template.
+            --runtime-user=: User email for the runtime owner.
+        - name: delete
+          description: Delete a runtime.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: Cloud region for the runtime.
+        - name: describe
+          description: Describe a runtime.
+          flags:
+            --region=: Cloud region for the runtime.
+        - name: list
+          description: List your project's runtimes.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: ID of the region or fully qualified identifier for the region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: start
+          description: Start a stopped runtime.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: Cloud region for the runtime.
+        - name: stop
+          description: Stop a runtime.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: Cloud region for the runtime.
+        - name: upgrade
+          description: Upgrade a runtime.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: Cloud region for the runtime.

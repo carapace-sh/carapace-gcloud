@@ -1,0 +1,819 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: design-center
+description: Manage Application Design Center resources.
+commands:
+    - name: locations
+      description: Manage Design Center Locations.
+      commands:
+        - name: describe
+          description: Describe a Design Center location.
+        - name: list
+          description: List Design Center locations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: operations
+      description: Manage Operation resources.
+      commands:
+        - name: delete
+          description: Delete operations.
+          flags:
+            --location=: The location id of the operation resource.
+        - name: describe
+          description: Describe operations.
+          flags:
+            --location=: The location id of the operation resource.
+        - name: list
+          description: List operations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: cancel
+          description: Cancel operations.
+          flags:
+            --location=: The location id of the operation resource.
+    - name: spaces
+      description: Manage space resources.
+      commands:
+        - name: catalogs
+          description: Manage catalog resources.
+          commands:
+            - name: create
+              description: Create a catalog.
+              flags:
+                --description=: The catalog description.
+                --display-name=: The catalog display name.
+                --location=: The location id of the catalog resource.
+                --space=: The space id of the catalog resource.
+            - name: delete
+              description: Delete a catalog.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --force: If set to true, the catalog's children are also deleted.
+                --location=: The location id of the catalog resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-force&: If set to true, the catalog's children are also deleted.
+                --space=: The space id of the catalog resource.
+            - name: describe
+              description: Describe a catalog.
+              flags:
+                --location=: The location id of the catalog resource.
+                --space=: The space id of the catalog resource.
+            - name: list
+              description: List catalogs.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the space resource.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --space=!: ID of the space or fully qualified identifier for the space.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: shares
+              description: Manage share resources.
+              commands:
+                - name: create
+                  description: Create a share.
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --catalog=: The catalog id of the share resource.
+                    --destination-space=!: ID of the space or fully qualified identifier for the space.
+                    --location=: For resources [share, destination-space], provides fallback value for resource location attribute.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --space=: The space id of the share resource.
+                - name: delete
+                  description: Delete a share.
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --catalog=: The catalog id of the share resource.
+                    --location=: The location id of the share resource.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --space=: The space id of the share resource.
+                - name: describe
+                  description: Describe a share.
+                  flags:
+                    --catalog=: The catalog id of the share resource.
+                    --location=: The location id of the share resource.
+                    --space=: The space id of the share resource.
+                - name: list
+                  description: List shares.
+                  flags:
+                    --catalog=!: ID of the catalog or fully qualified identifier for the catalog.
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --location=: The location id of the catalog resource.
+                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                    --page-size=: Some services group resource list output into pages.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --space=: The space id of the catalog resource.
+                    --uri: Print a list of resource URIs instead of the default output, and change the
+                - name: sync
+                  description: Sync a share.
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --catalog=: The catalog id of the share resource.
+                    --location=: The location id of the share resource.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --space=: The space id of the share resource.
+            - name: templates
+              description: Manage catalog template resources.
+              commands:
+                - name: delete
+                  description: Delete a catalog template.
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --catalog=: The catalog id of the template resource.
+                    --force: If set to true, the catalog template's children are also deleted.
+                    --location=: The location id of the template resource.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --no-force&: If set to true, the catalog template's children are also deleted.
+                    --space=: The space id of the template resource.
+                - name: describe
+                  description: Describe a catalog template.
+                  flags:
+                    --catalog=: The catalog id of the template resource.
+                    --location=: The location id of the template resource.
+                    --space=: The space id of the template resource.
+                - name: list
+                  description: List catalog templates.
+                  flags:
+                    --catalog=!: ID of the catalog or fully qualified identifier for the catalog.
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --location=: The location id of the catalog resource.
+                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                    --page-size=: Some services group resource list output into pages.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --space=: The space id of the catalog resource.
+                    --uri: Print a list of resource URIs instead of the default output, and change the
+                - name: revisions
+                  description: Manage catalog template revision resources.
+                  commands:
+                    - name: describe
+                      description: Describe a catalog template revision.
+                      flags:
+                        --catalog=: The catalog id of the revision resource.
+                        --location=: The location id of the revision resource.
+                        --space=: The space id of the revision resource.
+                        --template=: The template id of the revision resource.
+                    - name: list
+                      description: List catalog template revisions.
+                      flags:
+                        --catalog=: The catalog id of the template resource.
+                        --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                        --limit=: Maximum number of resources to list.
+                        --location=: The location id of the template resource.
+                        --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                        --page-size=: Some services group resource list output into pages.
+                        --sort-by=: Comma-separated list of resource field key names to sort by.
+                        --space=: The space id of the template resource.
+                        --template=!: ID of the template or fully qualified identifier for the template.
+                        --uri: Print a list of resource URIs instead of the default output, and change the
+                    - name: create
+                      description: Create a new catalog template revision.
+                      flags:
+                        --application-template-revision-source=: Application template revision to use as source.
+                        --async: Return immediately, without waiting for the operation in progress to
+                        --catalog=: The ID of the catalog.
+                        --description=: A description for the revision.
+                        --developer-connect-repo-dir=!: The directory within the repository to use.
+                        --developer-connect-repo-ref=!: The Git ref (branch or tag) within the repository to use.
+                        --developer-connect-repo=!: The Developer Connect repository to use as a source.
+                        --gcs-source-uri=: Google Cloud Storage URI for source.
+                        --git-source-dir=: Git directory for Git source.
+                        --git-source-ref-tag=!: Git reference tag for Git source.
+                        --git-source-repo=!: Git repository for Git source.
+                        --location=: The Cloud location for the revision.
+                        --metadata=: Path to a local YAML file containing the template metadata.
+                        --no-async&: Return immediately, without waiting for the operation in progress to
+                        --oci-repo-uri=!: OCI Repo URI for OCI Repo source.
+                        --oci-repo-version=: OCI Repo version for OCI Repo source.
+                        --space=: The ID of the space.
+                        --template=: The ID of the template.
+                    - name: delete
+                      description: Delete a catalog template revision.
+                      flags:
+                        --async: Return immediately, without waiting for the operation in progress to
+                        --catalog=: The catalog id of the revision resource.
+                        --location=: The location id of the revision resource.
+                        --no-async&: Return immediately, without waiting for the operation in progress to
+                        --space=: The space id of the revision resource.
+                        --template=: The template id of the revision resource.
+                - name: update
+                  description: Update a catalog template.
+                  flags:
+                    --catalog=: The catalog id of the template resource.
+                    --description=: The catalog template description.
+                    --display-name=: The display name of a catalog template.
+                    --location=: The location id of the template resource.
+                    --space=: The space id of the template resource.
+                    --template-category=: The category of the ADC template.
+                    --type=: The Application Design Center assembly template type.
+                  completion:
+                    flag:
+                        template-category:
+                            - application-template
+                            - component-template
+                            - composite-solution-template
+                            - instance-template
+                        type:
+                            - application
+                            - asset
+                            - composite-application-template
+                            - helm-application
+                            - helm-chart
+                            - jss-solution
+                            - service
+                            - service-data-source
+                            - standard-application-template
+                            - workload
+                - name: create
+                  description: Create a catalog template.
+                  flags:
+                    --catalog=: The catalog id of the template resource.
+                    --description=: The catalog template description.
+                    --display-name=: The display name of a catalog template.
+                    --location=: The location id of the template resource.
+                    --space=: The space id of the template resource.
+                    --template-category=!: The category of the ADC template.
+                    --type=: The Application Design Center assembly template type.
+                  completion:
+                    flag:
+                        template-category:
+                            - application-template
+                            - component-template
+                            - composite-solution-template
+                            - instance-template
+                        type:
+                            - application
+                            - asset
+                            - composite-application-template
+                            - helm-application
+                            - helm-chart
+                            - jss-solution
+                            - service
+                            - service-data-source
+                            - standard-application-template
+                            - workload
+            - name: update
+              description: Update a catalog.
+              flags:
+                --description=: The catalog description.
+                --display-name=: The catalog display name.
+                --location=: The location id of the catalog resource.
+                --space=: The space id of the catalog resource.
+        - name: describe
+          description: Describe a space.
+          flags:
+            --location=: The location id of the space resource.
+        - name: set-iam-policy
+          description: Set the IAM policy for a Design Center space as defined in a JSON/YAML file.
+          flags:
+            --location=: The Cloud location for the space.
+        - name: shared-templates
+          description: Manage shared template resources.
+          commands:
+            - name: describe
+              description: Describe a shared template.
+              flags:
+                --google-catalog: If provided, describes a shared template from the Google Catalog.
+                --location=: The location id of the sharedTemplate resource.
+                --no-google-catalog&: If provided, describes a shared template from the Google Catalog.
+                --space=: The space id of the sharedTemplate resource.
+            - name: list
+              description: List shared templates.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --google-catalog: If provided, lists all shared template from the Google Catalog.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the space resource.
+                --no-google-catalog&: If provided, lists all shared template from the Google Catalog.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --space=!: ID of the space or fully qualified identifier for the space.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: revisions
+              description: Manage shared template revision resources.
+              commands:
+                - name: describe
+                  description: Describe a shared template revision.
+                  flags:
+                    --google-catalog: If provided, describes a shared template revision from the Google Catalog.
+                    --location=: The location id of the revision resource.
+                    --no-google-catalog&: If provided, describes a shared template revision from the Google Catalog.
+                    --shared-template=: The sharedTemplate id of the revision resource.
+                    --space=: The space id of the revision resource.
+                - name: list
+                  description: List shared template revisions.
+                  flags:
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --google-catalog: If provided, lists revisions for a shared template from the Google Catalog.
+                    --limit=: Maximum number of resources to list.
+                    --location=: The location id of the sharedTemplate resource.
+                    --no-google-catalog&: If provided, lists revisions for a shared template from the Google Catalog.
+                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                    --page-size=: Some services group resource list output into pages.
+                    --shared-template=!: ID of the sharedTemplate or fully qualified identifier for the sharedTemplate.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --space=: The space id of the sharedTemplate resource.
+                    --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: test-iam-permissions
+          description: Test IAM permissions for a Design Center space.
+          flags:
+            --location=: The Cloud location for the space.
+            --permissions=!: The set of permissions to check for the resource.
+        - name: application-templates
+          description: Manage application template resources.
+          commands:
+            - name: commit
+              description: Commit an application template.
+              flags:
+                --location=: The location id of the applicationTemplate resource.
+                --space=: The space id of the applicationTemplate resource.
+            - name: components
+              description: Manage component resources.
+              commands:
+                - name: connections
+                  description: Manage connection resources.
+                  commands:
+                    - name: describe
+                      description: Describe a connection.
+                      flags:
+                        --application-template=: The applicationTemplate id of the connection resource.
+                        --component=: The component id of the connection resource.
+                        --location=: The location id of the connection resource.
+                        --space=: The space id of the connection resource.
+                    - name: list
+                      description: List connections.
+                      flags:
+                        --application-template=: The applicationTemplate id of the component resource.
+                        --component=!: ID of the component or fully qualified identifier for the component.
+                        --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                        --limit=: Maximum number of resources to list.
+                        --location=: The location id of the component resource.
+                        --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                        --page-size=: Some services group resource list output into pages.
+                        --sort-by=: Comma-separated list of resource field key names to sort by.
+                        --space=: The space id of the component resource.
+                        --uri: Print a list of resource URIs instead of the default output, and change the
+                    - name: update
+                      description: Update a connection.
+                      flags:
+                        --add-destination-component-parameters=: Add new value to destination_component_parameters list.
+                        --add-source-component-parameters=: Add new value to source_component_parameters list.
+                        --application-template=: For resources [connection, destination-component-uri], provides fallback value for resource application-template attribute.
+                        --clear-destination-component-parameters: Clear destination_component_parameters value and set to empty list.
+                        --clear-source-component-parameters: Clear source_component_parameters value and set to empty list.
+                        --component=: The component id of the connection resource.
+                        --destination-component-parameters=: Set destination_component_parameters to new value.
+                        --destination-component-uri=!: ID of the component or fully qualified identifier for the component.
+                        --location=: For resources [connection, destination-component-uri], provides fallback value for resource location attribute.
+                        --no-clear-destination-component-parameters&: Clear destination_component_parameters value and set to empty list.
+                        --no-clear-source-component-parameters&: Clear source_component_parameters value and set to empty list.
+                        --remove-destination-component-parameters=: Remove existing value from destination_component_parameters list.
+                        --remove-source-component-parameters=: Remove existing value from source_component_parameters list.
+                        --source-component-parameters=: Set source_component_parameters to new value.
+                        --space=: For resources [connection, destination-component-uri], provides fallback value for resource space attribute.
+                    - name: create
+                      description: Create a connection.
+                      flags:
+                        --application-template=: For resources [connection, destination-component-uri], provides fallback value for resource application-template attribute.
+                        --component=: The component id of the connection resource.
+                        --destination-component-parameters=: The parameters of the connection associated with the destination component.
+                        --destination-component-uri=!: ID of the component or fully qualified identifier for the component.
+                        --location=: For resources [connection, destination-component-uri], provides fallback value for resource location attribute.
+                        --source-component-parameters=: The parameters of the connection associated with the source component.
+                        --space=: For resources [connection, destination-component-uri], provides fallback value for resource space attribute.
+                    - name: delete
+                      description: Delete a connection.
+                      flags:
+                        --application-template=: The applicationTemplate id of the connection resource.
+                        --component=: The component id of the connection resource.
+                        --location=: The location id of the connection resource.
+                        --space=: The space id of the connection resource.
+                - name: create
+                  description: Create a component.
+                  flags:
+                    --application-template=: The applicationTemplate id of the component resource.
+                    --display-name=: The component display name.
+                    --location=: The location id of the component resource.
+                    --parameters=: The component parameters.
+                    --shared-template-revision-uri=!: The shared template used to generate the component.
+                    --space=: The space id of the component resource.
+                - name: delete
+                  description: Delete a component.
+                  flags:
+                    --application-template=: The applicationTemplate id of the component resource.
+                    --force: If set to true, the component's children are also deleted.
+                    --location=: The location id of the component resource.
+                    --no-force&: If set to true, the component's children are also deleted.
+                    --space=: The space id of the component resource.
+                - name: describe
+                  description: Describe a component.
+                  flags:
+                    --application-template=: The applicationTemplate id of the component resource.
+                    --location=: The location id of the component resource.
+                    --space=: The space id of the component resource.
+                - name: list
+                  description: List components.
+                  flags:
+                    --application-template=!: ID of the applicationTemplate or fully qualified identifier for the applicationTemplate.
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --location=: The location id of the applicationTemplate resource.
+                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                    --page-size=: Some services group resource list output into pages.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --space=: The space id of the applicationTemplate resource.
+                    --uri: Print a list of resource URIs instead of the default output, and change the
+                - name: update
+                  description: Update a component.
+                  flags:
+                    --add-parameters=: Add new value to parameters list.
+                    --application-template=: The applicationTemplate id of the component resource.
+                    --clear-parameters: Clear parameters value and set to empty list.
+                    --display-name=: The component display name.
+                    --location=: The location id of the component resource.
+                    --no-clear-parameters&: Clear parameters value and set to empty list.
+                    --parameters=: Set parameters to new value.
+                    --remove-parameters=: Remove existing value from parameters list.
+                    --space=: The space id of the component resource.
+            - name: delete
+              description: Delete an application template.
+              flags:
+                --force: If set to true, the application template's children are also deleted.
+                --location=: The location id of the applicationTemplate resource.
+                --no-force&: If set to true, the application template's children are also deleted.
+                --space=: The space id of the applicationTemplate resource.
+            - name: describe
+              description: Describe an application template.
+              flags:
+                --location=: The location id of the applicationTemplate resource.
+                --space=: The space id of the applicationTemplate resource.
+            - name: import
+              description: Import to an application template.
+              flags:
+                --application-template-revision-uri=!: ID of the revision or fully qualified identifier for the revision.
+                --application-template=: For resources [application-template-revision-uri, application_template], provides fallback value for resource application-template attribute.
+                --location=: For resources [application-template-revision-uri, application_template, shared-template-revision-uri], provides fallback value for resource location attribute.
+                --shared-template-revision-uri=!: ID of the revision or fully qualified identifier for the revision.
+                --shared-template=: The sharedTemplate id of the revision resource.
+                --space=: For resources [application-template-revision-uri, application_template, shared-template-revision-uri], provides fallback value for resource space attribute.
+            - name: import-iac
+              description: Import Infrastructure as Code (IaC) for an Application Template.
+              flags:
+                --allow-partial-import: If set, partially import valid IaC changes and ignore invalid ones.
+                --gcs-uri=: The Cloud Storage URI of the Terraform code (e.g., gs://my-bucket/iac).
+                --iac-module-from-file=: Path to a local YAML or JSON file containing the IaC module definition.
+                --location=: The Cloud location for the application_template.
+                --no-allow-partial-import&: If set, partially import valid IaC changes and ignore invalid ones.
+                --no-validate-iac&: Validate the IaC without performing the import.
+                --space=: The ID of the space.
+                --validate-iac: Validate the IaC without performing the import.
+            - name: list
+              description: List application templates.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the space resource.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --space=!: ID of the space or fully qualified identifier for the space.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: revisions
+              description: Manage application template revision resources.
+              commands:
+                - name: describe
+                  description: Describe an application template revision.
+                  flags:
+                    --application-template=: The applicationTemplate id of the revision resource.
+                    --location=: The location id of the revision resource.
+                    --space=: The space id of the revision resource.
+                - name: list
+                  description: List application template revisions.
+                  flags:
+                    --application-template=!: ID of the applicationTemplate or fully qualified identifier for the applicationTemplate.
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --location=: The location id of the applicationTemplate resource.
+                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                    --page-size=: Some services group resource list output into pages.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --space=: The space id of the applicationTemplate resource.
+                    --uri: Print a list of resource URIs instead of the default output, and change the
+                - name: delete
+                  description: Delete an application template revision.
+                  flags:
+                    --application-template=: The applicationTemplate id of the revision resource.
+                    --location=: The location id of the revision resource.
+                    --space=: The space id of the revision resource.
+            - name: create
+              description: Create an application template.
+              flags:
+                --application-parameters=: Parameters to apply to all components in an application.
+                --composition-type=: 'The composition type of the applicationTemplate: STANDARD OR COMPOSITE.'
+                --description=: Application template description.
+                --display-name=: Application template display name.
+                --location=: The location id of the applicationTemplate resource.
+                --space=: The space id of the applicationTemplate resource.
+              completion:
+                flag:
+                    composition-type:
+                        - composite
+                        - standard
+            - name: generate
+              description: Generate IaC for an application template.
+              flags:
+                --artifact-location-gcs-uri=: The Cloud Storage URI for storing the generated IaC.
+                --connection=: The connection id of the gitRepositoryLink resource.
+                --developer-connect-export-config-branch=: The branch in repo to which the content such as Infrastructure as Code
+                --developer-connect-export-config-dir=!: Directory, relative to the source repo, where content such as
+                --developer-connect-export-config-repo-uri=!: ID of the gitRepositoryLink or fully qualified identifier for the gitRepositoryLink.
+                --gcs-uri=: The Cloud Storage URI to write the generated IaC to.
+                --iac-format=: The IaC format to generate.
+                --location=: For resources [application_template, developer-connect-export-config-repo-uri], provides fallback value for resource location attribute.
+                --space=: The space id of the applicationTemplate resource.
+              completion:
+                flag:
+                    iac-format:
+                        - helm
+                        - terraform
+            - name: update
+              description: Update an application template.
+              flags:
+                --add-application-parameters=: Add new value to application_parameters list.
+                --application-parameters=: Set application_parameters to new value.
+                --clear-application-parameters: Clear application_parameters value and set to empty list.
+                --composition-type=: 'The composition type of the applicationTemplate: STANDARD OR COMPOSITE.'
+                --description=: Application template description.
+                --display-name=: Application template display name.
+                --location=: The location id of the applicationTemplate resource.
+                --no-clear-application-parameters&: Clear application_parameters value and set to empty list.
+                --remove-application-parameters=: Remove existing value from application_parameters list.
+                --space=: The space id of the applicationTemplate resource.
+              completion:
+                flag:
+                    composition-type:
+                        - composite
+                        - standard
+        - name: applications
+          description: Manage application resources.
+          commands:
+            - name: update
+              description: Update an application.
+              flags:
+                --add-app-parameters=: Add new value to app_parameters list.
+                --add-attributes-business-owners=: Add new value to attributes_business_owners list.
+                --add-attributes-developer-owners=: Add new value to attributes_developer_owners list.
+                --add-attributes-operator-owners=: Add new value to attributes_operator_owners list.
+                --add-component-parameters=: Add new value to component_parameters list.
+                --add-connection-configs=: Add new value to connection_configs list.
+                --app-parameters=: Set app_parameters to new value.
+                --attributes-business-owners=: Set attributes_business_owners to new value.
+                --attributes-developer-owners=: Set attributes_developer_owners to new value.
+                --attributes-operator-owners=: Set attributes_operator_owners to new value.
+                --clear-app-parameters: Clear app_parameters value and set to empty list.
+                --clear-attributes: Set application.attributes back to default value.
+                --clear-attributes-business-owners: Clear attributes_business_owners value and set to empty list.
+                --clear-attributes-developer-owners: Clear attributes_developer_owners value and set to empty list.
+                --clear-attributes-operator-owners: Clear attributes_operator_owners value and set to empty list.
+                --clear-component-parameters: Clear component_parameters value and set to empty list.
+                --clear-connection-configs: Clear connection_configs value and set to empty list.
+                --clear-deployment-target: Set application.deploymentTarget back to default value.
+                --clear-scope: Set application.scope back to default value.
+                --clear-source: Set application.source back to default value.
+                --component-parameters=: Set component_parameters to new value.
+                --connection-configs=: Set connection_configs to new value.
+                --criticality-level=: Criticality level.
+                --criticality-mission-critical: Indicates mission-critical Application, Service, or Workload.
+                --criticality-type=: Criticality Type.
+                --deployment-project=: Deployment project of the application.
+                --deployment-region=: The region where the application is deployed.
+                --description=: Description of the application.
+                --display-name=: Display name of the application.
+                --environment-type=: Environment Type.
+                --environment=: Environment name.
+                --gke-deployment-target-cluster-self-link=: The self link of the cluster where GKE based application is deployed.
+                --gke-deployment-target-kubernetes-service-account=: The kubernetes service account that is created within the namespace
+                --gke-deployment-target-namespace=: The namespace where the application is deployed.
+                --import-existing-resources: Import existing resources into the application.
+                --location=: The location id of the application resource.
+                --no-clear-app-parameters&: Clear app_parameters value and set to empty list.
+                --no-clear-attributes&: Set application.attributes back to default value.
+                --no-clear-attributes-business-owners&: Clear attributes_business_owners value and set to empty list.
+                --no-clear-attributes-developer-owners&: Clear attributes_developer_owners value and set to empty list.
+                --no-clear-attributes-operator-owners&: Clear attributes_operator_owners value and set to empty list.
+                --no-clear-component-parameters&: Clear component_parameters value and set to empty list.
+                --no-clear-connection-configs&: Clear connection_configs value and set to empty list.
+                --no-clear-deployment-target&: Set application.deploymentTarget back to default value.
+                --no-clear-scope&: Set application.scope back to default value.
+                --no-clear-source&: Set application.source back to default value.
+                --no-criticality-mission-critical&: Indicates mission-critical Application, Service, or Workload.
+                --no-import-existing-resources&: Import existing resources into the application.
+                --remove-app-parameters=: Remove existing value from app_parameters list.
+                --remove-attributes-business-owners=: Remove existing value from attributes_business_owners list.
+                --remove-attributes-developer-owners=: Remove existing value from attributes_developer_owners list.
+                --remove-attributes-operator-owners=: Remove existing value from attributes_operator_owners list.
+                --remove-component-parameters=: Remove existing value from component_parameters list.
+                --remove-connection-configs=: Remove existing value from connection_configs list.
+                --scope-type=: Scope Type.
+                --service-account=: Your own service account that you use to deploy an application.
+                --source-application-template-revision=: Application template revision URI.
+                --source-shared-template-revision-uri=: Shared template revision URI.
+                --space=: The space id of the application resource.
+                --type=: The type of the application.
+              completion:
+                flag:
+                    criticality-type:
+                        - high
+                        - low
+                        - medium
+                        - mission-critical
+                    environment-type:
+                        - development
+                        - production
+                        - staging
+                        - test
+                    scope-type:
+                        - global
+                        - regional
+                    type:
+                        - helm-app
+                        - terraform-app
+            - name: create
+              description: Create an application.
+              flags:
+                --app-parameters=: A list of parameters to attach to the deployment source object, which is a
+                --attributes-business-owners=: Business team that ensures user needs are met and value is delivered.
+                --attributes-developer-owners=: Developer team that owns development and coding.
+                --attributes-operator-owners=: Operator team that ensures runtime and operations.
+                --component-parameters=: A list of component parameters to associate with the application.
+                --connection-configs=: Connection configuration for the application.
+                --criticality-level=: Criticality level.
+                --criticality-mission-critical: Indicates mission-critical Application, Service, or Workload.
+                --criticality-type=!: Criticality Type.
+                --deployment-project=: Deployment project of the application.
+                --deployment-region=: The region where the application is deployed.
+                --description=: Description of the application.
+                --display-name=: Display name of the application.
+                --environment-type=!: Environment Type.
+                --environment=: Environment name.
+                --gke-deployment-target-cluster-self-link=!: The self link of the cluster where GKE based application is deployed.
+                --gke-deployment-target-kubernetes-service-account=!: The kubernetes service account that is created within the namespace
+                --gke-deployment-target-namespace=!: The namespace where the application is deployed.
+                --import-existing-resources: Import existing resources into the application.
+                --location=: The location id of the application resource.
+                --no-criticality-mission-critical&: Indicates mission-critical Application, Service, or Workload.
+                --no-import-existing-resources&: Import existing resources into the application.
+                --scope-type=!: Scope Type.
+                --service-account=: Your own service account that you use to deploy an application.
+                --source-application-template-revision=: Application template revision URI.
+                --source-shared-template-revision-uri=: Shared template revision URI.
+                --space=: The space id of the application resource.
+                --type=: The type of the application.
+              completion:
+                flag:
+                    criticality-type:
+                        - high
+                        - low
+                        - medium
+                        - mission-critical
+                    environment-type:
+                        - development
+                        - production
+                        - staging
+                        - test
+                    scope-type:
+                        - global
+                        - regional
+                    type:
+                        - helm-app
+                        - terraform-app
+            - name: deploy
+              description: Deploy an application.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location id of the application resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-replace&: Flag to update the existing deployment.
+                --replace: Flag to update the existing deployment.
+                --service-account=: The email address of the service account to use for this deployment.
+                --space=: The space id of the application resource.
+                --worker-pool=: The user-specified Worker Pool resource in which the Cloud Build job will
+            - name: describe
+              description: Describe an application.
+              flags:
+                --location=: The location id of the application resource.
+                --space=: The space id of the application resource.
+            - name: generate
+              description: Generate IaC for an application.
+              flags:
+                --artifact-location-gcs-uri=: The Cloud Storage URI for storing the generated IaC.
+                --connection=: The connection id of the gitRepositoryLink resource.
+                --developer-connect-export-config-branch=: The branch in repo to which the content such as Infrastructure as Code
+                --developer-connect-export-config-dir=!: Directory, relative to the source repo, where content such as
+                --developer-connect-export-config-repo-uri=!: ID of the gitRepositoryLink or fully qualified identifier for the gitRepositoryLink.
+                --gcs-uri=: The Cloud Storage URI to write the generated IaC to.
+                --iac-format=: The IaC format to generate.
+                --location=: For resources [application, developer-connect-export-config-repo-uri], provides fallback value for resource location attribute.
+                --space=: The space id of the application resource.
+              completion:
+                flag:
+                    iac-format:
+                        - helm
+                        - terraform
+            - name: import-iac
+              description: Import Infrastructure as Code (IaC) for an Application.
+              flags:
+                --allow-partial-import: If set, partially import valid IaC changes and ignore invalid ones.
+                --gcs-uri=: The Cloud Storage URI of the Terraform code (e.g., gs://my-bucket/iac).
+                --iac-module-from-file=: Path to a local YAML or JSON file containing the IaC module definition.
+                --location=: The Cloud location for the application.
+                --no-allow-partial-import&: If set, partially import valid IaC changes and ignore invalid ones.
+                --no-validate-iac&: Validate the IaC without performing the import.
+                --space=: The ID of the space.
+                --validate-iac: Validate the IaC without performing the import.
+            - name: delete
+              description: Delete an application.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --force: If set to true, the application's children are also deleted.
+                --location=: The location id of the application resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-force&: If set to true, the application's children are also deleted.
+                --space=: The space id of the application resource.
+            - name: list
+              description: List applications.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the space resource.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --space=!: ID of the space or fully qualified identifier for the space.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: preview
+              description: Preview an application.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location id of the application resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --service-account=: The email address of the service account to use for this preview operation.
+                --space=: The space id of the application resource.
+                --worker-pool=: The user-specified Worker Pool resource in which the Cloud Build job will
+        - name: create
+          description: Create a space.
+          flags:
+            --description=: Description for the space.
+            --display-name=: Display name for the space.
+            --enable-gcp-shared-templates: Flag to enable Google opinionated shared templates.
+            --gcs-bucket=: An existing Google Cloud Storage bucket that you want to use instead of
+            --location=: The location id of the space resource.
+            --no-enable-gcp-shared-templates&: Flag to enable Google opinionated shared templates.
+            --tags=: Tags are key/values bound to space resource.
+        - name: delete
+          description: Delete a space.
+          flags:
+            --force: If set to true, the space's children are also deleted.
+            --location=: The location id of the space resource.
+            --no-force&: If set to true, the space's children are also deleted.
+        - name: get-iam-policy
+          description: Get the IAM policy for a Design Center space.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: The Cloud location for the space.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: List spaces.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a space.
+          flags:
+            --description=: Description for the space.
+            --display-name=: Display name for the space.
+            --enable-gcp-shared-templates: Flag to enable Google opinionated shared templates.
+            --gcs-bucket=: An existing Google Cloud Storage bucket that you want to use instead of
+            --location=: The location id of the space resource.
+            --no-enable-gcp-shared-templates&: Flag to enable Google opinionated shared templates.

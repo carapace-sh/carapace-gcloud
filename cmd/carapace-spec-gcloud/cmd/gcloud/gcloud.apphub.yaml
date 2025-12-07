@@ -1,0 +1,383 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: apphub
+description: Manage App Hub resources.
+commands:
+    - name: applications
+      description: Manage App Hub Applications.
+      commands:
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding to an Apphub application.
+          flags:
+            --location=: The Cloud location for the application.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: create
+          description: Create an Apphub application.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to complete.
+            --business-owners=: Business owners of the application
+            --criticality-type=: Criticality Type of the application.
+            --description=: Description of the Application
+            --developer-owners=: Developer owners of the application
+            --display-name=: Human-friendly display name
+            --environment-type=: Environment Type of the application.
+            --location=: The Cloud location for the application.
+            --no-async&: Return immediately, without waiting for the operation in progress to complete.
+            --operator-owners=: Operator owners of the application
+            --scope-type=!: Scope of the Application.
+          completion:
+            flag:
+                criticality-type:
+                    - HIGH
+                    - LOW
+                    - MEDIUM
+                    - MISSION_CRITICAL
+                    - TYPE_UNSPECIFIED
+                environment-type:
+                    - DEVELOPMENT
+                    - PRODUCTION
+                    - STAGING
+                    - TEST
+                    - TYPE_UNSPECIFIED
+                scope-type:
+                    - GLOBAL
+                    - REGIONAL
+        - name: get-iam-policy
+          description: Get the IAM policy for an Apphub application.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: The Cloud location for the application.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: List Apphub applications.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: remove-iam-policy-binding
+          description: Remove IAM policy binding from an Apphub application.
+          flags:
+            --location=: The Cloud location for the application.
+            --member=!: The principal to remove the binding for.
+            --role=!: The role to remove the principal from.
+        - name: services
+          description: Manage App Hub Application Services.
+          commands:
+            - name: create
+              description: Create an Apphub application service.
+              flags:
+                --application=: Name for the application
+                --async: Return immediately, without waiting for the operation in progress to complete.
+                --business-owners=: Business owners of the service
+                --criticality-type=: Criticality Type of the service.
+                --description=: Description of the service
+                --developer-owners=: Developer owners of the service
+                --discovered-service=!: ID of the discoveredService or fully qualified identifier for the discoveredService.
+                --display-name=: Human-friendly display name
+                --environment-type=: Environment Type of the service.
+                --location=: The Cloud location for the service.
+                --no-async&: Return immediately, without waiting for the operation in progress to complete.
+                --operator-owners=: Operator owners of the service
+              completion:
+                flag:
+                    criticality-type:
+                        - HIGH
+                        - LOW
+                        - MEDIUM
+                        - MISSION_CRITICAL
+                        - TYPE_UNSPECIFIED
+                    environment-type:
+                        - DEVELOPMENT
+                        - PRODUCTION
+                        - STAGING
+                        - TEST
+                        - TYPE_UNSPECIFIED
+            - name: delete
+              description: Delete an Apphub application service.
+              flags:
+                --application=: Name for the application
+                --async: Return immediately, without waiting for the operation in progress to complete.
+                --location=: The Cloud location for the service.
+                --no-async&: Return immediately, without waiting for the operation in progress to complete.
+            - name: describe
+              description: Describe an Apphub application service.
+              flags:
+                --application=: Name for the application
+                --location=: The Cloud location for the service.
+            - name: list
+              description: List Apphub application services.
+              flags:
+                --application=!: ID of the application or fully qualified identifier for the application.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The Cloud location for the application.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Update an Apphub application service.
+              flags:
+                --application=: Name for the application
+                --async: Return immediately, without waiting for the operation in progress to complete.
+                --business-owners=: Business owners of the service
+                --criticality-type=: Criticality Type of the service.
+                --description=: Description of the service
+                --developer-owners=: Developer owners of the service
+                --display-name=: Human-friendly display name
+                --environment-type=: Environment Type of the service.
+                --location=: The Cloud location for the service.
+                --no-async&: Return immediately, without waiting for the operation in progress to complete.
+                --operator-owners=: Operator owners of the service
+              completion:
+                flag:
+                    criticality-type:
+                        - HIGH
+                        - LOW
+                        - MEDIUM
+                        - MISSION_CRITICAL
+                        - TYPE_UNSPECIFIED
+                    environment-type:
+                        - DEVELOPMENT
+                        - PRODUCTION
+                        - STAGING
+                        - TEST
+                        - TYPE_UNSPECIFIED
+        - name: delete
+          description: Delete an Apphub application.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to complete.
+            --location=: The Cloud location for the application.
+            --no-async&: Return immediately, without waiting for the operation in progress to complete.
+        - name: describe
+          description: Describe an Apphub application.
+          flags:
+            --location=: The Cloud location for the application.
+        - name: set-iam-policy
+          description: Set the IAM policy for an Apphub application as defined in a JSON/YAML file.
+          flags:
+            --location=: The Cloud location for the application.
+        - name: update
+          description: Update an Apphub application.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to complete.
+            --business-owners=: Business owners of the application
+            --criticality-type=: Criticality Type of the application.
+            --description=: Description of the Application
+            --developer-owners=: Developer owners of the application
+            --display-name=: Human-friendly display name
+            --environment-type=: Environment Type of the application.
+            --location=: The Cloud location for the application.
+            --no-async&: Return immediately, without waiting for the operation in progress to complete.
+            --operator-owners=: Operator owners of the application
+          completion:
+            flag:
+                criticality-type:
+                    - HIGH
+                    - LOW
+                    - MEDIUM
+                    - MISSION_CRITICAL
+                    - TYPE_UNSPECIFIED
+                environment-type:
+                    - DEVELOPMENT
+                    - PRODUCTION
+                    - STAGING
+                    - TEST
+                    - TYPE_UNSPECIFIED
+        - name: workloads
+          description: Manage App Hub Application Workloads.
+          commands:
+            - name: delete
+              description: Delete an Apphub application workload.
+              flags:
+                --application=: Name for the application
+                --async: Return immediately, without waiting for the operation in progress to complete.
+                --location=: The Cloud location for the workload.
+                --no-async&: Return immediately, without waiting for the operation in progress to complete.
+            - name: describe
+              description: Describe an Apphub application workload.
+              flags:
+                --application=: Name for the application
+                --location=: The Cloud location for the workload.
+            - name: list
+              description: List Apphub application workloads.
+              flags:
+                --application=!: ID of the application or fully qualified identifier for the application.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The Cloud location for the application.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Update an Apphub application workload.
+              flags:
+                --application=: Name for the application
+                --async: Return immediately, without waiting for the operation in progress to complete.
+                --business-owners=: Business owners of the workload
+                --criticality-type=: Criticality Type of the workload.
+                --description=: Description of the Workload
+                --developer-owners=: Developer owners of the workload
+                --display-name=: Human-friendly display name
+                --environment-type=: Environment Type of the workload.
+                --location=: The Cloud location for the workload.
+                --no-async&: Return immediately, without waiting for the operation in progress to complete.
+                --operator-owners=: Operator owners of the workload
+              completion:
+                flag:
+                    criticality-type:
+                        - HIGH
+                        - LOW
+                        - MEDIUM
+                        - MISSION_CRITICAL
+                        - TYPE_UNSPECIFIED
+                    environment-type:
+                        - DEVELOPMENT
+                        - PRODUCTION
+                        - STAGING
+                        - TEST
+                        - TYPE_UNSPECIFIED
+            - name: create
+              description: Create an Apphub application workload.
+              flags:
+                --application=: Name for the application
+                --async: Return immediately, without waiting for the operation in progress to complete.
+                --business-owners=: Business owners of the workload
+                --criticality-type=: Criticality Type of the workload.
+                --description=: Description of the Workload
+                --developer-owners=: Developer owners of the workload
+                --discovered-workload=!: ID of the discoveredWorkload or fully qualified identifier for the discoveredWorkload.
+                --display-name=: Human-friendly display name
+                --environment-type=: Environment Type of the workload.
+                --location=: The Cloud location for the workload.
+                --no-async&: Return immediately, without waiting for the operation in progress to complete.
+                --operator-owners=: Operator owners of the workload
+              completion:
+                flag:
+                    criticality-type:
+                        - HIGH
+                        - LOW
+                        - MEDIUM
+                        - MISSION_CRITICAL
+                        - TYPE_UNSPECIFIED
+                    environment-type:
+                        - DEVELOPMENT
+                        - PRODUCTION
+                        - STAGING
+                        - TEST
+                        - TYPE_UNSPECIFIED
+    - name: discovered-services
+      description: Manage App Hub Discovered Services.
+      commands:
+        - name: list
+          description: List Apphub discovered services.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: lookup
+          description: Lookup an Apphub discovered service with URI.
+          flags:
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --uri=!: Google Cloud Platform resource URI to look up service for.
+        - name: describe
+          description: Describe an Apphub discovered service.
+          flags:
+            --location=: The Cloud location for the discoveredService.
+    - name: discovered-workloads
+      description: Manage App Hub Discovered Workloads.
+      commands:
+        - name: describe
+          description: Describe an Apphub discovered workload.
+          flags:
+            --location=: The Cloud location for the discoveredWorkload.
+        - name: list
+          description: List Apphub discovered workloads that could be added to an application.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: lookup
+          description: Lookup an Apphub discovered workload with URI.
+          flags:
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --uri=!: Google Cloud Platform resource URI to look up workload for.
+    - name: locations
+      description: Manage App Hub Locations.
+      commands:
+        - name: describe
+          description: Describe an Apphub location.
+        - name: list
+          description: List Apphub locations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: operations
+      description: Manage App Hub Operations (long-running operations).
+      commands:
+        - name: describe
+          description: Describe an Apphub operation (long-running operation).
+          flags:
+            --location=: The Cloud location for the operation.
+        - name: list
+          description: List Apphub operations (long-running operations).
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: service-projects
+      description: Manage App Hub Service Projects.
+      commands:
+        - name: add
+          description: Add an Apphub service project.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to complete.
+            --location=: Location of the ServiceProjectAttachment.
+            --no-async&: Return immediately, without waiting for the operation in progress to complete.
+        - name: describe
+          description: Describe an Apphub service project.
+          flags:
+            --location=: Location of the ServiceProjectAttachment.
+        - name: detach
+          description: Detach an Apphub service project.
+        - name: list
+          description: List Apphub service projects.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: lookup
+          description: Lookup an Apphub service project.
+        - name: remove
+          description: Remove an Apphub service project.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to complete.
+            --location=: Location of the ServiceProjectAttachment.
+            --no-async&: Return immediately, without waiting for the operation in progress to complete.

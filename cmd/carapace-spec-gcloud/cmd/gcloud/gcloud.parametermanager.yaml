@@ -1,0 +1,116 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: parametermanager
+description: Parameter Manager is a single source of truth to store, access and manage the lifecycle of your application parameters.
+commands:
+    - name: parameters
+      description: Manage Parameter Manager parameter resources.
+      commands:
+        - name: describe
+          description: Gets a single Parameter Manager parameter.
+          flags:
+            --location=: The location id of the parameter resource.
+        - name: list
+          description: Lists Parameter Manager parameters.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Updates the metadata of an Parameter Manager parameter resource.
+          flags:
+            --clear-kms-key: Clear kms_key value and set to null.
+            --clear-labels: Clear labels value and set to empty map.
+            --key-ring=: The keyRing id of the cryptoKey resource.
+            --kms-key=!: ID of the cryptoKey or fully qualified identifier for the cryptoKey.
+            --labels=: Set labels to new value.
+            --location=: For resources [parameter, kms-key], provides fallback value for resource location attribute.
+            --no-clear-kms-key&: Clear kms_key value and set to null.
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --parameter-format=: Specifies the format of a Parameter.
+            --remove-labels=: Remove existing value from map labels.
+            --request-id=: An optional request ID to identify requests.
+            --update-labels=: Update labels value or add key value pair.
+          completion:
+            flag:
+                parameter-format:
+                    - json
+                    - unformatted
+                    - yaml
+        - name: versions
+          description: Manage Parameter Manager parameter version resources.
+          commands:
+            - name: create
+              description: Creates an Parameter Manager parameter version.
+              flags:
+                --disabled: Disabled boolean to determine if a ParameterVersion acts as a metadata only
+                --location=: The location id of the version resource.
+                --no-disabled&: Disabled boolean to determine if a ParameterVersion acts as a metadata only
+                --parameter=: The parameter id of the version resource.
+                --payload-data-from-file=: bytes data for storing payload.
+                --payload-data=: bytes data for storing payload.
+                --request-id=: An optional request ID to identify requests.
+            - name: delete
+              description: Deletes a single Parameter Manager parameter version.
+              flags:
+                --location=: The location id of the version resource.
+                --parameter=: The parameter id of the version resource.
+                --request-id=: An optional request ID to identify requests.
+            - name: describe
+              description: Gets a single Parameter Manager parameter version.
+              flags:
+                --location=: The location id of the version resource.
+                --parameter=: The parameter id of the version resource.
+                --view=: View of the ParameterVersion.
+              completion:
+                flag:
+                    view:
+                        - basic
+                        - full
+            - name: list
+              description: List Parameter Manager parameter versions.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the parameter resource.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --parameter=!: ID of the parameter or fully qualified identifier for the parameter.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: render
+              description: Gets a single Parameter Manager parameter version render.
+              flags:
+                --location=: The location id of the version resource.
+                --parameter=: The parameter id of the version resource.
+            - name: update
+              description: Updates the properties of a single Parameter Manager parameter version.
+              flags:
+                --disabled: Disabled boolean to determine if a ParameterVersion acts as a metadata only
+                --location=: The location id of the version resource.
+                --no-disabled&: Disabled boolean to determine if a ParameterVersion acts as a metadata only
+                --parameter=: The parameter id of the version resource.
+                --request-id=: An optional request ID to identify requests.
+        - name: create
+          description: Creates a Parameter Manager parameter.
+          flags:
+            --key-ring=: The keyRing id of the cryptoKey resource.
+            --kms-key=!: ID of the cryptoKey or fully qualified identifier for the cryptoKey.
+            --labels=: Labels as key value pairs.
+            --location=: For resources [parameter, kms-key], provides fallback value for resource location attribute.
+            --parameter-format=: Specifies the format of a Parameter.
+            --request-id=: An optional request ID to identify requests.
+          completion:
+            flag:
+                parameter-format:
+                    - json
+                    - unformatted
+                    - yaml
+        - name: delete
+          description: Deletes a single Parameter Manager parameter resource.
+          flags:
+            --location=: The location id of the parameter resource.
+            --request-id=: An optional request ID to identify requests.

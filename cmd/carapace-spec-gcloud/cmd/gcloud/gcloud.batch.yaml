@@ -1,0 +1,67 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: batch
+description: Manage Batch resources.
+commands:
+    - name: jobs
+      description: Manage Batch job resources.
+      commands:
+        - name: describe
+          description: Show details of a job.
+          flags:
+            --location=: Google Cloud location for the job.
+        - name: list
+          description: List jobs for a specified Batch project/location.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: submit
+          description: Submit a Batch job.
+          flags:
+            --config=: The file path of the job config file in either JSON or YAML format.
+            --container-commands-file=: Overrides the `CMD` specified in the container.
+            --container-entrypoint=: Overrides the `ENTRYPOINT` specified in the container.
+            --container-image-uri=: The URI to pull the container image from.
+            --job-prefix=: Specify the job prefix.
+            --location=: Google Cloud location for the job.
+            --machine-type=: Specify the Compute Engine machine type, for
+            --network=!: The URL for the network resource.
+            --no-external-ip-address: Required if no external public IP address
+            --priority=: Job priority [0-99] 0 is the lowest priority.
+            --provisioning-model=: Specify the allowed provisioning model for the compute instances.
+            --script-file-path=: Path to script file to run as first runnable in task spec.
+            --script-text=: Text to run as first runnable in task spec.
+            --subnetwork=!: The URL for the subnetwork resource.
+          completion:
+            flag:
+                provisioning-model:
+                    - SPOT
+                    - STANDARD
+        - name: cancel
+          description: Cancel a job.
+          flags:
+            --location=: Google Cloud location for the job.
+        - name: delete
+          description: Delete a job.
+          flags:
+            --location=: Google Cloud location for the job.
+    - name: tasks
+      description: Manage Batch task resources.
+      commands:
+        - name: describe
+          description: Show details of a task.
+          flags:
+            --job=: The job ID for the task.
+            --location=: Google Cloud location for the task.
+            --task-group=: The task_group ID for the task.
+        - name: list
+          description: List tasks for a specified Batch job.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --job=!: ID of the job or fully qualified identifier for the job.
+            --limit=: Maximum number of resources to list.
+            --location=: Google Cloud location for the job.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.

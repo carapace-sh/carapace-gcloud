@@ -1,0 +1,784 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: spanner
+description: Command groups for Cloud Spanner.
+commands:
+    - name: backups
+      description: Manage Cloud Spanner backups.
+      commands:
+        - name: update-metadata
+          description: Updates the metadata of a Cloud Spanner a backup.
+          flags:
+            --expiration-date=: Expiration time of the backup, must be at least 6 hours and at most 366 days from
+            --instance=: The name of the Cloud Spanner instance.
+            --retention-period=: Retention period of the backup relative from now, must be at least 6 hours and at most
+        - name: copy
+          description: Copies a backup of a Cloud Spanner database.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --destination-backup=!: ID of the backup or fully qualified identifier for the backup.
+            --destination-instance=: The Cloud Spanner instance for the backup.
+            --encryption-type=: The encryption type of the copied backup.
+            --expiration-date=: Expiration time of the backup, must be at least 6 hours and at most 366 days from the time when the source backup is created.
+            --kms-key=!: ID of the key or fully qualified identifier for the key.
+            --kms-keyring=: KMS keyring id of the key.
+            --kms-keys=!: IDs of the keys or fully qualified identifiers for the keys.
+            --kms-location=: Cloud location for the key.
+            --kms-project=: Cloud project id for the key.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --retention-period=: Retention period of the backup relative from now, must be at least 6 hours and at most 366 days from the time when the source backup is created.
+            --source-backup=!: ID of the backup or fully qualified identifier for the backup.
+            --source-instance=: The Cloud Spanner instance for the backup.
+          completion:
+            flag:
+                encryption-type:
+                    - customer-managed-encryption
+                    - google-default-encryption
+                    - use-config-default-or-backup-encryption
+        - name: delete
+          description: Delete an existing backup.
+          flags:
+            --instance=: The name of the Cloud Spanner instance.
+        - name: describe
+          description: Retrieves information about a backup.
+          flags:
+            --instance=: The name of the Cloud Spanner instance.
+        - name: list
+          description: List existing Cloud Spanner Cloud Spanner backups.
+          flags:
+            --database=: ID of the source database.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --instance=: ID of the instance or fully qualified identifier for the instance.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: set-iam-policy
+          description: Set the IAM policy for a Cloud Spanner backup.
+          flags:
+            --instance=: The name of the Cloud Spanner instance.
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding to a Cloud Spanner backup.
+          flags:
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: A condition to include in the binding.
+            --instance=: The name of the Cloud Spanner instance.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: create
+          description: Creates a backup of a Cloud Spanner database.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --database=!: ID of the database from which the backup will be created.
+            --encryption-type=: The encryption type of the backup.
+            --expiration-date=: Expiration time of the backup, must be at least 6 hours and at most 30 days from the time the request is received.
+            --instance=: The Cloud Spanner instance for the backup.
+            --kms-key=!: ID of the key or fully qualified identifier for the key.
+            --kms-keyring=: KMS keyring id of the key.
+            --kms-keys=!: IDs of the keys or fully qualified identifiers for the keys.
+            --kms-location=: Cloud location for the key.
+            --kms-project=: Cloud project id for the key.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --retention-period=: Retention period of the backup relative from now, must be at least 6 hours and at most 30 days.
+            --version-time=: The backup will contain an externally consistent copy of the database at the timestamp specified by `--version-time`.
+          completion:
+            flag:
+                encryption-type:
+                    - customer-managed-encryption
+                    - google-default-encryption
+                    - use-database-encryption
+        - name: get-iam-policy
+          description: Get the IAM policy for a Cloud Spanner backup.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --instance=: The name of the Cloud Spanner instance.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: remove-iam-policy-binding
+          description: Remove IAM policy binding of a Cloud Spanner backup.
+          flags:
+            --all: Remove all bindings with this role and principal, irrespective of any
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: The condition of the binding that you want to remove.
+            --instance=: The name of the Cloud Spanner instance.
+            --member=!: The principal to remove the binding for.
+            --no-all&: ""
+            --role=!: The role to remove the principal from.
+    - name: databases
+      description: Manage Cloud Spanner databases.
+      commands:
+        - name: delete
+          description: Delete a Cloud Spanner database.
+          flags:
+            --instance=: The Cloud Spanner instance for the database.
+        - name: execute-sql
+          description: Executes a SQL query against a Cloud Spanner database.
+          flags:
+            --database-role=: Database role user assumes while accessing the database.
+            --enable-partitioned-dml: Execute DML statement using Partitioned DML
+            --instance=: The Cloud Spanner instance for the database.
+            --no-enable-partitioned-dml&: Execute DML statement using Partitioned DML
+            --no-strong&: Perform a strong query.
+            --priority=: The priority for the execute SQL request.
+            --query-mode=: Mode in which the query must be processed.
+            --read-timestamp=: Perform a query at the given timestamp.
+            --sql=!: The SQL query to issue to the database.
+            --strong: Perform a strong query.
+            --timeout=: Maximum time to wait for the SQL query to complete.
+          completion:
+            flag:
+                priority:
+                    - high
+                    - low
+                    - medium
+                    - unspecified
+                query-mode:
+                    - NORMAL
+                    - PLAN
+                    - PROFILE
+                    - WITH_PLAN_AND_STATS
+                    - WITH_STATS
+        - name: list
+          description: List the Cloud Spanner databases contained within the given instance.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --instance=: ID of the instance or fully qualified identifier for the instance.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: roles
+          description: Manage Cloud Spanner database roles.
+          commands:
+            - name: list
+              description: List the Cloud Spanner database roles defined in the given database.
+              flags:
+                --database=!: ID of the database or fully qualified identifier for the database.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --instance=: The Cloud Spanner instance for the database.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: restore
+          description: Restore a Cloud Spanner database.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --destination-database=!: ID of the database or fully qualified identifier for the database.
+            --destination-instance=: The Cloud Spanner instance for the database.
+            --encryption-type=: The encryption type of the restored database.
+            --kms-key=!: ID of the key or fully qualified identifier for the key.
+            --kms-keyring=: KMS keyring id of the key.
+            --kms-keys=!: IDs of the keys or fully qualified identifiers for the keys.
+            --kms-location=: Cloud location for the key.
+            --kms-project=: Cloud project id for the key.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --source-backup=!: ID of the backup or fully qualified identifier for the backup.
+            --source-instance=: The Cloud Spanner instance for the backup.
+          completion:
+            flag:
+                encryption-type:
+                    - customer-managed-encryption
+                    - google-default-encryption
+                    - use-config-default-or-backup-encryption
+        - name: set-iam-policy
+          description: Set the IAM policy for a Cloud Spanner database.
+          flags:
+            --instance=: The Cloud Spanner instance for the database.
+        - name: sessions
+          description: Manage the sessions for Cloud Spanner databases.
+          commands:
+            - name: delete
+              description: Delete a Cloud Spanner session.
+              flags:
+                --database=: The Cloud Spanner database for the session.
+                --instance=: The Cloud Spanner instance for the session.
+            - name: list
+              description: List the Cloud Spanner sessions contained within the given database.
+              flags:
+                --database=!: ID of the database or fully qualified identifier for the database.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --instance=: The Cloud Spanner instance for the database.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --server-filter=: An expression for filtering the results of the request on the server.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding to a Cloud Spanner database.
+          flags:
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: A condition to include in the binding.
+            --instance=: The name of the Cloud Spanner instance.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: change-quorum
+          description: Change quorum of a Cloud Spanner database.
+          flags:
+            --dual-region!: Switch to dual-region quorum type.
+            --etag=: Used for optimistic concurrency control.
+            --instance=: The Cloud Spanner instance for the database.
+            --no-dual-region!&: Switch to dual-region quorum type.
+            --no-single-region!&: Switch to single-region quorum type.
+            --serving-location=!: The cloud Spanner location.
+            --single-region!: Switch to single-region quorum type.
+        - name: ddl
+          description: Manage the DDL for Cloud Spanner databases.
+          commands:
+            - name: describe
+              description: Describe the DDL for a Cloud Spanner database.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --include-proto-descriptors: Include debug string of proto bundle descriptors in the output.
+                --instance=: The Cloud Spanner instance for the database.
+                --limit=: Maximum number of resources to list.
+                --no-include-proto-descriptors&: Include debug string of proto bundle descriptors in the output.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Update the DDL for a Cloud Spanner database.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --ddl-file=: Path of a file containing semi-colon separated DDL (data definition language) statements to run inside the database.
+                --ddl=: Semi-colon separated DDL (data definition language) statements to run inside the database.
+                --instance=: The Cloud Spanner instance for the database.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --proto-descriptors-file=: Path of a file that contains a protobuf-serialized google.protobuf.FileDescriptorSet message.
+        - name: remove-iam-policy-binding
+          description: Remove IAM policy binding of a Cloud Spanner database.
+          flags:
+            --all: Remove all bindings with this role and principal, irrespective of any
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: The condition of the binding that you want to remove.
+            --instance=: The name of the Cloud Spanner instance.
+            --member=!: The principal to remove the binding for.
+            --no-all&: ""
+            --role=!: The role to remove the principal from.
+        - name: create
+          description: Create a Cloud Spanner database.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --database-dialect=: The SQL dialect of the Cloud Spanner Database.
+            --ddl-file=: Path of a file that contains semi-colon separated DDL (data definition language) statements to run inside the newly created database.
+            --ddl=: Semi-colon separated DDL (data definition language) statements to run inside the newly created database.
+            --instance=: The Cloud Spanner instance for the database.
+            --kms-key=!: ID of the key or fully qualified identifier for the key.
+            --kms-keyring=: KMS keyring id of the key.
+            --kms-keys=!: IDs of the keys or fully qualified identifiers for the keys.
+            --kms-location=: Cloud location for the key.
+            --kms-project=: Cloud project id for the key.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --proto-descriptors-file=: Path of a file that contains a protobuf-serialized google.protobuf.FileDescriptorSet message.
+          completion:
+            flag:
+                database-dialect:
+                    - POSTGRESQL
+                    - GOOGLE_STANDARD_SQL
+        - name: describe
+          description: Describe a Cloud Spanner database.
+          flags:
+            --instance=: The Cloud Spanner instance for the database.
+        - name: get-iam-policy
+          description: Get the IAM policy for a Cloud Spanner database.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --instance=: The Cloud Spanner instance for the database.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: splits
+          description: Manage the split points for Spanner databases.
+          commands:
+            - name: add
+              description: Add split points to a  Spanner database.
+              flags:
+                --initiator=: The tag to identify the initiator of the split points.
+                --instance=: The Cloud Spanner instance for the database.
+                --split-expiration-date=: The date when the split points become system managed and becomes eligible for merging.
+                --splits-file=!: The path of a file containing split points to add to the database.
+            - name: list
+              description: List split points that are added by a user to a Spanner database.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --instance=: The Cloud Spanner instance for the database.
+                --limit=: Maximum number of resources to list.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: update
+          description: Update a Cloud Spanner database.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --enable-drop-protection: Enable database deletion protection on this database.
+            --instance=: The Cloud Spanner instance for the database.
+            --kms-keys=: Update KMS key references for this database.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-enable-drop-protection&: Enable database deletion protection on this database.
+    - name: instances
+      description: Manage Cloud Spanner instances.
+      commands:
+        - name: create
+          description: Create a Cloud Spanner instance.
+          flags:
+            --asymmetric-autoscaling-option=: Specifies the asymmetric autoscaling option for the instance.
+            --async: Return immediately, without waiting for the operation in progress to
+            --autoscaling-high-priority-cpu-target=: Specifies the target percentage of high-priority CPU the autoscaled instance can utilize.
+            --autoscaling-max-nodes=!: Maximum number of nodes for the autoscaled instance.
+            --autoscaling-max-processing-units=!: Maximum number of processing units for the autoscaled instance.
+            --autoscaling-min-nodes=!: Minimum number of nodes for the autoscaled instance.
+            --autoscaling-min-processing-units=!: Minimum number of processing units for the autoscaled instance.
+            --autoscaling-storage-target=!: Specifies the target percentage of storage the autoscaled instance can utilize.
+            --autoscaling-total-cpu-target=&: Specifies the target percentage of total CPU the autoscaled instance can utilize.
+            --config=!: Instance configuration defines the geographic placement and replication of the databases in that instance.
+            --default-backup-schedule-type=: The default backup schedule type that is used in the instance.
+            --description=!: Description of the instance.
+            --edition=: Spanner edition.
+            --expire-behavior=: The expire behavior of a free trial instance.
+            --instance-type=: Specifies the type for this instance.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --nodes=: Number of nodes for the instance.
+            --processing-units=: Number of processing units for the instance.
+            --tags=&: List of tags KEY=VALUE pairs to bind.
+          completion:
+            flag:
+                default-backup-schedule-type:
+                    - AUTOMATIC
+                    - DEFAULT_BACKUP_SCHEDULE_TYPE_UNSPECIFIED
+                    - NONE
+                edition:
+                    - EDITION_UNSPECIFIED
+                    - ENTERPRISE
+                    - ENTERPRISE_PLUS
+                    - STANDARD
+                expire-behavior:
+                    - free-to-provisioned
+                    - remove-after-grace-period
+                instance-type:
+                    - free-instance
+                    - provisioned
+        - name: get-iam-policy
+          description: Get the IAM policy for a Cloud Spanner instance.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: List the Cloud Spanner instances in this project.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: move
+          description: Move the Cloud Spanner instance to the specified instance configuration.
+          flags:
+            --target-config=!: Target Instance configuration to move the instances.
+            --target-database-move-configs=: Database level configurations for each database to be moved.
+        - name: update
+          description: Update a Cloud Spanner instance.
+          flags:
+            --asymmetric-autoscaling-option=: Specifies the asymmetric autoscaling option for the instance.
+            --async: Return immediately, without waiting for the operation in progress to
+            --autoscaling-high-priority-cpu-target=: Specifies the target percentage of high-priority CPU the autoscaled instance can utilize.
+            --autoscaling-max-nodes=: Maximum number of nodes for the autoscaled instance.
+            --autoscaling-max-processing-units=: Maximum number of processing units for the autoscaled instance.
+            --autoscaling-min-nodes=: Minimum number of nodes for the autoscaled instance.
+            --autoscaling-min-processing-units=: Minimum number of processing units for the autoscaled instance.
+            --autoscaling-storage-target=: Specifies the target percentage of storage the autoscaled instance can utilize.
+            --autoscaling-total-cpu-target=&: Specifies the target percentage of total CPU the autoscaled instance can utilize.
+            --clear-asymmetric-autoscaling-option=: Specify a comma separated list of locations from which to remove asymmetric autoscaling options
+            --default-backup-schedule-type=: The default backup schedule type that is used in the instance.
+            --description=: Description of the instance.
+            --edition=: Spanner edition.
+            --expire-behavior=: The expire behavior of a free trial instance.
+            --instance-type=: Specifies the type for this instance.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --nodes=: Number of nodes for the instance.
+            --processing-units=: Number of processing units for the instance.
+          completion:
+            flag:
+                default-backup-schedule-type:
+                    - AUTOMATIC
+                    - DEFAULT_BACKUP_SCHEDULE_TYPE_UNSPECIFIED
+                    - NONE
+                expire-behavior:
+                    - free-to-provisioned
+                    - remove-after-grace-period
+                instance-type:
+                    - free-instance
+                    - provisioned
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding to a Cloud Spanner instance.
+          flags:
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: A condition to include in the binding.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: delete
+          description: Delete a Cloud Spanner instance.
+        - name: describe
+          description: Describe a Cloud Spanner instance.
+        - name: get-locations
+          description: Get the location of every replica in a Cloud Spanner instance.
+          flags:
+            --no-verbose&: Indicates that both regions and types of replicas be returned.
+            --verbose: Indicates that both regions and types of replicas be returned.
+        - name: remove-iam-policy-binding
+          description: Remove IAM policy binding of a Cloud Spanner instance.
+          flags:
+            --all: Remove all bindings with this role and principal, irrespective of any
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: The condition of the binding that you want to remove.
+            --member=!: The principal to remove the binding for.
+            --no-all&: ""
+            --role=!: The role to remove the principal from.
+        - name: set-iam-policy
+          description: Set the IAM policy for a Cloud Spanner instance.
+    - name: operations
+      description: Manage Cloud Spanner operations.
+      commands:
+        - name: cancel
+          description: Cancel a Cloud Spanner operation.
+          flags:
+            --backup=: For a backup operation, the name of the backup the operation is executing on.
+            --database=: For a database operation, the name of the database the operation is executing on.
+            --instance-config=: The ID of the instance configuration the operation is executing on.
+            --instance-partition=: For an instance partition operation, the name of the instance partition the operation is executing on.
+            --instance=: The ID of the instance the operation is executing on.
+        - name: describe
+          description: Describe a Cloud Spanner operation.
+          flags:
+            --backup=: For a backup operation, the name of the backup the operation is executing on.
+            --database=: For a database operation, the name of the database the operation is executing on.
+            --instance-config=: The ID of the instance configuration the operation is executing on.
+            --instance-partition=: For an instance partition operation, the name of the instance partition the operation is executing on.
+            --instance=: The ID of the instance the operation is executing on.
+        - name: list
+          description: List the Cloud Spanner operations.
+          flags:
+            --backup=: For backup operations, the name of the backup the operations are executing on.
+            --database=: For database operations, the name of the database the operations are executing on.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --instance-config=: The ID of the instance configuration the operation is executing on.
+            --instance-partition=: For instance partition operations, the name of the instance partition the operation is executing on.
+            --instance=: The ID of the instance the operation is executing on.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --type=: (optional) List only the operations of the given type.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+          completion:
+            flag:
+                type:
+                    - BACKUP
+                    - DATABASE
+                    - DATABASE_CHANGE_QUORUM
+                    - DATABASE_CREATE
+                    - DATABASE_RESTORE
+                    - DATABASE_UPDATE_DDL
+                    - INSTANCE
+                    - INSTANCE_CONFIG_CREATE
+                    - INSTANCE_CONFIG_UPDATE
+                    - INSTANCE_PARTITION
+    - name: rows
+      description: Manage the rows in Cloud Spanner databases.
+      commands:
+        - name: update
+          description: Update a row in a Cloud Spanner database.
+          flags:
+            --data=!: The column names and values for the row being updated.
+            --database=!: ID of the database or fully qualified identifier for the database.
+            --instance=: The Cloud Spanner instance for the database.
+            --table=!: The Cloud Spanner table name.
+        - name: delete
+          description: Delete a row in a Cloud Spanner database.
+          flags:
+            --database=!: ID of the database or fully qualified identifier for the database.
+            --instance=: The Cloud Spanner instance for the database.
+            --keys=!: The primary key values of the row to delete.
+            --table=!: The Cloud Spanner table name.
+        - name: insert
+          description: Insert a row in a Cloud Spanner database.
+          flags:
+            --data=!: The column names and values for the row being added.
+            --database=!: ID of the database or fully qualified identifier for the database.
+            --instance=: The Cloud Spanner instance for the database.
+            --table=!: The Cloud Spanner table name.
+    - name: backup-schedules
+      description: Manage Cloud Spanner backup schedules.
+      commands:
+        - name: remove-iam-policy-binding
+          description: Remove IAM policy binding of a Cloud Spanner backup schedule.
+          flags:
+            --all: Remove all bindings with this role and principal, irrespective of any
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: The condition of the binding that you want to remove.
+            --database=: The name of the Cloud Spanner database.
+            --instance=: The name of the Cloud Spanner instance.
+            --member=!: The principal to remove the binding for.
+            --no-all&: ""
+            --role=!: The role to remove the principal from.
+        - name: set-iam-policy
+          description: Set the IAM policy for a Cloud Spanner backup schedule.
+          flags:
+            --database=: The name of the Cloud Spanner database.
+            --instance=: The name of the Cloud Spanner instance.
+        - name: update
+          description: Update a Cloud Spanner backup schedule.
+          flags:
+            --cron=: Textual representation of the crontab.
+            --database=: The Cloud Spanner database for the backup-schedule.
+            --encryption-type=: The encryption type of the backup.
+            --instance=: The Cloud Spanner instance for the backup-schedule.
+            --kms-key=!: ID of the key or fully qualified identifier for the key.
+            --kms-keyring=: KMS keyring id of the key.
+            --kms-keys=!: IDs of the keys or fully qualified identifiers for the keys.
+            --kms-location=: Cloud location for the key.
+            --kms-project=: Cloud project id for the key.
+            --retention-duration=: The retention duration of a backup that must be at least 6 hours and at most 366 days.
+          completion:
+            flag:
+                encryption-type:
+                    - customer-managed-encryption
+                    - google-default-encryption
+                    - use-database-encryption
+        - name: create
+          description: Create a Cloud Spanner backup schedule.
+          flags:
+            --backup-type=!: Type of backups created by this schedule.
+            --cron=!: Textual representation of the crontab.
+            --database=: The Cloud Spanner database for the backup-schedule.
+            --encryption-type=: The encryption type of the backup.
+            --instance=: The Cloud Spanner instance for the backup-schedule.
+            --kms-key=!: ID of the key or fully qualified identifier for the key.
+            --kms-keyring=: KMS keyring id of the key.
+            --kms-keys=!: IDs of the keys or fully qualified identifiers for the keys.
+            --kms-location=: Cloud location for the key.
+            --kms-project=: Cloud project id for the key.
+            --retention-duration=!: The retention duration of a backup that must be at least 6 hours and at most 366 days.
+          completion:
+            flag:
+                encryption-type:
+                    - customer-managed-encryption
+                    - google-default-encryption
+                    - use-database-encryption
+        - name: delete
+          description: Delete a Cloud Spanner backup schedule.
+          flags:
+            --database=: The Cloud Spanner database for the backup-schedule.
+            --instance=: The Cloud Spanner instance for the backup-schedule.
+        - name: get-iam-policy
+          description: Get the IAM policy for a Cloud Spanner backup schedule.
+          flags:
+            --database=: The name of the Cloud Spanner database.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --instance=: The name of the Cloud Spanner instance.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding to a Cloud Spanner backup schedule.
+          flags:
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: A condition to include in the binding.
+            --database=: The name of the Cloud Spanner database.
+            --instance=: The name of the Cloud Spanner instance.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: describe
+          description: Describe a Cloud Spanner backup schedule.
+          flags:
+            --database=: The Cloud Spanner database for the backup-schedule.
+            --instance=: The Cloud Spanner instance for the backup-schedule.
+        - name: list
+          description: List Cloud Spanner backup schedules.
+          flags:
+            --database=!: ID of the database or fully qualified identifier for the database.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --instance=: The Cloud Spanner instance for the database.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: cli
+      description: An interactive shell for Spanner.
+      flags:
+        --database-role=: Database role user used to access the database.
+        --delimiter=: Set the statement delimiter.
+        --execute=: Execute the statement and then exits.
+        --host=: Host on which Spanner server is located.
+        --html: Show output in HTML format.
+        --idle-transaction-timeout=: Set the idle transaction timeout.
+        --init-command-add=: Additional SQL statement to execute after startup.
+        --init-command=: SQL statement to execute after startup.
+        --instance=: The Cloud Spanner instance for the database.
+        --no-html&: Show output in HTML format.
+        --no-show-exec-error&: If true and command fails, print the underlying command that was executed and its exit status.
+        --no-skip-column-names&: Do not show column names in output.
+        --no-skip-system-command&: Do not allow system command.
+        --no-table&: Show output in table format.
+        --no-xml&: Show output in XML format.
+        --port=: Port number that gcloud uses to connect to Spanner.
+        --prompt=: Set the prompt to the specified format.
+        --show-exec-error&: If true and command fails, print the underlying command that was executed and its exit status.
+        --skip-column-names: Do not show column names in output.
+        --skip-system-command: Do not allow system command.
+        --source=: Execute the statement from a file and then exits.
+        --system-command=: Enable or disable system commands.
+        --table: Show output in table format.
+        --tee=: Append a copy of the output to a named file.
+        --xml: Show output in XML format.
+      completion:
+        flag:
+            system-command:
+                - "ON"
+                - "OFF"
+    - name: instance-configs
+      description: Manage Cloud Spanner instance configs.
+      commands:
+        - name: list
+          description: List the available Cloud Spanner instance configurations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a Cloud Spanner instance configuration.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Remove all labels.
+            --display-name=: The name of this instance configuration as it appears in UIs.
+            --etag=: Used for optimistic concurrency control.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --no-validate-only&: Use this flag to validate that the request will succeed before executing it.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+            --validate-only: Use this flag to validate that the request will succeed before executing it.
+        - name: create
+          description: Create a Cloud Spanner instance configuration.
+          flags:
+            --add-replicas=: Add new replicas while cloning from the source config.
+            --async: Return immediately, without waiting for the operation in progress to
+            --base-config=!: The name of the Google-managed instance configuration, based on which your custom configuration is created.
+            --clone-config=!: The ID of the instance config, based on which this configuration is created.
+            --display-name=: The name of this instance configuration as it appears in UIs.
+            --etag=: Used for optimistic concurrency control.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-validate-only&: If specified, validate that the creation will succeed without creating the instance configuration.
+            --replicas=!: The geographic placement of nodes in this instance configuration and
+            --skip-replicas=: Skip replicas from the source config while cloning.
+            --validate-only: If specified, validate that the creation will succeed without creating the instance configuration.
+        - name: delete
+          description: Delete a Cloud Spanner instance configuration.
+          flags:
+            --etag=: Used for optimistic concurrency control as a way to help prevent simultaneous deletes of an instance config from overwriting each other.
+            --no-validate-only&: If specified, validate that the deletion will succeed without deleting the instance config.
+            --validate-only: If specified, validate that the deletion will succeed without deleting the instance config.
+        - name: describe
+          description: Describe a Cloud Spanner instance configuration.
+    - name: instance-partitions
+      description: Manage Spanner instance partitions.
+      commands:
+        - name: create
+          description: Create a Spanner instance partition.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --autoscaling-high-priority-cpu-target=&: Specifies the target percentage of high-priority CPU the autoscaled instance can utilize.
+            --autoscaling-max-nodes=!&: Maximum number of nodes for the autoscaled instance.
+            --autoscaling-max-processing-units=!&: Maximum number of processing units for the autoscaled instance.
+            --autoscaling-min-nodes=!&: Minimum number of nodes for the autoscaled instance.
+            --autoscaling-min-processing-units=!&: Minimum number of processing units for the autoscaled instance.
+            --autoscaling-storage-target=!&: Specifies the target percentage of storage the autoscaled instance can utilize.
+            --autoscaling-total-cpu-target=&: Specifies the target percentage of total CPU the autoscaled instance can utilize.
+            --config=!: Instance configuration defines the geographic placement and replication used by the instance partition.
+            --description=!: Description of the instance partition.
+            --instance=: The Cloud Spanner instance for the instance partition.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --nodes=: Number of nodes for the instance partition.
+            --processing-units=: Number of processing units for the instance partition.
+        - name: delete
+          description: Delete a Spanner instance partition. You can't delete the default instance partition using this command.
+          flags:
+            --instance=: The Cloud Spanner instance for the instance partition.
+        - name: describe
+          description: Describe a Spanner instance partition.
+          flags:
+            --instance=: The Cloud Spanner instance for the instance partition.
+        - name: list
+          description: List the Spanner instance partitions contained within the given instance.
+          flags:
+            --instance=: ID of the instance or fully qualified identifier for the instance.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a Spanner instance partition. You can't update the default instance partition using this command.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --autoscaling-high-priority-cpu-target=&: Specifies the target percentage of high-priority CPU the autoscaled instance can utilize.
+            --autoscaling-max-nodes=&: Maximum number of nodes for the autoscaled instance.
+            --autoscaling-max-processing-units=&: Maximum number of processing units for the autoscaled instance.
+            --autoscaling-min-nodes=&: Minimum number of nodes for the autoscaled instance.
+            --autoscaling-min-processing-units=&: Minimum number of processing units for the autoscaled instance.
+            --autoscaling-storage-target=&: Specifies the target percentage of storage the autoscaled instance can utilize.
+            --autoscaling-total-cpu-target=&: Specifies the target percentage of total CPU the autoscaled instance can utilize.
+            --description=: Description of the instance partition.
+            --instance=: The Cloud Spanner instance for the instance partition.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --nodes=: Number of nodes for the instance partition.
+            --processing-units=: Number of processing units for the instance partition.
+    - name: samples
+      description: Cloud Spanner sample apps.
+      commands:
+        - name: run
+          description: Run the given Cloud Spanner sample app.
+          flags:
+            --cleanup: Delete the instance after running the sample app.
+            --database-id=: ID of the new Cloud Spanner database to create for the sample app.
+            --duration=: Duration of time allowed to run the sample app before stopping the service.
+            --instance-id=!: The Cloud Spanner instance ID for the sample app.
+            --no-cleanup&: Delete the instance after running the sample app.
+            --no-skip-init&: Use an existing database instead of creating a new one.
+            --skip-init: Use an existing database instead of creating a new one.
+        - name: workload
+          description: Generate gRPC traffic for a given sample app's backend service.
+          flags:
+            --duration=: Duration of time allowed to run before stopping the workload.
+            --port=: Port of the running backend service.
+            --target-qps=: Target requests per second.
+        - name: backend
+          description: Run the backend gRPC service for the given Cloud Spanner sample app.
+          flags:
+            --database-id=: The Cloud Spanner database ID for the sample app.
+            --duration=: Duration of time allowed to run before stopping the service.
+            --instance-id=!: The Cloud Spanner instance ID for the sample app.
+            --port=: Port on which to receive gRPC requests.
+        - name: init
+          description: Initialize a Cloud Spanner sample app.
+          flags:
+            --database-id=: ID of the new Cloud Spanner database to create for the sample app.
+            --instance-id=!: The Cloud Spanner instance ID for the sample app.
+        - name: list
+          description: List available sample applications.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the

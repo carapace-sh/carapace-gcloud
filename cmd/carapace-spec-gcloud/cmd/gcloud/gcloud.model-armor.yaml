@@ -1,0 +1,174 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: model-armor
+description: Model Armor is a service offering LLM-agnostic security and AI safety measures to mitigate risks associated with large language models (LLMs).
+commands:
+    - name: floorsettings
+      description: Manage FloorSettings resources.
+      commands:
+        - name: describe
+          description: Describe the FloorSetting resource.
+          flags:
+            --full-uri=: Full uri of the floor setting
+        - name: update
+          description: Update the FloorSetting resource.
+          flags:
+            --add-integrated-services=: Set the list of integrated services for the floor setting.
+            --add-rai-settings-filters=: Add rai filter settings.
+            --advanced-config-deidentify-template=: The sdp filter settings enforcement.
+            --advanced-config-inspect-template=: The sdp filter settings enforcement.
+            --basic-config-filter-enforcement=: The sdp filter settings enforcement.
+            --clear-integrated-services: Clear all integrated services from the floor setting.
+            --clear-rai-settings-filters: Clear all rai filter settings.
+            --enable-floor-setting-enforcement=: Enable or disable the floor setting enforcement
+            --enable-google-mcp-server-cloud-logging: Enable Cloud Logging for Google MCP server sanitization to log Model Armor sanitization results.
+            --enable-multi-language-detection: Enable multi-language detection for floor setting, allowing Model Armor to process content in multiple languages.
+            --enable-vertex-ai-cloud-logging: Enable Cloud Logging for Vertex AI sanitization to log Model Armor sanitization results.
+            --full-uri=!: Full uri of the floor setting
+            --google-mcp-server-enforcement-type=: Specifies the enforcement mode for Google MCP server sanitization, such as "INSPECT_ONLY" or "INSPECT_AND_BLOCK".
+            --malicious-uri-filter-settings-enforcement=: Malicious URI filter settings.
+            --no-clear-integrated-services&: Clear all integrated services from the floor setting.
+            --no-clear-rai-settings-filters&: Clear all rai filter settings.
+            --no-enable-google-mcp-server-cloud-logging&: Enable Cloud Logging for Google MCP server sanitization to log Model Armor sanitization results.
+            --no-enable-multi-language-detection&: Enable multi-language detection for floor setting, allowing Model Armor to process content in multiple languages.
+            --no-enable-vertex-ai-cloud-logging&: Enable Cloud Logging for Vertex AI sanitization to log Model Armor sanitization results.
+            --pi-and-jailbreak-filter-settings-confidence-level=: The pi and jailbreak filter settings confidence level.
+            --pi-and-jailbreak-filter-settings-enforcement=: The pi and jailbreak filter settings enforcement.
+            --rai-settings-filters=: Set rai_settings_filters to new value.
+            --remove-integrated-services=: Remove specified service(s) from the list of integrated services.
+            --remove-rai-settings-filters=: Remove rai filter settings.
+            --vertex-ai-enforcement-type=: Specifies the enforcement mode for Vertex AI sanitization, such as "INSPECT_ONLY" or "INSPECT_AND_BLOCK".
+    - name: templates
+      description: Manage Template resources.
+      commands:
+        - name: list
+          description: List Model Armor Templates.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: sanitize-model-response
+          description: Sanitize Model Response.
+          flags:
+            --location=: The location id of the template resource.
+            --model-response-data-byte-item-from-file=!: Bytes Data.
+            --model-response-data-byte-item-type=!: The type of byte data.
+            --model-response-data-text=: Plaintext string data for sanitization.
+            --user-prompt=: User Prompt associated with Model response.
+          completion:
+            flag:
+                model-response-data-byte-item-type:
+                    - pdf
+                    - plaintext-utf8
+        - name: sanitize-user-prompt
+          description: Sanitize User Prompt.
+          flags:
+            --byte-item-data-from-file=!: Bytes Data.
+            --byte-item-data-type=!: The type of byte data.
+            --location=: The location id of the template resource.
+            --user-prompt-data-text=: Plaintext string data for sanitization.
+          completion:
+            flag:
+                byte-item-data-type:
+                    - pdf
+                    - plaintext-utf8
+        - name: update
+          description: Update Model Armor Template.
+          flags:
+            --add-rai-settings-filters=: Add new value to rai_settings_filters list.
+            --advanced-config-deidentify-template=: Optional Sensitive Data Protection Deidentify template resource name.
+            --advanced-config-inspect-template=: Sensitive Data Protection inspect template resource name
+            --basic-config-filter-enforcement=: Tells whether the Sensitive Data Protection basic config is enabled or
+            --clear-filter-config: Set template.filterConfig back to default value.
+            --clear-labels: Clear labels value and set to empty map.
+            --clear-rai-settings-filters: Clear rai_settings_filters value and set to empty list.
+            --clear-template-metadata: Set template.templateMetadata back to default value.
+            --labels=: Set labels to new value.
+            --location=: The location id of the template resource.
+            --malicious-uri-filter-settings-enforcement=: Tells whether the Malicious URI filter is enabled or disabled.
+            --no-clear-filter-config&: Set template.filterConfig back to default value.
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --no-clear-rai-settings-filters&: Clear rai_settings_filters value and set to empty list.
+            --no-clear-template-metadata&: Set template.templateMetadata back to default value.
+            --no-template-metadata-ignore-partial-invocation-failures&: If true, partial detector failures should be ignored.
+            --no-template-metadata-log-operations&: If true, log template crud operations.
+            --no-template-metadata-log-sanitize-operations&: If true, log sanitize operations.
+            --pi-and-jailbreak-filter-settings-confidence-level=: Confidence level for this filter.
+            --pi-and-jailbreak-filter-settings-enforcement=: Tells whether Prompt injection and Jailbreak filter is enabled or
+            --rai-settings-filters=: Set rai_settings_filters to new value.
+            --remove-labels=: Remove existing value from map labels.
+            --remove-rai-settings-filters=: Remove existing value from rai_settings_filters list.
+            --request-id=: An optional request ID to identify requests.
+            --template-metadata-custom-llm-response-safety-error-code=: Indicates the custom error code set by the user to be returned to the end
+            --template-metadata-custom-llm-response-safety-error-message=: Indicates the custom error message set by the user to be returned to the
+            --template-metadata-custom-prompt-safety-error-code=: Indicates the custom error code set by the user to be returned to the end
+            --template-metadata-custom-prompt-safety-error-message=: Indicates the custom error message set by the user to be returned to the
+            --template-metadata-ignore-partial-invocation-failures: If true, partial detector failures should be ignored.
+            --template-metadata-log-operations: If true, log template crud operations.
+            --template-metadata-log-sanitize-operations: If true, log sanitize operations.
+            --update-labels=: Update labels value or add key value pair.
+          completion:
+            flag:
+                basic-config-filter-enforcement:
+                    - disabled
+                    - enabled
+                malicious-uri-filter-settings-enforcement:
+                    - disabled
+                    - enabled
+                pi-and-jailbreak-filter-settings-confidence-level:
+                    - high
+                    - low-and-above
+                    - medium-and-above
+                pi-and-jailbreak-filter-settings-enforcement:
+                    - disabled
+                    - enabled
+        - name: create
+          description: Create Model Armor Template.
+          flags:
+            --advanced-config-deidentify-template=: Optional Sensitive Data Protection Deidentify template resource name.
+            --advanced-config-inspect-template=: Sensitive Data Protection inspect template resource name
+            --basic-config-filter-enforcement=: Tells whether the Sensitive Data Protection basic config is enabled or
+            --labels=: Labels as key value pairs.
+            --location=: The location id of the template resource.
+            --malicious-uri-filter-settings-enforcement=: Tells whether the Malicious URI filter is enabled or disabled.
+            --no-template-metadata-ignore-partial-invocation-failures&: If true, partial detector failures should be ignored.
+            --no-template-metadata-log-operations&: If true, log template crud operations.
+            --no-template-metadata-log-sanitize-operations&: If true, log sanitize operations.
+            --pi-and-jailbreak-filter-settings-confidence-level=: Confidence level for this filter.
+            --pi-and-jailbreak-filter-settings-enforcement=: Tells whether Prompt injection and Jailbreak filter is enabled or
+            --rai-settings-filters=!: Required, List of Responsible AI filters enabled for template.
+            --request-id=: An optional request ID to identify requests.
+            --template-metadata-custom-llm-response-safety-error-code=: Indicates the custom error code set by the user to be returned to the end
+            --template-metadata-custom-llm-response-safety-error-message=: Indicates the custom error message set by the user to be returned to the
+            --template-metadata-custom-prompt-safety-error-code=: Indicates the custom error code set by the user to be returned to the end
+            --template-metadata-custom-prompt-safety-error-message=: Indicates the custom error message set by the user to be returned to the
+            --template-metadata-ignore-partial-invocation-failures: If true, partial detector failures should be ignored.
+            --template-metadata-log-operations: If true, log template crud operations.
+            --template-metadata-log-sanitize-operations: If true, log sanitize operations.
+          completion:
+            flag:
+                basic-config-filter-enforcement:
+                    - disabled
+                    - enabled
+                malicious-uri-filter-settings-enforcement:
+                    - disabled
+                    - enabled
+                pi-and-jailbreak-filter-settings-confidence-level:
+                    - high
+                    - low-and-above
+                    - medium-and-above
+                pi-and-jailbreak-filter-settings-enforcement:
+                    - disabled
+                    - enabled
+        - name: delete
+          description: Delete Model Armor Template.
+          flags:
+            --location=: The location id of the template resource.
+            --request-id=: An optional request ID to identify requests.
+        - name: describe
+          description: Get Model Armor Template.
+          flags:
+            --location=: The location id of the template resource.

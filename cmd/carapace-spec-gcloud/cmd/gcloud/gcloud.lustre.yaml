@@ -1,0 +1,153 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: lustre
+description: Manage Lustre resources.
+commands:
+    - name: instances
+      description: Manage Instance resources.
+      commands:
+        - name: create
+          description: Creates a Managed Lustre instance.
+          flags:
+            --access-rules=: The access rules for the instance.
+            --async: Return immediately, without waiting for the operation in progress to
+            --capacity-gib=!: The storage capacity of the instance in gibibytes (GiB).
+            --default-squash-gid=: The user squash GID for the default access rule.
+            --default-squash-mode=!: The squash mode for the default access rule.
+            --default-squash-uid=: The user squash UID for the default access rule.
+            --description=: A user-readable description of the instance.
+            --filesystem=!: The filesystem name for this instance.
+            --gke-support-enabled: Indicates whether you want to enable support for GKE clients.
+            --kms-key=: The Cloud KMS key name to use for data encryption.
+            --labels=: Labels as key value pairs.
+            --location=: The location id of the instance resource.
+            --network=!: ID of the network or fully qualified identifier for the network.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-gke-support-enabled&: Indicates whether you want to enable support for GKE clients.
+            --per-unit-storage-throughput=!: The throughput of the instance in MB/s/TiB.
+            --placement-policy=: The placement policy name for the instance in the format of
+            --request-id=: An optional request ID to identify requests.
+          completion:
+            flag:
+                default-squash-mode:
+                    - no-squash
+                    - root-squash
+        - name: delete
+          description: Deletes a Managed Lustre instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the instance resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --request-id=: An optional request ID to identify requests.
+        - name: describe
+          description: Gets details of a single Managed Lustre instance.
+          flags:
+            --location=: The location id of the instance resource.
+        - name: export-data
+          description: Exports data from Managed Lustre instance to Cloud Storage.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --gcs-path-uri=!: The URI to a Cloud Storage bucket, or a path within a bucket, using the
+            --location=: The location id of the instance resource.
+            --lustre-path=: The root directory path to the Managed Lustre file system.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --request-id=: UUID to identify requests.
+            --service-account=!: ID of the serviceAccount or fully qualified identifier for the serviceAccount.
+        - name: import-data
+          description: Imports data from Cloud Storage to Managed Lustre instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --gcs-path-uri=!: The URI to a Cloud Storage bucket, or a path within a bucket, using the
+            --location=: The location id of the instance resource.
+            --lustre-path=: The root directory path to the Managed Lustre file system.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --request-id=: UUID to identify requests.
+            --service-account=!: ID of the serviceAccount or fully qualified identifier for the serviceAccount.
+        - name: list
+          description: List Lustre instances.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Updates the parameters of a single Managed Lustre instance.
+          flags:
+            --access-rules=: Set access_rules to new value.
+            --add-access-rules=: Add new value to access_rules list.
+            --async: Return immediately, without waiting for the operation in progress to
+            --capacity-gib=: The storage capacity of the instance in gibibytes (GiB).
+            --clear-: Set instance.accessRulesOptions back to default value.
+            --clear-access-rules: Clear access_rules value and set to empty list.
+            --clear-labels: Clear labels value and set to empty map.
+            --default-squash-gid=: The user squash GID for the default access rule.
+            --default-squash-mode=: The squash mode for the default access rule.
+            --default-squash-uid=: The user squash UID for the default access rule.
+            --description=: A user-readable description of the instance.
+            --gke-support-enabled: Indicates whether you want to enable support for GKE clients.
+            --labels=: Set labels to new value.
+            --location=: The location id of the instance resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-&: Set instance.accessRulesOptions back to default value.
+            --no-clear-access-rules&: Clear access_rules value and set to empty list.
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --no-gke-support-enabled&: Indicates whether you want to enable support for GKE clients.
+            --per-unit-storage-throughput=: The throughput of the instance in MB/s/TiB.
+            --placement-policy=: The placement policy name for the instance in the format of
+            --remove-access-rules=: Remove existing value from access_rules list.
+            --remove-labels=: Remove existing value from map labels.
+            --request-id=: An optional request ID to identify requests.
+            --update-labels=: Update labels value or add key value pair.
+          completion:
+            flag:
+                default-squash-mode:
+                    - no-squash
+                    - root-squash
+    - name: locations
+      description: View Locations resources.
+      hidden: true
+      commands:
+        - name: list
+          description: List locations.
+          hidden: true
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: describe
+          description: Describe locations.
+          hidden: true
+    - name: operations
+      description: Manage Operation resources.
+      commands:
+        - name: list
+          description: List operations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: wait
+          description: Wait operations.
+          flags:
+            --location=: The location id of the operation resource.
+        - name: cancel
+          description: Cancel operations.
+          flags:
+            --location=: The location id of the operation resource.
+        - name: delete
+          description: Delete operations.
+          flags:
+            --location=: The location id of the operation resource.
+        - name: describe
+          description: Describe operations.
+          flags:
+            --location=: The location id of the operation resource.

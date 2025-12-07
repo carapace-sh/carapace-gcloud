@@ -1,0 +1,75 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: transcoder
+description: Manage Transcoder jobs and job templates.
+commands:
+    - name: jobs
+      description: Manage Cloud Transcoder jobs.
+      commands:
+        - name: create
+          description: Create Transcoder jobs.
+          flags:
+            --batch-mode-priority=: Processing priority of a batch mode transcoder job.
+            --file=: Path to job config.
+            --input-uri=: Google Cloud Storage URI.
+            --json=: Job config in json format.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --mode=: Processing mode of transcode job.
+            --optimization=: Optimization strategy of transcode job.
+            --output-uri=: Google Cloud Storage directory URI (followed by a trailing forward slash).
+            --priority=&: (REMOVED) Job priority, default 0.
+            --template-id=: Job template id.
+          completion:
+            flag:
+                mode:
+                    - PROCESSING_MODE_INTERACTIVE
+                    - PROCESSING_MODE_BATCH
+                optimization:
+                    - AUTODETECT
+                    - DISABLED
+        - name: delete
+          description: Delete transcoder jobs.
+          flags:
+            --location=: Transcoder location for resources
+        - name: describe
+          description: Describe transcoder jobs.
+          flags:
+            --location=: Transcoder location for resources
+        - name: list
+          description: List transcoder jobs.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: templates
+      description: Manage Cloud Transcoder job templates.
+      commands:
+        - name: create
+          description: Create Transcoder job templates.
+          flags:
+            --file=: Path to job template.
+            --json=: Job template in json format.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: Transcoder location for resources
+        - name: delete
+          description: Delete transcoder job templates.
+          flags:
+            --location=: Transcoder location for resources
+        - name: describe
+          description: Describe transcoder job templates.
+          flags:
+            --location=: Transcoder location for resources
+        - name: list
+          description: List transcoder job templates.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the

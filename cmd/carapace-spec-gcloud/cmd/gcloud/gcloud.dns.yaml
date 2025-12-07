@@ -1,0 +1,461 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: dns
+description: Manage your Cloud DNS managed-zones and record-sets.
+commands:
+    - name: dns-keys
+      description: Manage Cloud DNS DNSKEY records.
+      commands:
+        - name: describe
+          description: Show details about a DNS key resource.
+          flags:
+            --zone=: The name of the managed-zone the DNSKEY record belongs to
+        - name: list
+          description: List DNS key resources.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --zone=: The name of the managed-zone you want to list DNSKEY records for.
+    - name: managed-zones
+      description: Manage your Cloud DNS managed-zones.
+      commands:
+        - name: list
+          description: View the list of all your managed-zones.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Specifies the desired service location the request is sent to.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: set-iam-policy
+          description: Set the IAM policy for a Cloud DNS managed-zone.
+          flags:
+            --policy-file=!: JSON or YAML file with the IAM policy
+        - name: update
+          description: Update an existing Cloud DNS managed-zone.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Remove all labels.
+            --denial-of-existence=: Requires DNSSEC enabled.
+            --description=: Short description for the managed zone.
+            --dnssec-state=: The DNSSEC state for this managed zone.
+            --forwarding-targets=: List of IPv4/IPv6 addresses or one domain name of the target name server that the zone will forward queries to.
+            --gkeclusters=: List of GKE clusters that the zone should be visible in if the zone visibility is [private].
+            --ksk-algorithm=: String mnemonic specifying the DNSSEC algorithm of the key-signing key.
+            --ksk-key-length=: Length of the key-signing key in bits.
+            --location=: Specifies the desired service location the request is sent to.
+            --log-dns-queries: Specifies whether to enable query logging.
+            --managed-reverse-lookup: Specifies whether this zone is a managed reverse lookup zone, required for Cloud DNS to correctly resolve Non-RFC1918 PTR records.
+            --networks=: List of networks that the zone should be visible in if the zone visibility is [private].
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --no-log-dns-queries&: Specifies whether to enable query logging.
+            --no-managed-reverse-lookup&: Specifies whether this zone is a managed reverse lookup zone, required for Cloud DNS to correctly resolve Non-RFC1918 PTR records.
+            --private-forwarding-targets=: List of IPv4/IPv6 addresses or one domain name of the target name server that the zone will forward queries to.
+            --remove-labels=: List of label keys to remove.
+            --target-network=!: Network ID of the Google Compute Engine private network to forward queries to.
+            --target-project=!: Project ID of the Google Compute Engine private network to forward queries to.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+            --zsk-algorithm=: String mnemonic specifying the DNSSEC algorithm of the key-signing key.
+            --zsk-key-length=: Length of the zone-signing key in bits.
+          completion:
+            flag:
+                denial-of-existence:
+                    - nsec
+                    - nsec3
+                dnssec-state:
+                    - "off"
+                    - "on"
+                    - transfer
+                ksk-algorithm:
+                    - ecdsap256sha256
+                    - ecdsap384sha384
+                    - rsasha1
+                    - rsasha256
+                    - rsasha512
+                zsk-algorithm:
+                    - ecdsap256sha256
+                    - ecdsap384sha384
+                    - rsasha1
+                    - rsasha256
+                    - rsasha512
+        - name: create
+          description: Create a Cloud DNS managed-zone.
+          flags:
+            --denial-of-existence=: Requires DNSSEC enabled.
+            --description=: Short description for the managed zone.
+            --dns-name=!: The DNS name suffix that will be managed with the created zone.
+            --dnssec-state=: The DNSSEC state for this managed zone.
+            --forwarding-targets=: List of IPv4/IPv6 addresses or one domain name of the target name server that the zone will forward queries to.
+            --gkeclusters=: List of GKE clusters that the zone should be visible in if the zone visibility is [private].
+            --ksk-algorithm=: String mnemonic specifying the DNSSEC algorithm of the key-signing key.
+            --ksk-key-length=: Length of the key-signing key in bits.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: Specifies the desired service location the request is sent to.
+            --log-dns-queries: Specifies whether to enable query logging.
+            --managed-reverse-lookup: Specifies whether this zone is a managed reverse lookup zone, required for Cloud DNS to correctly resolve Non-RFC1918 PTR records.
+            --networks=: List of networks that the zone should be visible in if the zone visibility is [private].
+            --no-log-dns-queries&: Specifies whether to enable query logging.
+            --no-managed-reverse-lookup&: Specifies whether this zone is a managed reverse lookup zone, required for Cloud DNS to correctly resolve Non-RFC1918 PTR records.
+            --private-forwarding-targets=: List of IPv4/IPv6 addresses or one domain name of the target name server that the zone will forward queries to.
+            --service-directory-namespace=: The fully qualified URL of the service directory namespace that should be associated with the zone.
+            --target-network=!: Network ID of the Google Compute Engine private network to forward queries to.
+            --target-project=!: Project ID of the Google Compute Engine private network to forward queries to.
+            --visibility=: Visibility of the zone.
+            --zsk-algorithm=: String mnemonic specifying the DNSSEC algorithm of the key-signing key.
+            --zsk-key-length=: Length of the zone-signing key in bits.
+          completion:
+            flag:
+                denial-of-existence:
+                    - nsec
+                    - nsec3
+                dnssec-state:
+                    - "off"
+                    - "on"
+                    - transfer
+                ksk-algorithm:
+                    - ecdsap256sha256
+                    - ecdsap384sha384
+                    - rsasha1
+                    - rsasha256
+                    - rsasha512
+                visibility:
+                    - public
+                    - private
+                zsk-algorithm:
+                    - ecdsap256sha256
+                    - ecdsap384sha384
+                    - rsasha1
+                    - rsasha256
+                    - rsasha512
+        - name: delete
+          description: Delete an empty Cloud DNS managed-zone.
+          flags:
+            --location=: Specifies the desired service location the request is sent to.
+        - name: describe
+          description: View the details of a Cloud DNS managed-zone.
+          flags:
+            --location=: Specifies the desired service location the request is sent to.
+        - name: get-iam-policy
+          description: Get the IAM policy for a Cloud DNS managed-zone.
+    - name: operations
+      description: Manage your Cloud DNS operations.
+      commands:
+        - name: list
+          description: List Cloud DNS operations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --zones=!: IDs of the zones or fully qualified identifiers for the zones.
+        - name: describe
+          description: Describe an operation.
+          flags:
+            --zone=!: Name of zone to get operations from.
+    - name: policies
+      description: Manage your Cloud DNS policies.
+      commands:
+        - name: create
+          description: Creates a new Cloud DNS policy.
+          flags:
+            --alternative-name-servers=: List of alternative name servers to forward to.
+            --description=!: A description of the policy.
+            --enable-dns64-all-queries: Specifies whether to allow networks bound to this policy to use DNS64 for IPv6-only VM instances.
+            --enable-inbound-forwarding: Specifies whether to allow networks bound to this policy to receive DNS queries sent by VMs or applications over VPN connections.
+            --enable-logging: Specifies whether to enable query logging.
+            --networks=!: The comma separated list of network names to associate with the policy.
+            --no-enable-dns64-all-queries&: Specifies whether to allow networks bound to this policy to use DNS64 for IPv6-only VM instances.
+            --no-enable-inbound-forwarding&: Specifies whether to allow networks bound to this policy to receive DNS queries sent by VMs or applications over VPN connections.
+            --no-enable-logging&: Specifies whether to enable query logging.
+            --private-alternative-name-servers=: List of alternative name servers to forward to.
+        - name: delete
+          description: Deletes a Cloud DNS policy.
+        - name: describe
+          description: Describes a Cloud DNS policy.
+        - name: list
+          description: View the list of all your Cloud DNS policies.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update an existing Cloud DNS policy.
+          flags:
+            --alternative-name-servers=: List of alternative name servers to forward to.
+            --description=: A description of the policy.
+            --enable-dns64-all-queries: Specifies whether to allow networks bound to this policy to use DNS64 for IPv6-only VM instances.
+            --enable-inbound-forwarding: Specifies whether to allow networks bound to this policy to receive DNS queries sent by VMs or applications over VPN connections.
+            --enable-logging: Specifies whether to enable query logging.
+            --networks=: The comma separated list of network names to associate with the policy.
+            --no-enable-dns64-all-queries&: Specifies whether to allow networks bound to this policy to use DNS64 for IPv6-only VM instances.
+            --no-enable-inbound-forwarding&: Specifies whether to allow networks bound to this policy to receive DNS queries sent by VMs or applications over VPN connections.
+            --no-enable-logging&: Specifies whether to enable query logging.
+            --private-alternative-name-servers=: List of alternative name servers to forward to.
+    - name: project-info
+      description: View Cloud DNS related information for a project.
+      commands:
+        - name: describe
+          description: View Cloud DNS related information for a project.
+    - name: record-sets
+      description: Manage the record-sets within your managed-zones.
+      commands:
+        - name: export
+          description: Export your record-sets into a file.
+          flags:
+            --location=: Specifies the desired service location the request is sent to.
+            --no-zone-file-format&: Indicates that records-file should be in the zone file format.
+            --zone-file-format: Indicates that records-file should be in the zone file format.
+            --zone=!: Name of the managed zone whose record sets you want to manage.
+        - name: list
+          description: View the list of record-sets in a managed-zone.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Specifies the desired service location the request is sent to.
+            --name=!: Only list record-sets with this exact domain name.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --type=: Only list records of this type.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+            --zone=!: Name of the managed zone whose record sets you want to manage.
+        - name: transaction
+          description: Make scriptable and transactional changes to your record-sets.
+          flags:
+            --transaction-file=: Path of the file which contains the transaction.
+          commands:
+            - name: abort
+              description: Abort transaction.
+              flags:
+                --transaction-file=: Path of the file which contains the transaction.
+                --zone=!: Name of the managed zone whose record sets you want to manage.
+            - name: add
+              description: Append a record-set addition to the transaction.
+              flags:
+                --name=!: DNS or domain name of the record-set to add.
+                --transaction-file=: Path of the file which contains the transaction.
+                --ttl=!: TTL (time to live) for the record-set to add.
+                --type=!: DNS record type of the record-set to add.
+                --zone=!: Name of the managed zone whose record sets you want to manage.
+            - name: describe
+              description: Describe the transaction.
+              flags:
+                --transaction-file=: Path of the file which contains the transaction.
+                --zone=!: Name of the managed zone whose record sets you want to manage.
+            - name: execute
+              description: Execute the transaction on Cloud DNS.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --transaction-file=: Path of the file which contains the transaction.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+                --zone=!: Name of the managed zone whose record sets you want to manage.
+            - name: remove
+              description: Append a record-set deletion to the transaction.
+              flags:
+                --name=!: DNS name of the record-set to be removed.
+                --transaction-file=: Path of the file which contains the transaction.
+                --ttl=!: TTL for the record-set to be removed.
+                --type=!: Type of the record-set to be removed.
+                --zone=!: Name of the managed zone whose record sets you want to manage.
+            - name: start
+              description: Start a transaction.
+              flags:
+                --transaction-file=: Path of the file which contains the transaction.
+                --zone=!: Name of the managed zone whose record sets you want to manage.
+        - name: delete
+          description: Delete a record-set in a managed-zone.
+          flags:
+            --location=: Specifies the desired service location the request is sent to.
+            --type=!: DNS record type of the record-set (e.g. A, AAAA, MX etc.).
+            --zone=!: Name of the managed zone whose record sets you want to manage.
+        - name: describe
+          description: Describe a record-set in a managed-zone.
+          flags:
+            --location=: Specifies the desired service location the request is sent to.
+            --type=!: DNS record type of the record-set (e.g. A, AAAA, MX etc.).
+            --zone=!: Name of the managed zone whose record sets you want to manage.
+        - name: import
+          description: Import record-sets into your managed-zone.
+          flags:
+            --delete-all-existing: Indicates that all existing record-sets should be deleted before importing the record-sets in the records-file.
+            --location=: Specifies the desired service location the request is sent to.
+            --no-delete-all-existing&: Indicates that all existing record-sets should be deleted before importing the record-sets in the records-file.
+            --no-replace-origin-ns&: Indicates that NS records for the origin of a zone should be imported if defined
+            --no-zone-file-format&: Indicates that the input records-file is in BIND zone format.
+            --replace-origin-ns: Indicates that NS records for the origin of a zone should be imported if defined
+            --zone-file-format: Indicates that the input records-file is in BIND zone format.
+            --zone=!: Name of the managed zone whose record sets you want to manage.
+        - name: update
+          description: Updates a record-set in a managed-zone.
+          flags:
+            --backup-data-trickle-ratio=: Specifies the percentage of traffic to send to the backup targets even when the primary targets are healthy.
+            --enable-geo-fencing: Specifies whether to enable fencing for geo queries.
+            --enable-health-checking: Required if specifying forwarding rule names for rrdata.
+            --health-check=: Specifies the health check to be used for public IP health checking.
+            --location=: Specifies the desired service location the request is sent to.
+            --no-enable-geo-fencing&: Specifies whether to enable fencing for geo queries.
+            --no-enable-health-checking&: Required if specifying forwarding rule names for rrdata.
+            --routing-policy-backup-data-type=!: For FAILOVER routing policies, the type of routing policy the backup data uses.
+            --routing-policy-backup-data=: (DEPRECATED) Specify the backup configuration for a primary backup routing policy.
+            --routing-policy-backup-item=: Specify this argument multiple times to define multiple items
+            --routing-policy-data=: (DEPRECATED) The routing policy data supports one of two formats below, depending on the choice of routing-policy-type.
+            --routing-policy-item=: Specify this argument multiple times for a weighted round robin (WRR)
+            --routing-policy-primary-data=!: The primary configuration for a primary backup routing policy.
+            --routing-policy-type=!: Indicates what type of routing policy is being specified.
+            --rrdatas=: DNS data (Address/CNAME/MX info, etc.) of the record-set.
+            --ttl=: TTL (time to live) for the record-set.
+            --type=!: DNS record type of the record-set (e.g. A, AAAA, MX etc.).
+            --zone=!: Name of the managed zone whose record sets you want to manage.
+          completion:
+            flag:
+                routing-policy-backup-data-type:
+                    - GEO
+                routing-policy-type:
+                    - GEO
+                    - WRR
+                    - FAILOVER
+        - name: changes
+          description: View details about changes to your Cloud DNS record-sets.
+          commands:
+            - name: describe
+              description: View the details of a change.
+              flags:
+                --zone=!: Name of the managed zone whose record sets you want to manage.
+            - name: list
+              description: View the list of changes that have been made to your record-sets.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --sort-order=: Sort order for listing.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+                --zone=!: Name of the managed zone whose record sets you want to manage.
+              completion:
+                flag:
+                    sort-order:
+                        - ascending
+                        - descending
+        - name: create
+          description: Creates a record-set in a managed-zone.
+          flags:
+            --backup-data-trickle-ratio=: Specifies the percentage of traffic to send to the backup targets even when the primary targets are healthy.
+            --enable-geo-fencing: Specifies whether to enable fencing for geo queries.
+            --enable-health-checking: Required if specifying forwarding rule names for rrdata.
+            --health-check=: Specifies the health check to be used for public IP health checking.
+            --location=: Specifies the desired service location the request is sent to.
+            --no-enable-geo-fencing&: Specifies whether to enable fencing for geo queries.
+            --no-enable-health-checking&: Required if specifying forwarding rule names for rrdata.
+            --routing-policy-backup-data-type=!: For FAILOVER routing policies, the type of routing policy the backup data uses.
+            --routing-policy-backup-data=: (DEPRECATED) Specify the backup configuration for a primary backup routing policy.
+            --routing-policy-backup-item=: Specify this argument multiple times to define multiple items
+            --routing-policy-data=: (DEPRECATED) The routing policy data supports one of two formats below, depending on the choice of routing-policy-type.
+            --routing-policy-item=: Specify this argument multiple times for a weighted round robin (WRR)
+            --routing-policy-primary-data=!: The primary configuration for a primary backup routing policy.
+            --routing-policy-type=!: Indicates what type of routing policy is being specified.
+            --rrdatas=: DNS data (Address/CNAME/MX info, etc.) of the record-set.
+            --ttl=: TTL (time to live) for the record-set.
+            --type=!: DNS record type of the record-set (e.g. A, AAAA, MX etc.).
+            --zone=!: Name of the managed zone whose record sets you want to manage.
+          completion:
+            flag:
+                routing-policy-backup-data-type:
+                    - GEO
+                routing-policy-type:
+                    - GEO
+                    - WRR
+                    - FAILOVER
+    - name: response-policies
+      description: Manage your Cloud DNS response policy.
+      commands:
+        - name: describe
+          description: Describes a Cloud DNS response policy.
+          flags:
+            --location=: Specifies the desired service location the request is sent to.
+        - name: list
+          description: Displays the list of all Cloud DNS response policies in a given project.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Specifies the desired service location the request is sent to.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: rules
+          description: Manage your Cloud DNS response policy rules.
+          commands:
+            - name: describe
+              description: Shows details about a Cloud DNS response policy rule.
+              flags:
+                --location=: Specifies the desired service location the request is sent to.
+                --response-policy=: The Cloud DNS response policy name response_policy_rule.
+            - name: list
+              description: Displays the list of all a Cloud DNS response policy rules.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: Specifies the desired service location the request is sent to.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Updates a new Cloud DNS response policy rule.
+              flags:
+                --behavior=: The response policy rule query behavior.
+                --dns-name=: DNS name (wildcard or exact) to apply this rule to.
+                --local-data=: All resource record sets for this selector, one per resource record
+                --location=: Specifies the desired service location the request is sent to.
+                --response-policy=: The Cloud DNS response policy name response_policy_rule.
+              completion:
+                flag:
+                    behavior:
+                        - behaviorUnspecified
+                        - bypassResponsePolicy
+            - name: create
+              description: Creates a new Cloud DNS response policy rule.
+              flags:
+                --behavior=: The response policy rule query behavior.
+                --dns-name=!: DNS name (wildcard or exact) to apply this rule to.
+                --local-data=: All resource record sets for this selector, one per resource record
+                --location=: Specifies the desired service location the request is sent to.
+                --response-policy=: The Cloud DNS response policy name response_policy_rule.
+              completion:
+                flag:
+                    behavior:
+                        - behaviorUnspecified
+                        - bypassResponsePolicy
+            - name: delete
+              description: Deletes a Cloud DNS response policy rule.
+              flags:
+                --location=: Specifies the desired service location the request is sent to.
+                --response-policy=: The Cloud DNS response policy name response_policy_rule.
+        - name: update
+          description: Updates a Cloud DNS response policy.
+          flags:
+            --description=: A description of the response policy.
+            --gkeclusters=: The comma-separated list of GKE cluster names to associate with the response policy.
+            --location=: Specifies the desired service location the request is sent to.
+            --networks=: The comma-separated list of network names to associate with the response policy.
+        - name: create
+          description: Creates a new Cloud DNS response policy.
+          flags:
+            --description=!: A description of the response policy.
+            --gkeclusters=: The comma-separated list of GKE cluster names to associate with the response policy.
+            --location=: Specifies the desired service location the request is sent to.
+            --networks=: The comma-separated list of network names to associate with the response policy.
+        - name: delete
+          description: Deletes a Cloud DNS response policy.
+          flags:
+            --location=: Specifies the desired service location the request is sent to.

@@ -1,0 +1,806 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: database-migration
+description: Manage Database Migration Service resources.
+commands:
+    - name: connection-profiles
+      description: Manage Database Migration Service connection profiles.
+      commands:
+        - name: create
+          description: Create Database Migration Service connection profiles.
+          commands:
+            - name: alloydb
+              description: Create a Database Migration Service connection profile for AlloyDB.
+              flags:
+                --authorized-network-cidr-ranges=: Comma-separated list of CIDR ranges that can connect to the AlloyDB instance.
+                --cluster-labels=: The resource labels for an AlloyDB cluster.
+                --cpu-count=!: Whole number value indicating how many vCPUs the machine should
+                --database-flags=: Comma-separated list of database flags to set on the AlloyDB primary
+                --database-version=: Database engine major version.
+                --display-name=: A user-friendly name for the connection profile.
+                --enable-outbound-public-ip: If true, Enables an outbound public IP address to support a database
+                --enable-public-ip: If true, the AlloyDB instance will be accessible via public IP.
+                --kms-key=!: ID of the kms-key or fully qualified identifier for the kms-key.
+                --kms-keyring=: The CMEK keyring id of the kms-key.
+                --kms-project=: The Cloud project id for the kms-key.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --network=: The VPC network from which the AlloyDB instance is accessible via private
+                --no-async: Waits for the operation in progress to complete before returning.
+                --no-enable-outbound-public-ip&: If true, Enables an outbound public IP address to support a database
+                --no-enable-public-ip&: If true, the AlloyDB instance will be accessible via public IP.
+                --password=!: Initial password for the 'postgres' user.
+                --primary-id=!: The ID of the primary instance for this AlloyDB cluster.
+                --primary-labels=: The resource labels for an AlloyDB primary instance.
+                --region=: The Cloud region for the connection_profile.
+                --role=: The role of the connection profile.
+              completion:
+                flag:
+                    cpu-count:
+                        - '%!s(float64=2)'
+                        - '%!s(float64=4)'
+                        - '%!s(float64=8)'
+                        - '%!s(float64=16)'
+                        - '%!s(float64=32)'
+                        - '%!s(float64=64)'
+                    database-version:
+                        - POSTGRES_14
+                        - POSTGRES_15
+                        - POSTGRES_16
+                        - POSTGRES_17
+                    role:
+                        - SOURCE
+                        - DESTINATION
+            - name: cloudsql
+              description: Create a Database Migration Service connection profile for Cloud SQL.
+              flags:
+                --activation-policy=: Activation policy specifies when the instance is activated; it is
+                --allocated-ip-range=: The name of the allocated IP range for the private IP Cloud SQL instance.
+                --authorized-networks=: List of external networks that are allowed to connect to the instance.
+                --auto-storage-increase: If you enable this setting, Cloud SQL checks your available storage every
+                --availability-type=: Cloud SQL availability type.
+                --cmek-key=!: ID of the cmek-key or fully qualified identifier for the cmek-key.
+                --cmek-keyring=: The CMEK keyring id of the cmek-key.
+                --cmek-project=: The Cloud project id for the cmek-key.
+                --data-disk-size=: Storage capacity available to the database, in GB.
+                --data-disk-type=: Type of storage.
+                --database-flags=: Comma-separated list of database flags to set on the instance.
+                --database-version-name=: Database version name (e.g. POSTGRES_15)
+                --database-version=: Database engine type and version.
+                --display-name=: A user-friendly name for the connection profile.
+                --edition=: Specifies edition.
+                --enable-data-cache&: Enable use of data cache for accelerated read performance.
+                --enable-ip-v4: Whether the instance should be assigned an IPv4 address or not.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --no-async: Waits for the operation in progress to complete before returning.
+                --no-auto-storage-increase&: If you enable this setting, Cloud SQL checks your available storage every
+                --no-enable-data-cache&: Enable use of data cache for accelerated read performance.
+                --no-enable-ip-v4&: Whether the instance should be assigned an IPv4 address or not.
+                --no-require-ssl&: Whether SSL connections over IP should be enforced or not.
+                --private-network=: Resource link for the VPC network from which the Cloud SQL instance is
+                --provider=: Database provider, for managed databases.
+                --region=: The Cloud region for the connection_profile.
+                --require-ssl: Whether SSL connections over IP should be enforced or not.
+                --role=: The role of the connection profile.
+                --root-password=: Root Cloud SQL user's password.
+                --secondary-zone=: Google Cloud Platform zone where the failover Cloud SQL database
+                --source-id=!: ID of the connection_profile or fully qualified identifier for the connection_profile.
+                --storage-auto-resize-limit=: Maximum size to which storage capacity can be automatically increased.
+                --tier=!: 'Tier (or machine type) for this instance, for example: ``db-n1-standard-1'''''
+                --user-labels=: The resource labels for a Cloud SQL instance to use to annotate any related
+                --zone=: Google Cloud Platform zone where your Cloud SQL database instance is
+              completion:
+                flag:
+                    activation-policy:
+                        - ALWAYS
+                        - NEVER
+                    availability-type:
+                        - REGIONAL
+                        - ZONAL
+                    data-disk-type:
+                        - PD_SSD
+                        - PD_HDD
+                    database-version:
+                        - MYSQL_5_7
+                        - MYSQL_5_6
+                        - MYSQL_8_0
+                        - MYSQL_8_0_18
+                        - MYSQL_8_0_26
+                        - MYSQL_8_0_27
+                        - MYSQL_8_0_28
+                        - MYSQL_8_0_30
+                        - MYSQL_8_0_31
+                        - MYSQL_8_0_32
+                        - MYSQL_8_0_33
+                        - MYSQL_8_0_34
+                        - MYSQL_8_0_35
+                        - MYSQL_8_0_36
+                        - MYSQL_8_0_37
+                        - MYSQL_8_4
+                        - POSTGRES_9_6
+                        - POSTGRES_10
+                        - POSTGRES_11
+                        - POSTGRES_12
+                        - POSTGRES_13
+                        - POSTGRES_14
+                        - POSTGRES_15
+                        - POSTGRES_16
+                    edition:
+                        - enterprise
+                        - enterprise-plus
+                    provider:
+                        - RDS
+                        - CLOUDSQL
+                    role:
+                        - SOURCE
+                        - DESTINATION
+            - name: mysql
+              description: Create a Database Migration Service connection profile for MySQL.
+              flags:
+                --ca-certificate=!: x509 PEM-encoded certificate of the CA that signed the database
+                --client-certificate=!: x509 PEM-encoded certificate that will be used by the replica to
+                --cloudsql-instance=: If the source or destination is a Cloud SQL database, then use this field
+                --display-name=: A user-friendly name for the connection profile.
+                --host=!: IP or hostname of the database.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --no-async: Waits for the operation in progress to complete before returning.
+                --no-prompt-for-password&: Prompt for the password used to connect to the database.
+                --password=: Password for the user that Database Migration Service uses to
+                --port=!: Network port of the database.
+                --private-key=!: Unencrypted PKCS#1 or PKCS#8 PEM-encoded private key associated with
+                --prompt-for-password: Prompt for the password used to connect to the database.
+                --provider=: Database provider, for managed databases.
+                --region=: The Cloud region for the connection_profile.
+                --role=: The role of the connection profile.
+                --ssl-type=: The type of SSL configuration.
+                --username=!: Username that Database Migration Service uses to connect to
+              completion:
+                flag:
+                    provider:
+                        - RDS
+                        - CLOUDSQL
+                    role:
+                        - SOURCE
+                        - DESTINATION
+                    ssl-type:
+                        - SERVER_ONLY
+                        - SERVER_CLIENT
+                        - REQUIRED
+                        - NONE
+            - name: oracle
+              description: Create a Database Migration Service connection profile for Oracle.
+              flags:
+                --ca-certificate=!: x509 PEM-encoded certificate of the CA that signed the database
+                --database-service=!: database service for the oracle connection profile.
+                --display-name=: A user-friendly name for the connection profile.
+                --forward-ssh-hostname=!: Hostname for the SSH tunnel.
+                --forward-ssh-password=: SSH password.
+                --forward-ssh-port=: Port for the SSH tunnel, default value is 22.
+                --forward-ssh-private-key=: SSH private key..
+                --forward-ssh-username=!: Username for the SSH tunnel.
+                --host=!: IP or hostname of the database.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --no-async: Waits for the operation in progress to complete before returning.
+                --no-prompt-for-password&: Prompt for the password used to connect to the database.
+                --no-static-ip-connectivity&: use static ip connectivity
+                --password=: Password for the user that Database Migration Service uses to
+                --port=!: Network port of the database.
+                --private-connection=!: ID of the private_connection or fully qualified identifier for the private_connection.
+                --prompt-for-password: Prompt for the password used to connect to the database.
+                --region=: The Cloud region for the connection_profile.
+                --role=: The role of the connection profile.
+                --static-ip-connectivity: use static ip connectivity
+                --username=!: Username that Database Migration Service uses to connect to
+              completion:
+                flag:
+                    role:
+                        - SOURCE
+                        - DESTINATION
+            - name: postgresql
+              description: Create a Database Migration Service connection profile for PostgreSQL.
+              flags:
+                --alloydb-cluster=: If the destination is an AlloyDB cluster, use this field to provide the
+                --ca-certificate=!: x509 PEM-encoded certificate of the CA that signed the database
+                --client-certificate=!: x509 PEM-encoded certificate that will be used by the replica to
+                --cloudsql-instance=: If the source or destination is a Cloud SQL database, then use this field
+                --database=: The name of the specific database within the host.
+                --display-name=: A user-friendly name for the connection profile.
+                --enable-iam-authentication&: Use IAM database authentication to connect to the database.
+                --forward-ssh-hostname=!&: Hostname for the SSH tunnel.
+                --forward-ssh-password=&: SSH password.
+                --forward-ssh-port=&: Port for the SSH tunnel, default value is 22.
+                --forward-ssh-private-key=&: SSH private key..
+                --forward-ssh-username=!&: Username for the SSH tunnel.
+                --host=!: IP or hostname of the database.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --no-async: Waits for the operation in progress to complete before returning.
+                --no-prompt-for-password&: Prompt for the password used to connect to the database.
+                --no-static-ip-connectivity&: use static ip connectivity
+                --password=: Password for the user that Database Migration Service uses to
+                --port=!: Network port of the database.
+                --private-connection=&: ID of the private_connection or fully qualified identifier for the private_connection.
+                --private-key=!: Unencrypted PKCS#1 or PKCS#8 PEM-encoded private key associated with
+                --prompt-for-password: Prompt for the password used to connect to the database.
+                --psc-service-attachment=!: ID of the service_attachment or fully qualified identifier for the service_attachment.
+                --region=: The Cloud region for the connection_profile.
+                --role=: The role of the connection profile.
+                --ssl-type=: The type of SSL configuration.
+                --static-ip-connectivity: use static ip connectivity
+                --username=!: Username that Database Migration Service uses to connect to
+              completion:
+                flag:
+                    role:
+                        - SOURCE
+                        - DESTINATION
+                    ssl-type:
+                        - SERVER_ONLY
+                        - SERVER_CLIENT
+                        - REQUIRED
+                        - NONE
+            - name: sqlserver
+              description: Create a Database Migration Service connection profile for SQL Server.
+              flags:
+                --ca-certificate=: x509 PEM-encoded certificate of the CA that signed the database
+                --cloudsql-instance=: If the source or destination is a Cloud SQL database, then use this field
+                --cloudsql-project-id=: The project id of the Cloud SQL instance.
+                --database=: The name of the specific database within the host.
+                --dbm-port=&: The Database Mirroring (DBM) port.
+                --display-name=: A user-friendly name for the connection profile.
+                --forward-ssh-hostname=!: Hostname for the SSH tunnel.
+                --forward-ssh-password=: SSH password.
+                --forward-ssh-port=: Port for the SSH tunnel, default value is 22.
+                --forward-ssh-private-key=: SSH private key..
+                --forward-ssh-username=!: Username for the SSH tunnel.
+                --gcs-bucket=!: Cloud Storage bucket for the source SQL Server connection profile where the backups are stored.
+                --gcs-prefix=: Cloud Storage prefix path within the bucket for the source SQL Server connection profile where the backups are stored.
+                --host=!: IP or hostname of the database.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --no-async: Waits for the operation in progress to complete before returning.
+                --no-prompt-for-password&: Prompt for the password used to connect to the database.
+                --no-static-ip-connectivity&: use static ip connectivity
+                --password=: Password for the user that Database Migration Service uses to
+                --port=!: Network port of the database.
+                --private-connection=!: ID of the private_connection or fully qualified identifier for the private_connection.
+                --prompt-for-password: Prompt for the password used to connect to the database.
+                --provider=: Database provider, for managed databases.
+                --psc-service-attachment=&: ID of the service_attachment or fully qualified identifier for the service_attachment.
+                --region=: The Cloud region for the connection_profile.
+                --role=: The role of the connection profile.
+                --ssl-flags=: Comma-separated list of SSL flags used for establishing SSL connection to
+                --ssl-type=: The type of SSL configuration.
+                --static-ip-connectivity: use static ip connectivity
+                --username=!: Username that Database Migration Service uses to connect to the
+              completion:
+                flag:
+                    provider:
+                        - CLOUDSQL
+                        - RDS
+                    role:
+                        - SOURCE
+                        - DESTINATION
+                    ssl-type:
+                        - SERVER_ONLY
+                        - REQUIRED
+                        - NONE
+        - name: delete
+          description: Delete a Database Migration Service connection profile.
+          flags:
+            --force: Cloud SQL replica database is also deleted (only for Cloud SQL connection profiles).
+            --no-force&: Cloud SQL replica database is also deleted (only for Cloud SQL connection profiles).
+            --region=: The name of the region.
+        - name: describe
+          description: Show details about a Database Migration Service connection profile.
+          flags:
+            --region=: The name of the region.
+        - name: list
+          description: List Database Migration Service connection profiles.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=!: ID of the region or fully qualified identifier for the region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: test
+          description: Test a Database Migration Service connection profile.
+          flags:
+            --no-async: Waits for the operation in progress to complete before returning.
+            --region=: The Cloud region for the connection_profile.
+        - name: update
+          description: Update a Database Migration Service connection profile.
+          flags:
+            --alloydb-cluster=: If the destination is an AlloyDB cluster, use this field to provide the
+            --ca-certificate=: x509 PEM-encoded certificate of the CA that signed the database
+            --clear-labels: Remove all labels.
+            --client-certificate=: x509 PEM-encoded certificate that will be used by the replica to
+            --cloudsql-instance=: If the source or destination is a Cloud SQL database, then use this field
+            --cloudsql-project-id=: The project id of the Cloud SQL instance.
+            --database-service=: database service for the oracle connection profile.
+            --database=: The name of the specific database within the host.
+            --dbm-port=&: The Database Mirroring (DBM) port.
+            --disable-iam-authentication&: Use IAM database authentication to connect to the database.
+            --display-name=: A user-friendly name for the connection profile.
+            --enable-iam-authentication&: Use IAM database authentication to connect to the database.
+            --gcs-bucket=!: Cloud Storage bucket for the source SQL Server connection profile where the backups are stored.
+            --gcs-prefix=: Cloud Storage prefix path within the bucket for the source SQL Server connection profile where the backups are stored.
+            --host=: IP or hostname of the database.
+            --no-clear-labels&: Remove all labels.
+            --no-prompt-for-password&: Prompt for the password used to connect to the database.
+            --password=: Password for the user that Database Migration Service uses to
+            --port=: Network port of the database.
+            --private-key=: Unencrypted PKCS#1 or PKCS#8 PEM-encoded private key associated with
+            --prompt-for-password: Prompt for the password used to connect to the database.
+            --region=: The Cloud region for the connection_profile.
+            --remove-labels=: List of label keys to remove.
+            --ssl-type=: The type of SSL configuration.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+            --username=: Username that Database Migration Service uses to connect to
+          completion:
+            flag:
+                ssl-type:
+                    - SERVER_ONLY
+                    - SERVER_CLIENT
+                    - REQUIRED
+                    - NONE
+    - name: conversion-workspaces
+      description: Manage Database Migration Service conversion workspaces.
+      commands:
+        - name: convert-application-code
+          description: Convert the application code.
+          hidden: true
+          flags:
+            --region=!: ID of the region or fully qualified identifier for the region.
+            --source-dialect=!: The source dialect of the code to be converted.
+            --source-file=: A file path to the source code which needs to be converted.
+            --source-folder=: A folder path to the source code files which needs to be converted.
+            --target-dialect=!: The target dialect of the code to be converted.
+            --target-path=: Path where the converted code should be written.
+        - name: import-rules
+          description: Import mapping rules in a Database Migration Service conversion workspace.
+          flags:
+            --auto-commit: Auto commits the conversion workspace.
+            --config-files=!: A list of files to import rules from.
+            --file-format=: File format type to import rules from.
+            --no-auto-commit&: Auto commits the conversion workspace.
+            --region=: The Cloud region for the conversion_workspace.
+          completion:
+            flag:
+                file-format:
+                    - ORA2PG
+        - name: mapping-rules
+          description: Manage Database Migration Service Conversion Workspace mapping rules.
+          commands:
+            - name: list
+              description: List Mapping Rules.
+              flags:
+                --conversion-workspace=!: ID of the conversion_workspace or fully qualified identifier for the conversion_workspace.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --region=: The name of the region.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a Database Migration Service conversion workspace.
+          flags:
+            --display-name=: A user-friendly name for the conversion workspace.
+            --global-filter=: Filter the source entities based on [AIP-160](https://google.aip.dev/160) standard.
+            --no-async: Waits for the operation in progress to complete before returning.
+            --region=: The Cloud region for the conversion_workspace.
+        - name: commit
+          description: Commit a Database Migration Service conversion workspace.
+          flags:
+            --commit-name=: A user-friendly name for the conversion workspace commit.
+            --no-async: Waits for the operation in progress to complete before returning.
+            --region=: The Cloud region for the conversion_workspace.
+        - name: create
+          description: Create a Database Migration Service conversion workspace.
+          flags:
+            --destination-database-engine=!: Destination database engine type.
+            --destination-database-provider=: Destination database provider.
+            --destination-database-version=: Version number for the database engine.
+            --display-name=: A user-friendly name for the conversion workspace.
+            --global-settings=: A generic list of settings for the workspace.
+            --no-async: Waits for the operation in progress to complete before returning.
+            --region=: The Cloud region for the conversion_workspace.
+            --source-database-engine=!: Source database engine type.
+            --source-database-provider=: Source database provider.
+            --source-database-version=: Version number for the database engine.
+          completion:
+            flag:
+                destination-database-engine:
+                    - POSTGRESQL
+                destination-database-provider:
+                    - ALLOYDB
+                    - CLOUDSQL
+                source-database-engine:
+                    - ORACLE
+                    - SQL_SERVER
+                source-database-provider:
+                    - AMAZON_RDS
+                    - AZURE_MANAGED_INSTANCE
+                    - AZURE_SQL_DATABASE
+                    - CLOUDSQL
+                    - UNSPECIFIED
+        - name: describe-ddls
+          description: Describe DDLs in a Database Migration Service conversion workspace.
+          flags:
+            --commit-id=: Request a specific commit id.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uncommitted&: Whether to retrieve the latest committed version of the entities or the
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: The Cloud region for the conversion_workspace.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --tree-type=: Tree type for database entities.
+            --uncommitted: Whether to retrieve the latest committed version of the entities or the
+            --uri: Print a list of resource URIs instead of the default output, and change the
+          completion:
+            flag:
+                tree-type:
+                    - SOURCE
+                    - DRAFT
+        - name: describe-entities
+          description: Describe database entities in a Database Migration conversion workspace.
+          flags:
+            --commit-id=: Request a specific commit id.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uncommitted&: Whether to retrieve the latest committed version of the entities or the
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: The Cloud region for the conversion_workspace.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --tree-type=!: Tree type for database entities.
+            --uncommitted: Whether to retrieve the latest committed version of the entities or the
+            --uri: Print a list of resource URIs instead of the default output, and change the
+          completion:
+            flag:
+                tree-type:
+                    - SOURCE
+                    - DRAFT
+        - name: describe-issues
+          description: Describe issues in a Database Migration Service conversion workspace.
+          flags:
+            --commit-id=: Request a specific commit id.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uncommitted&: Whether to retrieve the latest committed version of the entities or the
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: The Cloud region for the conversion_workspace.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uncommitted: Whether to retrieve the latest committed version of the entities or the
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: list
+          description: List conversion workspaces.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=!: ID of the region or fully qualified identifier for the region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: apply
+          description: Apply a Database Migration Service conversion workspace.
+          flags:
+            --destination-connection-profile=!: ID of the connection_profile or fully qualified identifier for the connection_profile.
+            --filter=: Filter the entities based on [AIP-160](https://google.aip.dev/160) standard.
+            --no-async: Waits for the operation in progress to complete before returning.
+            --region=: The Cloud region for the conversion_workspace.
+        - name: convert
+          description: Convert a Database Migration Service conversion workspace.
+          flags:
+            --auto-commit: Auto commits the conversion workspace.
+            --filter=: Filter the entities based on [AIP-160](https://google.aip.dev/160) standard.
+            --no-async: Waits for the operation in progress to complete before returning.
+            --no-auto-commit&: Auto commits the conversion workspace.
+            --region=: The Cloud region for the conversion_workspace.
+        - name: delete
+          description: Delete a Database Migration conversion workspace.
+          flags:
+            --no-async: Waits for the operation in progress to complete before returning.
+            --region=: The Cloud region for the conversion_workspace.
+        - name: describe
+          description: Show details about a database migration conversion workspace.
+          flags:
+            --region=: The name of the region.
+        - name: list-background-jobs
+          description: List background jobs in the conversion workspaces.
+          flags:
+            --max-size=: The maximum number of jobs to return.
+            --most-recent-per-job-type: Returns only the most recent job per job type.
+            --no-most-recent-per-job-type&: Returns only the most recent job per job type.
+            --region=: The name of the region.
+        - name: rollback
+          description: Rollback a Database Migration Service conversion workspace.
+          flags:
+            --no-async: Waits for the operation in progress to complete before returning.
+            --region=: The Cloud region for the conversion_workspace.
+        - name: seed
+          description: Seed a Database Migration Service conversion workspace.
+          flags:
+            --auto-commit: Auto commits the conversion workspace.
+            --destination-connection-profile=!: ID of the connection_profile or fully qualified identifier for the connection_profile.
+            --no-async: Waits for the operation in progress to complete before returning.
+            --no-auto-commit&: Auto commits the conversion workspace.
+            --region=: The Cloud region for the conversion_workspace.
+            --source-connection-profile=!: ID of the connection_profile or fully qualified identifier for the connection_profile.
+    - name: migration-jobs
+      description: Manage Database Migration Service migration jobs.
+      commands:
+        - name: describe
+          description: Show details about a Database Migration Service migration job.
+          flags:
+            --region=: The name of the region.
+        - name: generate-ssh-script
+          description: Generate a SSH script for a Database Migration Service migration job.
+          flags:
+            --region=: The name of the region.
+            --subnet=!: Subnet to create the VM instance in.
+            --vm-machine-type=!: Machine type for a new VM instance.
+            --vm-port=: Port that will be open on the bastion host.
+            --vm-zone-create=: Zone to create the VM instance in.
+            --vm-zone=: Zone the existing bastion VM instance is located in.
+            --vm=!: Bastion Compute Engine VM instance name to use or to create.
+        - name: restart
+          description: Restart a Database Migration Service migration job.
+          flags:
+            --databases-filter=: A list of databases to be migrated to the destination instance.
+            --no-restart-failed-objects&: Restart the failed objects in the migration job.
+            --no-skip-validation&: Restart the migration job without running prior configuration verification.
+            --object-filter=&: A list of schema and table names to be migrated to the destination instance.
+            --region=: The Cloud region for the migration_job.
+            --restart-failed-objects: Restart the failed objects in the migration job.
+            --skip-validation: Restart the migration job without running prior configuration verification.
+        - name: resume
+          description: Resume a Database Migration Service migration job.
+          flags:
+            --no-skip-validation&: Resume the migration job without running prior configuration verification.
+            --region=: The name of the region.
+            --skip-validation: Resume the migration job without running prior configuration verification.
+        - name: stop
+          description: Stop a Database Migration Service migration job.
+          flags:
+            --region=: The name of the region.
+        - name: verify
+          description: Verify a Database Migration Service migration job.
+          flags:
+            --region=: The name of the region.
+        - name: create
+          description: Create a Database Migration Service migration job.
+          flags:
+            --all-databases: Migrate all databases for the migration job.
+            --cmek-key=!: ID of the cmek-key or fully qualified identifier for the cmek-key.
+            --cmek-keyring=: The CMEK keyring id of the cmek-key.
+            --cmek-project=: The Cloud project id for the cmek-key.
+            --commit-id=: Commit id for the conversion workspace to use for creating the migration job.
+            --conversion-workspace=!: ID of the conversion_workspace or fully qualified identifier for the conversion_workspace.
+            --databases-filter=: A list of databases to be migrated to the destination instance.
+            --destination=!: ID of the connection_profile or fully qualified identifier for the connection_profile.
+            --display-name=: A user-friendly name for the migration job.
+            --dump-flags=: A list of dump flags.
+            --dump-parallel-level=: Parallelization level during initial dump of the migration job.
+            --dump-path=: 'Path to the dump file in Google Cloud Storage, in the format:'
+            --dump-type=: The type of the data dump.
+            --filter=: Filter the entities based on [AIP-160](https://google.aip.dev/160) standard.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --max-concurrent-cdc-connections=: Maximum number of connections Database Migration Service will open to
+            --max-concurrent-destination-connections=: Maximum number of concurrent connections Database Migration Service will
+            --max-concurrent-full-dump-connections=: Maximum number of connections Database Migration Service will open to
+            --no-all-databases&: Migrate all databases for the migration job.
+            --no-async: Waits for the operation in progress to complete before returning.
+            --no-skip-full-dump&: Whether to skip full dump or not.
+            --no-sqlserver-diff-backup&: Enable differential backups.
+            --no-sqlserver-promote-when-ready&: Promote the database when it is ready.
+            --no-static-ip&: Use the default IP allowlist method.
+            --oracle-cdc-start-position=: Oracle schema change number (SCN) to start CDC data migration from.
+            --original-migration-name=&: ID of the migration_job or fully qualified identifier for the migration_job.
+            --peer-vpc=: Name of the VPC network to peer with the Cloud SQL private network.
+            --region=: The Cloud region for the migration_job.
+            --skip-full-dump: Whether to skip full dump or not.
+            --source=!: ID of the connection_profile or fully qualified identifier for the connection_profile.
+            --sqlserver-backup-file-pattern=&: Pattern that describes the default backup naming strategy.
+            --sqlserver-cdc-start-position=: Sqlserver log squence number (LSN) to start CDC data migration from.
+            --sqlserver-dag-linked-server=!&: The name of the linked server that points to the source SQL Server instance.
+            --sqlserver-dag-source-ag=!&: The name of the source availability group.
+            --sqlserver-databases=!: A list of databases to be migrated to the destination Cloud SQL instance.
+            --sqlserver-diff-backup: Enable differential backups.
+            --sqlserver-encrypted-databases=: A JSON/YAML file describing the encryption settings per database for all encrytped databases.
+            --sqlserver-promote-when-ready: Promote the database when it is ready.
+            --static-ip: Use the default IP allowlist method.
+            --transaction-timeout=: Timeout for data migration transactions.
+            --type=!: Type of the migration job.
+            --vm-ip=!: Bastion Virtual Machine IP.
+            --vm-port=!: Forwarding port for the SSH tunnel.
+            --vm=: Name of VM that will host the SSH tunnel bastion.
+            --vpc=!: Name of the VPC network where the VM is hosted.
+          completion:
+            flag:
+                dump-parallel-level:
+                    - MIN
+                    - OPTIMAL
+                    - MAX
+                dump-type:
+                    - LOGICAL
+                    - PHYSICAL
+                type:
+                    - ONE_TIME
+                    - CONTINUOUS
+        - name: delete
+          description: Delete a Database Migration Service migration job.
+          flags:
+            --force: The destination Cloud SQL connection profile is always deleted with the
+            --no-force&: The destination Cloud SQL connection profile is always deleted with the
+            --region=: The name of the region.
+        - name: demote-destination
+          description: Demote a destination of a Database Migration Service migration job.
+          flags:
+            --region=: The name of the region.
+        - name: fetch-source-objects
+          description: Fetch objects for a Database Migration Service migration job by connection to the source.
+          flags:
+            --region=: The Cloud region for the migration_job.
+        - name: list
+          description: List Database Migration Service migration jobs.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=!: ID of the region or fully qualified identifier for the region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: promote
+          description: Promote a Database Migration Service migration job.
+          flags:
+            --databases-filter=: A list of databases to be migrated to the destination instance.
+            --region=: The Cloud region for the migration_job.
+        - name: start
+          description: Start a Database Migration Service migration job.
+          flags:
+            --no-skip-validation&: Start the migration job without running prior configuration verification.
+            --region=: The name of the region.
+            --skip-validation: Start the migration job without running prior configuration verification.
+        - name: update
+          description: Update a Database Migration Service migration job.
+          flags:
+            --all-databases: Migrate all databases for the migration job.
+            --clear-labels: Remove all labels.
+            --commit-id=: Commit id for the conversion workspace to use for creating the migration job.
+            --databases-filter=: A list of databases to be migrated to the destination instance.
+            --destination=!: ID of the connection_profile or fully qualified identifier for the connection_profile.
+            --display-name=: A user-friendly name for the migration job.
+            --dump-flags=: A list of dump flags.
+            --dump-parallel-level=: Parallelization level during initial dump of the migration job.
+            --dump-path=: 'Path to the dump file in Google Cloud Storage, in the format:'
+            --dump-type=: The type of the data dump.
+            --filter=: Filter the entities based on [AIP-160](https://google.aip.dev/160) standard.
+            --max-concurrent-cdc-connections=: Maximum number of connections Database Migration Service will open to
+            --max-concurrent-destination-connections=: Maximum number of concurrent connections Database Migration Service will
+            --max-concurrent-full-dump-connections=: Maximum number of connections Database Migration Service will open to
+            --no-all-databases&: Migrate all databases for the migration job.
+            --no-async: Waits for the operation in progress to complete before returning.
+            --no-clear-labels&: Remove all labels.
+            --no-sqlserver-diff-backup&: Enable differential backups.
+            --no-sqlserver-promote-when-ready&: Promote the database when it is ready.
+            --no-static-ip&: Use the default IP allowlist method.
+            --peer-vpc=: Name of the VPC network to peer with the Cloud SQL private network.
+            --region=: The Cloud region for the migration_job.
+            --remove-labels=: List of label keys to remove.
+            --source=!: ID of the connection_profile or fully qualified identifier for the connection_profile.
+            --sqlserver-backup-file-pattern=&: Pattern that describes the default backup naming strategy.
+            --sqlserver-dag-linked-server=&: The name of the linked server that points to the source SQL Server instance.
+            --sqlserver-dag-source-ag=&: The name of the source availability group.
+            --sqlserver-databases=: A list of databases to be migrated to the destination Cloud SQL instance.
+            --sqlserver-diff-backup: Enable differential backups.
+            --sqlserver-encrypted-databases=: A JSON/YAML file describing the encryption settings per database for all encrytped databases.
+            --sqlserver-promote-when-ready: Promote the database when it is ready.
+            --static-ip: Use the default IP allowlist method.
+            --transaction-timeout=: Timeout for data migration transactions.
+            --type=: Type of the migration job.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+            --vm-ip=: Bastion Virtual Machine IP.
+            --vm-port=: Forwarding port for the SSH tunnel.
+            --vm=: Name of VM that will host the SSH tunnel bastion.
+            --vpc=: Name of the VPC network where the VM is hosted.
+          completion:
+            flag:
+                dump-parallel-level:
+                    - MIN
+                    - OPTIMAL
+                    - MAX
+                dump-type:
+                    - LOGICAL
+                    - PHYSICAL
+                type:
+                    - ONE_TIME
+                    - CONTINUOUS
+    - name: objects
+      description: Manage Database Migration Service migration job objects.
+      commands:
+        - name: list
+          description: List a DMS migration job objects.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --migration-job=!: ID of the migration_job or fully qualified identifier for the migration_job.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: The Cloud region for the migration_job.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: lookup
+          description: Lookup a DMS migration job object.
+          flags:
+            --database=: The name of the database to lookup.
+            --migration-job=!: ID of the migration_job or fully qualified identifier for the migration_job.
+            --region=: The Cloud region for the migration_job.
+            --schema=: The name of the schema to lookup.
+            --table=: The name of the table to lookup.
+            --type=: The type of the object to lookup.
+          completion:
+            flag:
+                type:
+                    - DATABASE
+                    - SCHEMA
+                    - TABLE
+    - name: operations
+      description: Manage Database Migration Service operations.
+      commands:
+        - name: describe
+          description: Show details about a operation.
+          flags:
+            --region=: The name of the region.
+        - name: list
+          description: List operations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=!: ID of the region or fully qualified identifier for the region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: delete
+          description: Delete a Database Migration Service operation.
+          flags:
+            --region=: The name of the region.
+    - name: private-connections
+      description: Manage Database Migration Service private connections.
+      commands:
+        - name: create
+          description: Create a Database Migration private connection.
+          flags:
+            --display-name=!: A user-friendly name for the private connection.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --network-attachment=!: Full URI of the network attachment that datastream will connect to.For example, this would be of the form:`network-attachment=projects/test-project/regions/us-central1/networkAttachments/my-na`
+            --no-async: Waits for the operation in progress to complete before returning.
+            --no-skip-validation&: Creates the private connection without running prior verifications.
+            --no-validate-only&: If set, the request will retrieve the project id to allow in the  network attachment Datastream will connect to.
+            --region=: The Cloud region for the private_connection.
+            --skip-validation: Creates the private connection without running prior verifications.
+            --subnet=!: A free subnet for peering.
+            --validate-only: If set, the request will retrieve the project id to allow in the  network attachment Datastream will connect to.
+            --vpc=!: ID of the vpc or fully qualified identifier for the vpc.
+        - name: delete
+          description: Delete a Database Migration private connection.
+          flags:
+            --no-async: Waits for the operation in progress to complete before returning.
+            --region=: The Cloud region for the private_connection.
+        - name: describe
+          description: Show details about a database migration private connection.
+          flags:
+            --region=: The name of the region.
+        - name: list
+          description: List private connections.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=!: ID of the region or fully qualified identifier for the region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the

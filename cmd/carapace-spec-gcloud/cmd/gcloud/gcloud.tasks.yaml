@@ -1,0 +1,229 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: tasks
+description: Manage Cloud Tasks queues and tasks.
+commands:
+    - name: buffer
+      description: Buffers a task into a queue.
+      flags:
+        --location=!: The location where the queue exists.
+        --queue=!: The queue the task belongs to.
+        --task-id=: The task ID for the task being created.
+    - name: create-app-engine-task
+      description: Create and add a task that targets App Engine.
+      flags:
+        --body-content=: HTTP Body data sent to the task worker processing the task.
+        --body-file=: File containing HTTP body data sent to the task worker processing
+        --header=: An HTTP request header.
+        --location=: The location where we want to manage the queue or task.
+        --method=: The HTTP method to use for the request.
+        --queue=!: The queue the task belongs to.
+        --relative-uri=: The relative URI of the request.
+        --routing=: The route to be used for this task.
+        --schedule-time=: The time when the task is scheduled to be first attempted.
+    - name: delete
+      description: Delete a task from a queue.
+      flags:
+        --location=: The location where we want to manage the queue or task.
+        --queue=: The queue the task belongs to.
+    - name: describe
+      description: Show details about a task.
+      flags:
+        --location=: The location where we want to manage the queue or task.
+        --queue=: The queue the task belongs to.
+        --response-view=: Task response view.
+      completion:
+        flag:
+            response-view:
+                - basic
+                - full
+                - view-unspecified
+    - name: list
+      description: List tasks.
+      flags:
+        --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+        --limit=: Maximum number of resources to list.
+        --location=: The location where we want to manage the queue or task.
+        --no-uri&: Print a list of resource URIs instead of the default output, and change the
+        --page-size=: Some services group resource list output into pages.
+        --queue=!: The queue the tasks belong to.
+        --sort-by=: Comma-separated list of resource field key names to sort by.
+        --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: locations
+      description: Get information about Cloud Tasks locations.
+      commands:
+        - name: describe
+          description: Show details about a location.
+        - name: list
+          description: Lists the locations where Cloud Tasks is available.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: queues
+      description: Manage Cloud Tasks queues.
+      commands:
+        - name: pause
+          description: Pause a queue.
+          flags:
+            --location=: The location where we want to manage the queue or task.
+        - name: resume
+          description: Request to resume a paused or disabled queue.
+          flags:
+            --location=: The location where we want to manage the queue or task.
+        - name: set-iam-policy
+          description: Set the IAM policy for a queue.
+          flags:
+            --location=: The location name.
+        - name: create
+          description: Create a Cloud Tasks queue.
+          flags:
+            --http-header-override=: If provided, the specified HTTP headers override the existing
+            --http-method-override=: If provided, the specified HTTP method type override is used for
+            --http-oauth-service-account-email-override=!: The service account email to be used for generating an OAuth2 access
+            --http-oauth-token-scope-override=: The scope to be used when generating an OAuth2 access token to be
+            --http-oidc-service-account-email-override=!: The service account email to be used for generating an OpenID
+            --http-oidc-token-audience-override=: The audience to be used when generating an OpenID Connect token to
+            --http-uri-override=: If provided, the specified HTTP target URI override is used for all
+            --location=: The location where we want to manage the queue or task.
+            --log-sampling-ratio=: Specifies the fraction of operations to write to Cloud Logging.
+            --max-attempts=: The maximum number of attempts per task in the queue.
+            --max-backoff=: The maximum amount of time to wait before retrying a task after it
+            --max-concurrent-dispatches=: The maximum number of concurrent tasks that Cloud Tasks allows to
+            --max-dispatches-per-second=: The maximum rate at which tasks are dispatched from this queue.
+            --max-doublings=: The time between retries will double maxDoublings times.
+            --max-retry-duration=: The time limit for retrying a failed task, measured from when the task
+            --min-backoff=: The minimum amount of time to wait before retrying a task after it
+            --routing-override=: If provided, the specified App Engine route is used for all tasks
+        - name: delete
+          description: Delete a queue.
+          flags:
+            --location=: The location where we want to manage the queue or task.
+        - name: describe
+          description: Show details about a queue.
+          flags:
+            --location=: The location where we want to manage the queue or task.
+        - name: get-iam-policy
+          description: Get the IAM policy for a queue.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: The location name.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: List all queues.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: The location where we want to manage the queue or task.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: purge
+          description: Purge a queue by deleting all of its tasks.
+          flags:
+            --location=: The location where we want to manage the queue or task.
+        - name: remove-iam-policy-binding
+          description: Remove IAM policy binding of tasks queue.
+          flags:
+            --location=: The location name.
+            --member=!: The principal to remove the binding for.
+            --role=!: The role to remove the principal from.
+        - name: update
+          description: Update a Cloud Tasks queue.
+          flags:
+            --clear-http-header-override: Clear the field corresponding to `--http-header-override`.
+            --clear-http-method-override: Clear the field corresponding to `--http-method-override`.
+            --clear-http-oauth-service-account-email-override: Clear the field corresponding to `--http-oauth-service-account-email-override`.
+            --clear-http-oauth-token-scope-override: Clear the field corresponding to `--http-oauth-token-scope-override`.
+            --clear-http-oidc-service-account-email-override: Clear the field corresponding to `--http-oidc-service-account-email-override`.
+            --clear-http-oidc-token-audience-override: Clear the field corresponding to `--http-oidc-token-audience-override`.
+            --clear-http-uri-override: Clear the field corresponding to `--http-uri-override`.
+            --clear-log-sampling-ratio: Clear the field corresponding to `--log-sampling-ratio`.
+            --clear-max-attempts: Clear the field corresponding to `--max-attempts`.
+            --clear-max-backoff: Clear the field corresponding to `--max-backoff`.
+            --clear-max-concurrent-dispatches: Clear the field corresponding to `--max-concurrent-dispatches`.
+            --clear-max-dispatches-per-second: Clear the field corresponding to `--max-dispatches-per-second`.
+            --clear-max-doublings: Clear the field corresponding to `--max-doublings`.
+            --clear-max-retry-duration: Clear the field corresponding to `--max-retry-duration`.
+            --clear-min-backoff: Clear the field corresponding to `--min-backoff`.
+            --clear-routing-override: Clear the field corresponding to `--routing-override`.
+            --http-header-override=: If provided, the specified HTTP headers override the existing
+            --http-method-override=: If provided, the specified HTTP method type override is used for
+            --http-oauth-service-account-email-override=: The service account email to be used for generating an OAuth2 access
+            --http-oauth-token-scope-override=: The scope to be used when generating an OAuth2 access token to be
+            --http-oidc-service-account-email-override=: The service account email to be used for generating an OpenID
+            --http-oidc-token-audience-override=: The audience to be used when generating an OpenID Connect token to
+            --http-uri-override=: If provided, the specified HTTP target URI override is used for all
+            --location=: The location where we want to manage the queue or task.
+            --log-sampling-ratio=: Specifies the fraction of operations to write to Cloud Logging.
+            --max-attempts=: The maximum number of attempts per task in the queue.
+            --max-backoff=: The maximum amount of time to wait before retrying a task after it
+            --max-concurrent-dispatches=: The maximum number of concurrent tasks that Cloud Tasks allows to
+            --max-dispatches-per-second=: The maximum rate at which tasks are dispatched from this queue.
+            --max-doublings=: The time between retries will double maxDoublings times.
+            --max-retry-duration=: The time limit for retrying a failed task, measured from when the task
+            --min-backoff=: The minimum amount of time to wait before retrying a task after it
+            --no-clear-http-header-override&: Clear the field corresponding to `--http-header-override`.
+            --no-clear-http-method-override&: Clear the field corresponding to `--http-method-override`.
+            --no-clear-http-oauth-service-account-email-override&: Clear the field corresponding to `--http-oauth-service-account-email-override`.
+            --no-clear-http-oauth-token-scope-override&: Clear the field corresponding to `--http-oauth-token-scope-override`.
+            --no-clear-http-oidc-service-account-email-override&: Clear the field corresponding to `--http-oidc-service-account-email-override`.
+            --no-clear-http-oidc-token-audience-override&: Clear the field corresponding to `--http-oidc-token-audience-override`.
+            --no-clear-http-uri-override&: Clear the field corresponding to `--http-uri-override`.
+            --no-clear-log-sampling-ratio&: Clear the field corresponding to `--log-sampling-ratio`.
+            --no-clear-max-attempts&: Clear the field corresponding to `--max-attempts`.
+            --no-clear-max-backoff&: Clear the field corresponding to `--max-backoff`.
+            --no-clear-max-concurrent-dispatches&: Clear the field corresponding to `--max-concurrent-dispatches`.
+            --no-clear-max-dispatches-per-second&: Clear the field corresponding to `--max-dispatches-per-second`.
+            --no-clear-max-doublings&: Clear the field corresponding to `--max-doublings`.
+            --no-clear-max-retry-duration&: Clear the field corresponding to `--max-retry-duration`.
+            --no-clear-min-backoff&: Clear the field corresponding to `--min-backoff`.
+            --no-clear-routing-override&: Clear the field corresponding to `--routing-override`.
+            --routing-override=: If provided, the specified App Engine route is used for all tasks
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding for a tasks queue.
+          flags:
+            --location=: The location name.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+    - name: run
+      description: Force a task to run now.
+      flags:
+        --location=: The location where we want to manage the queue or task.
+        --queue=: The queue the task belongs to.
+    - name: cmek-config
+      description: Get or change CMEK configuration for Cloud Tasks.
+      commands:
+        - name: describe
+          description: Get CMEK configuration for Cloud Tasks in the specified location.
+          flags:
+            --location=!: Google Cloud location for the KMS key.
+        - name: update
+          description: Enable, disable, or edit CMEK configuration for Cloud Tasks in the specified location.
+          flags:
+            --clear-kms-key!: Disables CMEK for Cloud Tasks in the specified location by clearing the Cloud KMS cryptokey from the Cloud Tasks project and CMEK configuration.
+            --kms-key-name=!: Fully qualified identifier for the key or just the key ID.
+            --kms-keyring=: KMS keyring of the KMS key.
+            --kms-project=: Google Cloud project for the KMS key.
+            --location=: Google Cloud location for the KMS key.
+            --no-clear-kms-key!&: Disables CMEK for Cloud Tasks in the specified location by clearing the Cloud KMS cryptokey from the Cloud Tasks project and CMEK configuration.
+    - name: create-http-task
+      description: Create and add a task that targets a HTTP endpoint.
+      flags:
+        --body-content=: HTTP Body data sent to the task worker processing the task.
+        --body-file=: File containing HTTP body data sent to the task worker processing
+        --header=: An HTTP request header.
+        --location=: The location where we want to manage the queue or task.
+        --method=: The HTTP method to use for the request.
+        --oauth-service-account-email=!: The service account email to be used for generating an OAuth2 access
+        --oauth-token-scope=: The scope to be used when generating an OAuth2 access token to be
+        --oidc-service-account-email=!: The service account email to be used for generating an OpenID
+        --oidc-token-audience=: The audience to be used when generating an OpenID Connect token to
+        --queue=!: The queue the task belongs to.
+        --schedule-time=: The time when the task is scheduled to be first attempted.
+        --url=!: The full URL path that the request will be sent to.

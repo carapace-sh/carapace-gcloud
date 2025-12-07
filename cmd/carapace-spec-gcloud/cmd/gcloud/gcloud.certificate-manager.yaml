@@ -1,0 +1,341 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: certificate-manager
+description: Manage SSL certificates for your Google Cloud projects.
+commands:
+    - name: certificates
+      description: Manage Certificate Manager certificates.
+      commands:
+        - name: create
+          description: Create a certificate.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --certificate-file=!: Certificate data in PEM-encoded form.
+            --description=: Human-readable description of the resource.
+            --dns-authorizations=: Name(s) of the DNS authorizations for each listed domain.
+            --domains=!: Public domain name(s) to create a certificate for.
+            --issuance-config=: Name of the Certificate Issuance Config to use for issuance.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: Certificate Manager location.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --private-key-file=!: Private key data in PEM-encoded form.
+            --scope=: Scope of the managed certificate.
+            --tags=&: List of tag KEY=VALUE pairs to add.
+          completion:
+            flag:
+                scope:
+                    - all-regions
+                    - client-auth
+                    - default
+                    - edge-cache
+        - name: delete
+          description: Delete a certificate.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The Cloud location for the certificate.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe an existing certificate.
+          flags:
+            --location=: Certificate Manager location.
+        - name: list
+          description: List certificates.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a certificate.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --certificate-file=!: The certificate data in PEM-encoded form.
+            --clear-labels: Remove all labels.
+            --description=: Text description of a certificate.
+            --location=: The Cloud location for the certificate.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --private-key-file=!: The private key data in PEM-encoded form.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+    - name: dns-authorizations
+      description: Manage Certificate Manager DNS authorizations.
+      commands:
+        - name: create
+          description: Create a DNS Authorization.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: Human-readable description of the resource.
+            --domain=!: Public domain name to create an authorization for.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: Certificate Manager location.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --tags=&: List of tag KEY=VALUE pairs to add.
+            --type=: Type of the DNS authorization.
+          completion:
+            flag:
+                type:
+                    - fixed-record
+                    - per-project-record
+                    - type-unspecified
+        - name: delete
+          description: Delete a DNS Authorization.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Certificate Manager location.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Show details about a DNS Authorization.
+          flags:
+            --location=: Certificate Manager location.
+        - name: list
+          description: List all DNS Authorizations in a project.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a DNS Authorization.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Remove all labels.
+            --description=: Human-readable description of the resource.
+            --location=: Certificate Manager location.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+    - name: issuance-configs
+      description: Manage Certificate Manager Certificate Issuance Configs.
+      commands:
+        - name: create
+          description: Create a Certificate Issuance Config.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --ca-pool=!: CA Pool used for issuing certificates.
+            --description=: Human-readable description of the resource.
+            --key-algorithm=: Key algorithm to use when generating the private key.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --lifetime=: Lifetime of issued certificates in ISO 8601 format.
+            --location=: Certificate Manager location.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --rotation-window-percentage=: How long along the lifetime of the ceritificate to renew, expressed as a percentage.
+            --tags=&: List of tag KEY=VALUE pairs to add.
+          completion:
+            flag:
+                key-algorithm:
+                    - ecdsa-p256
+                    - rsa-2048
+        - name: delete
+          description: Delete a Certificate Issuance Config.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Certificate Manager location.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Show details about a Certificate Issuance Config.
+          flags:
+            --location=: Certificate Manager location.
+        - name: list
+          description: List all Certificate Issuance Configs in a project.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a Certificate Issuance Config.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Remove all labels.
+            --description=: Human-readable description of the resource.
+            --location=: Certificate Manager location.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+    - name: maps
+      description: Manage Certificate Manager certificate maps.
+      commands:
+        - name: create
+          description: Create a certificate map.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: Text description of a certificate map.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The Cloud location for the certificate map.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --tags=&: List of tags KEY=VALUE pairs to bind.
+        - name: delete
+          description: Delete a certificate map.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The Cloud location for the certificate map.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe an existing certificate map.
+          flags:
+            --location=: The Cloud location for the certificate map.
+        - name: entries
+          description: Manage Certificate Manager certificate map entries.
+          commands:
+            - name: create
+              description: Create a certificate map entry.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --certificates=!: IDs of the certificates or fully qualified identifiers for the certificates.
+                --description=: Text description of a certificate map entry.
+                --hostname=: A domain name (FQDN), which controls when list of certificates specified in the resource will be taken under consideration for certificate selection.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --location=: The Cloud location for the certificate map entry.
+                --map=: The certificate map for the certificate map entry.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-set-primary&: The certificate will be used as the default cert if no other certificate in the map matches on SNI.
+                --set-primary: The certificate will be used as the default cert if no other certificate in the map matches on SNI.
+            - name: delete
+              description: Delete a certificate map entry.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The Cloud location for the certificate map entry.
+                --map=: The certificate map for the certificate map entry.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: describe
+              description: Describe an existing certificate map entry.
+              flags:
+                --location=: The Cloud location for the certificate map entry.
+                --map=: The certificate map for the certificate map entry.
+            - name: list
+              description: List certificate map entries.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The Cloud location for the certificate map.
+                --map=!: ID of the certificate map or fully qualified identifier for the certificate map.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Update a certificate map entry.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --certificates=!: IDs of the certificates or fully qualified identifiers for the certificates.
+                --clear-labels: Remove all labels.
+                --description=: Text description of a certificate map entry.
+                --location=: The Cloud location for the certificate map entry.
+                --map=: The certificate map for the certificate map entry.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Remove all labels.
+                --remove-labels=: List of label keys to remove.
+                --update-labels=: List of label KEY=VALUE pairs to update.
+        - name: list
+          description: List certificate maps.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a certificate map.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Remove all labels.
+            --description=: Text description of a certificate map.
+            --location=: The Cloud location for the certificate map.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+    - name: operations
+      description: Manage Certificate Manager operations.
+      commands:
+        - name: describe
+          description: Describe a long-running operation.
+          flags:
+            --location=: Certificate Manager location.
+        - name: list
+          description: List long-running operations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: trust-configs
+      description: Manage Certificate Manager trust configs.
+      commands:
+        - name: update
+          description: Update TrustConfig.
+          flags:
+            --add-allowlisted-certificates=: Add allowlisted PEM-encoded certificates.
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-allowlisted-certificates: Clear all allowlisted certificates.
+            --clear-labels: Remove all labels.
+            --description=: Human-readable description of the resource.
+            --location=: Certificate Manager location.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-allowlisted-certificates&: Clear all allowlisted certificates.
+            --no-clear-labels&: Remove all labels.
+            --remove-allowlisted-certificates=: Remove allowlisted PEM-encoded certificates.
+            --remove-labels=: List of label keys to remove.
+            --trust-store=: Trust Store with the given trust anchor and intermediate CA PEM-encoded certificates.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+        - name: create
+          description: Create TrustConfig.
+          flags:
+            --allowlisted-certificates=: Allowlisted PEM-encoded certificates.
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: Human-readable description of the resource.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: Certificate Manager location.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --tags=&: List of tag KEY=VALUE pairs to add.
+            --trust-store=: Trust Store with the given trust anchor and intermediate CA PEM-encoded certificates.
+        - name: delete
+          description: Delete TrustConfig.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --etag=: The current etag of the asset.
+            --location=: Certificate Manager location.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Show details about a TrustConfig.
+          flags:
+            --location=: Certificate Manager location.
+        - name: export
+          description: Export TrustConfig.
+          flags:
+            --destination=: Path to a YAML file where the configuration will be exported.
+            --location=: Certificate Manager location.
+        - name: import
+          description: Import TrustConfig.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Certificate Manager location.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --source=: Path to a YAML file containing the configuration export data.
+            --update-mask=: Update mask used to specify fields to be overwritten in the TrustConfig by import.
+        - name: list
+          description: List all TrustConfigs in a project.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the

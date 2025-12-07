@@ -1,0 +1,445 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: metastore
+description: Manage Dataproc Metastore resources.
+commands:
+    - name: services
+      description: Manage Dataproc Metastore services.
+      commands:
+        - name: query-metadata
+          description: Execute a SQL query against a Dataproc Metastore Service's metadata.
+          flags:
+            --location=: Location to which the service belongs.
+            --query=!: Use Google Standard SQL query for Cloud Spanner and MySQL query
+        - name: backups
+          description: Manage backups under Dataproc Metastore services.
+          commands:
+            - name: delete
+              description: Delete a service backup.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location of the Dataproc Metastore service.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --service=: The identifier of the Dataproc Metastore service
+            - name: describe
+              description: Describe a backup.
+              flags:
+                --location=: The location of the Dataproc Metastore service.
+                --service=: The identifier of the Dataproc Metastore service
+            - name: get-iam-policy
+              description: Get the IAM policy for the backup.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location of the Dataproc Metastore service.
+                --page-size=: Some services group resource list output into pages.
+                --service=: The identifier of the Dataproc Metastore service
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+            - name: list
+              description: List backups under a Dataproc Metastore service.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location of the Dataproc Metastore service.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --service=!: ID of the service or fully qualified identifier for the service.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: remove-iam-policy-binding
+              description: Remove an IAM policy binding from a backup.
+              flags:
+                --location=: The location of the Dataproc Metastore service.
+                --member=!: The principal to remove the binding for.
+                --role=!: The role to remove the principal from.
+                --service=: The identifier of the Dataproc Metastore service
+            - name: set-iam-policy
+              description: Set the IAM policy for a backup.
+              flags:
+                --location=: The location of the Dataproc Metastore service.
+                --service=: The identifier of the Dataproc Metastore service
+            - name: add-iam-policy-binding
+              description: Add an IAM policy binding to a backup.
+              flags:
+                --location=: The location of the Dataproc Metastore service.
+                --member=!: The principal to add the binding for.
+                --role=!: Role name to assign to the principal.
+                --service=: The identifier of the Dataproc Metastore service
+            - name: create
+              description: Backup a service.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --description=: The description of this backup.
+                --location=: The location of the Dataproc Metastore service.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --service=: The identifier of the Dataproc Metastore service
+        - name: import
+          description: Import metadata into a Dataproc Metastore service.
+          commands:
+            - name: gcs
+              description: Import metadata into a Dataproc Metastore service from Google Cloud Storage.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --database-dump=!: A Cloud Storage object URI that specifies a database dump from which to import metadata.
+                --description=: The description of this metadata import.
+                --dump-type=: The type of the database dump;.
+                --import-id=!: The ID of this metadata import.
+                --location=: The location of the Dataproc Metastore service.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+              completion:
+                flag:
+                    dump-type:
+                        - avro
+                        - mysql
+        - name: list
+          description: List Dataproc Metastore services.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: move-table-to-database
+          description: Move table to another database.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --destination-db-name=!: The name of the database where the table should be moved.
+            --location=: The location of the Dataproc Metastore service.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --source-db-name=!: The name of the database where the table resides.
+            --table-name=!: The name of the table to be moved.
+        - name: set-iam-policy
+          description: Set the IAM policy for the service.
+          flags:
+            --location=: The location of the Dataproc Metastore service.
+        - name: add-iam-policy-binding
+          description: Add an IAM policy binding to a service.
+          flags:
+            --location=: The location of the Dataproc Metastore service.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: alter-metadata-resource-location
+          description: Alter metadata resource location.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location-uri=!: The new location URI for the metadata resource.
+            --location=: The location of the Dataproc Metastore service.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --resource-name=!: The relative metadata resource name in the following format.
+        - name: delete
+          description: Delete one or more Dataproc Metastore services.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Location to which the services belongs.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe a Dataproc Metastore service.
+          flags:
+            --location=: The location of the Dataproc Metastore service.
+        - name: remove-iam-policy-binding
+          description: Remove an IAM policy binding from a service.
+          flags:
+            --location=: The location of the Dataproc Metastore service.
+            --member=!: The principal to remove the binding for.
+            --role=!: The role to remove the principal from.
+        - name: alter-table-properties
+          description: Alter metadata table properties.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location of the Dataproc Metastore service.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --properties=!: A string where field names are separated by a comma.
+            --table-name=!: The name of the table containing the properties you're altering in the
+            --update-mask=!: A string where field names are separated by a comma.
+        - name: create
+          description: Create a Dataproc Metastore service.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --autoscaling-enabled: A boolean flag to determine whether Dataproc Metastore autoscaling should be enabled,
+            --auxiliary-versions-from-file=: Path to a YAML file containing the auxiliary versions configuration for
+            --auxiliary-versions=: Comma-separated list of auxiliary Hive metastore versions to deploy.
+            --consumer-subnetworks=: The list of subnetworks from which the service can be accessed.
+            --data-catalog-sync: A boolean flag to determine whether Dataproc Metastore metadata sync
+            --database-type=: The type of database the Dataproc Metastore service will store data in.
+            --deletion-protection: Flag that enables delete protection on Dataproc Metastore instance to prevent
+            --enable-scheduled-backup: Enable or disable scheduled backups for the Metastore service.
+            --encryption-kms-key=: The name of the Cloud KMS key to use for customer data encryption.
+            --endpoint-protocol=: The protocol to use for the metastore service endpoint.
+            --hive-metastore-configs-from-file=: Path to a XML file containing a mapping of Hive metastore configuration key-value
+            --hive-metastore-configs=: A mapping of Hive metastore configuration key-value pairs to
+            --hive-metastore-version=: The Hive metastore schema version.
+            --instance-size=: The instance size of the service.
+            --kerberos-principal=!: A Kerberos principal that exists in the KDC to authenticate as.
+            --keytab=!: A Kerberos keytab file that can be used to authenticate a service principal
+            --krb5-config=!: A Cloud Storage URI that specifies the path to a krb5.conf file.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The location of the Dataproc Metastore service.
+            --maintenance-window-day=!: The day of week when the window starts, e.g., `sun`.
+            --maintenance-window-hour=!: The hour of day (0-23) when the window starts.
+            --max-scaling-factor=: The maximum scaling factor allowed by the autoscaler.
+            --min-scaling-factor=: The minimum scaling factor allowed by the autoscaler.
+            --network-config-from-file=: Path to a YAML file containing the network configuration for Dataproc Metastore instance.
+            --network=: The name of the network on which the service can be accessed.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-autoscaling-enabled&: A boolean flag to determine whether Dataproc Metastore autoscaling should be enabled,
+            --no-data-catalog-sync&: A boolean flag to determine whether Dataproc Metastore metadata sync
+            --no-deletion-protection&: Flag that enables delete protection on Dataproc Metastore instance to prevent
+            --no-enable-scheduled-backup&: Enable or disable scheduled backups for the Metastore service.
+            --port=: The TCP port on which the Metastore service will listen.
+            --release-channel=: The release channel of the service.
+            --scaling-factor=: The scaling factor of the service.
+            --scheduled-backup-configs-from-file=: Path to a JSON file containing a mapping of scheduled backup configurations key-value pairs to apply to the scheduled backup.
+            --scheduled-backup-cron=: Specify the frequency of a scheduled backup of the metastore service.
+            --scheduled-backup-location=: Set the Cloud Storage URI to store the scheduled backups of the metastore service.
+            --tags=: List of tag KEY=VALUE pairs to add.
+            --tier=: The tier of the service.
+          completion:
+            flag:
+                database-type:
+                    - mysql
+                    - spanner
+                endpoint-protocol:
+                    - grpc
+                    - thrift
+                instance-size:
+                    - extra-large
+                    - extra-small
+                    - large
+                    - medium
+                    - small
+                maintenance-window-day:
+                    - fri
+                    - mon
+                    - sat
+                    - sun
+                    - thu
+                    - tue
+                    - wed
+                release-channel:
+                    - canary
+                    - stable
+                tier:
+                    - developer
+                    - enterprise
+        - name: export
+          description: Export metadata from a Dataproc Metastore service.
+          commands:
+            - name: gcs
+              description: Export metadata from a Dataproc Metastore service to Google Cloud Storage.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --destination-folder=!: A Cloud Storage URI of a folder that metadata is exported to, in the format
+                --dump-type=: The type of the database dump.
+                --location=: The location of the Dataproc Metastore service.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+              completion:
+                flag:
+                    dump-type:
+                        - avro
+                        - mysql
+        - name: get-iam-policy
+          description: Get the IAM policy for the service.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: The location of the Dataproc Metastore service.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: restore
+          description: Restore a Dataproc Metastore service.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --backup-location=: The location of the backup artifacts to restore from.
+            --backup=: The backup resource to restore from.
+            --location=: The location of the Dataproc Metastore service.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --restore-type=: The type of restore to perform.
+          completion:
+            flag:
+                restore-type:
+                    - full
+                    - metadata-only
+        - name: update
+          description: Update a Dataproc Metastore service.
+          flags:
+            --add-auxiliary-versions=: Comma-separated list of auxiliary Hive metastore versions to deploy.
+            --async: Return immediately, without waiting for the operation in progress to
+            --autoscaling-enabled: A boolean flag to determine whether Dataproc Metastore autoscaling should be enabled,
+            --clear-auxiliary-versions: Clears the existing auxiliary services attached to the primary Hive metastore
+            --clear-hive-metastore-configs: clear existing Hive metastore configurations.
+            --clear-labels: Remove all labels.
+            --data-catalog-sync: Boolean flag to determine whether or not Dataproc Metastore metadata sync to Data Catalog
+            --deletion-protection: Flag that enables delete protection on Dataproc Metastore instance to prevent
+            --enable-scheduled-backup: Enable or disable scheduled backups for the Metastore service.
+            --endpoint-protocol=: The protocol to use for the metastore service endpoint.
+            --instance-size=: The instance size of the service.
+            --kerberos-principal=: A Kerberos principal that exists in the KDC to authenticate as.
+            --keytab=: A Kerberos keytab file that can be used to authenticate a service principal
+            --krb5-config=: A Cloud Storage URI that specifies the path to a krb5.conf file.
+            --location=: The location of the Dataproc Metastore service.
+            --maintenance-window-day=!: The day of week when the window starts, e.g., `sun`.
+            --maintenance-window-hour=!: The hour of day (0-23) when the window starts.
+            --max-scaling-factor=: The maximum scaling factor allowed by the autoscaler.
+            --min-scaling-factor=: The minimum scaling factor allowed by the autoscaler.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-autoscaling-enabled&: A boolean flag to determine whether Dataproc Metastore autoscaling should be enabled,
+            --no-clear-auxiliary-versions&: Clears the existing auxiliary services attached to the primary Hive metastore
+            --no-clear-hive-metastore-configs&: clear existing Hive metastore configurations.
+            --no-clear-labels&: Remove all labels.
+            --no-data-catalog-sync&: Boolean flag to determine whether or not Dataproc Metastore metadata sync to Data Catalog
+            --no-deletion-protection&: Flag that enables delete protection on Dataproc Metastore instance to prevent
+            --no-enable-scheduled-backup&: Enable or disable scheduled backups for the Metastore service.
+            --port=: The TCP port on which the Metastore service will listen.
+            --remove-hive-metastore-configs=: Comma-separated list of configuration keys to remove with the form
+            --remove-labels=: List of label keys to remove.
+            --scaling-factor=: The scaling factor of the service.
+            --scheduled-backup-configs-from-file=: Path to a JSON file containing a mapping of scheduled backup configurations key-value pairs to apply to the scheduled backup.
+            --scheduled-backup-cron=: Specify the frequency of a scheduled backup of the metastore service.
+            --scheduled-backup-location=: Set the Cloud Storage URI to store the scheduled backups of the metastore service.
+            --tier=: The tier of the service.
+            --update-auxiliary-versions-from-file=: Path to a YAML file containing the auxiliary versions configuration for
+            --update-hive-metastore-configs-from-file=: Path to a XML file containing a mapping of Hive metastore configuration key-value
+            --update-hive-metastore-configs=: Comma-separated list of Hive metastore configurations.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+          completion:
+            flag:
+                endpoint-protocol:
+                    - grpc
+                    - thrift
+                instance-size:
+                    - extra-large
+                    - extra-small
+                    - large
+                    - medium
+                    - small
+                maintenance-window-day:
+                    - fri
+                    - mon
+                    - sat
+                    - sun
+                    - thu
+                    - tue
+                    - wed
+                tier:
+                    - developer
+                    - enterprise
+    - name: federations
+      description: Manage Dataproc Metastore federations.
+      commands:
+        - name: add-iam-policy-binding
+          description: Add an IAM policy binding to a federation.
+          flags:
+            --location=: The location of the Dataproc Metastore service.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: create
+          description: Create a Dataproc Metastore federation.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --backends=!: Backends from which the federation service serves metadata at query time.
+            --hive-metastore-version=: Hive metastore schema version of the Metastore federation.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The location of the Dataproc Metastore service.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --tags=: List of tag KEY=VALUE pairs to add.
+          completion:
+            flag:
+                hive-metastore-version:
+                    - 2.3.6
+                    - 3.1.2
+        - name: delete
+          description: Delete one or more Dataproc Metastore federations.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Location to which the federations belongs.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe a Dataproc Metastore federation.
+          flags:
+            --location=: The location of the Dataproc Metastore service.
+        - name: get-iam-policy
+          description: Get the IAM policy for the federation.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: The location of the Dataproc Metastore service.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: List Dataproc Metastore federations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a Dataproc Metastore federation.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-backends: Clear existing metastore backends.
+            --clear-labels: Remove all labels.
+            --location=: The location of the Dataproc Metastore service.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-backends&: Clear existing metastore backends.
+            --no-clear-labels&: Remove all labels.
+            --remove-backends=: Comma-separated list of metastore backend keys to remove with the form `RANK1,RANK2`.
+            --remove-labels=: List of label keys to remove.
+            --update-backends=: Comma-separated list of metastore backends specified as a list of `RANK=BACKEND` pairs.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+        - name: remove-iam-policy-binding
+          description: Remove an IAM policy binding from a federation.
+          flags:
+            --location=: The location of the Dataproc Metastore service.
+            --member=!: The principal to remove the binding for.
+            --role=!: The role to remove the principal from.
+        - name: set-iam-policy
+          description: Set the IAM policy for the federation.
+          flags:
+            --location=: The location of the Dataproc Metastore service.
+    - name: locations
+      description: Get information about Dataproc Metastore locations.
+      commands:
+        - name: describe
+          description: Show metadata for a Dataproc Metastore location.
+        - name: list
+          description: List Dataproc Metastore locations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: operations
+      description: Manage Dataproc Metastore operations.
+      commands:
+        - name: cancel
+          description: Cancel a Dataproc Metastore operation.
+          flags:
+            --location=: Location to which the operation belongs.
+        - name: delete
+          description: Delete one or more completed Dataproc Metastore operations.
+          flags:
+            --location=: Location to which the operations belongs.
+        - name: describe
+          description: Show metadata for a Dataproc Metastore operation.
+          flags:
+            --location=: The location of the Dataproc Metastore service.
+        - name: list
+          description: List Dataproc Metastore operations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: wait
+          description: Poll a long-running Dataproc Metastore operation until it completes.
+          flags:
+            --location=: The location of the Dataproc Metastore service.

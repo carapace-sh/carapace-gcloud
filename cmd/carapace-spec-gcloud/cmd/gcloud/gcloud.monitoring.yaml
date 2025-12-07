@@ -1,0 +1,230 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: monitoring
+description: Manage Cloud Monitoring dashboards.
+commands:
+    - name: dashboards
+      description: Manage Cloud Monitoring dashboards.
+      commands:
+        - name: list
+          description: List Cloud Monitoring dashboards.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a Cloud Monitoring dashboard.
+          flags:
+            --config-from-file=: Path to a JSON or YAML file containing the dashboard configuration.
+            --config=: Dashboard configuration, in either JSON or YAML format, as a string.
+        - name: create
+          description: Create a new Cloud Monitoring dashboard.
+          flags:
+            --config-from-file=: Path to a JSON or YAML file containing the dashboard configuration.
+            --config=: Dashboard configuration, in either JSON or YAML format, as a string.
+            --no-validate-only&: When set, validate the dashboard but do not save it.
+            --validate-only: When set, validate the dashboard but do not save it.
+        - name: delete
+          description: Delete a Cloud Monitoring dashboard.
+        - name: describe
+          description: Describe a Cloud Monitoring dashboard.
+    - name: snoozes
+      description: Manage Cloud Monitoring snoozes.
+      commands:
+        - name: list
+          description: List snoozes.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Updates a snooze.
+          flags:
+            --display-name=: The display name for the Snooze.
+            --end-time=: The end time for the Snooze.
+            --fields=: The list of fields to update.
+            --snooze-from-file=: The path to a JSON or YAML file containing the snooze.
+            --start-time=: The start time for the Snooze.
+        - name: cancel
+          description: Cancels a snooze.
+        - name: create
+          description: Create a new snooze.
+          flags:
+            --criteria-filter=: Optional.
+            --criteria-policies=: The policies that the Snooze applies to.
+            --display-name=: The display name for the Snooze.
+            --end-time=: The end time for the Snooze.
+            --snooze-from-file=: The path to a JSON or YAML file containing the snooze.
+            --start-time=: The start time for the Snooze.
+        - name: describe
+          description: Describe a snooze.
+    - name: uptime
+      description: Manage Cloud Monitoring uptime checks and synthetic monitors.
+      commands:
+        - name: list-configs
+          description: List uptime checks and synthetic monitors.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: list-ips
+          description: List uptime check server ips.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update an existing uptime check or synthetic monitor.
+          flags:
+            --add-regions=: The list of regions to add to the uptime check.
+            --add-status-classes=: The list of HTTP status classes to add to the uptime check.
+            --add-status-codes=: The list of HTTP status codes to add to the uptime check.
+            --body=: The request body associated with the HTTP POST request.
+            --clear-headers=: Clear all headers on the uptime check.
+            --clear-regions=: Clear all regions on the uptime check.
+            --clear-status-classes=: Clear all HTTP status classes on the uptime check.
+            --clear-status-codes=: Clear all HTTP status codes on the uptime check.
+            --clear-user-labels: Remove all labels.
+            --content-type=: The content type header to use for the check, defaults to `unspecified`.
+            --custom-content-type=: A user-provided content type header to use for the check.
+            --display-name=: The display name for the uptime check or synthetic monitor.
+            --json-path-matcher-type=: The type of JSONPath match that is applied to the JSON output, defaults to
+            --json-path=!: JSONPath within the response output pointing to the expected content to match.
+            --mask-headers=: Whether to encrypt the header information, defaults to `false`.
+            --matcher-content=!: String, regex or JSON content to match.
+            --matcher-type=: The type of content matcher that is applied to the server output, defaults to
+            --no-clear-user-labels&: Remove all labels.
+            --password=: The password to use when authenticating with the HTTP server.
+            --path=: The path to the page against which to run the check, defaults to `/`.
+            --period=: The time between uptime check or synthetic monitor executions in
+            --pings-count=: Number of ICMP pings to send alongside the request.
+            --port=: The port on the server against which to run the check.
+            --remove-headers=: The list of header keys to remove from the uptime check.
+            --remove-regions=: The list of regions to remove from the uptime check.
+            --remove-status-classes=: The list of HTTP status classes to remove from the uptime check.
+            --remove-status-codes=: The list of HTTP status codes to remove from the uptime check.
+            --remove-user-labels=: List of label keys to remove.
+            --request-method=: The HTTP request method to use, defaults to `get`.
+            --service-agent-auth=: The type of authentication to use for the HTTP request.
+            --set-regions=: The list of regions from which the check is run.
+            --set-status-classes=: List of HTTP status classes.
+            --set-status-codes=: List of HTTP status codes.
+            --timeout=: The maximum amount of time in seconds to wait for the request to complete, defaults to `60`.
+            --update-headers=: The list of headers to add to the uptime check.
+            --update-user-labels=: List of label KEY=VALUE pairs to update.
+            --username=: The username to use when authenticating with the HTTP server.
+            --validate-ssl=: Whether to include SSL certificate validation as a part of the uptime check,
+          completion:
+            flag:
+                content-type:
+                    - unspecified
+                    - url-encoded
+                    - user-provided
+                json-path-matcher-type:
+                    - exact-match
+                    - regex-match
+                matcher-type:
+                    - contains-string
+                    - matches-json-path
+                    - matches-regex
+                    - not-contains-string
+                    - not-matches-json-path
+                    - not-matches-regex
+                period:
+                    - "1"
+                    - "10"
+                    - "15"
+                    - "5"
+                request-method:
+                    - get
+                    - post
+                service-agent-auth:
+                    - oidc-token
+        - name: create
+          description: Create a new uptime check or synthetic monitor.
+          flags:
+            --body=: The request body associated with the HTTP POST request.
+            --content-type=: The content type header to use for the check, defaults to `unspecified`.
+            --custom-content-type=: A user-provided content type header to use for the check.
+            --group-id=!: The group of resources being monitored.
+            --group-type=: The resource type of the group members, defaults to `gce-instance`.
+            --headers=: The list of headers to send as part of the uptime check
+            --json-path-matcher-type=: The type of JSONPath match that is applied to the JSON output, defaults to
+            --json-path=!: JSONPath within the response output pointing to the expected content to match.
+            --mask-headers=: Whether to encrypt the header information, defaults to `false`.
+            --matcher-content=!: String, regex or JSON content to match.
+            --matcher-type=: The type of content matcher that is applied to the server output, defaults to
+            --password=: The password to use when authenticating with the HTTP server.
+            --path=: The path to the page against which to run the check, defaults to `/`.
+            --period=: The time between uptime check or synthetic monitor executions in
+            --pings-count=: Number of ICMP pings to send alongside the request.
+            --port=: The port on the server against which to run the check.
+            --protocol=: The protocol of the request, defaults to `http`.
+            --regions=: The list of regions from which the check is run.
+            --request-method=: The HTTP request method to use, defaults to `get`.
+            --resource-labels=!: Values for all of the labels listed in the associated monitored resource descriptor.
+            --resource-type=: Type of monitored resource, defaults to `uptime-url`.
+            --service-agent-auth=: The type of authentication to use for the HTTP request.
+            --status-classes=: List of HTTP status classes.
+            --status-codes=: List of HTTP Status Codes.
+            --synthetic-target=: The target of the Synthetic Monitor.
+            --timeout=: The maximum amount of time in seconds to wait for the request to complete, defaults to `60`.
+            --user-labels=: List of label KEY=VALUE pairs to add.
+            --username=: The username to use when authenticating with the HTTP server.
+            --validate-ssl=: Whether to include SSL certificate validation as a part of the uptime check,
+          completion:
+            flag:
+                content-type:
+                    - unspecified
+                    - url-encoded
+                    - user-provided
+                group-type:
+                    - aws-elb-load-balancer
+                    - gce-instance
+                json-path-matcher-type:
+                    - exact-match
+                    - regex-match
+                matcher-type:
+                    - contains-string
+                    - matches-json-path
+                    - matches-regex
+                    - not-contains-string
+                    - not-matches-json-path
+                    - not-matches-regex
+                period:
+                    - "1"
+                    - "10"
+                    - "15"
+                    - "5"
+                protocol:
+                    - http
+                    - https
+                    - tcp
+                request-method:
+                    - get
+                    - post
+                resource-type:
+                    - aws-ec2-instance
+                    - aws-elb-load-balancer
+                    - cloud-run-revision
+                    - gae-app
+                    - gce-instance
+                    - servicedirectory-service
+                    - uptime-url
+                service-agent-auth:
+                    - oidc-token
+        - name: delete
+          description: Delete an uptime check or synthetic monitor.
+        - name: describe
+          description: Describe an uptime check or synthetic monitor.

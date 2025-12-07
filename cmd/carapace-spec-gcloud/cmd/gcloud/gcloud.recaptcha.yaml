@@ -1,0 +1,185 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: recaptcha
+description: Manage reCAPTCHA Enterprise Keys.
+commands:
+    - name: firewall-policies
+      description: Managed reCAPTCHA Firewall Policies.
+      commands:
+        - name: create
+          description: Create a Firewall Policy.
+          flags:
+            --actions=: The actions that the caller should take regarding the user.
+            --condition=: A CEL (Common Expression Language) conditional expression that specifies if this policy
+            --description=: A description of what this policy aims to achieve, for convenience purposes.
+            --path=: The path for which this policy applies, specified as a glob pattern.
+        - name: delete
+          description: Delete one or more reCAPTCHA Firewall Policies.
+        - name: describe
+          description: Describe reCAPTCHA Firewall Policy.
+        - name: list
+          description: List reCAPTCHA Firewall Policies.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: reorder
+          description: Reorder all Firewall Policies.
+          flags:
+            --names=!: Names of all firewall policies in desired order.
+        - name: update
+          description: Update a Firewall Policy.
+          flags:
+            --actions=: The actions that the caller should take regarding the user.
+            --condition=: A CEL (Common Expression Language) conditional expression that specifies if this policy
+            --description=: A description of what this policy aims to achieve, for convenience purposes.
+            --path=: The path for which this policy applies, specified as a glob pattern.
+    - name: keys
+      description: Managed reCAPTCHA Keys.
+      commands:
+        - name: create
+          description: Create a Key.
+          flags:
+            --action-score-thresholds=: The action to score threshold used for POLICY_BASED_CHALLENGE.
+            --allow-all-bundle-ids: If set, bundle id enforcement will NOT be enabled on this key.
+            --allow-all-domains: If set, domain name enforcement will NOT be enabled on this key.
+            --allow-all-package-names: If set, package name enforcement will NOT be enabled on this key.
+            --allow-amp-traffic: Whether this key can be used on AMP (Accelerated Mobile Pages) websites.
+            --android!: Creates a Key configured for Android devices.
+            --bundle-ids=: iOS bundle ids of apps allowed to use the key.
+            --default-score-threshold=!: The global threshold to be used for POLICY_BASED_CHALLENGE if no action specific one exists.
+            --display-name=!: A human-readable name for the key.
+            --domains=: Domains or subdomains of websites allowed to use the key.
+            --express!: Creates a Key configured for Express assessments.
+            --integration-type=: Configures how reCAPTCHA will operate on your site.
+            --ios!: Creates a Key configured for iOS devices.
+            --key-id=!: The Apple developer key ID (10-character string).
+            --labels=: List of label KEY=VALUE pairs to add.
+            --no-allow-all-bundle-ids&: If set, bundle id enforcement will NOT be enabled on this key.
+            --no-allow-all-domains&: If set, domain name enforcement will NOT be enabled on this key.
+            --no-allow-all-package-names&: If set, package name enforcement will NOT be enabled on this key.
+            --no-allow-amp-traffic&: Whether this key can be used on AMP (Accelerated Mobile Pages) websites.
+            --no-android!&: Creates a Key configured for Android devices.
+            --no-express!&: Creates a Key configured for Express assessments.
+            --no-ios!&: Creates a Key configured for iOS devices.
+            --no-support-non-google-app-store-distribution&: If set, this key can be used in an Android application that is
+            --no-web!&: Creates a Key configured for websites.
+            --package-names=: Android package names of apps allowed to use the key.
+            --private-key-file=!: File path to a private key (downloaded as a text file with a .p8 file extension)
+            --security-preference=: Represents the possible challenge frequency and difficulty configurations for a web
+            --support-non-google-app-store-distribution: If set, this key can be used in an Android application that is
+            --team-id=!: The Apple team ID (10-character string) owning the provisioning profile
+            --testing-challenge=: For CHECKBOX and INVISIBLE Keys only, this option configures
+            --testing-score=: If set, all assessments for this key will return this score.
+            --waf-feature=: The WAF feature to use.
+            --waf-service=!: The WAF service provider to use.
+            --web!: Creates a Key configured for websites.
+          completion:
+            flag:
+                integration-type:
+                    - checkbox
+                    - invisible
+                    - policy-based-challenge
+                    - score
+                security-preference:
+                    - balance
+                    - challenge-security-preference-unspecified
+                    - security
+                    - usability
+                testing-challenge:
+                    - challenge
+                    - nocaptcha
+                waf-feature:
+                    - action-token
+                    - challenge-page
+                    - express
+                    - session-token
+                waf-service:
+                    - akamai
+                    - ca
+                    - cloudflare
+                    - fastly
+        - name: delete
+          description: Delete one or more reCAPTCHA Keys.
+        - name: describe
+          description: Describe reCAPTCHA Key.
+        - name: list-ip-overrides
+          description: List IP overrides for a key.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: add-ip-override
+          description: Add an IP override to a key.
+          flags:
+            --ip=!: IP address to override for the key.
+            --override=!: If set to allow, the IP address/CIDR range will be allowlisted for the key.
+          completion:
+            flag:
+                override:
+                    - allow
+                    - override-type-unspecified
+        - name: list
+          description: List reCAPTCHA Keys.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: migrate
+          description: Migrate a key to reCAPTCHA Enterprise.
+          flags:
+            --no-skip-billing-check&: If true, skips the billing check.
+            --skip-billing-check: If true, skips the billing check.
+        - name: remove-ip-override
+          description: Remove an IP override from a key.
+          flags:
+            --ip=!: IP address to override for the key.
+            --override=!: If set to allow, the IP address/CIDR range will be removed from the allowlisted IPs.
+          completion:
+            flag:
+                override:
+                    - allow
+                    - override-type-unspecified
+        - name: update
+          description: Update a Key.
+          flags:
+            --action-score-thresholds=: The action to score threshold used for POLICY_BASED_CHALLENGE.
+            --allow-all-bundle-ids: If set, bundle id enforcement will NOT be enabled on this key.
+            --allow-all-domains: If set, domain name enforcement will NOT be enabled on this key.
+            --allow-all-package-names: If set, package name enforcement will NOT be enabled on this key.
+            --allow-amp-traffic: Whether this key can be used on AMP (Accelerated Mobile Pages) websites.
+            --android!: Creates a Key configured for Android devices.
+            --bundle-ids=: iOS bundle ids of apps allowed to use the key.
+            --default-score-threshold=: The global threshold to be used for POLICY_BASED_CHALLENGE if no action specific one exists.
+            --display-name=: A human-readable name for the key.
+            --domains=: Domains or subdomains of websites allowed to use the key.
+            --express!: Creates a Key configured for Express assessments.
+            --ios!: Creates a Key configured for iOS devices.
+            --key-id=!: The Apple developer key ID (10-character string).
+            --labels=: List of label KEY=VALUE pairs to add.
+            --no-allow-all-bundle-ids&: If set, bundle id enforcement will NOT be enabled on this key.
+            --no-allow-all-domains&: If set, domain name enforcement will NOT be enabled on this key.
+            --no-allow-all-package-names&: If set, package name enforcement will NOT be enabled on this key.
+            --no-allow-amp-traffic&: Whether this key can be used on AMP (Accelerated Mobile Pages) websites.
+            --no-android!&: Creates a Key configured for Android devices.
+            --no-express!&: Creates a Key configured for Express assessments.
+            --no-ios!&: Creates a Key configured for iOS devices.
+            --no-web!&: Creates a Key configured for websites.
+            --package-names=: Android package names of apps allowed to use the key.
+            --private-key-file=!: File path to a private key (downloaded as a text file with a .p8 file extension)
+            --security-preference=: Represents the possible challenge frequency and difficulty configurations for a web key.
+            --team-id=!: The Apple team ID (10-character string) owning the provisioning profile
+            --web!: Creates a Key configured for websites.
+          completion:
+            flag:
+                security-preference:
+                    - balance
+                    - challenge-security-preference-unspecified
+                    - security
+                    - usability

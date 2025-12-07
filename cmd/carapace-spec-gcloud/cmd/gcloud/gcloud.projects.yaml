@@ -1,0 +1,71 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: projects
+description: Create and manage project access policies.
+commands:
+    - name: get-ancestors
+      description: Get the ancestors for a project.
+    - name: get-iam-policy
+      description: Get IAM policy for a project.
+      flags:
+        --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+        --limit=: Maximum number of resources to list.
+        --page-size=: Some services group resource list output into pages.
+        --sort-by=: Comma-separated list of resource field key names to sort by.
+    - name: list
+      description: List projects accessible by the active account.
+      flags:
+        --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+        --limit=: Maximum number of resources to list.
+        --no-uri&: Print a list of resource URIs instead of the default output, and change the
+        --page-size=: Some services group resource list output into pages.
+        --sort-by=: Comma-separated list of resource field key names to sort by.
+        --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: undelete
+      description: Undelete a project.
+    - name: update
+      description: Update the name of a project.
+      flags:
+        --name=!: New name for the project.
+    - name: add-iam-policy-binding
+      description: Add IAM policy binding for a project.
+      flags:
+        --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+        --condition=: A condition to include in the binding.
+        --member=!: The principal to add the binding for.
+        --role=!: Role name to assign to the principal.
+    - name: describe
+      description: Show metadata for a project.
+    - name: get-ancestors-iam-policy
+      description: Get IAM policies for a project and its ancestors.
+      flags:
+        --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+        --include-deny: Include deny policies on the project and its ancestors in the result
+        --limit=: Maximum number of resources to list.
+        --no-include-deny&: Include deny policies on the project and its ancestors in the result
+        --page-size=: Some services group resource list output into pages.
+        --sort-by=: Comma-separated list of resource field key names to sort by.
+    - name: remove-iam-policy-binding
+      description: Remove IAM policy binding for a project.
+      flags:
+        --all: Remove all bindings with this role and principal, irrespective of any
+        --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+        --condition=: The condition of the binding that you want to remove.
+        --member=!: The principal to remove the binding for.
+        --no-all&: ""
+        --role=!: The role to remove the principal from.
+    - name: set-iam-policy
+      description: Set IAM policy for a project.
+    - name: create
+      description: Create a new project.
+      flags:
+        --enable-cloud-apis: Enable `cloudapis.googleapis.com` during creation.
+        --folder=: ID for the folder to use as a parent
+        --labels=: List of label KEY=VALUE pairs to add.
+        --name=: Name for the project you want to create.
+        --no-enable-cloud-apis&: Enable `cloudapis.googleapis.com` during creation.
+        --no-set-as-default&: Set newly created project as [core/project] property.
+        --organization=: ID for the organization to use as a parent
+        --set-as-default: Set newly created project as [core/project] property.
+        --tags=: List of tags KEY=VALUE pairs to bind.
+    - name: delete
+      description: Delete a project.

@@ -1,0 +1,270 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: bms
+description: Manage Bare Metal Solution resources.
+commands:
+    - name: nfs-shares
+      description: Manage NFS shares in Bare Metal Solution.
+      commands:
+        - name: list
+          description: List Bare Metal Solution NFS shares in a project.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --region=!: ID of the region or fully qualified identifier for the region.
+        - name: rename
+          description: Rename a Bare Metal Solution nfs-share.
+          flags:
+            --new-name=!: New nfs-share name for renaming an already existing nfs-share.
+            --region=: Region of the resource.
+        - name: update
+          description: Update a Bare Metal Solution NFS share.
+          flags:
+            --add-allowed-client=: Adds an allowed client to the NFS share.
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-allowed-clients: Removes all IP range reservations in the network.
+            --clear-labels: Remove all labels.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-allowed-clients&: Removes all IP range reservations in the network.
+            --no-clear-labels&: Remove all labels.
+            --region=: Region of the resource.
+            --remove-allowed-client=: Removes an allowed client for the NFS share given its network name and cidr.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+        - name: create
+          description: Create a Bare Metal Solution NFS share.
+          flags:
+            --allowed-client=!: Adds an allowed client to the NFS share.
+            --async: Return immediately, without waiting for the operation in progress to
+            --labels=: List of label KEY=VALUE pairs to add.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: Region of the resource.
+            --size-gib=!: The requested size of the NFS share in GiB
+            --storage-type=!: Specifies the storage type of the underlying volume which will be created for the NFS share.
+          completion:
+            flag:
+                storage-type:
+                    - HDD
+                    - SSD
+        - name: delete
+          description: Delete a Bare Metal Solution NFS share.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: Region of the resource.
+        - name: describe
+          description: Describe a Bare Metal solution NFS share.
+          flags:
+            --region=: Region of the resource.
+    - name: operations
+      description: Manage operations in Bare Metal Solution.
+      commands:
+        - name: describe
+          description: Show metadata for a Bare Metal Solution operation.
+          flags:
+            --region=: Region of the resource.
+        - name: wait
+          description: Poll a long-running Bare Metal Solution operation until it completes.
+          flags:
+            --region=: Region of the resource.
+    - name: os-images
+      description: Manage bare metal os images in Bare Metal Solution.
+      commands:
+        - name: describe
+          description: Describe Bare Metal Solution OS images in a project.
+          flags:
+            --region=: Region of the resource.
+        - name: list
+          description: List Bare Metal Solution OS images in a project.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+    - name: ssh-keys
+      description: Manage SSH keys for Bare Metal Solution.
+      commands:
+        - name: add
+          description: Add a public SSH key to the project in Bare Metal Solution.
+          flags:
+            --key-file=: The path to a file containing an SSH public key to add
+            --key=: The SSH public key to add
+        - name: list
+          description: List the SSH keys added to the project in Bare Metal Solution.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+        - name: remove
+          description: Remove an SSH key in Bare Metal Solution given its name.
+    - name: volumes
+      description: Manage bare metal volumes in Bare Metal Solution.
+      commands:
+        - name: luns
+          description: Manage bare metal logical unit numbers (LUNs) in Bare Metal Solution.
+          commands:
+            - name: describe
+              description: Describe a Bare Metal Solution LUN.
+              flags:
+                --region=: Region of the resource.
+                --volume=: Bare Metal Solution volume.
+            - name: list
+              description: List Bare Metal Solution LUNs in a project.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --region=: Region of the resource.
+                --volume=!: ID of the volume or fully qualified identifier for the volume.
+        - name: rename
+          description: Rename a Bare Metal Solution volume.
+          flags:
+            --new-name=!: New volume name for renaming an already existing volume.
+            --region=: Region of the resource.
+        - name: restore
+          description: Restore a Bare Metal Solution boot volume from an existing snapshot.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: Region of the resource.
+            --snapshot=!: Name of the snapshot to restore.
+        - name: snapshot
+          description: Create a snapshot of a Bare Metal Solution boot volume.
+          flags:
+            --description=!: Textual description of the created snapshot.
+            --region=: Region of the resource.
+            --snapshot-name=!: Name to assign to the created snapshot.
+        - name: snapshots
+          description: Manage snapshots for Bare Metal Solution volumes.
+          commands:
+            - name: delete
+              description: Delete a Bare Metal Solution boot volume snapshot.
+              flags:
+                --region=: Region of the resource.
+                --volume=: Bare Metal Solution volume.
+            - name: describe
+              description: Describe a Bare Metal Solution boot volume snapshot.
+              flags:
+                --region=: Region of the resource.
+                --volume=: Bare Metal Solution volume.
+            - name: list
+              description: List snapshots for a Bare Metal Solution boot volume.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --region=: Region of the resource.
+                --volume=!: ID of the volume or fully qualified identifier for the volume.
+        - name: update
+          description: Update a Bare Metal Solution volume.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Remove all labels.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --region=: Region of the resource.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+        - name: describe
+          description: Describe a Bare Metal Solution volume.
+          flags:
+            --region=: Region of the resource.
+        - name: list
+          description: List Bare Metal Solution volumes in a project.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --region=!: ID of the region or fully qualified identifier for the region.
+    - name: instances
+      description: Manage bare metal instances in Bare Metal Solution.
+      commands:
+        - name: update
+          description: Update a Bare Metal Solution instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Remove all labels.
+            --enable-hyperthreading: Enable hyperthreading for the server.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --no-enable-hyperthreading&: Enable hyperthreading for the server.
+            --os-image=: OS image to install on the server.
+            --region=: Region of the resource.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+        - name: describe
+          description: Describe a Bare Metal solution instance.
+          flags:
+            --region=: Region of the resource.
+        - name: enable-serial-console
+          description: Enable interactive serial console for a Bare Metal Solution instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: Region of the resource.
+        - name: rename
+          description: Rename a Bare Metal Solution instance.
+          flags:
+            --new-name=!: New instance name for renaming an already existing instance.
+            --region=: Region of the resource.
+        - name: disable-serial-console
+          description: Disable interactive serial console for a Bare Metal Solution instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: Region of the resource.
+        - name: list
+          description: List Bare Metal Solution instances in a project.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --region=!: ID of the region or fully qualified identifier for the region.
+        - name: reset
+          description: Reset a Bare Metal Solution instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: Region of the resource.
+        - name: start
+          description: Start a Bare Metal Solution instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: Region of the resource.
+        - name: stop
+          description: Stop a Bare Metal Solution instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: Region of the resource.
+    - name: networks
+      description: Manage networks in Bare Metal Solution.
+      commands:
+        - name: describe
+          description: Describe a Bare Metal solution network.
+          flags:
+            --region=: Region of the resource.
+        - name: list
+          description: List Bare Metal Solution networks in a project.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --region=!: ID of the region or fully qualified identifier for the region.
+        - name: list-ip-reservations
+          description: List IP range reservations for Bare Metal Solution networks in a project.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --region=!: ID of the region or fully qualified identifier for the region.
+        - name: rename
+          description: Rename a Bare Metal Solution network.
+          flags:
+            --new-name=!: New network name for renaming an already existing network.
+            --region=: Region of the resource.
+        - name: update
+          description: Update a Bare Metal Solution network.
+          flags:
+            --add-ip-range-reservation=: Add a reservation of a range of IP addresses in the network.
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-ip-range-reservations: Removes all IP range reservations in the network.
+            --clear-labels: Remove all labels.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-ip-range-reservations&: Removes all IP range reservations in the network.
+            --no-clear-labels&: Remove all labels.
+            --region=: Region of the resource.
+            --remove-ip-range-reservation=: Remove a reservation of a range of IP addresses in the network.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.

@@ -1,0 +1,311 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: managed-kafka
+description: Administer Managed Service for Apache Kafka clusters, topics, and consumer groups.
+commands:
+    - name: acls
+      description: Administer Managed Service for Apache Kafka acls.
+      commands:
+        - name: remove-acl-entry
+          description: Remove an acl entry from a Managed Service for Apache Kafka acl.
+          flags:
+            --cluster=: The cluster name.
+            --host=: The host.
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+            --operation=!: The operation type.
+            --permission-type=: The permission type.
+            --principal=!: The principal.
+        - name: update
+          description: Update a Managed Service for Apache Kafka acl.
+          flags:
+            --acl-entries-from-file=: Path to a JSON or YAML file containing the acl entries to use in the acl.
+            --acl-entry=: An acl entry that configures access for a principal, for a specific operation on the acl's
+            --cluster=: The cluster name.
+            --etag=!: etag returned in the response to a previous create or describe
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+        - name: add-acl-entry
+          description: Add an acl entry to a Managed Service for Apache Kafka acl.
+          flags:
+            --cluster=: The cluster name.
+            --host=: The host.
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+            --operation=!: The operation type.
+            --permission-type=: The permission type.
+            --principal=!: The principal.
+        - name: create
+          description: Create a Managed Service for Apache Kafka acl.
+          flags:
+            --acl-entries-from-file=: Path to a JSON or YAML file containing the acl entries to use in the acl.
+            --acl-entry=: An acl entry that configures access for a principal, for a specific operation on the acl's
+            --cluster=: The cluster name.
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+        - name: delete
+          description: Delete a Managed Service for Apache Kafka ACL.
+          flags:
+            --cluster=: The cluster name.
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+        - name: describe
+          description: Describe a Managed Service for Apache Kafka acl.
+          flags:
+            --cluster=: The cluster name.
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+        - name: list
+          description: List all Managed Service for Apache Kafka acls in a given cluster.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+    - name: clusters
+      description: Administer Managed Service for Apache Kafka clusters.
+      commands:
+        - name: list
+          description: List all Managed Service for Apache Kafka clusters in a given location.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: update
+          description: Update a Managed Service for Apache Kafka cluster.
+          flags:
+            --allow-broker-downscale-on-cluster-upscale: If enabled, this setting allows an update operation that could significantly decrease the
+            --async: Return immediately, without waiting for the operation in progress to
+            --auto-rebalance: Whether the automatic rebalancing is enabled.
+            --clear-mtls-ca-pools: Remove all the CA pools from the cluster.
+            --cpu=: The number of vCPUs to provision for the cluster.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+            --memory=: The memory to provision for the cluster in bytes.
+            --mtls-ca-pools=: A comma-separated list of CA pools from the Google Cloud Certificate Authority Service.
+            --no-allow-broker-downscale-on-cluster-upscale&: If enabled, this setting allows an update operation that could significantly decrease the
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-auto-rebalance&: Whether the automatic rebalancing is enabled.
+            --no-clear-mtls-ca-pools&: Remove all the CA pools from the cluster.
+            --ssl-principal-mapping-rules=: The rules for mapping mTLS certificate Distinguished Names (DNs) to shortened principal names
+            --subnets=: A comma-separated list of VPC subnets from which the cluster is accessible.
+        - name: create
+          description: Create a Managed Service for Apache Kafka cluster.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --auto-rebalance: Whether the automatic rebalancing is enabled.
+            --cpu=!: The number of vCPUs to provision for the cluster.
+            --encryption-key=: 'The relative resource path of the Cloud KMS key to use for encryption in the form:'
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+            --memory=!: The memory to provision for the cluster in bytes.
+            --mtls-ca-pools=: A comma-separated list of CA pools from the Google Cloud Certificate Authority Service.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-auto-rebalance&: Whether the automatic rebalancing is enabled.
+            --ssl-principal-mapping-rules=: The rules for mapping mTLS certificate Distinguished Names (DNs) to shortened principal names
+            --subnets=!: A comma-separated list of VPC subnets from which the cluster is accessible.
+        - name: delete
+          description: Delete a Managed Service for Apache Kafka cluster.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe a Managed Service for Apache Kafka cluster.
+          flags:
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+    - name: connect-clusters
+      description: Administer Managed Service for Apache Kafka connect-clusters.
+      commands:
+        - name: create
+          description: Create a Managed Service for Apache Kafka connect cluster.
+          flags:
+            --additional-subnet=: Additional subnet to make available to the Kafka Connect cluster.
+            --async: Return immediately, without waiting for the operation in progress to
+            --config-file=: The path to the JSON or YAML file containing the configuration that are overridden
+            --configs=: Configuration for the connect cluster that are overridden from the cluster defaults.
+            --cpu=!: The number of vCPUs to provision for the cluster.
+            --dns-name=: DNS domain name from the subnet's network to be made visible to the Connect Cluster.
+            --kafka-cluster=!: The resource path of the Kafka cluster to connect to, or the name of the Kafka cluster to
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+            --memory=!: The memory to provision for the cluster in bytes.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --primary-subnet=!: VPC subnet to make available to the Kafka Connect cluster.
+            --secret=: Secrets to load into workers.
+        - name: delete
+          description: Delete a Managed Service for Apache Kafka connect cluster.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe a Managed Service for Apache Kafka connect cluster.
+          flags:
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+        - name: list
+          description: List all Managed Service for Apache Kafka connect clusters in a given location.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: update
+          description: Update a Managed Service for Apache Kafka for BigQuery connect cluster.
+          flags:
+            --additional-subnet=: Additional subnet to make available to the Kafka Connect cluster.
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-configs: Remove all the configurations for the topic.
+            --clear-dns-names: Remove all the DNS domain names for the connect cluster.
+            --clear-labels: Remove all the labels from the connect cluster.
+            --clear-secrets: Remove all the secrets from the connect cluster.
+            --config-file=: The path to the JSON or YAML file containing the configuration that are overridden
+            --configs=: Configuration for the connect cluster that are overridden from the cluster defaults.
+            --cpu=: The number of vCPUs to provision for the cluster.
+            --dns-name=: DNS domain name from the subnet's network to be made visible to the Connect Cluster.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+            --memory=: The memory to provision for the cluster in bytes.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-configs&: Remove all the configurations for the topic.
+            --no-clear-dns-names&: Remove all the DNS domain names for the connect cluster.
+            --no-clear-labels&: Remove all the labels from the connect cluster.
+            --no-clear-secrets&: Remove all the secrets from the connect cluster.
+            --primary-subnet=!: VPC subnet to make available to the Kafka Connect cluster.
+            --secret=: Secrets to load into workers.
+    - name: connectors
+      description: Administer Managed Service for Apache Kafka connectors.
+      commands:
+        - name: describe
+          description: Describe a Managed Service for Apache Kafka connector.
+          flags:
+            --connect-cluster=: The connect cluster name.
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+        - name: list
+          description: List all Managed Service for Apache Kafka connectors for a given connect cluster.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: restart
+          description: Restarts a Managed Service for Apache Kafka connector.
+          flags:
+            --connect-cluster=: The connect cluster name.
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+        - name: update
+          description: Update a Managed Service for Apache Kafka connector.
+          flags:
+            --config-file=: The path to the JSON or YAML file containing the configuration that are overridden
+            --configs=: Configuration for the connector that are overridden from the connector defaults.
+            --connect-cluster=: The connect cluster name.
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+            --task-restart-max-backoff=!: The maximum amount of time to wait before retrying a failed task in seconds.
+            --task-restart-min-backoff=!: The minimum amount of time to wait before retrying a failed task in seconds.
+        - name: create
+          description: Create a Managed Service for Apache Kafka connector.
+          flags:
+            --config-file=: The path to the JSON or YAML file containing the configuration that are overridden
+            --configs=: Configuration for the connector that are overridden from the connector defaults.
+            --connect-cluster=: The connect cluster name.
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+            --task-restart-max-backoff=!: The maximum amount of time to wait before retrying a failed task in seconds.
+            --task-restart-min-backoff=!: The minimum amount of time to wait before retrying a failed task in seconds.
+        - name: delete
+          description: Delete a Managed Service for Apache Kafka connector.
+          flags:
+            --connect-cluster=: The connect cluster name.
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+        - name: pause
+          description: Pauses operation of a Managed Service for Apache Kafka connector.
+          flags:
+            --connect-cluster=: The connect cluster name.
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+        - name: resume
+          description: Resumes operation of a stopped Managed Service for Apache Kafka connector.
+          flags:
+            --connect-cluster=: The connect cluster name.
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+        - name: stop
+          description: Stops operation of a Managed Service for Apache Kafka connector.
+          flags:
+            --connect-cluster=: The connect cluster name.
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+    - name: consumer-groups
+      description: Administer Managed Service for Apache Kafka consumer groups.
+      commands:
+        - name: list
+          description: List all Managed Service for Apache Kafka consumer groups in a given cluster and location.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: update
+          description: Update a Managed Service for Apache Kafka consumer group.
+          flags:
+            --cluster=: The cluster name.
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+            --topics-file=!: The path to the JSON or YAML file containing the configuration of the topics to be updated for
+        - name: delete
+          description: Delete a Managed Service for Apache Kafka consumer group.
+          flags:
+            --cluster=: The cluster name.
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+        - name: describe
+          description: Describe a Managed Service for Apache Kafka consumer group.
+          flags:
+            --cluster=: The cluster name.
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+    - name: operations
+      description: View Managed Service for Apache Kafka operations.
+      commands:
+        - name: describe
+          description: Describe a Managed Service for Apache Kafka operation.
+          flags:
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+        - name: list
+          description: List all Managed Service for Apache Kafka operations in a given location.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+    - name: topics
+      description: Administer Managed Service for Apache Kafka topics.
+      commands:
+        - name: create
+          description: Create a Managed Service for Apache Kafka topic.
+          flags:
+            --cluster=: The cluster name.
+            --configs=: Configuration for the topic that are overridden from the cluster defaults.
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+            --partitions=!: The number of partitions in a topic.
+            --replication-factor=!: The number of replicas of each partition.
+        - name: delete
+          description: Delete a Managed Service for Apache Kafka topic.
+          flags:
+            --cluster=: The cluster name.
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+        - name: describe
+          description: Describe a Managed Service for Apache Kafka topic.
+          flags:
+            --cluster=: The cluster name.
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+        - name: list
+          description: List all Managed Service for Apache Kafka topics in a given cluster.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: update
+          description: Update a Managed Service for Apache Kafka topic.
+          flags:
+            --clear-configs: Remove all the configurations for the topic.
+            --cluster=: The cluster name.
+            --configs=: Configuration for the topic that are overridden from the cluster defaults.
+            --location=: ID of the location of the Managed Service for Apache Kafka resource.
+            --no-clear-configs&: Remove all the configurations for the topic.
+            --partitions=: The number of partitions in a topic.

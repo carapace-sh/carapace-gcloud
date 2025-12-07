@@ -1,0 +1,71 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: access-approval
+description: Manage Access Approval requests and settings.
+commands:
+    - name: requests
+      description: Manage Access Approval requests.
+      commands:
+        - name: approve
+          description: Approve an Access Approval request.
+        - name: dismiss
+          description: Dismiss an Access Approval request.
+        - name: get
+          description: Get an Access Approval request.
+        - name: invalidate
+          description: Invalidate an Access Approval request.
+        - name: list
+          description: List Access Approval requests.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --folder=: Folder number.
+            --limit=: Maximum number of resources to list.
+            --organization=: Organization number.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --state=: filter for request state
+    - name: service-account
+      description: Manage Access Approval service account.
+      commands:
+        - name: get
+          description: Get Access Approval service account.
+          flags:
+            --folder=: Folder number.
+            --organization=: Organization number.
+    - name: settings
+      description: Manage Access Approval settings.
+      commands:
+        - name: update
+          description: Update Access Approval settings.
+          flags:
+            --active-key-version=: The asymmetric crypto key version to use for signing approval requests.
+            --approval-policy=: The preference to configure the approval policy for access requests.
+            --enrolled-services=: Comma-separated list of services to enroll for Access Approval or 'all' for all supported services.
+            --folder=: Folder number.
+            --notification-emails=: Comma-separated list of email addresses to which notifications relating to approval requests should be sent or '' to clear all saved notification emails.
+            --notification-pubsub-topic=: The pubsub topic to publish notifications to when approval requests are made.
+            --organization=: Organization number.
+            --prefer-no-broad-approval-requests=: If set to true it will communicate the preference to Google personnel to request access with as targeted a resource scope as possible.
+            --preferred-request-expiration-days=: The default expiration time for approval requests.
+            --request-scope-max-width-preference=: The preference for the broadest scope of access for access requests without a specific method.
+            --require-customer-visible-justification=: The preference to configure if a customer visible justification (i.e. Vector Case) is required for a Googler to create an Access Ticket to send to the customer when attempting to access customer resources.
+          completion:
+            flag:
+                approval-policy:
+                    - transparency
+                    - streamlined-support
+                    - access-approval
+                    - inherit-policy-from-parent
+                request-scope-max-width-preference:
+                    - ORGANIZATION
+                    - FOLDER
+                    - PROJECT
+        - name: delete
+          description: Delete Access Approval settings.
+          flags:
+            --folder=: Folder number.
+            --organization=: Organization number.
+        - name: get
+          description: Get Access Approval settings.
+          flags:
+            --folder=: Folder number.
+            --organization=: Organization number.

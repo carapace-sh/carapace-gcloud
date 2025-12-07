@@ -1,0 +1,761 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: artifacts
+description: Manage Artifact Registry resources.
+commands:
+    - name: docker
+      description: Manage Artifact Registry container images and tags.
+      commands:
+        - name: images
+          description: Manage Artifact Registry container images.
+          commands:
+            - name: describe
+              description: Describe an Artifact Registry container image.
+              flags:
+                --metadata-filter=: Additional filter to fetch metadata for a given qualified image reference.
+                --no-show-all-metadata&: Include all metadata in the output.
+                --no-show-build-details&: Include build metadata in the output.
+                --no-show-deployment&: Include deployment metadata in the output.
+                --no-show-image-basis&: Include base image metadata in the output.
+                --no-show-package-vulnerability&: Include vulnerability metadata in the output.
+                --no-show-provenance&: Include intoto provenance metadata in the output, in the provenance_summary section.
+                --no-show-sbom-references&: Include SBOM metadata in the output.
+                --show-all-metadata: Include all metadata in the output.
+                --show-build-details: Include build metadata in the output.
+                --show-deployment: Include deployment metadata in the output.
+                --show-image-basis: Include base image metadata in the output.
+                --show-package-vulnerability: Include vulnerability metadata in the output.
+                --show-provenance: Include intoto provenance metadata in the output, in the provenance_summary section.
+                --show-sbom-references: Include SBOM metadata in the output.
+            - name: get-operation
+              description: Get an On-Demand Scanning operation.
+              flags:
+                --location=: Cloud multi-region.
+            - name: list
+              description: List Artifact Registry container images.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --include-tags: If specified, tags associated with each image digest are displayed up to a maximum of 100 tags per version.
+                --limit=: Maximum number of resources to list.
+                --no-include-tags&: If specified, tags associated with each image digest are displayed up to a maximum of 100 tags per version.
+                --no-show-occurrences&: Show summaries of the various occurrence types.
+                --occurrence-filter=: A filter for the occurrences which will be summarized.
+                --page-size=: Some services group resource list output into pages.
+                --show-occurrences: Show summaries of the various occurrence types.
+                --show-occurrences-from=: The number of the most recent images for which to summarize occurrences.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+            - name: list-vulnerabilities
+              description: List On-Demand Scanning vulnerabilities.
+              flags:
+                --limit=: Maximum number of resources to list.
+                --location=: Cloud multi-region.
+                --page-size=: Some services group resource list output into pages.
+            - name: scan
+              description: Perform a vulnerability scan on a container image.
+              flags:
+                --additional-package-types=: (DEPRECATED) A comma-separated list of package types to scan in addition to OS packages.
+                --async: Return immediately, without waiting for the operation in progress to
+                --experimental-package-types=&: (DEPRECATED) A comma-separated list of experimental package types to scan in addition to OS packages and officially supported third party packages.
+                --fake-extraction&: Whether to use fake packages/versions instead of performing extraction.
+                --location=: The API location in which to perform package analysis.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-fake-extraction&: Whether to use fake packages/versions instead of performing extraction.
+                --no-remote&: Whether the container image is located remotely or on your local machine.
+                --no-verbose-errors&: Log internal errors.
+                --remote: Whether the container image is located remotely or on your local machine.
+                --skip-package-types=: A comma-separated list of package types to skip when scanning.
+                --verbose-errors&: Log internal errors.
+              completion:
+                flag:
+                    location:
+                        - asia
+                        - europe
+                        - us
+            - name: delete
+              description: Delete an Artifact Registry container image.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --delete-tags: If specified, all tags associated with the image are deleted.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-delete-tags&: If specified, all tags associated with the image are deleted.
+        - name: tags
+          description: Manage Artifact Registry container image tags.
+          commands:
+            - name: add
+              description: Add a tag to a container image in Artifact Registry.
+            - name: delete
+              description: Delete a tag from a container image in Artifact Registry.
+            - name: list
+              description: List all tags associated with a container image in Artifact Registry.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: upgrade
+          description: Commands to support Container Registry to Artifact Registry upgrade.
+          commands:
+            - name: migrate
+              description: Migrate projects from Container Registry to Artifact Registry.
+              flags:
+                --canary-reads=: Send only a percent of reads to Artifact Registry.
+                --copy-only: Only perform image copying
+                --from-gcr=: Container Registry host + project to copy from.
+                --input-iam-policy-dir=: During the IAM update step, the tool applies all iam policies in the given directory.
+                --last-uploaded-versions=: Only copy the N most recently uploaded versions of each image.
+                --max-threads=: Max number of images to copy simultaneously.
+                --no-copy-only&: Only perform image copying
+                --no-skip-iam-update&: Migrate without changing iam-policy.
+                --no-skip-pre-copy&: Skip the initial copy of recent images before enabling redirection.
+                --no-use-analyze-iam&: Use analyzeIAMPolicy to get IAM bindings.
+                --output-iam-policy-dir=: Outputs Artifact Registry-equivalent bindings to this directory during IAM update step and then exits the tool.
+                --pkg-dev-location=: The location of the pkg-dev repository you are migrating to.
+                --projects=: Comma seperated list of Container Registry projects to migrate to Artifact Registry gcr.io repositories.
+                --recent-images=: Only copy images pulled or pushed in the last NUM_DAYS days.
+                --skip-iam-update: Migrate without changing iam-policy.
+                --skip-pre-copy: Skip the initial copy of recent images before enabling redirection.
+                --to-pkg-dev=: Artifact Registry pkg.dev project ID and repository ID to copy to.
+                --use-analyze-iam: Use analyzeIAMPolicy to get IAM bindings.
+    - name: generic
+      description: Manage Artifact Registry generic artifacts.
+      commands:
+        - name: download
+          description: Download a generic artifact from a generic artifact repository.
+          flags:
+            --chunk-size=: If specified, the chunk size (bytes) to use for downloading the package.
+            --destination=!: The path where you want to save the downloaded file.
+            --location=: Location of the repository.
+            --name=: If specified, the file name within the artifact to download.
+            --package=!: The artifact to download.
+            --parallelism=: Specifies the number of threads to use for downloading the file in parallel.
+            --repository=: ID of the repository or fully qualified identifier for the repository.
+        - name: upload
+          description: Uploads an artifact to a generic repository.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --destination-path=: Use to specify the path to upload a generic artifact to within a folder structure.
+            --location=: Location of the repository.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-skip-existing&: If specified, skip uploading files that already exist in the repository, and continue to upload the remaining files.
+            --package=!: The package to upload.
+            --repository=: ID of the repository or fully qualified identifier for the repository.
+            --skip-existing: If specified, skip uploading files that already exist in the repository, and continue to upload the remaining files.
+            --source-directory=: The directory you are uploading.
+            --source=: The path to the file you are uploading.
+    - name: repositories
+      description: Manage Artifact Registry repositories.
+      commands:
+        - name: add-iam-policy-binding
+          description: Add an IAM policy binding to the IAM policy of an Artifact Registry repository.
+          flags:
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: A condition to include in the binding.
+            --location=: Location of the repository.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: create
+          description: Create an Artifact Registry repository.
+          flags:
+            --allow-sbom-generation&: Allow SBOM generation on the repository.
+            --allow-snapshot-overwrites: (Maven only) Allow repository users to publish a snapshot that overwrites the same snapshot version in the repository.
+            --allow-vulnerability-scanning: Allow vulnerability scanning on the repository.
+            --alternative-hostname-default&: Whether this is the default repository for the alternative hostname if no repository matches the path prefix.
+            --alternative-hostname-path-prefix=&: An alternative hostname path prefix that a repository can be accessed through.
+            --alternative-hostname=&: An alternative hostname that a repository can be accessed through.
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: Description for the repository.
+            --disable-remote-validation: Do not make an HTTP request to validate the remote upstream.
+            --disable-sbom-generation&: Disable SBOM generation on the repository.
+            --disable-vulnerability-scanning: Disable vulnerability scanning on the repository.
+            --enable-ingestion-attestation&: Enable generating attestation with verifiable signature on imported files in remote repositories.
+            --immutable-tags: (Docker only) Prevent changes to tagged images in the repository.
+            --kms-key=: Name of the encryption key that's used for encrypting the contents of the repository.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: Location of the repository.
+            --mode=: Mode is the type of the repository - Standard, Virtual or Remote.
+            --no-allow-sbom-generation&: Allow SBOM generation on the repository.
+            --no-allow-snapshot-overwrites&: (Maven only) Allow repository users to publish a snapshot that overwrites the same snapshot version in the repository.
+            --no-allow-vulnerability-scanning&: Allow vulnerability scanning on the repository.
+            --no-alternative-hostname-default&: Whether this is the default repository for the alternative hostname if no repository matches the path prefix.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-disable-remote-validation&: Do not make an HTTP request to validate the remote upstream.
+            --no-disable-sbom-generation&: Disable SBOM generation on the repository.
+            --no-disable-vulnerability-scanning&: Disable vulnerability scanning on the repository.
+            --no-enable-ingestion-attestation&: Enable generating attestation with verifiable signature on imported files in remote repositories.
+            --no-immutable-tags&: (Docker only) Prevent changes to tagged images in the repository.
+            --remote-apt-repo-path=: (Apt only) Remaining URL path to apt remote repository.
+            --remote-apt-repo=: (Apt only) Repository base for apt remote repository.
+            --remote-docker-repo=: (Docker only) Repo upstream for docker remote repository.
+            --remote-go-repo=: (Go only) Repo upstream for Go remote repository.
+            --remote-mvn-repo=: (Maven only) Repo upstream for maven remote repository.
+            --remote-npm-repo=: (Npm only) Repo upstream for npm remote repository.
+            --remote-password-secret-version=: Secret Manager secret version that contains password for the
+            --remote-python-repo=: (Python only) Repo upstream for python remote repository.
+            --remote-repo-config-desc=: The description for the remote repository config.
+            --remote-repo=&: An upstream for a given remote repository.
+            --remote-username=: Remote Repository upstream registry username.
+            --remote-yum-repo-path=: (Yum only) Remaining URL path to yum remote repository.
+            --remote-yum-repo=: (Yum only) Repository base for yum remote repository.
+            --repository-format=!: Format of the repository.
+            --service-directory-config=&: Service Directory config link for using Private Networks.
+            --upstream-policy-file=: (Virtual Repositories only) is the upstreams for the Virtual Repository.
+            --version-policy=: (Maven only) The package versions that the repository will store.
+          completion:
+            flag:
+                mode:
+                    - none
+                    - remote-repository
+                    - standard-repository
+                    - virtual-repository
+                version-policy:
+                    - none
+                    - release
+                    - snapshot
+        - name: delete
+          description: Delete an Artifact Registry repository.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Location of the repository.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: delete-cleanup-policies
+          description: Delete cleanup policies from an Artifact Registry repository.
+          flags:
+            --location=: Location of the repository.
+            --policynames=!: Comma-separated list of cleanup policy names to delete.
+        - name: describe
+          description: Describe an Artifact Registry repository.
+          flags:
+            --location=: Location of the repository.
+        - name: list-cleanup-policies
+          description: List cleanup policies of an Artifact Registry repository.
+          flags:
+            --location=: Location of the repository.
+        - name: remove-iam-policy-binding
+          description: Remove an IAM policy binding from the IAM policy of an Artifact Registry repository.
+          flags:
+            --all: Remove all bindings with this role and principal, irrespective of any
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: The condition of the binding that you want to remove.
+            --location=: Location of the repository.
+            --member=!: The principal to remove the binding for.
+            --no-all&: ""
+            --role=!: The role to remove the principal from.
+        - name: copy
+          description: Copy an Artifact Registry repository.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Location of the repository.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --source-repo=!: The source repository path to copy artifacts from.
+        - name: get-iam-policy
+          description: Get IAM policy for an Artifact Registry repository.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Location of the repository.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: List repositories in the specified project.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: set-cleanup-policies
+          description: Set or update cleanup policies for an Artifact Registry repository.
+          flags:
+            --dry-run: Disable deleting images according to cleanup policies.
+            --location=: Location of the repository.
+            --no-dry-run&: Disable deleting images according to cleanup policies.
+            --overwrite=&: (REMOVED) Delete existing policies and replace with the specified set of policies.
+            --policy=: Path to a local JSON formatted file containing valid cleanup policies.
+        - name: set-iam-policy
+          description: Set the IAM policy for an Artifact Registry repository.
+          flags:
+            --location=: Location of the repository.
+        - name: update
+          description: Update an Artifact Registry repository.
+          flags:
+            --allow-sbom-generation&: Allow SBOM generation on the repository.
+            --allow-vulnerability-scanning: Allow vulnerability scanning on the repository.
+            --alternative-hostname-default&: Whether this is the default repository for the alternative hostname if no repository matches the path prefix.
+            --alternative-hostname-path-prefix=&: An alternative hostname path prefix that a repository can be accessed through.
+            --alternative-hostname=&: An alternative hostname that a repository can be accessed through.
+            --clear-labels: Remove all labels.
+            --description=: Description for the repository.
+            --disable-remote-validation: Do not make an HTTP request to validate the remote upstream.
+            --disable-sbom-generation&: Disable SBOM generation on the repository.
+            --disable-vulnerability-scanning: Disable vulnerability scanning on the repository.
+            --enable-ingestion-attestation&: Enable generating attestation with verifiable signature on imported files in remote repositories.
+            --immutable-tags: (Docker only) Prevent changes to tagged images in the repository.
+            --location=: Location of the repository.
+            --no-allow-sbom-generation&: Allow SBOM generation on the repository.
+            --no-allow-vulnerability-scanning&: Allow vulnerability scanning on the repository.
+            --no-alternative-hostname-default&: Whether this is the default repository for the alternative hostname if no repository matches the path prefix.
+            --no-clear-labels&: Remove all labels.
+            --no-disable-remote-validation&: Do not make an HTTP request to validate the remote upstream.
+            --no-disable-sbom-generation&: Disable SBOM generation on the repository.
+            --no-disable-vulnerability-scanning&: Disable vulnerability scanning on the repository.
+            --no-enable-ingestion-attestation&: Enable generating attestation with verifiable signature on imported files in remote repositories.
+            --no-immutable-tags&: (Docker only) Prevent changes to tagged images in the repository.
+            --remote-password-secret-version=: Secret Manager secret version that contains password for the remote repository upstream.
+            --remote-username=: Remote Repository upstream registry username.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+            --upstream-policy-file=: (Virtual Repositories only) is the upstreams for the Virtual Repository.
+    - name: settings
+      description: Manage Artifact Registry project settings.
+      commands:
+        - name: disable-upgrade-redirection
+          description: Disables redirection from Container Registry to Artifact Registry.
+        - name: enable-upgrade-redirection
+          description: Enables redirection from Container Registry to Artifact Registry.
+          flags:
+            --dry-run: Validate the project setup, but do not enable redirection
+            --no-dry-run&: Validate the project setup, but do not enable redirection
+        - name: describe
+          description: List all Artifact Registry project settings.
+    - name: tags
+      description: Manage Artifact Registry tags.
+      commands:
+        - name: create
+          description: Create an Artifact Registry tag.
+          flags:
+            --location=: Location of the tag.
+            --package=: The package associated with the tag.
+            --repository=: The repository associated with the tag.
+        - name: delete
+          description: Delete an Artifact Registry tag.
+          flags:
+            --location=: Location of the tag.
+            --package=: The package associated with the tag.
+            --repository=: The repository associated with the tag.
+        - name: export
+          description: Export an Artifact Registry package version by tag.
+          flags:
+            --gcs-destination=!: Google Cloud Storage path to export the artifact to.
+            --location=: Location of the tag.
+            --package=: Package of the tag.
+            --repository=: Repository of the tag.
+        - name: list
+          description: List Artifact Registry tags.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Location of the repository.
+            --package=!: List all tags in a specified artifact, such as a container
+            --page-size=: Some services group resource list output into pages.
+            --repository=: ID of the repository or fully qualified identifier for the repository.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: update
+          description: Update an Artifact Registry tag.
+          flags:
+            --location=: Location of the tag.
+            --package=: The package associated with the tag.
+            --repository=: The repository associated with the tag.
+    - name: versions
+      description: Manage Artifact Registry package versions.
+      commands:
+        - name: list
+          description: List Artifact Registry package versions.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Location of the repository.
+            --package=!: List all versions in a specified artifact, such as a container
+            --page-size=: Some services group resource list output into pages.
+            --repository=: ID of the repository or fully qualified identifier for the repository.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: update
+          description: Update annotations on an Artifact Registry package version.
+          flags:
+            --annotations=: List of annotations in the format of KEY=VALUE pairs to add, update, or remove.
+            --location=: Location of the version.
+            --package=: The package associated with the version.
+            --repository=: The repository associated with the version.
+        - name: delete
+          description: Delete an Artifact Registry package version.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --delete-tags: If specified, all tags associated with the version are deleted.
+            --location=: Location of the version.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-delete-tags&: If specified, all tags associated with the version are deleted.
+            --package=: The package associated with the version.
+            --repository=: The repository associated with the version.
+        - name: describe
+          description: Describe an Artifact Registry package version.
+          flags:
+            --location=: Location of the version.
+            --no-show-package-vulnerability&: Include vulnerability metadata in the output.
+            --package=: The package associated with the version.
+            --repository=: The repository associated with the version.
+            --show-package-vulnerability&: Include vulnerability metadata in the output.
+        - name: export
+          description: Export an Artifact Registry package version.
+          flags:
+            --gcs-destination=!: Google Cloud Storage path to export the artifact to.
+            --location=: Location of the version.
+            --package=: Package of the version.
+            --repository=: Repository of the version.
+    - name: yum
+      description: Manage Artifact Registry RPM packages.
+      commands:
+        - name: import
+          description: Import one or more RPM packages into an artifact repository.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --gcs-source=!: The Google Cloud Storage location of a package to import.
+            --location=: Location of the repository.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: upload
+          description: Upload an RPM package to an artifact repository.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Location of the repository.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --source=!: The path of a package to upload.
+    - name: files
+      description: Manage Artifact Registry files.
+      commands:
+        - name: delete
+          description: Delete an Artifact Registry file.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Location of the file.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --repository=: The repository associated with the file.
+        - name: describe
+          description: Describe an Artifact Registry file.
+          flags:
+            --location=: Location of the file.
+            --repository=: The repository associated with the file.
+        - name: download
+          description: Download an Artifact Registry file.
+          flags:
+            --allow-overwrite: If specified, the command overwrites an existing file
+            --destination=!: The path where you want to download the file.
+            --local-filename=: If specified, the name of the downloaded file on the local system is set to the value you use for LOCAL_FILENAME.
+            --location=: Location of the file.
+            --no-allow-overwrite&: If specified, the command overwrites an existing file
+            --parallelism=: Specifies the number of threads to use for downloading the file in parallel.
+            --repository=: Repository of the file.
+        - name: list
+          description: List Artifact Registry files.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Location of the repository.
+            --package=: List all files in a specified artifact, such as a container image or a language package.
+            --page-size=: Some services group resource list output into pages.
+            --repository=: ID of the repository or fully qualified identifier for the repository.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --tag=: List all files in the artifact version with the specified tag.
+        - name: update
+          description: Update annotations on an Artifact Registry file.
+          flags:
+            --annotations=: List of annotations in the format of KEY=VALUE pairs to add, update, or remove.
+            --location=: Location of the file.
+            --repository=: The repository associated with the file.
+        - name: upload
+          description: Uploads files to Artifact Registry.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --file=: The name under which the file will be uploaded.
+            --location=: Location of the repository.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-skip-existing&: If specified, skip uploading files that already exist in the repository, and continue to upload the remaining files.
+            --repository=: ID of the repository or fully qualified identifier for the repository.
+            --skip-existing: If specified, skip uploading files that already exist in the repository, and continue to upload the remaining files.
+            --source-directory=: The directory you are uploading.
+            --source=: The path to the file you are uploading.
+    - name: googet
+      description: Manage Artifact Registry GooGet packages.
+      hidden: true
+      commands:
+        - name: import
+          description: Import one or more GooGet packages into an artifact repository.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --gcs-source=!: The Google Cloud Storage location of a package to import.
+            --location=: Location of the repository.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: upload
+          description: Upload a GooGet package to an artifact repository.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Location of the repository.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --source=!: The path of a package to upload.
+    - name: locations
+      description: Manage Artifact Registry resource locations.
+      commands:
+        - name: list
+          description: List all Artifact Registry supported locations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+    - name: packages
+      description: Manage Artifact Registry packages.
+      commands:
+        - name: delete
+          description: Delete an Artifact Registry package.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Location of the package.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --repository=: The repository associated with the package.
+        - name: describe
+          description: Describe an Artifact Registry package.
+          flags:
+            --location=: Location of the package.
+            --repository=: The repository associated with the package.
+        - name: list
+          description: List Artifact Registry packages.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Location of the repository.
+            --page-size=: Some services group resource list output into pages.
+            --repository=: ID of the repository or fully qualified identifier for the repository.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: update
+          description: Update annotations on an Artifact Registry package.
+          flags:
+            --annotations=: List of annotations in the format of KEY=VALUE pairs to add, update, or remove.
+            --location=: Location of the package.
+            --repository=: The repository associated with the package.
+    - name: vpcsc-config
+      description: Manage Artifact Registry VPC Service Controls configuration for remote repositories.
+      commands:
+        - name: allow
+          description: Allow Artifact Registry remote repositories inside a service perimeter to retrieve data from their upstream sources outside of the perimeter.
+          flags:
+            --location=: ID of the location or fully qualified identifier for the location.
+        - name: deny
+          description: Deny access to upstream sources outside the service perimeter for Artifact Registry remote repositories inside the perimeter.
+          flags:
+            --location=: ID of the location or fully qualified identifier for the location.
+        - name: describe
+          description: Describe the current Artifact Registry configuration for VPC Service Controls.
+          flags:
+            --location=: ID of the location or fully qualified identifier for the location.
+    - name: apt
+      description: Manage Artifact Registry Debian packages.
+      commands:
+        - name: import
+          description: Import one or more Debian packages into an artifact repository.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --gcs-source=!: The Google Cloud Storage location of a package to import.
+            --location=: Location of the repository.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: upload
+          description: Upload a Debian package to an artifact repository.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Location of the repository.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --source=!: The path of a package to upload.
+    - name: go
+      description: Manage Artifact Registry Go modules.
+      commands:
+        - name: auth
+          description: Print authentication commands for the GOAUTH environment variable.
+          flags:
+            --json-key=: The path to the JSON key file to use for authentication.
+            --location=!: The location of the repository to print commands for.
+        - name: upload
+          description: Upload a Go module to an artifact repository.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Location of the repository.
+            --module-path=!: The module path of the Go module.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --repository=: ID of the repository or fully qualified identifier for the repository.
+            --source=: The root directory of the go module source code, defaults to the current directory.
+    - name: operations
+      description: Manage Artifact Registry long-running operations.
+      commands:
+        - name: describe
+          description: Describe an Artifact Registry operation.
+          flags:
+            --location=: Location of the operation.
+    - name: print-settings
+      description: Print snippets to add to native tools settings files.
+      commands:
+        - name: gradle
+          description: Print a snippet to add a repository to the Gradle build.gradle file.
+          flags:
+            --json-key=: Path to service account JSON key.
+            --location=: Location of the repository.
+            --repository=: ID of the repository or fully qualified identifier for the repository.
+        - name: mvn
+          description: Print a snippet to add a Maven repository to the pom.xml file.
+          flags:
+            --json-key=: Path to service account JSON key.
+            --location=: Location of the repository.
+            --repository=: ID of the repository or fully qualified identifier for the repository.
+        - name: npm
+          description: Print credential settings to add to the .npmrc file.
+          flags:
+            --json-key=: Path to service account JSON key.
+            --location=: Location of the repository.
+            --repository=: ID of the repository or fully qualified identifier for the repository.
+            --scope=: The scope to associate with the Artifact Registry registry.
+        - name: python
+          description: Print credential settings to add to the .pypirc and pip.conf files.
+          flags:
+            --json-key=: Path to service account JSON key.
+            --location=: Location of the repository.
+            --repository=: ID of the repository or fully qualified identifier for the repository.
+    - name: rules
+      description: Manage Artifact Registry rules.
+      commands:
+        - name: delete
+          description: Delete an Artifact Registry rule.
+          flags:
+            --location=: Location of the rule.
+            --repository=: The repository associated with the rule.
+        - name: describe
+          description: Describe an Artifact Registry rule.
+          flags:
+            --location=: Location of the rule.
+            --repository=: The repository associated with the rule.
+        - name: list
+          description: List Artifact Registry rules.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Location of the repository.
+            --page-size=: Some services group resource list output into pages.
+            --repository=: ID of the repository or fully qualified identifier for the repository.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: update
+          description: Update an Artifact Registry rule.
+          flags:
+            --action=: The action the rule would make, can only be DENY or ALLOW.
+            --condition=: The CEL expression for the rule.
+            --location=: Location of the rule.
+            --operation=: The operation the rule applies to.
+            --package=: The package the rule applies to.
+            --repository=: The repository associated with the rule.
+          completion:
+            flag:
+                action:
+                    - allow
+                    - deny
+                operation:
+                    - download
+        - name: create
+          description: Create an Artifact Registry rule.
+          flags:
+            --action=!: The action the rule would make, can only be DENY or ALLOW.
+            --condition=: The CEL expression for the rule.
+            --location=: Location of the rule.
+            --operation=: The operation the rule applies to.
+            --package=: The package the rule applies to.
+            --repository=: The repository associated with the rule.
+          completion:
+            flag:
+                action:
+                    - allow
+                    - deny
+                operation:
+                    - download
+    - name: sbom
+      description: Manage Artifact SBOMs.
+      commands:
+        - name: load
+          description: Upload an SBOM file and create a reference occurrence.
+          flags:
+            --destination=: The storage path will be used to store the SBOM file.
+            --kms-key-version=: Cloud KMS key version to sign the SBOM reference.
+            --location=: If specified, all requests to Artifact Analysis for occurrences will go to location specified
+            --source=!: The SBOM file for uploading.
+            --uri=!: The URI of the artifact the SBOM is generated from.
+        - name: export
+          description: Export SBOM files to Google Cloud Storage.
+          flags:
+            --location=: If specified, all requests to Artifact Analysis for occurrences will go to location specified
+            --uri=!: The URI of the Artifact Registry image the SBOM is exported for.
+        - name: list
+          description: List SBOM file references.
+          flags:
+            --dependency=: List SBOM file references generated when the images were pushed to Artifact Registry and related to the installed package dependency.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: If specified, all requests to Artifact Analysis for occurrences will go to location specified
+            --page-size=: Some services group resource list output into pages.
+            --resource-prefix=: List SBOM file references related to the resource uri with the resource path prefix.
+            --resource=: List SBOM file references related to the image resource uri.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+    - name: vulnerabilities
+      description: Manage Artifact Vulnerabilities.
+      commands:
+        - name: list
+          description: Command for listing vulnerabilities. To see all fields, use --format=json.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: If specified, all requests to Artifact Analysis for occurrences will go to location specified
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --occurrence-filter=: A filter for the occurrences which will be summarized.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: load-vex
+          description: Load VEX data from a CSAF file into Artifact Analysis.
+          flags:
+            --location=: If specified, all requests to Artifact Analysis for occurrences will go to location specified
+            --source=!: The path of the VEX file.
+            --uri=!: The path of the artifact in Artifact Registry.
+    - name: attachments
+      description: Manage Artifact Registry attachments.
+      commands:
+        - name: create
+          description: Creates an Artifact Registry attachment in a repository.
+          flags:
+            --attachment-namespace=: Namespace of the attachment
+            --attachment-type=!: Type of the attachment
+            --files=!: Comma-seperated list of files that are part of this attachment
+            --location=: Location of the attachment.
+            --repository=: Repository of the attachment.
+            --target=!: Target of the attachment, should be fully qualified version name
+        - name: delete
+          description: Delete an Artifact Registry attachment.
+          flags:
+            --location=: Location of the attachment.
+            --repository=: The repository associated with the attachment.
+        - name: describe
+          description: Describe an Artifact Registry attachment.
+          flags:
+            --location=: Location of the attachment.
+            --repository=: The repository associated with the attachment.
+        - name: download
+          description: Download an Artifact Registry attachment from a repository.
+          flags:
+            --chunk-size=: If specified, the chunk size (bytes) to use for downloading the package.
+            --destination=!: Path where you want to save the downloaded attachment files.
+            --location=: Location of the attachment.
+            --oci-version-name=: For Docker-format repositories only.
+            --parallelism=: Specifies the number of threads to use for downloading the attachment files in parallel.
+            --repository=: Repository of the attachment.
+        - name: list
+          description: List Artifact Registry attachments.
+          flags:
+            --attachment-type=&: Type for the list of attachments.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Location of the repository.
+            --page-size=: Some services group resource list output into pages.
+            --repository=: ID of the repository or fully qualified identifier for the repository.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --target=: Target for the list of attachments.

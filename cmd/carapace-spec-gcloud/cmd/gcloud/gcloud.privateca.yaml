@@ -1,0 +1,569 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: privateca
+description: Manage private Certificate Authorities on Google Cloud.
+commands:
+    - name: certificates
+      description: Manage certificates.
+      commands:
+        - name: create
+          description: Create a new certificate.
+          flags:
+            --ca=: The name of an existing certificate authority to use for issuing the certificate.
+            --cert-output-file=: The path where the resulting PEM-encoded certificate chain file should be written (ordered from leaf to root).
+            --csr=!: A PEM-encoded certificate signing request file path.
+            --dns-san=: One or more comma-separated DNS Subject Alternative Names.
+            --email-san=: One or more comma-separated email Subject Alternative Names.
+            --extended-key-usages=: The list of extended key usages for this certificate.
+            --generate-key!: Use this flag to have a new RSA-2048 private key securely generated on your machine.
+            --ip-san=: One or more comma-separated IP Subject Alternative Names.
+            --is-ca-cert: Whether this certificate is for a CertificateAuthority or not.
+            --issuer-location=: The location of the CERTIFICATE.
+            --issuer-pool=: The parent CA Pool of the CERTIFICATE.
+            --key-output-file=!: The path where the generated private key file should be written (in PEM format).
+            --key-usages=: The list of key usages for this certificate.
+            --kms-key-version=!: ID of the key version or fully qualified identifier for the key version.
+            --kms-key=: The KMS key of the key version.
+            --kms-keyring=: The KMS keyring of the key version.
+            --kms-location=: The location of the key version.
+            --kms-project=: The project containing the key version.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --max-chain-length=: Maximum depth of subordinate CAs allowed under this CA for a CA certificate.
+            --name-constraints-critical: Indicates whether or not name constraints are marked as critical.
+            --name-excluded-dns=: One or more comma-separated DNS names which are excluded from being issued certificates.
+            --name-excluded-email=: One or more comma-separated emails which are excluded from being issued certificates.
+            --name-excluded-ip=: One or more comma-separated IP ranges which are excluded from being issued certificates.
+            --name-excluded-uri=: One or more comma-separated URIs which are excluded from being issued certificates.
+            --name-permitted-dns=: One or more comma-separated  DNS names which are permitted to be issued certificates.
+            --name-permitted-email=: One or more comma-separated email addresses which are permitted to be issued certificates.
+            --name-permitted-ip=: One or more comma-separated IP ranges which are permitted to be issued certificates.
+            --name-permitted-uri=: One or more comma-separated URIs which are permitted to be issued certificates.
+            --no-is-ca-cert&: Whether this certificate is for a CertificateAuthority or not.
+            --no-name-constraints-critical&: Indicates whether or not name constraints are marked as critical.
+            --no-rdn-sequence-subject&: If this value is set then the issued certificate will use the subject found in the CSR preserving the exact RDN sequence.
+            --no-unconstrained-chain-length&: If set, allows an unbounded number of subordinate CAs under this newly issued CA certificate.
+            --no-validate-only&: If this flag is set, the certificate resource will not be persisted and the returned certificate will not contain the pem_certificate field.
+            --rdn-sequence-subject&: If this value is set then the issued certificate will use the subject found in the CSR preserving the exact RDN sequence.
+            --subject-file=&: A yaml file containing the RDN sequence for the Subject field.
+            --subject-key-id=: Optional field to specify subject key ID for certificate.
+            --subject=: X.501 name of the certificate subject.
+            --template-location=: The location of the certificate_template.
+            --template=!: ID of the certificate_template or fully qualified identifier for the certificate_template.
+            --unconstrained-chain-length: If set, allows an unbounded number of subordinate CAs under this newly issued CA certificate.
+            --uri-san=: One or more comma-separated URI Subject Alternative Names.
+            --use-preset-profile=: The name of an existing preset profile used to encapsulate X.509 parameter values.
+            --validate-only: If this flag is set, the certificate resource will not be persisted and the returned certificate will not contain the pem_certificate field.
+            --validity=: The validity of this certificate, as an ISO8601 duration.
+        - name: describe
+          description: Get metadata for a certificate.
+          flags:
+            --issuer-location=: The location of the CERTIFICATE.
+            --issuer-pool=: The ID of the issuing CA Pool.
+        - name: export
+          description: Export a pem-encoded certificate to a file.
+          flags:
+            --include-chain: Whether to include the certificate's issuer chain in the exported file.
+            --issuer-location=: The location of the CERTIFICATE.
+            --issuer-pool=: The parent CA Pool of the CERTIFICATE.
+            --no-include-chain&: Whether to include the certificate's issuer chain in the exported file.
+            --output-file=!: The path where the resulting PEM-encoded certificate will be written.
+        - name: list
+          description: List certificates within a project.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --issuer-pool=: ID of the CA_POOL or fully qualified identifier for the CA_POOL.
+            --limit=: Maximum number of resources to list.
+            --location=: The location of the CA_POOL.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: revoke
+          description: Revoke a certificate.
+          flags:
+            --certificate=!: ID of the certificate or fully qualified identifier for the certificate.
+            --issuer-location=: The location of the Issuing CA pool.
+            --issuer-pool=!: ID of the Issuing CA pool or fully qualified identifier for the Issuing CA pool.
+            --reason=: Revocation reason to include in the CRL.
+            --serial-number=: The serial number of the certificate.
+          completion:
+            flag:
+                reason:
+                    - affiliation-changed
+                    - attribute-authority-compromise
+                    - certificate-authority-compromise
+                    - certificate-hold
+                    - cessation-of-operation
+                    - key-compromise
+                    - privilege-withdrawn
+                    - unspecified
+                    - superseded
+        - name: update
+          description: Update an existing certificate.
+          flags:
+            --clear-labels: Remove all labels.
+            --issuer-location=: The location of the CERTIFICATE.
+            --issuer-pool=: The parent CA Pool of the CERTIFICATE.
+            --no-clear-labels&: Remove all labels.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+    - name: locations
+      description: Manage locations.
+      commands:
+        - name: list
+          description: List supported locations for the Private CA GA API.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: operations
+      description: Manage operations.
+      hidden: true
+      commands:
+        - name: describe
+          description: Describe an operation ran on the Private CA API.
+          hidden: true
+          flags:
+            --location=: The location of the operation to describe.
+        - name: list
+          description: List operations for the Private CA API.
+          hidden: true
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: pools
+      description: Manage CA pools.
+      commands:
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding for a CA pool.
+          flags:
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: A condition to include in the binding.
+            --location=: The location of the CA Pool.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: delete
+          description: Delete a CA pool.
+          flags:
+            --ignore-dependent-resources: This field skips the integrity check that would normally prevent breaking a CA Pool if it is used by another cloud resource and allows the CA Pool to be in a state where it is not able to issue certificates.
+            --location=: The location of the CA_POOL.
+            --no-ignore-dependent-resources&: This field skips the integrity check that would normally prevent breaking a CA Pool if it is used by another cloud resource and allows the CA Pool to be in a state where it is not able to issue certificates.
+        - name: get-ca-certs
+          description: Get the root CA certs for all active CAs in the CA pool.
+          flags:
+            --location=: The location of the CA_POOL.
+            --output-file=!: The path where the concatenated PEM certificates will be written.
+        - name: get-iam-policy
+          description: Get the IAM policy for a CA pool.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: The location of the CA Pool.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: update
+          description: Update an existing  CA Pool.
+          flags:
+            --clear-labels: Remove all labels.
+            --encryption-key=&: The full resource name of the Cloud KMS key to use for encrypting certificate data at rest.
+            --issuance-policy=: A YAML file describing this CA Pool's issuance policy.
+            --location=: The location of the CA_POOL.
+            --no-clear-labels&: Remove all labels.
+            --no-publish-ca-cert&: ""
+            --no-publish-crl&: ""
+            --publish-ca-cert: 'If this is enabled, the following will happen:'
+            --publish-crl: 'If this gets enabled, the following will happen:'
+            --publishing-encoding-format=: The encoding format of the content published to storage buckets.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+          completion:
+            flag:
+                publishing-encoding-format:
+                    - der
+                    - pem
+        - name: create
+          description: Create a new CA Pool.
+          flags:
+            --encryption-key=&: The full resource name of the Cloud KMS key to use for encrypting certificate data at rest.
+            --issuance-policy=: A YAML file describing this CA Pool's issuance policy.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The location of the CA_POOL.
+            --no-publish-ca-cert&: ""
+            --no-publish-crl&: ""
+            --publish-ca-cert: 'If this is enabled, the following will happen:'
+            --publish-crl: 'If this gets enabled, the following will happen:'
+            --publishing-encoding-format=: The encoding format of the content published to storage buckets.
+            --tier=: The tier for the Certificate Authority.
+          completion:
+            flag:
+                publishing-encoding-format:
+                    - der
+                    - pem
+                tier:
+                    - devops
+                    - enterprise
+        - name: describe
+          description: Get metadata for a CA pool.
+          flags:
+            --location=: The location of the CA Pool.
+        - name: list
+          description: List CA pools within a project.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Location of the CA pools.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: remove-iam-policy-binding
+          description: Remove IAM policy binding for a CA pool.
+          flags:
+            --all: Remove all bindings with this role and principal, irrespective of any
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: The condition of the binding that you want to remove.
+            --location=: The location of the CA Pool.
+            --member=!: The principal to remove the binding for.
+            --no-all&: ""
+            --role=!: The role to remove the principal from.
+        - name: set-iam-policy
+          description: Set the IAM policy for a CA pool.
+          flags:
+            --location=: The location of the CA Pool.
+    - name: roots
+      description: Manage root certificate authorities.
+      commands:
+        - name: enable
+          description: Enable a root certificate authority.
+          flags:
+            --location=: The location of the CERTIFICATE_AUTHORITY.
+            --pool=: The parent CA Pool of the CERTIFICATE_AUTHORITY.
+        - name: list
+          description: List root certificate authorities.
+          flags:
+            --limit=: Maximum number of resources to list.
+            --location=: Location of the certificate authorities.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --pool=: ID of the CA Pool where the certificate authorities reside.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: undelete
+          description: Undelete a root Certificate Authority.
+          flags:
+            --location=: The location of the CERTIFICATE_AUTHORITY.
+            --pool=: The parent CA Pool of the CERTIFICATE_AUTHORITY.
+        - name: update
+          description: Update an existing root certificate authority.
+          flags:
+            --clear-labels: Remove all labels.
+            --location=: The location of the CERTIFICATE_AUTHORITY.
+            --no-clear-labels&: Remove all labels.
+            --pool=: The parent CA Pool of the CERTIFICATE_AUTHORITY.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+        - name: create
+          description: Create a new root certificate authority.
+          flags:
+            --auto-enable: If this flag is set, the Certificate Authority will be automatically enabled upon creation.
+            --bucket=: The name of an existing storage bucket to use for storing the CA certificates and CRLs for CAs in this pool.
+            --custom-aia-urls=: One or more comma-separated URLs that will be added to the Authority Information Access extension in the issued certificate.
+            --custom-cdp-urls=: One or more comma-separated URLs that will be added to the CRL Distribution Points (CDP) extension in the issued certificate.
+            --dns-san=: One or more comma-separated DNS Subject Alternative Names.
+            --email-san=: One or more comma-separated email Subject Alternative Names.
+            --extended-key-usages=: The list of extended key usages for this CA.
+            --from-ca=!: ID of the source CA or fully qualified identifier for the source CA.
+            --ip-san=: One or more comma-separated IP Subject Alternative Names.
+            --key-algorithm=: The crypto algorithm to use for creating a managed KMS key for the Certificate Authority.
+            --key-usages=: The list of key usages for this CA.
+            --kms-key-version=!: ID of the key version or fully qualified identifier for the key version.
+            --kms-key=: The KMS key of the key version.
+            --kms-keyring=: The KMS keyring of the key version.
+            --kms-location=: The location of the key version.
+            --kms-project=: The project containing the key version.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The location of the Certificate Authority.
+            --max-chain-length=: Maximum depth of subordinate CAs allowed under this CA for a CA certificate.
+            --name-constraints-critical: Indicates whether or not name constraints are marked as critical.
+            --name-excluded-dns=: One or more comma-separated DNS names which are excluded from being issued certificates.
+            --name-excluded-email=: One or more comma-separated emails which are excluded from being issued certificates.
+            --name-excluded-ip=: One or more comma-separated IP ranges which are excluded from being issued certificates.
+            --name-excluded-uri=: One or more comma-separated URIs which are excluded from being issued certificates.
+            --name-permitted-dns=: One or more comma-separated  DNS names which are permitted to be issued certificates.
+            --name-permitted-email=: One or more comma-separated email addresses which are permitted to be issued certificates.
+            --name-permitted-ip=: One or more comma-separated IP ranges which are permitted to be issued certificates.
+            --name-permitted-uri=: One or more comma-separated URIs which are permitted to be issued certificates.
+            --no-auto-enable&: If this flag is set, the Certificate Authority will be automatically enabled upon creation.
+            --no-name-constraints-critical&: Indicates whether or not name constraints are marked as critical.
+            --no-unconstrained-chain-length&: If set, allows an unbounded number of subordinate CAs under this newly issued CA certificate.
+            --pool=: The parent CA Pool of the Certificate Authority.
+            --subject-file=&: A yaml file containing the RDN sequence for the Subject field.
+            --subject-key-id=: Optional field to specify subject key ID for certificate.
+            --subject=: X.501 name of the certificate subject.
+            --unconstrained-chain-length: If set, allows an unbounded number of subordinate CAs under this newly issued CA certificate.
+            --uri-san=: One or more comma-separated URI Subject Alternative Names.
+            --use-preset-profile=: The name of an existing preset profile used to encapsulate X.509 parameter values.
+            --validity=: The validity of this CA, as an ISO8601 duration.
+          completion:
+            flag:
+                key-algorithm:
+                    - ec-p256-sha256
+                    - ec-p384-sha384
+                    - rsa-pkcs1-2048-sha256
+                    - rsa-pkcs1-3072-sha256
+                    - rsa-pkcs1-4096-sha256
+                    - rsa-pss-2048-sha256
+                    - rsa-pss-3072-sha256
+                    - rsa-pss-4096-sha256
+        - name: delete
+          description: Delete a Root Certificate Authority.
+          flags:
+            --ignore-active-certificates: If this flag is set, the Certificate Authority will be deleted even if the Certificate Authority has un-revoked or un-expired certificates after the grace period.
+            --ignore-dependent-resources: This field skips the integrity check that would normally prevent breaking a CA Pool if it is used by another cloud resource and allows the CA Pool to be in a state where it is not able to issue certificates.
+            --location=: The location of the CERTIFICATE_AUTHORITY.
+            --no-ignore-active-certificates&: If this flag is set, the Certificate Authority will be deleted even if the Certificate Authority has un-revoked or un-expired certificates after the grace period.
+            --no-ignore-dependent-resources&: This field skips the integrity check that would normally prevent breaking a CA Pool if it is used by another cloud resource and allows the CA Pool to be in a state where it is not able to issue certificates.
+            --no-skip-grace-period&: If this flag is set, the Certificate Authority will be deleted as soon as possible without a 30-day grace period where undeletion would have been allowed.
+            --pool=: The parent CA Pool of the CERTIFICATE_AUTHORITY.
+            --skip-grace-period: If this flag is set, the Certificate Authority will be deleted as soon as possible without a 30-day grace period where undeletion would have been allowed.
+        - name: describe
+          description: Get metadata for a root Certificate Authority.
+          flags:
+            --location=: The location of the CERTIFICATE_AUTHORITY.
+            --pool=: The ID of the CA Pool.
+        - name: disable
+          description: Disable a root certificate authority.
+          flags:
+            --ignore-dependent-resources: This field skips the integrity check that would normally prevent breaking a CA Pool if it is used by another cloud resource and allows the CA Pool to be in a state where it is not able to issue certificates.
+            --location=: The location of the CERTIFICATE_AUTHORITY.
+            --no-ignore-dependent-resources&: This field skips the integrity check that would normally prevent breaking a CA Pool if it is used by another cloud resource and allows the CA Pool to be in a state where it is not able to issue certificates.
+            --pool=: The parent CA Pool of the CERTIFICATE_AUTHORITY.
+    - name: subordinates
+      description: Manage subordinate certificate authorities.
+      commands:
+        - name: undelete
+          description: Undelete a subordinate certificate authority.
+          flags:
+            --location=: The location of the CERTIFICATE_AUTHORITY.
+            --pool=: The parent CA Pool of the CERTIFICATE_AUTHORITY.
+        - name: create
+          description: Create a new subordinate certificate authority.
+          flags:
+            --auto-enable: If this flag is set, the Certificate Authority will be automatically enabled upon creation.
+            --bucket=: The name of an existing storage bucket to use for storing the CA certificates and CRLs for CAs in this pool.
+            --create-csr!: Indicates that a CSR should be generated which can be signed by the issuing CA.
+            --csr-output-file=!: The path where the resulting PEM-encoded CSR file should be written.
+            --custom-aia-urls=: One or more comma-separated URLs that will be added to the Authority Information Access extension in the issued certificate.
+            --custom-cdp-urls=: One or more comma-separated URLs that will be added to the CRL Distribution Points (CDP) extension in the issued certificate.
+            --dns-san=: One or more comma-separated DNS Subject Alternative Names.
+            --email-san=: One or more comma-separated email Subject Alternative Names.
+            --extended-key-usages=: The list of extended key usages for this CA.
+            --from-ca=!: ID of the source CA or fully qualified identifier for the source CA.
+            --ip-san=: One or more comma-separated IP Subject Alternative Names.
+            --issuer-ca=: The Certificate Authority ID of the CA to issue the subordinate CA certificate from.
+            --issuer-location=: The location of the Issuer.
+            --issuer-pool=!: ID of the Issuer or fully qualified identifier for the Issuer.
+            --key-algorithm=: The crypto algorithm to use for creating a managed KMS key for the Certificate Authority.
+            --key-usages=: The list of key usages for this CA.
+            --kms-key-version=!: ID of the key version or fully qualified identifier for the key version.
+            --kms-key=: The KMS key of the key version.
+            --kms-keyring=: The KMS keyring of the key version.
+            --kms-location=: The location of the key version.
+            --kms-project=: The project containing the key version.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The location of the Certificate Authority.
+            --max-chain-length=: Maximum depth of subordinate CAs allowed under this CA for a CA certificate.
+            --name-constraints-critical: Indicates whether or not name constraints are marked as critical.
+            --name-excluded-dns=: One or more comma-separated DNS names which are excluded from being issued certificates.
+            --name-excluded-email=: One or more comma-separated emails which are excluded from being issued certificates.
+            --name-excluded-ip=: One or more comma-separated IP ranges which are excluded from being issued certificates.
+            --name-excluded-uri=: One or more comma-separated URIs which are excluded from being issued certificates.
+            --name-permitted-dns=: One or more comma-separated  DNS names which are permitted to be issued certificates.
+            --name-permitted-email=: One or more comma-separated email addresses which are permitted to be issued certificates.
+            --name-permitted-ip=: One or more comma-separated IP ranges which are permitted to be issued certificates.
+            --name-permitted-uri=: One or more comma-separated URIs which are permitted to be issued certificates.
+            --no-auto-enable&: If this flag is set, the Certificate Authority will be automatically enabled upon creation.
+            --no-name-constraints-critical&: Indicates whether or not name constraints are marked as critical.
+            --no-unconstrained-chain-length&: If set, allows an unbounded number of subordinate CAs under this newly issued CA certificate.
+            --pool=: The parent CA Pool of the Certificate Authority.
+            --subject-file=&: A yaml file containing the RDN sequence for the Subject field.
+            --subject-key-id=: Optional field to specify subject key ID for certificate.
+            --subject=: X.501 name of the certificate subject.
+            --unconstrained-chain-length: If set, allows an unbounded number of subordinate CAs under this newly issued CA certificate.
+            --uri-san=: One or more comma-separated URI Subject Alternative Names.
+            --use-preset-profile=: The name of an existing preset profile used to encapsulate X.509 parameter values.
+            --validity=: The validity of this CA, as an ISO8601 duration.
+          completion:
+            flag:
+                key-algorithm:
+                    - ec-p256-sha256
+                    - ec-p384-sha384
+                    - rsa-pkcs1-2048-sha256
+                    - rsa-pkcs1-3072-sha256
+                    - rsa-pkcs1-4096-sha256
+                    - rsa-pss-2048-sha256
+                    - rsa-pss-3072-sha256
+                    - rsa-pss-4096-sha256
+        - name: delete
+          description: Delete a subordinate certificate authority.
+          flags:
+            --ignore-active-certificates: If this flag is set, the Certificate Authority will be deleted even if the Certificate Authority has un-revoked or un-expired certificates after the grace period.
+            --ignore-dependent-resources: This field skips the integrity check that would normally prevent breaking a CA Pool if it is used by another cloud resource and allows the CA Pool to be in a state where it is not able to issue certificates.
+            --location=: The location of the CERTIFICATE_AUTHORITY.
+            --no-ignore-active-certificates&: If this flag is set, the Certificate Authority will be deleted even if the Certificate Authority has un-revoked or un-expired certificates after the grace period.
+            --no-ignore-dependent-resources&: This field skips the integrity check that would normally prevent breaking a CA Pool if it is used by another cloud resource and allows the CA Pool to be in a state where it is not able to issue certificates.
+            --no-skip-grace-period&: If this flag is set, the Certificate Authority will be deleted as soon as possible without a 30-day grace period where undeletion would have been allowed.
+            --pool=: The parent CA Pool of the CERTIFICATE_AUTHORITY.
+            --skip-grace-period: If this flag is set, the Certificate Authority will be deleted as soon as possible without a 30-day grace period where undeletion would have been allowed.
+        - name: disable
+          description: Disable a subordinate certificate authority.
+          flags:
+            --ignore-dependent-resources: This field skips the integrity check that would normally prevent breaking a CA Pool if it is used by another cloud resource and allows the CA Pool to be in a state where it is not able to issue certificates.
+            --location=: The location of the CERTIFICATE_AUTHORITY.
+            --no-ignore-dependent-resources&: This field skips the integrity check that would normally prevent breaking a CA Pool if it is used by another cloud resource and allows the CA Pool to be in a state where it is not able to issue certificates.
+            --pool=: The parent CA Pool of the CERTIFICATE_AUTHORITY.
+        - name: enable
+          description: Enable a subordinate certificate authority.
+          flags:
+            --location=: The location of the CERTIFICATE_AUTHORITY.
+            --pool=: The parent CA Pool of the CERTIFICATE_AUTHORITY.
+        - name: update
+          description: Update an existing subordinate certificate authority.
+          flags:
+            --clear-labels: Remove all labels.
+            --location=: The location of the CERTIFICATE_AUTHORITY.
+            --no-clear-labels&: Remove all labels.
+            --pem-chain=: A file containing a list of PEM-encoded certificates that represent the issuing chain of this CA.
+            --pool=: The parent CA Pool of the CERTIFICATE_AUTHORITY.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+        - name: activate
+          description: Activate a subordinate certificate authority awaiting user activation.
+          flags:
+            --auto-enable: If this flag is set, the Certificate Authority will be automatically enabled upon creation.
+            --location=: The location of the CERTIFICATE_AUTHORITY.
+            --no-auto-enable&: If this flag is set, the Certificate Authority will be automatically enabled upon creation.
+            --pem-chain=!: A file containing a list of PEM-encoded certificates, starting with the current CA certificate and ending with the root CA certificate.
+            --pool=: The parent CA Pool of the CERTIFICATE_AUTHORITY.
+        - name: describe
+          description: Get metadata for a subordinate certificate authority.
+          flags:
+            --location=: The location of the CERTIFICATE_AUTHORITY.
+            --pool=: The ID of the CA Pool.
+        - name: get-csr
+          description: Get the CSR for a subordinate certificate authority that has not yet been activated.
+          flags:
+            --location=: The location of the CERTIFICATE_AUTHORITY.
+            --pool=: The parent CA Pool of the CERTIFICATE_AUTHORITY.
+        - name: list
+          description: List subordinate certificate authorities.
+          flags:
+            --limit=: Maximum number of resources to list.
+            --location=: Location of the certificate authorities.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --pool=: ID of the CA Pool where the certificate authorities reside.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: templates
+      description: Manage certificate templates.
+      commands:
+        - name: create
+          description: Create a new certificate template.
+          flags:
+            --copy-all-requested-extensions: If this is set, all extensions specified in the certificate  request will be copied into the signed certificate.
+            --copy-extensions-by-oid=: If this is set, then extensions with the given OIDs will be copied from the certificate request into the signed certificate.
+            --copy-known-extensions=: If this is set, then the given extensions will be copied from the certificate request into the signed certificate.
+            --copy-sans!: If this is specified, the Subject Alternative Name extension from the certificate request will be copied into the signed certificate.
+            --copy-subject!: If this is specified, the Subject from the certificate request will be copied into the signed certificate.
+            --description=: A text description for the Certificate Template.
+            --identity-cel-expression=: A CEL expression that will be evaluated against the identity in the certificate before it is issued, and returns a boolean signifying whether the request should be allowed.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The location of the CERTIFICATE_TEMPLATE.
+            --maximum-lifetime=: If this is set, then issued certificate's lifetime will be truncated to the value provided.
+            --no-copy-sans!&: If this is specified, the Subject Alternative Name extension from the certificate request will be copied into the signed certificate.
+            --no-copy-subject!&: If this is specified, the Subject from the certificate request will be copied into the signed certificate.
+            --predefined-values-file=: A YAML file describing any predefined X.509 values set by this template.
+        - name: describe
+          description: Show details about a certificate template.
+          flags:
+            --location=: The location of the Certificate Template.
+        - name: remove-iam-policy-binding
+          description: Remove IAM policy binding for a certificate template.
+          flags:
+            --all: Remove all bindings with this role and principal, irrespective of any
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: The condition of the binding that you want to remove.
+            --location=: The location of the Certificate Template.
+            --member=!: The principal to remove the binding for.
+            --no-all&: ""
+            --role=!: The role to remove the principal from.
+        - name: replicate
+          description: Replicate a certificate template to multiple locations.
+          flags:
+            --all-locations: Replicate this template to all supported locations.
+            --continue-on-error: Continue replicating the template to other locations even if an error is encountered.
+            --location=: The location of the CERTIFICATE_TEMPLATE.
+            --overwrite: Overwrite any existing templates with the same name, if they exist.
+            --target-locations=: Replicate this template to the given locations.
+        - name: set-iam-policy
+          description: Set the IAM policy for a certificate template.
+          flags:
+            --location=: The location of the Certificate Template.
+        - name: update
+          description: Update a certificate template.
+          flags:
+            --clear-labels: Remove all labels.
+            --copy-all-requested-extensions: If this is set, all extensions, whether known or specified by OID, that are specified in the certificate request will be copied into the signed certificate.
+            --copy-extensions-by-oid=: If this is set, then extensions with the given OIDs will be copied from the certificate request into the signed certificate.
+            --copy-known-extensions=: If this is set, then the given extensions will be copied from the certificate request into the signed certificate.
+            --copy-sans: If this is specified, the Subject Alternative Name extension from the certificate request will be copied into the signed certificate.
+            --copy-subject: If this is specified, the Subject from the certificate request will be copied into the signed certificate.
+            --description=: A text description for the Certificate Template.
+            --drop-known-extensions: If this is set, then all known extensions will be removed from the template, prohibiting any known x509 extensions to be specified by the requester.
+            --drop-oid-extensions: If this is set, then all existing OID extensions will be removed from the template, prohibiting any extensions specified by OIDs to be specified by the requester.
+            --identity-cel-expression=: A CEL expression that will be evaluated against the identity in the certificate before it is issued, and returns a boolean signifying whether the request should be allowed.
+            --location=: The location of the CERTIFICATE_TEMPLATE.
+            --no-clear-labels&: Remove all labels.
+            --no-copy-sans&: If this is specified, the Subject Alternative Name extension from the certificate request will be copied into the signed certificate.
+            --no-copy-subject&: If this is specified, the Subject from the certificate request will be copied into the signed certificate.
+            --predefined-values-file=: A YAML file describing any predefined X.509 values set by this template.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding for a certificate template.
+          flags:
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: A condition to include in the binding.
+            --location=: The location of the Certificate Template.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: delete
+          description: Delete a certificate template.
+          flags:
+            --location=: The location of the CERTIFICATE_TEMPLATE.
+        - name: get-iam-policy
+          description: Get the IAM policy for a certificate template.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: The location of the Certificate Template.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: List certificate templates within a project.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: The location you want to list the certificate templates for.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the

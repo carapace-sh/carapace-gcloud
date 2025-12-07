@@ -1,0 +1,190 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: services
+description: List, enable and disable APIs and services.
+commands:
+    - name: list
+      description: List services for a project.
+      flags:
+        --available: Return the services available to the project to enable.
+        --enabled: (DEFAULT) Return the services which the project has enabled.
+        --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+        --limit=: Maximum number of resources to list.
+        --no-available&: Return the services available to the project to enable.
+        --no-enabled&: (DEFAULT) Return the services which the project has enabled.
+        --page-size=: Some services group resource list output into pages.
+        --sort-by=: Comma-separated list of resource field key names to sort by.
+    - name: operations
+      description: Manage Operation for various services.
+      commands:
+        - name: describe
+          description: Describes an operation resource for a given operation name.
+          flags:
+            --full=: (DEPRECATED) This flag is deprecated.
+        - name: wait
+          description: Waits for an operation to complete for a given operation name.
+    - name: peered-dns-domains
+      description: Peered DNS domains for various private service connections.
+      commands:
+        - name: create
+          description: Create a peered DNS domain for a private service connection.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --dns-suffix=!: The DNS domain name suffix of the peered DNS domain.
+            --network=!: The network in the consumer project peered with the service.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --service=: The name of the service to create a peered DNS domain for.
+        - name: delete
+          description: Delete a peered DNS domain for a private service connection.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --network=!: The network in the consumer project peered with the service.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --service=: The name of the service to delete a peered DNS domain for.
+        - name: list
+          description: List the peered DNS domains for a private service connection.
+          flags:
+            --network=!: Network in the consumer project peered with the service.
+            --service=: Name of the service to list the peered DNS domains for.
+    - name: vpc-peerings
+      description: VPC Peerings to various services.
+      commands:
+        - name: connect
+          description: Connect to a service via VPC peering for a project network.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --network=!: The network in the current project to be peered with the service
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --ranges=!: The names of IP CIDR ranges for service to use.
+            --service=: The service to connect to
+        - name: delete
+          description: Delete a private service connection to a service for a project network.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --network=!: The network in the current project which is peered with the service
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --service=: The service to connect to
+        - name: disable-vpc-service-controls
+          description: Disable VPC Service Controls for the peering connection.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --network=!: The network in the current project that is peered with the service.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --service=: The service to enable VPC service controls for.
+        - name: enable-vpc-service-controls
+          description: Enable VPC Service Controls for the peering connection.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --network=!: The network in the current project that is peered with the service.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --service=: The service to enable VPC service controls for.
+        - name: get-vpc-service-controls
+          description: Get VPC state of Service Controls for the peering connection.
+          flags:
+            --network=!: The network in the current project that is peered with the service.
+            --service=: The service to get VPC service controls for.
+        - name: list
+          description: List connections to a service via VPC peering for a project network.
+          flags:
+            --network=!: The network in the current project to list connections with the service
+            --service=: The service to list connections
+        - name: operations
+          description: Manage VPC Peering operations.
+          commands:
+            - name: describe
+              description: Describes an operation resource for a given operation name.
+              flags:
+                --name=!: The name of operation to describe
+            - name: wait
+              description: Waits for an operation to complete  for a given operation name.
+              flags:
+                --name=!: The name of operation to wait
+        - name: update
+          description: Update a private service connection to a service for a project network.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --force: If specified, the update call will proceed even if the update can be destructive.
+            --network=!: The network in the current project to be peered with the service
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-force&: If specified, the update call will proceed even if the update can be destructive.
+            --ranges=: The names of IP CIDR ranges for service to use.
+            --service=: The service to connect to
+    - name: api-keys
+      description: Manage API keys.
+      commands:
+        - name: list
+          description: Lists API keys.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-show-deleted&: Show soft-deleted keys by specifying this flag.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --show-deleted: Show soft-deleted keys by specifying this flag.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: lookup
+          description: Look up resource name of a key string.
+        - name: undelete
+          description: Undelete an API key.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --key-string=: Key String of the key.
+            --location=: Location of the key.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: update
+          description: Update an API key's metadata.
+          flags:
+            --allowed-application=: Repeatable.
+            --allowed-bundle-ids=: iOS app's bundle ids that are allowed to use the key.
+            --allowed-ips=: A list of the caller IP addresses that are allowed to make API calls with this key.
+            --allowed-referrers=: A list of regular expressions for the referrer URLs that are allowed to make API calls with this key.
+            --annotations=: Annotations are key resource.
+            --api-target=: Repeatable.
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-annotations: If set, clear all annotations on the key.
+            --clear-restrictions: If set, clear all restrictions on the key.
+            --display-name=: Display name of the key to update.
+            --location=: Location of the key.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-annotations&: If set, clear all annotations on the key.
+            --no-clear-restrictions&: If set, clear all restrictions on the key.
+        - name: create
+          description: Create an API key.
+          flags:
+            --allowed-application=: Repeatable.
+            --allowed-bundle-ids=: iOS app's bundle ids that are allowed to use the key.
+            --allowed-ips=: A list of the caller IP addresses that are allowed to make API calls with this key.
+            --allowed-referrers=: A list of regular expressions for the referrer URLs that are allowed to make API calls with this key.
+            --annotations=: Annotations are key resource.
+            --api-target=: Repeatable.
+            --async: Return immediately, without waiting for the operation in progress to
+            --display-name=: Display name of the key to create.
+            --key-id=: User-specified ID of the key to create.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --service-account=: The email of the service account the key is bound to.
+        - name: delete
+          description: Delete an API key.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Location of the key.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe an API key's metadata.
+          flags:
+            --location=: Location of the key.
+        - name: get-key-string
+          description: Get the key string of an API key.
+          flags:
+            --location=: Location of the key.
+    - name: disable
+      description: Disable a service for consumption for a project.
+      flags:
+        --async: Return immediately, without waiting for the operation in progress to
+        --force: If specified, the disable call will proceed even if there are enabled services which depend on the service to be disabled or disable the service used in last 30 days or was enabled in recent 3 days.
+        --no-async&: Return immediately, without waiting for the operation in progress to
+        --no-force&: If specified, the disable call will proceed even if there are enabled services which depend on the service to be disabled or disable the service used in last 30 days or was enabled in recent 3 days.
+    - name: enable
+      description: Enables a service for consumption for a project.
+      flags:
+        --async: Return immediately, without waiting for the operation in progress to
+        --no-async&: Return immediately, without waiting for the operation in progress to

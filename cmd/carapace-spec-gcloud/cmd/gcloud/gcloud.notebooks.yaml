@@ -1,0 +1,398 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: notebooks
+description: Notebooks Command Group.
+commands:
+    - name: locations
+      description: View locations available for a project.
+      commands:
+        - name: list
+          description: Request for listing locations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: runtimes
+      description: Notebooks Runtimes command group.
+      commands:
+        - name: list
+          description: Request for listing runtimes.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: migrate
+          description: Request for migrating runtimes.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Google Cloud location of this runtime https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --network=!: ID of the network or fully qualified identifier for the network.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --post-startup-script-option=: Specifies the behavior of post startup script during migration.
+            --service-account=: The service account to be included in the Compute Engine instance of the new Workbench Instance when the Runtime uses single user only mode for permission.
+            --subnet-region=: Google Cloud region of this subnetwork https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --subnet=!: ID of the subnetwork or fully qualified identifier for the subnetwork.
+          completion:
+            flag:
+                post-startup-script-option:
+                    - POST_STARTUP_SCRIPT_OPTION_UNSPECIFIED
+                    - POST_STARTUP_SCRIPT_OPTION_SKIP
+                    - POST_STARTUP_SCRIPT_OPTION_RERUN
+        - name: reset
+          description: Request for resetting runtimes.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Google Cloud location of this runtime https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: start
+          description: Request for starting runtimes.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Google Cloud location of this runtime https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: stop
+          description: Request for stopping runtimes.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Google Cloud location of this runtime https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: switch
+          description: Request for switching runtimes.
+          flags:
+            --accelerator-core-count=: Count of cores of this accelerator.
+            --accelerator-type=: Type of this accelerator.
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Google Cloud location of this runtime https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --machine-type=: machine type
+            --no-async&: Return immediately, without waiting for the operation in progress to
+          completion:
+            flag:
+                accelerator-type:
+                    - NVIDIA_TESLA_A100
+                    - NVIDIA_TESLA_K80
+                    - NVIDIA_TESLA_P100
+                    - NVIDIA_TESLA_V100
+                    - NVIDIA_TESLA_P4
+                    - NVIDIA_TESLA_T4
+                    - NVIDIA_TESLA_T4_VWS
+                    - NVIDIA_TESLA_P100_VWS
+                    - NVIDIA_TESLA_P4_VWS
+                    - TPU_V2
+                    - TPU_V3
+        - name: delete
+          description: Request for deleting runtimes.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Google Cloud location of this runtime https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Request for describing runtimes.
+          flags:
+            --location=: Google Cloud location of this runtime https://cloud.google.com/compute/docs/regions-zones/#locations.
+        - name: diagnose
+          description: Request for diagnose runtimes.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --enable-copy-home-files: Enables flag to copy all `/home/jupyter` folder contents
+            --enable-packet-capture: Enables flag to capture packets from the runtime for 30 seconds
+            --enable-repair: Enables flag to repair service for runtime
+            --gcs-bucket=!: The Cloud Storage bucket where the log files generated from the diagnose command will be stored.
+            --location=: Google Cloud location of this runtime https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-enable-copy-home-files&: Enables flag to copy all `/home/jupyter` folder contents
+            --no-enable-packet-capture&: Enables flag to capture packets from the runtime for 30 seconds
+            --no-enable-repair&: Enables flag to repair service for runtime
+            --relative-path=: Defines the relative storage path in the Cloud Storage bucket where the diagnostic logs will be written.
+            --timeout-minutes=: Maximum amount of time in minutes before the operation times out
+        - name: create
+          description: Request for creating an runtime.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --custom-gpu-driver-path=: custom gpu driver path
+            --idle-shutdown-timeout=: idle shutdown timeout
+            --install-gpu-driver=: install gpu driver
+            --interface=: runtime interface
+            --location=: Google Cloud location of this runtime https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --machine-type=!: machine type
+            --mode=: runtime mode
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --post-startup-script-behavior=: post startup script behavior
+            --post-startup-script=: post startup script
+            --runtime-access-type=: access type
+            --runtime-owner=: runtime owner
+            --runtime-type=: runtime type
+            --source=: runtime source
+            --type=: runtime type
+    - name: environments
+      description: Notebooks Environments Command Group.
+      commands:
+        - name: create
+          description: Request for creating environments.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --container-repository=!: The path to the container image repository.
+            --container-tag=: The tag of the container image.
+            --description=: A brief description of this environment.
+            --display-name=: Name to display on the UI.
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --post-startup-script=: Path to a Bash script that automatically runs after a notebook instance fully boots up.
+            --vm-image-family=: Use this VM image family to find the image; the newest image in this family will be used.
+            --vm-image-name=: Use this VM image name to find the image.
+            --vm-image-project=: 'The ID of the Google Cloud project that this VM image belongs to.Format: projects/`{project_id}`.'
+        - name: delete
+          description: Request for deleting environments.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Request for describing environments.
+          flags:
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+        - name: list
+          description: Request for listing environments.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: 'Google Cloud location of this environment: https://cloud.google.com/compute/docs/regions-zones/#locations.'
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: instances
+      description: Notebooks Instances command group.
+      commands:
+        - name: is-upgradeable
+          description: Request for checking if a notebook instance is upgradeable.
+          flags:
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+        - name: migrate
+          description: Request for migrating instances.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --post-startup-script-option=: // Specifies the behavior of post startup script during migration.
+          completion:
+            flag:
+                post-startup-script-option:
+                    - POST_STARTUP_SCRIPT_OPTION_UNSPECIFIED
+                    - POST_STARTUP_SCRIPT_OPTION_SKIP
+                    - POST_STARTUP_SCRIPT_OPTION_RERUN
+        - name: remove-iam-policy-binding
+          description: Remove IAM policy binding for an instance.
+          flags:
+            --location=: The location of the notebook instance.
+            --member=!: The principal to remove the binding for.
+            --role=!: The role to remove the principal from.
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding for an instance.
+          flags:
+            --location=: The location of the notebook instance.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: diagnose
+          description: Request for diagnose instances.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --enable-copy-home-files: Enables flag to copy all `/home/jupyter` folder contents
+            --enable-packet-capture: Enables flag to capture packets from the instance for 30 seconds
+            --enable-repair: Enables flag to repair service for instance
+            --gcs-bucket=!: The Cloud Storage bucket where the log files generated from the diagnose command will be stored.
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-enable-copy-home-files&: Enables flag to copy all `/home/jupyter` folder contents
+            --no-enable-packet-capture&: Enables flag to capture packets from the instance for 30 seconds
+            --no-enable-repair&: Enables flag to repair service for instance
+            --relative-path=: Defines the relative storage path in the Cloud Storage bucket where the diagnostic logs will be written.
+            --timeout-minutes=: Maximum amount of time in minutes before the operation times out
+        - name: get-iam-policy
+          description: Get IAM policy for an instance.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: The location of the notebook instance.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: reset
+          description: Request for resetting instances.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: start
+          description: Request for starting instances.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: upgrade
+          description: Request for upgrading instances.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: rollback
+          description: Request for rolling back instances.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --target-snapshot=!: The saved snapshot to rollback to
+        - name: create
+          description: Request for creating an instance.
+          flags:
+            --accelerator-core-count=: Count of cores of this accelerator.
+            --accelerator-type=: Type of this accelerator.
+            --async: Return immediately, without waiting for the operation in progress to
+            --boot-disk-size=: Size of boot disk in GB attached to this instance, up to a maximum of 64000 GB (64 TB).
+            --boot-disk-type=: Type of boot disk attached to this instance, defaults to standard persistent disk (`PD_STANDARD`).
+            --container-repository=!: The path to the container image repository.
+            --container-tag=: The tag of the container image.
+            --custom-gpu-driver-path=: Specify a custom Cloud Storage path where the GPU driver is stored.
+            --data-disk-size=: Size of data disk in GB attached to this instance, up to a maximum of 64000 GB (64 TB).
+            --data-disk-type=: Type of data disk attached to this instance, defaults to standard persistent disk (`PD_STANDARD`).
+            --disk-encryption=: Disk encryption method used on the boot disk, defaults to GMEK.
+            --environment-location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --environment=!: ID of the environment or fully qualified identifier for the environment.
+            --install-gpu-driver: Whether the end user authorizes Google Cloud to install a GPU driver on this instance.
+            --instance-owners=: The owners of this instance after creation.
+            --kms-key=!: ID of the key or fully qualified identifier for the key.
+            --kms-keyring=: The KMS keyring of the key.
+            --kms-location=: The Google Cloud location for the key.
+            --kms-project=: The Google Cloud project for the key.
+            --labels=: Labels to apply to this instance.
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --machine-type=: The [Compute Engine machine type](https://cloud.google.com/sdk/gcloud/reference/compute/machine-types) of this instance.
+            --metadata=: Custom metadata to apply to this instance.
+            --network=!: ID of the network or fully qualified identifier for the network.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-install-gpu-driver&: Whether the end user authorizes Google Cloud to install a GPU driver on this instance.
+            --no-proxy-access: If true, the notebook instance will not register with the proxy.
+            --no-public-ip: If specified, no public IP will be assigned to this instance.
+            --no-remove-data-disk: If true, the data disk will not be auto deleted when deleting the instance.
+            --no-shielded-integrity-monitoring&: Enable monitoring of the boot integrity of the instance.
+            --no-shielded-secure-boot&: Boot instance with secure boot enabled.
+            --no-shielded-vtpm&: Boot instance with TPM (Trusted Platform Module) enabled.
+            --post-startup-script=: Path to a Bash script that automatically runs after a notebook instance fully boots up.
+            --reservation-affinity=: The type of reservation for the instance.
+            --reservation=: The name of the reservation, required when `--reservation-affinity=SPECIFIC_RESERVATION`.
+            --service-account=: The service account on this instance, giving access to other Google Cloud services.
+            --shielded-integrity-monitoring: Enable monitoring of the boot integrity of the instance.
+            --shielded-secure-boot: Boot instance with secure boot enabled.
+            --shielded-vtpm: Boot instance with TPM (Trusted Platform Module) enabled.
+            --subnet-region=: Google Cloud region of this subnetwork https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --subnet=!: ID of the subnetwork or fully qualified identifier for the subnetwork.
+            --tags=: Tags to apply to this instance.
+            --vm-image-family=: Use this VM image family to find the image; the newest image in this family will be used.
+            --vm-image-name=: Use this VM image name to find the image.
+            --vm-image-project=: The ID of the Google Cloud project that this VM image belongs to.
+          completion:
+            flag:
+                accelerator-type:
+                    - NVIDIA_TESLA_A100
+                    - NVIDIA_TESLA_K80
+                    - NVIDIA_TESLA_P100
+                    - NVIDIA_TESLA_V100
+                    - NVIDIA_TESLA_P4
+                    - NVIDIA_TESLA_T4
+                    - NVIDIA_TESLA_T4_VWS
+                    - NVIDIA_TESLA_P100_VWS
+                    - NVIDIA_TESLA_P4_VWS
+                    - TPU_V2
+                    - TPU_V3
+                    - NVIDIA_L4
+                    - NVIDIA_H100_80GB
+                    - NVIDIA_H100_MEGA_80GB
+                boot-disk-type:
+                    - PD_STANDARD
+                    - PD_SSD
+                    - PD_BALANCED
+                    - PD_EXTREME
+                data-disk-type:
+                    - PD_STANDARD
+                    - PD_SSD
+                    - PD_BALANCED
+                    - PD_EXTREME
+                disk-encryption:
+                    - GMEK
+                    - CMEK
+                reservation-affinity:
+                    - TYPE_UNSPECIFIED
+                    - NO_RESERVATION
+                    - ANY_RESERVATION
+                    - SPECIFIC_RESERVATION
+        - name: delete
+          description: Request for deleting instances.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Request for describing instances.
+          flags:
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+        - name: list
+          description: Request for listing instances.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: register
+          description: Request for registering instances.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: set-iam-policy
+          description: Set the IAM policy for an Instance.
+          flags:
+            --location=: The location of the notebook instance.
+        - name: stop
+          description: Request for stopping instances.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: get-health
+          description: Request for checking if a notebook instance is healthy.
+          flags:
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+        - name: update
+          description: Request for updating instances.
+          flags:
+            --accelerator-core-count=: Count of cores of this accelerator.
+            --accelerator-type=: Type of this accelerator.
+            --async: Return immediately, without waiting for the operation in progress to
+            --labels=: Labels to apply to this instance.
+            --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --machine-type=: The [Compute Engine machine type](/compute/docs/machine-types).
+            --no-async&: Return immediately, without waiting for the operation in progress to
+          completion:
+            flag:
+                accelerator-type:
+                    - NVIDIA_TESLA_A100
+                    - NVIDIA_TESLA_K80
+                    - NVIDIA_TESLA_P100
+                    - NVIDIA_TESLA_V100
+                    - NVIDIA_TESLA_P4
+                    - NVIDIA_TESLA_T4
+                    - NVIDIA_TESLA_T4_VWS
+                    - NVIDIA_TESLA_P100_VWS
+                    - NVIDIA_TESLA_P4_VWS
+                    - TPU_V2
+                    - TPU_V3
+                    - NVIDIA_L4
+                    - NVIDIA_H100_80GB
+                    - NVIDIA_H100_MEGA_80GB

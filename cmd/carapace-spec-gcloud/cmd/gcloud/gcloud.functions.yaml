@@ -1,0 +1,250 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: functions
+description: Manage Google Cloud Functions.
+commands:
+    - name: deploy
+      description: Create or update a Google Cloud Function.
+      flags:
+        --allow-unauthenticated: If set, makes this a public function.
+        --binary-authorization=: Name of the Binary Authorization policy that the function image should
+        --build-env-vars-file=: Path to a local YAML file with definitions for all build environment variables.
+        --build-service-account=: IAM service account whose credentials will be used for the build step.
+        --build-worker-pool=: Name of the Cloud Build Custom Worker Pool that should be used to build
+        --clear-binary-authorization: Clears the Binary Authorization policy field.
+        --clear-build-env-vars: Remove all build environment variables.
+        --clear-build-service-account: Clears the build service account field.
+        --clear-build-worker-pool: Clears the Cloud Build Custom Worker Pool field.
+        --clear-docker-repository: Clears the Docker repository configuration of the function.
+        --clear-env-vars: Remove all environment variables.
+        --clear-kms-key: Clears the KMS crypto key used to encrypt the function.
+        --clear-labels: Remove all labels.
+        --clear-max-instances: Clears the maximum instances setting for the function.
+        --clear-min-instances: Clears the minimum instances setting for the function.
+        --clear-secrets: Remove all secret environment variables and volumes.
+        --clear-vpc-connector: Clears the VPC connector field.
+        --concurrency=: Set the maximum number of concurrent requests allowed per container instance.
+        --cpu=: The number of available CPUs to set.
+        --docker-registry=: (DEPRECATED)         Docker Registry to use for storing the function's Docker images.
+        --docker-repository=: Sets the Docker repository to be used for storing the Cloud Function's
+        --egress-settings=: Egress settings controls what traffic is diverted through the VPC Access Connector resource.
+        --entry-point=: Name of a Google Cloud Function (as defined in source code) that will
+        --env-vars-file=: Path to a local YAML file with definitions for all environment variables.
+        --gen2: If enabled, this command will use Cloud Functions (Second generation).
+        --ignore-file=: Override the .gcloudignore file in the source directory and use the specified file instead.
+        --ingress-settings=: Ingress settings controls what traffic can reach the function.
+        --kms-key=: Sets the user managed KMS crypto key used to encrypt the Cloud Function
+        --max-instances=: Sets the maximum number of instances for the function.
+        --memory=!: Limit on the amount of memory the function can use.
+        --min-instances=: Sets the minimum number of instances for the function.
+        --no-allow-unauthenticated&: If set, makes this a public function.
+        --no-clear-binary-authorization&: Clears the Binary Authorization policy field.
+        --no-clear-build-env-vars&: Remove all build environment variables.
+        --no-clear-build-service-account&: Clears the build service account field.
+        --no-clear-build-worker-pool&: Clears the Cloud Build Custom Worker Pool field.
+        --no-clear-docker-repository&: Clears the Docker repository configuration of the function.
+        --no-clear-env-vars&: Remove all environment variables.
+        --no-clear-kms-key&: Clears the KMS crypto key used to encrypt the function.
+        --no-clear-labels&: Remove all labels.
+        --no-clear-max-instances&: Clears the maximum instances setting for the function.
+        --no-clear-min-instances&: Clears the minimum instances setting for the function.
+        --no-clear-secrets&: Remove all secret environment variables and volumes.
+        --no-clear-vpc-connector&: Clears the VPC connector field.
+        --no-gen2&: If enabled, this command will use Cloud Functions (Second generation).
+        --no-retry&: If specified, then the function will be retried in case of a failure.
+        --no-serve-all-traffic-latest-revision&: If specified, latest function revision will be served all traffic.
+        --no-trigger-http&: Function will be assigned an endpoint, which you can view by using
+        --region=: The Cloud region for the function.
+        --remove-build-env-vars=: List of build environment variables to be removed.
+        --remove-env-vars=: List of environment variables to be removed.
+        --remove-labels=: List of label keys to remove.
+        --remove-secrets=: List of secret environment variable names and secret paths to remove.
+        --retry: If specified, then the function will be retried in case of a failure.
+        --run-service-account=: The email address of the IAM service account associated with the Cloud
+        --runtime-update-policy=: Runtime update policy for the function being deployed.
+        --runtime=: Runtime in which to run the function.
+        --security-level=: Security level controls whether a function's URL supports HTTPS only or both HTTP and HTTPS.
+        --serve-all-traffic-latest-revision: If specified, latest function revision will be served all traffic.
+        --service-account=: The email address of the IAM service account associated with the
+        --set-build-env-vars=: List of key-value pairs to set as build environment variables.
+        --set-env-vars=: List of key-value pairs to set as environment variables.
+        --set-secrets=: List of secret environment variables and secret volumes to configure.
+        --source=: Location of source code to deploy.
+        --stage-bucket=: When deploying a function from a local directory, this flag's value is the name of the Google Cloud Storage bucket in which source code will be stored.
+        --timeout=: The function execution timeout, e.g. 30s for 30 seconds.
+        --trigger-bucket=: Google Cloud Storage bucket name.
+        --trigger-channel=&: ID of the channel or fully qualified identifier for the channel.
+        --trigger-event-filters-path-pattern=: The Eventarc matching criteria for the trigger in path pattern format.
+        --trigger-event-filters=: The Eventarc matching criteria for the trigger.
+        --trigger-event=: Specifies which action should trigger the function.
+        --trigger-http: Function will be assigned an endpoint, which you can view by using
+        --trigger-location=: The location of the trigger, which must be a region or multi-region where the relevant events originate.
+        --trigger-resource=: Specifies which resource from `--trigger-event` is being observed.
+        --trigger-service-account=: The email address of the IAM service account associated with the Eventarc
+        --trigger-topic=: Name of Pub/Sub topic.
+        --update-build-env-vars=: List of key-value pairs to set as build environment variables.
+        --update-env-vars=: List of key-value pairs to set as environment variables.
+        --update-labels=: List of label KEY=VALUE pairs to update.
+        --update-secrets=: List of secret environment variables and secret volumes to update.
+        --vpc-connector=!: ID of the connector or fully qualified identifier for the connector.
+      completion:
+        flag:
+            docker-registry:
+                - artifact-registry
+                - container-registry
+            egress-settings:
+                - private-ranges-only
+                - all
+            ingress-settings:
+                - all
+                - internal-only
+                - internal-and-gclb
+            runtime-update-policy:
+                - automatic
+                - on-deploy
+            security-level:
+                - secure-always
+                - secure-optional
+    - name: describe
+      description: Display details of a Google Cloud Function.
+      flags:
+        --gen2&: If enabled, this command will use Cloud Functions (Second generation).
+        --no-gen2&: If enabled, this command will use Cloud Functions (Second generation).
+        --no-v2&: If specified, this command will use Cloud Functions v2 APIs and return the result in the v2 format (See https://cloud.google.com/functions/docs/reference/rest/v2/projects.locations.functions#Function).
+        --region=: The Cloud region for the function.
+        --v2: If specified, this command will use Cloud Functions v2 APIs and return the result in the v2 format (See https://cloud.google.com/functions/docs/reference/rest/v2/projects.locations.functions#Function).
+    - name: event-types
+      description: List types of events that can be a trigger for a Google Cloud Function.
+      commands:
+        - name: list
+          description: List types of events that can be a trigger for a Google Cloud Function.
+          flags:
+            --gen2: If enabled, this command will use Cloud Functions (Second generation).
+            --no-gen2&: If enabled, this command will use Cloud Functions (Second generation).
+    - name: add-invoker-policy-binding
+      description: Adds an invoker binding to the IAM policy of a Google Cloud Function.
+      flags:
+        --gen2&: If enabled, this command will use Cloud Functions (Second generation).
+        --member=!: The principal to add to the IAM policy.
+        --no-gen2&: If enabled, this command will use Cloud Functions (Second generation).
+        --region=: The Cloud region for the function.
+    - name: detach
+      description: Detach a Cloud Functions v2 function from its existing environment and make it a native Cloud Run function.
+      flags:
+        --region=: The Cloud region for the function.
+    - name: get-iam-policy
+      description: Get IAM policy for a Google Cloud Function.
+      flags:
+        --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+        --gen2&: If enabled, this command will use Cloud Functions (Second generation).
+        --limit=: Maximum number of resources to list.
+        --no-gen2&: If enabled, this command will use Cloud Functions (Second generation).
+        --no-uri&: Print a list of resource URIs instead of the default output, and change the
+        --page-size=: Some services group resource list output into pages.
+        --region=: The Cloud region for the function.
+        --sort-by=: Comma-separated list of resource field key names to sort by.
+        --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: regions
+      description: List regions available to Google Cloud Functions.
+      commands:
+        - name: list
+          description: List regions available to Google Cloud Functions.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --gen2: If enabled, this command will use Cloud Functions (Second generation).
+            --limit=: Maximum number of resources to list.
+            --no-gen2&: If enabled, this command will use Cloud Functions (Second generation).
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: list
+      description: List Google Cloud Functions.
+      flags:
+        --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+        --limit=: Maximum number of resources to list.
+        --no-v2&: If specified, this command will use Cloud Functions v2 APIs and return the result in the v2 format (See https://cloud.google.com/functions/docs/reference/rest/v2/projects.locations.functions#Function).
+        --page-size=: Some services group resource list output into pages.
+        --regions=: Regions containing functions to list.
+        --sort-by=: Comma-separated list of resource field key names to sort by.
+        --v2: If specified, this command will use Cloud Functions v2 APIs and return the result in the v2 format (See https://cloud.google.com/functions/docs/reference/rest/v2/projects.locations.functions#Function).
+    - name: logs
+      description: Display log entries produced by Google Cloud Functions.
+      commands:
+        - name: read
+          description: Display log entries produced by Google Cloud Functions.
+          flags:
+            --end-time=: Return only log entries which timestamps are not later than the specified time.
+            --execution-id=: Execution ID for which logs are to be displayed.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --gen2: If enabled, this command will use Cloud Functions (Second generation).
+            --limit=: Number of log entries to be fetched; must not be greater than 1000. Note that the most recent entries in the specified time range are returned, rather than the earliest.
+            --min-log-level=: Minimum level of logs to be fetched.
+            --no-gen2&: If enabled, this command will use Cloud Functions (Second generation).
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: Only show logs generated by functions in the region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --start-time=: Return only log entries in which timestamps are not earlier than the specified time.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+          completion:
+            flag:
+                min-log-level:
+                    - debug
+                    - info
+                    - error
+    - name: runtimes
+      description: List runtimes available to Google Cloud Functions.
+      commands:
+        - name: list
+          description: List runtimes available to Google Cloud Functions.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: Only show runtimes within the region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: delete
+      description: Delete a Google Cloud Function.
+      flags:
+        --gen2&: If enabled, this command will use Cloud Functions (Second generation).
+        --no-gen2&: If enabled, this command will use Cloud Functions (Second generation).
+        --region=: The Cloud region for the function.
+    - name: remove-iam-policy-binding
+      description: Removes an IAM policy binding from a Google Cloud Function.
+      flags:
+        --gen2&: If enabled, this command will use Cloud Functions (Second generation).
+        --member=!: The principal to remove the binding for.
+        --no-gen2&: If enabled, this command will use Cloud Functions (Second generation).
+        --region=: The Cloud region for the function.
+        --role=!: The role to remove the principal from.
+    - name: remove-invoker-policy-binding
+      description: Removes an invoker binding from the IAM policy of a Google Cloud Function.
+      flags:
+        --gen2&: If enabled, this command will use Cloud Functions (Second generation).
+        --member=!: The principal to remove from the IAM policy.
+        --no-gen2&: If enabled, this command will use Cloud Functions (Second generation).
+        --region=: The Cloud region for the function.
+    - name: set-iam-policy
+      description: Sets IAM policy for a Google Cloud Function.
+      flags:
+        --gen2&: If enabled, this command will use Cloud Functions (Second generation).
+        --no-gen2&: If enabled, this command will use Cloud Functions (Second generation).
+        --region=: The Cloud region for the function.
+    - name: add-iam-policy-binding
+      description: Adds an IAM policy binding for a Google Cloud Function.
+      flags:
+        --gen2&: If enabled, this command will use Cloud Functions (Second generation).
+        --member=!: The principal to add the binding for.
+        --no-gen2&: If enabled, this command will use Cloud Functions (Second generation).
+        --region=: The Cloud region for the function.
+        --role=!: Role name to assign to the principal.
+    - name: call
+      description: Triggers execution of a Google Cloud Function.
+      flags:
+        --cloud-event=: JSON encoded string with a CloudEvent in structured content mode.
+        --data=: JSON string with data that will be passed to the function.
+        --gen2&: If enabled, this command will use Cloud Functions (Second generation).
+        --no-gen2&: If enabled, this command will use Cloud Functions (Second generation).
+        --region=: The Cloud region for the function.

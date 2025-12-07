@@ -1,0 +1,581 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: eventarc
+description: Manage Eventarc resources.
+commands:
+    - name: providers
+      description: Explore event providers available in Eventarc.
+      commands:
+        - name: describe
+          description: Describe an Eventarc event provider.
+          flags:
+            --location=: The location for the Eventarc provider, which should be either ``global'' or one of the supported regions.
+        - name: list
+          description: List event providers available in Eventarc.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --name=: A provider name (e.g. `storage.googleapis.com`)
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: triggers
+      description: Manage Eventarc triggers.
+      commands:
+        - name: create
+          description: Create an Eventarc trigger.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --channel=!: ID of the channel or fully qualified identifier for the channel.
+            --destination-function-location=&: Location that the destination Function is running in.
+            --destination-function=!&: ID of the Function that receives the events for the trigger.
+            --destination-gke-cluster=!: Name of the GKE cluster that the destination GKE service is running in.
+            --destination-gke-location=: Location of the GKE cluster that the destination GKE service is running in.
+            --destination-gke-namespace=: Namespace that the destination GKE service is running in.
+            --destination-gke-path=: Relative path on the destination GKE service to which the events for the trigger should be sent.
+            --destination-gke-service=!: Name of the destination GKE service that receives the events for the trigger.
+            --destination-http-endpoint-uri=!: URI that the destination HTTP Endpoint is connecting to.
+            --destination-run-job=&: Name of the Cloud Run fully-managed job that receives the events for the trigger.
+            --destination-run-path=: Relative path on the destination Cloud Run service to which the events for the trigger should be sent.
+            --destination-run-region=: Region in which the destination Cloud Run service can be found.
+            --destination-run-service=: Name of the Cloud Run fully-managed service that receives the events for the trigger.
+            --destination-workflow-location=: Location that the destination workflow is running in.
+            --destination-workflow=!: ID of the workflow that receives the events for the trigger.
+            --event-data-content-type=: Depending on the event provider, you can specify the encoding of the event data payload that will be delivered to your destination, to either be encoded in ``application/json'' or ``application/protobuf''.
+            --event-filters-path-pattern=: The trigger's list of filters in path pattern format that apply to CloudEvent attributes.
+            --event-filters=!: The trigger's list of filters that apply to CloudEvents attributes.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The location for the Eventarc trigger, which should be either ``global'' or one of the supported regions.
+            --network-attachment=!: The network attachment associated with the trigger that allows access to the destination VPC.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --service-account=: The IAM service account email associated with the trigger.
+            --transport-topic=!: ID of the Pub/Sub topic or fully qualified identifier for the Pub/Sub topic.
+        - name: delete
+          description: Delete an Eventarc trigger.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location for the Eventarc trigger, which should be either ``global'' or one of the supported regions.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe an Eventarc trigger.
+          flags:
+            --location=: The location for the Eventarc trigger, which should be either ``global'' or one of the supported regions.
+        - name: list
+          description: List Eventarc triggers.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update an Eventarc trigger.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-destination-gke-path: Clear the relative path on the destination GKE service to which the events for the trigger should be sent.
+            --clear-destination-run-path: Clear the relative path on the destination Cloud Run service to which the events for the trigger should be sent.
+            --clear-labels: Remove all labels.
+            --clear-service-account: Clear the IAM service account associated with the trigger.
+            --destination-function-location=&: Location that the destination Function is running in.
+            --destination-function=&: ID of the Function that receives the events for the trigger.
+            --destination-gke-namespace=: Namespace that the destination GKE service is running in.
+            --destination-gke-path=: Relative path on the destination GKE service to which the events for the trigger should be sent.
+            --destination-gke-service=: Name of the destination GKE service that receives the events for the trigger.
+            --destination-run-job=&: Name of the Cloud Run fully-managed job that receives the events for the trigger.
+            --destination-run-path=: Relative path on the destination Cloud Run service to which the events for the trigger should be sent.
+            --destination-run-region=: Region in which the destination Cloud Run service can be found.
+            --destination-run-service=: Name of the Cloud Run fully-managed service that receives the events for the trigger.
+            --destination-workflow-location=: Location that the destination workflow is running in.
+            --destination-workflow=: ID of the workflow that receives the events for the trigger.
+            --event-data-content-type=: Depending on the event provider, you can specify the encoding of the event data payload that will be delivered to your destination, to either be encoded in ``application/json'' or ``application/protobuf''.
+            --event-filters-path-pattern=: The trigger's list of filters in path pattern format that apply to CloudEvent attributes.
+            --event-filters=: The trigger's list of filters that apply to CloudEvents attributes.
+            --location=: The location for the Eventarc trigger, which should be either ``global'' or one of the supported regions.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-destination-gke-path&: Clear the relative path on the destination GKE service to which the events for the trigger should be sent.
+            --no-clear-destination-run-path&: Clear the relative path on the destination Cloud Run service to which the events for the trigger should be sent.
+            --no-clear-labels&: Remove all labels.
+            --no-clear-service-account&: Clear the IAM service account associated with the trigger.
+            --remove-labels=: List of label keys to remove.
+            --service-account=: The IAM service account email associated with the trigger.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+    - name: audit-logs-provider
+      description: Explore provider serviceNames and methodNames for event type `google.cloud.audit.log.v1.written` in Eventarc.
+      commands:
+        - name: service-names
+          description: Explore values for the serviceName attribute for event type `google.cloud.audit.log.v1.written`.
+          commands:
+            - name: list
+              description: List values for the serviceName attribute for event type `google.cloud.audit.log.v1.written`.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: method-names
+          description: Explore values for the methodName attribute for event type `google.cloud.audit.log.v1.written`.
+          commands:
+            - name: list
+              description: List values for the methodName attribute for event type `google.cloud.audit.log.v1.written`.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --service-name=!: The value of the serviceName CloudEvents attribute.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: channel-connections
+      description: Manage Eventarc channel connections.
+      commands:
+        - name: create
+          description: Create an Eventarc channel connection.
+          flags:
+            --activation-token=!: Activation token for the specified channel.
+            --async: Return immediately, without waiting for the operation in progress to
+            --channel=!: Subscriber channel for which to create the channel connection.
+            --labels=: Labels to apply to the channel connection.
+            --location=: The location for the Eventarc channel connection, which should be either ``global'' or one of the supported regions.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: delete
+          description: Delete an Eventarc channel connection.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location for the Eventarc channel connection, which should be either ``global'' or one of the supported regions.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe an Eventarc channel connection.
+          flags:
+            --location=: The location for the Eventarc channel connection, which should be either ``global'' or one of the supported regions.
+        - name: list
+          description: List Eventarc channel connections.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: publish
+          description: Publish to an Eventarc channel connection.
+          hidden: true
+          flags:
+            --event-attributes=: Event attributes.
+            --event-data=!: An event data.
+            --event-id=!: An event id.
+            --event-source=!: An event source.
+            --event-type=!: An event type.
+            --location=: The location for the Eventarc channel connection, which should be either ``global'' or one of the supported regions.
+    - name: enrollments
+      description: Manage Eventarc enrollments.
+      commands:
+        - name: describe
+          description: Describe an Eventarc enrollment.
+          flags:
+            --location=: The location for the Eventarc enrollment, which should be one of the supported regions.
+        - name: list
+          description: List Eventarc enrollments.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update an Eventarc enrollment.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --cel-match=: The cel match expression for the enrollment.
+            --clear-labels: Remove all labels.
+            --destination-pipeline=!: ID of the pipeline or fully qualified identifier for the pipeline.
+            --location=: The location for the Eventarc enrollment, which should be one of the supported regions.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+        - name: create
+          description: Create an Eventarc enrollment.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --cel-match=!: The cel match expression for the enrollment.
+            --destination-pipeline=!: ID of the destination pipeline or fully qualified identifier for the destination pipeline.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The location for the Eventarc enrollment, which should be one of the supported regions.
+            --message-bus-project=: Project ID of the Google Cloud project for the message bus.
+            --message-bus=!: ID of the message bus or fully qualified identifier for the message bus.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: delete
+          description: Delete an Eventarc enrollment.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location for the Eventarc enrollment, which should be one of the supported regions.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+    - name: google-api-sources
+      description: Manage Eventarc Google API sources.
+      commands:
+        - name: create
+          description: Create an Eventarc Google API source.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --crypto-key=: Fully qualified name of the crypto key to use for customer-managed encryption.
+            --destination-message-bus-project=: Project ID of the Google Cloud project for the message bus.
+            --destination-message-bus=!: ID of the message bus or fully qualified identifier for the message bus.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The location for the Eventarc Google API source, which should be one of the supported regions.
+            --logging-config=: The logging config for the Google API source.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-organization-subscription&: The organization subscription for the resource.
+            --organization-subscription: The organization subscription for the resource.
+            --project-subscriptions=: The project subscriptions for the resource.
+          completion:
+            flag:
+                logging-config:
+                    - NONE
+                    - DEBUG
+                    - INFO
+                    - NOTICE
+                    - WARNING
+                    - ERROR
+                    - CRITICAL
+                    - ALERT
+                    - EMERGENCY
+        - name: delete
+          description: Delete an Eventarc Google API source.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location for the Eventarc Google API source, which should be one of the supported regions.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe an Eventarc Google API source.
+          flags:
+            --location=: The location for the Eventarc Google API source, which should be one of the supported regions.
+        - name: list
+          description: List Eventarc Google API sources.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update an Eventarc Google API source.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-crypto-key: Remove the previously configured crypto key.
+            --clear-labels: Remove all labels.
+            --clear-project-subscriptions: Clear the project subscriptions for the resource.
+            --crypto-key=: Fully qualified name of the crypto key to use for customer-managed encryption.
+            --destination-message-bus-project=: Project ID of the Google Cloud project for the message bus.
+            --destination-message-bus=!: ID of the message bus or fully qualified identifier for the message bus.
+            --location=: The location for the Eventarc Google API source, which should be one of the supported regions.
+            --logging-config=: The logging config of the Google API source.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-crypto-key&: Remove the previously configured crypto key.
+            --no-clear-labels&: Remove all labels.
+            --no-clear-project-subscriptions&: Clear the project subscriptions for the resource.
+            --no-organization-subscription&: The organization subscription for the resource.
+            --organization-subscription: The organization subscription for the resource.
+            --project-subscriptions=: The project subscriptions for the resource.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+          completion:
+            flag:
+                logging-config:
+                    - NONE
+                    - DEBUG
+                    - INFO
+                    - NOTICE
+                    - WARNING
+                    - ERROR
+                    - CRITICAL
+                    - ALERT
+                    - EMERGENCY
+    - name: google-channels
+      description: Manage Eventarc Google channels.
+      commands:
+        - name: describe
+          description: Describe an Eventarc Google channel.
+          flags:
+            --location=: ID of the location or fully qualified identifier for the location.
+        - name: update
+          description: Update an Eventarc Google channel.
+          flags:
+            --clear-crypto-key: Remove the previously configured crypto key.
+            --clear-labels: Remove all labels.
+            --crypto-key=: Fully qualified name of the crypto key to use for customer-managed encryption.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-clear-crypto-key&: Remove the previously configured crypto key.
+            --no-clear-labels&: Remove all labels.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+    - name: locations
+      description: Explore locations available for Eventarc.
+      commands:
+        - name: list
+          description: List locations available for Eventarc.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: message-buses
+      description: Manage Eventarc message buses.
+      commands:
+        - name: list-enrollments
+          description: List Eventarc enrollments attached to an Eventarc message bus.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: The location for the Eventarc message bus, which should be one of the supported regions.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: publish
+          description: Publish to an Eventarc message bus.
+          flags:
+            --avro-message=: An Avro message to publish to the message bus.
+            --destination-enrollment-project=&: Project ID of the Google Cloud project for the enrollment.
+            --destination-enrollment=&: ID of the enrollment or fully qualified identifier for the enrollment.
+            --event-attributes=: Event attributes.
+            --event-data=!: An event data.
+            --event-id=!: An event id.
+            --event-source=!: An event source.
+            --event-type=!: An event type.
+            --json-message=: A JSON message to publish to the message bus.
+            --location=: The location for the Eventarc message bus, which should be one of the supported regions.
+        - name: update
+          description: Update an Eventarc message bus.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-crypto-key: Remove the previously configured crypto key.
+            --clear-labels: Remove all labels.
+            --crypto-key=: Fully qualified name of the crypto key to use for customer-managed encryption.
+            --location=: The location for the Eventarc message bus, which should be one of the supported regions.
+            --logging-config=: The logging config of the message bus.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-crypto-key&: Remove the previously configured crypto key.
+            --no-clear-labels&: Remove all labels.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+          completion:
+            flag:
+                logging-config:
+                    - NONE
+                    - DEBUG
+                    - INFO
+                    - NOTICE
+                    - WARNING
+                    - ERROR
+                    - CRITICAL
+                    - ALERT
+                    - EMERGENCY
+        - name: create
+          description: Create an Eventarc message bus.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --crypto-key=: Fully qualified name of the crypto key to use for customer-managed encryption.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The location for the Eventarc message bus, which should be one of the supported regions.
+            --logging-config=: The logging config of the message bus.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+          completion:
+            flag:
+                logging-config:
+                    - NONE
+                    - DEBUG
+                    - INFO
+                    - NOTICE
+                    - WARNING
+                    - ERROR
+                    - CRITICAL
+                    - ALERT
+                    - EMERGENCY
+        - name: delete
+          description: Delete an Eventarc message bus.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location for the Eventarc message bus, which should be one of the supported regions.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe an Eventarc message bus.
+          flags:
+            --location=: The location for the Eventarc message bus, which should be one of the supported regions.
+        - name: list
+          description: List Eventarc message buses.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: channels
+      description: Manage Eventarc channels.
+      commands:
+        - name: publish
+          description: Publish to an Eventarc channel.
+          hidden: true
+          flags:
+            --event-attributes=: Event attributes.
+            --event-data=!: An event data.
+            --event-id=!: An event id.
+            --event-source=!: An event source.
+            --event-type=!: An event type.
+            --location=: The location for the Eventarc channel, which should be either ``global'' or one of the supported regions.
+        - name: update
+          description: Update an Eventarc channel.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-crypto-key: Remove the previously configured crypto key.
+            --clear-labels: Remove all labels.
+            --crypto-key=: Fully qualified name of the crypto key to use for customer-managed encryption.
+            --location=: The location for the Eventarc channel, which should be either ``global'' or one of the supported regions.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-crypto-key&: Remove the previously configured crypto key.
+            --no-clear-labels&: Remove all labels.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+        - name: create
+          description: Create an Eventarc channel.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --crypto-key=: Fully qualified name of the crypto key to use for customer-managed encryption.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The location for the Eventarc channel, which should be either ``global'' or one of the supported regions.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --provider=!: ID of the provider or fully qualified identifier for the provider.
+        - name: delete
+          description: Delete an Eventarc channel.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location for the Eventarc channel, which should be either ``global'' or one of the supported regions.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe an Eventarc channel.
+          flags:
+            --location=: The location for the Eventarc channel, which should be either ``global'' or one of the supported regions.
+        - name: list
+          description: List Eventarc channels.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: gke-destinations
+      description: Manage Eventarc with Cloud Run for Anthos/GKE destinations.
+      hidden: true
+      commands:
+        - name: init
+          description: Initialize a project for Eventarc with Cloud Run for Anthos/GKE destinations.
+          hidden: true
+    - name: pipelines
+      description: Manage Eventarc pipelines.
+      commands:
+        - name: list
+          description: List Eventarc pipelines.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update an Eventarc pipeline.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-crypto-key: Remove the previously configured crypto key.
+            --clear-error-message-bus&: Clear the error message bus of the pipeline.
+            --clear-labels: Remove all labels.
+            --crypto-key=: Fully qualified name of the crypto key to use for customer-managed encryption.
+            --destinations=: The pipeline's destinations.
+            --error-message-bus-location=&: The location for the Eventarc message bus, which should be one of the supported regions.
+            --error-message-bus-project=&: Project ID of the Google Cloud project for the message bus.
+            --error-message-bus=&: ID of the message bus or fully qualified identifier for the message bus.
+            --input-payload-format-avro-schema-definition=: The pipeline's input payload Avro schema definition.
+            --input-payload-format-json=: The pipeline's input payload format is JSON.
+            --input-payload-format-protobuf-schema-definition=: The pipeline's input payload Protobuf schema definition.
+            --location=: The location for the Eventarc pipeline, which should be one of the supported regions.
+            --logging-config=: The logging config of the pipeline.
+            --max-retry-attempts=: The maximum number of retry attempts.
+            --max-retry-delay=: The maximum retry delay in seconds.
+            --mediations=: The different ways to modify the pipeline.
+            --min-retry-delay=: The minimum retry delay in seconds.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-crypto-key&: Remove the previously configured crypto key.
+            --no-clear-error-message-bus&: Clear the error message bus of the pipeline.
+            --no-clear-labels&: Remove all labels.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+          completion:
+            flag:
+                logging-config:
+                    - NONE
+                    - DEBUG
+                    - INFO
+                    - NOTICE
+                    - WARNING
+                    - ERROR
+                    - CRITICAL
+                    - ALERT
+                    - EMERGENCY
+        - name: create
+          description: Create an Eventarc pipeline.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --crypto-key=: Fully qualified name of the crypto key to use for customer-managed encryption.
+            --destinations=!: The pipeline's destinations.
+            --error-message-bus-location=&: The location for the Eventarc message bus, which should be one of the supported regions.
+            --error-message-bus-project=&: Project ID of the Google Cloud project for the message bus.
+            --error-message-bus=&: ID of the message bus or fully qualified identifier for the message bus.
+            --input-payload-format-avro-schema-definition=: The pipeline's input payload Avro schema definition.
+            --input-payload-format-json=: The pipeline's input payload format is JSON.
+            --input-payload-format-protobuf-schema-definition=: The pipeline's input payload Protobuf schema definition.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The location for the Eventarc pipeline, which should be one of the supported regions.
+            --logging-config=: The logging config of the pipeline.
+            --max-retry-attempts=: The maximum number of retry attempts.
+            --max-retry-delay=: The maximum retry delay in seconds.
+            --mediations=: The different ways to modify the pipeline.
+            --min-retry-delay=: The minimum retry delay in seconds.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+          completion:
+            flag:
+                logging-config:
+                    - NONE
+                    - DEBUG
+                    - INFO
+                    - NOTICE
+                    - WARNING
+                    - ERROR
+                    - CRITICAL
+                    - ALERT
+                    - EMERGENCY
+        - name: delete
+          description: Delete an Eventarc pipeline.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location for the Eventarc pipeline, which should be one of the supported regions.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe an Eventarc pipeline.
+          flags:
+            --location=: The location for the Eventarc pipeline, which should be one of the supported regions.
