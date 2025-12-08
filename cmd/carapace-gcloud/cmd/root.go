@@ -5,6 +5,7 @@ import (
 
 	"github.com/carapace-sh/carapace"
 	"github.com/carapace-sh/carapace-gcloud/cmd/carapace-gcloud/cmd/gcloud"
+	"github.com/carapace-sh/carapace-gcloud/cmd/carapace-gcloud/common"
 	spec "github.com/carapace-sh/carapace-spec"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
@@ -77,6 +78,7 @@ func init() {
 		"universe-domain":             carapace.ActionValues(),
 		"verbosity":                   carapace.ActionValues(),
 	})
+	// TODO flag completion
 
 	for name, description := range gcloud.Services() {
 		serviceCmd := &cobra.Command{
@@ -100,9 +102,14 @@ func init() {
 				carapace.Gen(operationCmd).PreInvoke(func(cmd *cobra.Command, flag *pflag.Flag, action carapace.Action) carapace.Action {
 					// TODO same for deeper subcommands
 					if flag != nil && flag.Value.Type() != "bool" {
-						if _, ok := subCmd.Completion.Flag[flag.Name]; !ok {
-							return carapace.ActionMessage("TODO bridge gcloud completer")
-						}
+						// if _, ok := subCmd.Completion.Flag[flag.Name]; !ok {
+						// TODO simpler check for existing completion
+						return common.ActionBridgeGcloudCompleter()
+						// }
+					}
+					// TODO positional completion
+					if true {
+						return common.ActionBridgeGcloudCompleter()
 					}
 					return action
 				})
