@@ -49,7 +49,7 @@ var rootCmd = &cobra.Command{
 
 		dir := cmd.Flag("target").Value.String()
 		if dir == "" {
-			dir, err = os.MkdirTemp("", "carapace-spec-botocore-*")
+			dir, err = os.MkdirTemp("", "carapace-spec-gcloud-*")
 			if err != nil {
 				return err
 			}
