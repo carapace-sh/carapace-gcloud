@@ -27,12 +27,12 @@ var rootCmd = &cobra.Command{
 			return err
 		}
 
-		var glabCommand Command
-		if err := json.Unmarshal(content, &glabCommand); err != nil {
+		var gcloudCommand Command
+		if err := json.Unmarshal(content, &gcloudCommand); err != nil {
 			return err
 		}
 
-		command := glabCommand.ToSpecCommand(cli.SerializedFlagList, true)
+		command := gcloudCommand.ToSpecCommand(cli.SerializedFlagList, true)
 		if cmd.Flag("no-doc").Changed {
 			stripDoc(&command)
 		}

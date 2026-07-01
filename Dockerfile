@@ -1,5 +1,4 @@
-ARG VERSION=575.0.0
-FROM google/cloud-sdk:${VERSION}
+FROM google/cloud-sdk:575.0.0
 
 RUN gcloud alpha interactive; true
 

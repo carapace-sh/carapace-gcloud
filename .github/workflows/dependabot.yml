@@ -8,7 +8,6 @@ permissions:
 jobs:
   gcloud:
     runs-on: ubuntu-latest
-    container: ghcr.io/carapace-sh/go:1.25.4
     if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'carapace-sh/carapace-gcloud'
     steps:
     - name: deep clone
@@ -22,8 +21,13 @@ jobs:
     - name: generate command model
       run: docker compose build && docker compose run --rm gcloud > gcloud.json
 
+    - name: setup go
+      uses: actions/setup-go@v5
+      with:
+        go-version-file: go.mod
+
     - name: generate specs
-      run: go run -C cmd/carapace-spec-gcloud . --target cmd/carapace-gcloud/cmd/gcloud --no-doc gcloud.json
+      run: go run ./cmd/carapace-spec-gcloud --target cmd/carapace-gcloud/cmd/gcloud --no-doc gcloud.json
 
     - name: generate code
       run: go generate ./cmd/carapace-gcloud
