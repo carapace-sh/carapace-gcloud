@@ -1,0 +1,28 @@
+name: gcloud template
+
+on:
+  workflow_call:
+    inputs:
+      service:
+        required: true
+        type: string
+      version:
+        required: true
+        type: string
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    container: google/cloud-sdk:${{ inputs.version }}
+
+    steps:
+    - uses: actions/download-artifact@v8
+      with:
+        name: carapace-gcloud
+        path: /usr/local/bin/
+
+    - name: fix permissions
+      run: chmod +x /usr/local/bin/carapace-gcloud*
+
+    - name: run carapace-gcloud.test
+      run: SERVICE=${{ inputs.service }} carapace-gcloud.test

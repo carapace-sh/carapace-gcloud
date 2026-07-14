@@ -1,0 +1,185 @@
+name: gcloud
+
+on:
+  workflow_run:
+    workflows: [Go]
+    types: [completed]
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: ghcr.io/carapace-sh/go:1.25.4
+    outputs:
+      version: ${{ steps.gcloud.outputs.version }}
+    steps:
+    - name: shallow clone
+      uses: actions/checkout@v7
+
+    - id: gcloud
+      run: grep --only-matching 'google/cloud-sdk:\([^"]\+\)' Dockerfile | sed 's/.*:/version=/' >> "$GITHUB_OUTPUT"
+
+    - name: fix git safe.directory
+      run:  git config --global --add safe.directory '*'
+
+    - name: Build
+      run: go build -C cmd/carapace-gcloud -v .
+
+    - name: Build Test
+      run: go test -C cmd/carapace-gcloud -tags integration -run TestService -c .
+
+    - uses: actions/upload-artifact@v7
+      with:
+        name: carapace-gcloud
+        path: |
+          cmd/carapace-gcloud/carapace-gcloud
+          cmd/carapace-gcloud/carapace-gcloud.test
+        retention-days: 1
+
+  _: {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: _, version: "${{ needs.build.outputs.version }}"}} # root
+  "access-approval": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: access-approval, version: "${{ needs.build.outputs.version }}"}}
+  "access-context-manager": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: access-context-manager, version: "${{ needs.build.outputs.version }}"}}
+  "active-directory": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: active-directory, version: "${{ needs.build.outputs.version }}"}}
+  "agent-registry": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: agent-registry, version: "${{ needs.build.outputs.version }}"}}
+  "ai": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: ai, version: "${{ needs.build.outputs.version }}"}}
+  "ai-platform": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: ai-platform, version: "${{ needs.build.outputs.version }}"}}
+  "alloydb": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: alloydb, version: "${{ needs.build.outputs.version }}"}}
+  "alpha": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: alpha, version: "${{ needs.build.outputs.version }}"}}
+  "anthos": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: anthos, version: "${{ needs.build.outputs.version }}"}}
+  "api-gateway": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: api-gateway, version: "${{ needs.build.outputs.version }}"}}
+  "apigee": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: apigee, version: "${{ needs.build.outputs.version }}"}}
+  "apihub": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: apihub, version: "${{ needs.build.outputs.version }}"}}
+  "app": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: app, version: "${{ needs.build.outputs.version }}"}}
+  "apphub": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: apphub, version: "${{ needs.build.outputs.version }}"}}
+  "artifacts": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: artifacts, version: "${{ needs.build.outputs.version }}"}}
+  "asset": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: asset, version: "${{ needs.build.outputs.version }}"}}
+  "assured": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: assured, version: "${{ needs.build.outputs.version }}"}}
+  "audit-manager": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: audit-manager, version: "${{ needs.build.outputs.version }}"}}
+  "auth": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: auth, version: "${{ needs.build.outputs.version }}"}}
+  "authz-toolkit": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: authz-toolkit, version: "${{ needs.build.outputs.version }}"}}
+  "backup-dr": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: backup-dr, version: "${{ needs.build.outputs.version }}"}}
+  "batch": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: batch, version: "${{ needs.build.outputs.version }}"}}
+  "beta": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: beta, version: "${{ needs.build.outputs.version }}"}}
+  "beyondcorp": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: beyondcorp, version: "${{ needs.build.outputs.version }}"}}
+  "biglake": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: biglake, version: "${{ needs.build.outputs.version }}"}}
+  "bigtable": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: bigtable, version: "${{ needs.build.outputs.version }}"}}
+  "billing": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: billing, version: "${{ needs.build.outputs.version }}"}}
+  "bms": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: bms, version: "${{ needs.build.outputs.version }}"}}
+  "bq": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: bq, version: "${{ needs.build.outputs.version }}"}}
+  "builds": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: builds, version: "${{ needs.build.outputs.version }}"}}
+  "certificate-manager": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: certificate-manager, version: "${{ needs.build.outputs.version }}"}}
+  "cheat-sheet": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: cheat-sheet, version: "${{ needs.build.outputs.version }}"}}
+  "cloud-shell": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: cloud-shell, version: "${{ needs.build.outputs.version }}"}}
+  "cloudlocationfinder": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: cloudlocationfinder, version: "${{ needs.build.outputs.version }}"}}
+  "cluster-director": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: cluster-director, version: "${{ needs.build.outputs.version }}"}}
+  "colab": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: colab, version: "${{ needs.build.outputs.version }}"}}
+  "compliance-manager": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: compliance-manager, version: "${{ needs.build.outputs.version }}"}}
+  "components": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: components, version: "${{ needs.build.outputs.version }}"}}
+  "composer": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: composer, version: "${{ needs.build.outputs.version }}"}}
+  "compute": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: compute, version: "${{ needs.build.outputs.version }}"}}
+  "config": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: config, version: "${{ needs.build.outputs.version }}"}}
+  "container": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: container, version: "${{ needs.build.outputs.version }}"}}
+  "data-catalog": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: data-catalog, version: "${{ needs.build.outputs.version }}"}}
+  "database-migration": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: database-migration, version: "${{ needs.build.outputs.version }}"}}
+  "dataflow": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: dataflow, version: "${{ needs.build.outputs.version }}"}}
+  "datalineage": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: datalineage, version: "${{ needs.build.outputs.version }}"}}
+  "dataplex": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: dataplex, version: "${{ needs.build.outputs.version }}"}}
+  "dataproc": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: dataproc, version: "${{ needs.build.outputs.version }}"}}
+  "dataproc-gdc": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: dataproc-gdc, version: "${{ needs.build.outputs.version }}"}}
+  "datastore": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: datastore, version: "${{ needs.build.outputs.version }}"}}
+  "datastream": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: datastream, version: "${{ needs.build.outputs.version }}"}}
+  "deploy": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: deploy, version: "${{ needs.build.outputs.version }}"}}
+  "deployment-manager": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: deployment-manager, version: "${{ needs.build.outputs.version }}"}}
+  "design-center": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: design-center, version: "${{ needs.build.outputs.version }}"}}
+  "developer-connect": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: developer-connect, version: "${{ needs.build.outputs.version }}"}}
+  "dns": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: dns, version: "${{ needs.build.outputs.version }}"}}
+  "docker": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: docker, version: "${{ needs.build.outputs.version }}"}}
+  "domains": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: domains, version: "${{ needs.build.outputs.version }}"}}
+  "edge-cache": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: edge-cache, version: "${{ needs.build.outputs.version }}"}}
+  "edge-cloud": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: edge-cloud, version: "${{ needs.build.outputs.version }}"}}
+  "emulators": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: emulators, version: "${{ needs.build.outputs.version }}"}}
+  "endpoints": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: endpoints, version: "${{ needs.build.outputs.version }}"}}
+  "essential-contacts": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: essential-contacts, version: "${{ needs.build.outputs.version }}"}}
+  "eventarc": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: eventarc, version: "${{ needs.build.outputs.version }}"}}
+  "feedback": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: feedback, version: "${{ needs.build.outputs.version }}"}}
+  "filestore": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: filestore, version: "${{ needs.build.outputs.version }}"}}
+  "firebase": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: firebase, version: "${{ needs.build.outputs.version }}"}}
+  "firestore": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: firestore, version: "${{ needs.build.outputs.version }}"}}
+  "functions": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: functions, version: "${{ needs.build.outputs.version }}"}}
+  "gemini": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: gemini, version: "${{ needs.build.outputs.version }}"}}
+  "healthcare": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: healthcare, version: "${{ needs.build.outputs.version }}"}}
+  "help": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: help, version: "${{ needs.build.outputs.version }}"}}
+  "iam": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: iam, version: "${{ needs.build.outputs.version }}"}}
+  "iap": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: iap, version: "${{ needs.build.outputs.version }}"}}
+  "identity": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: identity, version: "${{ needs.build.outputs.version }}"}}
+  "ids": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: ids, version: "${{ needs.build.outputs.version }}"}}
+  "immersive-stream": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: immersive-stream, version: "${{ needs.build.outputs.version }}"}}
+  "info": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: info, version: "${{ needs.build.outputs.version }}"}}
+  "infra-manager": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: infra-manager, version: "${{ needs.build.outputs.version }}"}}
+  "init": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: init, version: "${{ needs.build.outputs.version }}"}}
+  "kms": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: kms, version: "${{ needs.build.outputs.version }}"}}
+  "logging": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: logging, version: "${{ needs.build.outputs.version }}"}}
+  "looker": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: looker, version: "${{ needs.build.outputs.version }}"}}
+  "lustre": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: lustre, version: "${{ needs.build.outputs.version }}"}}
+  "managed-kafka": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: managed-kafka, version: "${{ needs.build.outputs.version }}"}}
+  "memcache": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: memcache, version: "${{ needs.build.outputs.version }}"}}
+  "memorystore": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: memorystore, version: "${{ needs.build.outputs.version }}"}}
+  "meta": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: meta, version: "${{ needs.build.outputs.version }}"}}
+  "metastore": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: metastore, version: "${{ needs.build.outputs.version }}"}}
+  "migration": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: migration, version: "${{ needs.build.outputs.version }}"}}
+  "ml": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: ml, version: "${{ needs.build.outputs.version }}"}}
+  "model-armor": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: model-armor, version: "${{ needs.build.outputs.version }}"}}
+  "monitoring": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: monitoring, version: "${{ needs.build.outputs.version }}"}}
+  "netapp": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: netapp, version: "${{ needs.build.outputs.version }}"}}
+  "network-connectivity": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: network-connectivity, version: "${{ needs.build.outputs.version }}"}}
+  "network-management": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: network-management, version: "${{ needs.build.outputs.version }}"}}
+  "network-security": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: network-security, version: "${{ needs.build.outputs.version }}"}}
+  "network-services": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: network-services, version: "${{ needs.build.outputs.version }}"}}
+  "notebooks": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: notebooks, version: "${{ needs.build.outputs.version }}"}}
+  "observability": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: observability, version: "${{ needs.build.outputs.version }}"}}
+  "oracle-database": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: oracle-database, version: "${{ needs.build.outputs.version }}"}}
+  "org-policies": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: org-policies, version: "${{ needs.build.outputs.version }}"}}
+  "organizations": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: organizations, version: "${{ needs.build.outputs.version }}"}}
+  "orglifecycle": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: orglifecycle, version: "${{ needs.build.outputs.version }}"}}
+  "pam": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: pam, version: "${{ needs.build.outputs.version }}"}}
+  "parallelstore": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: parallelstore, version: "${{ needs.build.outputs.version }}"}}
+  "parametermanager": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: parametermanager, version: "${{ needs.build.outputs.version }}"}}
+  "policy-intelligence": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: policy-intelligence, version: "${{ needs.build.outputs.version }}"}}
+  "policy-troubleshoot": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: policy-troubleshoot, version: "${{ needs.build.outputs.version }}"}}
+  "preview": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: preview, version: "${{ needs.build.outputs.version }}"}}
+  "privateca": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: privateca, version: "${{ needs.build.outputs.version }}"}}
+  "projects": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: projects, version: "${{ needs.build.outputs.version }}"}}
+  "publicca": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: publicca, version: "${{ needs.build.outputs.version }}"}}
+  "pubsub": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: pubsub, version: "${{ needs.build.outputs.version }}"}}
+  "recaptcha": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: recaptcha, version: "${{ needs.build.outputs.version }}"}}
+  "recommender": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: recommender, version: "${{ needs.build.outputs.version }}"}}
+  "redis": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: redis, version: "${{ needs.build.outputs.version }}"}}
+  "resource-manager": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: resource-manager, version: "${{ needs.build.outputs.version }}"}}
+  "run": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: run, version: "${{ needs.build.outputs.version }}"}}
+  "scc": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: scc, version: "${{ needs.build.outputs.version }}"}}
+  "scheduler": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: scheduler, version: "${{ needs.build.outputs.version }}"}}
+  "secrets": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: secrets, version: "${{ needs.build.outputs.version }}"}}
+  "service-directory": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: service-directory, version: "${{ needs.build.outputs.version }}"}}
+  "service-extensions": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: service-extensions, version: "${{ needs.build.outputs.version }}"}}
+  "service-health": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: service-health, version: "${{ needs.build.outputs.version }}"}}
+  "services": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: services, version: "${{ needs.build.outputs.version }}"}}
+  "source": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: source, version: "${{ needs.build.outputs.version }}"}}
+  "source-manager": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: source-manager, version: "${{ needs.build.outputs.version }}"}}
+  "spanner": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: spanner, version: "${{ needs.build.outputs.version }}"}}
+  "sql": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: sql, version: "${{ needs.build.outputs.version }}"}}
+  "storage": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: storage, version: "${{ needs.build.outputs.version }}"}}
+  "survey": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: survey, version: "${{ needs.build.outputs.version }}"}}
+  "tasks": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: tasks, version: "${{ needs.build.outputs.version }}"}}
+  "telco-automation": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: telco-automation, version: "${{ needs.build.outputs.version }}"}}
+  "topic": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: topic, version: "${{ needs.build.outputs.version }}"}}
+  "transcoder": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: transcoder, version: "${{ needs.build.outputs.version }}"}}
+  "transfer": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: transfer, version: "${{ needs.build.outputs.version }}"}}
+  "unlock": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: unlock, version: "${{ needs.build.outputs.version }}"}}
+  "vector-search": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: vector-search, version: "${{ needs.build.outputs.version }}"}}
+  "version": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: version, version: "${{ needs.build.outputs.version }}"}}
+  "vmware": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: vmware, version: "${{ needs.build.outputs.version }}"}}
+  "workbench": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: workbench, version: "${{ needs.build.outputs.version }}"}}
+  "workflows": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: workflows, version: "${{ needs.build.outputs.version }}"}}
+  "workload-identity": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: workload-identity, version: "${{ needs.build.outputs.version }}"}}
+  "workspace-add-ons": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: workspace-add-ons, version: "${{ needs.build.outputs.version }}"}}
+  "workstations": {needs: build, uses: ./.github/workflows/gcloud-template.yml, with: {service: workstations, version: "${{ needs.build.outputs.version }}"}}
