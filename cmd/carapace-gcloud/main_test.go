@@ -3,6 +3,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -31,6 +32,34 @@ func reportPatch(t *testing.T, title string, patch []string) {
 	fmt.Println(strings.Join(s, "\n"))
 }
 
+// normalizeFlagSuffix strips a trailing "=" from flag values so that the
+// gcloud completer (which appends "=" to non-bool flags) can be compared
+// against carapace-gcloud (which intentionally does not).
+func normalizeFlagSuffix(a carapace.Action) carapace.Action {
+	return carapace.ActionCallback(func(c carapace.Context) carapace.Action {
+		invoked := a.Invoke(c)
+		b, err := invoked.MarshalJSON()
+		if err != nil {
+			return carapace.ActionMessage(err.Error())
+		}
+		var e struct {
+			Values []struct {
+				Value       string `json:"value"`
+				Description string `json:"description,omitempty"`
+			} `json:"values"`
+		}
+		if err := json.Unmarshal(b, &e); err != nil {
+			return carapace.ActionMessage(err.Error())
+		}
+		vals := make([]string, 0)
+		for _, v := range e.Values {
+			v.Value = strings.TrimSuffix(v.Value, "=")
+			vals = append(vals, v.Value, v.Description)
+		}
+		return carapace.ActionValuesDescribed(vals...)
+	})
+}
+
 func TestService(t *testing.T) {
 	testDir, err := os.MkdirTemp("", "carapace-gcloud_testService-*")
 	if err != nil {
@@ -49,8 +78,8 @@ func TestService(t *testing.T) {
 		fmt.Printf("\033[2m# %v\033[0m\n", "_")
 
 		patch := carapace.DiffPatch(
-			bridge.ActionGcloud("gcloud"),
-			bridge.ActionCarapace("carapace-gcloud").Chdir(testDir),
+			normalizeFlagSuffix(bridge.ActionGcloud("gcloud")),
+			normalizeFlagSuffix(bridge.ActionCarapace("carapace-gcloud").Chdir(testDir)),
 			carapace.NewContext(""),
 		)
 		reportPatch(t, "_", patch)
@@ -65,8 +94,8 @@ func TestService(t *testing.T) {
 			fmt.Printf("\033[2m# %v\033[0m\n", service)
 
 			patch := carapace.DiffPatch(
-				bridge.ActionGcloud("gcloud"),
-				bridge.ActionCarapace("carapace-gcloud").Chdir(testDir),
+				normalizeFlagSuffix(bridge.ActionGcloud("gcloud")),
+				normalizeFlagSuffix(bridge.ActionCarapace("carapace-gcloud").Chdir(testDir)),
 				carapace.NewContext(service, ""),
 			)
 			reportPatch(t, service, patch)
@@ -79,8 +108,8 @@ func TestService(t *testing.T) {
 				t.Run(operation.Name, func(t *testing.T) {
 					t.Parallel()
 					patch := carapace.DiffPatch(
-						bridge.ActionGcloud("gcloud"),
-						bridge.ActionCarapace("carapace-gcloud").Chdir(testDir),
+						normalizeFlagSuffix(bridge.ActionGcloud("gcloud")),
+						normalizeFlagSuffix(bridge.ActionCarapace("carapace-gcloud").Chdir(testDir)),
 						carapace.NewContext(service, operation.Name, "--"),
 					)
 
@@ -91,8 +120,8 @@ func TestService(t *testing.T) {
 					}
 
 					patch = carapace.DiffPatch(
-						bridge.ActionGcloud("gcloud"),
-						bridge.ActionCarapace("carapace-gcloud").Chdir(testDir),
+						normalizeFlagSuffix(bridge.ActionGcloud("gcloud")),
+						normalizeFlagSuffix(bridge.ActionCarapace("carapace-gcloud").Chdir(testDir)),
 						carapace.NewContext(service, operation.Name, ""),
 					)
 					reportPatch(t, fmt.Sprintf("%v %v", service, operation.Name), patch)
@@ -101,8 +130,8 @@ func TestService(t *testing.T) {
 						t.Run(subOperation.Name, func(t *testing.T) {
 							t.Parallel()
 							patch := carapace.DiffPatch(
-								bridge.ActionGcloud("gcloud"),
-								bridge.ActionCarapace("carapace-gcloud").Chdir(testDir),
+								normalizeFlagSuffix(bridge.ActionGcloud("gcloud")),
+								normalizeFlagSuffix(bridge.ActionCarapace("carapace-gcloud").Chdir(testDir)),
 								carapace.NewContext(service, operation.Name, subOperation.Name, "--"),
 							)
 
@@ -113,8 +142,8 @@ func TestService(t *testing.T) {
 							}
 
 							patch = carapace.DiffPatch(
-								bridge.ActionGcloud("gcloud"),
-								bridge.ActionCarapace("carapace-gcloud").Chdir(testDir),
+								normalizeFlagSuffix(bridge.ActionGcloud("gcloud")),
+								normalizeFlagSuffix(bridge.ActionCarapace("carapace-gcloud").Chdir(testDir)),
 								carapace.NewContext(service, operation.Name, subOperation.Name, ""),
 							)
 							reportPatch(t, fmt.Sprintf("%v %v %v", service, operation.Name, subOperation.Name), patch)
@@ -123,8 +152,8 @@ func TestService(t *testing.T) {
 								t.Run(subSubOperation.Name, func(t *testing.T) {
 									t.Parallel()
 									patch := carapace.DiffPatch(
-										bridge.ActionGcloud("gcloud"),
-										bridge.ActionCarapace("carapace-gcloud").Chdir(testDir),
+										normalizeFlagSuffix(bridge.ActionGcloud("gcloud")),
+										normalizeFlagSuffix(bridge.ActionCarapace("carapace-gcloud").Chdir(testDir)),
 										carapace.NewContext(service, operation.Name, subOperation.Name, subSubOperation.Name, "--"),
 									)
 
