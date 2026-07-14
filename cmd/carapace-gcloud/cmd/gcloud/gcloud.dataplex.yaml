@@ -226,102 +226,24 @@ commands:
                 resource-read-access-mode:
                     - DIRECT
                     - MANAGED
-    - name: content
-      description: Manage Dataplex Content.
+    - name: context
+      description: Manage Dataplex Context.
       commands:
-        - name: add-iam-policy-binding
-          description: Adds IAM policy binding to a Dataplex Content.
+        - name: lookup
+          description: Looks up metadata that can be used as context by agents.
           flags:
-            --lake=: The identifier of the Dataplex lake resource.
-            --location=: The location of the Dataplex resource.
-            --member=!: The principal to add the binding for.
-            --role=!: Role name to assign to the principal.
-        - name: create
-          description: Creating a content.
-          flags:
-            --data-text=!: Content data in string format
-            --description=: Description of the Content
-            --kernel-type=!: Kernel Type of the notebook.
-            --labels=: List of label KEY=VALUE pairs to add.
-            --lake=!: ID of the lakes or fully qualified identifier for the lakes.
-            --location=: The location of the Dataplex resource.
-            --no-validate-only&: Validate the create action, but don't actually perform it.
-            --path=!: The path for the Content file, represented as directory structure
-            --query-engine=!: Query Engine to be used for the Sql Query.
-            --validate-only: Validate the create action, but don't actually perform it.
+            --all-schema-fields: Includes all schema fields in the context.
+            --context-format=: The output format of the command.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-all-schema-fields&: Includes all schema fields in the context.
+            --options=: Additional options for the command.
+            --resources=!: 'The identifier describing the resource, for example:'
           completion:
             flag:
-                kernel-type:
-                    - PYTHON3
-                query-engine:
-                    - SPARK
-        - name: delete
-          description: Delete a Dataplex Content Resource.
-          flags:
-            --lake=: Identifier of the Dataplex lake resource.
-            --location=: Location of the Dataplex resource.
-        - name: describe
-          description: Retrieve a Dataplex Content Resource.
-          flags:
-            --lake=: Identifier of the Dataplex lake resource.
-            --location=: Location of the Dataplex resource.
-            --view=: There are two possible views, 'basic' and 'full'.
-          completion:
-            flag:
-                view:
-                    - basic
-                    - full
-        - name: get-iam-policy
-          description: Retrieve the IAM policy for a Dataplex Content.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --lake=: Identifier of the Dataplex lake resource.
-            --limit=: Maximum number of resources to list.
-            --location=: Location of the Dataplex resource.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: list
-          description: List Dataplex Content Resources.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --lake=!: ID of the lake or fully qualified identifier for the lake.
-            --limit=: Maximum number of resources to list.
-            --location=: Location of the Dataplex resource.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: remove-iam-policy-binding
-          description: Removes IAM policy binding from a Dataplex Content.
-          flags:
-            --lake=: The identifier of the Dataplex lake resource.
-            --location=: The location of the Dataplex resource.
-            --member=!: The principal to remove the binding for.
-            --role=!: The role to remove the principal from.
-        - name: set-iam-policy
-          description: Set the IAM policy to a Dataplex Content as defined in a JSON or YAML file.
-          flags:
-            --lake=: The identifier of the Dataplex lake resource.
-            --location=: The location of the Dataplex resource.
-        - name: update
-          description: Update a Dataplex Content Resource with the given configurations.
-          flags:
-            --data-text=: Content data in string format
-            --description=: Description of the Content
-            --kernel-type=: Kernel Type of the notebook.
-            --labels=: List of label KEY=VALUE pairs to add.
-            --lake=: The identifier of the Dataplex lake resource.
-            --location=: The location of the Dataplex resource.
-            --no-validate-only&: Validate the update action, but don't actually perform it.
-            --path=: The path for the Content file, represented as directory structure
-            --query-engine=: Query Engine to be used for the Sql Query.
-            --validate-only: Validate the update action, but don't actually perform it.
-          completion:
-            flag:
-                kernel-type:
-                    - PYTHON3
-                query-engine:
-                    - SPARK
+                context-format:
+                    - json
+                    - xml
+                    - yaml
     - name: datascans
       description: Manage Dataplex Datascan.
       commands:
@@ -349,11 +271,14 @@ commands:
                 --labels=: List of label KEY=VALUE pairs to add.
                 --location=: The location of the Dataplex resource.
                 --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-one-time&: If set, the data discovery scan runs once, and auto deleted once the ttl_after_scan_completion expires.
                 --no-validate-only&: Validate the create action, but don't actually perform it.
                 --on-demand=: If set, the scan runs one-time shortly after data discovery scan creation.
+                --one-time: If set, the data discovery scan runs once, and auto deleted once the ttl_after_scan_completion expires.
                 --schedule=: Cron schedule (https://en.wikipedia.org/wiki/Cron) for running scans periodically.
                 --storage-exclude-patterns=: List of patterns that identify the data to exclude during discovery.
                 --storage-include-patterns=: List of patterns that identify the data to include during discovery when only a subset of the data should be considered.
+                --ttl-after-scan-completion=: The time to live for one-time scans.
                 --validate-only: Validate the create action, but don't actually perform it.
               completion:
                 flag:
@@ -371,9 +296,12 @@ commands:
                 --labels=: List of label KEY=VALUE pairs to add.
                 --location=: The location of the Dataplex resource.
                 --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-one-time&: If set, the data documentation scan runs once, and is auto-deleted once the ttl_after_scan_completion expires.
                 --no-validate-only&: Validate the create action, but don't actually perform it.
                 --on-demand=: If set, the scan runs one-time shortly after data documentation scan creation.
+                --one-time: If set, the data documentation scan runs once, and is auto-deleted once the ttl_after_scan_completion expires.
                 --schedule=: Cron schedule (https://en.wikipedia.org/wiki/Cron) for running scans periodically.
+                --ttl-after-scan-completion=: The time to live for one-time scans.
                 --validate-only: Validate the create action, but don't actually perform it.
             - name: data-profile
               description: Create a Dataplex data profile scan job.
@@ -384,6 +312,7 @@ commands:
                 --data-source-resource=: 'Fully-qualified service resource name of the cloud resource that contains the data for the data profile scan, of the form: `//bigquery.googleapis.com/projects/{project_number}/datasets/{dataset_id}/tables/{table_id}`.'
                 --description=: Description of the data profile scan.
                 --display-name=: Display name of the data profile scan.
+                --enable-catalog-publishing: Publish data profile results to Dataplex catalog.
                 --exclude-field-names=: Names of the fields to exclude from data profile.
                 --export-results-table=: 'path to the resource table to export data profile scan results, of the form: `//bigquery.googleapis.com/projects/{project_number}/datasets/{dataset_id}/tables/{table_id}`.'
                 --include-field-names=: Names of the fields to include in data profile.
@@ -391,11 +320,18 @@ commands:
                 --labels=: List of label KEY=VALUE pairs to add.
                 --location=: The location of the Dataplex resource.
                 --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-enable-catalog-publishing&: Publish data profile results to Dataplex catalog.
+                --no-one-time&: If set, the data profile scan runs once, and auto deleted once the ttl_after_scan_completion expires.
+                --no-use-user-credential&: If set, the scan runs with the caller's credential.
                 --no-validate-only&: Validate the create action, but don't actually perform it.
                 --on-demand=: If set, the scan runs one-time shortly after data profile scan creation.
+                --one-time: If set, the data profile scan runs once, and auto deleted once the ttl_after_scan_completion expires.
                 --row-filter=: A filter applied to all rows in a single data profile scan job.
                 --sampling-percent=: The percentage of the records to be selected from the dataset for data profile scan.
                 --schedule=: Cron schedule (https://en.wikipedia.org/wiki/Cron) for running scans periodically.
+                --service-account=: Service account email to run the scan as.
+                --ttl-after-scan-completion=: The time to live for one-time scans.
+                --use-user-credential: If set, the scan runs with the caller's credential.
                 --validate-only: Validate the create action, but don't actually perform it.
             - name: data-quality
               description: Create a Dataplex data quality scan job.
@@ -410,9 +346,15 @@ commands:
                 --labels=: List of label KEY=VALUE pairs to add.
                 --location=: The location of the Dataplex resource.
                 --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-one-time&: If set, the data quality scan runs once, and auto deleted once the ttl_after_scan_completion expires.
+                --no-use-user-credential&: If set, the scan runs with the caller's credential.
                 --no-validate-only&: Validate the create action, but don't actually perform it.
                 --on-demand=: If set, the scan runs one-time shortly after data quality scan creation.
+                --one-time: If set, the data quality scan runs once, and auto deleted once the ttl_after_scan_completion expires.
                 --schedule=: Cron schedule (https://en.wikipedia.org/wiki/Cron) for running scans periodically.
+                --service-account=: Service account email to run the scan as.
+                --ttl-after-scan-completion=: The time to live for one-time scans.
+                --use-user-credential: If set, the scan runs with the caller's credential.
                 --validate-only: Validate the create action, but don't actually perform it.
         - name: delete
           description: Delete a Dataplex Datascan resource.
@@ -519,9 +461,12 @@ commands:
                 --labels=: List of label KEY=VALUE pairs to add.
                 --location=: The location of the Dataplex resource.
                 --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-one-time&: If set, the data documentation scan runs once, and auto deleted once the ttl_after_scan_completion expires.
                 --no-validate-only&: Validate the update action, but don't actually perform it.
                 --on-demand=: If set, the scan runs one-time shortly after data documentation scan creation.
+                --one-time: If set, the data documentation scan runs once, and auto deleted once the ttl_after_scan_completion expires.
                 --schedule=: Cron schedule (https://en.wikipedia.org/wiki/Cron) for running scans periodically.
+                --ttl-after-scan-completion=: The time to live for one-time scans.
                 --validate-only: Validate the update action, but don't actually perform it.
             - name: data-profile
               description: Update a Dataplex data profile scan job.
@@ -530,11 +475,13 @@ commands:
                 --data-profile-spec-file=: path to the JSON/YAML file containing the spec for the data profile scan.
                 --description=: Description of the data profile scan
                 --display-name=: Display name of the data profile scan
+                --enable-catalog-publishing: Publish data profile results to Dataplex catalog.
                 --exclude-field-names=: Names of the fields to exclude from data profile.
                 --include-field-names=: Names of the fields to include in data profile.
                 --labels=: List of label KEY=VALUE pairs to add.
                 --location=: The location of the Dataplex resource.
                 --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-enable-catalog-publishing&: Publish data profile results to Dataplex catalog.
                 --no-validate-only&: Validate the update action, but don't actually perform it.
                 --on-demand=: If set, the scan runs one-time shortly after data profile scan updation.
                 --row-filter=: A filter applied to all rows in a single data profile scan job.
@@ -645,6 +592,38 @@ commands:
                     - basic
                     - custom
                     - full
+        - name: modify
+          description: Modify a Dataplex Entry.
+          flags:
+            --clear-entry-source-create-time: Clear the value for the create_time field in the Entry Source.
+            --clear-entry-source-description: Clear the value for the description field in the Entry Source.
+            --clear-entry-source-display-name: Clear the value for the display_name field in the Entry Source.
+            --clear-entry-source-labels: Clear the labels for the Entry Source.
+            --clear-entry-source-platform: Clear the value for the platform field in the Entry Source.
+            --clear-entry-source-resource: Clear the value for the resource field in the Entry Source.
+            --clear-entry-source-system: Clear the value for the system field in the Entry Source.
+            --clear-fully-qualified-name: Clear the FQN for the Entry.
+            --entry-group=: Entry group containing Dataplex Entries.
+            --entry-source-create-time=: The creation date and time of the resource in the source system.
+            --entry-source-description=: Description of the Entry.
+            --entry-source-display-name=: User friendly display name.
+            --entry-source-labels=: List of label KEY=VALUE pairs to add.
+            --entry-source-platform=: The platform containing the source system.
+            --entry-source-resource=: The name of the resource in the source system.
+            --entry-source-system=: The name of the source system.
+            --entry-source-update-time=!: The update date and time of the resource in the source system.
+            --fully-qualified-name=: FQN, a name for the entry that can reference it in an external system.
+            --location=: Location of the Dataplex resource.
+            --no-clear-entry-source-create-time&: Clear the value for the create_time field in the Entry Source.
+            --no-clear-entry-source-description&: Clear the value for the description field in the Entry Source.
+            --no-clear-entry-source-display-name&: Clear the value for the display_name field in the Entry Source.
+            --no-clear-entry-source-labels&: Remove all labels.
+            --no-clear-entry-source-platform&: Clear the value for the platform field in the Entry Source.
+            --no-clear-entry-source-resource&: Clear the value for the resource field in the Entry Source.
+            --no-clear-entry-source-system&: Clear the value for the system field in the Entry Source.
+            --no-clear-fully-qualified-name&: Clear the FQN for the Entry.
+            --remove-aspects=: List of Aspect keys, identifying Aspects to remove from the entry.
+            --update-aspects=: Path to a YAML or JSON file containing Aspects to add or update.
         - name: remove-aspects
           description: Remove aspects from a Dataplex Entry.
           flags:
@@ -655,9 +634,11 @@ commands:
           description: Searches for Dataplex entries.
           flags:
             --limit=: Maximum number of resources.
+            --no-semantic-search&: Specifies whether the search should understand the meaning and intent behind the query, rather than just matching keywords.
             --order-by=: Specifies the ordering of results, currently supported case-sensitive
             --page-size=: Maximum number of resources per page.
             --scope=: The scope under which the search should be operating.
+            --semantic-search: Specifies whether the search should understand the meaning and intent behind the query, rather than just matching keywords.
         - name: update
           description: Update a Dataplex Entry.
           flags:
@@ -846,117 +827,6 @@ commands:
             --system=: The system that Entries of this type belongs to.
             --type-aliases=: Indicates the class this Entry Type belongs to.
             --validate-only: Validate the update action, but don't actually perform it.
-    - name: environments
-      description: Manage Dataplex Environments.
-      commands:
-        - name: add-iam-policy-binding
-          description: Adds IAM policy binding to a Dataplex Environment.
-          flags:
-            --lake=: The identifier of the Dataplex lake resource.
-            --location=: The location of the Dataplex resource.
-            --member=!: The principal to add the binding for.
-            --role=!: Role name to assign to the principal.
-        - name: create
-          description: Create a Dataplex Environment.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --compute-disk-size-gb=: Size in GB of the disk.
-            --compute-max-node-count=: Maximum number of configurable nodes.
-            --compute-node-count=: Total number of worker nodes in the cluster.
-            --description=: Description of the Environment
-            --display-name=: Display Name of the Environment
-            --labels=: List of label KEY=VALUE pairs to add.
-            --lake=: The identifier of the Dataplex lake resource.
-            --location=: The location of the Dataplex resource.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-session-enable-fast-startup&: Enables fast startup.
-            --no-validate-only&: Validate the create action, but don't actually perform it.
-            --os-image-java-libraries=: List of Java jars to be included in the runtime environment.
-            --os-image-properties=: Override to common configuration of open source components installed on the Dataproc cluster.
-            --os-image-python-packages=: A list of python packages to be installed.
-            --os-image-version=!: Dataplex Image version.
-            --session-enable-fast-startup: Enables fast startup.
-            --session-max-idle-duration=: The idle time configuration of the session.
-            --validate-only: Validate the create action, but don't actually perform it.
-        - name: delete
-          description: Delete a Dataplex Environment.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --lake=: Identifier of the Dataplex lake resource.
-            --location=: Location of the Dataplex resource.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-        - name: describe
-          description: Retrieve a Dataplex Environment.
-          flags:
-            --lake=: Identifier of the Dataplex lake resource.
-            --location=: Location of the Dataplex resource.
-        - name: get-iam-policy
-          description: Retrieve a Dataplex Environment IAM policy.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --lake=: Identifier of the Dataplex lake resource.
-            --limit=: Maximum number of resources to list.
-            --location=: Location of the Dataplex resource.
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: list
-          description: List Dataplex Environments.
-          flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-            --lake=!: ID of the lake or fully qualified identifier for the lake.
-            --limit=: Maximum number of resources to list.
-            --location=: Location of the Dataplex resource.
-            --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --page-size=: Some services group resource list output into pages.
-            --sort-by=: Comma-separated list of resource field key names to sort by.
-            --uri: Print a list of resource URIs instead of the default output, and change the
-        - name: remove-iam-policy-binding
-          description: Removes IAM policy binding from a Dataplex Environment.
-          flags:
-            --lake=: The identifier of the Dataplex lake resource.
-            --location=: The location of the Dataplex resource.
-            --member=!: The principal to remove the binding for.
-            --role=!: The role to remove the principal from.
-        - name: sessions
-          description: Manage Dataplex Sessions services.
-          commands:
-            - name: list
-              description: List Sessions associated with a Environment.
-              flags:
-                --environment=!: ID of the environment or fully qualified identifier for the environment.
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --lake=: Identifier of the Dataplex lake resource.
-                --limit=: Maximum number of resources to list.
-                --location=: Location of the Dataplex resource.
-                --page-size=: Some services group resource list output into pages.
-                --sort-by=: Comma-separated list of resource field key names to sort by.
-        - name: set-iam-policy
-          description: Set an IAM policy binding for a Dataplex Environment as defined in a JSON or YAML file.
-          flags:
-            --lake=: The identifier of the Dataplex lake resource.
-            --location=: The location of the Dataplex resource.
-        - name: update
-          description: Update a Dataplex Environment with the given configurations.
-          flags:
-            --async: Return immediately, without waiting for the operation in progress to
-            --compute-disk-size-gb=: Size in GB of the disk.
-            --compute-max-node-count=: Maximum number of configurable nodes.
-            --compute-node-count=: Total number of worker nodes in the cluster.
-            --description=: Description of the Environment
-            --display-name=: Display Name of the Environment
-            --labels=: List of label KEY=VALUE pairs to add.
-            --lake=: The identifier of the Dataplex lake resource.
-            --location=: The location of the Dataplex resource.
-            --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-session-enable-fast-startup&: Enables fast startup.
-            --no-validate-only&: Validate the create action, but don't actually perform it.
-            --os-image-java-libraries=: List of Java jars to be included in the runtime environment.
-            --os-image-properties=: Override to common configuration of open source components installed on the Dataproc cluster.
-            --os-image-python-packages=: A list of python packages to be installed.
-            --os-image-version=: Dataplex Image version.
-            --session-enable-fast-startup: Enables fast startup.
-            --session-max-idle-duration=: The idle time configuration of the session.
-            --validate-only: Validate the create action, but don't actually perform it.
     - name: glossaries
       description: Manage Dataplex glossaries.
       commands:

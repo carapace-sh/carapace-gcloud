@@ -34,6 +34,7 @@ commands:
         - name: create
           description: Create a new AutonomousDatabase.
           flags:
+            --admin-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
             --admin-password=: The password for the default ADMIN user.
             --async: Return immediately, without waiting for the operation in progress to
             --cidr=: The subnet CIDR range for the Autonomous Database.
@@ -48,6 +49,7 @@ commands:
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-properties-is-auto-scaling-enabled&: This field indicates if auto scaling is enabled for the Autonomous Database
             --no-properties-is-storage-auto-scaling-enabled&: This field indicates if auto scaling is enabled for the Autonomous Database
+            --no-properties-local-data-guard-enabled&: Indicates whether the Autonomous Database has a local (in-region) standby
             --no-properties-mtls-connection-required&: This field specifies if the Autonomous Database requires mTLS connections.
             --no-source-config-automatic-backups-replication-enabled&: This field specifies if the replication of automatic backups is enabled
             --odb-network=: For resources [odb-network, odb-subnet], provides fallback value for resource odb-network attribute.
@@ -66,6 +68,8 @@ commands:
             --properties-is-auto-scaling-enabled: This field indicates if auto scaling is enabled for the Autonomous Database
             --properties-is-storage-auto-scaling-enabled: This field indicates if auto scaling is enabled for the Autonomous Database
             --properties-license-type=!: The license type used for the Autonomous Database.
+            --properties-local-adg-auto-failover-max-data-loss-limit-duration=: This field indicates the maximum data loss limit for an Autonomous
+            --properties-local-data-guard-enabled: Indicates whether the Autonomous Database has a local (in-region) standby
             --properties-maintenance-schedule-type=: The maintenance schedule of the Autonomous Database.
             --properties-mtls-connection-required: This field specifies if the Autonomous Database requires mTLS connections.
             --properties-n-character-set=: The national character set for the Autonomous Database.
@@ -74,6 +78,7 @@ commands:
             --properties-secret-id=: The ID of the Oracle Cloud Infrastructure vault secret.
             --properties-vault-id=: The ID of the Oracle Cloud Infrastructure vault.
             --request-id=: An optional ID to identify the request.
+            --secret=: The secret id of the secretVersion resource.
             --source-config-automatic-backups-replication-enabled: This field specifies if the replication of automatic backups is enabled
             --source-config-autonomous-database=!: ID of the autonomousDatabase or fully qualified identifier for the autonomousDatabase.
           completion:
@@ -171,93 +176,30 @@ commands:
         - name: update
           description: Update an AutonomousDatabase.
           flags:
-            --add-properties-allowlisted-ips=: Add new value to properties_allowlisted_ips list.
-            --add-properties-customer-contacts=: Add new value to properties_customer_contacts list.
-            --admin-password=: The password for the default ADMIN user.
             --async: Return immediately, without waiting for the operation in progress to
-            --cidr=: The subnet CIDR range for the Autonomous Database.
             --clear-encryption-key-kms: Clear encryption_key_kms value and set to null.
             --clear-labels: Clear labels value and set to empty map.
-            --clear-network: Clear network value and set to null.
-            --clear-odb-network: Clear odb_network value and set to null.
-            --clear-odb-subnet: Clear odb_subnet value and set to null.
             --clear-properties: Set autonomousDatabase.properties back to default value.
-            --clear-properties-allowlisted-ips: Clear properties_allowlisted_ips value and set to empty list.
-            --clear-properties-customer-contacts: Clear properties_customer_contacts value and set to empty list.
-            --clear-source-config: Set autonomousDatabase.sourceConfig back to default value.
-            --clear-source-config-autonomous-database: Clear source_config_autonomous_database value and set to null.
-            --database=: The name of the Autonomous Database.
-            --display-name=: The display name for the Autonomous Database.
             --encryption-key-kms=!: ID of the cryptoKey or fully qualified identifier for the cryptoKey.
             --encryption-key-provider=: The provider of the encryption key.
             --key-ring=: The keyRing id of the cryptoKey resource.
             --labels=: Set labels to new value.
-            --location=: For resources [autonomous_database, encryption-key-kms, odb-network, odb-subnet, source-config-autonomous-database], provides fallback value for resource location attribute.
-            --network=!: ID of the network or fully qualified identifier for the network.
+            --location=: For resources [autonomous_database, encryption-key-kms], provides fallback value for resource location attribute.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-clear-encryption-key-kms&: Clear encryption_key_kms value and set to null.
             --no-clear-labels&: Clear labels value and set to empty map.
-            --no-clear-network&: Clear network value and set to null.
-            --no-clear-odb-network&: Clear odb_network value and set to null.
-            --no-clear-odb-subnet&: Clear odb_subnet value and set to null.
             --no-clear-properties&: Set autonomousDatabase.properties back to default value.
-            --no-clear-properties-allowlisted-ips&: Clear properties_allowlisted_ips value and set to empty list.
-            --no-clear-properties-customer-contacts&: Clear properties_customer_contacts value and set to empty list.
-            --no-clear-source-config&: Set autonomousDatabase.sourceConfig back to default value.
-            --no-clear-source-config-autonomous-database&: Clear source_config_autonomous_database value and set to null.
-            --no-properties-is-auto-scaling-enabled&: This field indicates if auto scaling is enabled for the Autonomous Database
-            --no-properties-is-storage-auto-scaling-enabled&: This field indicates if auto scaling is enabled for the Autonomous Database
-            --no-properties-mtls-connection-required&: This field specifies if the Autonomous Database requires mTLS connections.
-            --no-source-config-automatic-backups-replication-enabled&: This field specifies if the replication of automatic backups is enabled
-            --odb-network=: For resources [odb-network, odb-subnet], provides fallback value for resource odb-network attribute.
-            --odb-subnet=!: ID of the odbSubnet or fully qualified identifier for the odbSubnet.
-            --properties-allowlisted-ips=: Set properties_allowlisted_ips to new value.
-            --properties-backup-retention-period-days=: The retention period for the Autonomous Database.
-            --properties-character-set=: The character set for the Autonomous Database.
-            --properties-compute-count=: The number of compute servers for the Autonomous Database.
-            --properties-cpu-core-count=: The number of CPU cores to be made available to the database.
-            --properties-customer-contacts=: Set properties_customer_contacts to new value.
-            --properties-data-storage-size-gb=: The size of the data stored in the database, in gigabytes.
-            --properties-data-storage-size-tb=: The size of the data stored in the database, in terabytes.
-            --properties-db-edition=: The edition of the Autonomous Databases.
-            --properties-db-version=: The Oracle Database version for the Autonomous Database.
-            --properties-db-workload=: The workload type of the Autonomous Database.
-            --properties-is-auto-scaling-enabled: This field indicates if auto scaling is enabled for the Autonomous Database
-            --properties-is-storage-auto-scaling-enabled: This field indicates if auto scaling is enabled for the Autonomous Database
-            --properties-license-type=: The license type used for the Autonomous Database.
-            --properties-maintenance-schedule-type=: The maintenance schedule of the Autonomous Database.
-            --properties-mtls-connection-required: This field specifies if the Autonomous Database requires mTLS connections.
-            --properties-n-character-set=: The national character set for the Autonomous Database.
-            --properties-private-endpoint-ip=: The private endpoint IP address for the Autonomous Database.
-            --properties-private-endpoint-label=: The private endpoint label for the Autonomous Database.
-            --properties-secret-id=: The ID of the Oracle Cloud Infrastructure vault secret.
-            --properties-vault-id=: The ID of the Oracle Cloud Infrastructure vault.
+            --no-properties-local-data-guard-enabled&: Indicates whether the Autonomous Database has a local (in-region) standby
+            --properties-local-adg-auto-failover-max-data-loss-limit-duration=: This field indicates the maximum data loss limit for an Autonomous
+            --properties-local-data-guard-enabled: Indicates whether the Autonomous Database has a local (in-region) standby
             --remove-labels=: Remove existing value from map labels.
-            --remove-properties-allowlisted-ips=: Remove existing value from properties_allowlisted_ips list.
-            --remove-properties-customer-contacts=: Remove existing value from properties_customer_contacts list.
             --request-id=: An optional ID to identify the request.
-            --source-config-automatic-backups-replication-enabled: This field specifies if the replication of automatic backups is enabled
-            --source-config-autonomous-database=!: ID of the autonomousDatabase or fully qualified identifier for the autonomousDatabase.
             --update-labels=: Update labels value or add key value pair.
           completion:
             flag:
                 encryption-key-provider:
                     - google-managed
                     - oracle-managed
-                properties-db-edition:
-                    - enterprise-edition
-                    - standard-edition
-                properties-db-workload:
-                    - ajd
-                    - apex
-                    - dw
-                    - oltp
-                properties-license-type:
-                    - bring-your-own-license
-                    - license-included
-                properties-maintenance-schedule-type:
-                    - early
-                    - regular
     - name: autonomous-db-versions
       description: Manage Autonomous Db Version resources.
       commands:
@@ -274,6 +216,14 @@ commands:
     - name: cloud-exadata-infrastructures
       description: Manage Cloud Exadata Infrastructure resources.
       commands:
+        - name: configure-exascale
+          description: Configure Exascale Storage for a Cloud Exadata Infrastructure.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the cloudExadataInfrastructure resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --request-id=: An optional ID to identify the request.
+            --total-storage-size-gb=!: The total storage to be allocated to Exascale in GBs.
         - name: create
           description: Create a new ExadataInfrastructure.
           flags:
@@ -359,8 +309,9 @@ commands:
             --diagnostics-data-collection-options-incident-logs-enabled: Indicates whether incident logs and trace collection are enabled for the VM
             --display-name=: User friendly name for this resource.
             --exadata-infrastructure=!: ID of the cloudExadataInfrastructure or fully qualified identifier for the cloudExadataInfrastructure.
+            --exascale-db-storage-vault=!: ID of the exascaleDbStorageVault or fully qualified identifier for the exascaleDbStorageVault.
             --labels=: Labels or tags associated with the VM Cluster.
-            --location=: For resources [backup-odb-subnet, cloud_vm_cluster, exadata-infrastructure, odb-network, odb-subnet], provides fallback value for resource location attribute.
+            --location=: For resources [backup-odb-subnet, cloud_vm_cluster, exadata-infrastructure, exascale-db-storage-vault, odb-network, odb-subnet], provides fallback value for resource location attribute.
             --network=!: ID of the network or fully qualified identifier for the network.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-diagnostics-data-collection-options-events-enabled&: Indicates whether diagnostic collection is enabled for the VM cluster
@@ -383,6 +334,8 @@ commands:
             --properties-memory-size-gb=: Memory allocated in GBs.
             --properties-node-count=: Number of database servers.
             --properties-ocpu-count=: OCPU count per VM.
+            --properties-scan-listener-port-tcp-ssl=: SCAN listener port - TLS
+            --properties-scan-listener-port-tcp=: SCAN listener port - TCP
             --properties-sparse-diskgroup-enabled: Use exadata sparse snapshots.
             --properties-ssh-public-keys=: SSH public keys to be stored with cluster.
             --properties-system-version=: Operating system version of the image.
@@ -456,9 +409,9 @@ commands:
           flags:
             --location=: The location id of the database resource.
         - name: list
-          description: List all Databases.
+          description: List databases.
           flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --filter=: 'Apply a filter in the format :'
             --limit=: Maximum number of resources to list.
             --location=!: ID of the location or fully qualified identifier for the location.
             --no-uri&: Print a list of resource URIs instead of the default output, and change the
@@ -500,7 +453,8 @@ commands:
             --async: Return immediately, without waiting for the operation in progress to
             --data-collection-options-is-diagnostics-events-enabled: Indicates whether to enable data collection for diagnostics.
             --data-collection-options-is-incident-logs-enabled: Indicates whether to enable incident logs and trace collection.
-            --database-admin-password=!: The password for the default ADMIN user.
+            --database-admin-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --database-admin-password=: The password for the default ADMIN user.
             --database-character-set=: The character set for the database.
             --database-db-home-name=: The name of the DbHome resource associated with the Database.
             --database-db-name=: The database name.
@@ -508,6 +462,9 @@ commands:
             --database-id=: The database ID of the Database.
             --database-name=: Identifier.
             --database-ncharacter-set=: The national character set for the database.
+            --database-pluggable-id=: The ID of the pluggable database associated with the Database.
+            --database-pluggable-name=: The pluggable database associated with the Database.
+            --database-tde-wallet-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
             --database-tde-wallet-password=: The TDE wallet password for the database.
             --db-backup-config-auto-enabled: If set to true, enables automatic backups on the database.
             --db-backup-config-auto-full-day=: The day of the week on which the full backup should be performed on the
@@ -547,6 +504,7 @@ commands:
             --properties-shape=!: Shape of DB System.
             --properties-ssh-public-keys=!: SSH public keys to be stored with the DbSystem.
             --request-id=: An optional request ID to identify requests.
+            --secret=: For resources [database-admin-password-secret-version, database-tde-wallet-password-secret-version], provides fallback value for resource secret attribute.
             --time-zone-id=: IANA Time Zone Database time zone.
             --time-zone-version=: IANA Time Zone Database version number.
           completion:
@@ -652,7 +610,7 @@ commands:
       description: Manage Exadb Vm Cluster resources.
       commands:
         - name: create
-          description: Create exadbVmClusters.
+          description: Create a new ExadbVmCluster.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
             --backup-odb-subnet=!: ID of the odbSubnet or fully qualified identifier for the odbSubnet.
@@ -692,18 +650,18 @@ commands:
                     - block-storage
                     - smart-storage
         - name: delete
-          description: Delete exadbVmClusters.
+          description: Delete an ExadbVmCluster.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
             --location=: The location id of the exadbVmCluster resource.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --request-id=: An optional ID to identify the request.
         - name: describe
-          description: Describe exadbVmClusters.
+          description: Get details of a ExadbVmCluster.
           flags:
             --location=: The location id of the exadbVmCluster resource.
         - name: list
-          description: List exadbVmClusters.
+          description: List all ExadbVmClusters.
           flags:
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
@@ -713,7 +671,7 @@ commands:
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
         - name: remove-virtual-machine
-          description: remove exadbVmClusters.
+          description: Remove virtual machines from an ExadbVmCluster.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
             --hostnames=!: The list of host names of db nodes to be removed from the ExadbVmCluster.
@@ -721,7 +679,7 @@ commands:
             --no-async&: Return immediately, without waiting for the operation in progress to
             --request-id=: An optional ID to identify the request.
         - name: update
-          description: Update exadbVmClusters.
+          description: Update an ExadbVmCluster.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
             --clear-labels: Clear labels value and set to empty map.
@@ -739,31 +697,32 @@ commands:
       description: Manage Exascale Db Storage Vault resources.
       commands:
         - name: create
-          description: Create exascaleDbStorageVaults.
+          description: Create a new ExascaleDbStorageVault.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
             --display-name=!: The display name for the ExascaleDbStorageVault.
+            --exadata-infrastructure=!: ID of the cloudExadataInfrastructure or fully qualified identifier for the cloudExadataInfrastructure.
             --exascale-db-storage-details-total-size-gbs=!: The total storage allocation for the ExascaleDbStorageVault, in gigabytes
             --gcp-oracle-zone=: The GCP Oracle zone where Oracle ExascaleDbStorageVault is hosted.
             --labels=: The labels or tags associated with the ExascaleDbStorageVault.
-            --location=: The location id of the exascaleDbStorageVault resource.
+            --location=: For resources [exadata-infrastructure, exascale_db_storage_vault], provides fallback value for resource location attribute.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --properties-additional-flash-cache-percent=: The size of additional flash cache in percentage of high capacity
             --properties-description=: The description of the ExascaleDbStorageVault.
             --request-id=: An optional request ID to identify requests.
         - name: delete
-          description: Delete exascaleDbStorageVaults.
+          description: Delete an ExascaleDbStorageVault.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
             --location=: The location id of the exascaleDbStorageVault resource.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --request-id=: An optional ID to identify the request.
         - name: describe
-          description: Describe exascaleDbStorageVaults.
+          description: Get details of a ExascaleDbStorageVault.
           flags:
             --location=: The location id of the exascaleDbStorageVault resource.
         - name: list
-          description: List exascaleDbStorageVaults.
+          description: List all ExascaleDbStorageVaults.
           flags:
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
@@ -776,9 +735,9 @@ commands:
       description: Manage Gi Version resources.
       commands:
         - name: list
-          description: List all GiVersions.
+          description: List Grid Infrastructure versions.
           flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --filter=: 'Apply a filter in the format :'
             --limit=: Maximum number of resources to list.
             --location=!: ID of the location or fully qualified identifier for the location.
             --no-uri&: Print a list of resource URIs instead of the default output, and change the
@@ -789,16 +748,631 @@ commands:
           description: Manage Minor Version resources.
           commands:
             - name: list
-              description: List minorVersions.
+              description: List minor versions.
               flags:
-                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --gi-version=!: ID of the giVersion or fully qualified identifier for the giVersion.
+                --filter=: 'Apply a filter in the format:'
+                --gi-version=!: ID of the gi-version or fully qualified identifier for the gi-version.
                 --limit=: Maximum number of resources to list.
-                --location=: The location id of the giVersion resource.
+                --location=: The Cloud location for the gi-version.
                 --no-uri&: Print a list of resource URIs instead of the default output, and change the
                 --page-size=: Some services group resource list output into pages.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: goldengate-connection-assignments
+      description: Manage Goldengate Connection Assignment resources.
+      commands:
+        - name: create
+          description: Create a new GoldengateConnectionAssignment.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --display-name=: The display name for the GoldengateConnectionAssignment.
+            --labels=: The labels or tags associated with the GoldengateConnectionAssignment.
+            --location=: For resources [goldengate_connection_assignment, properties-goldengate-connection, properties-goldengate-deployment], provides fallback value for resource location attribute.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --properties-goldengate-connection=!: ID of the goldengateConnection or fully qualified identifier for the goldengateConnection.
+            --properties-goldengate-deployment=!: ID of the goldengateDeployment or fully qualified identifier for the goldengateDeployment.
+            --request-id=: An optional request ID to identify requests.
+        - name: delete
+          description: Delete a GoldengateConnectionAssignment.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the goldengateConnectionAssignment resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --request-id=: An optional request ID to identify requests.
+        - name: describe
+          description: Get details of a GoldengateConnectionAssignment.
+          flags:
+            --location=: The location id of the goldengateConnectionAssignment resource.
+        - name: list
+          description: List all GoldengateConnectionAssignments.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: test
+          description: Test a GoldengateConnectionAssignment.
+          flags:
+            --location=: The location id of the goldengateConnectionAssignment resource.
+            --type=: The type of the test of the assigned connection.
+          completion:
+            flag:
+                type:
+                    - default
+    - name: goldengate-connection-types
+      description: Manage Goldengate Connection Type resources.
+      commands:
+        - name: list
+          description: List all Goldengate connection types.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: goldengate-connections
+      description: Manage Goldengate Connection resources.
+      commands:
+        - name: create
+          description: Create a new GoldengateConnection.
+          flags:
+            --amazon-kinesis-connection-properties-access-key-id=: Access key ID to access the Amazon Kinesis.
+            --amazon-kinesis-connection-properties-aws-region=: The name of the AWS region.
+            --amazon-kinesis-connection-properties-endpoint=: The endpoint URL of the Amazon Kinesis service.
+            --amazon-kinesis-connection-properties-secret-access-key=: Secret access key to access the Amazon Kinesis.
+            --amazon-kinesis-connection-properties-technology-type=: The technology type of AmazonKinesisConnection.
+            --amazon-redshift-connection-properties-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --amazon-redshift-connection-properties-password=: The password Oracle Goldengate uses for Amazon Redshift connection
+            --amazon-redshift-connection-properties-technology-type=: The technology type of AmazonRedshiftConnection.
+            --amazon-redshift-connection-properties-url=: Connection URL.
+            --amazon-redshift-connection-properties-username=: The username Oracle Goldengate uses to connect the associated system of
+            --amazon-s3-connection-properties-access-key-id=: Access key ID to access the Amazon S3 bucket.
+            --amazon-s3-connection-properties-endpoint=: The Amazon Endpoint for S3.
+            --amazon-s3-connection-properties-region=: The name of the AWS region where the bucket is created.
+            --amazon-s3-connection-properties-secret-access-key=: Secret access key to access the Amazon S3 bucket.
+            --amazon-s3-connection-properties-technology-type=: The technology type of AmazonS3Connection.
+            --async: Return immediately, without waiting for the operation in progress to
+            --azure-data-lake-storage-connection-properties-account-key-secret=: Azure storage account key.
+            --azure-data-lake-storage-connection-properties-account=: Sets the Azure storage account name.
+            --azure-data-lake-storage-connection-properties-authentication-type=: Authentication mechanism to access Azure Data Lake Storage.
+            --azure-data-lake-storage-connection-properties-authority-host=: The endpoint used for authentication with Microsoft Entra ID (formerly
+            --azure-data-lake-storage-connection-properties-client-id=: Azure client ID of the application.
+            --azure-data-lake-storage-connection-properties-client-secret=: Azure client secret (aka application password) for authentication.
+            --azure-data-lake-storage-connection-properties-endpoint=: Azure Storage service endpoint.
+            --azure-data-lake-storage-connection-properties-sas-token-secret=: Credential that uses a shared access signature (SAS) to authenticate to
+            --azure-data-lake-storage-connection-properties-technology-type=: The technology type of AzureDataLakeStorageConnection.
+            --azure-data-lake-storage-connection-properties-tenant-id=: Azure tenant ID of the application.
+            --azure-synapse-analytics-connection-properties-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --azure-synapse-analytics-connection-properties-password=: The password Oracle Goldengate uses for Azure Synapse Analytics
+            --azure-synapse-analytics-connection-properties-string=: JDBC connection string.
+            --azure-synapse-analytics-connection-properties-technology-type=: The technology type of AzureSynapseAnalyticsConnection.
+            --azure-synapse-analytics-connection-properties-username=: The username Oracle Goldengate uses to connect the associated system of
+            --databricks-connection-properties-authentication-type=: Authentication type for Databricks.
+            --databricks-connection-properties-client-id=: OAuth client id, only applicable for authentication_type == OAUTH_M2M
+            --databricks-connection-properties-client-secret=: OAuth client secret, only applicable for authentication_type == OAUTH_M2M
+            --databricks-connection-properties-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --databricks-connection-properties-password=: The password used to connect to Databricks in plain text.
+            --databricks-connection-properties-storage-credential=: External storage credential name to access files on object
+            --databricks-connection-properties-technology-type=: The technology type of DatabricksConnection.
+            --databricks-connection-properties-url=: Connection URL.
+            --db2-connection-properties-additional-attributes=: An array of name-value pair attribute entries.
+            --db2-connection-properties-database=: The name of the database.
+            --db2-connection-properties-host=: The name or address of a host.
+            --db2-connection-properties-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --db2-connection-properties-password=: The password Oracle Goldengate uses for Db2 connection in plain text.
+            --db2-connection-properties-port=: The port of an endpoint usually specified for a connection.
+            --db2-connection-properties-security-protocol=: Security protocol for the DB2 database.
+            --db2-connection-properties-ssl-client-keystash-file=: The keystash file which contains the encrypted password to
+            --db2-connection-properties-ssl-client-keystoredb-file=: The keystore file created at the client containing the
+            --db2-connection-properties-ssl-server-certificate-file=: The file which contains the self-signed server certificate
+            --db2-connection-properties-technology-type=: The technology type of Db2Connection.
+            --db2-connection-properties-username=: The username Oracle Goldengate uses to connect to the DB2 database.
+            --elasticsearch-connection-properties-authentication-type=: Authentication type for Elasticsearch.
+            --elasticsearch-connection-properties-fingerprint=: Fingerprint required by TLS security protocol.
+            --elasticsearch-connection-properties-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --elasticsearch-connection-properties-password=: The password Oracle Goldengate uses for Elastic Search connection
+            --elasticsearch-connection-properties-security-protocol=: Security protocol for Elasticsearch.
+            --elasticsearch-connection-properties-servers=: Comma separated list of Elasticsearch server addresses, specified as
+            --elasticsearch-connection-properties-technology-type=: The technology type of ElasticsearchConnection.
+            --elasticsearch-connection-properties-username=: The username Oracle Goldengate uses to connect the associated system of
+            --gcp-oracle-zone=: The GCP Oracle zone where Oracle GoldengateConnection is hosted.
+            --generic-connection-properties-host=: The host of the GenericConnection.
+            --generic-connection-properties-technology-type=: The technology type.
+            --goldengate-connection-properties-deployment-id=!: ID of the goldengateDeployment or fully qualified identifier for the goldengateDeployment.
+            --goldengate-connection-properties-host=: The host of the GoldengateConnection.
+            --goldengate-connection-properties-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --goldengate-connection-properties-password=: The password used to connect to the Oracle Goldengate in plain text.
+            --goldengate-connection-properties-port=: The port of the GoldengateConnection.
+            --goldengate-connection-properties-technology-type=: The technology type.
+            --goldengate-connection-properties-username=: The username credential.
+            --google-big-query-connection-properties-service-account-key-file=: The base64 encoded content of the service account key file containing the
+            --google-big-query-connection-properties-technology-type=: The technology type.
+            --google-cloud-storage-connection-properties-service-account-key-file=: The base64 encoded content of the service account key file containing the
+            --google-cloud-storage-connection-properties-technology-type=: The technology type.
+            --google-pubsub-connection-properties-service-account-key-file=: The base64 encoded content of the service account key file containing the
+            --google-pubsub-connection-properties-technology-type=: The technology type of GooglePubsubConnection.
+            --hdfs-connection-properties-core-site-xml=: The content of the Hadoop Distributed File System
+            --hdfs-connection-properties-technology-type=: The technology type of HdfsConnection.
+            --iceberg-connection-properties-amazon-s3-storage-access-key-id=!: The access key ID of Amazon S3.
+            --iceberg-connection-properties-amazon-s3-storage-bucket=!: The bucket of Amazon S3.
+            --iceberg-connection-properties-amazon-s3-storage-endpoint=: The endpoint of Amazon S3.
+            --iceberg-connection-properties-amazon-s3-storage-region=!: The region of Amazon S3.
+            --iceberg-connection-properties-amazon-s3-storage-scheme-type=!: The scheme type of Amazon S3.
+            --iceberg-connection-properties-amazon-s3-storage-secret-access-key=: The secret access key of Amazon S3.
+            --iceberg-connection-properties-azure-data-lake-storage-account-key-secret=: The account key of Azure Data Lake Storage.
+            --iceberg-connection-properties-azure-data-lake-storage-account=!: The account of Azure Data Lake Storage.
+            --iceberg-connection-properties-azure-data-lake-storage-container=!: The container of Azure Data Lake Storage.
+            --iceberg-connection-properties-azure-data-lake-storage-endpoint=: The endpoint of Azure Data Lake Storage.
+            --iceberg-connection-properties-catalog-type=!: The type of Iceberg catalog.
+            --iceberg-connection-properties-glue-catalog-id=!: The catalog ID of Glue.
+            --iceberg-connection-properties-google-cloud-storage-bucket=!: The bucket of Google Cloud Storage.
+            --iceberg-connection-properties-google-cloud-storage-project-id=!: The project ID of Google Cloud Storage.
+            --iceberg-connection-properties-google-cloud-storage-service-account-key-file=: The base64 encoded content of the service account key file of Google Cloud
+            --iceberg-connection-properties-nessie-catalog-branch=!: The Nessie branch.
+            --iceberg-connection-properties-nessie-catalog-uri=!: The Nessie uri.
+            --iceberg-connection-properties-polaris-catalog-client-id=!: The Polaris client ID.
+            --iceberg-connection-properties-polaris-catalog-client-secret=: The Polaris client secret.
+            --iceberg-connection-properties-polaris-catalog-principal-role=!: The Polaris principal role.
+            --iceberg-connection-properties-polaris-catalog-uri=!: The Polaris uri.
+            --iceberg-connection-properties-polaris-catalog=!: The catalog name within Polaris.
+            --iceberg-connection-properties-rest-catalog-uri=!: The REST uri.
+            --iceberg-connection-properties-rest-catalog=: The base64 encoded content of the configuration file containing additional
+            --iceberg-connection-properties-storage-type=!: The type of Iceberg storage.
+            --iceberg-connection-properties-technology-type=!: The technology type of Iceberg connection.
+            --java-message-service-connection-properties-authentication-type=: Authentication type for Java Message Service.
+            --java-message-service-connection-properties-factory=: The Java class implementing javax.jms.ConnectionFactory interface supplied
+            --java-message-service-connection-properties-jndi-factory=: The Connection Factory can be looked up using this name.
+            --java-message-service-connection-properties-jndi-initial-context-factory=: The implementation of javax.naming.spi.InitialContextFactory interface
+            --java-message-service-connection-properties-jndi-provider-url=: The URL that Java Message Service will use to contact the JNDI provider.
+            --java-message-service-connection-properties-jndi-security-credentials-secret=: The password associated to the principal.
+            --java-message-service-connection-properties-jndi-security-principal=: Specifies the identity of the principal (user) to be authenticated.
+            --java-message-service-connection-properties-key-store-file=: The base64 encoded content of the KeyStore file.
+            --java-message-service-connection-properties-key-store-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --java-message-service-connection-properties-key-store-password=: The KeyStore password in plain text.
+            --java-message-service-connection-properties-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --java-message-service-connection-properties-password=: The password Oracle Goldengate uses to connect the Java Message Service
+            --java-message-service-connection-properties-security-protocol=: Security protocol for Java Message Service.
+            --java-message-service-connection-properties-ssl-key-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --java-message-service-connection-properties-ssl-key-password=: The password for the cert inside of the KeyStore in plain text.
+            --java-message-service-connection-properties-technology-type=: The technology type of JavaMessageServiceConnection.
+            --java-message-service-connection-properties-trust-store-file=: The base64 encoded content of the TrustStore file.
+            --java-message-service-connection-properties-trust-store-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --java-message-service-connection-properties-trust-store-password=: The TrustStore password in plain text.
+            --java-message-service-connection-properties-url=: Connection URL of the Java Message Service, specifying the protocol, host,
+            --java-message-service-connection-properties-use-jndi: If set to true, Java Naming and Directory Interface (JNDI) properties
+            --java-message-service-connection-properties-username=: The username Oracle Goldengate uses to connect to the Java Message
+            --kafka-connection-properties-bootstrap-servers=: Kafka bootstrap.
+            --kafka-connection-properties-cluster-id=: The OCID of the Kafka cluster being referenced from OCI Streaming with
+            --kafka-connection-properties-consumer-file=: The base64 encoded content of the consumer.properties file.
+            --kafka-connection-properties-key-store-file=: The base64 encoded content of the KeyStore file.
+            --kafka-connection-properties-key-store-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --kafka-connection-properties-key-store-password=: The KeyStore password in plain text.
+            --kafka-connection-properties-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --kafka-connection-properties-password=: The password for Kafka basic/SASL auth in plain text.
+            --kafka-connection-properties-producer-file=: The base64 encoded content of the producer.properties file.
+            --kafka-connection-properties-security-protocol=: Security Type for Kafka.
+            --kafka-connection-properties-ssl-key-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --kafka-connection-properties-ssl-key-password=: The password for the cert inside of the KeyStore in plain text.
+            --kafka-connection-properties-stream-pool-id=: The OCID of the stream pool being referenced.
+            --kafka-connection-properties-technology-type=: The technology type of KafkaConnection.
+            --kafka-connection-properties-trust-store-file=: The base64 encoded content of the TrustStore file.
+            --kafka-connection-properties-trust-store-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --kafka-connection-properties-trust-store-password=: The TrustStore password in plain text.
+            --kafka-connection-properties-use-resource-principal: Specifies that the user intends to authenticate to the instance using a
+            --kafka-connection-properties-username=: The username Oracle Goldengate uses to connect the associated system of
+            --kafka-schema-registry-connection-properties-authentication-type=: Used authentication mechanism to access Schema Registry.
+            --kafka-schema-registry-connection-properties-key-store-file=: The base64 encoded content of the KeyStore file.
+            --kafka-schema-registry-connection-properties-key-store-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --kafka-schema-registry-connection-properties-key-store-password=: The KeyStore password in plain text.
+            --kafka-schema-registry-connection-properties-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --kafka-schema-registry-connection-properties-password=: The password to access Schema Registry in plain text.
+            --kafka-schema-registry-connection-properties-ssl-key-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --kafka-schema-registry-connection-properties-ssl-key-password=: The password for the cert inside the KeyStore in plain text.
+            --kafka-schema-registry-connection-properties-technology-type=: The technology type of KafkaSchemaRegistryConnection.
+            --kafka-schema-registry-connection-properties-trust-store-file=: The base64 encoded content of the TrustStore file.
+            --kafka-schema-registry-connection-properties-trust-store-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --kafka-schema-registry-connection-properties-trust-store-password=: The TrustStore password in plain text.
+            --kafka-schema-registry-connection-properties-url=: Kafka Schema Registry URL.
+            --kafka-schema-registry-connection-properties-username=: The username to access Schema Registry using basic authentication.
+            --labels=: The labels or tags associated with the GoldengateConnection.
+            --location=: For resources [goldengate-connection-properties-deployment-id, goldengate_connection, odb-network, odb-subnet], provides fallback value for resource location attribute.
+            --microsoft-fabric-connection-properties-client-id=: Azure client ID of the application.
+            --microsoft-fabric-connection-properties-client-secret=: Client secret associated with the client id.
+            --microsoft-fabric-connection-properties-endpoint=: Optional Microsoft Fabric service endpoint.
+            --microsoft-fabric-connection-properties-technology-type=: The technology type of MicrosoftFabricConnection.
+            --microsoft-fabric-connection-properties-tenant-id=: Azure tenant ID of the application.
+            --microsoft-sqlserver-connection-properties-additional-attributes=: An array of name-value pair attribute entries.
+            --microsoft-sqlserver-connection-properties-database=: The name of the database.
+            --microsoft-sqlserver-connection-properties-host=: The name or address of a host.
+            --microsoft-sqlserver-connection-properties-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --microsoft-sqlserver-connection-properties-password=: The password Oracle Goldengate uses for Microsoft SQL Server connection
+            --microsoft-sqlserver-connection-properties-port=: The port of an endpoint usually specified for a connection.
+            --microsoft-sqlserver-connection-properties-security-protocol=: Security Type for Microsoft SQL Server.
+            --microsoft-sqlserver-connection-properties-server-certificate-validation-required: If set to true, the driver validates the certificate that is sent by the
+            --microsoft-sqlserver-connection-properties-ssl-ca-file=: Database Certificate - The base64 encoded content of a .pem or .crt file
+            --microsoft-sqlserver-connection-properties-technology-type=: The technology type of MicrosoftSqlserverConnection.
+            --microsoft-sqlserver-connection-properties-username=: The username Oracle Goldengate uses to connect to the Microsoft SQL
+            --mongodb-connection-properties-database-id=: The OCID of the Oracle Autonomous Json Database.
+            --mongodb-connection-properties-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --mongodb-connection-properties-password=: The password Oracle Goldengate uses to connect the Mongodb connection in
+            --mongodb-connection-properties-security-protocol=: Security Type for MongoDB.
+            --mongodb-connection-properties-string=: MongoDB connection string.
+            --mongodb-connection-properties-technology-type=: The technology type of MongodbConnection.
+            --mongodb-connection-properties-tls-ca-file=: Database Certificate - The base64 encoded content of a .pem file,
+            --mongodb-connection-properties-tls-certificate-key-file-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --mongodb-connection-properties-tls-certificate-key-file-password=: The Client Certificate key file password in plain text.
+            --mongodb-connection-properties-tls-certificate-key-file=: Client Certificate - The base64 encoded content of a .pem file, containing
+            --mongodb-connection-properties-username=: The username Oracle Goldengate uses to connect to the database.
+            --mysql-connection-properties-additional-attributes=: An array of name-value pair attribute entries.
+            --mysql-connection-properties-database=: The name of the database.
+            --mysql-connection-properties-db-system-id=: The OCID of the database system being referenced.
+            --mysql-connection-properties-host=: The name or address of a host.
+            --mysql-connection-properties-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --mysql-connection-properties-password=: The password Oracle Goldengate uses to connect to MySQL in plain text.
+            --mysql-connection-properties-port=: The port of an endpoint usually specified for a connection.
+            --mysql-connection-properties-security-protocol=: Security Type for MySQL.
+            --mysql-connection-properties-ssl-ca-file=: Database Certificate - The base64 encoded content of a .pem or .crt file
+            --mysql-connection-properties-ssl-cert-file=: Client Certificate - The base64 encoded content of a .pem or .crt file
+            --mysql-connection-properties-ssl-crl-file=: The base64 encoded list of certificates revoked by the trusted
+            --mysql-connection-properties-ssl-key-file=: Client Key - The base64 encoded content of a .pem or .crt file containing
+            --mysql-connection-properties-ssl-mode=: SSL modes for MySQL.
+            --mysql-connection-properties-technology-type=: The technology type of MysqlConnection.
+            --mysql-connection-properties-username=: The username Oracle Goldengate uses to connect the associated system of
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-java-message-service-connection-properties-use-jndi&: If set to true, Java Naming and Directory Interface (JNDI) properties
+            --no-kafka-connection-properties-use-resource-principal&: Specifies that the user intends to authenticate to the instance using a
+            --no-microsoft-sqlserver-connection-properties-server-certificate-validation-required&: If set to true, the driver validates the certificate that is sent by the
+            --no-oci-object-storage-connection-properties-use-resource-principal&: Specifies that the user intends to authenticate to the instance using a
+            --no-oracle-ai-data-platform-connection-properties-use-resource-principal&: Specifies that the user intends to authenticate to the instance using a
+            --no-oracle-nosql-connection-properties-use-resource-principal&: Specifies that the user intends to authenticate to the instance using a
+            --oci-object-storage-connection-properties-private-key-file=: The content of the private key file (PEM file)
+            --oci-object-storage-connection-properties-private-key-passphrase-secret=: The passphrase of the private key.
+            --oci-object-storage-connection-properties-public-key-fingerprint=: The fingerprint of the API Key of the user specified by the userId.
+            --oci-object-storage-connection-properties-region=: The name of the region of OCI Object Storage.
+            --oci-object-storage-connection-properties-technology-type=: The technology type of OciObjectStorageConnection.
+            --oci-object-storage-connection-properties-tenancy-id=: The OCID of the related OCI tenancy.
+            --oci-object-storage-connection-properties-use-resource-principal: Specifies that the user intends to authenticate to the instance using a
+            --oci-object-storage-connection-properties-user-id=: The OCID of the OCI user who will access the Object Storage.
+            --odb-network=: For resources [odb-network, odb-subnet], provides fallback value for resource odb-network attribute.
+            --odb-subnet=!: ID of the odbSubnet or fully qualified identifier for the odbSubnet.
+            --oracle-ai-data-platform-connection-properties-private-key-file=: The content of the private key file (PEM file)
+            --oracle-ai-data-platform-connection-properties-private-key-passphrase-secret=: The passphrase of the private key.
+            --oracle-ai-data-platform-connection-properties-public-key-fingerprint=: The fingerprint of the API Key of the user specified by the user_id.
+            --oracle-ai-data-platform-connection-properties-region=: The name of the region.
+            --oracle-ai-data-platform-connection-properties-technology-type=: The technology type of OracleAiDataPlatformConnection.
+            --oracle-ai-data-platform-connection-properties-tenancy-id=: The OCID of the related OCI tenancy.
+            --oracle-ai-data-platform-connection-properties-url=: Connection URL.
+            --oracle-ai-data-platform-connection-properties-use-resource-principal: Specifies that the user intends to authenticate to the instance using a
+            --oracle-ai-data-platform-connection-properties-user-id=: The OCID of the OCI user who will access.
+            --oracle-connection-properties-authentication-mode=: Authentication mode.
+            --oracle-connection-properties-gcp-database-id=: Autonomous AI Database instance id of database in Oracle Database @ Google
+            --oracle-connection-properties-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --oracle-connection-properties-password=: The password Oracle Goldengate uses in plain text.
+            --oracle-connection-properties-session-mode=: The mode of the database connection session to be established by the data
+            --oracle-connection-properties-string=: Connect descriptor or Easy Connect Naming method used to connect to a
+            --oracle-connection-properties-technology-type=: The technology type.
+            --oracle-connection-properties-username=: The username Oracle Goldengate uses to connect.
+            --oracle-connection-properties-wallet-file=: The wallet contents Oracle Goldengate uses to make connections to a
+            --oracle-nosql-connection-properties-private-key-file=: The content of the private key file (PEM file)
+            --oracle-nosql-connection-properties-private-key-passphrase-secret=: The passphrase of the private key.
+            --oracle-nosql-connection-properties-public-key-fingerprint=: The fingerprint of the API Key of the user specified by the userId.
+            --oracle-nosql-connection-properties-region=: The name of the region.
+            --oracle-nosql-connection-properties-technology-type=: The technology type of OracleNosqlConnection.
+            --oracle-nosql-connection-properties-tenancy-id=: The OCID of the OCI tenancy.
+            --oracle-nosql-connection-properties-use-resource-principal: Specifies that the user intends to authenticate to the instance using a
+            --oracle-nosql-connection-properties-user-id=: The OCID of the OCI user who will access the Oracle NoSQL database.
+            --postgresql-connection-properties-additional-attributes=: An array of name-value pair attribute entries.
+            --postgresql-connection-properties-database=: The name of the database.
+            --postgresql-connection-properties-db-system-id=: The OCID of the database system being referenced.
+            --postgresql-connection-properties-host=: The name or address of a host.
+            --postgresql-connection-properties-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --postgresql-connection-properties-password=: The password Oracle Goldengate uses for PostgreSQL connection in plain
+            --postgresql-connection-properties-port=: The port of an endpoint usually specified for a connection.
+            --postgresql-connection-properties-security-protocol=: Security protocol for PostgreSQL.
+            --postgresql-connection-properties-ssl-ca-file=: The base64 encoded certificate of the trusted certificate authorities
+            --postgresql-connection-properties-ssl-cert-file=: The base64 encoded certificate of the PostgreSQL server.
+            --postgresql-connection-properties-ssl-crl-file=: The base64 encoded list of certificates revoked by the trusted
+            --postgresql-connection-properties-ssl-key-file=: The base64 encoded private key of the PostgreSQL server.
+            --postgresql-connection-properties-ssl-mode=: SSL modes for PostgreSQL.
+            --postgresql-connection-properties-technology-type=: The technology type of PostgresqlConnection.
+            --postgresql-connection-properties-username=: The username Oracle Goldengate uses to connect the associated system of
+            --properties-connection-type=!: The connection type.
+            --properties-description=: Metadata about this specific object.
+            --properties-display-name=!: An object's Display Name.
+            --properties-routing-method=: The routing method for the GoldengateConnection.
+            --redis-connection-properties-authentication-type=: Authentication type for Redis.
+            --redis-connection-properties-cluster-id=: The OCID of the Redis cluster.
+            --redis-connection-properties-key-store-file=: The base64 encoded content of the KeyStore file.
+            --redis-connection-properties-key-store-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --redis-connection-properties-key-store-password=: The KeyStore password in plain text.
+            --redis-connection-properties-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --redis-connection-properties-password=: The password Oracle Goldengate uses for Redis connection in plain text.
+            --redis-connection-properties-security-protocol=: Security protocol for Redis.
+            --redis-connection-properties-servers=: Comma separated list of Redis server addresses, specified as host:port
+            --redis-connection-properties-technology-type=: The technology type of RedisConnection.
+            --redis-connection-properties-trust-store-file=: The base64 encoded content of the TrustStore file.
+            --redis-connection-properties-trust-store-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --redis-connection-properties-trust-store-password=: The TrustStore password in plain text.
+            --redis-connection-properties-username=: The username Oracle Goldengate uses to connect the associated system of
+            --request-id=: An optional request ID to identify requests.
+            --secret=: For resources [amazon-redshift-connection-properties-password-secret-version, azure-synapse-analytics-connection-properties-password-secret-version, databricks-connection-properties-password-secret-version, db2-connection-properties-password-secret-version, elasticsearch-connection-properties-password-secret-version, goldengate-connection-properties-password-secret-version, java-message-service-connection-properties-key-store-password-secret-version, java-message-service-connection-properties-password-secret-version, java-message-service-connection-properties-ssl-key-password-secret-version, java-message-service-connection-properties-trust-store-password-secret-version, kafka-connection-properties-key-store-password-secret-version, kafka-connection-properties-password-secret-version, kafka-connection-properties-ssl-key-password-secret-version, kafka-connection-properties-trust-store-password-secret-version, kafka-schema-registry-connection-properties-key-store-password-secret-version, kafka-schema-registry-connection-properties-password-secret-version, kafka-schema-registry-connection-properties-ssl-key-password-secret-version, kafka-schema-registry-connection-properties-trust-store-password-secret-version, microsoft-sqlserver-connection-properties-password-secret-version, mongodb-connection-properties-password-secret-version, mongodb-connection-properties-tls-certificate-key-file-password-secret-version, mysql-connection-properties-password-secret-version, oracle-connection-properties-password-secret-version, postgresql-connection-properties-password-secret-version, redis-connection-properties-key-store-password-secret-version, redis-connection-properties-password-secret-version, redis-connection-properties-trust-store-password-secret-version, snowflake-connection-properties-password-secret-version], provides fallback value for resource secret attribute.
+            --snowflake-connection-properties-authentication-type=: Used authentication mechanism to access Snowflake.
+            --snowflake-connection-properties-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --snowflake-connection-properties-password=: The password Oracle Goldengate uses to connect to Snowflake platform
+            --snowflake-connection-properties-private-key-file=: The content of private key file in PEM format.
+            --snowflake-connection-properties-private-key-passphrase-secret=: Password if the private key file is encrypted.
+            --snowflake-connection-properties-technology-type=: The technology type of SnowflakeConnection.
+            --snowflake-connection-properties-url=: JDBC connection URL.
+            --snowflake-connection-properties-username=: The username Oracle Goldengate uses to connect to Snowflake.
+          completion:
+            flag:
+                azure-data-lake-storage-connection-properties-authentication-type:
+                    - azure-active-directory
+                    - shared-access-signature
+                    - shared-key
+                databricks-connection-properties-authentication-type:
+                    - oauth-m2m
+                    - personal-access-token
+                db2-connection-properties-security-protocol:
+                    - plain
+                    - tls
+                elasticsearch-connection-properties-authentication-type:
+                    - basic
+                    - none
+                elasticsearch-connection-properties-security-protocol:
+                    - plain
+                    - tls
+                iceberg-connection-properties-amazon-s3-storage-scheme-type:
+                    - s3
+                    - s3a
+                iceberg-connection-properties-catalog-type:
+                    - glue
+                    - hadoop
+                    - nessie
+                    - polaris
+                    - rest
+                iceberg-connection-properties-storage-type:
+                    - amazon-s3
+                    - azure-data-lake-storage
+                    - google-cloud-storage
+                java-message-service-connection-properties-authentication-type:
+                    - basic
+                    - none
+                java-message-service-connection-properties-security-protocol:
+                    - mtls
+                    - plain
+                    - tls
+                kafka-connection-properties-security-protocol:
+                    - plaintext
+                    - sasl-plaintext
+                    - sasl-ssl
+                    - ssl
+                kafka-schema-registry-connection-properties-authentication-type:
+                    - basic
+                    - mutual
+                    - none
+                microsoft-sqlserver-connection-properties-security-protocol:
+                    - plain
+                    - tls
+                mongodb-connection-properties-security-protocol:
+                    - mtls
+                    - plain
+                    - tls
+                mysql-connection-properties-security-protocol:
+                    - mtls
+                    - plain
+                    - tls
+                mysql-connection-properties-ssl-mode:
+                    - disabled
+                    - preferred
+                    - required
+                    - verify-ca
+                    - verify-identity
+                oracle-connection-properties-authentication-mode:
+                    - mtls
+                    - tls
+                oracle-connection-properties-session-mode:
+                    - direct
+                    - redirect
+                postgresql-connection-properties-security-protocol:
+                    - mtls
+                    - plain
+                    - tls
+                postgresql-connection-properties-ssl-mode:
+                    - prefer
+                    - require
+                    - verify-ca
+                    - verify-full
+                properties-connection-type:
+                    - amazon-kinesis
+                    - amazon-redshift
+                    - amazon-s3
+                    - azure-data-lake-storage
+                    - azure-synapse-analytics
+                    - databricks
+                    - db2
+                    - elasticsearch
+                    - generic
+                    - goldengate
+                    - google-bigquery
+                    - google-cloud-storage
+                    - google-pubsub
+                    - hdfs
+                    - iceberg
+                    - java-message-service
+                    - kafka
+                    - kafka-schema-registry
+                    - microsoft-fabric
+                    - microsoft-sqlserver
+                    - mongodb
+                    - mysql
+                    - oci-object-storage
+                    - oracle
+                    - oracle-ai-data-platform
+                    - oracle-nosql
+                    - postgresql
+                    - redis
+                    - snowflake
+                properties-routing-method:
+                    - dedicated-endpoint
+                    - shared-deployment-endpoint
+                redis-connection-properties-authentication-type:
+                    - basic
+                    - none
+                redis-connection-properties-security-protocol:
+                    - mtls
+                    - plain
+                    - tls
+                snowflake-connection-properties-authentication-type:
+                    - basic
+                    - key-pair
+        - name: delete
+          description: Delete a GoldengateConnection.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the goldengateConnection resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --request-id=: An optional ID to identify the request.
+        - name: describe
+          description: Get details of a GoldengateConnection.
+          flags:
+            --location=: The location id of the goldengateConnection resource.
+        - name: list
+          description: List all GoldengateConnections.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: goldengate-deployment-environments
+      description: Manage Goldengate Deployment Environment resources.
+      commands:
+        - name: list
+          description: List all Goldengate deployment environments.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: goldengate-deployment-types
+      description: Manage Goldengate Deployment Type resources.
+      commands:
+        - name: list
+          description: List all Goldengate deployment types.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: goldengate-deployment-versions
+      description: Manage Goldengate Deployment Version resources.
+      commands:
+        - name: list
+          description: List all Goldengate deployment versions.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: goldengate-deployments
+      description: Manage Goldengate Deployment resources.
+      commands:
+        - name: create
+          description: Create a new GoldengateDeployment.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --display-name=!: The display name for the GoldengateDeployment.
+            --gcp-oracle-zone=: The GCP Oracle zone where Oracle GoldengateDeployment is hosted.
+            --labels=: The labels or tags associated with the GoldengateDeployment.
+            --location=: For resources [goldengate_deployment, odb-network, odb-subnet], provides fallback value for resource location attribute.
+            --maintenance-config-bundle-release-upgrade-period-days=: Defines auto upgrade period for bundle releases.
+            --maintenance-config-interim-release-upgrade-period-days=: Defines auto upgrade period for interim releases.
+            --maintenance-config-is-interim-release-auto-upgrade-enabled: By default auto upgrade for interim releases are not enabled.
+            --maintenance-config-major-release-upgrade-period-days=: Defines auto upgrade period for major releases.
+            --maintenance-config-security-patch-upgrade-period-days=: Defines auto upgrade period for releases with security fix.
+            --maintenance-window-day=!: Days of the week.
+            --maintenance-window-start-hour=!: Start hour for maintenance period.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-maintenance-config-is-interim-release-auto-upgrade-enabled&: By default auto upgrade for interim releases are not enabled.
+            --no-properties-is-auto-scaling-enabled&: Indicates if auto scaling is enabled for the Deployment's CPU core count.
+            --odb-network=: For resources [odb-network, odb-subnet], provides fallback value for resource odb-network attribute.
+            --odb-subnet=!: ID of the odbSubnet or fully qualified identifier for the odbSubnet.
+            --ogg-data-admin-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --ogg-data-admin-password=: The Goldengate deployment console password in plain text.
+            --ogg-data-admin-username=!: The Goldengate deployment console username.
+            --ogg-data-deployment=!: The name given to the Goldengate service deployment.
+            --ogg-data-version=: Version of OGG
+            --properties-cpu-core-count=: The Minimum number of OCPUs to be made available for this Deployment.
+            --properties-deployment-type=!: A valid Goldengate Deployment type.
+            --properties-description=: The description of the GoldengateDeployment.
+            --properties-environment-type=: The environment type of the GoldengateDeployment.
+            --properties-is-auto-scaling-enabled: Indicates if auto scaling is enabled for the Deployment's CPU core count.
+            --properties-license-model=: The Oracle license model that applies to a Deployment.
+            --request-id=: An optional request ID to identify requests.
+            --secret=: The secret id of the secretVersion resource.
+          completion:
+            flag:
+                maintenance-window-day:
+                    - friday
+                    - monday
+                    - saturday
+                    - sunday
+                    - thursday
+                    - tuesday
+                    - wednesday
+                properties-license-model:
+                    - bring-your-own-license
+                    - license-included
+        - name: delete
+          description: Delete a GoldengateDeployment. This also deletes any associated Assignments.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the goldengateDeployment resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --request-id=: An optional ID to identify the request.
+        - name: describe
+          description: Get details of a GoldengateDeployment.
+          flags:
+            --location=: The location id of the goldengateDeployment resource.
+        - name: list
+          description: List all GoldengateDeployments.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: start
+          description: Start a GoldengateDeployment.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the goldengateDeployment resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: stop
+          description: Stop a GoldengateDeployment.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the goldengateDeployment resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
     - name: odb-networks
       description: Manage Odb Network resources.
       commands:
@@ -913,9 +1487,9 @@ commands:
           flags:
             --location=: The location id of the pluggableDatabase resource.
         - name: list
-          description: List pluggableDatabases.
+          description: List pluggable databases.
           flags:
-            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --filter=: 'Apply a filter in the format:'
             --limit=: Maximum number of resources to list.
             --location=!: ID of the location or fully qualified identifier for the location.
             --no-uri&: Print a list of resource URIs instead of the default output, and change the

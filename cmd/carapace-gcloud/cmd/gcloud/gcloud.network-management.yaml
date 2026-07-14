@@ -15,9 +15,10 @@ commands:
             --destination-forwarding-rule=: A forwarding rule URI as the destination endpoint.
             --destination-fqdn=: A hostname as the destination endpoint.
             --destination-gke-master-cluster=: A cluster URI for Google Kubernetes Engine master as the destination endpoint.
+            --destination-gke-pod=: A GKE Pod URI as the destination endpoint.
             --destination-instance=: A Compute Engine instance URI as the destination endpoint.
             --destination-ip-address=: The IP address of the destination which can be an external or internal IP.
-            --destination-network=: A VPC network URI where the destination is located.
+            --destination-network=: A VPC network URI for the destination endpoint.
             --destination-port=: The IP protocol port of the destination.
             --destination-project=: Project ID of the destination endpoint.
             --destination-redis-cluster=: A Redis cluster URI as the destination endpoint.
@@ -31,19 +32,23 @@ commands:
             --round-trip: This boolean controls whether return traces (from the destination to the
             --source-app-engine-version=: App Engine version URI as the source endpoint.
             --source-cloud-function=: A Cloud function URI as the source endpoint.
+            --source-cloud-run-job=: Cloud Run job URI as the source endpoint.
             --source-cloud-run-revision=: Cloud Run revision URI as the source endpoint.
             --source-cloud-sql-instance=: A Cloud SQL instance URI as the source endpoint.
             --source-gke-master-cluster=: A cluster URI for Google Kubernetes Engine master as the source endpoint.
+            --source-gke-pod=: A GKE Pod URI as the source endpoint.
             --source-instance=: A Compute Engine instance URI as the source endpoint.
             --source-ip-address=: The IP address of the source which can be an external or internal IP.
             --source-network-type=: Type of the network where the source is located.
-            --source-network=: A VPC network URI where the source is located.
+            --source-network=: A VPC network URI for the source endpoint.
             --source-project=: Project ID of the source endpoint.
           completion:
             flag:
                 source-network-type:
                     - gcp-network
+                    - internet
                     - non-gcp-network
+                    - unspecified
         - name: delete
           description: Delete a connectivity test.
           flags:
@@ -71,15 +76,18 @@ commands:
             --clear-destination-cloud-sql-instance: Clear existing destination Cloud SQL instance.
             --clear-destination-forwarding-rule: Clear existing destination forwarding rule.
             --clear-destination-gke-master-cluster: Clear existing destination cluster for Google Kubernetes Engine master.
+            --clear-destination-gke-pod: Clear existing destination GKE Pod.
             --clear-destination-instance: Clear existing destination instance.
             --clear-destination-ip-address: Clear existing destination IP address.
             --clear-destination-redis-cluster: Clear existing destination Redis Cluster.
             --clear-destination-redis-instance: Clear existing destination Redis Instance.
             --clear-source-app-engine-version: Clear existing source App Engine version.
             --clear-source-cloud-function: Clear existing source Cloud function.
+            --clear-source-cloud-run-job: Clear existing source Cloud Run job.
             --clear-source-cloud-run-revision: Clear existing source Cloud Run revision.
             --clear-source-cloud-sql-instance: Clear existing source Cloud SQL instance.
             --clear-source-gke-master-cluster: Clear existing source cluster for Google Kubernetes Engine master.
+            --clear-source-gke-pod: Clear existing source GKE Pod.
             --clear-source-instance: Clear existing source instance.
             --clear-source-ip-address: Clear existing source IP address.
             --description=: The description of the connectivity test.
@@ -87,9 +95,10 @@ commands:
             --destination-forwarding-rule=: A forwarding rule URI as the destination endpoint.
             --destination-fqdn=: A hostname as the destination endpoint.
             --destination-gke-master-cluster=: A cluster URI for Google Kubernetes Engine master as the destination endpoint.
+            --destination-gke-pod=: A GKE Pod URI as the destination endpoint.
             --destination-instance=: A Compute Engine instance URI as the destination endpoint.
             --destination-ip-address=: The IP address of the destination which can be an external or internal IP.
-            --destination-network=: A VPC network URI where the destination is located.
+            --destination-network=: A VPC network URI for the destination endpoint.
             --destination-port=: The IP protocol port of the destination.
             --destination-project=: Project ID of the destination endpoint.
             --destination-redis-cluster=: A Redis cluster URI as the destination endpoint.
@@ -100,15 +109,18 @@ commands:
             --no-clear-destination-cloud-sql-instance&: Clear existing destination Cloud SQL instance.
             --no-clear-destination-forwarding-rule&: Clear existing destination forwarding rule.
             --no-clear-destination-gke-master-cluster&: Clear existing destination cluster for Google Kubernetes Engine master.
+            --no-clear-destination-gke-pod&: Clear existing destination GKE Pod.
             --no-clear-destination-instance&: Clear existing destination instance.
             --no-clear-destination-ip-address&: Clear existing destination IP address.
             --no-clear-destination-redis-cluster&: Clear existing destination Redis Cluster.
             --no-clear-destination-redis-instance&: Clear existing destination Redis Instance.
             --no-clear-source-app-engine-version&: Clear existing source App Engine version.
             --no-clear-source-cloud-function&: Clear existing source Cloud function.
+            --no-clear-source-cloud-run-job&: Clear existing source Cloud Run job.
             --no-clear-source-cloud-run-revision&: Clear existing source Cloud Run revision.
             --no-clear-source-cloud-sql-instance&: Clear existing source Cloud SQL instance.
             --no-clear-source-gke-master-cluster&: Clear existing source cluster for Google Kubernetes Engine master.
+            --no-clear-source-gke-pod&: Clear existing source GKE Pod.
             --no-clear-source-instance&: Clear existing source instance.
             --no-clear-source-ip-address&: Clear existing source IP address.
             --no-round-trip&: This boolean controls whether return traces (from the destination to the
@@ -117,19 +129,167 @@ commands:
             --round-trip: This boolean controls whether return traces (from the destination to the
             --source-app-engine-version=: App Engine version URI as the source endpoint.
             --source-cloud-function=: A Cloud function URI as the source endpoint.
+            --source-cloud-run-job=: Cloud Run job URI as the source endpoint.
             --source-cloud-run-revision=: Cloud Run revision URI as the source endpoint.
             --source-cloud-sql-instance=: A Cloud SQL instance URI as the source endpoint.
             --source-gke-master-cluster=: A cluster URI for Google Kubernetes Engine master as the source endpoint.
+            --source-gke-pod=: A GKE Pod URI as the source endpoint.
             --source-instance=: A Compute Engine instance URI as the source endpoint.
             --source-ip-address=: The IP address of the source which can be an external or internal IP.
             --source-network-type=: Type of the network where the source is located.
-            --source-network=: A VPC network URI where the source is located.
+            --source-network=: A VPC network URI for the source endpoint.
             --source-project=: Project ID of the source endpoint.
           completion:
             flag:
                 source-network-type:
                     - gcp-network
+                    - internet
                     - non-gcp-network
+                    - unspecified
+    - name: network-monitoring-providers
+      description: A Network Monitoring Provider manages the enablement state of the Network Insights service.
+      commands:
+        - name: create
+          description: Create a Network Monitoring Provider.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the networkMonitoringProvider resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --provider-type=!: Type of the NetworkMonitoringProvider.
+          completion:
+            flag:
+                provider-type:
+                    - external
+        - name: delete
+          description: Delete a Network Monitoring Provider.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --force: If set to true, any nested [MonitoringPoints][google.cloud.networkmanagement.v1.MonitoringPoint],
+            --location=: The location id of the networkMonitoringProvider resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-force&: If set to true, any nested [MonitoringPoints][google.cloud.networkmanagement.v1.MonitoringPoint],
+        - name: describe
+          description: Describe a Network Monitoring Provider.
+          flags:
+            --location=: The location id of the networkMonitoringProvider resource.
+        - name: generate-monitoring-point-config
+          description: Generate a monitoring point config.
+          flags:
+            --location=: The location id of the networkMonitoringProvider resource.
+        - name: generate-provider-access-token
+          description: Generate a provider access token.
+          flags:
+            --gcp-access-token=!: Google Cloud access token.
+            --location=: The location id of the networkMonitoringProvider resource.
+        - name: list
+          description: List Network Monitoring Providers.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: monitoring-points
+          description: A Monitoring Point is an agent within your network or application infrastructure that sends probes and reports the results to AppNeta.
+          commands:
+            - name: describe
+              description: Describe a Monitoring Point.
+              flags:
+                --location=: The location id of the monitoringPoint resource.
+                --network-monitoring-provider=: The networkMonitoringProvider id of the monitoringPoint resource.
+            - name: download-install-script
+              description: Download an installation script for a Monitoring Point.
+              flags:
+                --dns-server-address=: Primary DNS server address.
+                --dns-server-secondary-address=: Secondary DNS server address.
+                --domain=: Domain name of the Monitoring Point.
+                --gateway-address=: Gateway IP address.
+                --hostname=!: 'The hostname of the Monitoring Point (example: `test-vm`).'
+                --location=!: The location of the Network Monitoring Provider (example:, `global`).
+                --monitoring-point-type=!: The type of the Monitoring Point.
+                --netmask=: 'Network mask (example: "255.255.255.0"). Used with `--static-ip-address`.'
+                --network-monitoring-provider=!: The ID of the Network Monitoring Provider.
+                --no-use-dhcp&: Whether to use DHCP for IP address configuration.
+                --ntp-server-address=: Primary NTP server address (IP address or FQDN).
+                --ntp-server-secondary-address=: Secondary NTP server address (IP address or FQDN).
+                --output-file=!: The path to save the downloaded install script.
+                --password=: Password for logging into the Monitoring Point.
+                --static-ip-address=: Static IP address of the Monitoring Point.
+                --time-zone=: 'Time zone ID for the Monitoring Point (example:  `America/Los_Angeles`).'
+                --use-dhcp: Whether to use DHCP for IP address configuration.
+              completion:
+                flag:
+                    monitoring-point-type:
+                        - container
+                        - gce-vm
+                        - helm
+                        - kvm
+                        - vmware
+            - name: download-recreate-install-script
+              description: Download an installation script for recreating a Monitoring Point.
+              flags:
+                --hostname=: The hostname of the Monitoring Point, e.g. "test-vm".
+                --location=!: 'The location of the Network Monitoring Provider (example: `global`).'
+                --monitoring-point=!: The ID of the Monitoring Point.
+                --network-monitoring-provider=!: The ID of the Network Monitoring Provider.
+                --output-file=!: The path to save the downloaded install script.
+            - name: download-server-connect-config
+              description: Download the server connect configuration.
+              flags:
+                --location=!: 'The location of the Network Monitoring Provider (example: `global`).'
+                --network-monitoring-provider=!: The ID of the Network Monitoring Provider.
+                --output-file=!: The path to save the downloaded server connect configuration.
+            - name: list
+              description: List Monitoring Points.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the networkMonitoringProvider resource.
+                --network-monitoring-provider=!: ID of the networkMonitoringProvider or fully qualified identifier for the networkMonitoringProvider.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: network-paths
+          description: A Network Path represents the hop-by-hop route and active network delivery quality between a Monitoring Point (source) and a target destination.
+          commands:
+            - name: describe
+              description: Describe a Network Path.
+              flags:
+                --location=: The location id of the networkPath resource.
+                --network-monitoring-provider=: The networkMonitoringProvider id of the networkPath resource.
+            - name: list
+              description: List Network Paths.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the networkMonitoringProvider resource.
+                --network-monitoring-provider=!: ID of the networkMonitoringProvider or fully qualified identifier for the networkMonitoringProvider.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: web-paths
+          description: A Web Path represents a monitored web application or URL, assessed from a monitoring point to measure performance and availability.
+          commands:
+            - name: describe
+              description: Describe a Web Path.
+              flags:
+                --location=: The location id of the webPath resource.
+                --network-monitoring-provider=: The networkMonitoringProvider id of the webPath resource.
+            - name: list
+              description: List Web Paths.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the networkMonitoringProvider resource.
+                --network-monitoring-provider=!: ID of the networkMonitoringProvider or fully qualified identifier for the networkMonitoringProvider.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
     - name: operations
       description: Manage Network Management operations.
       commands:

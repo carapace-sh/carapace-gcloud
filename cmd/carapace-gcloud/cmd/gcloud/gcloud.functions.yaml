@@ -49,10 +49,13 @@ commands:
         --clear-labels: Remove all labels.
         --clear-max-instances: Clears the maximum instances setting for the function.
         --clear-min-instances: Clears the minimum instances setting for the function.
+        --clear-network: Disconnect this Cloud Function from the Direct VPC network it is connected to.
+        --clear-network-tags: Clears all existing network tags from the Cloud Function.
         --clear-secrets: Remove all secret environment variables and volumes.
         --clear-vpc-connector: Clears the VPC connector field.
         --concurrency=: Set the maximum number of concurrent requests allowed per container instance.
         --cpu=: The number of available CPUs to set.
+        --direct-vpc-egress=: Specify which of the outbound traffic to send through Direct VPC egress.
         --docker-registry=: (DEPRECATED)         Docker Registry to use for storing the function's Docker images.
         --docker-repository=: Sets the Docker repository to be used for storing the Cloud Function's
         --egress-settings=: Egress settings controls what traffic is diverted through the VPC Access Connector resource.
@@ -65,6 +68,8 @@ commands:
         --max-instances=: Sets the maximum number of instances for the function.
         --memory=!: Limit on the amount of memory the function can use.
         --min-instances=: Sets the minimum number of instances for the function.
+        --network-tags=: Applies the given network tags (comma separated) to the Cloud Function.
+        --network=: The VPC network that the Cloud Function will be able to send traffic to.
         --no-allow-unauthenticated&: If set, makes this a public function.
         --no-clear-binary-authorization&: Clears the Binary Authorization policy field.
         --no-clear-build-env-vars&: Remove all build environment variables.
@@ -76,6 +81,8 @@ commands:
         --no-clear-labels&: Remove all labels.
         --no-clear-max-instances&: Clears the maximum instances setting for the function.
         --no-clear-min-instances&: Clears the minimum instances setting for the function.
+        --no-clear-network&: Disconnect this Cloud Function from the Direct VPC network it is connected to.
+        --no-clear-network-tags&: Clears all existing network tags from the Cloud Function.
         --no-clear-secrets&: Remove all secret environment variables and volumes.
         --no-clear-vpc-connector&: Clears the VPC connector field.
         --no-gen2&: If enabled, this command will use Cloud Functions (Second generation).
@@ -99,6 +106,7 @@ commands:
         --set-secrets=: List of secret environment variables and secret volumes to configure.
         --source=: Location of source code to deploy.
         --stage-bucket=: When deploying a function from a local directory, this flag's value is the name of the Google Cloud Storage bucket in which source code will be stored.
+        --subnet=: The VPC subnetwork that the Cloud Function will get IPs from.
         --timeout=: The function execution timeout, e.g. 30s for 30 seconds.
         --trigger-bucket=: Google Cloud Storage bucket name.
         --trigger-channel=&: ID of the channel or fully qualified identifier for the channel.
@@ -117,6 +125,9 @@ commands:
         --vpc-connector=!: ID of the connector or fully qualified identifier for the connector.
       completion:
         flag:
+            direct-vpc-egress:
+                - private-ranges-only
+                - all
             docker-registry:
                 - artifact-registry
                 - container-registry

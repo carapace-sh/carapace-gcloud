@@ -1,0 +1,282 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: beyondcorp
+description: Manage Beyondcorp resources.
+commands:
+    - name: operations
+      description: Manage Operation resources.
+      commands:
+        - name: describe
+          description: Describe operations.
+          flags:
+            --location=: The location id of the operation resource.
+        - name: list
+          description: List operations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: security-gateways
+      description: Manage Security Gateway resources.
+      commands:
+        - name: add-iam-policy-binding
+          description: Add an IAM policy binding to a security gateway.
+          flags:
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: A condition to include in the binding.
+            --location=: The location id.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: applications
+          description: Manage Application resources.
+          commands:
+            - name: add-iam-policy-binding
+              description: Add an IAM policy binding to a security gateway application.
+              flags:
+                --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+                --condition=: A condition to include in the binding.
+                --location=: The location id.
+                --member=!: The principal to add the binding for.
+                --role=!: Role name to assign to the principal.
+                --security-gateway=: The security gateway ID.
+            - name: create
+              description: Create applications.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --display-name=: An arbitrary user-provided name for the application resource.
+                --endpoint-matchers=: An array of conditions to match the application's network endpoint.
+                --location=: The location id of the application resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --request-id=: An optional request ID to identify requests.
+                --schema=: Type of the external application.
+                --security-gateway=: The securityGateway id of the application resource.
+                --upstreams=: Which upstream resources to forward traffic to.
+              completion:
+                flag:
+                    schema:
+                        - api-gateway
+                        - proxy-gateway
+            - name: delete
+              description: Delete applications.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location id of the application resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-validate-only&: If set, validates request by executing a dry-run which would not
+                --request-id=: An optional request ID to identify requests.
+                --security-gateway=: The securityGateway id of the application resource.
+                --validate-only: If set, validates request by executing a dry-run which would not
+            - name: describe
+              description: Describe applications.
+              flags:
+                --location=: The location id of the application resource.
+                --security-gateway=: The securityGateway id of the application resource.
+            - name: get-iam-policy
+              description: Get the IAM policy for a security gateway application.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the application resource.
+                --page-size=: Some services group resource list output into pages.
+                --security-gateway=: The securityGateway id of the application resource.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+            - name: list
+              description: List applications.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the securityGateway resource.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --security-gateway=!: ID of the securityGateway or fully qualified identifier for the securityGateway.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: remove-iam-policy-binding
+              description: Remove an IAM policy binding from a security gateway application.
+              flags:
+                --all: Remove all bindings with this role and principal, irrespective of any
+                --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+                --condition=: The condition of the binding that you want to remove.
+                --location=: The location id.
+                --member=!: The principal to remove the binding for.
+                --no-all&: ""
+                --role=!: The role to remove the principal from.
+                --security-gateway=: The security gateway ID.
+            - name: set-iam-policy
+              description: Set the IAM policy for a security gateway application.
+              flags:
+                --location=: The location id of the application resource.
+                --security-gateway=: The securityGateway id of the application resource.
+            - name: update
+              description: Update applications.
+              flags:
+                --add-endpoint-matchers=: Add new value to endpoint_matchers list.
+                --add-upstreams=: Add new value to upstreams list.
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-endpoint-matchers: Clear endpoint_matchers value and set to empty list.
+                --clear-upstreams: Clear upstreams value and set to empty list.
+                --display-name=: An arbitrary user-provided name for the application resource.
+                --endpoint-matchers=: Set endpoint_matchers to new value.
+                --location=: The location id of the application resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-endpoint-matchers&: Clear endpoint_matchers value and set to empty list.
+                --no-clear-upstreams&: Clear upstreams value and set to empty list.
+                --remove-endpoint-matchers=: Remove existing value from endpoint_matchers list.
+                --remove-upstreams=: Remove existing value from upstreams list.
+                --request-id=: An optional request ID to identify requests.
+                --schema=: Type of the external application.
+                --security-gateway=: The securityGateway id of the application resource.
+                --upstreams=: Set upstreams to new value.
+              completion:
+                flag:
+                    schema:
+                        - api-gateway
+                        - proxy-gateway
+        - name: create
+          description: Create securityGateways.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --contextual-headers-output-type=: Default output type for all enabled headers.
+            --device-info-output-type=: The output type details for the delegated device.
+            --display-name=: An arbitrary user-provided name for the SecurityGateway.
+            --group-info-output-type=: The output type of the delegated group information.
+            --hubs=: Map of Hubs that represents regional data path deployment with Google Cloud Platform region
+            --location=: The location id of the securityGateway resource.
+            --logging=&: Configuration for Cloud Logging.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-proxy-protocol-config-client-ip&: Client IP configuration.
+            --proxy-protocol-config-allowed-client-headers=: List of the allowed client header names.
+            --proxy-protocol-config-client-ip: Client IP configuration.
+            --proxy-protocol-config-gateway-identity=: The security gateway identity configuration.
+            --proxy-protocol-config-metadata-headers=: Custom resource specific headers along with the values.
+            --request-id=: An optional request ID to identify requests.
+            --resource-override-path=: Contains the URI path fragment where HTTP request is sent.
+            --service-discovery=: Settings related to the Service Discovery.
+            --user-info-output-type=: The delegated user's information.
+          completion:
+            flag:
+                contextual-headers-output-type:
+                    - json
+                    - none
+                    - protobuf
+                device-info-output-type:
+                    - json
+                    - none
+                    - protobuf
+                group-info-output-type:
+                    - json
+                    - none
+                    - protobuf
+                proxy-protocol-config-gateway-identity:
+                    - resource-name
+                user-info-output-type:
+                    - json
+                    - none
+                    - protobuf
+        - name: delete
+          description: Delete securityGateways.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the securityGateway resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-validate-only&: If set, validates request by executing a dry-run which would not
+            --request-id=: An optional request ID to identify requests.
+            --validate-only: If set, validates request by executing a dry-run which would not
+        - name: describe
+          description: Describe securityGateways.
+          flags:
+            --location=: The location id of the securityGateway resource.
+        - name: get-iam-policy
+          description: Get the IAM policy for a security gateway.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: The location id of the securityGateway resource.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: List securityGateways.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: remove-iam-policy-binding
+          description: Remove an IAM policy binding from a security gateway.
+          flags:
+            --all: Remove all bindings with this role and principal, irrespective of any
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: The condition of the binding that you want to remove.
+            --location=: The location id.
+            --member=!: The principal to remove the binding for.
+            --no-all&: ""
+            --role=!: The role to remove the principal from.
+        - name: set-iam-policy
+          description: Set the IAM policy for a security gateway.
+          flags:
+            --location=: The location id of the securityGateway resource.
+        - name: update
+          description: Update securityGateways.
+          flags:
+            --add-proxy-protocol-config-allowed-client-headers=: Add new value to proxy_protocol_config_allowed_client_headers list.
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-hubs: Clear hubs value and set to empty map.
+            --clear-logging&: Set googleCloudBeyondcorpSecuritygatewaysV1SecurityGateway.logging back to default value.
+            --clear-proxy-protocol-config: Set googleCloudBeyondcorpSecuritygatewaysV1SecurityGateway.proxyProtocolConfig back to default value.
+            --clear-proxy-protocol-config-allowed-client-headers: Clear proxy_protocol_config_allowed_client_headers value and set to empty list.
+            --clear-proxy-protocol-config-metadata-headers: Clear proxy_protocol_config_metadata_headers value and set to empty map.
+            --clear-service-discovery: Set googleCloudBeyondcorpSecuritygatewaysV1SecurityGateway.serviceDiscovery back to default value.
+            --contextual-headers-output-type=: Default output type for all enabled headers.
+            --device-info-output-type=: The output type details for the delegated device.
+            --display-name=: An arbitrary user-provided name for the SecurityGateway.
+            --group-info-output-type=: The output type of the delegated group information.
+            --hubs=: Set hubs to new value.
+            --location=: The location id of the securityGateway resource.
+            --logging=&: Configuration for Cloud Logging.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-hubs&: Clear hubs value and set to empty map.
+            --no-clear-logging&: Set googleCloudBeyondcorpSecuritygatewaysV1SecurityGateway.logging back to default value.
+            --no-clear-proxy-protocol-config&: Set googleCloudBeyondcorpSecuritygatewaysV1SecurityGateway.proxyProtocolConfig back to default value.
+            --no-clear-proxy-protocol-config-allowed-client-headers&: Clear proxy_protocol_config_allowed_client_headers value and set to empty list.
+            --no-clear-proxy-protocol-config-metadata-headers&: Clear proxy_protocol_config_metadata_headers value and set to empty map.
+            --no-clear-service-discovery&: Set googleCloudBeyondcorpSecuritygatewaysV1SecurityGateway.serviceDiscovery back to default value.
+            --no-proxy-protocol-config-client-ip&: Client IP configuration.
+            --proxy-protocol-config-allowed-client-headers=: Set proxy_protocol_config_allowed_client_headers to new value.
+            --proxy-protocol-config-client-ip: Client IP configuration.
+            --proxy-protocol-config-gateway-identity=: The security gateway identity configuration.
+            --proxy-protocol-config-metadata-headers=: Set proxy_protocol_config_metadata_headers to new value.
+            --remove-hubs=: Remove existing value from map hubs.
+            --remove-proxy-protocol-config-allowed-client-headers=: Remove existing value from proxy_protocol_config_allowed_client_headers list.
+            --remove-proxy-protocol-config-metadata-headers=: Remove existing value from map proxy_protocol_config_metadata_headers.
+            --request-id=: An optional request ID to identify requests.
+            --resource-override-path=: Contains the URI path fragment where HTTP request is sent.
+            --service-discovery=: Settings related to the Service Discovery.
+            --update-hubs=: Update hubs value or add key value pair.
+            --update-proxy-protocol-config-metadata-headers=: Update proxy_protocol_config_metadata_headers value or add key value pair.
+            --user-info-output-type=: The delegated user's information.
+          completion:
+            flag:
+                contextual-headers-output-type:
+                    - json
+                    - none
+                    - protobuf
+                device-info-output-type:
+                    - json
+                    - none
+                    - protobuf
+                group-info-output-type:
+                    - json
+                    - none
+                    - protobuf
+                proxy-protocol-config-gateway-identity:
+                    - resource-name
+                user-info-output-type:
+                    - json
+                    - none
+                    - protobuf

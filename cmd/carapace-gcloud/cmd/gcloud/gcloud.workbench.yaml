@@ -2,6 +2,72 @@
 name: workbench
 description: Workbench Command Group.
 commands:
+    - name: executions
+      description: Workbench executions command group.
+      commands:
+        - name: create
+          description: Create a Workbench execution.
+          flags:
+            --accelerator-count=: The number of accelerators used by the runtime.
+            --accelerator-type=: The type of hardware accelerator used by the runtime.
+            --async: Return immediately, without waiting for the operation in progress to
+            --direct-content=: The direct notebook content as IPYNB.
+            --disk-size-gb=: The disk size of the runtime in GB.
+            --disk-type=: The type of the disk.
+            --display-name=!: The display name of the execution.
+            --enable-internet-access: Enable public internet access for the runtime.
+            --execution-job-id=&: The id to assign to the execution job.
+            --execution-timeout=: The max running time of the execution job, as a duration.
+            --gcs-notebook-uri=!: The Cloud Storage uri pointing to the notebook.
+            --gcs-output-uri=!: The Cloud Storage location to upload notebook execution results to.
+            --generation=: The version of the Cloud Storage object to read.
+            --kernel-name=: The kernel name to use for the execution.
+            --kms-key=!: ID of the key or fully qualified identifier for the key.
+            --kms-keyring=: KMS keyring id of the key.
+            --kms-location=: Cloud location for the key.
+            --kms-project=: Cloud project id for the key.
+            --machine-type=: The Compute Engine machine type selected for the runtime.
+            --network=!: ID of the network or fully qualified identifier for the network.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-enable-internet-access&: Enable public internet access for the runtime.
+            --region=!: ID of the region or fully qualified identifier for the region.
+            --service-account=!: The service account to run the execution as
+            --subnetwork-region=: Google Cloud region of this subnetwork https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --subnetwork=!: ID of the subnetwork or fully qualified identifier for the subnetwork.
+          completion:
+            flag:
+                accelerator-type:
+                    - NVIDIA_TESLA_V100
+                    - NVIDIA_TESLA_T4
+                    - NVIDIA_TESLA_A100
+                    - NVIDIA_A100_80GB
+                    - NVIDIA_L4
+                disk-type:
+                    - PD_STANDARD
+                    - PD_SSD
+                    - PD_BALANCED
+                    - PD_EXTREME
+                    - HYPERDISK_BALANCED
+        - name: delete
+          description: Delete an execution.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: Cloud region for the notebook execution job.
+        - name: describe
+          description: Describe an execution.
+          flags:
+            --region=: Cloud region for the notebook execution job.
+        - name: list
+          description: List your notebook execution jobs.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=!: ID of the region or fully qualified identifier for the region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
     - name: instances
       description: Workbench Instances command group.
       commands:
@@ -27,7 +93,7 @@ commands:
             --boot-disk-encryption=: Disk encryption method used on the boot disk, defaults to GMEK.
             --boot-disk-kms-key=!: ID of the key or fully qualified identifier for the key.
             --boot-disk-size=: Size of boot disk in GB attached to this instance, up to a maximum of 64000 GB (64 TB).
-            --boot-disk-type=: Type of boot disk attached to this instance, defaults to standard persistent disk (`PD_STANDARD`).
+            --boot-disk-type=: Type of boot disk attached to this instance.
             --confidential-compute-type=: String.
             --container-repository=!: The path to the container image repository.
             --container-tag=: The tag of the container image.
@@ -39,10 +105,11 @@ commands:
             --data-disk-kms-key=!: ID of the key or fully qualified identifier for the key.
             --data-disk-resource-policies=: Resource policies to apply to the data disk.
             --data-disk-size=: Size of data disk in GB attached to this instance, up to a maximum of 64000 GB (64 TB).
-            --data-disk-type=: Type of data disk attached to this instance, defaults to standard persistent disk (`PD_STANDARD`).
+            --data-disk-type=: Type of data disk attached to this instance.
             --disable-proxy-access: If true, the notebook instance will not register with the proxy.
             --disable-public-ip: If specified, no public IP will be assigned to this instance.
             --enable-ip-forwarding: If specified, IP forwarding will be enabled for this instance.
+            --enable-managed-euc: If true, the notebook instance will be created with managed end  user credentials enabled.
             --enable-third-party-identity: If true, the notebook instance provide a proxy endpoint which allows for third party identity.
             --install-gpu-driver: Whether the end user authorizes Google Cloud to install a GPU driver on this instance.
             --instance-owners=: The owners of this instance after creation.
@@ -57,6 +124,7 @@ commands:
             --no-disable-proxy-access&: If true, the notebook instance will not register with the proxy.
             --no-disable-public-ip&: If specified, no public IP will be assigned to this instance.
             --no-enable-ip-forwarding&: If specified, IP forwarding will be enabled for this instance.
+            --no-enable-managed-euc&: If true, the notebook instance will be created with managed end  user credentials enabled.
             --no-enable-third-party-identity&: If true, the notebook instance provide a proxy endpoint which allows for third party identity.
             --no-install-gpu-driver&: Whether the end user authorizes Google Cloud to install a GPU driver on this instance.
             --reservation-key=: The label key of a reservation resource.
@@ -88,6 +156,9 @@ commands:
                     - NVIDIA_L4
                     - NVIDIA_H100_80GB
                     - NVIDIA_H100_MEGA_80GB
+                    - NVIDIA_H200_141GB
+                    - NVIDIA_B200
+                    - NVIDIA_RTX6000
                 boot-disk-encryption:
                     - GMEK
                     - CMEK
@@ -96,6 +167,9 @@ commands:
                     - PD_SSD
                     - PD_BALANCED
                     - PD_EXTREME
+                    - HYPERDISK_BALANCED
+                    - HYPERDISK_BALANCED_HIGH_AVAILABILITY
+                    - HYPERDISK_ML
                 data-disk-encryption:
                     - GMEK
                     - CMEK
@@ -104,6 +178,11 @@ commands:
                     - PD_SSD
                     - PD_BALANCED
                     - PD_EXTREME
+                    - HYPERDISK_BALANCED
+                    - HYPERDISK_BALANCED_HIGH_AVAILABILITY
+                    - HYPERDISK_ML
+                    - HYPERDISK_EXTREME
+                    - HYPERDISK_THROUGHPUT
                 nic-type:
                     - VIRTIGO_NET
                     - GVNIC
@@ -217,12 +296,14 @@ commands:
             --container-repository=!: The path to the container image repository.
             --container-tag=: The tag of the container image.
             --custom-gpu-driver-path=: custom gpu driver path
-            --install-gpu-driver=: Install gpu driver
+            --data-disk-resource-policies=: Resource policies to apply to the data disk.
+            --install-gpu-driver: Install gpu driver
             --labels=: Labels to apply to this instance.
             --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
             --machine-type=: The [Compute Engine machine type](https://cloud.google.com/sdk/gcloud/reference/compute/machine-types) of this instance.
             --metadata=: Custom metadata to apply to this instance.
             --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-install-gpu-driver&: Install gpu driver
             --shielded-integrity-monitoring=: Boolean.
             --shielded-secure-boot=: Boolean.
             --shielded-vtpm=: Boolean.
@@ -243,9 +324,105 @@ commands:
                     - NVIDIA_L4
                     - NVIDIA_H100_80GB
                     - NVIDIA_H100_MEGA_80GB
+                    - NVIDIA_H200_141GB
+                    - NVIDIA_B200
+                    - NVIDIA_RTX6000
         - name: upgrade
           description: Upgrades a workbench instance.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
+            --image-family=: The full Compute Engine image family resource name to upgrade to.
             --location=: Google Cloud location of this environment https://cloud.google.com/compute/docs/regions-zones/#locations.
             --no-async&: Return immediately, without waiting for the operation in progress to
+    - name: schedules
+      description: Workbench schedules command group.
+      commands:
+        - name: create
+          description: Create a schedule.
+          flags:
+            --accelerator-count=: The number of accelerators used by the runtime.
+            --accelerator-type=: The type of hardware accelerator used by the runtime.
+            --cron-schedule=!: Cron schedule (https://en.wikipedia.org/wiki/Cron) to launch scheduled runs.
+            --disk-size-gb=: The disk size of the runtime in GB.
+            --disk-type=: The type of the disk.
+            --display-name=!: The display name of the schedule.
+            --enable-internet-access: Enable public internet access for the runtime.
+            --enable-queueing: Enables new scheduled runs to be queued when max_concurrent_runs limit is reached.
+            --end-time=: Timestamp after which no new runs can be scheduled.
+            --execution-display-name=!: The display name of the execution.
+            --execution-timeout=: The max running time of the execution job, as a duration.
+            --gcs-notebook-uri=!: The Cloud Storage uri pointing to the notebook.
+            --gcs-output-uri=!: The Cloud Storage location to upload notebook execution results to.
+            --generation=: The version of the Cloud Storage object to read.
+            --kernel-name=: The kernel name to use for the execution.
+            --kms-key=!: ID of the key or fully qualified identifier for the key.
+            --kms-keyring=: KMS keyring id of the key.
+            --kms-location=: Cloud location for the key.
+            --kms-project=: Cloud project id for the key.
+            --machine-type=: The Compute Engine machine type selected for the runtime.
+            --max-concurrent-runs=: Maximum number of runs that can be started concurrently for this Schedule.
+            --max-runs=: The max runs for the schedule.
+            --network=!: ID of the network or fully qualified identifier for the network.
+            --no-enable-internet-access&: Enable public internet access for the runtime.
+            --no-enable-queueing&: Enables new scheduled runs to be queued when max_concurrent_runs limit is reached.
+            --region=!: ID of the region or fully qualified identifier for the region.
+            --service-account=!: The service account to run the execution as
+            --start-time=: The timestamp after which the first run can be scheduled.
+            --subnetwork-region=: Google Cloud region of this subnetwork https://cloud.google.com/compute/docs/regions-zones/#locations.
+            --subnetwork=!: ID of the subnetwork or fully qualified identifier for the subnetwork.
+          completion:
+            flag:
+                accelerator-type:
+                    - NVIDIA_TESLA_V100
+                    - NVIDIA_TESLA_T4
+                    - NVIDIA_TESLA_A100
+                    - NVIDIA_A100_80GB
+                    - NVIDIA_L4
+                disk-type:
+                    - PD_STANDARD
+                    - PD_SSD
+                    - PD_BALANCED
+                    - PD_EXTREME
+                    - HYPERDISK_BALANCED
+        - name: delete
+          description: Delete a schedule.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: Cloud region for the schedule.
+        - name: describe
+          description: Describe a schedule.
+          flags:
+            --region=: Cloud region for the schedule.
+        - name: list
+          description: List your Workbench notebook execution schedules.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=!: ID of the region or fully qualified identifier for the region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: pause
+          description: Pause a schedule.
+          flags:
+            --region=: Cloud region for the schedule.
+        - name: resume
+          description: Resume a schedule.
+          flags:
+            --enable-catch-up: Enables backfilling missed runs when the schedule is resumed from PAUSED state.
+            --no-enable-catch-up&: Enables backfilling missed runs when the schedule is resumed from PAUSED state.
+            --region=: Cloud region for the schedule.
+        - name: update
+          description: Update a schedule.
+          flags:
+            --cron-schedule=: Cron schedule (https://en.wikipedia.org/wiki/Cron) to launch scheduled runs.
+            --display-name=: The display name of the schedule.
+            --enable-queueing: Enables new scheduled runs to be queued when max_concurrent_runs limit is reached.
+            --end-time=: Timestamp after which no new runs can be scheduled.
+            --max-concurrent-runs=: Maximum number of runs that can be started concurrently for this Schedule.
+            --max-runs=: The max runs for the schedule.
+            --no-enable-queueing&: Enables new scheduled runs to be queued when max_concurrent_runs limit is reached.
+            --region=: Cloud region for the schedule.
+            --start-time=: The timestamp after which the first run can be scheduled.

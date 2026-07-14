@@ -2,6 +2,21 @@
 name: run
 description: Manage your Cloud Run applications.
 commands:
+    - name: compose
+      description: Support Docker Compose workflows on Cloud Run.
+      commands:
+        - name: up
+          description: Deploy to Cloud Run from compose specification.
+          flags:
+            --allow-unauthenticated: Whether to enable allowing unauthenticated access to the service.
+            --build: Force build of images.
+            --dry-run: If set to true, only validates the configuration.
+            --no-allow-unauthenticated&: Whether to enable allowing unauthenticated access to the service.
+            --no-build: Skip building from source if applicable.
+            --no-dry-run&: If set to true, only validates the configuration.
+            --no-show-exec-error&: If true and command fails, print the underlying command that was executed and its exit status.
+            --region=: Region in which the resource can be found.
+            --show-exec-error&: If true and command fails, print the underlying command that was executed and its exit status.
     - name: configurations
       description: View and manage your Cloud Run configurations.
       hidden: true
@@ -119,6 +134,7 @@ commands:
         --gpu-type=: The GPU type to use.
         --gpu-zonal-redundancy: Set GPU zonal redundancy.
         --gpu=: Cloud Run supports values 0 or 1.  1 gpu also requires a minimum 4 `--cpu` value and  a minimum 16Gi `--memory` value.
+        --iap: Whether to enable IAP for the Service.
         --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/hello:latest`).
         --ingress=: Set the ingress traffic sources allowed to call the service.
         --invoker-iam-check: Optionally disable invoker IAM checks.
@@ -162,6 +178,7 @@ commands:
         --no-default-url&: Toggles the default url for a run service.
         --no-deploy-health-check&: Schedules a single instance of the Revision and waits for it to pass its startup probe for the deployment to succeed.
         --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
+        --no-iap&: Whether to enable IAP for the Service.
         --no-invoker-iam-check&: Optionally disable invoker IAM checks.
         --no-session-affinity&: Whether to enable session affinity for connections to the service.
         --no-traffic: True to avoid sending traffic to the revision being deployed.
@@ -169,6 +186,7 @@ commands:
         --platform=&: Target platform for running commands.
         --port=: Container port to receive requests at.
         --post-key-revocation-action-type=: Action type after CMEK key revocation.
+        --readiness-probe=: Comma separated settings for readiness probe in the form KEY=VALUE.
         --region=: Region in which the resource can be found.
         --regions=: Comma-separated list of regions in which the multi-region Service can be found.
         --remove-build-env-vars=: List of build environment variables to be removed.
@@ -182,7 +200,7 @@ commands:
         --remove-volume-mount=: Removes the volume mounted at the specified path from the current container.
         --remove-volume=: Removes volumes from the Cloud Run resource.
         --revision-suffix=: Specify the suffix of the revision name.
-        --scaling=: The scaling mode to use for this resource.
+        --scaling=: The scaling mode to use for this service.
         --service-account=: the email address of an IAM service account associated with the revision of the service.
         --service-max-instances=&: The maximum number of container instances for this Service to run.
         --service-min-instances=&: The minimum number of container instances to run for this Service or 'default' to remove.
@@ -207,6 +225,7 @@ commands:
         --use-http2: Whether to use HTTP/2 for connections to the service.
         --vpc-connector=: Set a VPC connector for this resource.
         --vpc-egress=: Specify which of the outbound traffic to send through Direct VPC egress or the VPC connector for this resource.
+        --workdir=: Working directory of the container process.
       completion:
         flag:
             connectivity:
@@ -390,6 +409,7 @@ commands:
             --vpc-connector=: Set a VPC connector for this resource.
             --vpc-egress=: Specify which of the outbound traffic to send through Direct VPC egress or the VPC connector for this resource.
             --wait: Wait until the execution has completed running before exiting.
+            --workdir=: Working directory of the container process.
           completion:
             flag:
                 execution-environment:
@@ -471,6 +491,7 @@ commands:
             --vpc-connector=: Set a VPC connector for this resource.
             --vpc-egress=: Specify which of the outbound traffic to send through Direct VPC egress or the VPC connector for this resource.
             --wait: Wait until the execution has completed running before exiting.
+            --workdir=: Working directory of the container process.
           completion:
             flag:
                 execution-environment:
@@ -517,6 +538,11 @@ commands:
             - name: describe
               description: Obtain details about executions.
               flags:
+                --region=: Region in which the resource can be found.
+            - name: describe-latest
+              description: Obtain details about the latest execution of a job.
+              flags:
+                --job=!: ID of the Job or fully qualified identifier for the Job.
                 --region=: Region in which the resource can be found.
             - name: list
               description: List executions.
@@ -692,6 +718,7 @@ commands:
             --vpc-connector=: Set a VPC connector for this resource.
             --vpc-egress=: Specify which of the outbound traffic to send through Direct VPC egress or the VPC connector for this resource.
             --wait: Wait until the execution has completed running before exiting.
+            --workdir=: Working directory of the container process.
           completion:
             flag:
                 execution-environment:
@@ -846,6 +873,7 @@ commands:
             --gpu-type=: The GPU type to use.
             --gpu-zonal-redundancy: Set GPU zonal redundancy.
             --gpu=: Cloud Run supports values 0 or 1.  1 gpu also requires a minimum 4 `--cpu` value and  a minimum 16Gi `--memory` value.
+            --iap: Whether to enable IAP for the Service.
             --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/hello:latest`).
             --ingress=: Set the ingress traffic sources allowed to call the service.
             --invoker-iam-check: Optionally disable invoker IAM checks.
@@ -882,6 +910,7 @@ commands:
             --no-default-url&: Toggles the default url for a run service.
             --no-deploy-health-check&: Schedules a single instance of the Revision and waits for it to pass its startup probe for the deployment to succeed.
             --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
+            --no-iap&: Whether to enable IAP for the Service.
             --no-invoker-iam-check&: Optionally disable invoker IAM checks.
             --no-session-affinity&: Whether to enable session affinity for connections to the service.
             --no-traffic: True to avoid sending traffic to the revision being deployed.
@@ -889,6 +918,7 @@ commands:
             --platform=&: Target platform for running commands.
             --port=: Container port to receive requests at.
             --post-key-revocation-action-type=: Action type after CMEK key revocation.
+            --readiness-probe=: Comma separated settings for readiness probe in the form KEY=VALUE.
             --region=: Region in which the resource can be found.
             --remove-cloudsql-instances=: Remove the given values from the current Cloud SQL instances.
             --remove-config-maps=&: List of config-maps to be removed.
@@ -901,7 +931,7 @@ commands:
             --remove-volume-mount=: Removes the volume mounted at the specified path from the current container.
             --remove-volume=: Removes volumes from the Cloud Run resource.
             --revision-suffix=: Specify the suffix of the revision name.
-            --scaling=: The scaling mode to use for this resource.
+            --scaling=: The scaling mode to use for this service.
             --service-account=: the email address of an IAM service account associated with the revision of the service.
             --service-max-instances=&: The maximum number of container instances for this Service to run.
             --service-min-instances=&: The minimum number of container instances to run for this Service or 'default' to remove.
@@ -923,6 +953,7 @@ commands:
             --use-http2: Whether to use HTTP/2 for connections to the service.
             --vpc-connector=: Set a VPC connector for this resource.
             --vpc-egress=: Specify which of the outbound traffic to send through Direct VPC egress or the VPC connector for this resource.
+            --workdir=: Working directory of the container process.
           completion:
             flag:
                 connectivity:
@@ -1377,6 +1408,7 @@ commands:
             --gpu-type=: The GPU type to use.
             --gpu-zonal-redundancy: Set GPU zonal redundancy.
             --gpu=: Cloud Run supports values 0 or 1.  1 gpu also requires a minimum 4 `--cpu` value and  a minimum 16Gi `--memory` value.
+            --iap: Whether to enable IAP for the Service.
             --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/hello:latest`).
             --ingress=: Set the ingress traffic sources allowed to call the service.
             --invoker-iam-check: Optionally disable invoker IAM checks.
@@ -1413,6 +1445,7 @@ commands:
             --no-default-url&: Toggles the default url for a run service.
             --no-deploy-health-check&: Schedules a single instance of the Revision and waits for it to pass its startup probe for the deployment to succeed.
             --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
+            --no-iap&: Whether to enable IAP for the Service.
             --no-invoker-iam-check&: Optionally disable invoker IAM checks.
             --no-session-affinity&: Whether to enable session affinity for connections to the service.
             --no-traffic: True to avoid sending traffic to the revision being deployed.
@@ -1420,6 +1453,7 @@ commands:
             --platform=&: Target platform for running commands.
             --port=: Container port to receive requests at.
             --post-key-revocation-action-type=: Action type after CMEK key revocation.
+            --readiness-probe=: Comma separated settings for readiness probe in the form KEY=VALUE.
             --region=: Region in which the resource can be found.
             --remove-cloudsql-instances=: Remove the given values from the current Cloud SQL instances.
             --remove-config-maps=&: List of config-maps to be removed.
@@ -1431,7 +1465,7 @@ commands:
             --remove-volume-mount=: Removes the volume mounted at the specified path from the current container.
             --remove-volume=: Removes volumes from the Cloud Run resource.
             --revision-suffix=: Specify the suffix of the revision name.
-            --scaling=: The scaling mode to use for this resource.
+            --scaling=: The scaling mode to use for this service.
             --service-account=: the email address of an IAM service account associated with the revision of the service.
             --service-max-instances=&: The maximum number of container instances for this Service to run.
             --service-min-instances=&: The minimum number of container instances to run for this Service or 'default' to remove.
@@ -1453,6 +1487,7 @@ commands:
             --use-http2: Whether to use HTTP/2 for connections to the service.
             --vpc-connector=: Set a VPC connector for this resource.
             --vpc-egress=: Specify which of the outbound traffic to send through Direct VPC egress or the VPC connector for this resource.
+            --workdir=: Working directory of the container process.
           completion:
             flag:
                 connectivity:
@@ -1503,3 +1538,303 @@ commands:
                     - gke
                     - kubernetes
                     - managed
+    - name: worker-pools
+      description: View and manage your Cloud Run worker pools.
+      commands:
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding to a Cloud Run worker pool.
+          flags:
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: A condition to include in the binding.
+            --member=!: The principal to add the binding for.
+            --region=: The Cloud Run region.
+            --role=!: Role name to assign to the principal.
+        - name: delete
+          description: Delete a worker-pool.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The Cloud region for the WorkerPool.
+        - name: deploy
+          description: Create or update a Cloud Run worker-pool.
+          flags:
+            --add-cloudsql-instances=: Append the given values to the current Cloud SQL instances.
+            --add-volume-mount=: Adds a mount to the current container.
+            --add-volume=: Adds a volume to the Cloud Run resource.
+            --args=: Comma-separated arguments passed to the command run by the container image.
+            --async: Return immediately, without waiting for the operation in progress to
+            --binary-authorization=: Binary Authorization policy to check against.
+            --breakglass=: Justification to bypass Binary Authorization policy constraints and allow the operation.
+            --clear-binary-authorization: Remove any previously set Binary Authorization policy.
+            --clear-cloudsql-instances: Empty the current Cloud SQL instances.
+            --clear-encryption-key-shutdown-hours: Remove any previously set CMEK key shutdown hours setting.
+            --clear-env-vars: Remove all environment variables.
+            --clear-key: Remove any previously set CMEK key reference.
+            --clear-labels: Remove all labels.
+            --clear-network: Disconnect this Cloud Run worker from the VPC network it is connected to.
+            --clear-network-tags: Clears all existing network tags from the Cloud Run worker.
+            --clear-post-key-revocation-action-type: Remove any previously set post CMEK key revocation action type.
+            --clear-secrets: Remove all secrets.
+            --clear-volume-mounts: Remove all existing mounts from the current container.
+            --clear-volumes: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
+            --client-name=&: Name of the client handling the deployment.
+            --client-version=&: Version of the client handling the deployment.
+            --command=: Entrypoint for the container image.
+            --container=: Specifies a container by name.
+            --cpu=: Set a CPU limit in Kubernetes cpu units.
+            --depends-on=: List of container dependencies to add to the current container.
+            --description=: Provides an optional, human-readable description of the service.
+            --encryption-key-shutdown-hours=: The number of hours to wait before an automatic shutdown server after CMEK key revocation is detected.
+            --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
+            --gpu-type=: The GPU type to use.
+            --gpu-zonal-redundancy: Set GPU zonal redundancy.
+            --gpu=: Cloud Run supports values 0 or 1.  1 gpu also requires a minimum 4 `--cpu` value and  a minimum 16Gi `--memory` value.
+            --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/hello:latest`).
+            --instances=: The number of instances to run for this WorkerPool.
+            --key=: CMEK key reference to encrypt the container with.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --memory=: Set a memory limit.
+            --network-tags=: Applies the given network tags (comma separated) to the Cloud Run worker.
+            --network=: The VPC network that the Cloud Run worker will be able to send traffic to.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-binary-authorization&: Remove any previously set Binary Authorization policy.
+            --no-clear-cloudsql-instances&: Empty the current Cloud SQL instances.
+            --no-clear-encryption-key-shutdown-hours&: Remove any previously set CMEK key shutdown hours setting.
+            --no-clear-env-vars&: Remove all environment variables.
+            --no-clear-key&: Remove any previously set CMEK key reference.
+            --no-clear-labels&: Remove all labels.
+            --no-clear-network&: Disconnect this Cloud Run worker from the VPC network it is connected to.
+            --no-clear-network-tags&: 'Clears all existing network tags from the Cloud Run worker. '
+            --no-clear-post-key-revocation-action-type&: Remove any previously set post CMEK key revocation action type.
+            --no-clear-secrets&: Remove all secrets.
+            --no-clear-volume-mounts&: Remove all existing mounts from the current container.
+            --no-clear-volumes&: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
+            --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
+            --no-promote: True to avoid assign instances to the worker revision being deployed.
+            --post-key-revocation-action-type=: Action type after CMEK key revocation.
+            --region=: The Cloud region for the WorkerPool.
+            --remove-cloudsql-instances=: Remove the given values from the current Cloud SQL instances.
+            --remove-containers=: List of containers to remove.
+            --remove-env-vars=: List of environment variables to be removed.
+            --remove-labels=: List of label keys to remove.
+            --remove-secrets=: List of secrets to be removed.
+            --remove-volume-mount=: Removes the volume mounted at the specified path from the current container.
+            --remove-volume=: Removes volumes from the Cloud Run resource.
+            --revision-suffix=: Specify the suffix of the revision name.
+            --runtime=&: The runtime to use.
+            --scaling=&: The scaling mode to use for this service.
+            --service-account=: the email address of an IAM service account associated with the revision of the service.
+            --set-cloudsql-instances=: Completely replace the current Cloud SQL instances with the given values.
+            --set-env-vars=: List of key-value pairs to set as environment variables.
+            --set-secrets=: List of key-value pairs to set as secrets.
+            --source=: The location of the source to build.
+            --subnet=: The VPC subnetwork that the Cloud Run worker will get IPs from.
+            --update-annotations=&: List of annotation KEY=VALUE pairs to update.
+            --update-env-vars=: List of key-value pairs to set as environment variables.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+            --update-secrets=: List of key-value pairs to set as secrets.
+            --vpc-egress=: Specify which of the outbound traffic to send through Direct VPC egress or the VPC connector for this resource.
+            --workdir=: Working directory of the container process.
+          completion:
+            flag:
+                post-key-revocation-action-type:
+                    - prevent-new
+                    - shut-down
+                vpc-egress:
+                    - all
+                    - all-traffic
+                    - private-ranges-only
+        - name: describe
+          description: Obtain details about a given worker-pool.
+          flags:
+            --region=: Region in which the resource can be found.
+        - name: get-iam-policy
+          description: Get the IAM policy for a Cloud Run worker pool.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --region=: The Cloud Run region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: List available worker-pools.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: Region in which the resource can be found.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: logs
+          description: Read logs for Cloud Run worker pools.
+          flags:
+            --region=: Region in which the resource can be found.
+          commands:
+            - name: read
+              description: Read logs for a Cloud Run worker pool.
+              flags:
+                --freshness=: Return entries that are not older than this value.
+                --limit=: Maximum number of resources to list.
+                --log-filter=: Filter expression that specifies the log entries to return.
+                --order=: Ordering of returned log entries based on timestamp field.
+                --region=: Region in which the resource can be found.
+              completion:
+                flag:
+                    order:
+                        - desc
+                        - asc
+            - name: tail
+              description: Tail logs for a Cloud Run worker pool.
+              flags:
+                --log-filter=: Filter expression that specifies the log entries to return.
+                --no-show-exec-error&: If true and command fails, print the underlying command that was executed and its exit status.
+                --region=: Region in which the resource can be found.
+                --show-exec-error&: If true and command fails, print the underlying command that was executed and its exit status.
+        - name: remove-iam-policy-binding
+          description: Remove IAM policy binding of a Cloud Run worker pool.
+          flags:
+            --all: Remove all bindings with this role and principal, irrespective of any
+            --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+            --condition=: The condition of the binding that you want to remove.
+            --member=!: The principal to remove the binding for.
+            --no-all&: ""
+            --region=: The Cloud Run region.
+            --role=!: The role to remove the principal from.
+        - name: replace
+          description: Create or replace a worker-pool from a YAML worker-pool specification.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --client-name=&: Name of the client handling the deployment.
+            --client-version=&: Version of the client handling the deployment.
+            --dry-run: If set to true, only validates the configuration.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-dry-run&: If set to true, only validates the configuration.
+        - name: revisions
+          description: View and manage your Cloud Run WorkerPools revisions.
+          commands:
+            - name: delete
+              description: Delete a worker pool revision.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --region=: The Cloud region for the WorkerPoolRevision.
+                --worker-pool=: WorkerPool for the WorkerPoolRevision.
+            - name: describe
+              description: Obtain details about a given worker pool revision.
+              flags:
+                --region=: Region in which the resource can be found.
+            - name: list
+              description: List available worker pool revisions.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --namespace=&: ID of the namespace or fully qualified identifier for the namespace.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --region=: Region in which the resource can be found.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+                --worker-pool=: Limit matched revisions to the given worker.
+        - name: set-iam-policy
+          description: Set the IAM policy for a worker pool.
+          flags:
+            --region=: The Cloud Run region.
+        - name: update
+          description: Update Cloud Run environment variables and other configuration settings.
+          flags:
+            --add-cloudsql-instances=: Append the given values to the current Cloud SQL instances.
+            --add-volume-mount=: Adds a mount to the current container.
+            --add-volume=: Adds a volume to the Cloud Run resource.
+            --args=: Comma-separated arguments passed to the command run by the container image.
+            --async: Return immediately, without waiting for the operation in progress to
+            --binary-authorization=: Binary Authorization policy to check against.
+            --breakglass=: Justification to bypass Binary Authorization policy constraints and allow the operation.
+            --clear-binary-authorization: Remove any previously set Binary Authorization policy.
+            --clear-cloudsql-instances: Empty the current Cloud SQL instances.
+            --clear-encryption-key-shutdown-hours: Remove any previously set CMEK key shutdown hours setting.
+            --clear-env-vars: Remove all environment variables.
+            --clear-key: Remove any previously set CMEK key reference.
+            --clear-labels: Remove all labels.
+            --clear-network: Disconnect this Cloud Run worker from the VPC network it is connected to.
+            --clear-network-tags: Clears all existing network tags from the Cloud Run worker.
+            --clear-post-key-revocation-action-type: Remove any previously set post CMEK key revocation action type.
+            --clear-secrets: Remove all secrets.
+            --clear-volume-mounts: Remove all existing mounts from the current container.
+            --clear-volumes: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
+            --client-name=&: Name of the client handling the deployment.
+            --client-version=&: Version of the client handling the deployment.
+            --command=: Entrypoint for the container image.
+            --container=: Specifies a container by name.
+            --cpu=: Set a CPU limit in Kubernetes cpu units.
+            --depends-on=: List of container dependencies to add to the current container.
+            --description=: Provides an optional, human-readable description of the service.
+            --encryption-key-shutdown-hours=: The number of hours to wait before an automatic shutdown server after CMEK key revocation is detected.
+            --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
+            --gpu-type=: The GPU type to use.
+            --gpu-zonal-redundancy: Set GPU zonal redundancy.
+            --gpu=: Cloud Run supports values 0 or 1.  1 gpu also requires a minimum 4 `--cpu` value and  a minimum 16Gi `--memory` value.
+            --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/hello:latest`).
+            --instances=: The number of instances to run for this WorkerPool.
+            --key=: CMEK key reference to encrypt the container with.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --memory=: Set a memory limit.
+            --network-tags=: Applies the given network tags (comma separated) to the Cloud Run worker.
+            --network=: The VPC network that the Cloud Run worker will be able to send traffic to.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-binary-authorization&: Remove any previously set Binary Authorization policy.
+            --no-clear-cloudsql-instances&: Empty the current Cloud SQL instances.
+            --no-clear-encryption-key-shutdown-hours&: Remove any previously set CMEK key shutdown hours setting.
+            --no-clear-env-vars&: Remove all environment variables.
+            --no-clear-key&: Remove any previously set CMEK key reference.
+            --no-clear-labels&: Remove all labels.
+            --no-clear-network&: Disconnect this Cloud Run worker from the VPC network it is connected to.
+            --no-clear-network-tags&: 'Clears all existing network tags from the Cloud Run worker. '
+            --no-clear-post-key-revocation-action-type&: Remove any previously set post CMEK key revocation action type.
+            --no-clear-secrets&: Remove all secrets.
+            --no-clear-volume-mounts&: Remove all existing mounts from the current container.
+            --no-clear-volumes&: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
+            --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
+            --no-promote: True to avoid assign instances to the worker revision being deployed.
+            --post-key-revocation-action-type=: Action type after CMEK key revocation.
+            --region=: The Cloud region for the WorkerPool.
+            --remove-cloudsql-instances=: Remove the given values from the current Cloud SQL instances.
+            --remove-containers=: List of containers to remove.
+            --remove-env-vars=: List of environment variables to be removed.
+            --remove-labels=: List of label keys to remove.
+            --remove-secrets=: List of secrets to be removed.
+            --remove-volume-mount=: Removes the volume mounted at the specified path from the current container.
+            --remove-volume=: Removes volumes from the Cloud Run resource.
+            --revision-suffix=: Specify the suffix of the revision name.
+            --runtime=&: The runtime to use.
+            --scaling=&: The scaling mode to use for this service.
+            --service-account=: the email address of an IAM service account associated with the revision of the service.
+            --set-cloudsql-instances=: Completely replace the current Cloud SQL instances with the given values.
+            --set-env-vars=: List of key-value pairs to set as environment variables.
+            --set-secrets=: List of key-value pairs to set as secrets.
+            --subnet=: The VPC subnetwork that the Cloud Run worker will get IPs from.
+            --update-annotations=&: List of annotation KEY=VALUE pairs to update.
+            --update-env-vars=: List of key-value pairs to set as environment variables.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+            --update-secrets=: List of key-value pairs to set as secrets.
+            --vpc-egress=: Specify which of the outbound traffic to send through Direct VPC egress or the VPC connector for this resource.
+            --workdir=: Working directory of the container process.
+          completion:
+            flag:
+                post-key-revocation-action-type:
+                    - prevent-new
+                    - shut-down
+                vpc-egress:
+                    - all
+                    - all-traffic
+                    - private-ranges-only
+        - name: update-instance-split
+          description: Adjust the instance assignments for a Cloud Run worker-pool.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --breakglass=: Justification to bypass Binary Authorization policy constraints and allow the operation.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-to-latest&: True to assign 100 percent of instances to the 'latest' revision of this service.
+            --region=: The Cloud region for the WorkerPool.
+            --to-latest: True to assign 100 percent of instances to the 'latest' revision of this service.
+            --to-revisions=: Comma separated list of instance assignments in the form REVISION-NAME=PERCENTAGE.

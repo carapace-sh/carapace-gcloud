@@ -15,15 +15,18 @@ commands:
             --default-squash-mode=!: The squash mode for the default access rule.
             --default-squash-uid=: The user squash UID for the default access rule.
             --description=: A user-readable description of the instance.
+            --dynamic-tier-options-mode=!: The dynamic tier mode of the instance.
             --filesystem=!: The filesystem name for this instance.
             --gke-support-enabled: Indicates whether you want to enable support for GKE clients.
             --kms-key=: The Cloud KMS key name to use for data encryption.
             --labels=: Labels as key value pairs.
             --location=: The location id of the instance resource.
+            --maintenance-policy-exclusion-window=: The exclusion windows for the instance.
+            --maintenance-policy-weekly-windows=!: Required, The weekly maintenance windows for the instance.
             --network=!: ID of the network or fully qualified identifier for the network.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-gke-support-enabled&: Indicates whether you want to enable support for GKE clients.
-            --per-unit-storage-throughput=!: The throughput of the instance in MB/s/TiB.
+            --per-unit-storage-throughput=: The throughput of the instance in MBps per TiB.
             --placement-policy=: The placement policy name for the instance in the format of
             --request-id=: An optional request ID to identify requests.
           completion:
@@ -31,6 +34,9 @@ commands:
                 default-squash-mode:
                     - no-squash
                     - root-squash
+                dynamic-tier-options-mode:
+                    - default-cache
+                    - disabled
         - name: delete
           description: Deletes a Managed Lustre instance.
           flags:
@@ -72,16 +78,36 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: reschedule-maintenance
+          description: reschedule instances.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the instance resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --request-id=: A unique identifier for this request.
+            --reschedule-schedule-time=: Required if reschedule_type is BY_TIME.
+            --reschedule-type=!: The type of rescheduling.
+          completion:
+            flag:
+                reschedule-type:
+                    - by-time
+                    - immediate
+                    - next-available-window
         - name: update
           description: Updates the parameters of a single Managed Lustre instance.
           flags:
             --access-rules=: Set access_rules to new value.
             --add-access-rules=: Add new value to access_rules list.
+            --add-maintenance-policy-exclusion-window=: Add new value to maintenance_policy_exclusion_window list.
+            --add-maintenance-policy-weekly-windows=: Add new value to maintenance_policy_weekly_windows list.
             --async: Return immediately, without waiting for the operation in progress to
             --capacity-gib=: The storage capacity of the instance in gibibytes (GiB).
             --clear-: Set instance.accessRulesOptions back to default value.
             --clear-access-rules: Clear access_rules value and set to empty list.
             --clear-labels: Clear labels value and set to empty map.
+            --clear-maintenance-policy: Set instance.maintenancePolicy back to default value.
+            --clear-maintenance-policy-exclusion-window: Clear maintenance_policy_exclusion_window value and set to empty list.
+            --clear-maintenance-policy-weekly-windows: Clear maintenance_policy_weekly_windows value and set to empty list.
             --default-squash-gid=: The user squash GID for the default access rule.
             --default-squash-mode=: The squash mode for the default access rule.
             --default-squash-uid=: The user squash UID for the default access rule.
@@ -89,15 +115,22 @@ commands:
             --gke-support-enabled: Indicates whether you want to enable support for GKE clients.
             --labels=: Set labels to new value.
             --location=: The location id of the instance resource.
+            --maintenance-policy-exclusion-window=: Set maintenance_policy_exclusion_window to new value.
+            --maintenance-policy-weekly-windows=: Set maintenance_policy_weekly_windows to new value.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-clear-&: Set instance.accessRulesOptions back to default value.
             --no-clear-access-rules&: Clear access_rules value and set to empty list.
             --no-clear-labels&: Clear labels value and set to empty map.
+            --no-clear-maintenance-policy&: Set instance.maintenancePolicy back to default value.
+            --no-clear-maintenance-policy-exclusion-window&: Clear maintenance_policy_exclusion_window value and set to empty list.
+            --no-clear-maintenance-policy-weekly-windows&: Clear maintenance_policy_weekly_windows value and set to empty list.
             --no-gke-support-enabled&: Indicates whether you want to enable support for GKE clients.
-            --per-unit-storage-throughput=: The throughput of the instance in MB/s/TiB.
+            --per-unit-storage-throughput=: The throughput of the instance in MBps per TiB.
             --placement-policy=: The placement policy name for the instance in the format of
             --remove-access-rules=: Remove existing value from access_rules list.
             --remove-labels=: Remove existing value from map labels.
+            --remove-maintenance-policy-exclusion-window=: Remove existing value from maintenance_policy_exclusion_window list.
+            --remove-maintenance-policy-weekly-windows=: Remove existing value from maintenance_policy_weekly_windows list.
             --request-id=: An optional request ID to identify requests.
             --update-labels=: Update labels value or add key value pair.
           completion:

@@ -28,6 +28,8 @@ commands:
             --description=: An optional textual description for the addresses.
             --endpoint-type=: The endpoint type of the external IPv6 address to be reserved.
             --global: If set, the addresses are global.
+            --ip-collection-region=&: 'Region of the ipCollection to operate on. '
+            --ip-collection=: If specified, the public delegated prefix (PDP) from which to allocate the BYOIP IP address.
             --ip-version=: Version of the IP address to be allocated and reserved.
             --network-tier=: The network tier to assign to the reserved IP addresses.
             --network=: If specified, the network resource in which the address(es) should be
@@ -85,13 +87,55 @@ commands:
             --no-global&: If set, the address is global.
             --region=: Region of the address to operate on.
             --target-project=!: The target project to move address to.
+        - name: update
+          description: Update an address's labels.
+          flags:
+            --clear-labels: Remove all labels.
+            --global: If set, the address is global.
+            --no-clear-labels&: Remove all labels.
+            --no-global&: If set, the address is global.
+            --region=: Region of the address to operate on.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+    - name: advice
+      description: Provides recommendation on optimal allocation of resources according to a flexible specifications.
+      commands:
+        - name: calendar-mode
+          description: Recommends the optimal time window and zone for Future Reservations.
+          flags:
+            --chip-count=!: The number of chips to check for availability.
+            --deployment-type=&: The deployment type for the reserved capacity.
+            --duration-range=: A duration range for the duration of the Future Reservation.
+            --local-ssd=: Manage the size and the interface of local SSD to use.
+            --location-policy=: Policy for which zones to include or exclude when looking for the optimal
+            --machine-type=!: The type of machine (name only) that has a fixed number of vCPUs and a fixed
+            --region=: Region of the resources to get advice on.
+            --start-time-range=: A time range for the start time of the Future Reservation.
+            --tpu-version=!: The version of Cloud TPU to reserve.
+            --vm-count=!: The number of instances to check for availability.
+            --workload-type=: Type of the workload that will be running on the reserved TPUs.
+          completion:
+            flag:
+                deployment-type:
+                    - DENSE
+                tpu-version:
+                    - TPU7X
+                    - V5E
+                    - V5P
+                    - V6E
+                workload-type:
+                    - BATCH
+                    - SERVING
     - name: backend-buckets
       description: Read and manipulate backend buckets.
       commands:
         - name: add-iam-policy-binding
           description: Add an IAM policy binding to a Compute Engine backend bucket.
           flags:
+            --global: If set, the backend bucket is global.
             --member=!: The principal to add the binding for.
+            --no-global&: If set, the backend bucket is global.
+            --region=: Region of the backend bucket to operate on.
             --role=!: Role name to assign to the principal.
         - name: add-signed-url-key
           description: Add Cloud CDN Signed URL key to a backend bucket.
@@ -112,13 +156,16 @@ commands:
             --description=: An optional, textual description for the backend bucket.
             --enable-cdn: Enable Cloud CDN for the backend bucket.
             --gcs-bucket-name=!: The name of the Google Cloud Storage bucket to serve from.
+            --global: If set, the backend bucket is global.
             --load-balancing-scheme=: The load balancing scheme of the backend bucket.
             --max-ttl=: Specifies the maximum allowed TTL for cached content served by this origin.
             --negative-caching: Negative caching allows per-status code cache TTLs to be set, in order to
             --negative-caching-policy=: Sets a cache TTL for the specified HTTP status code.
             --no-enable-cdn&: Enable Cloud CDN for the backend bucket.
+            --no-global&: If set, the backend bucket is global.
             --no-negative-caching&: Negative caching allows per-status code cache TTLs to be set, in order to
             --no-request-coalescing&: Enables request coalescing to the backend (recommended).
+            --region=: Region of the backend bucket to create.
             --request-coalescing: Enables request coalescing to the backend (recommended).
             --resource-manager-tags=: Comma-separated list of Resource Manager tags
             --serve-while-stale=: Serve existing content from the cache (if available) when revalidating
@@ -134,38 +181,60 @@ commands:
                     - AUTOMATIC
                 load-balancing-scheme:
                     - INTERNAL_MANAGED
+                    - EXTERNAL_MANAGED
         - name: delete
           description: Delete backend buckets.
+          flags:
+            --global: If set, the backend buckets are global.
+            --no-global&: If set, the backend buckets are global.
+            --region=: Region of the backend buckets to delete.
         - name: delete-signed-url-key
           description: Delete Cloud CDN Signed URL key from a backend bucket.
           flags:
             --key-name=!: Name of the Cloud CDN Signed URL key.
         - name: describe
           description: Describe a backend bucket.
+          flags:
+            --global: If set, the backend bucket is global.
+            --no-global&: If set, the backend bucket is global.
+            --region=: Region of the backend bucket to describe.
         - name: get-iam-policy
           description: Get the IAM policy for a Compute Engine backend bucket.
           flags:
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --global: If set, the backend bucket is global.
             --limit=: Maximum number of resources to list.
+            --no-global&: If set, the backend bucket is global.
             --page-size=: Some services group resource list output into pages.
+            --region=: Region of the backend bucket to operate on.
             --sort-by=: Comma-separated list of resource field key names to sort by.
         - name: list
           description: List Google Compute Engine backend buckets.
           flags:
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --global: If provided, only global resources are shown.
             --limit=: Maximum number of resources to list.
+            --no-global&: If provided, only global resources are shown.
             --no-uri&: Print a list of resource URIs instead of the default output, and change the
             --page-size=: Some services group resource list output into pages.
             --regexp=: (DEPRECATED)         Regular expression to filter the names of the results  on.
+            --regions=: If provided, only regional resources are shown.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
         - name: remove-iam-policy-binding
           description: Remove an IAM policy binding from a Compute Engine backend bucket.
           flags:
+            --global: If set, the backend bucket is global.
             --member=!: The principal to remove the binding for.
+            --no-global&: If set, the backend bucket is global.
+            --region=: Region of the backend bucket to operate on.
             --role=!: The role to remove the principal from.
         - name: set-iam-policy
           description: Set the IAM policy binding for a Compute Engine backend bucket.
+          flags:
+            --global: If set, the backend bucket is global.
+            --no-global&: If set, the backend bucket is global.
+            --region=: Region of the backend bucket to setIamPolicy.
         - name: update
           description: Update a backend bucket.
           flags:
@@ -181,6 +250,7 @@ commands:
             --edge-security-policy=: The edge security policy that will be set for this backend bucket.
             --enable-cdn: Enable Cloud CDN for the backend bucket.
             --gcs-bucket-name=: The name of the Google Cloud Storage bucket to serve from.
+            --global: If set, the backend bucket is global.
             --max-ttl=: Specifies the maximum allowed TTL for cached content served by this origin.
             --negative-caching: Negative caching allows per-status code cache TTLs to be set, in order to
             --negative-caching-policy=: Sets a cache TTL for the specified HTTP status code.
@@ -189,11 +259,13 @@ commands:
             --no-custom-response-headers: Remove all custom response headers for the backend bucket.
             --no-default-ttl: Clears default TTL value.
             --no-enable-cdn&: Enable Cloud CDN for the backend bucket.
+            --no-global&: If set, the backend bucket is global.
             --no-max-ttl: (DEPRECATED) Clears max TTL value.
             --no-negative-caching&: Negative caching allows per-status code cache TTLs to be set, in order to
             --no-negative-caching-policies: Remove all negative caching policies for the backend bucket.
             --no-request-coalescing&: Enables request coalescing to the backend (recommended).
             --no-serve-while-stale: (DEPRECATED) Clears serve while stale value.
+            --region=: Region of the backend bucket to update.
             --request-coalescing: Enables request coalescing to the backend (recommended).
             --serve-while-stale=: Serve existing content from the cache (if available) when revalidating
             --signed-url-cache-max-age=: The amount of time up to which the response to a signed URL request
@@ -226,6 +298,9 @@ commands:
             --max-connections-per-endpoint=: Only valid for network endpoint group backends.
             --max-connections-per-instance=: Only valid for instance group backends.
             --max-connections=: Maximum concurrent connections that the backend can handle.
+            --max-in-flight-requests-per-endpoint=: Only valid for network endpoint group backends.
+            --max-in-flight-requests-per-instance=: Only valid for instance group backends.
+            --max-in-flight-requests=: Maximum number of in-flight requests that the backend can handle.
             --max-rate-per-endpoint=: Only valid for network endpoint group backends.
             --max-rate-per-instance=: Only valid for instance group backends.
             --max-rate=: Maximum number of HTTP requests per second (RPS) that the backend can
@@ -238,16 +313,22 @@ commands:
             --no-global-network-endpoint-group&: If set, the network endpoint group is global.
             --preference=: This parameter specifies whether a backend should be fully utilized before
             --region=: Region of the backend service to operate on.
+            --traffic-duration=: The expected traffic duration for this service.
           completion:
             flag:
                 balancing-mode:
                     - CONNECTION
                     - CUSTOM_METRICS
+                    - IN_FLIGHT
                     - RATE
                     - UTILIZATION
                 preference:
                     - DEFAULT
                     - PREFERRED
+                traffic-duration:
+                    - LONG
+                    - SHORT
+                    - TRAFFIC_DURATION_UNSPECIFIED
         - name: add-iam-policy-binding
           description: Add an IAM policy binding to a Compute Engine backend service.
           flags:
@@ -301,6 +382,9 @@ commands:
             --failover-ratio=: Applicable only to backend service-based external passthrough Network load
             --global: If set, the backend service is global.
             --global-health-checks: If set, the health checks are global.
+            --ha-policy-fast-ip-move=&: Fast IP move policy for high availability (HA).
+            --ha-policy-leader-backend-group=&: A fully-qualified URL of the zonal Network Endpoint Group (NEG) with
+            --ha-policy-leader-instance=&: The name of the VM instance of the leader network endpoint.
             --health-checks-region=: Region of the health checks to operate on.
             --health-checks=: Specifies a list of health check objects for checking the health of
             --http-health-checks=: Specifies a list of legacy HTTP health check objects for checking the
@@ -343,6 +427,8 @@ commands:
             --timeout=: Applicable to all load balancing products except passthrough Network Load
             --tls-settings=: Configuration for Backend Authenticated TLS and mTLS.
             --tracking-mode=: Specifies the connection key used for connection tracking.
+            --zonal-affinity-spillover-ratio=: The value of the field can range from 0.0 to 1.0, inclusive.
+            --zonal-affinity-spillover=: Specifies whether zonal affinity is enabled or not.
           completion:
             flag:
                 cache-mode:
@@ -356,6 +442,9 @@ commands:
                     - DEFAULT_FOR_PROTOCOL
                     - NEVER_PERSIST
                     - ALWAYS_PERSIST
+                ha-policy-fast-ip-move:
+                    - GARP_RA
+                    - DISABLED
                 ip-address-selection-policy:
                     - IPV4_ONLY
                     - PREFER_IPV6
@@ -397,6 +486,10 @@ commands:
                 tracking-mode:
                     - PER_CONNECTION
                     - PER_SESSION
+                zonal-affinity-spillover:
+                    - ZONAL_AFFINITY_DISABLED
+                    - ZONAL_AFFINITY_STAY_WITHIN_ZONE
+                    - ZONAL_AFFINITY_SPILL_CROSS_ZONE
         - name: delete
           description: Delete backend services.
           flags:
@@ -555,6 +648,8 @@ commands:
             --failover-ratio=: Applicable only to backend service-based external passthrough Network load
             --global: If set, the backend service is global.
             --global-health-checks: If set, the health checks are global.
+            --ha-policy-leader-backend-group=&: A fully-qualified URL of the zonal Network Endpoint Group (NEG) with
+            --ha-policy-leader-instance=&: The name of the VM instance of the leader network endpoint.
             --health-checks-region=: Region of the health checks to operate on.
             --health-checks=: Specifies a list of health check objects for checking the health of
             --http-health-checks=: Specifies a list of legacy HTTP health check objects for checking the
@@ -562,7 +657,7 @@ commands:
             --iap=: Change the Identity Aware Proxy (IAP) service configuration for the
             --idle-timeout-sec=: Specifies how long to keep a connection tracking table entry while there
             --ip-address-selection-policy=: Specifies a preference for traffic sent from the proxy to the backend (or
-            --load-balancing-scheme=: Only for the Global external Application Load Balancer migration.
+            --load-balancing-scheme=: Specifies the load balancer type.
             --locality-lb-policy=: The load balancing algorithm used within the scope of the locality.
             --logging-optional-fields=: This field can only be specified if logging is enabled for the backend
             --logging-optional=: This field can only be specified if logging is enabled for the backend
@@ -611,6 +706,8 @@ commands:
             --timeout=: Applicable to all load balancing products except passthrough Network Load
             --tls-settings=: Configuration for Backend Authenticated TLS and mTLS.
             --tracking-mode=: Specifies the connection key used for connection tracking.
+            --zonal-affinity-spillover-ratio=: The value of the field can range from 0.0 to 1.0, inclusive.
+            --zonal-affinity-spillover=: Specifies whether zonal affinity is enabled or not.
           completion:
             flag:
                 cache-mode:
@@ -666,6 +763,10 @@ commands:
                 tracking-mode:
                     - PER_CONNECTION
                     - PER_SESSION
+                zonal-affinity-spillover:
+                    - ZONAL_AFFINITY_DISABLED
+                    - ZONAL_AFFINITY_STAY_WITHIN_ZONE
+                    - ZONAL_AFFINITY_SPILL_CROSS_ZONE
         - name: update-backend
           description: Update an existing backend of a load balancer or Traffic Director.
           flags:
@@ -683,6 +784,9 @@ commands:
             --max-connections-per-endpoint=: Only valid for network endpoint group backends.
             --max-connections-per-instance=: Only valid for instance group backends.
             --max-connections=: Maximum concurrent connections that the backend can handle.
+            --max-in-flight-requests-per-endpoint=: Only valid for network endpoint group backends.
+            --max-in-flight-requests-per-instance=: Only valid for instance group backends.
+            --max-in-flight-requests=: Maximum number of in-flight requests that the backend can handle.
             --max-rate-per-endpoint=: Only valid for network endpoint group backends.
             --max-rate-per-instance=: Only valid for instance group backends.
             --max-rate=: Maximum number of HTTP requests per second (RPS) that the backend can
@@ -694,16 +798,22 @@ commands:
             --no-global&: If set, the backend service is global.
             --preference=: This parameter specifies whether a backend should be fully utilized before
             --region=: Region of the backend service to operate on.
+            --traffic-duration=: The expected traffic duration for this service.
           completion:
             flag:
                 balancing-mode:
                     - CONNECTION
                     - CUSTOM_METRICS
+                    - IN_FLIGHT
                     - RATE
                     - UTILIZATION
                 preference:
                     - DEFAULT
                     - PREFERRED
+                traffic-duration:
+                    - LONG
+                    - SHORT
+                    - TRAFFIC_DURATION_UNSPECIFIED
     - name: commitments
       description: Manage Compute Engine commitments.
       commands:
@@ -727,6 +837,7 @@ commands:
             --reservation-zone=: Zone of the reservation to operate on.
             --reservation=!: Name of the reservation to operate on.
             --reservations-from-file=: Path to a YAML file of multiple reservations' configuration.
+            --resource-manager-tags=: Resource manager tags to be bound to the commitment.
             --resource-policies=: The resource policies to include in this reservation.
             --resources-accelerator=: Manage the configuration of the type and number of accelerator cards to include in the commitment.
             --resources=: Resources to be included in the commitment.
@@ -765,17 +876,25 @@ commands:
                     - general-purpose-n2
                     - general-purpose-n2d
                     - general-purpose-n4
+                    - general-purpose-n4a
                     - general-purpose-n4d
                     - general-purpose-t2d
                     - graphics-optimized
                     - graphics-optimized-g4
+                    - graphics-optimized-g4-vgpu
                     - memory-optimized
                     - memory-optimized-m3
                     - memory-optimized-m4
                     - memory-optimized-m4-6tb
+                    - memory-optimized-x4-1440-24t
                     - memory-optimized-x4-16tb
+                    - memory-optimized-x4-1920-32t
                     - memory-optimized-x4-24tb
                     - memory-optimized-x4-32tb
+                    - memory-optimized-x4-480-6t
+                    - memory-optimized-x4-480-8t
+                    - memory-optimized-x4-960-12t
+                    - memory-optimized-x4-960-16t
                     - storage-optimized-z3
         - name: create-license
           description: Create Compute Engine license-based commitments.
@@ -817,6 +936,52 @@ commands:
             flag:
                 plan:
                     - 36-month
+    - name: composite-health-checks
+      description: Manage composite health checks.
+      commands:
+        - name: create
+          description: Create a composite health check.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: A textual description of this resource.
+            --health-destination=!: URL to the destination resource.
+            --health-sources=!: URLs to the HealthSource resources whose results are AND'ed.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The name of the Google Compute Engine region.
+        - name: delete
+          description: Delete a composite health check.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The name of the Google Compute Engine region.
+        - name: describe
+          description: Describe a composite health check.
+          flags:
+            --region=: The name of the Google Compute Engine region.
+        - name: get-health
+          description: Get health status of a composite health check.
+          flags:
+            --region=: Region of the composite health check to operate on.
+        - name: list
+          description: List composite health checks.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --regexp=: (DEPRECATED)         Regular expression to filter the names of the results  on.
+            --regions=: If provided, only resources from the given regions are queried.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a composite health check.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: A textual description of this resource.
+            --health-destination=: URL to the destination resource.
+            --health-sources=: URLs to the HealthSource resources whose results are AND'ed.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The name of the Google Compute Engine region.
     - name: config-ssh
       description: Populate SSH config files with Host entries from each instance.
       flags:
@@ -943,10 +1108,13 @@ commands:
           description: Manipulate multiple Compute Engine disks with single command executions.
           commands:
             - name: create
-              description: Create multiple Compute Engine disks.
+              description: Create multiple Compute Engine disks or a consistency group of instant snapshots.
               flags:
                 --region=: Target region of the created disks, which currently must be the same as the source region.
-                --source-consistency-group-policy=!: URL of the source consistency group resource policy.
+                --source-consistency-group-policy=: URL of the format regions/<REGION>/resourcePolicies/<RESOURCE_POLICY> of the source consistency group resource policy.
+                --source-instant-snapshot-group-region=: Region of the source instant snapshot group to operate on.
+                --source-instant-snapshot-group-zone=: Zone of the source instant snapshot group to operate on.
+                --source-instant-snapshot-group=: URL of the format regions/<REGION>/instantSnapshotGroups/<INSTANT_SNAPSHOT_GROUP> or zones/<ZONE>/instantSnapshotGroups/<INSTANT_SNAPSHOT_GROUP> of the source consistency group of instant snapshots used to create the disks.
                 --zone=: Target zone of the created disks, which currently must be the same as the source zone.
         - name: convert
           description: Convert a Compute Engine Persistent Disk volume to a Hyperdisk volume.
@@ -989,6 +1157,7 @@ commands:
             --region=: Region of the disks to create.
             --replica-zones=: A comma-separated list of exactly 2 zones that a regional disk will be replicated to.
             --require-csek-key-create: Refuse to create resources not protected by a user managed key in
+            --resource-manager-tags=: A comma-separated list of Resource Manager tags to apply to the disk.
             --resource-policies=: A list of resource policy names to be added to the disk.
             --size=: Size of the disks.
             --source-disk-region=: Region of the source disk.
@@ -1117,7 +1286,7 @@ commands:
             --region=: Region of the consistency group's primary or secondary disks.
             --zone=: Zone of the consistency group's primary or secondary disks.
         - name: update
-          description: Update a Compute Engine persistent disk.
+          description: Update a Compute Engine Hyperdisk or Persistent Disk.
           flags:
             --access-mode=: Specifies how VMs attached to the disk can access the data on the disk.
             --append-licenses=: '"A list of license URIs or license codes.'
@@ -1144,6 +1313,15 @@ commands:
                 update-architecture:
                     - ARM64
                     - X86_64
+        - name: update-kms-key
+          description: Update the KMS key of a Hyperdisk or Persistent Disk.
+          flags:
+            --kms-key=!: ID of the key or fully qualified identifier for the key.
+            --kms-keyring=: The KMS keyring of the key.
+            --kms-location=: The Google Cloud location for the key.
+            --kms-project=: The Google Cloud project for the key.
+            --region=: Region of the disk to operate on.
+            --zone=: Zone of the disk to operate on.
     - name: external-vpn-gateways
       description: List, create, delete and update External VPN Gateways.
       commands:
@@ -1152,6 +1330,7 @@ commands:
           flags:
             --description=: Textual description of the External VPN Gateway.
             --interfaces=!: Map of interfaces from interface ID to interface IP address for the External VPN Gateway.
+            --resource-manager-tags=: A comma-separated list of Resource Manager tags to apply to the external VPN gateway.
         - name: delete
           description: Delete a Compute Engine external VPN gateway.
         - name: describe
@@ -1272,6 +1451,7 @@ commands:
                 --dest-address-groups=: Destination address groups to match for this rule.
                 --dest-fqdns=: Destination FQDNs to match for this rule.
                 --dest-ip-ranges=: Destination IP ranges to match for this rule.
+                --dest-network-context=: Use this flag to indicate that the rule should match internet or non-internet traffic.
                 --dest-region-codes=: Destination Region Code to match for this rule.
                 --dest-threat-intelligence=: Destination Threat Intelligence lists to match for this rule.
                 --direction=: Direction of the traffic the rule is applied.
@@ -1287,6 +1467,8 @@ commands:
                 --src-address-groups=: Source address groups to match for this rule.
                 --src-fqdns=: Source FQDNs to match for this rule.
                 --src-ip-ranges=: Source IP ranges to match for this rule.
+                --src-network-context=: Use this flag to indicate that the rule should match internet, non-internet traffic or traffic coming from the network specified by --src-network.
+                --src-networks=: The source VPC networks to  match for this rule.
                 --src-region-codes=: Source Region Code to match for this rule.
                 --src-secure-tags=: A list of instance secure tags indicating the set of instances on the network to which the rule applies if all other fields match.
                 --src-threat-intelligence=: Source Threat Intelligence lists to match for this rule.
@@ -1322,6 +1504,7 @@ commands:
                 --dest-address-groups=: Destination address groups to match for this rule.
                 --dest-fqdns=: Destination FQDNs to match for this rule.
                 --dest-ip-ranges=: Destination IP ranges to match for this rule.
+                --dest-network-context=: Use this flag to indicate that the rule should match internet or non-internet traffic.
                 --dest-region-codes=: Destination Region Code to match for this rule.
                 --dest-threat-intelligence=: Destination Threat Intelligence lists to match for this rule.
                 --direction=: Direction of the traffic the rule is applied.
@@ -1338,6 +1521,8 @@ commands:
                 --src-address-groups=: Source address groups to match for this rule.
                 --src-fqdns=: Source FQDNs to match for this rule.
                 --src-ip-ranges=: Source IP ranges to match for this rule.
+                --src-network-context=: Use this flag to indicate that the rule should match internet, non-internet traffic or traffic coming from the network specified by --src-network.
+                --src-networks=: The source VPC networks to  match for this rule.
                 --src-region-codes=: Source Region Code to match for this rule.
                 --src-secure-tags=: A list of instance secure tags indicating the set of instances on the network to which the rule applies if all other fields match.
                 --src-threat-intelligence=: Source Threat Intelligence lists to match for this rule.
@@ -1529,6 +1714,12 @@ commands:
             --global: If set, the forwarding rule is global.
             --no-global&: If set, the forwarding rule is global.
             --region=: Region of the forwarding rule to describe.
+            --view=: The view of the forwarding rule to return.
+          completion:
+            flag:
+                view:
+                    - BASIC
+                    - FULL
         - name: export
           description: Export a forwarding rule.
           flags:
@@ -1661,6 +1852,7 @@ commands:
             --require-specific-reservation: Indicate whether the auto-created reservations can be consumed by VMs with
             --reservation-mode=: The mode of the reservation.
             --reservation-name=: Name of reservations where the capacity is provisioned at the time of
+            --resource-manager-tags=: Resource manager tags to be bound to the future reservation.
             --scheduling-type=: Maintenance for the reserved capacity.
             --share-setting=: Specify if this future reservation is shared, and if so, the type of sharing.
             --share-with=: If this future reservation is shared, provide a comma-separated list
@@ -1779,6 +1971,114 @@ commands:
                 share-setting:
                     - local
                     - projects
+    - name: global-vm-extension-policies
+      description: Compute Engine global VM extension policies.
+      commands:
+        - name: create
+          description: Create a Compute Engine global VM extension policy.
+          flags:
+            --config-from-file=: Same as --config except that the value for the entry will be read from a
+            --config=: A comma separated key:value list where the key is the extension name and the value is the
+            --description=: An optional text description for the extension policy.
+            --extensions=!: One or more extensions to be added to the policy.
+            --inclusion-labels=: A list of inclusion labels to select the target VMs.
+            --priority=: The priority of the policy.
+            --rollout-conflict-behavior=: Specifies the behavior of a rollout if a conflict is detected between
+            --rollout-custom-plan=: Provide the name of a custom rollout plan to be used for the rollout.
+            --rollout-predefined-plan=: Provide the name of a predefined rollout plan from
+          completion:
+            flag:
+                rollout-predefined-plan:
+                    - fast_rollout
+                    - slow_rollout
+        - name: delete
+          description: Delete a Compute Engine global VM extension policy.
+          flags:
+            --rollout-custom-plan=: Provide the name of a custom rollout plan to be used for the rollout.
+            --rollout-predefined-plan=: Provide the name of a predefined rollout plan from
+            --rollout-retry-uuid=: The UUID of the rollout retry action.
+          completion:
+            flag:
+                rollout-predefined-plan:
+                    - fast_rollout
+                    - slow_rollout
+        - name: describe
+          description: Describe a Compute Engine global VM extension policy.
+        - name: list
+          description: List Compute Engine global VM extension policies.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a Compute Engine global VM extension policy.
+          flags:
+            --config-from-file=: Same as --config except that the value for the entry will be read from a
+            --config=: A comma separated key:value list where the key is the extension name and the value is the
+            --description=: An optional text description for the extension policy.
+            --extensions=!: One or more extensions to be added to the policy.
+            --inclusion-labels=: A list of inclusion labels to select the target VMs.
+            --priority=: The priority of the policy.
+            --rollout-conflict-behavior=: Specifies the behavior of a rollout if a conflict is detected between
+            --rollout-custom-plan=: Provide the name of a custom rollout plan to be used for the rollout.
+            --rollout-predefined-plan=: Provide the name of a predefined rollout plan from
+            --rollout-retry-uuid=: The UUID of the rollout retry action.
+          completion:
+            flag:
+                rollout-predefined-plan:
+                    - fast_rollout
+                    - slow_rollout
+    - name: health-aggregation-policies
+      description: Manage health aggregation policies.
+      commands:
+        - name: create
+          description: Create a health aggregation policy.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: A textual description of the health aggregation policy.
+            --healthy-percent-threshold=: Can only be set if the policyType field is
+            --min-healthy-threshold=: Can only be set if the policyType field is
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --policy-type=: Specifies the type of the healthAggregationPolicy.
+            --region=: The name of the Google Compute Engine region.
+          completion:
+            flag:
+                policy-type:
+                    - backend-service-policy
+                    - dns-public-ip-policy
+        - name: delete
+          description: Delete a health aggregation policy.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The name of the Google Compute Engine region.
+        - name: describe
+          description: Describe a health aggregation policy.
+          flags:
+            --region=: The name of the Google Compute Engine region.
+        - name: list
+          description: List health aggregation policies.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --regexp=: (DEPRECATED)         Regular expression to filter the names of the results  on.
+            --regions=: If provided, only resources from the given regions are queried.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a health aggregation policy.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: A textual description of the health aggregation policy.
+            --healthy-percent-threshold=: Can only be set if the policyType field is
+            --min-healthy-threshold=: Can only be set if the policyType field is
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The name of the Google Compute Engine region.
     - name: health-checks
       description: Read and manipulate health checks for load balanced instances.
       commands:
@@ -2144,6 +2444,57 @@ commands:
                     proxy-header:
                         - NONE
                         - PROXY_V1
+    - name: health-sources
+      description: Manage health sources.
+      commands:
+        - name: create
+          description: Create a health source.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: A textual description of the HealthSource.
+            --health-aggregation-policy=!: URL to the health aggregation policy resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The name of the Google Compute Engine region.
+            --source-type=: Specifies the type of the HealthSource.
+            --sources=!: URLs to the source resources.
+          completion:
+            flag:
+                source-type:
+                    - backend-service
+        - name: delete
+          description: Delete a health source.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The name of the Google Compute Engine region.
+        - name: describe
+          description: Describe a health source.
+          flags:
+            --region=: The name of the Google Compute Engine region.
+        - name: get-health
+          description: Get health status of a health source.
+          flags:
+            --region=: Region of the health source to operate on.
+        - name: list
+          description: List health sources.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --regexp=: (DEPRECATED)         Regular expression to filter the names of the results  on.
+            --regions=: If provided, only resources from the given regions are queried.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a health source.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: A textual description of the health source.
+            --health-aggregation-policy=: URL to the health aggregation policy resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The name of the Google Compute Engine region.
+            --sources=: URLs to the source resources.
     - name: http-health-checks
       description: Read and manipulate HTTP health checks for load balanced instances.
       commands:
@@ -2259,6 +2610,7 @@ commands:
             --no-require-csek-key-create&: Refuse to create images not protected by a user managed key in
             --platform-key-file=: File path that points to an X.509 certificate in DER format or raw binary
             --require-csek-key-create: Refuse to create images not protected by a user managed key in
+            --resource-manager-tags=: A comma-separated list of Resource Manager tags to apply to the image.
             --signature-database-file=: Comma-separated list of file paths that point to valid X.509 certificates
             --source-disk-project=: Project name of the source disk.
             --source-disk-zone=: Zone of the source disk to operate on.
@@ -2267,7 +2619,7 @@ commands:
             --source-image-project=: The project name of the source image.
             --source-image=: The name of an image to clone.
             --source-snapshot=: A source snapshot to create the image from.
-            --source-uri=: The full Cloud Storage URI where the disk image is stored.
+            --source-uri=: The full Cloud Storage URI or Artifact Registry path where
             --storage-location=: Specifies a Cloud Storage location, either regional or multi-regional,
           completion:
             flag:
@@ -2541,8 +2893,9 @@ commands:
             - name: create
               description: Create a Compute Engine managed instance group.
               flags:
+                --action-on-vm-failed-health-check=: Specifies the action that a MIG performs on an unhealthy VM.
                 --base-instance-name=: Base name to use for the Compute Engine instances that will be created with the managed instance group.
-                --default-action-on-vm-failure=: Specifies the action that a MIG performs on a failed or an unhealthy VM.
+                --default-action-on-vm-failure=: Specifies the action that a MIG performs on a failed VM.
                 --description=: An optional description for this group.
                 --force-update-on-repair: Specifies whether to apply the group's latest configuration when
                 --health-check=: Name of the  health check to operate on.
@@ -2550,7 +2903,7 @@ commands:
                 --https-health-check=: (DEPRECATED) HTTPS health check object used for autohealing instances in this group.
                 --initial-delay=: Specifies the number of seconds that a new VM takes to initialize and run
                 --instance-redistribution-type=: Specifies the type of the instance redistribution policy.
-                --instance-selection-machine-types=: Machine types that are used to create VMs in the managed instance group.
+                --instance-selection-machine-types=: A single selection of machine types.
                 --instance-selection=: Named selection of machine types with an optional rank.
                 --list-managed-instances-results=: Pagination behavior for the group's listManagedInstances API method.
                 --no-force-update-on-repair&: ""
@@ -2565,6 +2918,7 @@ commands:
                 --suspended-size=: Specifies the target size of suspended VMs in the group.
                 --target-distribution-shape=: Specifies how a regional managed instance group distributes its instances
                 --target-pool=: Specifies any target pools you want the instances of this managed instance group to be part of.
+                --target-size-policy-mode=: Specifies the mode in which the MIG creates VMs in the group.
                 --template=!: Specifies the instance template to use when creating new instances.
                 --update-policy-max-surge=: Maximum additional number of VMs that can be created during the update process.
                 --update-policy-max-unavailable=: Maximum number of VMs that can be unavailable during the update process.
@@ -2577,6 +2931,10 @@ commands:
                 --zones=: If this flag is specified a regional managed instance group will be
               completion:
                 flag:
+                    action-on-vm-failed-health-check:
+                        - default-action
+                        - do-nothing
+                        - repair
                     default-action-on-vm-failure:
                         - do-nothing
                         - repair
@@ -2594,6 +2952,9 @@ commands:
                         - any-single-zone
                         - balanced
                         - even
+                    target-size-policy-mode:
+                        - bulk
+                        - individual
                     update-policy-minimal-action:
                         - none
                         - refresh
@@ -2779,11 +3140,13 @@ commands:
                 - name: cancel
                   description: Cancel a Compute Engine managed instance group resize request.
                   flags:
+                    --region=: Region of the managed instance group to operate on.
                     --resize-requests=!: A list of comma-separated names of resize requests to cancel.
                     --zone=: Zone of the managed instance group to operate on.
                 - name: create
                   description: Create a Compute Engine managed instance group resize request.
                   flags:
+                    --region=: Region of the managed instance group to operate on.
                     --requested-run-duration=: The time you need the requested VMs to run before being
                     --resize-by=!: The number of VMs to resize managed instance group by.
                     --resize-request=!: The name of the resize request to create.
@@ -2791,11 +3154,13 @@ commands:
                 - name: delete
                   description: Delete a Compute Engine managed instance group resize request.
                   flags:
+                    --region=: Region of the managed instance group to operate on.
                     --resize-requests=!: A list of comma-separated names of resize requests to delete.
                     --zone=: Zone of the managed instance group to operate on.
                 - name: describe
                   description: Describe a Compute Engine managed instance group resize request resource.
                   flags:
+                    --region=: Region of the managed instance group to operate on.
                     --resize-request=!: The name of the resize request to describe.
                     --zone=: Zone of the managed instance group to operate on.
                 - name: list
@@ -2805,6 +3170,7 @@ commands:
                     --limit=: Maximum number of resources to list.
                     --no-uri&: Print a list of resource URIs instead of the default output, and change the
                     --page-size=: Some services group resource list output into pages.
+                    --region=: Region of the managed instance group to operate on.
                     --sort-by=: Comma-separated list of resource field key names to sort by.
                     --uri: Print a list of resource URIs instead of the default output, and change the
                     --zone=: Zone of the managed instance group to operate on.
@@ -2894,6 +3260,7 @@ commands:
                 --schedule-min-required-replicas=: How many VMs the autoscaler should provision for the duration of this
                 --schedule-time-zone=: Name of the timezone that the scaling schedule's start time is in.
                 --set-schedule=: Unique name for the scaling schedule.
+                --stabilization-period=: The number of seconds that the autoscaler waits for load stabilization before making scale-in decisions.
                 --stackdriver-metric-filter=: Expression for filtering samples used to autoscale, see https://cloud.google.com/monitoring/api/v3/filters.
                 --stackdriver-metric-single-instance-assignment=: Value that indicates the amount of work that each instance is expected to handle.
                 --stackdriver-metric-utilization-target-type=: Value of the metric Autoscaler aims to maintain.
@@ -2964,8 +3331,9 @@ commands:
             - name: update
               description: Update a Compute Engine managed instance group.
               flags:
+                --action-on-vm-failed-health-check=: Specifies the action that a MIG performs on an unhealthy VM.
                 --clear-autohealing: Clears all autohealing policy fields for the managed instance group.
-                --default-action-on-vm-failure=: Specifies the action that a MIG performs on a failed or an unhealthy VM.
+                --default-action-on-vm-failure=: Specifies the action that a MIG performs on a failed VM.
                 --description=: An optional description for this group.
                 --force-update-on-repair: Specifies whether to apply the group's latest configuration when
                 --health-check=: Name of the  health check to operate on.
@@ -2973,7 +3341,7 @@ commands:
                 --https-health-check=: (DEPRECATED) HTTPS health check object used for autohealing instances in this group.
                 --initial-delay=: Specifies the number of seconds that a new VM takes to initialize and run
                 --instance-redistribution-type=: Specifies the type of the instance redistribution policy.
-                --instance-selection-machine-types=: Machine types that are used to create VMs in the managed instance group.
+                --instance-selection-machine-types=: A single selection of machine types.
                 --instance-selection=: Named selection of machine types with an optional rank.
                 --list-managed-instances-results=: Pagination behavior for the group's listManagedInstances API method.
                 --no-clear-autohealing&: Clears all autohealing policy fields for the managed instance group.
@@ -2996,6 +3364,7 @@ commands:
                 --stopped-size=: Specifies the target size of stopped VMs in the group.
                 --suspended-size=: Specifies the target size of suspended VMs in the group.
                 --target-distribution-shape=: Specifies how a regional managed instance group distributes its instances
+                --template=: Specifies the instance template that will replace the existing template used by the MIG.
                 --update-policy-max-surge=: Maximum additional number of VMs that can be created during the update process.
                 --update-policy-max-unavailable=: Maximum number of VMs that can be unavailable during the update process.
                 --update-policy-minimal-action=: Use this flag to minimize disruption as much as possible or to apply a more disruptive action than is strictly necessary.
@@ -3006,6 +3375,10 @@ commands:
                 --zone=: Zone of the managed instance group to update.
               completion:
                 flag:
+                    action-on-vm-failed-health-check:
+                        - default-action
+                        - do-nothing
+                        - repair
                     default-action-on-vm-failure:
                         - do-nothing
                         - repair
@@ -3059,6 +3432,7 @@ commands:
                 --schedule-min-required-replicas=: How many VMs the autoscaler should provision for the duration of this
                 --schedule-time-zone=: Name of the timezone that the scaling schedule's start time is in.
                 --set-schedule=: A unique name for the scaling schedule to be configured.
+                --stabilization-period=: The number of seconds that the autoscaler waits for load stabilization before making scale-in decisions.
                 --update-schedule=: Name of the scaling schedule to be updated.
                 --zone=: Zone of the managed instance group to operate on.
               completion:
@@ -3484,6 +3858,10 @@ commands:
             --role=!: The role to remove the principal from.
         - name: set-iam-policy
           description: Set the IAM policy for a Compute Engine instance template.
+        - name: test-iam-permissions
+          description: Test IAM permissions for a Compute Engine instance template.
+          flags:
+            --permissions=!: Permissions to be tested.
     - name: instances
       description: Read and manipulate Compute Engine virtual machine instances.
       commands:
@@ -3591,6 +3969,8 @@ commands:
                 --image-family=: The image family for the operating system that the boot disk will
                 --image-project=: The Google Cloud project against which all image and
                 --image=: Specifies the boot image for the instances.
+                --instance-selection-machine-types=: A single selection of machine types.
+                --instance-selection=: Named selection of machine types with an optional rank.
                 --instance-termination-action=: Specifies the termination action that will be taken upon VM preemption
                 --labels=: List of label KEY=VALUE pairs to add.
                 --local-ssd-recovery-timeout=: Specifies the maximum amount of time a Local Ssd Vm should wait while
@@ -4182,6 +4562,14 @@ commands:
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
             --zones=: If provided, only resources from the given zones are queried.
+        - name: list-referrers
+          description: List referrers to a Compute Engine virtual machine instance.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --zone=: Zone of the instance to list referrers for.
         - name: move
           description: '*(REMOVED)*  Move an instance and its attached persistent disks between zones.'
           hidden: true
@@ -4209,6 +4597,7 @@ commands:
                 --no-address: If specified the network interface will have no external IP.
                 --parent-nic-name=: Name of the parent network interface of a dynamic network interface.
                 --private-network-ip=: Specifies the RFC1918 IP to assign to the network interface.
+                --service-class-id=: The regional Service Class ID for the producer service associated
                 --stack-type=: The stack type for the network interface.
                 --subnetwork=: Specifies the subnetwork this network interface belongs to.
                 --vlan=: VLAN tag of a dynamic network interface, must be  an integer in the
@@ -4410,6 +4799,12 @@ commands:
           description: Set IAM policy for a Compute Engine instance.
           flags:
             --zone=: The name of the Google Compute Engine zone.
+        - name: set-machine-resources
+          description: Set machine resources for a Compute Engine virtual machine instance.
+          flags:
+            --accelerator-count=!: The number of accelerators to attach to the instance.
+            --accelerator-type=!: The type of accelerator to attach to the instance.
+            --zone=: Zone of the instance to operate on.
         - name: set-machine-type
           description: Set machine type for Compute Engine virtual machines.
           flags:
@@ -4595,10 +4990,42 @@ commands:
         - name: update-from-file
           description: Update a Compute Engine virtual machine instance using a configuration file.
           flags:
+            --discard-local-ssd: If specified, all local SSDs data attached to this instance will be discarded.
             --minimal-action=: If specified, this action or higher level action is performed on the instance irrespective of what action is required for the update to take effect.
             --most-disruptive-allowed-action=: If specified, Compute Engine returns an error if the update requires a higher action to be applied to the instance.
+            --no-discard-local-ssd&: If specified, all local SSDs data attached to this instance will be discarded.
             --source=: Path to a YAML file containing configuration export data.
             --zone=: Zone of the instance to update.
+    - name: instant-snapshot-groups
+      description: Create, list and delete Compute Engine instant snapshot groups.
+      commands:
+        - name: create
+          description: Create a Compute Engine consistency group of instant snapshots.
+          flags:
+            --region=: Region of the instant snapshot group to create.
+            --source-consistency-group=!: Specifies the source consistency group resource policy.
+            --zone=: Zone of the instant snapshot group to create.
+        - name: delete
+          description: Delete a Compute Engine consistency group of instant snapshots.
+          flags:
+            --region=: Region of the instant snapshot groups to delete.
+            --zone=: Zone of the instant snapshot groups to delete.
+        - name: describe
+          description: Describe a Compute Engine consistency group of instant snapshots.
+          flags:
+            --region=: Region of the instant snapshot group to describe.
+            --zone=: Zone of the instant snapshot group to describe.
+        - name: list
+          description: List Google Compute Engine instant snapshot groups.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --regions=: If provided, only regional resources are shown.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+            --zones=: If provided, only zonal resources are shown.
     - name: instant-snapshots
       description: Create, list and delete Compute Engine instant snapshots.
       commands:
@@ -4613,6 +5040,7 @@ commands:
           flags:
             --labels=: List of label KEY=VALUE pairs to add.
             --region=: Region of the instant snapshot to create.
+            --resource-manager-tags=: A comma-separated list of Resource Manager tags to apply to the snapshot.
             --source-disk=!: Source disk used to create the instant snapshot.
             --zone=: Zone of the instant snapshot to create.
         - name: delete
@@ -4684,6 +5112,10 @@ commands:
                   flags:
                     --admin-enabled&: (DEPRECATED) Use --enable-admin instead.
                     --bandwidth=: Provisioned capacity of the attachment.
+                    --candidate-cloud-router-ip-address=: Single IPv4 address + prefix length to be configured on the cloud
+                    --candidate-cloud-router-ipv6-address=: Single IPv6 address + prefix length to be configured on the cloud
+                    --candidate-customer-router-ip-address=: Single IPv4 address + prefix length to be configured on the customer
+                    --candidate-customer-router-ipv6-address=: Single IPv6 address + prefix length to be configured on the customer
                     --candidate-ipv6-subnets=: The `candididate-ipv6-subnets` field is not available.
                     --candidate-subnets=: Up to 16 candidate prefixes that can be used to restrict the allocation of
                     --cloud-router-ipv6-interface-id=: '`cloud-router-ipv6-interface-id` field is not available.'
@@ -4714,6 +5146,7 @@ commands:
                             - 20g
                             - 2g
                             - 300m
+                            - 400g
                             - 400m
                             - 500m
                             - 50g
@@ -4733,6 +5166,8 @@ commands:
                   flags:
                     --admin-enabled&: (DEPRECATED) Use --enable-admin instead.
                     --bandwidth=: Provisioned capacity of the attachment.
+                    --candidate-cloud-router-ipv6-address=: Single IPv6 address + prefix length to be configured on the cloud
+                    --candidate-customer-router-ipv6-address=: Single IPv6 address + prefix length to be configured on the customer
                     --candidate-ipv6-subnets=: The `candididate-ipv6-subnets` field is not available.
                     --cloud-router-ipv6-interface-id=: '`cloud-router-ipv6-interface-id` field is not available.'
                     --customer-router-ipv6-interface-id=: '`customer-router-ipv6-interface-id` field is not available.'
@@ -4754,6 +5189,7 @@ commands:
                             - 20g
                             - 2g
                             - 300m
+                            - 400g
                             - 400m
                             - 500m
                             - 50g
@@ -4802,6 +5238,10 @@ commands:
                   description: Remove member interconnect attachments from a Compute Engine interconnect attachment group.
                   flags:
                     --attachments=!: Member interconnect attachments to add to or remove from the interconnect
+                - name: test-iam-permissions
+                  description: Test IAM permissions for a Compute Engine interconnect attachment group.
+                  flags:
+                    --permissions=!: Permissions to be tested.
                 - name: update
                   description: Update a Compute Engine interconnect attachment group.
                   flags:
@@ -4923,6 +5363,10 @@ commands:
                   description: Create a Compute Engine partner interconnect attachment.
                   flags:
                     --admin-enabled&: (DEPRECATED) Use --enable-admin instead.
+                    --candidate-cloud-router-ip-address=: Single IPv4 address + prefix length to be configured on the cloud
+                    --candidate-cloud-router-ipv6-address=: Single IPv6 address + prefix length to be configured on the cloud
+                    --candidate-customer-router-ip-address=: Single IPv4 address + prefix length to be configured on the customer
+                    --candidate-customer-router-ipv6-address=: Single IPv6 address + prefix length to be configured on the customer
                     --description=: Human-readable plain-text description of attachment.
                     --edge-availability-domain=!: 'Desired edge availability domain for this attachment:'
                     --enable-admin: Administrative status of the interconnect attachment.
@@ -4952,6 +5396,8 @@ commands:
                   description: Update a Compute Engine partner interconnect attachment.
                   flags:
                     --admin-enabled&: (DEPRECATED) Use --enable-admin instead.
+                    --candidate-cloud-router-ipv6-address=: Single IPv6 address + prefix length to be configured on the cloud
+                    --candidate-customer-router-ipv6-address=: Single IPv6 address + prefix length to be configured on the customer
                     --description=: Human-readable plain-text description of attachment.
                     --enable-admin: Administrative status of the interconnect attachment.
                     --mtu=: Maximum transmission unit (MTU) is the size of the largest IP packet
@@ -4973,6 +5419,10 @@ commands:
                   hidden: true
                   flags:
                     --bandwidth=!: Provisioned capacity of the attachment.
+                    --candidate-cloud-router-ip-address=: Single IPv4 address + prefix length to be configured on the cloud
+                    --candidate-cloud-router-ipv6-address=: Single IPv6 address + prefix length to be configured on the cloud
+                    --candidate-customer-router-ip-address=: Single IPv4 address + prefix length to be configured on the customer
+                    --candidate-customer-router-ipv6-address=: Single IPv6 address + prefix length to be configured on the customer
                     --candidate-subnets=: Up to 16 candidate prefixes that can be used to restrict the allocation of
                     --description=: Human-readable plain-text description of attachment.
                     --interconnect=!: The interconnect for the interconnect attachment
@@ -5009,6 +5459,8 @@ commands:
                   hidden: true
                   flags:
                     --bandwidth=: Provisioned capacity of the attachment.
+                    --candidate-cloud-router-ipv6-address=: Single IPv6 address + prefix length to be configured on the cloud
+                    --candidate-customer-router-ipv6-address=: Single IPv6 address + prefix length to be configured on the customer
                     --description=: Human-readable plain-text description of attachment.
                     --partner-interconnect-name=: Plain text name of the Interconnect this attachment is connected to,
                     --partner-name=: Plain text name of the Partner providing this attachment.
@@ -5045,7 +5497,7 @@ commands:
             --requested-features=: List of features requested for this interconnect.
             --requested-link-count=!: Target number of physical links in the link bundle.
             --resource-manager-tags=: A comma-separated list of Resource Manager tags to apply to the interconnect.
-            --subzone=: Subzone in the LOCATION specified by the --location flag.
+            --subzone=: (DEPRECATED)       Subzone in the LOCATION specified by the --location flag.
           completion:
             flag:
                 interconnect-type:
@@ -5332,6 +5784,7 @@ commands:
             --no-guest-flush&: ""
             --no-require-csek-key-create&: Refuse to create machine images not protected by a user managed key in
             --require-csek-key-create: Refuse to create machine images not protected by a user managed key in
+            --resource-manager-tags=: A comma-separated list of Resource Manager tags to apply to the machine image.
             --source-disk-csek-key=: Customer-supplied encryption key of the disk attached to the
             --source-instance-zone=: Zone of the instance to operate on.
             --source-instance=!: The source instance to create a machine image from.
@@ -5649,6 +6102,10 @@ commands:
             --regions=: If provided, only resources from the given regions are queried.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: set-iam-policy
+          description: Set the IAM policy for a Compute Engine network attachment.
+          flags:
+            --region=: The name of the Google Compute Engine region.
         - name: update
           description: Update a Google Compute Engine network attachment.
           flags:
@@ -5949,6 +6406,7 @@ commands:
                 --dest-address-groups=: Destination address groups to match for this rule.
                 --dest-fqdns=: Destination FQDNs to match for this rule.
                 --dest-ip-ranges=: Destination IP ranges to match for this rule.
+                --dest-network-context=: Use this flag to indicate that the rule should match internet or non-internet traffic.
                 --dest-region-codes=: Destination Region Code to match for this rule.
                 --dest-threat-intelligence=: Destination Threat Intelligence lists to match for this rule.
                 --direction=: Direction of the traffic the rule is applied.
@@ -5966,11 +6424,15 @@ commands:
                 --src-address-groups=: Source address groups to match for this rule.
                 --src-fqdns=: Source FQDNs to match for this rule.
                 --src-ip-ranges=: A list of IP address blocks that are allowed to make inbound connections that match the firewall rule to the instances on the network.
+                --src-network-context=: Use this flag to indicate that the rule should match internet, non-internet traffic or traffic coming from the network specified by --src-networks.
+                --src-networks=: The source VPC networks to  match for this rule.
                 --src-region-codes=: Source Region Code to match for this rule.
                 --src-secure-tags=: A list of instance secure tags indicating the set of instances on the network to which the rule applies if all other fields match.
                 --src-threat-intelligence=: Source Threat Intelligence lists to match for this rule.
+                --target-forwarding-rules=: A list of forwarding rules to which this rule applies.
                 --target-secure-tags=: An optional, list of target secure tags with a name of the format tagValues/ or full namespaced name
                 --target-service-accounts=: List of target service accounts for the rule.
+                --target-type=: Target type of the rule.
                 --tls-inspect: Use this flag to indicate whether TLS traffic should be inspected using the TLS inspection policy when the security profile group is applied.
               completion:
                 flag:
@@ -5982,6 +6444,9 @@ commands:
                     direction:
                         - INGRESS
                         - EGRESS
+                    target-type:
+                        - INSTANCES
+                        - INTERNAL_MANAGED_LB
             - name: delete
               description: Deletes a Compute Engine network firewall policy rule.
               flags:
@@ -6004,6 +6469,7 @@ commands:
                 --dest-address-groups=: Destination address groups to match for this rule.
                 --dest-fqdns=: Destination FQDNs to match for this rule.
                 --dest-ip-ranges=: Destination IP ranges to match for this rule.
+                --dest-network-context=: Use this flag to indicate that the rule should match internet or non-internet traffic.
                 --dest-region-codes=: Destination Region Code to match for this rule.
                 --dest-threat-intelligence=: Destination Threat Intelligence lists to match for this rule.
                 --direction=: Direction of the traffic the rule is applied.
@@ -6022,11 +6488,15 @@ commands:
                 --src-address-groups=: Source address groups to match for this rule.
                 --src-fqdns=: Source FQDNs to match for this rule.
                 --src-ip-ranges=: A list of IP address blocks that are allowed to make inbound connections that match the firewall rule to the instances on the network.
+                --src-network-context=: Use this flag to indicate that the rule should match internet, non-internet traffic or traffic coming from the network specified by --src-networks.
+                --src-networks=: The source VPC networks to  match for this rule.
                 --src-region-codes=: Source Region Code to match for this rule.
                 --src-secure-tags=: A list of instance secure tags indicating the set of instances on the network to which the rule applies if all other fields match.
                 --src-threat-intelligence=: Source Threat Intelligence lists to match for this rule.
+                --target-forwarding-rules=: A list of forwarding rules to which this rule applies.
                 --target-secure-tags=: An optional, list of target secure tags with a name of the format tagValues/ or full namespaced name
                 --target-service-accounts=: List of target service accounts for the rule.
+                --target-type=: Target type of the rule.
                 --tls-inspect: Use this flag to indicate whether TLS traffic should be inspected using the TLS inspection policy when the security profile group is applied.
               completion:
                 flag:
@@ -6038,6 +6508,9 @@ commands:
                     direction:
                         - INGRESS
                         - EGRESS
+                    target-type:
+                        - INSTANCES
+                        - INTERNAL_MANAGED_LB
         - name: update
           description: Update a Compute Engine network firewall policy.
           flags:
@@ -6125,6 +6598,12 @@ commands:
         - name: peerings
           description: List, create, and delete, and update VPC Network Peering.
           commands:
+            - name: cancel-request-delete
+              description: Cancel deletion request of a Compute Engine network peering.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --network=!: The name of the network in the current project containing the peering.
+                --no-async&: Return immediately, without waiting for the operation in progress to
             - name: create
               description: Create a Compute Engine network peering.
               flags:
@@ -6208,6 +6687,7 @@ commands:
             - name: create
               description: Define a subnet for a network in custom subnet mode.
               flags:
+                --allow-cidr-routes-overlap: Allow/disallow this subnetwork's IP address ranges to conflict with existing custom routes.
                 --description=: An optional description of this subnetwork.
                 --enable-flow-logs: Enable/disable VPC Flow Logs for this subnet.
                 --enable-private-ip-google-access: Enable/disable access to Google Cloud APIs from this subnet for instances without a public ip address.
@@ -6222,6 +6702,7 @@ commands:
                 --logging-metadata-fields=: Can only be specified if VPC Flow Logs for this subnetwork is enabled
                 --logging-metadata=: Can only be specified if VPC Flow Logs for this subnetwork is
                 --network=!: The network to which the subnetwork belongs.
+                --no-allow-cidr-routes-overlap&: Allow/disallow this subnetwork's IP address ranges to conflict with existing custom routes.
                 --no-enable-flow-logs&: Enable/disable VPC Flow Logs for this subnet.
                 --no-enable-private-ip-google-access&: Enable/disable access to Google Cloud APIs from this subnet for instances without a public ip address.
                 --private-ipv6-google-access-type=: The private IPv6 google access type for the VMs in this subnet.
@@ -6229,6 +6710,7 @@ commands:
                 --range=: The IP space allocated to this subnetwork in CIDR format.
                 --region=: Region of the subnetwork to create.
                 --reserved-internal-range=: If set, the primary IP range of the subnetwork will be
+                --resolve-subnet-mask=: Resolve subnet mask can only be set when subnet is created.
                 --resource-manager-tags=: A comma-separated list of Resource Manager tags to apply to the subnetwork.
                 --role=: The role of subnetwork.
                 --secondary-range-with-reserved-internal-range=: Adds secondary IP ranges that are associated with internal range
@@ -6262,6 +6744,9 @@ commands:
                         - PRIVATE_NAT
                         - PRIVATE_SERVICE_CONNECT
                         - REGIONAL_MANAGED_PROXY
+                    resolve-subnet-mask:
+                        - ARP_ALL_RANGES
+                        - ARP_PRIMARY_RANGE
                     role:
                         - ACTIVE
                         - BACKUP
@@ -6337,6 +6822,7 @@ commands:
               flags:
                 --add-secondary-ranges-with-reserved-internal-range=: Adds secondary IP ranges that are associated with internal range
                 --add-secondary-ranges=: Adds secondary IP ranges to the subnetwork for use in IP aliasing.
+                --allow-cidr-routes-overlap: Allow/disallow this subnetwork's IP address ranges to conflict with existing custom routes.
                 --drain-timeout=: The time period for draining traffic from Internal HTTP(S) Load Balancer
                 --enable-flow-logs: Enable/disable VPC Flow Logs for this subnet.
                 --enable-private-ip-google-access: Enable/disable access to Google Cloud APIs from this subnet for instances without a public ip address.
@@ -6350,6 +6836,7 @@ commands:
                 --logging-flow-sampling=: Can only be specified if VPC Flow logs for this subnetwork is
                 --logging-metadata-fields=: Can only be specified if VPC Flow Logs for this subnetwork is enabled
                 --logging-metadata=: Can only be specified if VPC Flow Logs for this subnetwork is
+                --no-allow-cidr-routes-overlap&: Allow/disallow this subnetwork's IP address ranges to conflict with existing custom routes.
                 --no-enable-flow-logs&: Enable/disable VPC Flow Logs for this subnet.
                 --no-enable-private-ip-google-access&: Enable/disable access to Google Cloud APIs from this subnet for instances without a public ip address.
                 --private-ipv6-google-access-type=: The private IPv6 google access type for the VMs in this subnet.
@@ -6904,7 +7391,7 @@ commands:
                 --no-dry-run&: Whether to execute this patch job as a dry run.
                 --no-instance-filter-all&: A filter that targets all instances in the project.
                 --no-mig-instances-allowed&: If set, patching of VMs that are part of a managed instance group (MIG) is allowed.
-                --no-skip-unpatchable-vms&: 'If set, enables enhanced reporting for the patch job:'
+                --no-skip-unpatchable-vms&: Enables enhanced reporting for the patch job.
                 --no-yum-minimal&: If specified, machines running Yum use the command `yum update-minimal`;
                 --no-yum-security&: If specified, machines running Yum append the `--security` flag to the
                 --no-zypper-with-optional&: If specified, machines running Zypper add the `--with-optional` flag to
@@ -6921,7 +7408,7 @@ commands:
                 --rollout-disruption-budget-percent=: Percentage of VMs per zone to disrupt at any given moment.
                 --rollout-disruption-budget=: Number of VMs per zone to disrupt at any given moment.
                 --rollout-mode=: Mode of the rollout.
-                --skip-unpatchable-vms: 'If set, enables enhanced reporting for the patch job:'
+                --skip-unpatchable-vms: Enables enhanced reporting for the patch job.
                 --windows-classifications=: List of classifications to use to restrict the Windows update.
                 --windows-excludes=: Optional list of Knowledge Base (KB) IDs to exclude from the
                 --windows-exclusive-patches=: An exclusive list of Knowledge Base (KB) IDs to be updated.
@@ -7247,7 +7734,8 @@ commands:
             --keys=: The keys of the entries to remove.
             --no-all&: If provided, all metadata entries are removed.
         - name: set-usage-bucket
-          description: Set usage reporting bucket for a project.
+          description: '*(REMOVED)*  Set usage reporting bucket for a project.'
+          hidden: true
           flags:
             --bucket=: Name of an existing Google Cloud Storage bucket where the usage
             --no-bucket: Unsets the bucket.
@@ -7475,6 +7963,11 @@ commands:
                         - all
                         - running
                         - unused
+            - name: set-iam-policy
+              description: Set the IAM policy for a Compute Engine reservation block.
+              flags:
+                --reservation=: The name of the Google Compute Engine reservation.
+                --zone=: The name of the Google Compute Engine zone.
         - name: create
           description: Create a Compute Engine reservation.
           flags:
@@ -7487,6 +7980,7 @@ commands:
             --no-require-specific-reservation&: Indicates whether the reservation can be consumed by VMs with "any reservation"
             --require-specific-reservation: Indicates whether the reservation can be consumed by VMs with "any reservation"
             --reservation-sharing-policy=: The reservation sharing policy to use for this reservation.
+            --resource-manager-tags=: Resource manager tags to be bound to the reservation.
             --resource-policies=: The resource policies to include in this reservation.
             --share-setting=: The projects that can use the reservation.
             --share-with=: If this reservation is shared (--share-setting=projects), then specify a
@@ -7555,6 +8049,39 @@ commands:
           description: Set the IAM policy for a Compute Engine reservation.
           flags:
             --zone=: The name of the Google Compute Engine zone.
+        - name: slots
+          description: Manage Compute Engine reservation slots.
+          commands:
+            - name: describe
+              description: Describe a Compute Engine reservation slot.
+              flags:
+                --block-name=!: The name of the reservation block.
+                --slot-name=!: The name of the reservation slot.
+                --sub-block-name=!: The name of the reservation sub block.
+                --zone=: Zone of the reservation to describe.
+            - name: get-version
+              description: Get the version of a reservation slot.
+              flags:
+                --block-name=!: The name of the reservation block.
+                --current: Whether to get the current version.
+                --no-current&: Whether to get the current version.
+                --no-target&: Whether to get the target version.
+                --slot-name=!: The name of the reservation slot.
+                --sub-block-name=!: The name of the reservation sub block.
+                --target: Whether to get the target version.
+                --zone=: Zone of the reservation to get-version.
+            - name: list
+              description: List Compute Engine reservation slots.
+              flags:
+                --block-name=!: The name of the reservation block.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --sub-block-name=!: The name of the reservation sub block.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+                --zone=: Zone of the reservation to list.
         - name: sub-blocks
           description: Manage Compute Engine reservation sub blocks.
           commands:
@@ -7570,6 +8097,16 @@ commands:
                     full-view:
                         - SUB_BLOCK_VIEW_BASIC
                         - SUB_BLOCK_VIEW_FULL
+            - name: get-version
+              description: Get the version of a reservation sub-block.
+              flags:
+                --block-name=!: The name of the reservation block.
+                --current: Whether to get the current version.
+                --no-current&: Whether to get the current version.
+                --no-target&: Whether to get the target version.
+                --sub-block-name=!: The name of the reservation sub block.
+                --target: Whether to get the target version.
+                --zone=: Zone of the reservation to get-version.
             - name: list
               description: List Compute Engine reservation sub-blocks.
               flags:
@@ -7603,10 +8140,23 @@ commands:
                     failure-component:
                         - MULTIPLE_FAULTY_HOSTS
                         - NVLINK_SWITCH
+            - name: set-iam-policy
+              description: Set the IAM policy binding for a Compute Engine reservation sub-block.
+              flags:
+                --block-name=!: The name of the reservation block.
+                --sub-block-name=!: The name of the reservation sub block.
+                --zone=: Zone of the reservation to set-iam-policy.
+        - name: test-iam-permissions
+          description: Test IAM permissions for a Compute Engine reservation.
+          flags:
+            --permissions=!: The permissions to test.
+            --zone=: The name of the Google Compute Engine zone.
         - name: update
           description: Update Compute Engine reservations.
           flags:
+            --add-share-with-project=: Specify a comma-separated list of projects to share the reservation
             --add-share-with=: If this reservation is shared (--share-setting is projects), then
+            --early-access-maintenance=: Enable this feature to receive quarterly updates and new features for your
             --enable-emergent-maintenance: Enables the reservation to receive notifications when urgent maintenance
             --no-enable-emergent-maintenance&: Enables the reservation to receive notifications when urgent maintenance
             --remove-share-with=: A list of specific projects to remove from the list of projects that this
@@ -7616,6 +8166,10 @@ commands:
             --zone=: Zone of the reservation to update.
           completion:
             flag:
+                early-access-maintenance:
+                    - NO_EARLY_ACCESS
+                    - WAVE1
+                    - WAVE2
                 reservation-sharing-policy:
                     - ALLOW_ALL
                     - DISALLOW_ALL
@@ -7641,6 +8195,7 @@ commands:
             - name: group-placement
               description: Create a Compute Engine group placement resource policy.
               flags:
+                --accelerator-topology-mode=: Defines the accelerator connection strategy for accelerator machine types like TPUs.
                 --availability-domain-count=: Number of availability domain in the group placement policy.
                 --collocation=: Collocation specifies whether to place VMs inside the sameavailability domain on the same low-latency network.
                 --description=: An optional, textual description for the backend.
@@ -7649,6 +8204,9 @@ commands:
                 --vm-count=: Number of instances targeted by the group placement policy.
               completion:
                 flag:
+                    accelerator-topology-mode:
+                        - AUTO_CONNECT
+                        - PROVISION_ONLY
                     collocation:
                         - collocated
                         - unspecified-collocation
@@ -7695,6 +8253,7 @@ commands:
             - name: workload-policy
               description: Create a Compute Engine workload resource policy.
               flags:
+                --accelerator-topology-mode=: Defines the accelerator connection strategy for accelerator machine types like TPUs.
                 --accelerator-topology=: Specifies the topology of placement and interconnection performance required to create a slice of VMs with interconnected accelerators.
                 --description=: An optional, textual description for the backend.
                 --max-topology-distance=: Specifies the topology of placement and interconnection network performance of the group of VMs (MIG / Multi-MIGs).
@@ -7702,6 +8261,9 @@ commands:
                 --type=!: Type of the workload policy defining the high-level intent of the cluster.
               completion:
                 flag:
+                    accelerator-topology-mode:
+                        - AUTO_CONNECT
+                        - PROVISION_ONLY
                     max-topology-distance:
                         - BLOCK
                         - CLUSTER
@@ -7780,6 +8342,54 @@ commands:
                         - friday
                         - saturday
                         - sunday
+    - name: rollout-plans
+      description: Read and manipulate Compute Engine Rollout Plans.
+      commands:
+        - name: create
+          description: Create a Google Compute Engine rollout plan.
+          flags:
+            --description=: An optional description of this rollout plan.
+            --location-scope=: The location scope of the rollout plan.
+            --waves-from-file=!: Path to a YAML or JSON file containing the wave definitions for the rollout plan.
+          completion:
+            flag:
+                location-scope:
+                    - ZONAL
+                    - REGIONAL
+        - name: delete
+          description: Delete a Google Compute Engine rollout plan.
+        - name: describe
+          description: Describe a rollout plan.
+        - name: list
+          description: List Google Compute Engine Rollout Plans.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: rollouts
+      description: Read and manipulate Compute Engine Rollouts.
+      commands:
+        - name: cancel
+          description: Cancel a Google Compute Engine rollout.
+          flags:
+            --no-rollback&: ""
+            --rollback: If true, then the ongoing rollout must be rolled back.
+        - name: delete
+          description: Delete a Google Compute Engine rollout.
+        - name: describe
+          description: Describe a rollout.
+        - name: list
+          description: List Google Compute Engine Rollouts.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
     - name: routers
       description: List, create, and delete Compute Engine routers.
       commands:
@@ -7876,7 +8486,8 @@ commands:
             --description=: An optional description of this router.
             --encrypted-interconnect-router: Indicates if a router is dedicated for use with encrypted interconnect attachments (VLAN attachments).
             --keepalive-interval=: The interval between BGP keepalive messages that are sent to the peer.
-            --network=!: The network for this router
+            --ncc-gateway=: The NCC Gateway URI for this router.
+            --network=: The network for this router
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-encrypted-interconnect-router&: Indicates if a router is dedicated for use with encrypted interconnect attachments (VLAN attachments).
             --region=: Region of the router to create.
@@ -8677,6 +9288,7 @@ commands:
         - name: update
           description: Update a Compute Engine security policy.
           flags:
+            --clear-network-ddos-impacted-baseline-threshold&: If provided, clears the Network DDoS impacted baseline threshold from the security policy.
             --description=: An optional, textual description for the security policy.
             --enable-layer7-ddos-defense: Whether to enable Cloud Armor Layer 7 DDoS Defense Adaptive Protection.
             --global: If set, the security policy is global.
@@ -8684,7 +9296,10 @@ commands:
             --json-parsing=: The JSON parsing behavior for this rule.
             --layer7-ddos-defense-rule-visibility=: The visibility type indicates whether the rules are opaque or transparent.
             --log-level=: The level of detail to display for WAF logging.
+            --network-ddos-adaptive-protection=&: The DDoS adaptive protection level for network load balancing and instances with external IPs
+            --network-ddos-impacted-baseline-threshold=&: DDoS Protection for Network Load Balancers (and VMs with public IPs)
             --network-ddos-protection=: The DDoS protection level for network load balancing and instances with external IPs.
+            --no-clear-network-ddos-impacted-baseline-threshold&: If provided, clears the Network DDoS impacted baseline threshold from the security policy.
             --no-enable-layer7-ddos-defense&: Whether to enable Cloud Armor Layer 7 DDoS Defense Adaptive Protection.
             --no-global&: If set, the security policy is global.
             --recaptcha-redirect-site-key=: The reCAPTCHA site key to be used for rules using the ``redirect'' action
@@ -8702,6 +9317,10 @@ commands:
                 log-level:
                     - NORMAL
                     - VERBOSE
+                network-ddos-adaptive-protection:
+                    - DISABLED
+                    - ENABLED
+                    - PREVIEW
                 network-ddos-protection:
                     - STANDARD
                     - ADVANCED
@@ -8714,7 +9333,7 @@ commands:
           flags:
             --connection-preference=: This defines the service attachment's connection preference.
             --consumer-accept-list=: Specifies which consumer projects or networks are allowed to connect to the
-            --consumer-reject-list=: Specifies a comma separated list of projects or networks that are not
+            --consumer-reject-list=: Specifies a comma-separated list of projects/networks/endpoints that are not
             --description=: An optional, textual description for the service attachment.
             --domain-names=: Specifies a comma separated list of DNS domain names that are used during
             --enable-proxy-protocol: If True, then enable the proxy protocol which is for supplying client
@@ -8760,17 +9379,20 @@ commands:
           description: Update a Google Compute Engine service attachment.
           flags:
             --connection-preference=: This defines the service attachment's connection preference.
-            --consumer-accept-list=: Specifies which consumer projects or networks are allowed to connect to the
-            --consumer-reject-list=: Specifies a comma separated list of projects or networks that are not
+            --consumer-accept-list=: Specifies which consumer projects/networks/endpoints are allowed to connect to the
+            --consumer-reject-list=: Specifies a comma-separated list of projects/networks/endpoints that are not
             --description=: An optional, textual description for the service attachment.
             --enable-proxy-protocol: If True, then enable the proxy protocol which is for supplying client
             --nat-subnets-region=: Region of the subnetworks to operate on.
             --nat-subnets=: The subnetworks provided by service producer to use for NAT
             --no-enable-proxy-protocol&: If True, then enable the proxy protocol which is for supplying client
             --no-reconcile-connections&: Determines whether to apply changes to consumer accept or reject lists
+            --no-remove-obsolete-endpoint-accept-reject-entries&: If set to true, this flag cleans up the service attachment's consumer accept
             --propagated-connection-limit=: The number of consumer spokes that connected Private Service Connect
             --reconcile-connections: Determines whether to apply changes to consumer accept or reject lists
             --region=: Region of the service attachment to update.
+            --remove-obsolete-endpoint-accept-reject-entries: If set to true, this flag cleans up the service attachment's consumer accept
+            --target-service=: URL of the target service that receives forwarded traffic.
           completion:
             flag:
                 connection-preference:
@@ -8871,6 +9493,7 @@ commands:
             --labels=: List of label KEY=VALUE pairs to add.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-guest-flush&: ""
+            --resource-manager-tags=: A comma-separated list of Resource Manager tags to apply to the snapshot.
             --snapshot-type=: Type of snapshot.
             --source-disk-for-recovery-checkpoint-region=: Region of the source disk for recovery checkpoint to operate on.
             --source-disk-for-recovery-checkpoint=: Source disk whose recovery checkpoint used to create the snapshot.
@@ -8933,6 +9556,14 @@ commands:
             --no-clear-labels&: Remove all labels.
             --remove-labels=: List of label keys to remove.
             --update-labels=: List of label KEY=VALUE pairs to update.
+        - name: update-kms-key
+          description: Update the KMS key of a Compute Engine standard or archive snapshot.
+          flags:
+            --kms-key=!: ID of the key or fully qualified identifier for the key.
+            --kms-keyring=: The KMS keyring of the key.
+            --kms-location=: The Google Cloud location for the key.
+            --kms-project=: The Google Cloud project for the key.
+            --region=: The region of the snapshot to update.
     - name: sole-tenancy
       description: Read and manage Compute Engine sole-tenancy resources.
       commands:
@@ -9224,6 +9855,7 @@ commands:
             --global: If set, the SSL policy is global.
             --min-tls-version=: Minimum TLS version.
             --no-global&: If set, the SSL policy is global.
+            --post-quantum-key-exchange=: Whether to use post-quantum key exchange.
             --profile=: SSL policy profile.
             --region=: Region of the SSL policy to create.
           completion:
@@ -9233,6 +9865,10 @@ commands:
                     - "1.1"
                     - "1.2"
                     - "1.3"
+                post-quantum-key-exchange:
+                    - DEFAULT
+                    - DEFERRED
+                    - ENABLED
                 profile:
                     - COMPATIBLE
                     - CUSTOM
@@ -9281,6 +9917,7 @@ commands:
             --global: If set, the SSL policy is global.
             --min-tls-version=: Minimum TLS version.
             --no-global&: If set, the SSL policy is global.
+            --post-quantum-key-exchange=: Whether to use post-quantum key exchange.
             --profile=: SSL policy profile.
             --region=: Region of the SSL policy to patch.
           completion:
@@ -9290,6 +9927,10 @@ commands:
                     - "1.1"
                     - "1.2"
                     - "1.3"
+                post-quantum-key-exchange:
+                    - DEFAULT
+                    - DEFERRED
+                    - ENABLED
                 profile:
                     - COMPATIBLE
                     - CUSTOM
@@ -9339,6 +9980,7 @@ commands:
             --provisioned-capacity=!: Provisioned capacity of the storage pool.
             --provisioned-iops=: IOPS with which to provision the pool.
             --provisioned-throughput=: Throughput in MB/s with which to provision the pool.
+            --resource-manager-tags=: Resource manager tags to be bound to the storage pool.
             --storage-pool-type=!: ID of the storage pool type or fully qualified identifier for the storage pool type.
             --zone=: For resources [storage-pool-type, storage_pool], provides fallback value for resource zone attribute.
           completion:
@@ -9563,6 +10205,18 @@ commands:
             --regions=: If provided, only regional resources are shown.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: set-quic-override
+          description: Set the QUIC override policy for a Compute Engine target HTTPS proxy.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --quic-override=!: QUIC policy for the TargetHttpsProxy resource.
+          completion:
+            flag:
+                quic-override:
+                    - disable
+                    - enable
+                    - none
         - name: update
           description: Update a target HTTPS proxy.
           flags:
@@ -9784,7 +10438,7 @@ commands:
           description: Create a target TCP proxy.
           flags:
             --backend-service-region=: Region of the backend service to operate on.
-            --backend-service=!: A backend service that will be used for connections to the target TCP
+            --backend-service=: A backend service that will be used for connections to the target TCP
             --description=: An optional, textual description for the target TCP proxy.
             --global: If set, the target TCP proxy is global.
             --global-backend-service: If set, the backend service is global.
@@ -9843,6 +10497,7 @@ commands:
             --description=: An optional, textual description for the target VPN Gateway.
             --network=!: A reference to a network in this project to
             --region=: Region of the Target VPN Gateway to create.
+            --resource-manager-tags=: A comma-separated list of Resource Manager tags to apply to the target VPN gateway.
         - name: delete
           description: Delete Cloud VPN Classic Target VPN Gateways.
           flags:
@@ -10406,6 +11061,7 @@ commands:
             --interconnect-attachments=: Names of interconnect attachments (VLAN attachments) associated with the
             --network=!: A reference to a network to which the VPN gateway is attached.
             --region=: Region of the VPN Gateway to create.
+            --resource-manager-tags=: A comma-separated list of Resource Manager tags to apply to the VPN gateway.
             --stack-type=: The stack type of the protocol(s) enabled on this VPN gateway.
           completion:
             flag:
@@ -10472,6 +11128,7 @@ commands:
             --phase2-pfs=: Phase 2 perfect forward secerecy algorithms.
             --region=: Region of the VPN Tunnel to create.
             --remote-traffic-selector=: Traffic selector is an agreement between IKE peers to permit traffic
+            --resource-manager-tags=: A comma-separated list of Resource Manager tags to apply to the VPN tunnel.
             --router-region=: Region of the router to operate on.
             --router=: Router to use for dynamic routing.
             --shared-secret=!: Shared secret consisting of printable characters.
@@ -10511,6 +11168,47 @@ commands:
             --regions=: If provided, only resources from the given regions are queried.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: zone-vm-extension-policies
+      description: Compute Engine zone VM extension policies.
+      commands:
+        - name: create
+          description: Create a Compute Engine zone VM extension policy.
+          flags:
+            --config-from-file=: Same as --config except that the value for the entry will be read from a
+            --config=: A comma separated key:value list where the key is the extension name and the value is the
+            --description=: An optional text description for the extension policy.
+            --extensions=!: One or more extensions to be added to the policy.
+            --inclusion-labels=: A list of inclusion labels to select the target VMs.
+            --priority=: The priority of the policy.
+            --zone=: Zone of the zone vm extension policy to create.
+        - name: delete
+          description: Delete a Compute Engine zone VM extension policy.
+          flags:
+            --zone=: Zone of the zone vm extension policy to delete.
+        - name: describe
+          description: Describe a Compute Engine zone VM extension policy.
+          flags:
+            --zone=: Zone of the zone vm extension policy to describe.
+        - name: list
+          description: List Compute Engine zone VM extension policies.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+            --zone=!: The zone to list the extension policies from.
+        - name: update
+          description: Update a Compute Engine zone VM extension policy.
+          flags:
+            --config-from-file=: Same as --config except that the value for the entry will be read from a
+            --config=: A comma separated key:value list where the key is the extension name and the value is the
+            --description=: An optional text description for the extension policy.
+            --extensions=!: One or more extensions to be added to the policy.
+            --inclusion-labels=: A list of inclusion labels to select the target VMs.
+            --priority=: The priority of the policy.
+            --zone=: Zone of the zone vm extension policy to update.
     - name: zones
       description: List Compute Engine zones.
       commands:

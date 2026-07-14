@@ -86,6 +86,7 @@ commands:
             --properties=: Specifies configuration properties for the workload.
             --region=: ID of the region or fully qualified identifier for the region.
             --request-id=: A unique ID that identifies the request.
+            --resource-manager-tag=: Resource Manager Tags to be associated with the compute resources created for the workload.
             --service-account=: The IAM service account to be used for a batch/session job.
             --staging-bucket=: The Cloud Storage bucket to use to store job dependencies, config files,
             --subnet=: Subnetwork URI to connect network to.
@@ -118,6 +119,7 @@ commands:
                 --py-files=: Comma-separated list of Python scripts to be passed to the PySpark framework.
                 --region=: ID of the region or fully qualified identifier for the region.
                 --request-id=: A unique ID that identifies the request.
+                --resource-manager-tag=: Resource Manager Tags to be associated with the compute resources created for the workload.
                 --service-account=: The IAM service account to be used for a batch/session job.
                 --staging-bucket=: The Cloud Storage bucket to use to store job dependencies, config files,
                 --subnet=: Subnetwork URI to connect network to.
@@ -148,6 +150,7 @@ commands:
                 --properties=: Specifies configuration properties for the workload.
                 --region=: ID of the region or fully qualified identifier for the region.
                 --request-id=: A unique ID that identifies the request.
+                --resource-manager-tag=: Resource Manager Tags to be associated with the compute resources created for the workload.
                 --service-account=: The IAM service account to be used for a batch/session job.
                 --staging-bucket=: The Cloud Storage bucket to use to store job dependencies, config files,
                 --subnet=: Subnetwork URI to connect network to.
@@ -181,6 +184,7 @@ commands:
                 --properties=: Specifies configuration properties for the workload.
                 --region=: ID of the region or fully qualified identifier for the region.
                 --request-id=: A unique ID that identifies the request.
+                --resource-manager-tag=: Resource Manager Tags to be associated with the compute resources created for the workload.
                 --service-account=: The IAM service account to be used for a batch/session job.
                 --staging-bucket=: The Cloud Storage bucket to use to store job dependencies, config files,
                 --subnet=: Subnetwork URI to connect network to.
@@ -211,6 +215,7 @@ commands:
                 --properties=: Specifies configuration properties for the workload.
                 --region=: ID of the region or fully qualified identifier for the region.
                 --request-id=: A unique ID that identifies the request.
+                --resource-manager-tag=: Resource Manager Tags to be associated with the compute resources created for the workload.
                 --service-account=: The IAM service account to be used for a batch/session job.
                 --staging-bucket=: The Cloud Storage bucket to use to store job dependencies, config files,
                 --subnet=: Subnetwork URI to connect network to.
@@ -240,6 +245,7 @@ commands:
                 --properties=: Specifies configuration properties for the workload.
                 --region=: ID of the region or fully qualified identifier for the region.
                 --request-id=: A unique ID that identifies the request.
+                --resource-manager-tag=: Resource Manager Tags to be associated with the compute resources created for the workload.
                 --service-account=: The IAM service account to be used for a batch/session job.
                 --staging-bucket=: The Cloud Storage bucket to use to store job dependencies, config files,
                 --subnet=: Subnetwork URI to connect network to.
@@ -260,11 +266,12 @@ commands:
           flags:
             --action-on-failed-primary-workers=: Failure action to take when primary workers fail during cluster creation.
             --async: Return immediately, without waiting for the operation in progress to
-            --auto-zone-exclude-zones=&: ""
+            --auto-zone-exclude-zones=: A comma-separated list of compute zones (such as `us-central1-a`)
             --autoscaling-policy=!: ID of the autoscaling policy or fully qualified identifier for the autoscaling policy.
             --bucket=: The Google Cloud Storage bucket to use by default to stage job
             --cluster-type=: The type of cluster.
-            --confidential-compute: Enables Confidential VM.
+            --confidential-compute: (DEPRECATED)         Enables Confidential VM.
+            --confidential-compute-type=: Enables Confidential VM.
             --dataproc-metastore=: Specify the name of a Dataproc Metastore service to be used as an
             --delete-expiration-time=: The time when the cluster will be auto-deleted, such as
             --delete-max-age=: The lifespan of the cluster, with auto-deletion upon completion,
@@ -279,7 +286,9 @@ commands:
             --driver-pool-size=: The size of the cluster driver pool.
             --enable-component-gateway: Enable access to the web UIs of selected components on the cluster through the component gateway.
             --enable-kerberos: Enable Kerberos on the cluster.
-            --enable-node-groups=&: Create cluster nodes using Dataproc NodeGroups.
+            --enable-node-groups&: Create cluster nodes using Dataproc NodeGroups.
+            --enable-ssh: Enable SSH access for the cluster.
+            --engine=: Cluster engine.
             --expiration-time=&: The time when the cluster will be auto-deleted, such as
             --gce-pd-kms-key-keyring=: The KMS keyring of the key.
             --gce-pd-kms-key-location=: The Google Cloud location for the key.
@@ -302,7 +311,7 @@ commands:
             --kms-project=: The Google Cloud project for the key.
             --labels=: List of label KEY=VALUE pairs to add.
             --master-accelerator=: Attaches accelerators, such as GPUs, to the master
-            --master-attached-disks=&: A list of disk configurations to attach to nodes.
+            --master-attached-disks=: A list of disk configurations to attach to each instance in this group.
             --master-boot-disk-provisioned-iops=: Indicates the [IOPS](https://cloud.google.com/compute/docs/disks/hyperdisks#iops)
             --master-boot-disk-provisioned-throughput=: Indicates the [throughput](https://cloud.google.com/compute/docs/disks/hyperdisks#throughput)
             --master-boot-disk-size-gb=&: (DEPRECATED) Use `--master-boot-disk-size` flag with "GB" after value.
@@ -310,7 +319,7 @@ commands:
             --master-boot-disk-type=: The type of the boot disk.
             --master-local-ssd-interface=: Interface to use to attach local SSDs to master node(s) in a cluster.
             --master-machine-type=: The type of machine to use for the master.
-            --master-machine-types=&: Types of machines with optional rank for master nodes to use.
+            --master-machine-types=: Types of machines with optional rank for master nodes to use.
             --master-min-cpu-platform=: When specified, the VM is scheduled on the host with a specified CPU
             --max-age=&: The lifespan of the cluster, with auto-deletion upon completion,
             --max-idle=&: The duration after the last job completes to autto-delete the
@@ -324,9 +333,11 @@ commands:
             --network=: The Compute Engine network that the VM instances of the cluster will be
             --no-address: If provided, the instances in the cluster will not be assigned external
             --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-confidential-compute&: Enables Confidential VM.
+            --no-confidential-compute&: (DEPRECATED)         Enables Confidential VM.
             --no-enable-component-gateway&: Enable access to the web UIs of selected components on the cluster through the component gateway.
             --no-enable-kerberos&: Enable Kerberos on the cluster.
+            --no-enable-node-groups&: Create cluster nodes using Dataproc NodeGroups.
+            --no-enable-ssh&: Enable SSH access for the cluster.
             --no-public-ip-address&: If provided, cluster instances are assigned external IP addresses.
             --no-shielded-integrity-monitoring&: Enables monitoring and attestation of the boot integrity of the
             --no-shielded-secure-boot&: The cluster's VMs will boot with secure boot enabled.
@@ -355,7 +366,7 @@ commands:
             --resource-manager-tags=: Specifies a list of resource manager tags to apply to each cluster node (master and worker nodes).
             --scopes=: Specifies scopes for the node instances.
             --secondary-worker-accelerator=: Attaches accelerators, such as GPUs, to the secondary-worker
-            --secondary-worker-attached-disks=&: A list of disk configurations to attach to nodes.
+            --secondary-worker-attached-disks=: A list of disk configurations to attach to each instance in this group.
             --secondary-worker-boot-disk-provisioned-iops=&: Indicates the [IOPS](https://cloud.google.com/compute/docs/disks/hyperdisks#iops)
             --secondary-worker-boot-disk-provisioned-throughput=&: Indicates the [throughput](https://cloud.google.com/compute/docs/disks/hyperdisks#throughput)
             --secondary-worker-boot-disk-size=: The size of the boot disk.
@@ -377,10 +388,10 @@ commands:
             --subnet=: Specifies the subnet that the cluster will be part of.
             --tags=: Specifies a list of tags to apply to the instance.
             --temp-bucket=: The Google Cloud Storage bucket to use by default to store
-            --tier=: Cluster tier.
+            --tier=&: (DEPRECATED) Cluster tier
             --timeout=&: Client side timeout on how long to wait for Dataproc operations.
             --worker-accelerator=: Attaches accelerators, such as GPUs, to the worker
-            --worker-attached-disks=&: A list of disk configurations to attach to nodes.
+            --worker-attached-disks=: A list of disk configurations to attach to each instance in this group.
             --worker-boot-disk-provisioned-iops=: Indicates the [IOPS](https://cloud.google.com/compute/docs/disks/hyperdisks#iops)
             --worker-boot-disk-provisioned-throughput=: Indicates the [throughput](https://cloud.google.com/compute/docs/disks/hyperdisks#throughput)
             --worker-boot-disk-size-gb=&: (DEPRECATED) Use `--worker-boot-disk-size` flag with "GB" after value.
@@ -390,7 +401,7 @@ commands:
             --worker-machine-type=: The type of machine to use for primary workers.
             --worker-machine-types=: '[Machine types](https://cloud.google.com/dataproc/docs/concepts/compute/supported-machine-types) for primary worker nodes to use with optional rank.'
             --worker-min-cpu-platform=: When specified, the VM is scheduled on the host with a specified CPU
-            --zone=: The compute zone (e.g. us-central1-a) for the cluster.
+            --zone=: The compute zone (such as `us-central1-a`) for the cluster.
           completion:
             flag:
                 action-on-failed-primary-workers:
@@ -401,6 +412,13 @@ commands:
                     - standard
                     - single-node
                     - zero-scale
+                confidential-compute-type:
+                    - SEV
+                    - SEV_SNP
+                    - TDX
+                engine:
+                    - default
+                    - lightning
                 private-ipv6-google-access-type:
                     - inherit-subnetwork
                     - outbound
@@ -1186,16 +1204,19 @@ commands:
         - name: set-managed-cluster
           description: Set a managed cluster for the workflow template.
           flags:
-            --auto-zone-exclude-zones=&: ""
+            --auto-zone-exclude-zones=: A comma-separated list of compute zones (such as `us-central1-a`)
             --autoscaling-policy=!: ID of the autoscaling policy or fully qualified identifier for the autoscaling policy.
             --bucket=: The Google Cloud Storage bucket to use by default to stage job
             --cluster-name=: The name of the managed dataproc cluster.
             --cluster-type=: The type of cluster.
-            --confidential-compute: Enables Confidential VM.
+            --confidential-compute: (DEPRECATED)         Enables Confidential VM.
+            --confidential-compute-type=: Enables Confidential VM.
             --dataproc-metastore=: Specify the name of a Dataproc Metastore service to be used as an
             --enable-component-gateway: Enable access to the web UIs of selected components on the cluster through the component gateway.
             --enable-kerberos: Enable Kerberos on the cluster.
-            --enable-node-groups=&: Create cluster nodes using Dataproc NodeGroups.
+            --enable-node-groups&: Create cluster nodes using Dataproc NodeGroups.
+            --enable-ssh: Enable SSH access for the cluster.
+            --engine=: Cluster engine.
             --identity-config-file=: Path to a YAML (or JSON) file containing the configuration for Secure Multi-Tenancy
             --image-version=: The image version to use for the cluster.
             --image=: The custom image used to create the cluster.
@@ -1213,14 +1234,14 @@ commands:
             --kms-project=: The Google Cloud project for the key.
             --labels=: List of label KEY=VALUE pairs to add.
             --master-accelerator=: Attaches accelerators, such as GPUs, to the master
-            --master-attached-disks=&: A list of disk configurations to attach to nodes.
+            --master-attached-disks=: A list of disk configurations to attach to each instance in this group.
             --master-boot-disk-provisioned-iops=: Indicates the [IOPS](https://cloud.google.com/compute/docs/disks/hyperdisks#iops)
             --master-boot-disk-provisioned-throughput=: Indicates the [throughput](https://cloud.google.com/compute/docs/disks/hyperdisks#throughput)
             --master-boot-disk-size=: The size of the boot disk.
             --master-boot-disk-type=: The type of the boot disk.
             --master-local-ssd-interface=: Interface to use to attach local SSDs to master node(s) in a cluster.
             --master-machine-type=: The type of machine to use for the master.
-            --master-machine-types=&: Types of machines with optional rank for master nodes to use.
+            --master-machine-types=: Types of machines with optional rank for master nodes to use.
             --master-min-cpu-platform=: When specified, the VM is scheduled on the host with a specified CPU
             --metadata=: Metadata to be made available to the guest operating system running on the instances
             --metric-overrides-file=: Path to a file containing list of Metrics that override the default metrics enabled for the metric sources.
@@ -1231,9 +1252,11 @@ commands:
             --min-worker-fraction=&: Minimum fraction of worker nodes required to create the cluster.
             --network=: The Compute Engine network that the VM instances of the cluster will be
             --no-address: If provided, the instances in the cluster will not be assigned external
-            --no-confidential-compute&: Enables Confidential VM.
+            --no-confidential-compute&: (DEPRECATED)         Enables Confidential VM.
             --no-enable-component-gateway&: Enable access to the web UIs of selected components on the cluster through the component gateway.
             --no-enable-kerberos&: Enable Kerberos on the cluster.
+            --no-enable-node-groups&: Create cluster nodes using Dataproc NodeGroups.
+            --no-enable-ssh&: Enable SSH access for the cluster.
             --no-public-ip-address&: If provided, cluster instances are assigned external IP addresses.
             --no-shielded-integrity-monitoring&: Enables monitoring and attestation of the boot integrity of the
             --no-shielded-secure-boot&: The cluster's VMs will boot with secure boot enabled.
@@ -1261,7 +1284,7 @@ commands:
             --resource-manager-tags=: Specifies a list of resource manager tags to apply to each cluster node (master and worker nodes).
             --scopes=: Specifies scopes for the node instances.
             --secondary-worker-accelerator=: Attaches accelerators, such as GPUs, to the secondary-worker
-            --secondary-worker-attached-disks=&: A list of disk configurations to attach to nodes.
+            --secondary-worker-attached-disks=: A list of disk configurations to attach to each instance in this group.
             --secondary-worker-boot-disk-provisioned-iops=&: Indicates the [IOPS](https://cloud.google.com/compute/docs/disks/hyperdisks#iops)
             --secondary-worker-boot-disk-provisioned-throughput=&: Indicates the [throughput](https://cloud.google.com/compute/docs/disks/hyperdisks#throughput)
             --secondary-worker-boot-disk-size=: The size of the boot disk.
@@ -1280,10 +1303,10 @@ commands:
             --subnet=: Specifies the subnet that the cluster will be part of.
             --tags=: Specifies a list of tags to apply to the instance.
             --temp-bucket=: The Google Cloud Storage bucket to use by default to store
-            --tier=: Cluster tier.
+            --tier=&: (DEPRECATED) Cluster tier
             --timeout=&: Client side timeout on how long to wait for Dataproc operations.
             --worker-accelerator=: Attaches accelerators, such as GPUs, to the worker
-            --worker-attached-disks=&: A list of disk configurations to attach to nodes.
+            --worker-attached-disks=: A list of disk configurations to attach to each instance in this group.
             --worker-boot-disk-provisioned-iops=: Indicates the [IOPS](https://cloud.google.com/compute/docs/disks/hyperdisks#iops)
             --worker-boot-disk-provisioned-throughput=: Indicates the [throughput](https://cloud.google.com/compute/docs/disks/hyperdisks#throughput)
             --worker-boot-disk-size=: The size of the boot disk.
@@ -1292,13 +1315,20 @@ commands:
             --worker-machine-type=: The type of machine to use for primary workers.
             --worker-machine-types=: '[Machine types](https://cloud.google.com/dataproc/docs/concepts/compute/supported-machine-types) for primary worker nodes to use with optional rank.'
             --worker-min-cpu-platform=: When specified, the VM is scheduled on the host with a specified CPU
-            --zone=: The compute zone (e.g. us-central1-a) for the cluster.
+            --zone=: The compute zone (such as `us-central1-a`) for the cluster.
           completion:
             flag:
                 cluster-type:
                     - standard
                     - single-node
                     - zero-scale
+                confidential-compute-type:
+                    - SEV
+                    - SEV_SNP
+                    - TDX
+                engine:
+                    - default
+                    - lightning
                 private-ipv6-google-access-type:
                     - inherit-subnetwork
                     - outbound
