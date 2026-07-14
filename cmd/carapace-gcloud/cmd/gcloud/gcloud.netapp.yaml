@@ -141,6 +141,7 @@ commands:
                 --labels=: List of label KEY=VALUE pairs to add.
                 --location=: The location of the backup.
                 --no-async&: Return immediately, without waiting for the operation in progress to
+                --ontap-source=: ONTAP source for the backup.
                 --source-snapshot=!: ID of the snapshot or fully qualified identifier for the snapshot.
                 --source-volume=: ID of the volume or fully qualified identifier for the volume.
             - name: delete
@@ -184,7 +185,7 @@ commands:
             --async: Return immediately, without waiting for the operation in progress to
             --backup-retention-policy=: Backup Retention Policy of the Backup Vault.
             --description=: A description of the Cloud NetApp Backup Vault
-            --kms-config=&: ID of the kms_config or fully qualified identifier for the kms_config.
+            --kms-config=!: ID of the kms_config or fully qualified identifier for the kms_config.
             --labels=: List of label KEY=VALUE pairs to add.
             --location=: The location of the backup_vault.
             --no-async&: Return immediately, without waiting for the operation in progress to
@@ -381,10 +382,12 @@ commands:
             --kms-config=!: ID of the kms_config or fully qualified identifier for the kms_config.
             --labels=: List of label KEY=VALUE pairs to add.
             --location=: The location of the storage_pool.
+            --mode=: The mode of the Storage Pool.
             --network=!: Network configuration for a Cloud NetApp Files Storage Pool.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --qos-type=: Quality of service (QoS) type for the Storage Pool.
             --replica-zone=: String indicating replica zone for the Storage Pool
+            --scale-type=: The scale type of the Storage Pool.
             --service-level=!: The service level for the Cloud NetApp Storage Pool.
             --total-iops=: Integer indicating total IOPS of the Storage Pool
             --total-throughput=: The total throughput of the Storage Pool in MiB/s or GiB/s units.
@@ -392,10 +395,16 @@ commands:
             --zone=: String indicating active zone of the Storage Pool
           completion:
             flag:
+                mode:
+                    - default
+                    - ontap
                 qos-type:
                     - auto
                     - manual
                     - qos-type-unspecified
+                scale-type:
+                    - default
+                    - scaleout
                 service-level:
                     - extreme
                     - flex
@@ -414,6 +423,10 @@ commands:
           description: Show metadata for a Cloud NetApp Storage Pool.
           flags:
             --location=: The location of the storage_pool.
+        - name: execute
+          description: Execute an ONTAP CLI command.
+          flags:
+            --location=: The location of the storage_pool.
         - name: list
           description: List Cloud NetApp Storage Pools.
           flags:
@@ -424,6 +437,27 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: list-backup-configs
+          description: List backup configurations for all volumes in an ONTAP-mode Storage Pool.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: The location of the storage_pool.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: restore-volume
+          description: Restore a backup to a volume in a specified ONTAP-mode Storage Pool.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --backup-vault=: The Backup Vault of the backup.
+            --backup=!: ID of the backup or fully qualified identifier for the backup.
+            --file-list=: List of files to be restored in the form of their absolute path as in source volume.
+            --location=: The location of the storage_pool.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --restore-destination-path=: Name of the absolute directory path in the destination volume.
+            --volume-uuid=!: The UUID of the ONTAP-mode volume to restore to.
         - name: switch
           description: Switch a Regional Cloud NetApp Flex Storage Pool zone.
           flags:
@@ -455,6 +489,14 @@ commands:
                     - auto
                     - manual
                     - qos-type-unspecified
+        - name: update-backup-config
+          description: Update backup config of a volume in an ONTAP-mode Storage Pool.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --backup-config=!: Backup Config contains backup related config on a volume in ONTAP-mode Storage Pool.
+            --location=: The location of the storage_pool.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --volume-uuid=!: The UUID of the volume to update backup config for.
         - name: validate-directory-service
           description: Validate directory service for a Cloud Netapp storage pool.
           flags:
@@ -473,17 +515,21 @@ commands:
             --backup-vault=: The Backup Vault of the backup.
             --block-devices=: A block device to be created with the volume.
             --cache-parameters=: Cache Parameters contains cache parameters of a volume.
+            --cache-pre-populate=: Cache Pre-populate contains cache pre-populate parameters of a volume.
             --capacity=!: The desired capacity of the Volume in GiB or TiB units.If no capacity unit is specified, GiB is assumed.
             --description=: A description of the Cloud NetApp Volume
             --enable-kerberos=: Boolean flag indicating whether Volume is a kerberos Volume or not
             --export-policy=: Export Policy of a Cloud NetApp Files Volume.
             --hybrid-replication-parameters=: Hybrid Replication Parameters contains hybrid replication parameters on a volume.
             --labels=: List of label KEY=VALUE pairs to add.
+            --large-capacity-config=:
+                description: Large Capacity Config contains configuration for large capacity volumes.
+                nargs: -1
             --large-capacity=: Boolean flag indicating whether Volume is a large capacity Volume or not
             --location=: The location of the volume.
             --multiple-endpoints=: Boolean flag indicating whether Volume is a multiple endpoints Volume or not
             --no-async&: Return immediately, without waiting for the operation in progress to
-            --protocols=!: Type of File System protocols for the Cloud NetApp Files Volume.
+            --protocols=!: Type of File System protocols for the Cloud NetApp Volume.
             --restricted-actions=: Actions to be restricted for a volume.
             --security-style=: The security style of the Volume.
             --share-name=: Share name of the Mount path clients will use.
@@ -517,6 +563,16 @@ commands:
           description: Show metadata for a Cloud NetApp Volume.
           flags:
             --location=: The location of the volume.
+        - name: establish-peering
+          description: Establish peering for Cache Volumes.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location of the volume.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --peer-cluster-name=!: Name of the destination cluster to be peered
+            --peer-ip-addresses=: List of ip addresses to be used for peering.
+            --peer-svm-name=!: Name of the local source vserver svm to be peered
+            --peer-volume-name=!: Name of the source volume to be peered
         - name: list
           description: List Cloud NetApp Volumes.
           flags:
@@ -743,6 +799,7 @@ commands:
             --backup-vault=: The Backup Vault of the backup.
             --block-devices=: A block device to be created with the volume.
             --cache-parameters=: Cache Parameters contains cache parameters of a volume.
+            --cache-pre-populate=: Cache Pre-populate contains cache pre-populate parameters of a volume.
             --capacity=: The desired capacity of the Volume in GiB or TiB units.If no capacity unit is specified, GiB is assumed.
             --clear-labels: Remove all labels.
             --description=: A description of the Cloud NetApp Volume
@@ -751,7 +808,7 @@ commands:
             --location=: The location of the volume.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-clear-labels&: Remove all labels.
-            --protocols=: Type of File System protocols for the Cloud NetApp Files Volume.
+            --protocols=: Type of File System protocols for the Cloud NetApp Volume.
             --remove-labels=: List of label keys to remove.
             --restricted-actions=: Actions to be restricted for a volume.
             --security-style=: The security style of the Volume.

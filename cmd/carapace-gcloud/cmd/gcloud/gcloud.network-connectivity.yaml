@@ -611,6 +611,80 @@ commands:
           flags:
             --global: Indicates that the spoke is global.
             --region=: A Google Cloud region.
+        - name: gateways
+          description: Manage Gateway spokes.
+          commands:
+            - name: advertised-routes
+              description: Manage gateway advertised routes.
+              commands:
+                - name: create
+                  description: Create a new gateway advertised route.
+                  flags:
+                    --advertise-to-hub: The gateway should advertise this route toward the hub.
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --description=: Description of the advertised route to be created.
+                    --ip-range=!: Advertise this IP range.
+                    --labels=: List of label KEY=VALUE pairs to add.
+                    --no-advertise-to-hub&: The gateway should advertise this route toward the hub.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --priority=: This route's priority.
+                    --region=: The location Id.
+                    --spoke=: Id of the spoke.
+                - name: delete
+                  description: Delete a gateway advertised route.
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --region=: The location Id.
+                    --spoke=: Id of the spoke.
+                - name: describe
+                  description: Describe a gateway advertised route.
+                  flags:
+                    --region=: The location Id.
+                    --spoke=: Id of the spoke.
+                - name: list
+                  description: List gateway advertised routes.
+                  flags:
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --page-size=: Some services group resource list output into pages.
+                    --region=: The location ID.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --spoke=: ID of the spoke or fully qualified identifier for the spoke.
+            - name: create
+              description: Create a new Gateway spoke.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --capacity=!: Set the capacity of the gateway in Gbps.
+                --description=: Description of the spoke to create.
+                --group=!: Group that the spoke will be part of.
+                --hub=!: Hub that the spoke will attach to.
+                --ip-range-reservations=!: The IP range reservation for the spoke.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --region=!: A Google Cloud region.
+              completion:
+                flag:
+                    capacity:
+                        - 10g
+                        - 1g
+            - name: update
+              description: Update a Gateway spoke.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --capacity=: New gateway capacity of the spoke.
+                --clear-labels: Remove all labels.
+                --description=: New description of the spoke.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Remove all labels.
+                --region=: The location Id.
+                --remove-labels=: List of label keys to remove.
+                --update-labels=: List of label KEY=VALUE pairs to update.
+              completion:
+                flag:
+                    capacity:
+                        - 10g
+                        - 1g
         - name: linked-interconnect-attachments
           description: Manage VLAN attachment spokes.
           commands:
@@ -619,12 +693,12 @@ commands:
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
                 --description=: Description of the spoke to create.
-                --exclude-export-ranges=&: Dynamic routes overlapped/encompassed by exclude export ranges are excluded during export to hub.
-                --exclude-import-ranges=&: Hub routes overlapped/encompassed by exclude import ranges are excluded during import from hub.
+                --exclude-export-ranges=: Dynamic routes overlapped/encompassed by exclude export ranges are excluded during export to hub.
+                --exclude-import-ranges=: Hub routes overlapped/encompassed by exclude import ranges are excluded during import from hub.
                 --group=: The group that the spoke will be added to.
                 --hub=!: Hub that the spoke will attach to.
-                --include-export-ranges=&: Dynamic routes fully encompassed by include export ranges are included during export to hub.
-                --include-import-ranges=: IP address range(s) allowed to be imported from hub subnets.
+                --include-export-ranges=: Dynamic routes fully encompassed by include export ranges are included during export to hub.
+                --include-import-ranges=: Hub routes fully encompassed by include import ranges are included during import from hub.
                 --interconnect-attachments=!: VLAN attachments that the spoke provides connectivity to.
                 --labels=: List of label KEY=VALUE pairs to add.
                 --no-async&: Return immediately, without waiting for the operation in progress to
@@ -637,10 +711,10 @@ commands:
                 --async: Return immediately, without waiting for the operation in progress to
                 --clear-labels: Remove all labels.
                 --description=: New description of the spoke.
-                --exclude-export-ranges=&: Dynamic routes overlapped/encompassed by exclude export ranges are excluded during export to hub.
-                --exclude-import-ranges=&: Hub routes overlapped/encompassed by exclude import ranges are excluded during import from hub.
-                --include-export-ranges=&: Dynamic routes fully encompassed by include export ranges are included during export to hub.
-                --include-import-ranges=: IP address range(s) allowed to be imported from hub subnets.
+                --exclude-export-ranges=: Dynamic routes overlapped/encompassed by exclude export ranges are excluded during export to hub.
+                --exclude-import-ranges=: Hub routes overlapped/encompassed by exclude import ranges are excluded during import from hub.
+                --include-export-ranges=: Dynamic routes fully encompassed by include export ranges are included during export to hub.
+                --include-import-ranges=: Hub routes fully encompassed by include import ranges are included during import from hub.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-clear-labels&: Remove all labels.
                 --region=: The location Id.
@@ -656,7 +730,7 @@ commands:
                 --description=: Description of the spoke to create.
                 --exclude-export-ranges=: Subnet IP address range(s) to hide from other VPC networks that are
                 --global: Indicates that the spoke is global.
-                --group=&: Group that the spoke will be part of.
+                --group=: Group that the spoke will be part of.
                 --hub=!: Hub that the spoke will attach to.
                 --include-export-ranges=: Subnet IP address range(s) to export to other VPC networks that are
                 --labels=: List of label KEY=VALUE pairs to add.
@@ -686,12 +760,12 @@ commands:
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
                 --description=: Description of the spoke to create.
-                --exclude-export-ranges=&: Dynamic routes overlapped/encompassed by exclude export ranges are excluded during export to hub.
-                --exclude-import-ranges=&: Hub routes overlapped/encompassed by exclude import ranges are excluded during import from hub.
+                --exclude-export-ranges=: Dynamic routes overlapped/encompassed by exclude export ranges are excluded during export to hub.
+                --exclude-import-ranges=: Hub routes overlapped/encompassed by exclude import ranges are excluded during import from hub.
                 --group=: The group that the spoke will be added to.
                 --hub=!: Hub that the spoke will attach to.
-                --include-export-ranges=&: Dynamic routes fully encompassed by include export ranges are included during export to hub.
-                --include-import-ranges=: IP address range(s) allowed to be imported from hub subnets.
+                --include-export-ranges=: Dynamic routes fully encompassed by include export ranges are included during export to hub.
+                --include-import-ranges=: Hub routes fully encompassed by include import ranges are included during import from hub.
                 --labels=: List of label KEY=VALUE pairs to add.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-site-to-site-data-transfer&: Whether to enable site-to-site data transfer for this spoke.
@@ -704,10 +778,10 @@ commands:
                 --async: Return immediately, without waiting for the operation in progress to
                 --clear-labels: Remove all labels.
                 --description=: New description of the spoke.
-                --exclude-export-ranges=&: Dynamic routes overlapped/encompassed by exclude export ranges are excluded during export to hub.
-                --exclude-import-ranges=&: Hub routes overlapped/encompassed by exclude import ranges are excluded during import from hub.
-                --include-export-ranges=&: Dynamic routes fully encompassed by include export ranges are included during export to hub.
-                --include-import-ranges=: IP address range(s) allowed to be imported from hub subnets.
+                --exclude-export-ranges=: Dynamic routes overlapped/encompassed by exclude export ranges are excluded during export to hub.
+                --exclude-import-ranges=: Hub routes overlapped/encompassed by exclude import ranges are excluded during import from hub.
+                --include-export-ranges=: Dynamic routes fully encompassed by include export ranges are included during export to hub.
+                --include-import-ranges=: Hub routes fully encompassed by include import ranges are included during import from hub.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-clear-labels&: Remove all labels.
                 --region=: The location Id.
@@ -724,7 +798,7 @@ commands:
                 --description=: Description of the spoke to create.
                 --exclude-export-ranges=: Subnet IP address range(s) to hide from other VPC networks that are
                 --global: Indicates that the spoke is global.
-                --group=&: Group that the spoke will be part of.
+                --group=: Group that the spoke will be part of.
                 --hub=!: Hub that the spoke will attach to.
                 --include-export-ranges=: Subnet IP address range(s) to export to other VPC networks that are
                 --labels=: List of label KEY=VALUE pairs to add.
@@ -753,12 +827,12 @@ commands:
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
                 --description=: Description of the spoke to create.
-                --exclude-export-ranges=&: Dynamic routes overlapped/encompassed by exclude export ranges are excluded during export to hub.
-                --exclude-import-ranges=&: Hub routes overlapped/encompassed by exclude import ranges are excluded during import from hub.
+                --exclude-export-ranges=: Dynamic routes overlapped/encompassed by exclude export ranges are excluded during export to hub.
+                --exclude-import-ranges=: Hub routes overlapped/encompassed by exclude import ranges are excluded during import from hub.
                 --group=: The group that the spoke will be added to.
                 --hub=!: Hub that the spoke will attach to.
-                --include-export-ranges=&: Dynamic routes fully encompassed by include export ranges are included during export to hub.
-                --include-import-ranges=: IP address range(s) allowed to be imported from hub subnets.
+                --include-export-ranges=: Dynamic routes fully encompassed by include export ranges are included during export to hub.
+                --include-import-ranges=: Hub routes fully encompassed by include import ranges are included during import from hub.
                 --labels=: List of label KEY=VALUE pairs to add.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-site-to-site-data-transfer&: Whether to enable site-to-site data transfer for this spoke.
@@ -771,10 +845,10 @@ commands:
                 --async: Return immediately, without waiting for the operation in progress to
                 --clear-labels: Remove all labels.
                 --description=: New description of the spoke.
-                --exclude-export-ranges=&: Dynamic routes overlapped/encompassed by exclude export ranges are excluded during export to hub.
-                --exclude-import-ranges=&: Hub routes overlapped/encompassed by exclude import ranges are excluded during import from hub.
-                --include-export-ranges=&: Dynamic routes fully encompassed by include export ranges are included during export to hub.
-                --include-import-ranges=: IP address range(s) allowed to be imported from hub subnets.
+                --exclude-export-ranges=: Dynamic routes overlapped/encompassed by exclude export ranges are excluded during export to hub.
+                --exclude-import-ranges=: Hub routes overlapped/encompassed by exclude import ranges are excluded during import from hub.
+                --include-export-ranges=: Dynamic routes fully encompassed by include export ranges are included during export to hub.
+                --include-import-ranges=: Hub routes fully encompassed by include import ranges are included during import from hub.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-clear-labels&: Remove all labels.
                 --region=: The location Id.
@@ -789,3 +863,110 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --region=: A Google Cloud region.
             --sort-by=: Comma-separated list of resource field key names to sort by.
+    - name: transports
+      description: Manage Network Connectivity Center transports.
+      commands:
+        - name: create
+          description: Create a transport.
+          flags:
+            --activation-key=: Key from the remote provider to establish a connection over the Transport.
+            --advertised-routes=: List of routes to advertise from the VPC `network` toward the provider.
+            --async: Return immediately, without waiting for the operation in progress to
+            --bandwidth=!: Bandwidth of the transport to create.
+            --description=: Description of the transport.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --network=!: ID of the network or fully qualified identifier for the network.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: Google Cloud region for the transport.
+            --remote-account-id=!: Account ID in the remote provider to associate with the generated key.
+            --remote-profile=!: ID of the remoteTransportProfile or fully qualified identifier for the remoteTransportProfile.
+            --stack-type=: IP version of the routes to be exchanged.
+          completion:
+            flag:
+                bandwidth:
+                    - 100g
+                    - 100m
+                    - 10g
+                    - 1g
+                    - 200m
+                    - 20g
+                    - 2g
+                    - 300m
+                    - 400m
+                    - 500m
+                    - 50g
+                    - 50m
+                    - 5g
+                stack-type:
+                    - ipv4-ipv6
+                    - ipv4-only
+        - name: delete
+          description: Delete a transport.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The location Id.
+        - name: describe
+          description: Describe a transport.
+          flags:
+            --region=: The location Id.
+        - name: list
+          description: List transports.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: The region of the transports to list.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: remote-profiles
+          description: Manage Network Connectivity Center remote transport profiles.
+          commands:
+            - name: describe
+              description: Describe a remote transport profile.
+              flags:
+                --region=: The location Id.
+            - name: list
+              description: List remote transport profiles.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --region=: The region of the remote transport profiles to list.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a transport.
+          flags:
+            --advertised-routes=: List of routes to advertise from the VPC `network` toward the provider.
+            --async: Return immediately, without waiting for the operation in progress to
+            --bandwidth=: Bandwidth of the transport to create.
+            --clear-labels: Remove all labels.
+            --description=: Description of the transport.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --region=: The location Id.
+            --remove-labels=: List of label keys to remove.
+            --stack-type=: IP version of the routes to be exchanged.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+          completion:
+            flag:
+                bandwidth:
+                    - 100g
+                    - 100m
+                    - 10g
+                    - 1g
+                    - 200m
+                    - 20g
+                    - 2g
+                    - 300m
+                    - 400m
+                    - 500m
+                    - 50g
+                    - 50m
+                    - 5g
+                stack-type:
+                    - ipv4-ipv6
+                    - ipv4-only

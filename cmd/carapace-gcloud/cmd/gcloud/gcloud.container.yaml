@@ -2,6 +2,37 @@
 name: container
 description: Deploy and manage clusters of machines for running containers.
 commands:
+    - name: accelerator-network-profiles
+      description: A group of commands for managing Accelerator Network Profiles for GKE.
+      hidden: true
+      flags:
+        --location=: Compute zone or region (e.g. us-central1-a or us-central1) for the cluster.
+        --region=: Compute region (e.g. us-central1) for a regional cluster.
+        --zone=: Compute zone (e.g. us-central1-a) for a zonal cluster.
+      commands:
+        - name: create
+          description: Create an Accelerator Network Profile.
+          hidden: true
+          flags:
+            --annotations=&: A list of comma-separated key-value pairs to store small amounts of
+            --async: Return immediately, without waiting for the operation in progress to
+            --auto-config-host-nic-in-same-vpc&: If specified, all host Network Interface Cards (Diorite NICs) will be placed within
+            --auto-config-machine-type=&: Required when using any auto-configuration options.
+            --auto-config-mrdma-network-profile=&: The URL or ID of the Compute Engine Network Profile to associate with the accelerator NICs with MRDMA as type.
+            --auto-config-mrdma-vpc=&: The name of the VPC used for all MRDMA NICs.
+            --auto-create-local-mrdma-vpc&: If specified, the AcceleratorNetworkProfile automatically creates
+            --cluster=!&: The name of the cluster this profile will be associated with.
+            --description=&: A human-readable description of the profile.
+            --labels=&: A list of comma-separated key-value pairs to apply to this resource.
+            --location=: Compute zone or region (e.g. us-central1-a or us-central1) for the cluster.
+            --max-node-count=&: The maximum number of nodes this profile can support, influencing
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-auto-config-host-nic-in-same-vpc&: If specified, all host Network Interface Cards (Diorite NICs) will be placed within
+            --no-auto-create-local-mrdma-vpc&: If specified, the AcceleratorNetworkProfile automatically creates
+            --region=: Compute region (e.g. us-central1) for a regional cluster.
+            --tags=&: A list of comma-separated key-value pairs to bind as Cloud Tags to the
+            --timeout=: Timeout (in seconds) for waiting on the operation to complete.
+            --zone=: Compute zone (e.g. us-central1-a) for a zonal cluster.
     - name: ai
       description: Manage AI related workloads for GKE.
       commands:
@@ -23,25 +54,34 @@ commands:
                     --no-uri&: Print a list of resource URIs instead of the default output, and change the
                     --page-size=: Some services group resource list output into pages.
                     --pricing-model=: The pricing model to use to calculate token cost.
+                    --serving-stack-version=: The serving stack version.
+                    --serving-stack=: The serving stack to filter benchmarking data by.
                     --sort-by=: Comma-separated list of resource field key names to sort by.
                     --uri: Print a list of resource URIs instead of the default output, and change the
+                    --use-case=: If specified, results will only show profiles that match the provided use case.
             - name: list
               description: List compatible accelerator profiles.
               flags:
                 --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
                 --limit=: Maximum number of resources to list.
                 --model-server-version=: The model server version.
-                --model-server=: The model server version.
+                --model-server=: The model server.
                 --model=: The model.
                 --no-uri&: Print a list of resource URIs instead of the default output, and change the
                 --page-size=: Some services group resource list output into pages.
                 --pricing-model=: The pricing model to use to calculate token cost.
+                --serving-stack-version=: The serving stack version.
+                --serving-stack=: The serving stack to filter profiles by.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --target-cost-per-million-input-tokens=: The target cost per million input tokens to filter profiles by, unit is 1 USD up to 5 decimal places.
                 --target-cost-per-million-output-tokens=: The target cost per million output tokens to filter profiles by, unit is 1 USD up to 5 decimal places.
+                --target-input-length=: If specified, results will only show profiles that have an input length within 20% of the specified one.
+                --target-itl-milliseconds=: If specified, results will only show profiles with instance types that can meet the latency target and will show their throughput performances at the target inter-token latency (ITL).
                 --target-ntpot-milliseconds=: The target normalized time per output token (NTPOT) in milliseconds.
+                --target-output-length=: If specified, results will only show profiles that have an output length within 20% of the specified one.
                 --target-ttft-milliseconds=: The target time to first token (TTFT) in milliseconds.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+                --use-case=: If specified, results will only show profiles that match the provided use case.
             - name: manifests
               description: Generate optimized Kubernetes manifests.
               commands:
@@ -56,8 +96,12 @@ commands:
                     --namespace=: The namespace to deploy the manifests in.
                     --output-path=: The path to save the output to.
                     --output=: The output to display.
+                    --serving-stack-version=: The serving stack version.
+                    --serving-stack=: The serving stack to filter manifests by.
+                    --target-itl-milliseconds=: The target inter-token latency (ITL) in milliseconds.
                     --target-ntpot-milliseconds=: The maximum normalized time per output token (NTPOT) in milliseconds.
                     --target-ttft-milliseconds=: If specified, results will only show accelerators that can meet the latency target and will show their throughput performances at the target ttft target to achieve, the HPA manifest will not be generated.
+                    --use-case=: The manifest will be optimized for this use case.
                   completion:
                     flag:
                         output:
@@ -103,6 +147,47 @@ commands:
                     --page-size=: Some services group resource list output into pages.
                     --sort-by=: Comma-separated list of resource field key names to sort by.
                     --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: serving-stack-versions
+              description: List supported serving stack versions for GKE Inference Quickstart.
+              commands:
+                - name: list
+                  description: List supported serving stack versions that were used to generate the inference profiles.
+                  flags:
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --model-server=: The model server to filter serving stack versions by.
+                    --model=: The model to filter serving stack versions by.
+                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                    --page-size=: Some services group resource list output into pages.
+                    --serving-stack=!: The serving stack to filter serving stack versions by.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: serving-stacks
+              description: List supported serving stacks for GKE Inference Quickstart.
+              commands:
+                - name: list
+                  description: List supported serving stacks that were used to generate the inference profiles.
+                  flags:
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --model-server=: The model server to filter serving stacks by.
+                    --model=: The model to filter serving stacks by.
+                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                    --page-size=: Some services group resource list output into pages.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: use-case
+              description: List supported use cases for GKE Inference Quickstart.
+              commands:
+                - name: list
+                  description: List supported use cases that were used to generate the inference profiles.
+                  flags:
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                    --page-size=: Some services group resource list output into pages.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --uri: Print a list of resource URIs instead of the default output, and change the
     - name: attached
       description: Manage Attached clusters for running containers.
       commands:
@@ -134,7 +219,7 @@ commands:
                 --proxy-secret-name=!: Name of the Kubernetes secret that contains the HTTP/HTTPS
                 --proxy-secret-namespace=!: Namespace of the Kubernetes secret that contains the HTTP/HTTPS
             - name: get-credentials
-              description: Get credentials of an Attached cluster.
+              description: '*(DEPRECATED)*  Get credentials of an Attached cluster.'
               flags:
                 --auth-provider-cmd-path=&: Path to the executable for the auth provider field in kubeconfig.
                 --location=: Google Cloud location for the cluster.
@@ -1363,6 +1448,7 @@ commands:
                             - ecdsa-p256-sha256
                             - ecdsa-p384-sha384
                             - ecdsa-p521-sha512
+                            - ml-dsa-65
                             - rsa-pss-2048-sha256
                             - rsa-pss-3072-sha256
                             - rsa-pss-4096-sha256
@@ -1479,7 +1565,9 @@ commands:
             --anonymous-authentication-config=: Enable or restrict anonymous access to the cluster.
             --async: Return immediately, without waiting for the operation in progress to
             --auto-monitoring-scope=: Enables Auto-Monitoring for a specific scope within the cluster.
-            --autopilot-privileged-admission=&: '  Specify Cloud Storage object paths pointing to privileged workload allowlists'
+            --autopilot-cluster-policies=&: Add Autopilot cluster policies to the cluster.
+            --autopilot-general-profile=: Sets the Autopilot general profile for the cluster; possible values are `none` and `no-performance`.
+            --autopilot-privileged-admission=: Specifies which privileged workload allowlist paths can be referenced and
             --autopilot-workload-policies=: Add Autopilot workload policies to the cluster.
             --autoprovisioning-config-file=: Path of the JSON/YAML file which contains information about the
             --autoprovisioning-enable-insecure-kubelet-readonly-port: Enables the Kubelet's insecure read only port for Autoprovisioned
@@ -1512,11 +1600,12 @@ commands:
             --confidential-node-type=: Enable confidential nodes for the cluster.
             --containerd-config-from-file=: Path of the YAML file that contains containerd configuration entries like configuring access to private image registries.
             --control-plane-disk-encryption-key=: The Cloud KMS symmetric encryption cryptoKey that will be used to encrypt the control plane disks
-            --control-plane-egress=&: Configures the egress policy for the GKE control plane to control outbound
+            --control-plane-egress=: Configures the egress policy for the GKE control plane to control outbound
             --cp-disk-encryption-key=&: ""
             --create-subnetwork=: Create a new subnetwork for the cluster.
             --data-cache-count=: Specifies the number of local SSDs to be utilized for GKE Data Cache in the cluster.
             --database-encryption-key=: Enable Database Encryption.
+            --dataplane-optimization-mode=: Select scalability mode for dataplane v2.
             --dataplane-v2-observability-mode=: '(REMOVED) '
             --default-max-pods-per-node=: The default max number of pods per node for node pools in the cluster.
             --disable-additive-vpc-scope: Disables Additive VPC Scope.
@@ -1524,12 +1613,15 @@ commands:
             --disable-dataplane-v2-metrics: Stops exposing advanced datapath flow metrics on node port.
             --disable-default-snat: Disable default source NAT rules applied in cluster nodes.
             --disable-l4-lb-firewall-reconciliation: Disable reconciliation on the cluster for L4 Load Balancer VPC
+            --disable-multi-nic-lustre: Disable the Lustre CSI driver to automatically detect
             --disable-pod-cidr-overprovision&: Disables pod cidr overprovision on nodes.
+            --disable-pod-snapshots: Disable the Pod Snapshot feature on the cluster.
             --disk-size=: Size for node VM boot disks in GB.
             --disk-type=: Type of the node VM boot disk.
+            --enable-agent-sandbox: Enable the Agent Sandbox feature on the cluster.
             --enable-authorized-networks-on-private-endpoint: Enable enforcement of --master-authorized-networks CIDR ranges for
             --enable-auto-ipam: Enable the Auto IP Address Management (Auto IPAM) feature for the cluster.
-            --enable-autoprovisioning!: Enables  node autoprovisioning for a cluster.
+            --enable-autoprovisioning: Enables  node autoprovisioning for a cluster.
             --enable-autoprovisioning-autorepair!: Enable node autorepair for autoprovisioned node pools.
             --enable-autoprovisioning-autoupgrade!: Enable node autoupgrade for autoprovisioned node pools.
             --enable-autoprovisioning-blue-green-upgrade: Whether to use blue-green upgrade for the autoprovisioned node pool.
@@ -1556,7 +1648,7 @@ commands:
             --enable-google-cloud-access: When you enable Google Cloud Access, any public IP addresses owned by Google
             --enable-gvnic: Enable the use of GVNIC for this cluster.
             --enable-identity-service: Enable Identity Service component on the cluster.
-            --enable-image-streaming: Specifies whether to enable image streaming on cluster.
+            --enable-image-streaming: Enable Image Streaming for the cluster, allowing nodes to stream container
             --enable-insecure-binding-system-authenticated: Allow using `system:authenticated` as a subject in ClusterRoleBindings and RoleBindings.
             --enable-insecure-binding-system-unauthenticated: Allow using `system:unauthenticated` and `system:anonymous` as subjects in ClusterRoleBindings and RoleBindings.
             --enable-insecure-kubelet-readonly-port: Enables the Kubelet's insecure read only port.
@@ -1569,6 +1661,7 @@ commands:
             --enable-kubernetes-alpha: Enable Kubernetes alpha features on this cluster.
             --enable-kubernetes-unstable-apis=: Enable Kubernetes beta API features on this cluster.
             --enable-kuberun-alpha&: Enable Cloud Run alpha features on this cluster.
+            --enable-kueue-logging&: Enable Kueue component logging.
             --enable-l4-ilb-subsetting: Enable Subsetting for L4 ILB services created on this cluster.
             --enable-legacy-authorization: Enables the legacy ABAC authentication for the cluster.
             --enable-legacy-lustre-port: Allow the Lustre CSI driver to initialize LNet (the virtual network layer for Lustre kernel module) using port 6988.
@@ -1581,6 +1674,7 @@ commands:
             --enable-nested-virtualization: Enables the use of nested virtualization on the default initial node pool.
             --enable-network-egress-metering: Enable network egress metering on this cluster.
             --enable-network-policy: Enable network policy enforcement for this cluster.
+            --enable-pod-snapshots: Enable the Pod Snapshot feature on the cluster.
             --enable-private-endpoint: Cluster is managed using the private IP address of the master API endpoint.
             --enable-private-nodes: Cluster is created with no public IP addresses on the cluster nodes.
             --enable-ray-cluster-logging: Enable automatic log processing sidecar for Ray clusters.
@@ -1589,6 +1683,8 @@ commands:
             --enable-runtime-vulnerability-insight&: Enables the GKE Runtime Vulnerability Insight API's features.
             --enable-secret-manager: Enables the Secret Manager CSI driver provider component.
             --enable-secret-manager-rotation: Enables the rotation of secrets in the Secret Manager CSI driver
+            --enable-secret-sync: Enables the Secret Sync component.
+            --enable-secret-sync-rotation: Enables the rotation of secrets in the Secret Sync component.
             --enable-security-posture&: (DEPRECATED) Enables the GKE Security Posture API's features.
             --enable-service-externalips: Enables use of services with externalIPs field.
             --enable-shielded-nodes: Enable Shielded Nodes for this cluster.
@@ -1607,9 +1703,9 @@ commands:
             --gpudirect-strategy=&: Set the GPUDirect strategy for the node pool, the possible value is RDMA.
             --hpa-profile=: Set Horizontal Pod Autoscaler behavior.
             --image-family=&: /
-            --image-project=&: /
+            --image-project=: The Google Cloud project storing the Operating System image for the node pool.
             --image-type=: The image type to use for the cluster.
-            --image=&: A specific image to use on the new instances.
+            --image=: The Operating System image for the node pool.
             --in-transit-encryption=: Enable Dataplane V2 in-transit encryption.
             --ipv6-access-type=: IPv6 access type of the subnetwork.
             --issue-client-certificate: Issue a TLS client certificate with admin permissions.
@@ -1625,15 +1721,18 @@ commands:
             --logging-variant=: Specifies the logging variant that will be deployed on all the nodes
             --logging=: Set the components that have logging enabled.
             --machine-type=: The type of machine to use for nodes.
-            --maintenance-window-end=!: The end time for calculating the duration of the maintenance window,
+            --maintenance-minor-version-disruption-interval=: Set the minimum interval of time between minor version cluster upgrades.
+            --maintenance-patch-version-disruption-interval=: Set the minimum interval of time between patch version cluster upgrades.
+            --maintenance-window-duration=: The duration of maintenance windows, expressed as an [ISO 8601
+            --maintenance-window-end=: The end time for calculating the duration of the maintenance window,
             --maintenance-window-recurrence=!: An RFC 5545 RRULE, specifying how the window will recur.
             --maintenance-window-start=!: Start time of the first window (can occur in the past).
             --maintenance-window=: Set a time of day when you prefer maintenance to start on this cluster.
             --master-authorized-networks=: The list of CIDR blocks (up to 100 for private cluster, 50 for public cluster) that are allowed to connect to Kubernetes master through HTTPS.
             --master-ipv4-cidr=: IPv4 CIDR range to use for the master network.
             --max-accelerator=!: Sets maximum limit for a single type of accelerators (e.g. GPUs) in cluster.
-            --max-cpu=!: Maximum number of cores in the cluster.
-            --max-memory=!: Maximum memory in the cluster.
+            --max-cpu=: Maximum number of cores in the cluster.
+            --max-memory=: Maximum memory in the cluster.
             --max-nodes-per-pool=: The maximum number of nodes to allocate per default initial node pool.
             --max-nodes=: Maximum number of nodes per zone in the node pool.
             --max-pods-per-node=: The max number of pods per node for this node pool.
@@ -1655,9 +1754,11 @@ commands:
             --no-autoprovisioning-enable-insecure-kubelet-readonly-port&: Enables the Kubelet's insecure read only port for Autoprovisioned
             --no-disable-additive-vpc-scope&: Disables Additive VPC Scope.
             --no-disable-default-snat&: Disable default source NAT rules applied in cluster nodes.
+            --no-disable-multi-nic-lustre&: Disable the Lustre CSI driver to automatically detect
             --no-disable-pod-cidr-overprovision&: Disables pod cidr overprovision on nodes.
+            --no-enable-agent-sandbox&: Enable the Agent Sandbox feature on the cluster.
             --no-enable-authorized-networks-on-private-endpoint&: Enable enforcement of --master-authorized-networks CIDR ranges for
-            --no-enable-autoprovisioning!&: Enables  node autoprovisioning for a cluster.
+            --no-enable-autoprovisioning&: Enables  node autoprovisioning for a cluster.
             --no-enable-autoprovisioning-autorepair!&: Enable node autorepair for autoprovisioned node pools.
             --no-enable-autoprovisioning-autoupgrade!&: Enable node autoupgrade for autoprovisioned node pools.
             --no-enable-autoprovisioning-blue-green-upgrade&: Whether to use blue-green upgrade for the autoprovisioned node pool.
@@ -1682,7 +1783,7 @@ commands:
             --no-enable-google-cloud-access&: When you enable Google Cloud Access, any public IP addresses owned by Google
             --no-enable-gvnic&: ""
             --no-enable-identity-service&: Enable Identity Service component on the cluster.
-            --no-enable-image-streaming&: Specifies whether to enable image streaming on cluster.
+            --no-enable-image-streaming&: Enable Image Streaming for the cluster, allowing nodes to stream container
             --no-enable-insecure-binding-system-authenticated&: Allow using `system:authenticated` as a subject in ClusterRoleBindings and RoleBindings.
             --no-enable-insecure-binding-system-unauthenticated&: Allow using `system:unauthenticated` and `system:anonymous` as subjects in ClusterRoleBindings and RoleBindings.
             --no-enable-insecure-kubelet-readonly-port&: Enables the Kubelet's insecure read only port.
@@ -1694,6 +1795,7 @@ commands:
             --no-enable-kernel-module-signature-enforcement&: Enforces that kernel modules are signed on all new nodes in the cluster unless
             --no-enable-kubernetes-alpha&: Enable Kubernetes alpha features on this cluster.
             --no-enable-kuberun-alpha&: Enable Cloud Run alpha features on this cluster.
+            --no-enable-kueue-logging&: Enable Kueue component logging.
             --no-enable-l4-ilb-subsetting&: Enable Subsetting for L4 ILB services created on this cluster.
             --no-enable-legacy-authorization&: Enables the legacy ABAC authentication for the cluster.
             --no-enable-legacy-lustre-port&: Allow the Lustre CSI driver to initialize LNet (the virtual network layer for Lustre kernel module) using port 6988.
@@ -1714,6 +1816,8 @@ commands:
             --no-enable-runtime-vulnerability-insight&: Enables the GKE Runtime Vulnerability Insight API's features.
             --no-enable-secret-manager&: Enables the Secret Manager CSI driver provider component.
             --no-enable-secret-manager-rotation&: Enables the rotation of secrets in the Secret Manager CSI driver
+            --no-enable-secret-sync&: Enables the Secret Sync component.
+            --no-enable-secret-sync-rotation&: Enables the rotation of secrets in the Secret Sync component.
             --no-enable-security-posture&: (DEPRECATED) Enables the GKE Security Posture API's features.
             --no-enable-service-externalips&: Enables use of services with externalIPs field.
             --no-enable-shielded-nodes&: Enable Shielded Nodes for this cluster.
@@ -1726,6 +1830,8 @@ commands:
             --no-shielded-integrity-monitoring&: Enables monitoring and attestation of the boot integrity of the
             --no-shielded-secure-boot&: The instance will boot with secure boot enabled.
             --no-spot&: Create nodes using spot VM instances in the new cluster.
+            --node-architecture-taint-behavior=: Control how architecture taint should be applied to nodes in default node pool(s) in new
+            --node-creation-mode=: Configures node creation mode for the cluster, either via kubelet or via control plane.
             --node-labels=: Applies the given Kubernetes labels on all nodes in the new node pool.
             --node-locations=: The set of zones in which the specified node footprint should be replicated.
             --node-taints=: Applies the given kubernetes taints on all nodes in default node pool(s) in new
@@ -1748,6 +1854,7 @@ commands:
             --resource-usage-bigquery-dataset=: The name of the BigQuery dataset to which the cluster's usage of cloud
             --scopes=: Specifies scopes for the node instances.
             --secret-manager-rotation-interval=: Set the rotation period for secrets in the Secret Manager CSI driver
+            --secret-sync-rotation-interval=: Set the rotation period for secrets in the Secret Sync component.
             --security-group=: The name of the RBAC security group for use with Google security groups
             --security-posture=: Sets the mode of the Kubernetes security posture API's off-cluster features.
             --service-account-signing-keys=: A Cloud KMS asymmetric signing cryptoKeyVersion that will be used to sign service account tokens
@@ -1784,6 +1891,9 @@ commands:
                 auto-monitoring-scope:
                     - ALL
                     - NONE
+                autopilot-general-profile:
+                    - none
+                    - no-performance
                 binauthz-evaluation-mode:
                     - disabled
                     - project-singleton-policy-enforce
@@ -1801,6 +1911,9 @@ commands:
                 control-plane-egress:
                     - NONE
                     - VIA_CONTROL_PLANE
+                dataplane-optimization-mode:
+                    - DISABLED
+                    - SCALE_OPTIMIZED
                 dataplane-v2-observability-mode:
                     - DISABLED
                     - EXTERNAL_LB
@@ -1835,6 +1948,13 @@ commands:
                     - premium
                     - standard
                     - network-default
+                node-architecture-taint-behavior:
+                    - unspecified
+                    - arm
+                    - none
+                node-creation-mode:
+                    - CONTROL_PLANE
+                    - KUBELET
                 performance-monitoring-unit:
                     - architectural
                     - enhanced
@@ -1856,6 +1976,7 @@ commands:
                     - any
                     - none
                     - specific
+                    - any-reservation-then-fail
                 security-posture:
                     - disabled
                     - standard
@@ -1884,7 +2005,8 @@ commands:
             --anonymous-authentication-config=: Enable or restrict anonymous access to the cluster.
             --async: Return immediately, without waiting for the operation in progress to
             --auto-monitoring-scope=: Enables Auto-Monitoring for a specific scope within the cluster.
-            --autopilot-privileged-admission=&: '  Specify Cloud Storage object paths pointing to privileged workload allowlists'
+            --autopilot-general-profile=: Sets the Autopilot general profile for the cluster; possible values are `none` and `no-performance`.
+            --autopilot-privileged-admission=: Specifies which privileged workload allowlist paths can be referenced and
             --autoprovisioning-enable-insecure-kubelet-readonly-port: Enables the Kubelet's insecure read only port for Autoprovisioned
             --autoprovisioning-network-tags=: Applies the given Compute Engine tags (comma separated) on all nodes in the auto-provisioned node pools of the new Standard cluster or the new Autopilot cluster.
             --autoprovisioning-resource-manager-tags=: Applies the specified comma-separated resource manager tags that has the
@@ -1896,9 +2018,10 @@ commands:
             --cluster-version=: The Kubernetes version to use for the master and nodes.
             --compliance-standards=&: Comma-delimited list of standards to be enabled.
             --compliance=&: Sets enablement mode for Compliance.
+            --confidential-node-type=: Enable confidential nodes for the cluster.
             --containerd-config-from-file=: Path of the YAML file that contains containerd configuration entries like configuring access to private image registries.
             --control-plane-disk-encryption-key=: The Cloud KMS symmetric encryption cryptoKey that will be used to encrypt the control plane disks
-            --control-plane-egress=&: Configures the egress policy for the GKE control plane to control outbound
+            --control-plane-egress=: Configures the egress policy for the GKE control plane to control outbound
             --cp-disk-encryption-key=&: ""
             --create-subnetwork=: Create a new subnetwork for the cluster.
             --database-encryption-key=: Enable Database Encryption.
@@ -1906,6 +2029,9 @@ commands:
             --disable-additive-vpc-scope: Disables Additive VPC Scope.
             --disable-dataplane-v2-flow-observability: Disables Advanced Datapath Observability.
             --disable-l4-lb-firewall-reconciliation: Disable reconciliation on the cluster for L4 Load Balancer VPC
+            --disable-multi-nic-lustre: Disable the Lustre CSI driver to automatically detect
+            --disable-pod-snapshots: Disable the Pod Snapshot feature on the cluster.
+            --enable-agent-sandbox: Enable the Agent Sandbox feature on the cluster.
             --enable-authorized-networks-on-private-endpoint: Enable enforcement of --master-authorized-networks CIDR ranges for
             --enable-auto-ipam: Enable the Auto IP Address Management (Auto IPAM) feature for the cluster.
             --enable-backup-restore: Enable the Backup for GKE add-on.
@@ -1923,12 +2049,14 @@ commands:
             --enable-k8s-tokens-via-dns: Enable K8s Service Account tokens Authentication to the cluster's control plane over DNS-based endpoint.
             --enable-kernel-module-signature-enforcement: Enforces that kernel modules are signed on all new nodes in the cluster unless
             --enable-kubernetes-unstable-apis=: Enable Kubernetes beta API features on this cluster.
+            --enable-kueue-logging&: Enable Kueue component logging.
             --enable-legacy-lustre-port: Allow the Lustre CSI driver to initialize LNet (the virtual network layer for Lustre kernel module) using port 6988.
             --enable-lustre-csi-driver: Enable the Lustre CSI Driver GKE add-on.
             --enable-lustre-multi-nic&: Enable Lustre multi-NIC configuration for all new nodes in the cluster unless
             --enable-master-authorized-networks: Allow only specified set of CIDR blocks (specified by the
             --enable-master-global-access: Use with private clusters to allow access to the master's private endpoint from any Google Cloud region or on-premises environment regardless of the
             --enable-multi-networking: Enables multi-networking on the cluster.
+            --enable-pod-snapshots: Enable the Pod Snapshot feature on the cluster.
             --enable-private-endpoint: Cluster is managed using the private IP address of the master API endpoint.
             --enable-private-nodes: Cluster is created with no public IP addresses on the cluster nodes.
             --enable-ray-cluster-logging: Enable automatic log processing sidecar for Ray clusters.
@@ -1937,16 +2065,25 @@ commands:
             --enable-runtime-vulnerability-insight&: Enables the GKE Runtime Vulnerability Insight API's features.
             --enable-secret-manager: Enables the Secret Manager CSI driver provider component.
             --enable-secret-manager-rotation: Enables the rotation of secrets in the Secret Manager CSI driver
+            --enable-secret-sync: Enables the Secret Sync component.
+            --enable-secret-sync-rotation: Enables the rotation of secrets in the Secret Sync component.
             --enable-security-posture&: (DEPRECATED) Enables the GKE Security Posture API's features.
+            --enable-slurm-operator&: Enable the Slurm Operator GKE add-on.
             --etcd-api-ca=: The Certificate Authority Service caPool that will back the etcd API CA
             --etcd-peer-ca=: The Certificate Authority Service caPool that will back the etcd peer CA
             --fleet-project=: Sets fleet host project for the cluster.
             --gkeops-etcd-backup-encryption-key=: The Cloud KMS symmetric encryption cryptoKey that will be used to encrypt the disaster recovery etcd backups for the cluster
             --hpa-profile=: Set Horizontal Pod Autoscaler behavior.
+            --image-family=&: /
+            --image-project=: The Google Cloud project storing the Operating System image for the node pool.
+            --image-type=: The image type to use for the cluster.
+            --image=: The Operating System image for the node pool.
             --kubecontext-override=&: Name of kubectl context to use.
             --labels=: Labels to apply to the Google Cloud resources in use by the Kubernetes Engine
             --location=: Compute zone or region (e.g. us-central1-a or us-central1) for the cluster.
             --logging=: Set the components that have logging enabled.
+            --maintenance-minor-version-disruption-interval=: Set the minimum interval of time between minor version cluster upgrades.
+            --maintenance-patch-version-disruption-interval=: Set the minimum interval of time between patch version cluster upgrades.
             --master-authorized-networks=: The list of CIDR blocks (up to 100 for private cluster, 50 for public cluster) that are allowed to connect to Kubernetes master through HTTPS.
             --master-ipv4-cidr=: IPv4 CIDR range to use for the master network.
             --membership-type=: Specify a membership type for the cluster's fleet membership.
@@ -1955,6 +2092,8 @@ commands:
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-autoprovisioning-enable-insecure-kubelet-readonly-port&: Enables the Kubelet's insecure read only port for Autoprovisioned
             --no-disable-additive-vpc-scope&: Disables Additive VPC Scope.
+            --no-disable-multi-nic-lustre&: Disable the Lustre CSI driver to automatically detect
+            --no-enable-agent-sandbox&: Enable the Agent Sandbox feature on the cluster.
             --no-enable-authorized-networks-on-private-endpoint&: Enable enforcement of --master-authorized-networks CIDR ranges for
             --no-enable-backup-restore&: Enable the Backup for GKE add-on.
             --no-enable-cilium-clusterwide-network-policy&: Enable Cilium Clusterwide Network Policies on the cluster.
@@ -1969,6 +2108,7 @@ commands:
             --no-enable-k8s-certs-via-dns&: 'Enable K8s client certificates Authentication to the cluster''s control plane over DNS-based endpoint. '
             --no-enable-k8s-tokens-via-dns&: 'Enable K8s Service Account tokens Authentication to the cluster''s control plane over DNS-based endpoint. '
             --no-enable-kernel-module-signature-enforcement&: Enforces that kernel modules are signed on all new nodes in the cluster unless
+            --no-enable-kueue-logging&: Enable Kueue component logging.
             --no-enable-legacy-lustre-port&: Allow the Lustre CSI driver to initialize LNet (the virtual network layer for Lustre kernel module) using port 6988.
             --no-enable-lustre-csi-driver&: Enable the Lustre CSI Driver GKE add-on.
             --no-enable-lustre-multi-nic&: Enable Lustre multi-NIC configuration for all new nodes in the cluster unless
@@ -1983,12 +2123,17 @@ commands:
             --no-enable-runtime-vulnerability-insight&: Enables the GKE Runtime Vulnerability Insight API's features.
             --no-enable-secret-manager&: Enables the Secret Manager CSI driver provider component.
             --no-enable-secret-manager-rotation&: Enables the rotation of secrets in the Secret Manager CSI driver
+            --no-enable-secret-sync&: Enables the Secret Sync component.
+            --no-enable-secret-sync-rotation&: Enables the rotation of secrets in the Secret Sync component.
             --no-enable-security-posture&: (DEPRECATED) Enables the GKE Security Posture API's features.
+            --no-enable-slurm-operator&: Enable the Slurm Operator GKE add-on.
+            --node-creation-mode=: Configures node creation mode for the cluster, either via kubelet or via control plane.
             --private-endpoint-subnetwork=: Sets the subnetwork GKE uses to provision the control plane's
             --region=: Compute region (e.g. us-central1) for a regional cluster.
             --release-channel=: Release channel a cluster is subscribed to.
             --scopes=: Specifies scopes for the node instances.
             --secret-manager-rotation-interval=: Set the rotation period for secrets in the Secret Manager CSI driver
+            --secret-sync-rotation-interval=: Set the rotation period for secrets in the Secret Sync component.
             --security-group=: The name of the RBAC security group for use with Google security groups
             --security-posture=: Sets the mode of the Kubernetes security posture API's off-cluster features.
             --service-account-signing-keys=: A Cloud KMS asymmetric signing cryptoKeyVersion that will be used to sign service account tokens
@@ -2011,9 +2156,16 @@ commands:
                 auto-monitoring-scope:
                     - ALL
                     - NONE
+                autopilot-general-profile:
+                    - none
+                    - no-performance
                 binauthz-evaluation-mode:
                     - disabled
                     - project-singleton-policy-enforce
+                confidential-node-type:
+                    - sev
+                    - sev_snp
+                    - tdx
                 control-plane-egress:
                     - NONE
                     - VIA_CONTROL_PLANE
@@ -2023,6 +2175,9 @@ commands:
                     - INTERNAL_VPC_LB
                 membership-type:
                     - LIGHTWEIGHT
+                node-creation-mode:
+                    - CONTROL_PLANE
+                    - KUBELET
                 release-channel:
                     - extended
                     - rapid
@@ -2111,7 +2266,9 @@ commands:
             --anonymous-authentication-config=: Enable or restrict anonymous access to the cluster.
             --async: Return immediately, without waiting for the operation in progress to
             --auto-monitoring-scope=: Enables Auto-Monitoring for a specific scope within the cluster.
-            --autopilot-privileged-admission=&: '  Specify Cloud Storage object paths pointing to privileged workload allowlists'
+            --autopilot-cluster-policies=&: Add Autopilot cluster policies to the cluster.
+            --autopilot-general-profile=: Sets the Autopilot general profile for the cluster; possible values are `none` and `no-performance`.
+            --autopilot-privileged-admission=: Specifies which privileged workload allowlist paths can be referenced and
             --autopilot-workload-policies=: Add Autopilot workload policies to the cluster.
             --autoprovisioning-cgroup-mode=: Sets the cgroup mode for auto-provisioned nodes.
             --autoprovisioning-config-file=: Path of the JSON/YAML file which contains information about the
@@ -2130,6 +2287,8 @@ commands:
             --autoscaling-profile=: Set autoscaling behaviour, choices are 'optimize-utilization' and 'balanced'.
             --binauthz-evaluation-mode=: Enable Binary Authorization for this cluster.
             --clear-fleet-project: Remove the cluster from current fleet host project.
+            --clear-maintenance-minor-version-disruption-interval: Restore the default values for the minimum interval of time between minor version cluster upgrades.
+            --clear-maintenance-patch-version-disruption-interval: Restore the default values for the minimum interval of time between patch version cluster upgrades.
             --clear-maintenance-window: If set, remove the maintenance window that was set with --maintenance-window
             --clear-resource-usage-bigquery-dataset: Disables exporting cluster resource usage to BigQuery.
             --cloud-run-config=: Configurations for Cloud Run addon, requires `--addons=CloudRun` for create
@@ -2142,7 +2301,7 @@ commands:
             --compliance=&: Sets enablement mode for Compliance.
             --containerd-config-from-file=: Path of the YAML file that contains containerd configuration entries like configuring access to private image registries.
             --control-plane-disk-encryption-key=&: The Cloud KMS symmetric encryption cryptoKey that will be used to
-            --control-plane-egress=&: Configures the egress policy for the GKE control plane to control outbound
+            --control-plane-egress=: Configures the egress policy for the GKE control plane to control outbound
             --database-encryption-key=: Enable Database Encryption.
             --dataplane-v2-observability-mode=: '(REMOVED) '
             --disable-additive-vpc-scope: Disables Additive VPC Scope.
@@ -2154,12 +2313,15 @@ commands:
             --disable-default-snat: Disable default source NAT rules applied in cluster nodes.
             --disable-l4-lb-firewall-reconciliation: Disable reconciliation on the cluster for L4 Load Balancer VPC
             --disable-managed-prometheus: Disable managed collection for Managed Service for
+            --disable-multi-nic-lustre: Disable the Lustre CSI driver to automatically detect
+            --disable-pod-snapshots: Disable the Pod Snapshot feature on the cluster.
             --disable-workload-identity: Disable Workload Identity on the cluster.
             --drain-additional-ip-ranges=&: Set status of additional subnetworks named "my-subnet" to DRAINING.
+            --enable-agent-sandbox: Enable the Agent Sandbox feature on the cluster.
             --enable-authorized-networks-on-private-endpoint: Enable enforcement of --master-authorized-networks CIDR ranges for
             --enable-auto-ipam: Enable the Auto IP Address Management (Auto IPAM) feature for the cluster.
             --enable-autopilot-compatibility-auditing: Lets you run the
-            --enable-autoprovisioning!: Enables  node autoprovisioning for a cluster.
+            --enable-autoprovisioning: Enables  node autoprovisioning for a cluster.
             --enable-autoprovisioning-autorepair!: Enable node autorepair for autoprovisioned node pools.
             --enable-autoprovisioning-autoupgrade!: Enable node autoupgrade for autoprovisioned node pools.
             --enable-autoprovisioning-blue-green-upgrade: Whether to use blue-green upgrade for the autoprovisioned node pool.
@@ -2169,6 +2331,7 @@ commands:
             --enable-binauthz: (DEPRECATED) Enable Binary Authorization for this cluster.
             --enable-cilium-clusterwide-network-policy: Enable Cilium Clusterwide Network Policies on the cluster.
             --enable-cost-allocation: Enable the cost management feature.
+            --enable-dataplane-v2&: ""
             --enable-dataplane-v2-flow-observability: Enables Advanced Datapath Observability which allows for a real-time view into pod-to-pod traffic within your cluster.
             --enable-dataplane-v2-metrics: Exposes advanced datapath flow metrics on node port.
             --enable-default-compute-class: Enable the default compute class to use for the cluster.
@@ -2177,7 +2340,7 @@ commands:
             --enable-fqdn-network-policy: Enable FQDN Network Policies on the cluster.
             --enable-google-cloud-access: When you enable Google Cloud Access, any public IP addresses owned by Google
             --enable-identity-service: Enable Identity Service component on the cluster.
-            --enable-image-streaming: Specifies whether to enable image streaming on cluster.
+            --enable-image-streaming: Enable Image Streaming for the cluster, allowing nodes to stream container
             --enable-insecure-binding-system-authenticated: Allow using `system:authenticated` as a subject in ClusterRoleBindings and RoleBindings.
             --enable-insecure-binding-system-unauthenticated: Allow using `system:unauthenticated` and `system:anonymous` as subjects in ClusterRoleBindings and RoleBindings.
             --enable-insecure-kubelet-readonly-port: Enables the Kubelet's insecure read only port.
@@ -2187,6 +2350,7 @@ commands:
             --enable-k8s-tokens-via-dns: Enable K8s Service Account tokens Authentication to the cluster's control plane over DNS-based endpoint.
             --enable-kernel-module-signature-enforcement: Enforces that kernel modules are signed on all new nodes in the cluster unless
             --enable-kubernetes-unstable-apis=: Enable Kubernetes beta API features on this cluster.
+            --enable-kueue-logging&: Enable Kueue component logging.
             --enable-l4-ilb-subsetting: Enable Subsetting for L4 ILB services created on this cluster.
             --enable-l4-lb-firewall-reconciliation: Enable reconciliation on the cluster for L4 Load Balancer VPC
             --enable-legacy-authorization: Enables the legacy ABAC authentication for the cluster.
@@ -2198,6 +2362,7 @@ commands:
             --enable-multi-networking: Enables multi-networking on the cluster.
             --enable-network-egress-metering: Enable network egress metering on this cluster.
             --enable-network-policy: Enable network policy enforcement for this cluster.
+            --enable-pod-snapshots: Enable the Pod Snapshot feature on the cluster.
             --enable-private-endpoint: Enables cluster's control plane to be accessible using private IP
             --enable-private-nodes: 'Standard cluster:'
             --enable-ray-cluster-logging: Enable automatic log processing sidecar for Ray clusters.
@@ -2206,6 +2371,8 @@ commands:
             --enable-runtime-vulnerability-insight&: Enables the GKE Runtime Vulnerability Insight API's features.
             --enable-secret-manager: Enables the Secret Manager CSI driver provider component.
             --enable-secret-manager-rotation: Enables the rotation of secrets in the Secret Manager CSI driver
+            --enable-secret-sync: Enables the Secret Sync component.
+            --enable-secret-sync-rotation: Enables the rotation of secrets in the Secret Sync component.
             --enable-security-posture&: (DEPRECATED) Enables the GKE Security Posture API's features.
             --enable-service-externalips: Enables use of services with externalIPs field.
             --enable-shielded-nodes: Enable Shielded Nodes for this cluster.
@@ -2223,7 +2390,10 @@ commands:
             --logging-service=: (DEPRECATED) Logging service to use for the cluster.
             --logging-variant=: Specifies the logging variant that will be deployed on all the nodes
             --logging=: Set the components that have logging enabled.
-            --maintenance-window-end=!: The end time for calculating the duration of the maintenance window,
+            --maintenance-minor-version-disruption-interval=: Set the minimum interval of time between minor version cluster upgrades.
+            --maintenance-patch-version-disruption-interval=: Set the minimum interval of time between patch version cluster upgrades.
+            --maintenance-window-duration=: The duration of maintenance windows, expressed as an [ISO 8601
+            --maintenance-window-end=: The end time for calculating the duration of the maintenance window,
             --maintenance-window-recurrence=!: An RFC 5545 RRULE, specifying how the window will recur.
             --maintenance-window-start=!: Start time of the first window (can occur in the past).
             --maintenance-window=: Set a time of day when you prefer maintenance to start on this cluster.
@@ -2245,6 +2415,8 @@ commands:
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-autoprovisioning-enable-insecure-kubelet-readonly-port&: Enables the Kubelet's insecure read only port for Autoprovisioned
             --no-clear-fleet-project&: ""
+            --no-clear-maintenance-minor-version-disruption-interval&: Restore the default values for the minimum interval of time between minor version cluster upgrades.
+            --no-clear-maintenance-patch-version-disruption-interval&: Restore the default values for the minimum interval of time between patch version cluster upgrades.
             --no-clear-maintenance-window&: If set, remove the maintenance window that was set with --maintenance-window
             --no-clear-resource-usage-bigquery-dataset&: Disables exporting cluster resource usage to BigQuery.
             --no-complete-credential-rotation&: Complete the IP and credential rotation for this cluster.
@@ -2254,10 +2426,12 @@ commands:
             --no-disable-database-encryption&: Disable database encryption.
             --no-disable-default-snat&: Disable default source NAT rules applied in cluster nodes.
             --no-disable-managed-prometheus&: Disable managed collection for Managed Service for
+            --no-disable-multi-nic-lustre&: Disable the Lustre CSI driver to automatically detect
             --no-disable-workload-identity&: Disable Workload Identity on the cluster.
+            --no-enable-agent-sandbox&: Enable the Agent Sandbox feature on the cluster.
             --no-enable-authorized-networks-on-private-endpoint&: Enable enforcement of --master-authorized-networks CIDR ranges for
             --no-enable-autopilot-compatibility-auditing&: Lets you run the
-            --no-enable-autoprovisioning!&: Enables  node autoprovisioning for a cluster.
+            --no-enable-autoprovisioning&: Enables  node autoprovisioning for a cluster.
             --no-enable-autoprovisioning-autorepair!&: Enable node autorepair for autoprovisioned node pools.
             --no-enable-autoprovisioning-autoupgrade!&: Enable node autoupgrade for autoprovisioned node pools.
             --no-enable-autoprovisioning-blue-green-upgrade&: Whether to use blue-green upgrade for the autoprovisioned node pool.
@@ -2267,13 +2441,14 @@ commands:
             --no-enable-binauthz&: (DEPRECATED) Enable Binary Authorization for this cluster.
             --no-enable-cilium-clusterwide-network-policy&: Enable Cilium Clusterwide Network Policies on the cluster.
             --no-enable-cost-allocation&: ""
+            --no-enable-dataplane-v2&: ""
             --no-enable-default-compute-class&: Enable the default compute class to use for the cluster.
             --no-enable-dns-access&: Enable access to the cluster's control plane over DNS-based endpoint.
             --no-enable-fleet&: ""
             --no-enable-fqdn-network-policy&: Enable FQDN Network Policies on the cluster.
             --no-enable-google-cloud-access&: When you enable Google Cloud Access, any public IP addresses owned by Google
             --no-enable-identity-service&: Enable Identity Service component on the cluster.
-            --no-enable-image-streaming&: Specifies whether to enable image streaming on cluster.
+            --no-enable-image-streaming&: Enable Image Streaming for the cluster, allowing nodes to stream container
             --no-enable-insecure-binding-system-authenticated&: Allow using `system:authenticated` as a subject in ClusterRoleBindings and RoleBindings.
             --no-enable-insecure-binding-system-unauthenticated&: Allow using `system:unauthenticated` and `system:anonymous` as subjects in ClusterRoleBindings and RoleBindings.
             --no-enable-insecure-kubelet-readonly-port&: Enables the Kubelet's insecure read only port.
@@ -2282,6 +2457,7 @@ commands:
             --no-enable-k8s-certs-via-dns&: 'Enable K8s client certificates Authentication to the cluster''s control plane over DNS-based endpoint. '
             --no-enable-k8s-tokens-via-dns&: 'Enable K8s Service Account tokens Authentication to the cluster''s control plane over DNS-based endpoint. '
             --no-enable-kernel-module-signature-enforcement&: Enforces that kernel modules are signed on all new nodes in the cluster unless
+            --no-enable-kueue-logging&: Enable Kueue component logging.
             --no-enable-l4-ilb-subsetting&: Enable Subsetting for L4 ILB services created on this cluster.
             --no-enable-legacy-authorization&: Enables the legacy ABAC authentication for the cluster.
             --no-enable-legacy-lustre-port&: Allow the Lustre CSI driver to initialize LNet (the virtual network layer for Lustre kernel module) using port 6988.
@@ -2300,6 +2476,8 @@ commands:
             --no-enable-runtime-vulnerability-insight&: Enables the GKE Runtime Vulnerability Insight API's features.
             --no-enable-secret-manager&: Enables the Secret Manager CSI driver provider component.
             --no-enable-secret-manager-rotation&: Enables the rotation of secrets in the Secret Manager CSI driver
+            --no-enable-secret-sync&: Enables the Secret Sync component.
+            --no-enable-secret-sync-rotation&: Enables the rotation of secrets in the Secret Sync component.
             --no-enable-security-posture&: (DEPRECATED) Enables the GKE Security Posture API's features.
             --no-enable-service-externalips&: Enables use of services with externalIPs field.
             --no-enable-shielded-nodes&: Enable Shielded Nodes for this cluster.
@@ -2311,6 +2489,7 @@ commands:
             --no-start-credential-rotation&: Start the rotation of IP and credentials for this cluster.
             --no-start-ip-rotation&: Start the rotation of this cluster to a new IP.
             --no-unset-membership-type&: ""
+            --node-creation-mode=: Configures node creation mode for the cluster, either via kubelet or via control plane.
             --node-locations=: The set of zones in which the specified node footprint should be replicated.
             --node-pool=: Node pool to be updated.
             --notification-config=: The notification configuration of the cluster.
@@ -2321,12 +2500,14 @@ commands:
             --release-channel=: Subscribe or unsubscribe this cluster to a release channel.
             --remove-additional-ip-ranges=: Additional subnetworks to be removed from the cluster.
             --remove-additional-pod-ipv4-ranges=: Previously added additional pod ranges(by name) for pods that are to be removed from the cluster.
+            --remove-autopilot-cluster-policies=&: Remove Autopilot cluster policies from the cluster.
             --remove-autopilot-workload-policies=: Remove Autopilot workload policies from the cluster.
             --remove-labels=: Labels to remove from the Google Cloud resources in use by the Kubernetes Engine
             --remove-maintenance-exclusion=: Name of a maintenance exclusion to remove.
             --remove-workload-policies=: Remove Autopilot workload policies from the cluster.
             --resource-usage-bigquery-dataset=: The name of the BigQuery dataset to which the cluster's usage of cloud
             --secret-manager-rotation-interval=: Set the rotation period for secrets in the Secret Manager CSI driver
+            --secret-sync-rotation-interval=: Set the rotation period for secrets in the Secret Sync component.
             --security-group=: The name of the RBAC security group for use with Google security groups
             --security-posture=: Sets the mode of the Kubernetes security posture API's off-cluster features.
             --service-account-signing-keys=&: the resource path of the Cloud KMS asymmetric signing cryptoKeyVersion
@@ -2356,6 +2537,9 @@ commands:
                 auto-monitoring-scope:
                     - ALL
                     - NONE
+                autopilot-general-profile:
+                    - none
+                    - no-performance
                 autoprovisioning-cgroup-mode:
                     - default
                     - v1
@@ -2395,6 +2579,9 @@ commands:
                     - premium
                     - standard
                     - network-default
+                node-creation-mode:
+                    - CONTROL_PLANE
+                    - KUBELET
                 private-ipv6-google-access-type:
                     - bidirectional
                     - disabled
@@ -2425,9 +2612,9 @@ commands:
             --async: Return immediately, without waiting for the operation in progress to
             --cluster-version=: The GKE release version to which to upgrade the cluster's node pools or master.
             --control-plane-soak-duration=&: The soak duration for the rollback-able control plane upgrade.
-            --image-project=&: /
+            --image-project=: The Google Cloud project storing the Operating System image for the node pool.
             --image-type=: The image type to use for the cluster/node pool.
-            --image=&: A specific image to use on the new instances.
+            --image=: The Operating System image for the node pool.
             --location=: Compute zone or region (e.g. us-central1-a or us-central1) for the cluster.
             --master: Upgrade the cluster's master.
             --no-async&: Return immediately, without waiting for the operation in progress to
@@ -2494,11 +2681,11 @@ commands:
               description: Disable the Config Management feature.
               flags:
                 --all-memberships: All memberships in the fleet.
-                --fleet-default-member-config: Disable the [fleet-default membership configuration](https://cloud.google.com/kubernetes-engine/fleet-management/docs/manage-features).
+                --fleet-default-member-config: Disable the [fleet-default membership configuration](https://docs.cloud.google.com/kubernetes-engine/fleet-management/docs/manage-features).
                 --force: Force disablement.
                 --location=: Location for the memberships.
                 --memberships=!: IDs of the memberships or fully qualified identifiers for the memberships.
-                --no-fleet-default-member-config&: Disable the [fleet-default membership configuration](https://cloud.google.com/kubernetes-engine/fleet-management/docs/manage-features).
+                --no-fleet-default-member-config&: Disable the [fleet-default membership configuration](https://docs.cloud.google.com/kubernetes-engine/fleet-management/docs/manage-features).
                 --no-force&: Force disablement.
                 --uninstall: Uninstall any previously-installed and managed Config Sync on the specified
         - name: create
@@ -2964,7 +3151,6 @@ commands:
                         --resource-bundle=!: Resource Bundle name.
                         --skip-creating-variant-resources&: Whether to opt-in to the alternate variant upload flow.
                         --source=!: Source file or directory to create the Release from.
-                        --variants-pattern=: Glob pattern to Variants of the Release, to be paired with the
                     - name: delete
                       description: Delete Package Rollouts Release.
                       flags:
@@ -3208,6 +3394,99 @@ commands:
                 --add-allowed-custom-role=: Add a single custom role to the allowed custom roles list.
                 --allowed-custom-roles=: The list of allowed custom roles that can be used in scope
                 --remove-allowed-custom-role=: Remove a single custom role from the allowed custom roles list.
+        - name: rollouts
+          description: Manage rollouts.
+          commands:
+            - name: cancel
+              description: Cancel a rollout.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: delete
+              description: Delete a rollout resource.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: describe
+              description: Describe a fleet rollout.
+            - name: force-complete-stage
+              description: Force-complete a rollout stage.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --stage=!: The number of the rollout stage to force-complete.
+            - name: list
+              description: List all fleet rollouts.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: pause
+              description: Pause a rollout resource.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: resume
+              description: Resume a rollout resource.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-validate-only&: Generate a new schedule without actually resuming the rollout.
+                --schedule-offset=: Offset to shift the schedule by when resuming a paused rollout, e.g. `8h`, `7d12h`.
+                --validate-only: Generate a new schedule without actually resuming the rollout.
+        - name: rolloutsequences
+          description: Create and manage rollout sequences.
+          commands:
+            - name: create
+              description: Create a rollout sequence resource.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --auto-rollout-scope=&: Specifies the types of upgrades for which rollouts are automatically
+                --display-name=: Display name of the rollout sequence.
+                --ignored-clusters-selector=&: Selector for clusters to exclude from the Rollout Sequence.
+                --labels=: Labels for the rollout sequence.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --stage-config=!: Path to the YAML file containing the stage configurations.
+            - name: delete
+              description: Delete a rollout sequence resource.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: describe
+              description: Describe a rollout sequence.
+            - name: list
+              description: List all rollout sequences.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Update a rollout sequence resource.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --auto-rollout-scope=&: Specifies the types of upgrades for which rollouts are automatically
+                --clear-ignored-clusters-selector&: Clear the ignored clusters selector.
+                --display-name=: Display name of the rollout sequence.
+                --ignored-clusters-selector=&: Selector for clusters to exclude from the Rollout Sequence.
+                --labels=: Labels for the rollout sequence.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-ignored-clusters-selector&: Clear the ignored clusters selector.
+                --stage-config=: Path to the YAML file containing the stage configurations.
+            - name: upgrade
+              description: Upgrade the clusters in a rollout sequence resource.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --control-plane-version=: The GKE cluster version to upgrade the control plane to.
+                --force: Force rollout creation even if an active rollout exists on the first stage of the sequence.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-force&: Force rollout creation even if an active rollout exists on the first stage of the sequence.
+                --node-version=: The GKE version to upgrade the nodes to.
         - name: scopes
           description: Manage scopes of all your GKE fleets.
           commands:
@@ -3420,6 +3699,25 @@ commands:
                     - disabled
                     - standard
                     - enterprise
+        - name: workload-identity
+          description: Manage Workload Identity Feature.
+          commands:
+            - name: describe
+              description: Describe the status of Workload Identity Feature resource.
+            - name: disable
+              description: Disable Workload Identity Feature.
+              flags:
+                --force: Force disablement.
+                --no-force&: Force disablement.
+            - name: enable
+              description: Enable Workload Identity Feature.
+            - name: scope-tenancy-pool
+              description: Manage Workload Identity Feature scope tenancy pool.
+              commands:
+                - name: set
+                  description: Set Scope Tenancy Pool.
+                - name: unset
+                  description: Unset Scope Tenancy Pool.
     - name: get-server-config
       description: Get Kubernetes Engine server config.
       flags:
@@ -3487,11 +3785,11 @@ commands:
               description: Disable the Config Management feature.
               flags:
                 --all-memberships: All memberships in the fleet.
-                --fleet-default-member-config: Disable the [fleet-default membership configuration](https://cloud.google.com/kubernetes-engine/fleet-management/docs/manage-features).
+                --fleet-default-member-config: Disable the [fleet-default membership configuration](https://docs.cloud.google.com/kubernetes-engine/fleet-management/docs/manage-features).
                 --force: Force disablement.
                 --location=: Location for the memberships.
                 --memberships=!: IDs of the memberships or fully qualified identifiers for the memberships.
-                --no-fleet-default-member-config&: Disable the [fleet-default membership configuration](https://cloud.google.com/kubernetes-engine/fleet-management/docs/manage-features).
+                --no-fleet-default-member-config&: Disable the [fleet-default membership configuration](https://docs.cloud.google.com/kubernetes-engine/fleet-management/docs/manage-features).
                 --no-force&: Force disablement.
                 --uninstall: Uninstall any previously-installed and managed Config Sync on the specified
         - name: create
@@ -3957,7 +4255,6 @@ commands:
                         --resource-bundle=!: Resource Bundle name.
                         --skip-creating-variant-resources&: Whether to opt-in to the alternate variant upload flow.
                         --source=!: Source file or directory to create the Release from.
-                        --variants-pattern=: Glob pattern to Variants of the Release, to be paired with the
                     - name: delete
                       description: Delete Package Rollouts Release.
                       flags:
@@ -4201,6 +4498,99 @@ commands:
                 --add-allowed-custom-role=: Add a single custom role to the allowed custom roles list.
                 --allowed-custom-roles=: The list of allowed custom roles that can be used in scope
                 --remove-allowed-custom-role=: Remove a single custom role from the allowed custom roles list.
+        - name: rollouts
+          description: Manage rollouts.
+          commands:
+            - name: cancel
+              description: Cancel a rollout.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: delete
+              description: Delete a rollout resource.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: describe
+              description: Describe a fleet rollout.
+            - name: force-complete-stage
+              description: Force-complete a rollout stage.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --stage=!: The number of the rollout stage to force-complete.
+            - name: list
+              description: List all fleet rollouts.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: pause
+              description: Pause a rollout resource.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: resume
+              description: Resume a rollout resource.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-validate-only&: Generate a new schedule without actually resuming the rollout.
+                --schedule-offset=: Offset to shift the schedule by when resuming a paused rollout, e.g. `8h`, `7d12h`.
+                --validate-only: Generate a new schedule without actually resuming the rollout.
+        - name: rolloutsequences
+          description: Create and manage rollout sequences.
+          commands:
+            - name: create
+              description: Create a rollout sequence resource.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --auto-rollout-scope=&: Specifies the types of upgrades for which rollouts are automatically
+                --display-name=: Display name of the rollout sequence.
+                --ignored-clusters-selector=&: Selector for clusters to exclude from the Rollout Sequence.
+                --labels=: Labels for the rollout sequence.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --stage-config=!: Path to the YAML file containing the stage configurations.
+            - name: delete
+              description: Delete a rollout sequence resource.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: describe
+              description: Describe a rollout sequence.
+            - name: list
+              description: List all rollout sequences.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Update a rollout sequence resource.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --auto-rollout-scope=&: Specifies the types of upgrades for which rollouts are automatically
+                --clear-ignored-clusters-selector&: Clear the ignored clusters selector.
+                --display-name=: Display name of the rollout sequence.
+                --ignored-clusters-selector=&: Selector for clusters to exclude from the Rollout Sequence.
+                --labels=: Labels for the rollout sequence.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-ignored-clusters-selector&: Clear the ignored clusters selector.
+                --stage-config=: Path to the YAML file containing the stage configurations.
+            - name: upgrade
+              description: Upgrade the clusters in a rollout sequence resource.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --control-plane-version=: The GKE cluster version to upgrade the control plane to.
+                --force: Force rollout creation even if an active rollout exists on the first stage of the sequence.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-force&: Force rollout creation even if an active rollout exists on the first stage of the sequence.
+                --node-version=: The GKE version to upgrade the nodes to.
         - name: scopes
           description: Manage scopes of all your GKE fleets.
           commands:
@@ -4413,6 +4803,25 @@ commands:
                     - disabled
                     - standard
                     - enterprise
+        - name: workload-identity
+          description: Manage Workload Identity Feature.
+          commands:
+            - name: describe
+              description: Describe the status of Workload Identity Feature resource.
+            - name: disable
+              description: Disable Workload Identity Feature.
+              flags:
+                --force: Force disablement.
+                --no-force&: Force disablement.
+            - name: enable
+              description: Enable Workload Identity Feature.
+            - name: scope-tenancy-pool
+              description: Manage Workload Identity Feature scope tenancy pool.
+              commands:
+                - name: set
+                  description: Set Scope Tenancy Pool.
+                - name: unset
+                  description: Unset Scope Tenancy Pool.
     - name: images
       description: List and manipulate Google Container Registry images.
       commands:
@@ -4471,8 +4880,9 @@ commands:
         - name: create
           description: Create a node pool in a running cluster.
           flags:
-            --accelerator-network-profile=&: Accelerator Network Profile that will be used by the node pool.
+            --accelerator-network-profile=: Accelerator Network Profile that will be used by the node pool.
             --accelerator=: Attaches accelerators (e.g. GPUs) to all nodes.
+            --add-maintenance-exclusion-until-end-of-support: Add node pool maintenance exclusion until the end of support.
             --additional-node-network=: Attach an additional network interface to each node in the pool.
             --additional-pod-network=: Specify the details of a secondary range to be used for an additional pod network.
             --async: Return immediately, without waiting for the operation in progress to
@@ -4480,9 +4890,10 @@ commands:
             --boot-disk-kms-key=: The Customer Managed Encryption Key used to encrypt the boot disk attached
             --boot-disk-provisioned-iops=: Configure the Provisioned IOPS for the node pool boot disks.
             --boot-disk-provisioned-throughput=: Configure the Provisioned Throughput for the node pool boot disks.
+            --capacity-wait-duration=&: The maximum duration we will wait for node pool capacity to be ready before
             --cluster=: The cluster to add the node pool to.
             --confidential-node-type=: Enable confidential nodes for the node pool.
-            --consolidation-delay=&: Set the duration after which the Cluster Autoscaler can scale down
+            --consolidation-delay=: Set the duration after which the Cluster Autoscaler can scale down
             --containerd-config-from-file=: Path of the YAML file that contains containerd configuration entries like configuring access to private image registries.
             --create-pod-ipv4-range=: Create a new pod range for the node pool.
             --data-cache-count=: Specifies the number of local SSDs to be utilized for GKE Data Cache in the node pool.
@@ -4499,7 +4910,7 @@ commands:
             --enable-confidential-storage: Enable confidential storage for the node pool.
             --enable-fast-socket&: ""
             --enable-gvnic: Enable the use of GVNIC for this cluster.
-            --enable-image-streaming: Specifies whether to enable image streaming on node pool.
+            --enable-image-streaming: Enable Image Streaming for the node pool, allowing nodes to stream container
             --enable-insecure-kubelet-readonly-port: Enables the Kubelet's insecure read only port.
             --enable-kernel-module-signature-enforcement: Enforces that kernel modules are signed on all nodes in the node pool.
             --enable-lustre-multi-nic&: Enable Lustre multi-NIC configuration for all new nodes in the cluster unless
@@ -4513,9 +4924,9 @@ commands:
             --flex-start: Start the node pool with Flex Start provisioning model.
             --gpudirect-strategy=&: Set the GPUDirect strategy for the node pool, the possible value is RDMA.
             --image-family=&: /
-            --image-project=&: /
+            --image-project=: The Google Cloud project storing the Operating System image for the node pool.
             --image-type=: The image type to use for the node pool.
-            --image=&: A specific image to use on the new instances.
+            --image=: The Operating System image for the node pool.
             --labels=: Labels to apply to the Google Cloud resources of node pools in the
             --local-nvme-ssd-block=:
                 description: Adds the requested local SSDs on all nodes in default node pool(s) in the new cluster.
@@ -4536,6 +4947,7 @@ commands:
             --min-nodes=: Minimum number of nodes per zone in the node pool.
             --min-provision-nodes=: Specifies the minimum number of nodes to be provisioned during creation
             --network-performance-configs=: Configures network performance settings for the node pool.
+            --no-add-maintenance-exclusion-until-end-of-support&: Add node pool maintenance exclusion until the end of support.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-disable-pod-cidr-overprovision&: Disables pod cidr overprovision on nodes.
             --no-enable-autoprovisioning&: Enables Cluster Autoscaler to treat the node pool as if it was autoprovisioned.
@@ -4548,7 +4960,7 @@ commands:
             --no-enable-confidential-storage&: Enable confidential storage for the node pool.
             --no-enable-fast-socket&: ""
             --no-enable-gvnic&: ""
-            --no-enable-image-streaming&: Specifies whether to enable image streaming on node pool.
+            --no-enable-image-streaming&: Enable Image Streaming for the node pool, allowing nodes to stream container
             --no-enable-insecure-kubelet-readonly-port&: Enables the Kubelet's insecure read only port.
             --no-enable-kernel-module-signature-enforcement&: Enforces that kernel modules are signed on all nodes in the node pool.
             --no-enable-lustre-multi-nic&: Enable Lustre multi-NIC configuration for all new nodes in the cluster unless
@@ -4558,9 +4970,13 @@ commands:
             --no-enable-surge-upgrade&: Changes node pool upgrade strategy to surge upgrade.
             --no-flex-start&: Start the node pool with Flex Start provisioning model.
             --no-preemptible&: Create nodes using preemptible VM instances in the new node pool.
+            --no-respect-pdb-during-node-pool-deletion&: Whether to respect PDBs when deleting nodes in the node pool.
             --no-shielded-integrity-monitoring&: Enables monitoring and attestation of the boot integrity of the
             --no-shielded-secure-boot&: The instance will boot with secure boot enabled.
             --no-spot&: Create nodes using spot VM instances in the new node pool.
+            --node-architecture-taint-behavior=: Control how architecture taint should be applied to nodes in a new node pool.
+            --node-drain-grace-period-seconds=: The grace period in seconds for nodes to drain before being forcefully removed.
+            --node-drain-pdb-timeout-seconds=: The timeout in seconds for the node pool to be drained.
             --node-group=: Assign instances of this pool to run on the specified Google Compute Engine
             --node-labels=: Applies the given Kubernetes labels on all nodes in the new node pool.
             --node-locations=: The set of zones in which the node pool's nodes should be located.
@@ -4578,9 +4994,10 @@ commands:
             --reservation-affinity=: The type of the reservation for the node pool.
             --reservation=: The name of the reservation, required when `--reservation-affinity=specific`.
             --resource-manager-tags=: Applies the specified comma-separated resource manager tags that has the
+            --respect-pdb-during-node-pool-deletion: Whether to respect PDBs when deleting nodes in the node pool.
             --sandbox=: Enables the requested sandbox on all nodes in the node pool.
             --scopes=: Specifies scopes for the node instances.
-            --secondary-boot-disk=: Attaches secondary boot disks to all nodes.
+            --secondary-boot-disk=: Attaches secondary boot disks to all nodes in the node pool.
             --service-account=: The Google Cloud Platform Service Account to be used by the node VMs.
             --shielded-integrity-monitoring: Enables monitoring and attestation of the boot integrity of the
             --shielded-secure-boot: The instance will boot with secure boot enabled.
@@ -4589,6 +5006,7 @@ commands:
             --spot: Create nodes using spot VM instances in the new node pool.
             --standard-rollout-policy=: Standard rollout policy options for blue-green upgrade.
             --storage-pools=: A list of storage pools where the node pool's boot disks will be provisioned.
+            --subnetwork=: The subnetwork to use for nodes.
             --system-config-from-file=: Path of the YAML/JSON file that contains the node configuration, including
             --tags=: Applies the given Compute Engine tags (comma separated) on all nodes in the new
             --threads-per-core=: The number of visible threads per physical core for each node.
@@ -4622,6 +5040,10 @@ commands:
                 logging-variant:
                     - DEFAULT
                     - MAX_THROUGHPUT
+                node-architecture-taint-behavior:
+                    - unspecified
+                    - arm
+                    - none
                 performance-monitoring-unit:
                     - architectural
                     - enhanced
@@ -4633,6 +5055,7 @@ commands:
                     - any
                     - none
                     - specific
+                    - any-reservation-then-fail
                 windows-os-version:
                     - ltsc2019
                     - ltsc2022
@@ -4694,14 +5117,16 @@ commands:
           description: Updates a node pool in a running cluster.
           flags:
             --accelerator=: Attaches accelerators (e.g. GPUs) to all nodes.
+            --add-maintenance-exclusion-until-end-of-support: Add node pool maintenance exclusion until the end of support.
             --async: Return immediately, without waiting for the operation in progress to
             --autoscaled-rollout-policy=: Autoscaled rollout policy options for blue-green upgrade.
             --boot-disk-provisioned-iops=: Configure the Provisioned IOPS for the node pool boot disks.
             --boot-disk-provisioned-throughput=: Configure the Provisioned Throughput for the node pool boot disks.
             --cluster=: The name of the cluster.
             --confidential-node-type=: Recreate all the nodes in the node pool to be confidential VM
-            --consolidation-delay=&: Set the duration after which the Cluster Autoscaler can scale down
+            --consolidation-delay=: Set the duration after which the Cluster Autoscaler can scale down
             --containerd-config-from-file=: Path of the YAML file that contains containerd configuration entries like configuring access to private image registries.
+            --datapath-provider=&: Specifies the datapath provider for the cluster.
             --disk-size=: Size for node VM boot disks in GB.
             --disk-type=: Type of the node VM boot disk.
             --enable-autoprovisioning: Enables Cluster Autoscaler to treat the node pool as if it was autoprovisioned.
@@ -4712,7 +5137,7 @@ commands:
             --enable-confidential-nodes: Recreate all the nodes in the node pool to be confidential VM
             --enable-fast-socket&: ""
             --enable-gvnic: Enable the use of GVNIC for this cluster.
-            --enable-image-streaming: Specifies whether to enable image streaming on node pool.
+            --enable-image-streaming: Enable Image Streaming for the node pool, allowing nodes to stream container
             --enable-insecure-kubelet-readonly-port: Enables the Kubelet's insecure read only port.
             --enable-kernel-module-signature-enforcement: Enforces that kernel modules are signed on all nodes in the node pool.
             --enable-lustre-multi-nic&: Enable Lustre multi-NIC configuration for the node pool.
@@ -4731,6 +5156,7 @@ commands:
             --max-unavailable-upgrade=: Number of nodes that can be unavailable at the same time on each upgrade of the
             --min-nodes=: Minimum number of nodes per zone in the node pool.
             --network-performance-configs=: Configures network performance settings for the node pool.
+            --no-add-maintenance-exclusion-until-end-of-support&: Add node pool maintenance exclusion until the end of support.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-enable-autoprovisioning&: Enables Cluster Autoscaler to treat the node pool as if it was autoprovisioned.
             --no-enable-autorepair&: Enable node autorepair feature for a node pool.
@@ -4740,7 +5166,7 @@ commands:
             --no-enable-confidential-nodes&: Recreate all the nodes in the node pool to be confidential VM
             --no-enable-fast-socket&: ""
             --no-enable-gvnic&: ""
-            --no-enable-image-streaming&: Specifies whether to enable image streaming on node pool.
+            --no-enable-image-streaming&: Enable Image Streaming for the node pool, allowing nodes to stream container
             --no-enable-insecure-kubelet-readonly-port&: Enables the Kubelet's insecure read only port.
             --no-enable-kernel-module-signature-enforcement&: Enforces that kernel modules are signed on all nodes in the node pool.
             --no-enable-lustre-multi-nic&: Enable Lustre multi-NIC configuration for the node pool.
@@ -4748,12 +5174,19 @@ commands:
             --no-enable-queued-provisioning&: Mark the nodepool as Queued only.
             --no-enable-surge-upgrade&: Changes node pool upgrade strategy to surge upgrade.
             --no-flex-start&: Start the node pool with Flex Start provisioning model.
+            --no-remove-maintenance-exclusion-until-end-of-support&: Remove node pool maintenance exclusion until the end of support.
+            --no-respect-pdb-during-node-pool-deletion&: Whether to respect PDBs when deleting nodes in the node pool.
+            --node-architecture-taint-behavior=: Control how architecture taint should be applied to nodes in an existing node pool.
+            --node-drain-grace-period-seconds=: The grace period in seconds for nodes to drain before being forcefully removed.
+            --node-drain-pdb-timeout-seconds=: The timeout in seconds for the node pool to be drained.
             --node-labels=: Replaces all the user specified Kubernetes labels on all nodes in an existing
             --node-locations=: Set of zones in which the node pool's nodes should be located.
             --node-pool-soak-duration=: Time in seconds to be spent waiting during blue-green upgrade before
             --node-taints=: Replaces all the user specified Kubernetes taints on all nodes in an existing
             --region=: Compute region (e.g. us-central1) for a regional cluster.
+            --remove-maintenance-exclusion-until-end-of-support: Remove node pool maintenance exclusion until the end of support.
             --resource-manager-tags=: Replaces all the user specified resource manager tags on all nodes in an
+            --respect-pdb-during-node-pool-deletion: Whether to respect PDBs when deleting nodes in the node pool.
             --standard-rollout-policy=: Standard rollout policy options for blue-green upgrade.
             --storage-pools=: A list of storage pools where the node pool's boot disks will be provisioned.
             --system-config-from-file=: Path of the YAML/JSON file that contains the node configuration, including
@@ -4772,6 +5205,11 @@ commands:
                     - sev_snp
                     - tdx
                     - disabled
+                datapath-provider:
+                    - advanced-datapath
+                    - dataplane-v1
+                    - dataplane-v2
+                    - legacy-datapath
                 disk-type:
                     - pd-standard
                     - pd-ssd
@@ -4785,6 +5223,10 @@ commands:
                 logging-variant:
                     - DEFAULT
                     - MAX_THROUGHPUT
+                node-architecture-taint-behavior:
+                    - unspecified
+                    - arm
+                    - none
                 windows-os-version:
                     - ltsc2019
                     - ltsc2022
@@ -5152,3 +5594,25 @@ commands:
               description: Poll an operation for completion.
               flags:
                 --location=: Google Cloud location for the operation.
+    - name: workload
+      description: Manage Workload Optimizer related workloads for GKE.
+      commands:
+        - name: profiles
+          description: Quickstart engine for GKE workload optimization.
+          commands:
+            - name: manifests
+              description: Generate optimized Kubernetes manifests.
+              commands:
+                - name: create
+                  description: Generate optimized Kubernetes manifests for a given workload profile.
+                  flags:
+                    --cluster-version=!: The GKE version to generate the manifest for.
+                    --options=: Additional key-value pair options for generating the manifest.
+                    --output-path=: The path to save the output to.
+                    --output=: The output to display.
+                    --workload=!: The name of the optimization set to generate the manifest for.
+                  completion:
+                    flag:
+                        output:
+                            - manifest
+                            - all

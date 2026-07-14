@@ -230,6 +230,57 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: dns-threat-detectors
+      description: Manage Dns Threat Detector resources.
+      commands:
+        - name: create
+          description: Create a DnsThreatDetector resource.
+          flags:
+            --excluded-networks=!: IDs of the networks or fully qualified identifiers for the networks.
+            --labels=: Any labels associated with the DnsThreatDetector, listed as key value
+            --location=: The location id of the dnsThreatDetector resource.
+            --provider=!: The provider used for DNS threat analysis.
+          completion:
+            flag:
+                provider:
+                    - infoblox
+        - name: delete
+          description: Delete a DnsThreatDetector resource.
+          flags:
+            --location=: The location id of the dnsThreatDetector resource.
+        - name: describe
+          description: Describe a DnsThreatDetector resource.
+          flags:
+            --location=: The location id of the dnsThreatDetector resource.
+        - name: list
+          description: List DnsThreatDetector resources.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a DnsThreatDetector resource.
+          flags:
+            --add-excluded-networks=!: IDs of the networks or fully qualified identifiers for the networks.
+            --clear-excluded-networks: Clear excluded_networks value and set to empty list.
+            --clear-labels: Clear labels value and set to empty map.
+            --excluded-networks=!: IDs of the networks or fully qualified identifiers for the networks.
+            --labels=: Set labels to new value.
+            --location=: The location id of the dnsThreatDetector resource.
+            --no-clear-excluded-networks&: Clear excluded_networks value and set to empty list.
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --provider=: The provider used for DNS threat analysis.
+            --remove-excluded-networks=!: IDs of the networks or fully qualified identifiers for the networks.
+            --remove-labels=: Remove existing value from map labels.
+            --update-labels=: Update labels value or add key value pair.
+          completion:
+            flag:
+                provider:
+                    - infoblox
     - name: firewall-endpoint-associations
       description: Create and manage Firewall Plus endpoint associations.
       commands:
@@ -240,6 +291,7 @@ commands:
             --endpoint-zone=: Zone of the firewall endpoint.
             --endpoint=!: ID of the firewall endpoint or fully qualified identifier for the firewall endpoint.
             --labels=: List of label KEY=VALUE pairs to add.
+            --location=: Location of the firewall endpoint association
             --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
             --network=!: ID of the network or fully qualified identifier for the network.
             --no-async&: Return immediately, without waiting for the operation in progress to
@@ -247,34 +299,38 @@ commands:
             --tls-inspection-policy-project=: Project of the TLS Inspection Policy.
             --tls-inspection-policy-region=: Region of the TLS Inspection Policy.
             --tls-inspection-policy=!: ID of the TLS Inspection Policy or fully qualified identifier for the TLS Inspection Policy.
-            --zone=!: Zone of a firewall endpoint association
+            --zone=: Zone of the firewall endpoint association
         - name: delete
           description: Delete a Firewall Plus endpoint association.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
+            --location=: Location of the firewall endpoint association
             --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --zone=: Zone of the firewall endpoint association.
         - name: describe
           description: Describe a Firewall Plus endpoint association.
           flags:
+            --location=: Location of the firewall endpoint association
             --zone=: Zone of the firewall endpoint association.
         - name: list
           description: List Firewall Plus endpoint associations.
           flags:
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
+            --location=: Location of the firewall endpoint association
             --no-uri&: Print a list of resource URIs instead of the default output, and change the
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
-            --zone=: Zone for the list operation
+            --zone=: Zone of the firewall endpoint association
         - name: update
           description: Update a Firewall Plus endpoint association.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
             --clear-labels: Remove all labels.
             --disabled: Disable a firewall endpoint association.
+            --location=: Location of the firewall endpoint association
             --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-clear-labels&: Remove all labels.
@@ -296,6 +352,7 @@ commands:
             --description=: Description of the endpoint
             --enable-jumbo-frames: Enable jumbo frames for the firewall endpoint.
             --labels=: List of label KEY=VALUE pairs to add.
+            --location=: Location of the endpoint
             --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-enable-jumbo-frames&: Enable jumbo frames for the firewall endpoint.
@@ -305,6 +362,7 @@ commands:
           description: Delete a Firewall Plus endpoint.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
+            --location=: Location of the endpoint
             --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --organization=: Organization ID of the firewall endpoint.
@@ -312,6 +370,7 @@ commands:
         - name: describe
           description: Describe a Firewall Plus endpoint.
           flags:
+            --location=: Location of the endpoint
             --organization=: Organization ID of the firewall endpoint.
             --zone=: Zone of the firewall endpoint.
         - name: list
@@ -319,18 +378,20 @@ commands:
           flags:
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
+            --location=: The location for a list operation
             --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --organization=!: The organization for a list operation
+            --organization=: The organization for a list operation
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
-            --zone=!: The zone for a list operation
+            --zone=: The zone for a list operation
         - name: update
           description: Update a Firewall Plus endpoint.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
             --clear-labels: Remove all labels.
             --description=: Description of the endpoint
+            --location=: Location of the endpoint
             --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-clear-labels&: Remove all labels.
@@ -783,6 +844,83 @@ commands:
             --no-clear-labels&: Remove all labels.
             --remove-labels=: List of label keys to remove.
             --update-labels=: List of label KEY=VALUE pairs to update.
+    - name: mirroring-endpoints
+      description: Manage Mirroring Endpoint resources.
+      commands:
+        - name: create
+          description: Create mirroringEndpoints.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: User-provided description of the endpoint.
+            --labels=: Labels are key/value pairs that help to organize and filter resources.
+            --location=: For resources [mirroring-endpoint-group, mirroring_endpoint], provides fallback value for resource location attribute.
+            --mirroring-endpoint-group=!: ID of the mirroringEndpointGroup or fully qualified identifier for the mirroringEndpointGroup.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --request-id=: An optional request ID to identify requests.
+        - name: delete
+          description: Delete mirroringEndpoints.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the mirroringEndpoint resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --request-id=: An optional request ID to identify requests.
+        - name: describe
+          description: Describe mirroringEndpoints.
+          hidden: true
+          flags:
+            --location=: The location id of the mirroringEndpoint resource.
+        - name: list
+          description: List mirroringEndpoints.
+          hidden: true
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update mirroringEndpoints.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Clear labels value and set to empty map.
+            --description=: User-provided description of the endpoint.
+            --labels=: Set labels to new value.
+            --location=: The location id of the mirroringEndpoint resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --remove-labels=: Remove existing value from map labels.
+            --request-id=: An optional request ID to identify requests.
+            --update-labels=: Update labels value or add key value pair.
+    - name: operations
+      description: Manage Network Security Operations.
+      commands:
+        - name: cancel
+          description: Cancel a Network Security long running operation.
+          flags:
+            --location=: The location Id.
+        - name: describe
+          description: Show details of a Network Security long running operation.
+          flags:
+            --location=: The location Id.
+        - name: list
+          description: List all Network Security long running operations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: wait
+          description: Poll a Network Security long running operation.
+          flags:
+            --location=: The location Id.
     - name: org-address-groups
       description: Manage Network Security AddressGroups.
       commands:
@@ -876,6 +1014,70 @@ commands:
             --purpose=: List of Address Group purposes.
             --remove-labels=: List of label keys to remove.
             --update-labels=: List of label KEY=VALUE pairs to update.
+    - name: secure-access-connect
+      description: Manage Secure Access Connect resources.
+      commands:
+        - name: attachments
+          description: Manage Secure Access Connect attachments.
+          commands:
+            - name: create
+              description: Create a SAC attachment.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --gateway=!: NCC gateway whose traffic will be inspected by this attachment.
+                --location=: The location Id.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --realm=!: SAC realm to which this attachment belongs.
+            - name: delete
+              description: Delete a SAC attachment.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location Id.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: describe
+              description: Describe a SAC attachment.
+              flags:
+                --location=: The location Id.
+            - name: list
+              description: List SAC attachments.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=!: ID of the location or fully qualified identifier for the location.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: realms
+          description: Manage Secure Access Connect realms.
+          commands:
+            - name: create
+              description: Create a SAC realm.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location Id.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --security-service=!: Security service supporting this realm.
+              completion:
+                flag:
+                    security-service:
+                        - prisma-access
+            - name: delete
+              description: Delete a SAC realm.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location Id.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: describe
+              description: Describe a SAC realm.
+              flags:
+                --location=: The location Id.
+            - name: list
+              description: List SAC realms.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: ID of the location or fully qualified identifier for the location.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
     - name: security-profile-groups
       description: Manage Network Security - Security Profile Groups.
       commands:
@@ -883,12 +1085,14 @@ commands:
           description: Create a new Security Profile Group.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
-            --custom-intercept-profile-location=: Location of the Security Profile.
+            --custom-intercept-profile-location=: Location of the custom_intercept_profile.
             --custom-intercept-profile-organization=: Organization ID of the Security Profile.
-            --custom-intercept-profile=!: ID of the Security Profile or fully qualified identifier for the Security Profile.
-            --custom-mirroring-profile-location=: Location of the Security Profile.
+            --custom-intercept-profile-project=: Project ID of the custom_intercept_profile.
+            --custom-intercept-profile=!: ID of the custom_intercept_profile or fully qualified identifier for the custom_intercept_profile.
+            --custom-mirroring-profile-location=: Location of the custom_mirroring_profile.
             --custom-mirroring-profile-organization=: Organization ID of the Security Profile.
-            --custom-mirroring-profile=!: ID of the Security Profile or fully qualified identifier for the Security Profile.
+            --custom-mirroring-profile-project=: Project ID of the custom_mirroring_profile.
+            --custom-mirroring-profile=!: ID of the custom_mirroring_profile or fully qualified identifier for the custom_mirroring_profile.
             --description=: Brief description of the security profile group
             --labels=: List of label KEY=VALUE pairs to add.
             --location=: location of the security_profile_group - Global.
@@ -896,29 +1100,34 @@ commands:
             --organization=: Organization ID of Security Profile Group
             --security-profile-location=&: Flag to preserve backward compatibility.
             --security-profile-organization=&: Flag to preserve backward compatibility.
-            --threat-prevention-profile-location=: Location of the Security Profile.
+            --threat-prevention-profile-location=: Location of the threat_prevention_profile.
             --threat-prevention-profile-organization=: Organization ID of the Security Profile.
-            --threat-prevention-profile=!: ID of the Security Profile or fully qualified identifier for the Security Profile.
+            --threat-prevention-profile-project=: Project ID of the threat_prevention_profile.
+            --threat-prevention-profile=!: ID of the threat_prevention_profile or fully qualified identifier for the threat_prevention_profile.
+            --url-filtering-profile-location=: Location of the url_filtering_profile.
+            --url-filtering-profile-organization=: Organization ID of the Security Profile.
+            --url-filtering-profile-project=: Project ID of the url_filtering_profile.
+            --url-filtering-profile=!: ID of the url_filtering_profile or fully qualified identifier for the url_filtering_profile.
         - name: delete
           description: Delete a Security Profile Group.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
-            --location=: Location ID of the resource.
+            --location=: location of the security_profile_group - Global.
             --no-async&: Return immediately, without waiting for the operation in progress to
-            --organization=: Organization number.
+            --organization=: Organization ID of Security Profile Group
         - name: describe
           description: Describe a Security Profile Group.
           flags:
-            --location=: Location ID of the resource.
-            --organization=: Organization number.
+            --location=: location of the security_profile_group - Global.
+            --organization=: Organization ID of Security Profile Group
         - name: list
-          description: List Security Profile groups.
+          description: List Security Profile Groups.
           flags:
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
             --location=!: ID of the location or fully qualified identifier for the location.
             --no-uri&: Print a list of resource URIs instead of the default output, and change the
-            --organization=: Organization number.
+            --organization=: Organization ID of the location.
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
@@ -927,18 +1136,27 @@ commands:
           flags:
             --async: Return immediately, without waiting for the operation in progress to
             --clear-labels: Remove all labels.
+            --clear-threat-prevention-profile: Clear the threat-prevention-profile field.
+            --clear-url-filtering-profile: Clear the url-filtering-profile field.
             --description=: Brief description of the security profile group
             --location=: location of the security_profile_group - Global.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-clear-labels&: Remove all labels.
+            --no-clear-threat-prevention-profile&: Clear the threat-prevention-profile field.
+            --no-clear-url-filtering-profile&: Clear the url-filtering-profile field.
             --organization=: Organization ID of Security Profile Group
             --remove-labels=: List of label keys to remove.
             --security-profile-location=&: Flag to preserve backward compatibility.
             --security-profile-organization=&: Flag to preserve backward compatibility.
-            --threat-prevention-profile-location=: Location of the Security Profile.
+            --threat-prevention-profile-location=: Location of the threat_prevention_profile.
             --threat-prevention-profile-organization=: Organization ID of the Security Profile.
-            --threat-prevention-profile=!: ID of the Security Profile or fully qualified identifier for the Security Profile.
+            --threat-prevention-profile-project=: Project ID of the threat_prevention_profile.
+            --threat-prevention-profile=!: ID of the threat_prevention_profile or fully qualified identifier for the threat_prevention_profile.
             --update-labels=: List of label KEY=VALUE pairs to update.
+            --url-filtering-profile-location=: Location of the url_filtering_profile.
+            --url-filtering-profile-organization=: Organization ID of the Security Profile.
+            --url-filtering-profile-project=: Project ID of the url_filtering_profile.
+            --url-filtering-profile=!: ID of the url_filtering_profile or fully qualified identifier for the url_filtering_profile.
     - name: security-profiles
       description: Manage Network Security - Security Profiles.
       commands:
@@ -951,23 +1169,24 @@ commands:
                 --async: Return immediately, without waiting for the operation in progress to
                 --description=: Brief description of the security profile
                 --intercept-endpoint-group-location=: Location of the intercept endpoint group.
+                --intercept-endpoint-group-project=: Project ID of the intercept endpoint group.
                 --intercept-endpoint-group=!: ID of the intercept endpoint group or fully qualified identifier for the intercept endpoint group.
                 --labels=: List of label KEY=VALUE pairs to add.
-                --location=: location of the security_profile - Global.
+                --location=: Location of the security profile.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --organization=: Organization ID to which the changes should apply.
             - name: delete
-              description: Delete a Security Profile.
+              description: Delete a Custom Intercept Profile.
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
-                --location=: Location ID of the resource.
+                --location=: Location of the security profile.
                 --no-async&: Return immediately, without waiting for the operation in progress to
-                --organization=: Organization number.
+                --organization=: Organization ID to which the changes should apply.
             - name: describe
-              description: Describe a Custom InterceptSecurity Profile.
+              description: Describe a Custom Intercept Profile.
               flags:
-                --location=: Location ID of the resource.
-                --organization=: Organization number.
+                --location=: Location of the security profile.
+                --organization=: Organization ID to which the changes should apply.
             - name: list
               description: List Custom Intercept Security Profiles.
               flags:
@@ -985,7 +1204,7 @@ commands:
                 --async: Return immediately, without waiting for the operation in progress to
                 --clear-labels: Remove all labels.
                 --description=: Brief description of the security profile
-                --location=: location of the security_profile - Global.
+                --location=: Location of the security profile.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-clear-labels&: Remove all labels.
                 --organization=: Organization ID to which the changes should apply.
@@ -1000,23 +1219,24 @@ commands:
                 --async: Return immediately, without waiting for the operation in progress to
                 --description=: Brief description of the security profile
                 --labels=: List of label KEY=VALUE pairs to add.
-                --location=: location of the security_profile - Global.
+                --location=: Location of the security profile.
                 --mirroring-endpoint-group-location=: Location of the mirroring endpoint group.
+                --mirroring-endpoint-group-project=: Project ID of the mirroring endpoint group.
                 --mirroring-endpoint-group=!: ID of the mirroring endpoint group or fully qualified identifier for the mirroring endpoint group.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --organization=: Organization ID to which the changes should apply.
             - name: delete
-              description: Delete a Security Profile.
+              description: Delete a Custom Mirroring Profile.
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
-                --location=: Location ID of the resource.
+                --location=: Location of the security profile.
                 --no-async&: Return immediately, without waiting for the operation in progress to
-                --organization=: Organization number.
+                --organization=: Organization ID to which the changes should apply.
             - name: describe
-              description: Describe a Custom MirroringSecurity Profile.
+              description: Describe a Custom Mirroring Profile.
               flags:
-                --location=: Location ID of the resource.
-                --organization=: Organization number.
+                --location=: Location of the security profile.
+                --organization=: Organization ID to which the changes should apply.
             - name: list
               description: List Custom Mirroring Security Profiles.
               flags:
@@ -1034,12 +1254,49 @@ commands:
                 --async: Return immediately, without waiting for the operation in progress to
                 --clear-labels: Remove all labels.
                 --description=: Brief description of the security profile
-                --location=: location of the security_profile - Global.
+                --location=: Location of the security profile.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-clear-labels&: Remove all labels.
                 --organization=: Organization ID to which the changes should apply.
                 --remove-labels=: List of label keys to remove.
                 --update-labels=: List of label KEY=VALUE pairs to update.
+        - name: delete
+          description: Delete a Security Profile.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Location of the security profile.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: Organization ID to which the changes should apply.
+        - name: describe
+          description: Describe a Security Profile.
+          flags:
+            --location=: Location of the security profile.
+            --organization=: Organization ID to which the changes should apply.
+        - name: export
+          description: Export Security Profile.
+          flags:
+            --destination=: Path to a YAML file where the configuration will be exported.
+            --location=: Location of the security profile.
+            --organization=: Organization ID to which the changes should apply.
+        - name: import
+          description: Import Security Profile.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Location of the security profile.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: Organization ID to which the changes should apply.
+            --source=: Path to a YAML file containing configuration export data.
+        - name: list
+          description: List Security Profiles.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --organization=: Organization ID of the location.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
         - name: threat-prevention
           description: Manage Security Profiles - Threat Prevention Profile.
           commands:
@@ -1050,7 +1307,7 @@ commands:
                 --antivirus=: List of comma-separated protocols where each value in the list indicates the protocol of the antivirus threat.
                 --async: Return immediately, without waiting for the operation in progress to
                 --clear-labels: Remove all labels.
-                --location=: location of the security_profile - Global.
+                --location=: Location of the security profile.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-clear-labels&: Remove all labels.
                 --organization=: Organization ID to which the changes should apply.
@@ -1071,23 +1328,23 @@ commands:
                 --async: Return immediately, without waiting for the operation in progress to
                 --description=: Brief description of the security profile
                 --labels=: List of label KEY=VALUE pairs to add.
-                --location=: location of the security_profile - Global.
+                --location=: Location of the security profile.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --organization=: Organization ID to which the changes should apply.
             - name: delete
-              description: Delete a Security Profile.
+              description: Delete a Threat Prevention Profile.
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
-                --location=: Location ID of the resource.
+                --location=: Location of the security profile.
                 --no-async&: Return immediately, without waiting for the operation in progress to
-                --organization=: Organization number.
+                --organization=: Organization ID to which the changes should apply.
             - name: delete-override
               description: Delete overrides of Threat Prevention Profile.
               flags:
                 --antivirus=: List of comma-separated protocols where each value in the list indicates the protocol of the antivirus threat.
                 --async: Return immediately, without waiting for the operation in progress to
                 --clear-labels: Remove all labels.
-                --location=: location of the security_profile - Global.
+                --location=: Location of the security profile.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-clear-labels&: Remove all labels.
                 --organization=: Organization ID to which the changes should apply.
@@ -1095,6 +1352,11 @@ commands:
                 --severities=: List of comma-separated severities where each value in the list indicates the severity of the threat.
                 --threat-ids=: List of comma-separated threat identifiers where each identifier in the list is a vendor-specified Signature ID representing a threat type.
                 --update-labels=: List of label KEY=VALUE pairs to update.
+            - name: describe
+              description: Describe a Threat Prevention Security Profile.
+              flags:
+                --location=: Location of the security profile.
+                --organization=: Organization ID to which the changes should apply.
             - name: list
               description: List Threat Prevention Security Profiles.
               flags:
@@ -1109,7 +1371,7 @@ commands:
             - name: list-overrides
               description: List overrides of Threat Prevention Profile.
               flags:
-                --location=: location of the security_profile - Global.
+                --location=: Location of the security profile.
                 --organization=: Organization ID to which the changes should apply.
             - name: update-override
               description: Update Overrides of Threat Prevention Profile.
@@ -1118,7 +1380,7 @@ commands:
                 --antivirus=: List of comma-separated protocols where each value in the list indicates the protocol of the antivirus threat.
                 --async: Return immediately, without waiting for the operation in progress to
                 --clear-labels: Remove all labels.
-                --location=: location of the security_profile - Global.
+                --location=: Location of the security profile.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-clear-labels&: Remove all labels.
                 --organization=: Organization ID to which the changes should apply.
@@ -1133,6 +1395,41 @@ commands:
                         - ALLOW
                         - ALERT
                         - DENY
+        - name: url-filtering
+          description: Security Profiles - Url Filtering Profile commands.
+          commands:
+            - name: create
+              description: Create a new URL Filtering Profile.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --description=: Brief description of the security profile
+                --labels=: List of label KEY=VALUE pairs to add.
+                --location=: Location of the security profile.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --organization=: Organization ID to which the changes should apply.
+            - name: delete
+              description: Delete a URL Filtering Profile.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: Location of the security profile.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --organization=: Organization ID to which the changes should apply.
+            - name: describe
+              description: Describe a URL Filtering Profile.
+              flags:
+                --location=: Location of the security profile.
+                --organization=: Organization ID to which the changes should apply.
+            - name: list
+              description: List URL Filtering Security Profiles.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=!: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --organization=: Organization ID of the location.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
     - name: server-tls-policies
       description: Manage Network Security ServerTlsPolicies.
       commands:
@@ -1199,6 +1496,216 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: ull-mirroring-collectors
+      description: Manage Ull Mirroring Collector resources.
+      commands:
+        - name: create
+          description: Create an UllMirroringCollector resource.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --engine=!: ID of the ullMirroringEngine or fully qualified identifier for the ullMirroringEngine.
+            --forwarding-rule=!: The regional load balancer which the mirrored traffic should be forwarded
+            --labels=: Labels as key value pairs.
+            --location=: For resources [engine, ull_mirroring_collector], provides fallback value for resource location attribute.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --request-id=: An optional request ID to identify requests.
+        - name: delete
+          description: Delete an UllMirroringCollector resource.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the ullMirroringCollector resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --request-id=: An optional request ID to identify requests.
+        - name: describe
+          description: Describe an UllMirroringCollector resource.
+          hidden: true
+          flags:
+            --location=: The location id of the ullMirroringCollector resource.
+        - name: disable
+          description: Disable an UllMirroringCollector resource.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the ullMirroringCollector resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --request-id=: An optional request ID to identify requests.
+        - name: enable
+          description: Enable an UllMirroringCollector resource.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the ullMirroringCollector resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --request-id=: An optional request ID to identify requests.
+        - name: list
+          description: List ullMirroringCollectors.
+          hidden: true
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: rules
+          description: Manage Ull Mirroring Collector Rule resources.
+          commands:
+            - name: create
+              description: Create an UllMirroringCollectorRule resource.
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --labels=: Labels as key value pairs.
+                --location=: The location id of the ullMirroringCollectorRule resource.
+                --match-direction=: Direction of traffic to match.
+                --match-dst-ip-ranges=: Destination IP ranges to match.
+                --match-ip-protocols=: IP protocols to match.
+                --match-src-ip-ranges=: Source IP ranges to match.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --request-id=: An optional request ID to identify requests.
+                --ull-mirroring-collector=: The ullMirroringCollector id of the ullMirroringCollectorRule resource.
+              completion:
+                flag:
+                    match-direction:
+                        - egress
+                        - ingress
+            - name: delete
+              description: Delete an UllMirroringCollectorRule resource.
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location id of the ullMirroringCollectorRule resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --request-id=: An optional request ID to identify requests.
+                --ull-mirroring-collector=: The ullMirroringCollector id of the ullMirroringCollectorRule resource.
+            - name: describe
+              description: Describe an UllMirroringCollectorRule resource.
+              hidden: true
+              flags:
+                --location=: The location id of the ullMirroringCollectorRule resource.
+                --ull-mirroring-collector=: The ullMirroringCollector id of the ullMirroringCollectorRule resource.
+            - name: list
+              description: List ullMirroringCollectorRules.
+              hidden: true
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the ullMirroringCollector resource.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --ull-mirroring-collector=!: ID of the ullMirroringCollector or fully qualified identifier for the ullMirroringCollector.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Update an UllMirroringCollectorRule resource.
+              hidden: true
+              flags:
+                --add-match-dst-ip-ranges=: Add new value to match_dst_ip_ranges list.
+                --add-match-ip-protocols=: Add new value to match_ip_protocols list.
+                --add-match-src-ip-ranges=: Add new value to match_src_ip_ranges list.
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-labels: Clear labels value and set to empty map.
+                --clear-match: Set ullMirroringCollectorRule.match back to default value.
+                --clear-match-dst-ip-ranges: Clear match_dst_ip_ranges value and set to empty list.
+                --clear-match-ip-protocols: Clear match_ip_protocols value and set to empty list.
+                --clear-match-src-ip-ranges: Clear match_src_ip_ranges value and set to empty list.
+                --labels=: Set labels to new value.
+                --location=: The location id of the ullMirroringCollectorRule resource.
+                --match-direction=: Direction of traffic to match.
+                --match-dst-ip-ranges=: Set match_dst_ip_ranges to new value.
+                --match-ip-protocols=: Set match_ip_protocols to new value.
+                --match-src-ip-ranges=: Set match_src_ip_ranges to new value.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Clear labels value and set to empty map.
+                --no-clear-match&: Set ullMirroringCollectorRule.match back to default value.
+                --no-clear-match-dst-ip-ranges&: Clear match_dst_ip_ranges value and set to empty list.
+                --no-clear-match-ip-protocols&: Clear match_ip_protocols value and set to empty list.
+                --no-clear-match-src-ip-ranges&: Clear match_src_ip_ranges value and set to empty list.
+                --remove-labels=: Remove existing value from map labels.
+                --remove-match-dst-ip-ranges=: Remove existing value from match_dst_ip_ranges list.
+                --remove-match-ip-protocols=: Remove existing value from match_ip_protocols list.
+                --remove-match-src-ip-ranges=: Remove existing value from match_src_ip_ranges list.
+                --ull-mirroring-collector=: The ullMirroringCollector id of the ullMirroringCollectorRule resource.
+                --update-labels=: Update labels value or add key value pair.
+              completion:
+                flag:
+                    match-direction:
+                        - egress
+                        - ingress
+        - name: update
+          description: Update an UllMirroringCollector resource.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Clear labels value and set to empty map.
+            --labels=: Set labels to new value.
+            --location=: The location id of the ullMirroringCollector resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --remove-labels=: Remove existing value from map labels.
+            --request-id=: An optional request ID to identify requests.
+            --update-labels=: Update labels value or add key value pair.
+    - name: ull-mirroring-engines
+      description: Manage Ull Mirroring Engine resources.
+      commands:
+        - name: create
+          description: Create an UllMirroringEngine resource.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --labels=: Labels as key value pairs.
+            --location=: The location id of the ullMirroringEngine resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --request-id=: An optional request ID to identify requests.
+        - name: delete
+          description: Delete an UllMirroringEngine resource.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the ullMirroringEngine resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --request-id=: An optional request ID to identify requests.
+        - name: describe
+          description: Describe an UllMirroringEngine resource.
+          hidden: true
+          flags:
+            --location=: The location id of the ullMirroringEngine resource.
+        - name: list
+          description: List ullMirroringEngines.
+          hidden: true
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: list-networks
+          description: List networks configured for mirroring for a Google Cloud ULL Mirroring Engine.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: The Cloud zone for the ull_mirroring_engine.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update an UllMirroringEngine resource.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Clear labels value and set to empty map.
+            --labels=: Set labels to new value.
+            --location=: The location id of the ullMirroringEngine resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --remove-labels=: Remove existing value from map labels.
+            --update-labels=: Update labels value or add key value pair.
     - name: url-lists
       description: Manage Network Security Url Lists.
       commands:

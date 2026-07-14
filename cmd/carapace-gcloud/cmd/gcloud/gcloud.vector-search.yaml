@@ -1,0 +1,292 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: vector-search
+description: Manage Vector Search data objects.
+commands:
+    - name: collections
+      description: Manage Collection resources.
+      commands:
+        - name: create
+          description: Create a collection.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --data-schema=: JSON Schema for data.
+            --description=: User-specified description of the collection
+            --display-name=: User-specified display name of the collection
+            --encryption-spec-crypto-key-name=!: Resource name of the Cloud KMS key used to protect the resource.
+            --labels=: Labels as key value pairs.
+            --location=: The location id of the collection resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --request-id=: An optional request ID to identify requests.
+            --vector-schema=: Schema for vector fields.
+        - name: data-objects
+          description: Manage Vector Search data objects.
+          commands:
+            - name: aggregate
+              description: Aggregate data objects.
+              flags:
+                --aggregation-method=!: The aggregation method to apply to the query.
+                --collection=!: The collection to aggregate data objects from.
+                --json-filter=: 'A filter expression in JSON format to apply to the aggregate, e.g. ```''{"genre": {"$eq": "sci-fi"}}''```.'
+                --location=!: Location of the collection.
+              completion:
+                flag:
+                    aggregation-method:
+                        - count
+            - name: batch-create
+              description: Create a batch of data objects.
+              flags:
+                --collection=!: ID of the collection or fully qualified identifier for the collection.
+                --location=: The location id of the collection resource.
+                --requests=!: Required, The request message specifying the resources to create.
+            - name: batch-delete
+              description: Delete a batch of data objects.
+              flags:
+                --collection=!: ID of the collection or fully qualified identifier for the collection.
+                --location=: The location id of the collection resource.
+                --requests=!: Required, The request message specifying the resources to delete.
+            - name: batch-search
+              description: Batch search data objects from a Vector Search collection.
+              flags:
+                --collection=!: The collection to batch search data objects from.
+                --combine-output-data-fields=: List of data fields to include in combined output.
+                --combine-output-metadata-fields=: List of metadata fields to include in combined output.
+                --combine-output-vector-fields=: List of vector fields to include in combined output.
+                --combine-top-k=: Top K results to return when combining results.
+                --location=!: Location of the collection.
+                --rrf-weights=: RRF weights for combining results.
+                --searches-from-file=!: Path to a JSON file containing a list of searches.
+            - name: batch-update
+              description: Update a batch of data objects.
+              flags:
+                --collection=!: ID of the collection or fully qualified identifier for the collection.
+                --location=: The location id of the collection resource.
+                --requests=!: Required, The request message specifying the resources to update.
+            - name: create
+              description: Create a data object.
+              flags:
+                --collection=: The collection id of the dataObject resource.
+                --data=: The data of the dataObject.
+                --etag=: The etag of the dataObject.
+                --location=: The location id of the dataObject resource.
+                --vectors=: The vectors of the dataObject.
+            - name: delete
+              description: Delete a data object.
+              flags:
+                --collection=: The collection id of the dataObject resource.
+                --etag=: The current etag of the DataObject.
+                --location=: The location id of the dataObject resource.
+            - name: describe
+              description: Describe a data object.
+              flags:
+                --collection=: The collection id of the dataObject resource.
+                --location=: The location id of the dataObject resource.
+            - name: query
+              description: Query data objects from a Vector Search collection.
+              flags:
+                --collection=!: The collection to query data objects from.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --json-filter=: 'A filter expression in JSON format to apply to the query, e.g. ```''{"genre": {"$eq": "sci-fi"}}''```.'
+                --limit=: Maximum number of resources to list.
+                --location=!: Location of the collection.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --output-data-fields=: List of data fields to include in the output.
+                --output-metadata-fields=: List of metadata fields to include in the output.
+                --output-vector-fields=: List of vector fields to include in the output.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: search
+              description: Search data objects from a Vector Search collection.
+              flags:
+                --collection=!: The collection to search data objects from.
+                --distance-metric=: The distance metric to use for the KNN search.
+                --json-filter=: 'A filter expression in JSON format to apply to the search, e.g. ```''{"genre": {"$eq": "sci-fi"}}''```.'
+                --location=!: Location of the collection.
+                --no-use-knn&: ""
+                --output-data-fields=: List of data fields to include in the output.
+                --output-metadata-fields=: List of metadata fields to include in the output.
+                --output-vector-fields=: List of vector fields to include in the output.
+                --semantic-search-field=!: The vector field to search.
+                --semantic-search-text=!: The query text for semantic search.
+                --semantic-task-type=!: The task type of the query embedding for semantic search.
+                --text-search-data-fields=!: The data field names to search.
+                --text-search-text=!: The query text for text search.
+                --top-k=: The number of nearest neighbors to return.
+                --use-index=!: Full resource name or ID of the index to use for the search.
+                --use-knn: If set to true, the search will use the system's default K-Nearest
+                --vector-from-file=!: Path to a JSON file containing dense or sparse vector to search with.
+                --vector-search-field=!: The vector field to search.
+              completion:
+                flag:
+                    distance-metric:
+                        - cosine-distance
+                        - dot-product
+                    semantic-task-type:
+                        - classification
+                        - clustering
+                        - code-retrieval-query
+                        - fact-verification
+                        - question-answering
+                        - retrieval-document
+                        - retrieval-query
+                        - semantic-similarity
+            - name: update
+              description: Update a data object.
+              flags:
+                --clear-vectors: Clear vectors value and set to empty map.
+                --collection=: The collection id of the dataObject resource.
+                --data=: The data of the dataObject.
+                --etag=: The etag of the dataObject.
+                --location=: The location id of the dataObject resource.
+                --no-clear-vectors&: Clear vectors value and set to empty map.
+                --remove-vectors=: Remove existing value from map vectors.
+                --update-vectors=: Update vectors value or add key value pair.
+                --vectors=: Set vectors to new value.
+        - name: delete
+          description: Delete a collection.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the collection resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --request-id=: An optional request ID to identify requests.
+        - name: describe
+          description: Describe a collection.
+          flags:
+            --location=: The location id of the collection resource.
+        - name: export-data-objects
+          description: Export data objects from a collection.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --gcs-destination-export-uri=!: URI prefix of the Cloud Storage where to export Data Objects.
+            --gcs-destination-format=!: The format of the exported Data Objects.
+            --location=: The location id of the collection resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+          completion:
+            flag:
+                gcs-destination-format:
+                    - jsonl
+        - name: import-data-objects
+          description: Import data objects into a collection.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --gcs-import-contents-uri=!: URI prefix of the Cloud Storage DataObjects to import.
+            --gcs-import-error-uri=!: URI prefix of the Cloud Storage location to write any errors encountered
+            --gcs-import-output-uri=: URI prefix of the Cloud Storage location to write DataObject `IDs` and
+            --location=: The location id of the collection resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: indexes
+          description: Manage Index resources.
+          commands:
+            - name: create
+              description: Create an index.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --collection=: The collection id of the index resource.
+                --dedicated-infrastructure-autoscaling-spec-max-replica-count=: The maximum number of replicas.
+                --dedicated-infrastructure-autoscaling-spec-min-replica-count=: The minimum number of replicas.
+                --dedicated-infrastructure-mode=: Mode of the dedicated infrastructure.
+                --dense-scann-feature-norm-type=: Feature norm type.
+                --description=: User-specified description of the index
+                --display-name=: User-specified display name of the index
+                --distance-metric=: Distance metric used for indexing.
+                --filter-fields=: The fields to push into the index to enable fast ANN inline filtering.
+                --index-field=!: The collection schema field to index.
+                --labels=: Labels as key value pairs.
+                --location=: The location id of the index resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --request-id=: An optional request ID to identify requests.
+                --store-fields=: The fields to push into the index to enable inline data retrieval.
+              completion:
+                flag:
+                    dedicated-infrastructure-mode:
+                        - performance-optimized
+                        - storage-optimized
+                    dense-scann-feature-norm-type:
+                        - none
+                        - unit-l2-norm
+                    distance-metric:
+                        - cosine-distance
+                        - dot-product
+            - name: delete
+              description: Delete an index.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --collection=: The collection id of the index resource.
+                --location=: The location id of the index resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --request-id=: An optional request ID to identify requests.
+            - name: describe
+              description: Describe an index.
+              flags:
+                --collection=: The collection id of the index resource.
+                --location=: The location id of the index resource.
+            - name: list
+              description: List indexes.
+              flags:
+                --collection=!: ID of the collection or fully qualified identifier for the collection.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the collection resource.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: list
+          description: List collections.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a collection.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Clear labels value and set to empty map.
+            --clear-vector-schema: Clear vector_schema value and set to empty map.
+            --data-schema=: JSON Schema for data.
+            --description=: User-specified description of the collection
+            --display-name=: User-specified display name of the collection
+            --labels=: Set labels to new value.
+            --location=: The location id of the collection resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --no-clear-vector-schema&: Clear vector_schema value and set to empty map.
+            --remove-labels=: Remove existing value from map labels.
+            --remove-vector-schema=: Remove existing value from map vector_schema.
+            --request-id=: An optional request ID to identify requests.
+            --update-labels=: Update labels value or add key value pair.
+            --update-vector-schema=: Update vector_schema value or add key value pair.
+            --vector-schema=: Set vector_schema to new value.
+    - name: operations
+      description: Manage Operation resources.
+      commands:
+        - name: cancel
+          description: Cancel an operation.
+          flags:
+            --location=: The location id of the operation resource.
+        - name: delete
+          description: Delete an operation.
+          flags:
+            --location=: The location id of the operation resource.
+        - name: describe
+          description: Describe an operation.
+          flags:
+            --location=: The location id of the operation resource.
+        - name: list
+          description: List operations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: wait
+          description: Wait for an operation to complete.
+          flags:
+            --location=: The location id of the operation resource.

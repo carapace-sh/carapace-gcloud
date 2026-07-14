@@ -113,18 +113,28 @@ commands:
         - name: create
           description: Create a Google Cloud Firestore database via Firestore API.
           flags:
+            --concurrency-mode=: The concurrency control mode to use for this database.
             --database=: The ID to use for the database, which will become the final
             --delete-protection: Whether to enable delete protection on the created database.
             --edition=: The edition of the database.
+            --enable-firestore-data-access: Whether to enable Firestore API Data Access on the created
+            --enable-mongodb-compatible-data-access: Whether to enable MongoDB Compatible API Data Access on the
             --enable-pitr: Whether to enable Point In Time Recovery (PITR) on the created database.
+            --enable-realtime-updates: Whether to enable Realtime Updates feature on the created database.
             --kms-key-name=: The resource ID of a Cloud KMS key.
             --location=!: The location to operate on.
             --no-delete-protection&: Whether to enable delete protection on the created database.
+            --no-enable-firestore-data-access&: Whether to enable Firestore API Data Access on the created
+            --no-enable-mongodb-compatible-data-access&: Whether to enable MongoDB Compatible API Data Access on the
             --no-enable-pitr&: Whether to enable Point In Time Recovery (PITR) on the created database.
+            --no-enable-realtime-updates&: Whether to enable Realtime Updates feature on the created database.
             --tags=: Tags to attach to the destination database.
             --type=: The type of the database.
           completion:
             flag:
+                concurrency-mode:
+                    - optimistic
+                    - pessimistic
                 edition:
                     - standard
                     - enterprise
@@ -173,6 +183,7 @@ commands:
           description: Update the database configuration of a Cloud Firestore database.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
+            --concurrency-mode=: The concurrency control mode to use for this database.
             --database=: ID of the database or fully qualified identifier for the database.
             --delete-protection: If set to true, the Firestore database will be updated to have database delete protection
             --enable-pitr: If set to true, the Firestore database will be updated to enable Point In Time Recovery.
@@ -182,6 +193,9 @@ commands:
             --type=: The database type.
           completion:
             flag:
+                concurrency-mode:
+                    - optimistic
+                    - pessimistic
                 type:
                     - datastore-mode
                     - firestore-native
@@ -218,10 +232,11 @@ commands:
                 --collection-group=: Collection group of the field.
                 --database=: Database of the field.
                 --disable-ttl: Set to make this field no longer the TTL for its collection group.
-                --enable-ttl: Set to enable this field as the TTL for its collection group.
+                --enable-ttl!: Set to enable this field as the TTL for its collection group.
+                --expiration-offset=: The offset, relative to the timestamp value from the TTL-enabled field, used to
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-disable-ttl&: Set to make this field no longer the TTL for its collection group.
-                --no-enable-ttl&: Set to enable this field as the TTL for its collection group.
+                --no-enable-ttl!&: Set to enable this field as the TTL for its collection group.
     - name: import
       description: import Cloud Firestore documents from Google Cloud Storage.
       flags:

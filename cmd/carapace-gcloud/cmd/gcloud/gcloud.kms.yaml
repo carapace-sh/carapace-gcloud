@@ -26,6 +26,7 @@ commands:
       completion:
         flag:
             digest-algorithm:
+                - external-mu
                 - sha256
                 - sha384
                 - sha512
@@ -33,13 +34,13 @@ commands:
       description: Update and retrieve the AutokeyConfig.
       commands:
         - name: describe
-          description: Describe the AutokeyConfig of a folder.
+          description: Describe the AutokeyConfig of a folder or project.
           flags:
-            --folder=!: The folder id in which the AutokeyConfig resource exists.
+            --folder=: The folder id in which the AutokeyConfig resource exists.
         - name: show-effective-config
           description: Gets the effective Cloud KMS AutokeyConfig for a given project.
         - name: update
-          description: Updates the AutokeyConfig for a folder.
+          description: Update the AutokeyConfig for a folder or project.
     - name: decapsulate
       description: Decapsulate an input file using a key-encapsulation key version.
       flags:
@@ -208,9 +209,13 @@ commands:
             --keyring=: Key ring of the import job.
             --location=: Location of the import job.
             --protection-level=!: Protection level of the import job.
+            --single-tenant-hsm-instance=: The single tenant HSM instance to use for the import job.
           completion:
             flag:
                 import-method:
+                    - hpke-kem-ml-kem-1024-hkdf-sha256-aes-256-gcm
+                    - hpke-kem-ml-kem-768-hkdf-sha256-aes-256-gcm
+                    - hpke-kem-xwing-hkdf-sha256-aes-256-gcm
                     - rsa-oaep-3072-sha1-aes-256
                     - rsa-oaep-3072-sha256
                     - rsa-oaep-3072-sha256-aes-256
@@ -220,6 +225,7 @@ commands:
                 protection-level:
                     - software
                     - hsm
+                    - hsm-single-tenant
         - name: describe
           description: Get metadata for a given import job.
           flags:
@@ -264,9 +270,15 @@ commands:
         - name: get-protected-resources-summary
           description: Gets the protected resources summary.
           flags:
+            --fallback-scope=: If permission is denied at the organization level, fall back to the project level scope.
             --keyname=!: ID of the key or fully qualified identifier for the key.
             --keyring=: The KMS keyring of the key.
             --location=: The Google Cloud location for the key.
+          completion:
+            flag:
+                fallback-scope:
+                    - FALLBACK_SCOPE_UNSPECIFIED
+                    - FALLBACK_SCOPE_PROJECT
         - name: list-keys
           description: Lists the keys in a project.
           flags:
@@ -287,7 +299,7 @@ commands:
             --no-uri&: Print a list of resource URIs instead of the default output, and change the
             --page-size=: Some services group resource list output into pages.
             --resource-types=: A list of resource types that this request searches for.
-            --scope=!: Organization ID.
+            --scope=!: The scope of the search, which can be an organization ID or a project ID or a project number.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
     - name: key-handles
@@ -421,7 +433,12 @@ commands:
                     - ml-kem-1024
                     - ml-kem-768
                     - pq-sign-hash-slh-dsa-sha2-128s-sha256
+                    - pq-sign-ml-dsa-44
+                    - pq-sign-ml-dsa-44-external-mu
                     - pq-sign-ml-dsa-65
+                    - pq-sign-ml-dsa-65-external-mu
+                    - pq-sign-ml-dsa-87
+                    - pq-sign-ml-dsa-87-external-mu
                     - pq-sign-slh-dsa-sha2-128s
                     - rsa-decrypt-oaep-2048-sha1
                     - rsa-decrypt-oaep-2048-sha256
@@ -444,6 +461,7 @@ commands:
                 protection-level:
                     - software
                     - hsm
+                    - hsm-single-tenant
                     - external
                     - external-vpc
                 purpose:
@@ -453,6 +471,11 @@ commands:
                     - key-encapsulation
                     - mac
                     - raw-encryption
+        - name: delete
+          description: Delete a key.
+          flags:
+            --keyring=: Key ring of the key.
+            --location=: Location of the key.
         - name: describe
           description: Get metadata for a given key.
           flags:
@@ -553,7 +576,12 @@ commands:
                     - ml-kem-1024
                     - ml-kem-768
                     - pq-sign-hash-slh-dsa-sha2-128s-sha256
+                    - pq-sign-ml-dsa-44
+                    - pq-sign-ml-dsa-44-external-mu
                     - pq-sign-ml-dsa-65
+                    - pq-sign-ml-dsa-65-external-mu
+                    - pq-sign-ml-dsa-87
+                    - pq-sign-ml-dsa-87-external-mu
                     - pq-sign-slh-dsa-sha2-128s
                     - rsa-decrypt-oaep-2048-sha1
                     - rsa-decrypt-oaep-2048-sha256
@@ -586,6 +614,12 @@ commands:
                 --location=: Location of the keyring.
                 --no-primary&: If specified, immediately makes the new version primary.
                 --primary: If specified, immediately makes the new version primary.
+            - name: delete
+              description: Delete a key version.
+              flags:
+                --key=: The containing key.
+                --keyring=: Key ring of the key.
+                --location=: Location of the keyring.
             - name: describe
               description: Get metadata for a given version.
               flags:
@@ -669,7 +703,12 @@ commands:
                         - ml-kem-1024
                         - ml-kem-768
                         - pq-sign-hash-slh-dsa-sha2-128s-sha256
+                        - pq-sign-ml-dsa-44
+                        - pq-sign-ml-dsa-44-external-mu
                         - pq-sign-ml-dsa-65
+                        - pq-sign-ml-dsa-65-external-mu
+                        - pq-sign-ml-dsa-87
+                        - pq-sign-ml-dsa-87-external-mu
                         - pq-sign-slh-dsa-sha2-128s
                         - rsa-decrypt-oaep-2048-sha1
                         - rsa-decrypt-oaep-2048-sha256
@@ -748,6 +787,13 @@ commands:
         --no-skip-integrity-verification&: Skip integrity verification on request and response API fields.
         --signature-file=!: Path to the signature file to be verified.
         --skip-integrity-verification: Skip integrity verification on request and response API fields.
+    - name: operations
+      description: Commands for managing operations.
+      commands:
+        - name: describe
+          description: View the details of an operation.
+          flags:
+            --location=: The Google Cloud location for the operation.
     - name: raw-decrypt
       description: Decrypt a ciphertext file using a raw key.
       flags:
@@ -772,3 +818,89 @@ commands:
         --no-skip-integrity-verification&: Skip integrity verification on request and response API fields.
         --plaintext-file=!: File path of the plaintext file to encrypt.
         --skip-integrity-verification: Skip integrity verification on request and response API fields.
+    - name: retired-resources
+      description: Manage retired resources.
+      commands:
+        - name: describe
+          description: Get metadata for a given retired resource.
+          flags:
+            --location=: The Google Cloud location for the retired-resource.
+        - name: list
+          description: List the retired resources within a location.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: single-tenant-hsm
+      description: Commands for managing single tenant HSM instances.
+      commands:
+        - name: create
+          description: Create a single tenant HSM instance.
+          flags:
+            --key-portability-enabled: If set, the single tenant HSM instance will be able to perform key portability operations.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-key-portability-enabled&: If set, the single tenant HSM instance will be able to perform key portability operations.
+            --single-tenant-hsm-instance-id=: Specify an ID for the single tenant HSM instance.
+            --total-approver-count=!: The total number of approvers.
+        - name: describe
+          description: Get metadata for a single tenant HSM instance.
+          flags:
+            --location=: The Google Cloud location for the singleTenantHsmInstance.
+        - name: list
+          description: List single tenant HSM instances within a location.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: proposal
+          description: Commands for managing single tenant HSM instance proposals.
+          commands:
+            - name: approve
+              description: Approve a single tenant HSM instance proposal.
+              flags:
+                --location=: The Google Cloud location for the singleTenantHsmInstanceProposal.
+                --quorum-challenge-replies=: The challenge replies to approve the proposal.
+                --required-challenge-replies=: A list of tuples, each containing the file paths for a required challenge reply.
+                --single-tenant-hsm-instance=: The KMS single tenant HSM instance of the singleTenantHsmInstanceProposal.
+            - name: create
+              description: Create a single tenant HSM instance proposal.
+              flags:
+                --location=: The Google Cloud location for the singleTenantHsmInstance.
+                --member-public-key-pem=: The PEM file containing the public key of the quorum member to add or remove.
+                --operation-type=!: The type of operation for the single tenant HSM instance proposal.
+                --required-approver-count=: The number of approvers required for the single tenant HSM instance.
+                --single-tenant-hsm-instance-proposal-id=: The ID to use for the single tenant HSM instance proposal, which will become the final component of the single tenant HSM instance resource name.
+                --two-factor-public-key-pems=: The PEM files containing the two factor public keys  2FA keys for M of N quorum auth tenant HSM instance.
+            - name: delete
+              description: Delete a single tenant HSM instance proposal.
+              flags:
+                --location=: The Google Cloud location for the singleTenantHsmInstanceProposal.
+                --single-tenant-hsm-instance=: The KMS single tenant HSM instance of the singleTenantHsmInstanceProposal.
+            - name: describe
+              description: Get metadata for a single tenant HSM instance proposal.
+              flags:
+                --location=: The Google Cloud location for the singleTenantHsmInstanceProposal.
+                --single-tenant-hsm-instance=: The KMS single tenant HSM instance of the singleTenantHsmInstanceProposal.
+            - name: execute
+              description: Executes a single tenant HSM proposal.
+              flags:
+                --location=: The Google Cloud location for the singleTenantHsmInstanceProposal.
+                --single-tenant-hsm-instance=: The KMS single tenant HSM instance of the singleTenantHsmInstanceProposal.
+            - name: list
+              description: List single tenant HSM instance proposals within a single tenant HSM instance.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The Google Cloud location for the singleTenantHsmInstance.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the

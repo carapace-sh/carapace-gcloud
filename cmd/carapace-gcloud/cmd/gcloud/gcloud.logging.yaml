@@ -269,6 +269,22 @@ commands:
             order:
                 - desc
                 - asc
+    - name: recent-queries
+      description: Manage Cloud Logging recent queries.
+      commands:
+        - name: list
+          description: List Logging recent queries.
+          flags:
+            --billing-account=: Billing account of the parent resource for recent queries to list.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --folder=: Folder of the parent resource for recent queries to list.
+            --limit=: Maximum number of resources to list.
+            --location=!: Location of the recent queries to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --organization=: Organization of the parent resource for recent queries to list.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
     - name: redact
       description: Redact log entries.
       hidden: true
@@ -288,6 +304,76 @@ commands:
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
             --sort-by=: Comma-separated list of resource field key names to sort by.
+    - name: saved-queries
+      description: Manage Cloud Logging saved queries.
+      commands:
+        - name: create
+          description: Create a Logging saved query.
+          flags:
+            --billing-account=: Billing account of the saved query to create.
+            --description=: A textual description for the saved query.
+            --display-name=!: Display name for the saved query.
+            --folder=: Folder of the saved query to create.
+            --id=: ID of the saved query to create.
+            --location=!: Location to create the saved query in.
+            --log-filter=: Filter expression for the log-based query.
+            --organization=: Organization of the saved query to create.
+            --sql-query-text=: SQL query text.
+            --summary-field-end=: 'Setting for number of characters to display for each summary field: characters will be counted from the end of the string.'
+            --summary-field-start=: 'Setting for number of characters to display for each summary field: characters will be counted from the start of the string.'
+            --summary-fields=: Comma-separated list of fields to include in the summary.
+            --visibility=!: Visibility of the saved query.
+          completion:
+            flag:
+                visibility:
+                    - private
+                    - shared
+        - name: delete
+          description: Delete a Logging saved query.
+          flags:
+            --billing-account=: Billing account of the saved query to delete.
+            --folder=: Folder of the saved query to delete.
+            --location=!: Location of the saved query to delete.
+            --organization=: Organization of the saved query to delete.
+        - name: describe
+          description: A command that describes a Logging saved query.
+          flags:
+            --billing-account=: Billing account of the saved query to describe.
+            --folder=: Folder of the saved query to describe.
+            --location=!: Location of the saved query to describe.
+            --organization=: Organization of the saved query to describe.
+        - name: list
+          description: List Logging saved queries.
+          flags:
+            --billing-account=: Billing account of the parent resource for saved queries to list.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --folder=: Folder of the parent resource for saved queries to list.
+            --limit=: Maximum number of resources to list.
+            --location=!: Location of the saved queries to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --organization=: Organization of the parent resource for saved queries to list.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update Logging saved queries.
+          flags:
+            --add-summary-field=: Add a summary field.
+            --billing-account=: Billing account of the saved query to update.
+            --clear-summary-fields: Clear all summary fields.
+            --description=: The description of the saved query.
+            --display-name=: The display name of the saved query.
+            --folder=: Folder of the saved query to update.
+            --location=: Location of the saved query.
+            --log-filter=: The logging filter.
+            --name=: The resource name of the saved query.
+            --no-clear-summary-fields&: Clear all summary fields.
+            --organization=: Organization of the saved query to update.
+            --remove-summary-field=: Remove a summary field.
+            --sql-query-text=: The SQL query text.
+            --summary-field-end=: Summary field end.
+            --summary-field-start=: Summary field start.
+            --visibility=: The visibility of the saved query.
     - name: scopes
       description: Manages Cloud Logging log scopes.
       commands:

@@ -97,6 +97,7 @@ commands:
             --disable-container-logging: For custom-trained Models and AutoML Tabular Models, the container of the
             --display-name=!: Display name of the deployed model.
             --enable-access-logging: If true, online prediction access logs are sent to Cloud Logging.
+            --gpu-partition-size=: The partition size of the GPU accelerator.
             --machine-type=: The machine resources to be used for each node of this deployment.
             --max-replica-count=: Maximum number of machine replicas for the deployment resources the model will be
             --min-replica-count=: Minimum number of machine replicas for the deployment resources the model will be
@@ -275,6 +276,7 @@ commands:
             --audiences=: List of JWT audiences that are allowed to access a deployed index.
             --deployed-index-id=!: Id of the deployed index.
             --deployment-group=: Deployment group can be no longer than 64 characters (eg:`test`, `prod`).
+            --deployment-tier=: The deployment tier that the deployed index is deployed to.
             --display-name=!: Display name of the deployed index.
             --enable-access-logging: If true, online prediction access logs are sent to Cloud Logging.
             --index=!: ID of the index.
@@ -285,6 +287,10 @@ commands:
             --psc-automation-configs=: A pair of `project-id` and `network` the PSC index will be deployed to.
             --region=: Cloud region for the index_endpoint.
             --reserved-ip-ranges=: List of reserved IP ranges deployed index will be deployed to.
+          completion:
+            flag:
+                deployment-tier:
+                    - storage
         - name: describe
           description: Gets detailed index endpoint information about the given index endpoint id.
           flags:
@@ -417,6 +423,7 @@ commands:
                 --container-startup-probe-exec=: Exec specifies the action to take.
                 --container-startup-probe-period-seconds=: How often (in seconds) to perform the startup probe.
                 --container-startup-probe-timeout-seconds=: Number of seconds after which the startup probe times out.
+                --disable-dedicated-endpoint: If true, the dedicated endpoint will be disabled and the deployed model will be exposed through the shared DNS.
                 --enable-fast-tryout: If True, model will be deployed using faster deployment path.
                 --endpoint-display-name=: Display name of the endpoint with the deployed model.
                 --hugging-face-access-token=: The access token from Hugging Face needed to read the model artifacts of gated models.
@@ -424,12 +431,14 @@ commands:
                 --model=!: The model to be deployed.
                 --no-accept-eula&: When set, the user accepts the End User License Agreement (EULA) of the model.
                 --no-asynchronous&: If set to true, the command will terminate immediately and not keep polling the operation status.
+                --no-disable-dedicated-endpoint&: If true, the dedicated endpoint will be disabled and the deployed model will be exposed through the shared DNS.
                 --no-enable-fast-tryout&: If True, model will be deployed using faster deployment path.
                 --no-spot&: If true, schedule the deployment workload on Spot VM.
                 --no-use-dedicated-endpoint&: If true, the endpoint will be exposed through a dedicated DNS.
                 --region=: ID of the region or fully qualified identifier for the region.
                 --reservation-affinity=: A ReservationAffinity can be used to configure a Vertex AI resource (e.g., a DeployedModel) to draw its Compute Engine resources from a Shared Reservation, or exclusively from on-demand capacity.
                 --spot: If true, schedule the deployment workload on Spot VM.
+                --system-labels=: System labels for Model Garden deployments.
                 --use-dedicated-endpoint: If true, the endpoint will be exposed through a dedicated DNS.
             - name: list
               description: List the publisher models in Model Garden.
@@ -699,3 +708,53 @@ commands:
             --region=: Cloud region for the tensorboard.
             --remove-labels=: List of label keys to remove.
             --update-labels=: List of label KEY=VALUE pairs to update.
+    - name: tuning-jobs
+      description: Manage Vertex AI tuning jobs.
+      commands:
+        - name: cancel
+          description: Cancel a running tuning job.
+          flags:
+            --region=: Cloud region for the tuning job.
+        - name: create
+          description: Create a supervised fine-tuning job.
+          flags:
+            --adapter-size=: Adapter size for parameter-efficient fine-tuning.
+            --description=: Description of the tuning job.
+            --epoch-count=: Number of training epochs.
+            --export-last-checkpoint-only: If set, disable intermediate checkpoints for the tuning job and only export the last checkpoint.
+            --kms-key=!: ID of the key or fully qualified identifier for the key.
+            --kms-keyring=: The KMS keyring of the key.
+            --kms-location=: The Google Cloud location for the key.
+            --kms-project=: The Google Cloud project for the key.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --learning-rate-multiplier=: Multiplier for adjusting the default learning rate.
+            --no-export-last-checkpoint-only&: If set, disable intermediate checkpoints for the tuning job and only export the last checkpoint.
+            --region=: ID of the region or fully qualified identifier for the region.
+            --service-account=: The service account that the tuning job runs as.
+            --source-model=!: The base model to tune, e.g. ``gemini-1.0-pro-002`` or ``meta/llama3_1@llama-3.1-8b``.
+            --training-dataset-uri=!: Cloud Storage URI of the training dataset.
+            --tuned-model-display-name=: Display name of the tuned model.
+            --validation-dataset-uri=: Cloud Storage URI of the optional validation dataset.
+          completion:
+            flag:
+                adapter-size:
+                    - "1"
+                    - "2"
+                    - "4"
+                    - "8"
+                    - "16"
+                    - "32"
+        - name: describe
+          description: Get detail information about the tuning job by given id.
+          flags:
+            --region=: Cloud region for the tuning job.
+        - name: list
+          description: List existing tuning jobs.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: ID of the region or fully qualified identifier for the region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the

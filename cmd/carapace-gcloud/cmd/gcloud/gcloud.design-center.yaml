@@ -7,6 +7,11 @@ commands:
       commands:
         - name: describe
           description: Describe a Design Center location.
+        - name: fetch-frameworks
+          description: Fetch frameworks available for assessment.
+          hidden: true
+          flags:
+            --projects=: The list of projects to fetch frameworks for.
         - name: list
           description: List Design Center locations.
           flags:
@@ -41,6 +46,10 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: wait
+          description: Wait for an operation to complete.
+          flags:
+            --location=: The location id of the operation resource.
     - name: spaces
       description: Manage space resources.
       commands:
@@ -116,12 +125,40 @@ commands:
                 - name: create
                   description: Create a component.
                   flags:
+                    --application-info-apphub-id=!: The application ID of the apphub application.
+                    --application-info-deployment-region=: Deployment region for the component.
+                    --application-info-display-name=: Display name for the application.
                     --application-template=: The applicationTemplate id of the component resource.
+                    --attributes-business-owners=: Business team that ensures user needs are met and value is delivered.
+                    --attributes-developer-owners=: Developer team that owns development and coding.
+                    --attributes-operator-owners=: Operator team that ensures runtime and operations.
+                    --criticality-level=: Criticality level.
+                    --criticality-mission-critical: Indicates mission-critical Application, Service, or Workload.
+                    --criticality-type=!: Criticality Type.
                     --display-name=: The component display name.
+                    --environment-type=!: Environment Type.
+                    --environment=: Environment name.
                     --location=: The location id of the component resource.
+                    --no-criticality-mission-critical&: Indicates mission-critical Application, Service, or Workload.
                     --parameters=: The component parameters.
+                    --scope-type=!: Scope Type.
                     --shared-template-revision-uri=!: The shared template used to generate the component.
                     --space=: The space id of the component resource.
+                  completion:
+                    flag:
+                        criticality-type:
+                            - high
+                            - low
+                            - medium
+                            - mission-critical
+                        environment-type:
+                            - development
+                            - production
+                            - staging
+                            - test
+                        scope-type:
+                            - global
+                            - regional
                 - name: delete
                   description: Delete a component.
                   flags:
@@ -151,15 +188,57 @@ commands:
                 - name: update
                   description: Update a component.
                   flags:
+                    --add-attributes-business-owners=: Add new value to attributes_business_owners list.
+                    --add-attributes-developer-owners=: Add new value to attributes_developer_owners list.
+                    --add-attributes-operator-owners=: Add new value to attributes_operator_owners list.
                     --add-parameters=: Add new value to parameters list.
+                    --application-info-apphub-id=: The application ID of the apphub application.
+                    --application-info-deployment-region=: Deployment region for the component.
+                    --application-info-display-name=: Display name for the application.
                     --application-template=: The applicationTemplate id of the component resource.
+                    --attributes-business-owners=: Set attributes_business_owners to new value.
+                    --attributes-developer-owners=: Set attributes_developer_owners to new value.
+                    --attributes-operator-owners=: Set attributes_operator_owners to new value.
+                    --clear-application-info: Set component.applicationInfo back to default value.
+                    --clear-attributes-business-owners: Clear attributes_business_owners value and set to empty list.
+                    --clear-attributes-developer-owners: Clear attributes_developer_owners value and set to empty list.
+                    --clear-attributes-operator-owners: Clear attributes_operator_owners value and set to empty list.
                     --clear-parameters: Clear parameters value and set to empty list.
+                    --criticality-level=: Criticality level.
+                    --criticality-mission-critical: Indicates mission-critical Application, Service, or Workload.
+                    --criticality-type=: Criticality Type.
                     --display-name=: The component display name.
+                    --environment-type=: Environment Type.
+                    --environment=: Environment name.
                     --location=: The location id of the component resource.
+                    --no-clear-application-info&: Set component.applicationInfo back to default value.
+                    --no-clear-attributes-business-owners&: Clear attributes_business_owners value and set to empty list.
+                    --no-clear-attributes-developer-owners&: Clear attributes_developer_owners value and set to empty list.
+                    --no-clear-attributes-operator-owners&: Clear attributes_operator_owners value and set to empty list.
                     --no-clear-parameters&: Clear parameters value and set to empty list.
+                    --no-criticality-mission-critical&: Indicates mission-critical Application, Service, or Workload.
                     --parameters=: Set parameters to new value.
+                    --remove-attributes-business-owners=: Remove existing value from attributes_business_owners list.
+                    --remove-attributes-developer-owners=: Remove existing value from attributes_developer_owners list.
+                    --remove-attributes-operator-owners=: Remove existing value from attributes_operator_owners list.
                     --remove-parameters=: Remove existing value from parameters list.
+                    --scope-type=: Scope Type.
                     --space=: The space id of the component resource.
+                  completion:
+                    flag:
+                        criticality-type:
+                            - high
+                            - low
+                            - medium
+                            - mission-critical
+                        environment-type:
+                            - development
+                            - production
+                            - staging
+                            - test
+                        scope-type:
+                            - global
+                            - regional
             - name: create
               description: Create an application template.
               flags:
@@ -168,6 +247,9 @@ commands:
                 --description=: Application template description.
                 --display-name=: Application template display name.
                 --location=: The location id of the applicationTemplate resource.
+                --root-input-variables=: Root level input variables of the application template.
+                --root-output-variables=: Root level output variables of the application template.
+                --saas-runtime-context-names=: The SaaS names.
                 --space=: The space id of the applicationTemplate resource.
               completion:
                 flag:
@@ -203,6 +285,15 @@ commands:
                     iac-format:
                         - helm
                         - terraform
+            - name: generate-assessment-report
+              description: Generate a best practice assessment report generator for an application template.
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The Cloud location for the application_template.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --service-account=: The full resource name of the service account to use for this
+                --space=: The ID of the space.
             - name: import
               description: Import to an application template.
               flags:
@@ -234,6 +325,75 @@ commands:
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --space=!: ID of the space or fully qualified identifier for the space.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: policies
+              description: The policies command group.
+              hidden: true
+              commands:
+                - name: create
+                  description: Create a policy.
+                  hidden: true
+                  flags:
+                    --application-template=: The applicationTemplate id of the policy resource.
+                    --apply-conditions=: Conditions for applying the policy.
+                    --description=: The policy description.
+                    --display-name=: The policy display name.
+                    --location=: The location id of the policy resource.
+                    --policy-revision-uri=: URI of the policy revision.
+                    --policy-type=!: The policy type.
+                    --policy-uri=: URI of the policy.
+                    --space=: The space id of the policy resource.
+                  completion:
+                    flag:
+                        policy-type:
+                            - compliance-framework
+                - name: delete
+                  description: Delete a policy.
+                  hidden: true
+                  flags:
+                    --application-template=: The applicationTemplate id of the policy resource.
+                    --location=: The location id of the policy resource.
+                    --space=: The space id of the policy resource.
+                - name: describe
+                  description: Describe a policy.
+                  hidden: true
+                  flags:
+                    --application-template=: The applicationTemplate id of the policy resource.
+                    --location=: The location id of the policy resource.
+                    --space=: The space id of the policy resource.
+                - name: list
+                  description: List policies.
+                  hidden: true
+                  flags:
+                    --application-template=!: ID of the applicationTemplate or fully qualified identifier for the applicationTemplate.
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --location=: The location id of the applicationTemplate resource.
+                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                    --page-size=: Some services group resource list output into pages.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --space=: The space id of the applicationTemplate resource.
+                    --uri: Print a list of resource URIs instead of the default output, and change the
+                - name: update
+                  description: Update a policy.
+                  hidden: true
+                  flags:
+                    --add-apply-conditions=: Add new value to apply_conditions list.
+                    --application-template=: The applicationTemplate id of the policy resource.
+                    --apply-conditions=: Set apply_conditions to new value.
+                    --clear-apply-conditions: Clear apply_conditions value and set to empty list.
+                    --description=: The policy description.
+                    --display-name=: The policy display name.
+                    --location=: The location id of the policy resource.
+                    --no-clear-apply-conditions&: Clear apply_conditions value and set to empty list.
+                    --policy-revision-uri=: URI of the policy revision.
+                    --policy-type=: The policy type.
+                    --policy-uri=: URI of the policy.
+                    --remove-apply-conditions=: Remove existing value from apply_conditions list.
+                    --space=: The space id of the policy resource.
+                  completion:
+                    flag:
+                        policy-type:
+                            - compliance-framework
             - name: revisions
               description: Manage application template revision resources.
               commands:
@@ -249,6 +409,23 @@ commands:
                     --application-template=: The applicationTemplate id of the revision resource.
                     --location=: The location id of the revision resource.
                     --space=: The space id of the revision resource.
+                - name: generate
+                  description: Generate IaC for an application template revision.
+                  flags:
+                    --application-template=: The applicationTemplate id of the revision resource.
+                    --artifact-location-gcs-uri=: The Cloud Storage URI for storing the generated IaC.
+                    --connection=: The connection id of the gitRepositoryLink resource.
+                    --developer-connect-export-config-branch=: The branch in repo to which the content such as Infrastructure as Code
+                    --developer-connect-export-config-dir=!: Directory, relative to the source repo, where content such as
+                    --developer-connect-export-config-repo-uri=!: ID of the gitRepositoryLink or fully qualified identifier for the gitRepositoryLink.
+                    --iac-format=: The IaC format to generate.
+                    --location=: For resources [revision, developer-connect-export-config-repo-uri], provides fallback value for resource location attribute.
+                    --space=: The space id of the revision resource.
+                  completion:
+                    flag:
+                        iac-format:
+                            - helm
+                            - terraform
                 - name: list
                   description: List application template revisions.
                   flags:
@@ -265,20 +442,31 @@ commands:
               description: Update an application template.
               flags:
                 --add-application-parameters=: Add new value to application_parameters list.
+                --add-root-input-variables=: Add new value to root_input_variables list.
+                --add-root-output-variables=: Add new value to root_output_variables list.
+                --add-saas-runtime-context-names=: Add new value to saas_runtime_context_names list.
                 --application-parameters=: Set application_parameters to new value.
                 --clear-application-parameters: Clear application_parameters value and set to empty list.
-                --composition-type=: 'The composition type of the applicationTemplate: STANDARD OR COMPOSITE.'
+                --clear-root-input-variables: Clear root_input_variables value and set to empty list.
+                --clear-root-output-variables: Clear root_output_variables value and set to empty list.
+                --clear-saas-runtime-context: Set applicationTemplate.saasRuntimeContext back to default value.
+                --clear-saas-runtime-context-names: Clear saas_runtime_context_names value and set to empty list.
                 --description=: Application template description.
                 --display-name=: Application template display name.
                 --location=: The location id of the applicationTemplate resource.
                 --no-clear-application-parameters&: Clear application_parameters value and set to empty list.
+                --no-clear-root-input-variables&: Clear root_input_variables value and set to empty list.
+                --no-clear-root-output-variables&: Clear root_output_variables value and set to empty list.
+                --no-clear-saas-runtime-context&: Set applicationTemplate.saasRuntimeContext back to default value.
+                --no-clear-saas-runtime-context-names&: Clear saas_runtime_context_names value and set to empty list.
                 --remove-application-parameters=: Remove existing value from application_parameters list.
+                --remove-root-input-variables=: Remove existing value from root_input_variables list.
+                --remove-root-output-variables=: Remove existing value from root_output_variables list.
+                --remove-saas-runtime-context-names=: Remove existing value from saas_runtime_context_names list.
+                --root-input-variables=: Set root_input_variables to new value.
+                --root-output-variables=: Set root_output_variables to new value.
+                --saas-runtime-context-names=: Set saas_runtime_context_names to new value.
                 --space=: The space id of the applicationTemplate resource.
-              completion:
-                flag:
-                    composition-type:
-                        - composite
-                        - standard
         - name: applications
           description: Manage application resources.
           commands:
@@ -290,6 +478,7 @@ commands:
                 --attributes-developer-owners=: Developer team that owns development and coding.
                 --attributes-operator-owners=: Operator team that ensures runtime and operations.
                 --component-parameters=: A list of component parameters to associate with the application.
+                --composite-application-parameters-service-account-map=: A map from a component's URI to the deployment service account for
                 --connection-configs=: Connection configuration for the application.
                 --criticality-level=: Criticality level.
                 --criticality-mission-critical: Indicates mission-critical Application, Service, or Workload.
@@ -301,12 +490,15 @@ commands:
                 --environment-type=!: Environment Type.
                 --environment=: Environment name.
                 --gke-deployment-target-cluster-self-link=!: The self link of the cluster where GKE based application is deployed.
+                --gke-deployment-target-kubernetes-service-account-creation: Whether to create the provided KSA.
                 --gke-deployment-target-kubernetes-service-account=!: The kubernetes service account that is created within the namespace
                 --gke-deployment-target-namespace=!: The namespace where the application is deployed.
                 --import-existing-resources: Import existing resources into the application.
                 --location=: The location id of the application resource.
                 --no-criticality-mission-critical&: Indicates mission-critical Application, Service, or Workload.
+                --no-gke-deployment-target-kubernetes-service-account-creation&: Whether to create the provided KSA.
                 --no-import-existing-resources&: Import existing resources into the application.
+                --params-update-strategy=: Specifies the strategy to use when updating the application parameters
                 --scope-type=!: Scope Type.
                 --service-account=: Your own service account that you use to deploy an application.
                 --source-application-template-revision=: Application template revision URI.
@@ -325,6 +517,8 @@ commands:
                         - production
                         - staging
                         - test
+                    params-update-strategy:
+                        - replace
                     scope-type:
                         - global
                         - regional
@@ -344,13 +538,15 @@ commands:
               description: Deploy an application.
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
-                --location=: The location id of the application resource.
+                --create-sa: Create a new service account for the deployment.
+                --location=: The Cloud location for the application.
                 --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-create-sa&: Create a new service account for the deployment.
                 --no-replace&: Flag to update the existing deployment.
                 --replace: Flag to update the existing deployment.
-                --service-account=: The email address of the service account to use for this deployment.
-                --space=: The space id of the application resource.
-                --worker-pool=: The user-specified Worker Pool resource in which the Cloud Build job will
+                --service-account=: The service account to use for this deployment.
+                --space=: The ID of the space.
+                --worker-pool=: The user-specified Worker Pool resource in which the Cloud Build job
             - name: describe
               description: Describe an application.
               flags:
@@ -373,6 +569,14 @@ commands:
                     iac-format:
                         - helm
                         - terraform
+            - name: generate-assessment-report
+              description: Generate an assessment report for a Design Center application.
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The Cloud location for the application.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --space=: The ID of the space.
             - name: import-iac
               description: Import Infrastructure as Code (IaC) for an Application.
               flags:
@@ -396,14 +600,16 @@ commands:
                 --space=!: ID of the space or fully qualified identifier for the space.
                 --uri: Print a list of resource URIs instead of the default output, and change the
             - name: preview
-              description: Preview an application.
+              description: Preview a Design Center application.
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
-                --location=: The location id of the application resource.
+                --create-sa: Create a new service account for the preview.
+                --location=: The Cloud location for the application.
                 --no-async&: Return immediately, without waiting for the operation in progress to
-                --service-account=: The email address of the service account to use for this preview operation.
-                --space=: The space id of the application resource.
-                --worker-pool=: The user-specified Worker Pool resource in which the Cloud Build job will
+                --no-create-sa&: Create a new service account for the preview.
+                --service-account=: The service account to use for this preview.
+                --space=: The ID of the space.
+                --worker-pool=: The user-specified Worker Pool resource in which the Cloud Build job
             - name: update
               description: Update an application.
               flags:
@@ -423,11 +629,14 @@ commands:
                 --clear-attributes-developer-owners: Clear attributes_developer_owners value and set to empty list.
                 --clear-attributes-operator-owners: Clear attributes_operator_owners value and set to empty list.
                 --clear-component-parameters: Clear component_parameters value and set to empty list.
+                --clear-composite-application-parameters: Set application.compositeApplicationParameters back to default value.
+                --clear-composite-application-parameters-service-account-map: Clear composite_application_parameters_service_account_map value and set to empty map.
                 --clear-connection-configs: Clear connection_configs value and set to empty list.
                 --clear-deployment-target: Set application.deploymentTarget back to default value.
                 --clear-scope: Set application.scope back to default value.
                 --clear-source: Set application.source back to default value.
                 --component-parameters=: Set component_parameters to new value.
+                --composite-application-parameters-service-account-map=: Set composite_application_parameters_service_account_map to new value.
                 --connection-configs=: Set connection_configs to new value.
                 --criticality-level=: Criticality level.
                 --criticality-mission-critical: Indicates mission-critical Application, Service, or Workload.
@@ -439,6 +648,7 @@ commands:
                 --environment-type=: Environment Type.
                 --environment=: Environment name.
                 --gke-deployment-target-cluster-self-link=: The self link of the cluster where GKE based application is deployed.
+                --gke-deployment-target-kubernetes-service-account-creation: Whether to create the provided KSA.
                 --gke-deployment-target-kubernetes-service-account=: The kubernetes service account that is created within the namespace
                 --gke-deployment-target-namespace=: The namespace where the application is deployed.
                 --import-existing-resources: Import existing resources into the application.
@@ -449,17 +659,22 @@ commands:
                 --no-clear-attributes-developer-owners&: Clear attributes_developer_owners value and set to empty list.
                 --no-clear-attributes-operator-owners&: Clear attributes_operator_owners value and set to empty list.
                 --no-clear-component-parameters&: Clear component_parameters value and set to empty list.
+                --no-clear-composite-application-parameters&: Set application.compositeApplicationParameters back to default value.
+                --no-clear-composite-application-parameters-service-account-map&: Clear composite_application_parameters_service_account_map value and set to empty map.
                 --no-clear-connection-configs&: Clear connection_configs value and set to empty list.
                 --no-clear-deployment-target&: Set application.deploymentTarget back to default value.
                 --no-clear-scope&: Set application.scope back to default value.
                 --no-clear-source&: Set application.source back to default value.
                 --no-criticality-mission-critical&: Indicates mission-critical Application, Service, or Workload.
+                --no-gke-deployment-target-kubernetes-service-account-creation&: Whether to create the provided KSA.
                 --no-import-existing-resources&: Import existing resources into the application.
+                --params-update-strategy=: Specifies the strategy to use when updating the application parameters
                 --remove-app-parameters=: Remove existing value from app_parameters list.
                 --remove-attributes-business-owners=: Remove existing value from attributes_business_owners list.
                 --remove-attributes-developer-owners=: Remove existing value from attributes_developer_owners list.
                 --remove-attributes-operator-owners=: Remove existing value from attributes_operator_owners list.
                 --remove-component-parameters=: Remove existing value from component_parameters list.
+                --remove-composite-application-parameters-service-account-map=: Remove existing value from map composite_application_parameters_service_account_map.
                 --remove-connection-configs=: Remove existing value from connection_configs list.
                 --scope-type=: Scope Type.
                 --service-account=: Your own service account that you use to deploy an application.
@@ -467,6 +682,7 @@ commands:
                 --source-shared-template-revision-uri=: Shared template revision URI.
                 --space=: The space id of the application resource.
                 --type=: The type of the application.
+                --update-composite-application-parameters-service-account-map=: Update composite_application_parameters_service_account_map value or add key value pair.
               completion:
                 flag:
                     criticality-type:
@@ -479,6 +695,8 @@ commands:
                         - production
                         - staging
                         - test
+                    params-update-strategy:
+                        - replace
                     scope-type:
                         - global
                         - regional
@@ -577,8 +795,8 @@ commands:
                     --display-name=: The display name of a catalog template.
                     --location=: The location id of the template resource.
                     --space=: The space id of the template resource.
-                    --template-category=!: The category of the ADC template.
-                    --type=: The Application Design Center assembly template type.
+                    --template-category=!: The category of the Application Design Center application template.
+                    --type=: The Application Design Center application template type.
                   completion:
                     flag:
                         template-category:
@@ -686,8 +904,8 @@ commands:
                     --display-name=: The display name of a catalog template.
                     --location=: The location id of the template resource.
                     --space=: The space id of the template resource.
-                    --template-category=: The category of the ADC template.
-                    --type=: The Application Design Center assembly template type.
+                    --template-category=: The category of the Application Design Center application template.
+                    --type=: The Application Design Center application template type.
                   completion:
                     flag:
                         template-category:
@@ -733,6 +951,15 @@ commands:
           description: Describe a space.
           flags:
             --location=: The location id of the space resource.
+        - name: generate-terraform-assessment-report
+          description: Generate a Terraform assessment report in a design center space.
+          hidden: true
+          flags:
+            --additional-frameworks=: Additional frameworks to run assessment against.
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The Cloud location for the space.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --terraform-plan=!: Path to the Terraform plan file (JSON format).
         - name: get-iam-policy
           description: Get the IAM policy for a Design Center space.
           flags:
@@ -751,6 +978,16 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: register-app-hub-application-resources
+          description: Registration of App Hub application resources.
+          hidden: true
+          flags:
+            --apphub-application=!: The name of the AppHub Application.
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --tfstate-content=: The Terraform state (tfstate) content as a raw string.
+            --tfstate-signed-gcs-uri=: A securely signed Cloud Storage URI pointing to the tfstate file.
         - name: set-iam-policy
           description: Set the IAM policy for a Design Center space as defined in a JSON/YAML file.
           flags:

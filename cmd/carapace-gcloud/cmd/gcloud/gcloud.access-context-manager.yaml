@@ -63,10 +63,13 @@ commands:
           flags:
             --binding-file=: Path to the file that contains a Google Cloud Platform user access binding.
             --dry-run-level=: The dry run access level that binds to the given group.
-            --group-key=!: Google Group ID whose members are subject to the restrictions of this binding.
+            --federated-principal=: IAM federated principal that this binding applies to.
+            --group-key=: Google Group ID whose members are subject to the restrictions of this
             --level=: The access level that binds to the given group.
             --organization=: Parent organization for this binding.
             --policy=&: The access policy that the access level belongs to.
+            --service-account-project-number=: Project number of the project that contains the service accounts
+            --service-account=: Service account email that this binding applies to.
             --session-length=: The maximum lifetime of a user session provided as an  ISO 8601 duration string.
             --session-reauth-method=: Specifies the type of re-authentication challenge given to the user when their session
           completion:
@@ -96,15 +99,15 @@ commands:
         - name: update
           description: Update a existing cloud access binding under an organization.
           flags:
-            --append: When true, append the ScopedAccessSettings in `--binding-file` to the existing
-            --binding-file=: Path to the file that contains a Google Cloud Platform user access binding.
+            --append: When true, append the `ScopedAccessSettings` in `--binding-file` to the existing
+            --binding-file=: Path to the file that contains a Google Cloud user access binding.
             --binding=!: ID of the cloud-access-binding or fully qualified identifier for the cloud-access-binding.
             --dry-run-level=: The dry run access level that replaces the existing dry run level for the given binding.
             --level=: The access level that replaces the existing level for the given binding.
-            --no-append&: When true, append the ScopedAccessSettings in `--binding-file` to the existing
+            --no-append&: When true, append the `ScopedAccessSettings` in `--binding-file` to the existing
             --organization=: The ID of the organization.
             --policy=&: The access policy that the access level belongs to.
-            --session-length=: The maximum lifetime of a user session provided as an  ISO 8601 duration string.
+            --session-length=: The maximum lifetime of a user session provided as an ISO 8601 duration string.
             --session-reauth-method=: Specifies the security check a user must undergo when their session expires.
           completion:
             flag:
@@ -201,6 +204,7 @@ commands:
             --resources=: Comma-separated list of resources (currently only projects, in the
             --restricted-services=: Comma-separated list of services to which the perimeter boundary
             --title=!: Short human-readable title for the service perimeter.
+            --vpc-accessible-services=: Path to a YAML file containing the full VPC Accessible Services configuration.
             --vpc-allowed-services=: Comma-separated list of APIs accessible from within the Service
           completion:
             flag:
@@ -240,10 +244,12 @@ commands:
                 --perimeter-restricted-services=: Comma-separated list of services to which the perimeter boundary
                 --perimeter-title=!: Short human-readable title for the Service Perimeter.
                 --perimeter-type=!: Type of the perimeter.
+                --perimeter-vpc-accessible-services=: Path to a YAML file containing a VpcAccessibleServices object.
                 --perimeter-vpc-allowed-services=: Comma-separated list of APIs accessible from within the Service
                 --policy=: The ID of the access policy.
                 --resources=: Comma-separated list of resources (currently only projects, in the
                 --restricted-services=: Comma-separated list of services to which the perimeter boundary
+                --vpc-accessible-services=: Path to a YAML file containing a VpcAccessibleServices object.
                 --vpc-allowed-services=: Comma-separated list of APIs accessible from within the Service
             - name: delete
               description: Mark the Service Perimeter as deleted in the dry-run mode.
@@ -286,15 +292,16 @@ commands:
                 --add-access-levels=: Append the given values to the current Access Level.
                 --add-resources=: Append the given values to the current Resources.
                 --add-restricted-services=: Append the given values to the current Restricted Services.
-                --add-vpc-allowed-services=: Append the given values to the current VPC Allowed Services.
+                --add-vpc-allowed-services=: Append the given values to the current vpc allowed services.
                 --async: Return immediately, without waiting for the operation in
                 --clear-access-levels: Empty the current Access Level.
                 --clear-egress-policies: Empties existing enforced Egress Policies.
                 --clear-ingress-policies: Empties existing enforced Ingress Policies.
                 --clear-resources: Empty the current Resources.
                 --clear-restricted-services: Empty the current Restricted Services.
-                --clear-vpc-allowed-services: Empty the current VPC Allowed Services.
-                --enable-vpc-accessible-services: When specified restrict API calls within the Service Perimeter to the
+                --clear-vpc-accessible-services: Empties existing enforced VpcAccessibleServices.
+                --clear-vpc-allowed-services: Empty the current vpc allowed services.
+                --enable-vpc-accessible-services: When specified restrict API calls within the Service Perimeter to the set of vpc allowed services.
                 --etag=: The etag for the version of the Access Policy that this
                 --no-async&: Return immediately, without waiting for the operation in
                 --no-clear-access-levels&: Empty the current Access Level.
@@ -302,15 +309,17 @@ commands:
                 --no-clear-ingress-policies&: Empties existing enforced Ingress Policies.
                 --no-clear-resources&: Empty the current Resources.
                 --no-clear-restricted-services&: Empty the current Restricted Services.
-                --no-clear-vpc-allowed-services&: Empty the current VPC Allowed Services.
-                --no-enable-vpc-accessible-services&: When specified restrict API calls within the Service Perimeter to the
+                --no-clear-vpc-accessible-services&: Empties existing enforced VpcAccessibleServices.
+                --no-clear-vpc-allowed-services&: Empty the current vpc allowed services.
+                --no-enable-vpc-accessible-services&: When specified restrict API calls within the Service Perimeter to the set of vpc allowed services.
                 --policy=: The ID of the access policy.
                 --remove-access-levels=: Remove the given values from the current Access Level.
                 --remove-resources=: Remove the given values from the current Resources.
                 --remove-restricted-services=: Remove the given values from the current Restricted Services.
-                --remove-vpc-allowed-services=: Remove the given values from the current VPC Allowed Services.
+                --remove-vpc-allowed-services=: Remove the given values from the current vpc allowed services.
                 --set-egress-policies=: Path to a file containing a list of Egress Policies.
                 --set-ingress-policies=: Path to a file containing a list of Ingress Policies.
+                --set-vpc-accessible-services=: Path to a file containing a VpcAccessibleServices object.
         - name: list
           description: List service perimeters.
           flags:
@@ -336,6 +345,7 @@ commands:
             --clear-ingress-policies: Empties existing enforced Ingress Policies.
             --clear-resources: Empty the current resources.
             --clear-restricted-services: Empty the current restricted services.
+            --clear-vpc-accessible-services: Empties existing enforced VpcAccessibleServices.
             --clear-vpc-allowed-services: Empty the current vpc allowed services.
             --description=: Long-form description of service perimeter.
             --enable-vpc-accessible-services: When specified restrict API calls within the Service Perimeter to the set of vpc allowed services.
@@ -345,6 +355,7 @@ commands:
             --no-clear-ingress-policies&: Empties existing enforced Ingress Policies.
             --no-clear-resources&: Empty the current resources.
             --no-clear-restricted-services&: Empty the current restricted services.
+            --no-clear-vpc-accessible-services&: Empties existing enforced VpcAccessibleServices.
             --no-clear-vpc-allowed-services&: Empty the current vpc allowed services.
             --no-enable-vpc-accessible-services&: When specified restrict API calls within the Service Perimeter to the set of vpc allowed services.
             --policy=: The ID of the access policy.
@@ -357,6 +368,7 @@ commands:
             --set-ingress-policies=: Path to a file containing a list of Ingress Policies.
             --set-resources=: Completely replace the current resources with the given values.
             --set-restricted-services=: Completely replace the current restricted services with the given values.
+            --set-vpc-accessible-services=: Path to a file containing a VpcAccessibleServices object.
             --title=: Short human-readable title of the service perimeter.
             --type=: Type of the perimeter.
           completion:
@@ -416,6 +428,20 @@ commands:
           description: Update an existing access policy.
           flags:
             --title=: Short human-readable title of the access policy.
+    - name: supported-permissions
+      description: Retrieve VPC Service Controls Supported Permissions.
+      commands:
+        - name: describe
+          description: Describes which permissions in a provided role are supported by VPC Service Controls.
+          flags:
+            --organization=: Organization of the role you want to describe.
+        - name: list
+          description: Lists all VPC Service Controls supported permissions.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
     - name: supported-services
       description: Retrieve VPC Service Controls Supported Services.
       commands:

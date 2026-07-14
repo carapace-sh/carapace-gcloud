@@ -5,6 +5,22 @@ commands:
     - name: batch-operations
       description: Manage Cloud Storage batch operations.
       commands:
+        - name: bucket-operations
+          description: Manage Cloud Storage batch operations bucket operations.
+          commands:
+            - name: describe
+              description: Describe a bucket operation for a batch operation job.
+              flags:
+                --job=: Batch Job ID for the bucket-operation.
+            - name: list
+              description: List bucket operations for a batch operation job.
+              flags:
+                --buckets=: If provided, only show operations for buckets in the list.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --job=!: ID of the batch-job or fully qualified identifier for the batch-job.
+                --limit=: Maximum number of resources to list.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
         - name: jobs
           description: Manage Cloud Storage batch operations jobs.
           commands:
@@ -13,22 +29,38 @@ commands:
             - name: create
               description: Create a new batch operation job.
               flags:
-                --bucket=!: Bucket containing the objects that the batch job will operate on.
+                --bucket-filters=: Filters expressed in Common Expression Language (CEL) to apply to buckets.
+                --bucket-list=: List of buckets containing the objects that the batch job will operate on.
+                --bucket=: Bucket containing the objects that the batch job will operate on.
+                --clear-all-object-custom-contexts: Clears all object custom contexts.
+                --clear-object-custom-contexts=: Removes object custom contexts by key.
                 --delete-object!: If this flag is set, objects specified in source will be deleted.
                 --description=: Description for the batch job.
+                --dry-run: If true, the job will run in dry run mode, returning the total object count and, if the object configuration is a prefix list, the bytes found from source.
+                --dry-run-job-id=: The unique identifier of a dry run job to use as the baseline.
                 --enable-permanent-object-deletion: If this flag is set and versioning is enabled on the buckets, both live and noncurrent objects will be permanently deleted.
                 --included-object-prefixes=: A comma-separated list of object prefixes to describe the objects being transformed.
+                --insights-dataset-config=!: The resource identifier of the Storage Insights dataset configuration.
                 --log-action-states=: The states in which the actions specified in --log-actions are logged.
                 --log-actions=: Define the batch job actions to report in logs.
                 --manifest-location=: An absolute path to the manifest source file in a Google Cloud Storage bucket.
+                --no-clear-all-object-custom-contexts&: Clears all object custom contexts.
                 --no-delete-object!&: If this flag is set, objects specified in source will be deleted.
+                --no-dry-run&: If true, the job will run in dry run mode, returning the total object count and, if the object configuration is a prefix list, the bytes found from source.
                 --no-enable-permanent-object-deletion&: If this flag is set and versioning is enabled on the buckets, both live and noncurrent objects will be permanently deleted.
                 --no-put-object-event-based-hold&: Sets or unsets object event based holds state.
                 --no-put-object-temporary-hold&: Sets or unsets object temporary holds state.
+                --object-filters=: Filters expressed in Common Expression Language (CEL) to apply to objects.
                 --put-metadata=: Sets object metadata.
                 --put-object-event-based-hold: Sets or unsets object event based holds state.
                 --put-object-temporary-hold: Sets or unsets object temporary holds state.
                 --rewrite-object=: Rewrites object and the specified metadata.
+                --set-object-acls-from-file=: Path to a local YAML or JSON file containing object ACL updates.
+                --target-locations=!: A comma-separated list of Cloud Storage locations (e.g., us-central1) to include in the job.
+                --target-project=!: Project name of the objects to be transformed.
+                --target-snapshot-time=: The exact Storage Insights snapshot timestamp to use for the job compatible with the RFC 3339 format (e.g., 2024-01-02T03:04:00.123456Z).
+                --update-object-custom-contexts-file=: Path to a local JSON or YAML file containing custom contexts one wants to update
+                --update-object-custom-contexts=: Inserts or updates object custom contexts.
             - name: delete
               description: Delete a batch-operations job.
             - name: describe
@@ -57,6 +89,8 @@ commands:
               description: Create Anywhere Cache instances for a bucket.
               flags:
                 --admission-policy=: The cache admission policy decides for each cache miss, whether to insert the missed block or not.
+                --enable-ingest-on-write: Enables the Ingest-on-Write feature on the bucket.
+                --no-enable-ingest-on-write&: Enables the Ingest-on-Write feature on the bucket.
                 --ttl=: Cache entry time-to-live.
               completion:
                 flag:
@@ -89,6 +123,8 @@ commands:
               description: Update Anywhere Cache instances.
               flags:
                 --admission-policy=: The cache admission policy decides for each cache miss, whether to insert the missed block or not.
+                --enable-ingest-on-write: Enables the Ingest-on-Write feature on the bucket.
+                --no-enable-ingest-on-write&: Enables the Ingest-on-Write feature on the bucket.
                 --ttl=: Cache entry time-to-live.
               completion:
                 flag:
@@ -105,6 +141,7 @@ commands:
             --enable-autoclass: The Autoclass feature automatically selects the best storage class for objects based on access patterns.
             --enable-hierarchical-namespace: Enable hierarchical namespace for the bucket.
             --enable-per-object-retention: Enables each object in the bucket to have its own retention settings, which prevents deletion until stored for a specific length of time.
+            --encryption-enforcement-file=: Sets the encryption enforcement configuration for the bucket from a JSON file.
             --ip-filter-file=: Sets the IP filter for the bucket.
             --lifecycle-file=: Sets the lifecycle management configuration on a bucket.
             --location=: '[Location](https://cloud.google.com/storage/docs/locations) for the bucket.'
@@ -189,10 +226,11 @@ commands:
         - name: relocate
           description: Relocates bucket between different locations.
           flags:
-            --dry-run: Prints the operations that the relocate command would perform without actually performing relocation.
+            --destination-kms-key-name=: This is only required when relocating a bucket that uses
+            --dry-run: Prints the operations that the relocate command would perform
             --finalize!: Schedules the write lock to occur.
             --location=!: The final [location](https://cloud.google.com/storage/docs/locations) where the bucket will be relocated to.
-            --no-dry-run&: Prints the operations that the relocate command would perform without actually performing relocation.
+            --no-dry-run&: Prints the operations that the relocate command would perform
             --no-finalize!&: Schedules the write lock to occur.
             --operation=!: Specify the relocation operation name to advance the relocation operation.The relocation operation name must include the Cloud Storage bucket and operation ID.
             --placement=: A comma-separated list of regions that form the custom [dual-region](https://cloud.google.com/storage/docs/locations#location-dr). Only regions within the same continent are or will ever be valid.
@@ -240,6 +278,7 @@ commands:
             --default-object-acl-file=: Sets the default object ACL from file for the bucket.
             --default-storage-class=: Sets the default storage class for the bucket.
             --enable-autoclass: The Autoclass feature automatically selects the best storage class for objects based on access patterns.
+            --encryption-enforcement-file=: Sets the encryption enforcement configuration for the bucket from a JSON file.
             --ip-filter-file=: Sets the IP filter for the bucket.
             --labels-file=: Sets the label configuration for the bucket.
             --lifecycle-file=: Sets the lifecycle management configuration on a bucket.
@@ -307,6 +346,7 @@ commands:
         --all-versions: Copy all source versions from a source bucket or folder.
         --cache-control=: How caches should handle requests and responses.
         --canned-acl=: Applies predefined, or "canned," ACLs to a resource.
+        --clear-custom-contexts: Clears all custom contexts on objects.
         --clear-custom-metadata: Clears all custom metadata on objects.
         --content-disposition=: How content should be displayed.
         --content-encoding=: How content is encoded (e.g. ``gzip'').
@@ -314,6 +354,8 @@ commands:
         --content-md5=: Manually specified MD5 hash digest for the contents of an uploaded file.
         --content-type=: Type of data contained in the object (e.g. ``text/html'').
         --continue-on-error: If any operations are unsuccessful, the command will exit with a non-zero exit status after completing the remaining operations.
+        --custom-contexts-file=: Path to a local JSON or YAML file containing custom contexts one wants to set on
+        --custom-contexts=: Sets custom contexts on objects.
         --custom-metadata=: Sets custom metadata on objects.
         --custom-time=: Custom time for Cloud Storage objects in RFC 3339 format.
         --daisy-chain: Copy in "daisy chain" mode, which means copying an object by first downloading it to the machine where the command is run, then uploading it to the destination bucket.
@@ -329,6 +371,7 @@ commands:
         --ignore-symlinks: Ignore file symlinks instead of copying what they point to.
         --include-managed-folders: Includes managed folders in command operations.
         --manifest-path=: Outputs a manifest log file with detailed information about each item that
+        --no-clear-custom-contexts&: Clears all custom contexts on objects.
         --no-clear-custom-metadata&: Clears all custom metadata on objects.
         --no-clobber: Do not overwrite existing files or objects at the destination.
         --no-do-not-decompress&: Do not automatically decompress downloaded gzip files.
@@ -344,11 +387,13 @@ commands:
         --print-created-message: Prints the version-specific URL for each copied object.
         --read-paths-from-stdin: Read the list of resources to copy from stdin.
         --recursive: Recursively copy the contents of any directories that match the source path expression.
+        --remove-custom-contexts=: Removes the custom contexts on the object, if an entry is not found, it would be ignored.
         --remove-custom-metadata=: Removes individual custom metadata keys from objects.
         --retain-until=: Ensures the destination object is retained until the specified time in RFC 3339 format.
         --retention-mode=: Sets the destination object retention mode to either "Locked" or "Unlocked".
         --skip-unsupported: Skip objects with unsupported object types.
         --storage-class=: Specify the storage class of the destination object.
+        --update-custom-contexts=: Updates the custom contexts on the object, if an entry is found, it would be overwritten, otherwise the entry would be added.
         --update-custom-metadata=: Adds or sets individual custom metadata key value pairs on objects.
       completion:
         flag:
@@ -387,6 +432,7 @@ commands:
         --all-versions: Includes noncurrent object versions for a bucket with Object Versioning enabled.
         --exclude-name-pattern-file=: Similar to -e, but excludes patterns from the given file.
         --exclude-name-pattern=: Exclude a pattern from the report.
+        --metadata-filter=: Server side filtering for objects.
         --readable-sizes: Prints object sizes in human-readable format.
         --summarize: Displays only the summary for each argument.
         --total: Includes a total size of all input sources.
@@ -472,6 +518,7 @@ commands:
             - name: create
               description: Create a new dataset config for Insights.
               flags:
+                --activity-data-retention-period-days=: Provide retention period for the activity data in the config.
                 --auto-add-new-buckets: Automatically include any new buckets created if they satisfy criteria defined in config settings.
                 --description=: Description for dataset config.
                 --enable-organization-scope: If passed, the dataset config will be enabled on the organization.
@@ -529,6 +576,7 @@ commands:
             - name: update
               description: Updates a dataset config for Insights.
               flags:
+                --activity-data-retention-period-days=: Provide retention period for the activity data in the config.
                 --auto-add-new-buckets: Automatically include any new buckets created if they satisfy criteria defined in config settings.
                 --description=: Description for dataset config.
                 --enable-organization-scope: If passed, the dataset config will be enabled on the organization.
@@ -673,6 +721,60 @@ commands:
             --organization=: Specifies organization id for the storage intelligence config.
             --sub-folder=: Specifies sub-folder id for the storage intelligence config.
             --trial-edition: Enables Storage Intelligence for TRIAL edition.
+    - name: intelligence-findings
+      description: Findings for Cloud Storage usage.
+      commands:
+        - name: describe
+          description: Intelligence finding description.
+          flags:
+            --location=&: Location of the finding(s).
+        - name: list
+          description: Intelligence findings list.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=&: Location of the finding(s).
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: revisions
+          description: Historical revisions of intelligence findings.
+          commands:
+            - name: describe
+              description: Historical revision description of a finding.
+              flags:
+                --finding-id=!: The ID of the intelligence finding the revision belongs to.
+                --location=&: Location of the finding(s).
+            - name: list
+              description: Historical revisions list of a finding.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --finding-id=!: The ID of the intelligence finding to list revisions for.
+                --limit=: Maximum number of resources to list.
+                --location=&: Location of the finding.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: summarize
+          description: Intelligence findings summary.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=&: The location to scope the summary to.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --organization=: The organization to scope the summary to.
+            --page-size=: Some services group resource list output into pages.
+            --resource-scope=: The resource scope for the summary.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --sub-folder=: The sub-folder to scope the summary to.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+          completion:
+            flag:
+                resource-scope:
+                    - PROJECT
+                    - PARENT
     - name: ls
       description: List Cloud Storage buckets and objects.
       flags:
@@ -687,6 +789,7 @@ commands:
         --full: List all available metadata about items in rows.
         --json: List all available metadata about items as a JSON dump.
         --long: For objects only.
+        --metadata-filter=: Server side filtering for objects.
         --next-page-token=: Page token for resuming LIST calls.
         --no-exhaustive&: For features like soft delete, the API may return an empty list.
         --no-fetch-encrypted-object-hashes&: API requests to the LIST endpoint do not fetch the hashes for encrypted objects by default.
@@ -757,6 +860,7 @@ commands:
         --all-versions: Copy all source versions from a source bucket or folder.
         --cache-control=: How caches should handle requests and responses.
         --canned-acl=: Applies predefined, or "canned," ACLs to a resource.
+        --clear-custom-contexts: Clears all custom contexts on objects.
         --clear-custom-metadata: Clears all custom metadata on objects.
         --content-disposition=: How content should be displayed.
         --content-encoding=: How content is encoded (e.g. ``gzip'').
@@ -764,6 +868,8 @@ commands:
         --content-md5=: Manually specified MD5 hash digest for the contents of an uploaded file.
         --content-type=: Type of data contained in the object (e.g. ``text/html'').
         --continue-on-error: If any operations are unsuccessful, the command will exit with a non-zero exit status after completing the remaining operations.
+        --custom-contexts-file=: Path to a local JSON or YAML file containing custom contexts one wants to set on
+        --custom-contexts=: Sets custom contexts on objects.
         --custom-metadata=: Sets custom metadata on objects.
         --custom-time=: Custom time for Cloud Storage objects in RFC 3339 format.
         --daisy-chain: Copy in "daisy chain" mode, which means copying an object by first downloading it to the machine where the command is run, then uploading it to the destination bucket.
@@ -779,6 +885,7 @@ commands:
         --ignore-symlinks: Ignore file symlinks instead of copying what they point to.
         --include-managed-folders: Includes managed folders in command operations.
         --manifest-path=: Outputs a manifest log file with detailed information about each item that
+        --no-clear-custom-contexts&: Clears all custom contexts on objects.
         --no-clear-custom-metadata&: Clears all custom metadata on objects.
         --no-clobber: Do not overwrite existing files or objects at the destination.
         --no-do-not-decompress&: Do not automatically decompress downloaded gzip files.
@@ -793,11 +900,13 @@ commands:
         --preserve-symlinks: Preserve symlinks instead of copying what they point to.
         --print-created-message: Prints the version-specific URL for each copied object.
         --read-paths-from-stdin: Read the list of resources to copy from stdin.
+        --remove-custom-contexts=: Removes the custom contexts on the object, if an entry is not found, it would be ignored.
         --remove-custom-metadata=: Removes individual custom metadata keys from objects.
         --retain-until=: Ensures the destination object is retained until the specified time in RFC 3339 format.
         --retention-mode=: Sets the destination object retention mode to either "Locked" or "Unlocked".
         --skip-unsupported: Skip objects with unsupported object types.
         --storage-class=: Specify the storage class of the destination object.
+        --update-custom-contexts=: Updates the custom contexts on the object, if an entry is found, it would be overwritten, otherwise the entry would be added.
         --update-custom-metadata=: Adds or sets individual custom metadata key value pairs on objects.
       completion:
         flag:
@@ -819,10 +928,16 @@ commands:
           description: Concatenate a sequence of objects into a new composite object.
           flags:
             --additional-headers=: Includes arbitrary headers in storage API calls.
+            --clear-custom-contexts: Clears all custom contexts on objects.
+            --custom-contexts-file=: Path to a local JSON or YAML file containing custom contexts one wants to set on
+            --custom-contexts=: Sets custom contexts on objects.
             --decryption-keys=&: A comma-separated list of customer-supplied encryption keys (RFC 4648 section 4 base64-encoded AES256 strings) that will be used to decrypt Cloud Storage objects.
+            --delete-source-objects: If set, the source objects will be deleted after a successful
             --encryption-key=&: The encryption key to use for encrypting target objects.
             --if-generation-match=: Execute only if the generation matches the generation of the requested object.
             --if-metageneration-match=: Execute only if the metageneration matches the metageneration of the requested object.
+            --no-clear-custom-contexts&: Clears all custom contexts on objects.
+            --no-delete-source-objects&: If set, the source objects will be deleted after a successful
             --retain-until=: Ensures the destination object is retained until the specified time in RFC 3339 format.
             --retention-mode=: Sets the destination object retention mode to either "Locked" or "Unlocked".
           completion:
@@ -855,6 +970,7 @@ commands:
             --fetch-encrypted-object-hashes: API requests to the LIST endpoint do not fetch the hashes for encrypted objects by default.
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
+            --metadata-filter=: Server side filtering for objects.
             --next-page-token=: Page token for resuming LIST calls.
             --no-exhaustive&: For features like soft delete, the API may return an empty list.
             --no-fetch-encrypted-object-hashes&: API requests to the LIST endpoint do not fetch the hashes for encrypted objects by default.
@@ -901,6 +1017,7 @@ commands:
             --clear-content-encoding: Clears content encoding.
             --clear-content-language: Clears object content language.
             --clear-content-type: Clears object content type.
+            --clear-custom-contexts: Clears all custom contexts on objects.
             --clear-custom-metadata: Clears all custom metadata on objects.
             --clear-custom-time: Clears object custom time.
             --clear-encryption-key: Clears the encryption key associated with an object.
@@ -910,6 +1027,8 @@ commands:
             --content-language=: Content's language (e.g. ``en'' signifies "English").
             --content-type=: Type of data contained in the object (e.g. ``text/html'').
             --continue-on-error: If any operations are unsuccessful, the command will exit with a non-zero exit status after completing the remaining operations.
+            --custom-contexts-file=: Path to a local JSON or YAML file containing custom contexts one wants to set on
+            --custom-contexts=: Sets custom contexts on objects.
             --custom-metadata=: Sets custom metadata on objects.
             --custom-time=: Custom time for Cloud Storage objects in RFC 3339 format.
             --decryption-keys=: A comma-separated list of customer-supplied encryption keys (RFC 4648 section 4 base64-encoded AES256 strings) that will be used to decrypt Cloud Storage objects.
@@ -923,6 +1042,7 @@ commands:
             --no-clear-content-encoding&: Clears content encoding.
             --no-clear-content-language&: Clears object content language.
             --no-clear-content-type&: Clears object content type.
+            --no-clear-custom-contexts&: Clears all custom contexts on objects.
             --no-clear-custom-metadata&: Clears all custom metadata on objects.
             --no-clear-custom-time&: Clears object custom time.
             --no-clear-encryption-key&: Clears the encryption key associated with an object.
@@ -938,11 +1058,13 @@ commands:
             --read-paths-from-stdin: Read the list of objects to update from stdin.
             --recursive: Recursively update objects under any buckets or directories that match the URL expression.
             --remove-acl-grant=: Key-value pairs mirroring the JSON accepted by your cloud provider.
+            --remove-custom-contexts=: Removes the custom contexts on the object, if an entry is not found, it would be ignored.
             --remove-custom-metadata=: Removes individual custom metadata keys from objects.
             --retain-until=: Ensures the object is retained until the specified time in RFC 3339 format.
             --retention-mode=: Sets the object retention mode to either "Locked" or "Unlocked".
             --storage-class=: Specify the storage class of the object.
             --temporary-hold: Enables or disables a temporary hold on objects.
+            --update-custom-contexts=: Updates the custom contexts on the object, if an entry is found, it would be overwritten, otherwise the entry would be added.
             --update-custom-metadata=: Adds or sets individual custom metadata key value pairs on objects.
           completion:
             flag:
@@ -1003,6 +1125,7 @@ commands:
         --cache-control=: How caches should handle requests and responses.
         --canned-acl=: Applies predefined, or "canned," ACLs to a resource.
         --checksums-only: When comparing objects with matching names at the source and destination, skip modification time check and compare object hashes.
+        --clear-custom-contexts: Clears all custom contexts on objects.
         --clear-custom-metadata: Clears all custom metadata on objects.
         --content-disposition=: How content should be displayed.
         --content-encoding=: How content is encoded (e.g. ``gzip'').
@@ -1010,6 +1133,8 @@ commands:
         --content-md5=: Manually specified MD5 hash digest for the contents of an uploaded file.
         --content-type=: Type of data contained in the object (e.g. ``text/html'').
         --continue-on-error: If any operations are unsuccessful, the command will exit with a non-zero exit status after completing the remaining operations.
+        --custom-contexts-file=: Path to a local JSON or YAML file containing custom contexts one wants to set on
+        --custom-contexts=: Sets custom contexts on objects.
         --custom-metadata=: Sets custom metadata on objects.
         --custom-time=: Custom time for Cloud Storage objects in RFC 3339 format.
         --decryption-keys=: A comma-separated list of customer-supplied encryption keys (RFC 4648 section 4 base64-encoded AES256 strings) that will be used to decrypt Cloud Storage objects.
@@ -1024,6 +1149,7 @@ commands:
         --ignore-symlinks: Ignore file symlinks instead of copying what they point to.
         --include-managed-folders: Includes managed folders in command operations.
         --no-checksums-only&: When comparing objects with matching names at the source and destination, skip modification time check and compare object hashes.
+        --no-clear-custom-contexts&: Clears all custom contexts on objects.
         --no-clear-custom-metadata&: Clears all custom metadata on objects.
         --no-clobber: Do not overwrite existing files or objects at the destination.
         --no-delete-unmatched-destination-objects&: Delete extra files under DESTINATION not found under SOURCE.
@@ -1035,9 +1161,11 @@ commands:
         --preserve-acl&: Preserves ACLs when copying in the cloud.
         --preserve-posix: Causes POSIX attributes to be preserved when objects are copied.
         --recursive: Recursively copy the contents of any directories that match the source path expression.
+        --remove-custom-contexts=: Removes the custom contexts on the object, if an entry is not found, it would be ignored.
         --remove-custom-metadata=: Removes individual custom metadata keys from objects.
         --skip-if-dest-has-newer-mtime: Skip operating on destination object if it has a newer modification time than the source.
         --skip-unsupported: Skip objects with unsupported object types.
+        --update-custom-contexts=: Updates the custom contexts on the object, if an entry is found, it would be overwritten, otherwise the entry would be added.
         --update-custom-metadata=: Adds or sets individual custom metadata key value pairs on objects.
     - name: service-agent
       description: Manage a project's Cloud Storage service agent, which is used to perform Cloud KMS operations.

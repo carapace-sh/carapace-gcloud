@@ -61,6 +61,7 @@ commands:
             --enable-streaming-engine: Enabling Streaming Engine for the streaming job.
             --flexrs-goal=: FlexRS goal for the flex template job.
             --launcher-machine-type=: The machine type to use for launching the job.
+            --launcher-vm-timeout-secs=: The timeout in seconds for the launcher VM.
             --max-workers=: Maximum number of workers to run.
             --network=: Compute Engine network for launching instances to run your pipeline.
             --no-disable-public-ips&: Cloud Dataflow workers must not use public IP addresses.
@@ -125,6 +126,16 @@ commands:
                     - active
                     - all
                     - terminated
+        - name: pause
+          description: Starts pausing all given jobs.
+          hidden: true
+          flags:
+            --region=: Region ID of the jobs' regional endpoint.
+        - name: resume
+          description: Starts resuming all given jobs.
+          hidden: true
+          flags:
+            --region=: Region ID of the jobs' regional endpoint.
         - name: run
           description: Runs a job from the specified path.
           flags:
@@ -244,11 +255,29 @@ commands:
         - name: run
           description: Runs a job from the specified path.
           flags:
+            --additional-experiments=: Additional experiments to pass to the job.
+            --additional-pipeline-options=: Additional pipeline options to pass to the job.
+            --additional-user-labels=: Additional user labels to pass to the job.
+            --dataflow-kms-key=: Cloud KMS key to protect the job resources.
+            --disable-public-ips: If specified, Cloud Dataflow workers will not use public IP addresses.
+            --enable-streaming-engine: Enable Streaming Engine for the streaming job.
             --jinja-variables=: Jinja2 variables to be used in reifying the yaml.
+            --launcher-machine-type=: The machine type to use for launching the job.
+            --max-workers=: Maximum number of workers to run.
             --network=: Compute Engine network for launching worker instances to run the pipeline.
-            --pipeline-options=: Pipeline options to pass to the job.
+            --no-disable-public-ips&: If specified, Cloud Dataflow workers will not use public IP addresses.
+            --no-enable-streaming-engine&: Enable Streaming Engine for the streaming job.
+            --no-update!&: Specify this flag to update a streaming job.
+            --num-workers=: Initial number of workers to use.
+            --pipeline-options=: (DEPRECATED) Pipeline options to pass to the job.
             --region=: Region ID of the job's regional endpoint.
+            --service-account-email=: Service account to run the workers as.
+            --staging-location=: Google Cloud Storage location to stage local files.
             --subnetwork=: Compute Engine subnetwork for launching worker instances to run the pipeline.
+            --temp-location=: Google Cloud Storage location to stage temporary files.
             --template-file-gcs-location=: Google Cloud Storage location of the YAML template to run.
+            --transform-name-mappings=: Transform name mappings for the streaming update job.
+            --update!: Specify this flag to update a streaming job.
+            --worker-machine-type=: Type of machine to use for workers.
             --yaml-pipeline-file=: Path of a file defining the YAML pipeline to run.
             --yaml-pipeline=: Inline definition of the YAML pipeline to run.
