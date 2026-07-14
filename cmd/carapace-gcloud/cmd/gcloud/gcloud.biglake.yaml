@@ -1,0 +1,258 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: biglake
+description: Create and manage Google Cloud BigLake resources.
+commands:
+    - name: delta-sharing
+      description: Biglake Delta Sharing Catalogs.
+      hidden: true
+      commands:
+        - name: catalogs
+          description: Biglake Delta Sharing Catalogs.
+          hidden: true
+          commands:
+            - name: create
+              description: Create a BigLake Delta Sharing catalog.
+              hidden: true
+              flags:
+                --location=!: The location of the catalog.
+                --refresh-interval=: The interval for refreshing metadata from the remote catalog (e.g. 300s or 5m).
+                --service-directory-name=: The service directory resource name for private networking.
+            - name: delete
+              description: Delete a BigLake Delta Sharing catalog.
+              hidden: true
+            - name: describe
+              description: Describe a BigLake Delta Sharing catalog.
+              hidden: true
+            - name: list
+              description: List BigLake Delta Sharing catalogs.
+              hidden: true
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+            - name: update
+              description: Update a BigLake Delta Sharing catalog.
+              hidden: true
+              flags:
+                --connector-endpoint=: The SAP BDC Connector Endpoint.
+                --invitation-code=: The SAP BDC Invitation Code.
+                --invitation-url=: The combined invitation URL containing both endpoint and code.
+                --refresh-interval=: The interval for refreshing metadata from the remote catalog (e.g. 300s or 5m).
+        - name: schemas
+          description: Biglake Delta Sharing Schemas.
+          hidden: true
+          commands:
+            - name: list
+              description: List BigLake Delta Sharing schemas.
+              hidden: true
+              flags:
+                --catalog=: The BigQuery catalog ID.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --page-size=: Some services group resource list output into pages.
+                --share=!: ID of the share or fully qualified identifier for the share.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: shares
+          description: Biglake Delta Sharing Shares.
+          hidden: true
+          commands:
+            - name: list
+              description: List BigLake Delta Sharing shares.
+              hidden: true
+              flags:
+                --catalog=!: ID of the catalog or fully qualified identifier for the catalog.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: tables
+          description: Biglake Delta Sharing Tables.
+          hidden: true
+          commands:
+            - name: list
+              description: List BigLake Delta Sharing tables.
+              hidden: true
+              flags:
+                --catalog=: The BigQuery catalog ID.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --page-size=: Some services group resource list output into pages.
+                --schema=!: ID of the schema or fully qualified identifier for the schema.
+                --share=: The share ID.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+    - name: iceberg
+      description: Biglake Iceberg REST Catalogs.
+      commands:
+        - name: catalogs
+          description: Manage BigLake Iceberg REST catalogs.
+          commands:
+            - name: create
+              description: Create a BigLake Iceberg REST catalog.
+              flags:
+                --catalog-type=!: Catalog type to create the catalog with.
+                --credential-mode=: Credential mode to create the catalog with.
+                --default-location=: Can only be used with BigLake catalogs.
+                --description=: Description of the resource.
+                --primary-location=: Primary location for mirroring the remote catalog metadata.
+                --restricted-locations=: Additional Google Cloud Storage buckets and locations (e.g., `gs://my-other-bucket/...`) that are permitted for use by resources within a catalog.
+              completion:
+                flag:
+                    catalog-type:
+                        - biglake
+                        - federated
+                        - gcs-bucket
+                    credential-mode:
+                        - end-user
+                        - vended-credentials
+            - name: delete
+              description: Delete a BigLake Iceberg REST catalog.
+            - name: describe
+              description: Describe a BigLake Iceberg REST catalog.
+            - name: failover
+              description: Failover a BigLake Iceberg REST catalog.
+              flags:
+                --conditional-failover-replication-time=: If not specified, wait for all data from the source region to replicate to the new primary region before completing the failover, with no data loss.
+                --no-validate-only&: If true, the failover will be validated but not executed.
+                --primary-replica=!: The primary replica region to failover to.
+                --validate-only: If true, the failover will be validated but not executed.
+            - name: get-iam-policy
+              description: Get the IAM policy for a BigLake Iceberg REST catalog.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+            - name: list
+              description: List BigLake Iceberg REST catalogs.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: set-iam-policy
+              description: Set the IAM policy for a BigLake Iceberg REST catalog.
+            - name: update
+              description: Update a BigLake Iceberg REST catalog.
+              flags:
+                --catalog-type=: Catalog type to update the catalog with.
+                --credential-mode=: Credential mode to create the catalog with.
+                --description=: Description of the resource.
+                --restricted-locations=: Additional Google Cloud Storage buckets and locations (e.g., `gs://my-other-bucket/...`) that are permitted for use by resources within a catalog.
+              completion:
+                flag:
+                    catalog-type:
+                        - biglake
+                    credential-mode:
+                        - end-user
+                        - vended-credentials
+        - name: namespaces
+          description: Manage BigLake Iceberg REST catalog namespaces.
+          commands:
+            - name: create
+              description: Create a BigLake Iceberg REST namespace.
+              flags:
+                --catalog=: The Iceberg Catalog for the resource.
+                --properties=: Properties associated with the namespace.
+            - name: delete
+              description: Delete a BigLake Iceberg REST namespace.
+              flags:
+                --catalog=: The Iceberg Catalog for the resource.
+            - name: describe
+              description: Describe a BigLake Iceberg REST namespace.
+              flags:
+                --catalog=: The Iceberg Catalog for the resource.
+            - name: get-iam-policy
+              description: Get the IAM policy for a BigLake Iceberg REST catalog namespace.
+              flags:
+                --catalog=: The Iceberg Catalog for the resource.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+            - name: list
+              description: List BigLake Iceberg REST namespaces.
+              flags:
+                --catalog=!: ID of the catalog or fully qualified identifier for the catalog.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: set-iam-policy
+              description: Set the IAM policy for a BigLake Iceberg REST catalog namespace.
+              flags:
+                --catalog=: The Iceberg Catalog for the resource.
+            - name: update
+              description: Update a BigLake Iceberg REST namespace.
+              flags:
+                --catalog=: The Iceberg Catalog for the resource.
+                --clear-properties: Clear all properties from the namespace.
+                --no-clear-properties&: Clear all properties from the namespace.
+                --remove-properties=: List of properties to remove.
+                --update-properties=: List of properties to update or add.
+        - name: tables
+          description: Manage BigLake Iceberg REST catalog tables.
+          commands:
+            - name: create
+              description: Create a BigLake Iceberg table.
+              flags:
+                --catalog=: The Iceberg Catalog for the resource.
+                --create-from-file=!: Path to a JSON file containing the table creation request.
+                --namespace=!: ID of the namespace or fully qualified identifier for the namespace.
+            - name: delete
+              description: Delete a BigLake Iceberg table.
+              flags:
+                --catalog=: The Iceberg Catalog for the resource.
+                --namespace=: The Iceberg Namespace for the resource.
+            - name: describe
+              description: Describe a BigLake Iceberg table.
+              flags:
+                --catalog=: The Iceberg Catalog for the resource.
+                --namespace=: The Iceberg Namespace for the resource.
+                --snapshots=: Snapshot to get.
+            - name: get-iam-policy
+              description: Get the IAM policy for a BigLake Iceberg REST catalog table.
+              flags:
+                --catalog=: The Iceberg Catalog for the resource.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --namespace=: The Iceberg Namespace for the resource.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+            - name: list
+              description: List BigLake Iceberg REST tables.
+              flags:
+                --catalog=: The Iceberg Catalog for the resource.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --namespace=!: ID of the namespace or fully qualified identifier for the namespace.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: register
+              description: Register a BigLake Iceberg table.
+              flags:
+                --catalog=: The Iceberg Catalog for the resource.
+                --metadata-location=!: Metadata location of the table.
+                --namespace=: The Iceberg Namespace for the resource.
+                --no-overwrite&: Overwrite the table if it already exists.
+                --overwrite: Overwrite the table if it already exists.
+            - name: set-iam-policy
+              description: Set the IAM policy for a BigLake Iceberg REST catalog table.
+              flags:
+                --catalog=: The Iceberg Catalog for the resource.
+                --namespace=: The Iceberg Namespace for the resource.
+            - name: update
+              description: Update a BigLake Iceberg table.
+              flags:
+                --catalog=: The Iceberg Catalog for the resource.
+                --clear-properties: Clear all properties from the namespace.
+                --namespace=: The Iceberg Namespace for the resource.
+                --no-clear-properties&: Clear all properties from the namespace.
+                --remove-properties=: List of properties to remove.
+                --update-properties=: List of properties to update or add.

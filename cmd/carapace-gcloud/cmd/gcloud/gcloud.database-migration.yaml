@@ -19,6 +19,7 @@ commands:
                 --display-name=: A user-friendly name for the connection profile.
                 --enable-outbound-public-ip: If true, Enables an outbound public IP address to support a database
                 --enable-public-ip: If true, the AlloyDB instance will be accessible via public IP.
+                --endpoint-mode=: Specifies endpoint mode for a given command.
                 --kms-key=!: ID of the kms-key or fully qualified identifier for the kms-key.
                 --kms-keyring=: The CMEK keyring id of the kms-key.
                 --kms-project=: The Cloud project id for the kms-key.
@@ -46,6 +47,10 @@ commands:
                         - POSTGRES_15
                         - POSTGRES_16
                         - POSTGRES_17
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
                     role:
                         - SOURCE
                         - DESTINATION
@@ -69,6 +74,7 @@ commands:
                 --edition=: Specifies edition.
                 --enable-data-cache&: Enable use of data cache for accelerated read performance.
                 --enable-ip-v4: Whether the instance should be assigned an IPv4 address or not.
+                --endpoint-mode=: Specifies endpoint mode for a given command.
                 --labels=: List of label KEY=VALUE pairs to add.
                 --no-async: Waits for the operation in progress to complete before returning.
                 --no-auto-storage-increase&: If you enable this setting, Cloud SQL checks your available storage every
@@ -126,6 +132,10 @@ commands:
                     edition:
                         - enterprise
                         - enterprise-plus
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
                     provider:
                         - RDS
                         - CLOUDSQL
@@ -135,17 +145,18 @@ commands:
             - name: mysql
               description: Create a Database Migration Service connection profile for MySQL.
               flags:
-                --ca-certificate=!: x509 PEM-encoded certificate of the CA that signed the database
-                --client-certificate=!: x509 PEM-encoded certificate that will be used by the replica to
+                --ca-certificate=: x509 PEM-encoded certificate of the CA that signed the database
+                --client-certificate=: x509 PEM-encoded certificate that will be used by the replica to
                 --cloudsql-instance=: If the source or destination is a Cloud SQL database, then use this field
                 --display-name=: A user-friendly name for the connection profile.
+                --endpoint-mode=: Specifies endpoint mode for a given command.
                 --host=!: IP or hostname of the database.
                 --labels=: List of label KEY=VALUE pairs to add.
                 --no-async: Waits for the operation in progress to complete before returning.
                 --no-prompt-for-password&: Prompt for the password used to connect to the database.
                 --password=: Password for the user that Database Migration Service uses to
                 --port=!: Network port of the database.
-                --private-key=!: Unencrypted PKCS#1 or PKCS#8 PEM-encoded private key associated with
+                --private-key=: Unencrypted PKCS#1 or PKCS#8 PEM-encoded private key associated with
                 --prompt-for-password: Prompt for the password used to connect to the database.
                 --provider=: Database provider, for managed databases.
                 --region=: The Cloud region for the connection_profile.
@@ -154,6 +165,10 @@ commands:
                 --username=!: Username that Database Migration Service uses to connect to
               completion:
                 flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
                     provider:
                         - RDS
                         - CLOUDSQL
@@ -171,6 +186,7 @@ commands:
                 --ca-certificate=!: x509 PEM-encoded certificate of the CA that signed the database
                 --database-service=!: database service for the oracle connection profile.
                 --display-name=: A user-friendly name for the connection profile.
+                --endpoint-mode=: Specifies endpoint mode for a given command.
                 --forward-ssh-hostname=!: Hostname for the SSH tunnel.
                 --forward-ssh-password=: SSH password.
                 --forward-ssh-port=: Port for the SSH tunnel, default value is 22.
@@ -191,6 +207,10 @@ commands:
                 --username=!: Username that Database Migration Service uses to connect to
               completion:
                 flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
                     role:
                         - SOURCE
                         - DESTINATION
@@ -198,26 +218,27 @@ commands:
               description: Create a Database Migration Service connection profile for PostgreSQL.
               flags:
                 --alloydb-cluster=: If the destination is an AlloyDB cluster, use this field to provide the
-                --ca-certificate=!: x509 PEM-encoded certificate of the CA that signed the database
-                --client-certificate=!: x509 PEM-encoded certificate that will be used by the replica to
+                --ca-certificate=: x509 PEM-encoded certificate of the CA that signed the database
+                --client-certificate=: x509 PEM-encoded certificate that will be used by the replica to
                 --cloudsql-instance=: If the source or destination is a Cloud SQL database, then use this field
                 --database=: The name of the specific database within the host.
                 --display-name=: A user-friendly name for the connection profile.
-                --enable-iam-authentication&: Use IAM database authentication to connect to the database.
-                --forward-ssh-hostname=!&: Hostname for the SSH tunnel.
-                --forward-ssh-password=&: SSH password.
-                --forward-ssh-port=&: Port for the SSH tunnel, default value is 22.
-                --forward-ssh-private-key=&: SSH private key..
-                --forward-ssh-username=!&: Username for the SSH tunnel.
-                --host=!: IP or hostname of the database.
+                --enable-iam-authentication: Use IAM database authentication to connect to the database.
+                --endpoint-mode=: Specifies endpoint mode for a given command.
+                --forward-ssh-hostname=!: Hostname for the SSH tunnel.
+                --forward-ssh-password=: SSH password.
+                --forward-ssh-port=: Port for the SSH tunnel, default value is 22.
+                --forward-ssh-private-key=: SSH private key..
+                --forward-ssh-username=!: Username for the SSH tunnel.
+                --host=: IP or hostname of the database.
                 --labels=: List of label KEY=VALUE pairs to add.
                 --no-async: Waits for the operation in progress to complete before returning.
                 --no-prompt-for-password&: Prompt for the password used to connect to the database.
                 --no-static-ip-connectivity&: use static ip connectivity
                 --password=: Password for the user that Database Migration Service uses to
-                --port=!: Network port of the database.
-                --private-connection=&: ID of the private_connection or fully qualified identifier for the private_connection.
-                --private-key=!: Unencrypted PKCS#1 or PKCS#8 PEM-encoded private key associated with
+                --port=: Network port of the database.
+                --private-connection=!: ID of the private_connection or fully qualified identifier for the private_connection.
+                --private-key=: Unencrypted PKCS#1 or PKCS#8 PEM-encoded private key associated with
                 --prompt-for-password: Prompt for the password used to connect to the database.
                 --psc-service-attachment=!: ID of the service_attachment or fully qualified identifier for the service_attachment.
                 --region=: The Cloud region for the connection_profile.
@@ -227,6 +248,10 @@ commands:
                 --username=!: Username that Database Migration Service uses to connect to
               completion:
                 flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
                     role:
                         - SOURCE
                         - DESTINATION
@@ -244,6 +269,7 @@ commands:
                 --database=: The name of the specific database within the host.
                 --dbm-port=&: The Database Mirroring (DBM) port.
                 --display-name=: A user-friendly name for the connection profile.
+                --endpoint-mode=: Specifies endpoint mode for a given command.
                 --forward-ssh-hostname=!: Hostname for the SSH tunnel.
                 --forward-ssh-password=: SSH password.
                 --forward-ssh-port=: Port for the SSH tunnel, default value is 22.
@@ -261,7 +287,7 @@ commands:
                 --private-connection=!: ID of the private_connection or fully qualified identifier for the private_connection.
                 --prompt-for-password: Prompt for the password used to connect to the database.
                 --provider=: Database provider, for managed databases.
-                --psc-service-attachment=&: ID of the service_attachment or fully qualified identifier for the service_attachment.
+                --psc-service-attachment=!: ID of the service_attachment or fully qualified identifier for the service_attachment.
                 --region=: The Cloud region for the connection_profile.
                 --role=: The role of the connection profile.
                 --ssl-flags=: Comma-separated list of SSL flags used for establishing SSL connection to
@@ -270,6 +296,10 @@ commands:
                 --username=!: Username that Database Migration Service uses to connect to the
               completion:
                 flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
                     provider:
                         - CLOUDSQL
                         - RDS
@@ -283,16 +313,41 @@ commands:
         - name: delete
           description: Delete a Database Migration Service connection profile.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --force: Cloud SQL replica database is also deleted (only for Cloud SQL connection profiles).
             --no-force&: Cloud SQL replica database is also deleted (only for Cloud SQL connection profiles).
             --region=: The name of the region.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: describe
           description: Show details about a Database Migration Service connection profile.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --region=: The name of the region.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
+        - name: fetch-static-ips
+          description: List IPs used for static IP connectivity method.
+          flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: list
           description: List Database Migration Service connection profiles.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
             --no-uri&: Print a list of resource URIs instead of the default output, and change the
@@ -300,11 +355,24 @@ commands:
             --region=!: ID of the region or fully qualified identifier for the region.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: test
           description: Test a Database Migration Service connection profile.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --no-async: Waits for the operation in progress to complete before returning.
             --region=: The Cloud region for the connection_profile.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: update
           description: Update a Database Migration Service connection profile.
           flags:
@@ -317,9 +385,10 @@ commands:
             --database-service=: database service for the oracle connection profile.
             --database=: The name of the specific database within the host.
             --dbm-port=&: The Database Mirroring (DBM) port.
-            --disable-iam-authentication&: Use IAM database authentication to connect to the database.
+            --disable-iam-authentication: Use IAM database authentication to connect to the database.
             --display-name=: A user-friendly name for the connection profile.
-            --enable-iam-authentication&: Use IAM database authentication to connect to the database.
+            --enable-iam-authentication: Use IAM database authentication to connect to the database.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --gcs-bucket=!: Cloud Storage bucket for the source SQL Server connection profile where the backups are stored.
             --gcs-prefix=: Cloud Storage prefix path within the bucket for the source SQL Server connection profile where the backups are stored.
             --host=: IP or hostname of the database.
@@ -336,6 +405,10 @@ commands:
             --username=: Username that Database Migration Service uses to connect to
           completion:
             flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
                 ssl-type:
                     - SERVER_ONLY
                     - SERVER_CLIENT
@@ -348,42 +421,64 @@ commands:
           description: Apply a Database Migration Service conversion workspace.
           flags:
             --destination-connection-profile=!: ID of the connection_profile or fully qualified identifier for the connection_profile.
+            --dry-run: Only validates the apply process, but doesn't change the destination
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --filter=: Filter the entities based on [AIP-160](https://google.aip.dev/160) standard.
             --no-async: Waits for the operation in progress to complete before returning.
+            --no-dry-run&: Only validates the apply process, but doesn't change the destination
             --region=: The Cloud region for the conversion_workspace.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: commit
           description: Commit a Database Migration Service conversion workspace.
           flags:
             --commit-name=: A user-friendly name for the conversion workspace commit.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --no-async: Waits for the operation in progress to complete before returning.
             --region=: The Cloud region for the conversion_workspace.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: convert
           description: Convert a Database Migration Service conversion workspace.
           flags:
             --auto-commit: Auto commits the conversion workspace.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --filter=: Filter the entities based on [AIP-160](https://google.aip.dev/160) standard.
             --no-async: Waits for the operation in progress to complete before returning.
             --no-auto-commit&: Auto commits the conversion workspace.
             --region=: The Cloud region for the conversion_workspace.
-        - name: convert-application-code
-          description: Convert the application code.
-          hidden: true
-          flags:
-            --region=!: ID of the region or fully qualified identifier for the region.
-            --source-dialect=!: The source dialect of the code to be converted.
-            --source-file=: A file path to the source code which needs to be converted.
-            --source-folder=: A folder path to the source code files which needs to be converted.
-            --target-dialect=!: The target dialect of the code to be converted.
-            --target-path=: Path where the converted code should be written.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: create
           description: Create a Database Migration Service conversion workspace.
           flags:
+            --auto-conversion: Whether to enable Gemini auto-conversion.
+            --conversion-assistance: Whether to enable Gemini conversion assistance.
             --destination-database-engine=!: Destination database engine type.
             --destination-database-provider=: Destination database provider.
             --destination-database-version=: Version number for the database engine.
             --display-name=: A user-friendly name for the conversion workspace.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --global-settings=: A generic list of settings for the workspace.
             --no-async: Waits for the operation in progress to complete before returning.
+            --no-auto-conversion&: Whether to enable Gemini auto-conversion.
+            --no-conversion-assistance&: Whether to enable Gemini conversion assistance.
+            --no-pattern-matching&: Whether to enable Gemini pattern matching.
+            --no-quality-assessment&: Whether to enable Gemini quality assessment.
+            --pattern-matching: Whether to enable Gemini pattern matching.
+            --quality-assessment: Whether to enable Gemini quality assessment.
             --region=: The Cloud region for the conversion_workspace.
             --source-database-engine=!: Source database engine type.
             --source-database-provider=: Source database provider.
@@ -395,6 +490,10 @@ commands:
                 destination-database-provider:
                     - ALLOYDB
                     - CLOUDSQL
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
                 source-database-engine:
                     - ORACLE
                     - SQL_SERVER
@@ -407,16 +506,31 @@ commands:
         - name: delete
           description: Delete a Database Migration conversion workspace.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --no-async: Waits for the operation in progress to complete before returning.
             --region=: The Cloud region for the conversion_workspace.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: describe
           description: Show details about a database migration conversion workspace.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --region=: The name of the region.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: describe-ddls
           description: Describe DDLs in a Database Migration Service conversion workspace.
           flags:
             --commit-id=: Request a specific commit id.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
             --no-uncommitted&: Whether to retrieve the latest committed version of the entities or the
@@ -429,6 +543,10 @@ commands:
             --uri: Print a list of resource URIs instead of the default output, and change the
           completion:
             flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
                 tree-type:
                     - SOURCE
                     - DRAFT
@@ -436,6 +554,7 @@ commands:
           description: Describe database entities in a Database Migration conversion workspace.
           flags:
             --commit-id=: Request a specific commit id.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
             --no-uncommitted&: Whether to retrieve the latest committed version of the entities or the
@@ -448,6 +567,10 @@ commands:
             --uri: Print a list of resource URIs instead of the default output, and change the
           completion:
             flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
                 tree-type:
                     - SOURCE
                     - DRAFT
@@ -455,6 +578,7 @@ commands:
           description: Describe issues in a Database Migration Service conversion workspace.
           flags:
             --commit-id=: Request a specific commit id.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
             --no-uncommitted&: Whether to retrieve the latest committed version of the entities or the
@@ -464,21 +588,80 @@ commands:
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uncommitted: Whether to retrieve the latest committed version of the entities or the
             --uri: Print a list of resource URIs instead of the default output, and change the
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
+        - name: fetch-entities
+          description: Fetch entities status view in a Database Migration conversion workspace.
+          hidden: true
+          flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: The Cloud region for the conversion_workspace.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --tree-type=!: Tree type for database entities.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+            --view=: The view to fetch.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
+                tree-type:
+                    - SOURCE
+                    - DRAFT
+                view:
+                    - FULL
+                    - FULL_WITH_DEPENDENCIES
+                    - SUMMARY
+        - name: fetch-issues
+          description: Fetch issues in a Database Migration conversion workspace.
+          hidden: true
+          flags:
+            --all-issues: If set, gets all issues matching the filter.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-all-issues&: If set, gets all issues matching the filter.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: The Cloud region for the conversion_workspace.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: import-rules
           description: Import mapping rules in a Database Migration Service conversion workspace.
           flags:
             --auto-commit: Auto commits the conversion workspace.
             --config-files=!: A list of files to import rules from.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --file-format=: File format type to import rules from.
             --no-auto-commit&: Auto commits the conversion workspace.
             --region=: The Cloud region for the conversion_workspace.
           completion:
             flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
                 file-format:
                     - ORA2PG
         - name: list
           description: List conversion workspaces.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
             --no-uri&: Print a list of resource URIs instead of the default output, and change the
@@ -486,13 +669,26 @@ commands:
             --region=!: ID of the region or fully qualified identifier for the region.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: list-background-jobs
           description: List background jobs in the conversion workspaces.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --max-size=: The maximum number of jobs to return.
             --most-recent-per-job-type: Returns only the most recent job per job type.
             --no-most-recent-per-job-type&: Returns only the most recent job per job type.
             --region=: The name of the region.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: mapping-rules
           description: Manage Database Migration Service Conversion Workspace mapping rules.
           commands:
@@ -500,6 +696,7 @@ commands:
               description: List Mapping Rules.
               flags:
                 --conversion-workspace=!: ID of the conversion_workspace or fully qualified identifier for the conversion_workspace.
+                --endpoint-mode=: Specifies endpoint mode for a given command.
                 --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
                 --limit=: Maximum number of resources to list.
                 --no-uri&: Print a list of resource URIs instead of the default output, and change the
@@ -507,27 +704,65 @@ commands:
                 --region=: The name of the region.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
         - name: rollback
           description: Rollback a Database Migration Service conversion workspace.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --no-async: Waits for the operation in progress to complete before returning.
             --region=: The Cloud region for the conversion_workspace.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: seed
           description: Seed a Database Migration Service conversion workspace.
           flags:
             --auto-commit: Auto commits the conversion workspace.
             --destination-connection-profile=!: ID of the connection_profile or fully qualified identifier for the connection_profile.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
+            --gcs-path=: The Cloud Storage path containing the schema report files.
             --no-async: Waits for the operation in progress to complete before returning.
             --no-auto-commit&: Auto commits the conversion workspace.
             --region=: The Cloud region for the conversion_workspace.
             --source-connection-profile=!: ID of the connection_profile or fully qualified identifier for the connection_profile.
+            --source-database-name-override=: The database name to use when seeding from a connection profile.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: update
           description: Update a Database Migration Service conversion workspace.
           flags:
+            --auto-conversion: Whether to enable Gemini auto-conversion.
+            --conversion-assistance: Whether to enable Gemini conversion assistance.
             --display-name=: A user-friendly name for the conversion workspace.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --global-filter=: Filter the source entities based on [AIP-160](https://google.aip.dev/160) standard.
             --no-async: Waits for the operation in progress to complete before returning.
+            --no-auto-conversion&: Whether to enable Gemini auto-conversion.
+            --no-conversion-assistance&: Whether to enable Gemini conversion assistance.
+            --no-pattern-matching&: Whether to enable Gemini pattern matching.
+            --no-quality-assessment&: Whether to enable Gemini quality assessment.
+            --pattern-matching: Whether to enable Gemini pattern matching.
+            --quality-assessment: Whether to enable Gemini quality assessment.
             --region=: The Cloud region for the conversion_workspace.
+            --source-database-name-override=: The database name to use when seeding from a connection profile.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
     - name: migration-jobs
       description: Manage Database Migration Service migration jobs.
       commands:
@@ -547,6 +782,7 @@ commands:
             --dump-parallel-level=: Parallelization level during initial dump of the migration job.
             --dump-path=: 'Path to the dump file in Google Cloud Storage, in the format:'
             --dump-type=: The type of the data dump.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --filter=: Filter the entities based on [AIP-160](https://google.aip.dev/160) standard.
             --labels=: List of label KEY=VALUE pairs to add.
             --max-concurrent-cdc-connections=: Maximum number of connections Database Migration Service will open to
@@ -558,9 +794,11 @@ commands:
             --no-sqlserver-diff-backup&: Enable differential backups.
             --no-sqlserver-promote-when-ready&: Promote the database when it is ready.
             --no-static-ip&: Use the default IP allowlist method.
+            --no-use-postgres-native&: Use native logical replication for PostgreSQL migration.
             --oracle-cdc-start-position=: Oracle schema change number (SCN) to start CDC data migration from.
-            --original-migration-name=&: ID of the migration_job or fully qualified identifier for the migration_job.
+            --original-migration-name=!: ID of the migration_job or fully qualified identifier for the migration_job.
             --peer-vpc=: Name of the VPC network to peer with the Cloud SQL private network.
+            --postgres-max-additional-subscriptions=: Maximum number of additional subscriptions to use for the PostgreSQL migration job.
             --region=: The Cloud region for the migration_job.
             --skip-full-dump: Whether to skip full dump or not.
             --source=!: ID of the connection_profile or fully qualified identifier for the connection_profile.
@@ -575,6 +813,7 @@ commands:
             --static-ip: Use the default IP allowlist method.
             --transaction-timeout=: Timeout for data migration transactions.
             --type=!: Type of the migration job.
+            --use-postgres-native: Use native logical replication for PostgreSQL migration.
             --vm-ip=!: Bastion Virtual Machine IP.
             --vm-port=!: Forwarding port for the SSH tunnel.
             --vm=: Name of VM that will host the SSH tunnel bastion.
@@ -588,30 +827,63 @@ commands:
                 dump-type:
                     - LOGICAL
                     - PHYSICAL
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
                 type:
                     - ONE_TIME
                     - CONTINUOUS
         - name: delete
           description: Delete a Database Migration Service migration job.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --force: The destination Cloud SQL connection profile is always deleted with the
             --no-force&: The destination Cloud SQL connection profile is always deleted with the
             --region=: The name of the region.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: demote-destination
           description: Demote a destination of a Database Migration Service migration job.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --region=: The name of the region.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: describe
           description: Show details about a Database Migration Service migration job.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --region=: The name of the region.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: fetch-source-objects
           description: Fetch objects for a Database Migration Service migration job by connection to the source.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --region=: The Cloud region for the migration_job.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: generate-ssh-script
           description: Generate a SSH script for a Database Migration Service migration job.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --region=: The name of the region.
             --subnet=!: Subnet to create the VM instance in.
             --vm-machine-type=!: Machine type for a new VM instance.
@@ -619,9 +891,16 @@ commands:
             --vm-zone-create=: Zone to create the VM instance in.
             --vm-zone=: Zone the existing bastion VM instance is located in.
             --vm=!: Bastion Compute Engine VM instance name to use or to create.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: list
           description: List Database Migration Service migration jobs.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
             --no-uri&: Print a list of resource URIs instead of the default output, and change the
@@ -629,37 +908,78 @@ commands:
             --region=!: ID of the region or fully qualified identifier for the region.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: promote
           description: Promote a Database Migration Service migration job.
           flags:
             --databases-filter=: A list of databases to be migrated to the destination instance.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --region=: The Cloud region for the migration_job.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: restart
           description: Restart a Database Migration Service migration job.
           flags:
             --databases-filter=: A list of databases to be migrated to the destination instance.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --no-restart-failed-objects&: Restart the failed objects in the migration job.
             --no-skip-validation&: Restart the migration job without running prior configuration verification.
             --object-filter=&: A list of schema and table names to be migrated to the destination instance.
             --region=: The Cloud region for the migration_job.
             --restart-failed-objects: Restart the failed objects in the migration job.
             --skip-validation: Restart the migration job without running prior configuration verification.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: resume
           description: Resume a Database Migration Service migration job.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --no-skip-validation&: Resume the migration job without running prior configuration verification.
             --region=: The name of the region.
             --skip-validation: Resume the migration job without running prior configuration verification.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: start
           description: Start a Database Migration Service migration job.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --no-skip-validation&: Start the migration job without running prior configuration verification.
             --region=: The name of the region.
             --skip-validation: Start the migration job without running prior configuration verification.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: stop
           description: Stop a Database Migration Service migration job.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --region=: The name of the region.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: update
           description: Update a Database Migration Service migration job.
           flags:
@@ -673,6 +993,7 @@ commands:
             --dump-parallel-level=: Parallelization level during initial dump of the migration job.
             --dump-path=: 'Path to the dump file in Google Cloud Storage, in the format:'
             --dump-type=: The type of the data dump.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --filter=: Filter the entities based on [AIP-160](https://google.aip.dev/160) standard.
             --max-concurrent-cdc-connections=: Maximum number of connections Database Migration Service will open to
             --max-concurrent-destination-connections=: Maximum number of concurrent connections Database Migration Service will
@@ -684,6 +1005,7 @@ commands:
             --no-sqlserver-promote-when-ready&: Promote the database when it is ready.
             --no-static-ip&: Use the default IP allowlist method.
             --peer-vpc=: Name of the VPC network to peer with the Cloud SQL private network.
+            --postgres-max-additional-subscriptions=: Maximum number of additional subscriptions to use for the PostgreSQL migration job.
             --region=: The Cloud region for the migration_job.
             --remove-labels=: List of label keys to remove.
             --source=!: ID of the connection_profile or fully qualified identifier for the connection_profile.
@@ -711,19 +1033,31 @@ commands:
                 dump-type:
                     - LOGICAL
                     - PHYSICAL
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
                 type:
                     - ONE_TIME
                     - CONTINUOUS
         - name: verify
           description: Verify a Database Migration Service migration job.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --region=: The name of the region.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
     - name: objects
       description: Manage Database Migration Service migration job objects.
       commands:
         - name: list
           description: List a DMS migration job objects.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
             --migration-job=!: ID of the migration_job or fully qualified identifier for the migration_job.
@@ -732,10 +1066,17 @@ commands:
             --region=: The Cloud region for the migration_job.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: lookup
           description: Lookup a DMS migration job object.
           flags:
             --database=: The name of the database to lookup.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --migration-job=!: ID of the migration_job or fully qualified identifier for the migration_job.
             --region=: The Cloud region for the migration_job.
             --schema=: The name of the schema to lookup.
@@ -743,6 +1084,10 @@ commands:
             --type=: The type of the object to lookup.
           completion:
             flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
                 type:
                     - DATABASE
                     - SCHEMA
@@ -753,14 +1098,29 @@ commands:
         - name: delete
           description: Delete a Database Migration Service operation.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --region=: The name of the region.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: describe
           description: Show details about a operation.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --region=: The name of the region.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: list
           description: List operations.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
             --no-uri&: Print a list of resource URIs instead of the default output, and change the
@@ -768,6 +1128,12 @@ commands:
             --region=!: ID of the region or fully qualified identifier for the region.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
     - name: private-connections
       description: Manage Database Migration Service private connections.
       commands:
@@ -775,6 +1141,7 @@ commands:
           description: Create a Database Migration private connection.
           flags:
             --display-name=!: A user-friendly name for the private connection.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --labels=: List of label KEY=VALUE pairs to add.
             --network-attachment=!: Full URI of the network attachment that datastream will connect to.For example, this would be of the form:`network-attachment=projects/test-project/regions/us-central1/networkAttachments/my-na`
             --no-async: Waits for the operation in progress to complete before returning.
@@ -785,18 +1152,39 @@ commands:
             --subnet=!: A free subnet for peering.
             --validate-only: If set, the request will retrieve the project id to allow in the  network attachment Datastream will connect to.
             --vpc=!: ID of the vpc or fully qualified identifier for the vpc.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: delete
           description: Delete a Database Migration private connection.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --no-async: Waits for the operation in progress to complete before returning.
             --region=: The Cloud region for the private_connection.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: describe
           description: Show details about a database migration private connection.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --region=: The name of the region.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: list
           description: List private connections.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
             --no-uri&: Print a list of resource URIs instead of the default output, and change the
@@ -804,3 +1192,9 @@ commands:
             --region=!: ID of the region or fully qualified identifier for the region.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred

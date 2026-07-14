@@ -30,6 +30,115 @@ commands:
           flags:
             --config-from-file=: Path to a JSON or YAML file containing the dashboard configuration.
             --config=: Dashboard configuration, in either JSON or YAML format, as a string.
+    - name: policies
+      description: Manage Cloud Monitoring alerting policies.
+      commands:
+        - name: conditions
+          description: Manage Cloud Monitoring alerting policy conditions.
+          commands:
+            - name: create
+              description: Create a condition in an alerting policy.
+              flags:
+                --aggregation=: Specifies an Aggregation message as a JSON/YAML value to be applied to the condition.
+                --condition-display-name=: The display name for the condition.
+                --condition-filter=: Specifies the "filter" in a metric absence or metric threshold condition.
+                --condition-from-file=: The path to a JSON or YAML file containing the condition.
+                --condition=: The condition as a string.
+                --duration=: The duration (e.g. "60s", "2min", etc.) that the condition must hold in order to trigger as true.
+                --if=: One of "absent", "< THRESHOLD", "> THRESHOLD" where "THRESHOLD" is an integer or float.
+                --trigger-count=: The absolute number of time series that must fail the predicate for the condition to be triggered.
+                --trigger-percent=: The percentage of time series that must fail the predicate for the condition to be triggered.
+            - name: delete
+              description: Delete a condition in an alerting policy.
+              flags:
+                --policy=: Name of the alerting policy.
+            - name: describe
+              description: Describe a condition in a Cloud Monitoring alerting policy.
+              flags:
+                --policy=: Name of the alerting policy.
+            - name: update
+              description: Update a condition in an alerting policy.
+              flags:
+                --display-name=: The display name for the Condition.
+                --if=: One of "absent", "< THRESHOLD", "> THRESHOLD" where "THRESHOLD" is an integer or float.
+                --policy=: Name of the alerting policy.
+                --trigger-count=: The absolute number of time series that must fail the predicate for the condition to be triggered.
+                --trigger-percent=: The percentage of time series that must fail the predicate for the condition to be triggered.
+        - name: create
+          description: Create a new alerting policy.
+          flags:
+            --aggregation=: Specifies an Aggregation message as a JSON/YAML value to be applied to the condition.
+            --combiner=: The combiner for the Alert Policy.
+            --condition-display-name=: The display name for the condition.
+            --condition-filter=: Specifies the "filter" in a metric absence or metric threshold condition.
+            --display-name=: The display name for the Alert Policy.
+            --documentation-format=: The MIME type that should be used with `--documentation` or `--documentation-from-file`.
+            --documentation-from-file=: The path to a file containing the documentation to be included with the policy.
+            --documentation=: The documentation to be included with the policy.
+            --duration=: The duration (e.g. "60s", "2min", etc.) that the condition must hold in order to trigger as true.
+            --enabled: If the policy is enabled.
+            --if=: One of "absent", "< THRESHOLD", "> THRESHOLD" where "THRESHOLD" is an integer or float.
+            --no-enabled&: If the policy is enabled.
+            --notification-channels=!: IDs of the Notification Channels or fully qualified identifiers for the Notification Channels.
+            --policy-from-file=: The path to a JSON or YAML file containing the policy.
+            --policy=: The policy as a string.
+            --trigger-count=: The absolute number of time series that must fail the predicate for the condition to be triggered.
+            --trigger-percent=: The percentage of time series that must fail the predicate for the condition to be triggered.
+            --user-labels=: List of label KEY=VALUE pairs to add.
+          completion:
+            flag:
+                combiner:
+                    - AND
+                    - AND_WITH_MATCHING_RESOURCE
+                    - COMBINE_UNSPECIFIED
+                    - OR
+        - name: delete
+          description: Delete a Cloud Monitoring alerting policy.
+        - name: describe
+          description: Describe an  alerting policy.
+        - name: list
+          description: List alerting policies.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: migrate
+          description: Migrate a Prometheus configuration file to Cloud Monitoring.
+          flags:
+            --channels-from-prometheus-alertmanager-yaml=: Prometheus alert manager YAML file to be converted to Cloud Monitoring notification channels.
+            --policies-from-prometheus-alert-rules-yaml=: One or more Prometheus alert rule YAML files (separated by commas if multiple) to be converted to Cloud Alerting Policies.
+        - name: update
+          description: Updates an alerting policy.
+          flags:
+            --add-notification-channels=: Append the given values to the current Notification Channels.
+            --clear-notification-channels: Empty the current Notification Channels.
+            --clear-user-labels: Remove all labels.
+            --combiner=: The combiner for the Alert Policy.
+            --display-name=: The display name for the Alert Policy.
+            --documentation-format=: The MIME type that should be used with `--documentation` or `--documentation-from-file`.
+            --documentation-from-file=: The path to a file containing the documentation to be included with the policy.
+            --documentation=: The documentation to be included with the policy.
+            --enabled: If the policy is enabled.
+            --fields=: The list of fields to update.
+            --no-clear-notification-channels&: Empty the current Notification Channels.
+            --no-clear-user-labels&: Remove all labels.
+            --no-enabled&: If the policy is enabled.
+            --policy-from-file=: The path to a JSON or YAML file containing the policy.
+            --policy=: The policy as a string.
+            --remove-notification-channels=: Remove the given values from the current Notification Channels.
+            --remove-user-labels=: List of label keys to remove.
+            --set-notification-channels=: Completely replace the current Notification Channels with the given values.
+            --update-user-labels=: List of label KEY=VALUE pairs to update.
+          completion:
+            flag:
+                combiner:
+                    - AND
+                    - AND_WITH_MATCHING_RESOURCE
+                    - COMBINE_UNSPECIFIED
+                    - OR
     - name: snoozes
       description: Manage Cloud Monitoring snoozes.
       commands:

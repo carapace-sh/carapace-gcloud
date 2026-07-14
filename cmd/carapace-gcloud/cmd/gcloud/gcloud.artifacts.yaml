@@ -221,6 +221,7 @@ commands:
           hidden: true
           flags:
             --async: Return immediately, without waiting for the operation in progress to
+            --file-type=: The type of the file to upload.
             --file=: The name under which the file will be uploaded.
             --location=: Location of the repository.
             --no-async&: Return immediately, without waiting for the operation in progress to
@@ -292,6 +293,44 @@ commands:
             --location=: Location of the repository.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --source=!: The path of a package to upload.
+    - name: image-streaming-cache
+      description: Manage Artifact Registry image streaming caches.
+      commands:
+        - name: create
+          description: Initiates the prewarming of a specified artifact version or tag.
+          flags:
+            --force: If set, evicts older items from the cache if the quota is reached.
+            --location=: Location of the package.
+            --no-force&: If set, evicts older items from the cache if the quota is reached.
+            --package=!: ID of the package or fully qualified identifier for the package.
+            --repository=: Repository of the package.
+            --retention-days=: Number of days to retain the artifact in the cache (e.g., 1-7).
+            --stream-location=!: The target Cloud Region where the artifact should be prewarmed.
+            --tag=: The tag name to prewarm (e.g., 'latest').
+        - name: delete
+          description: Removes the prewarmed state of a specific artifact from a specific stream location.
+          flags:
+            --location=: Location of the package.
+            --package=!: ID of the package or fully qualified identifier for the package.
+            --repository=: Repository of the package.
+            --stream-location=!: The target Cloud Region where the artifact should be prewarmed.
+            --tag=: The tag to remove (e.g., 'latest').
+        - name: describe
+          description: Checks and describes the prewarmed status of an artifact.
+          flags:
+            --location=: Location of the package.
+            --package=!: ID of the package or fully qualified identifier for the package.
+            --repository=: Repository of the package.
+            --stream-location=!: The target Cloud Region where the artifact should be prewarmed.
+            --tag=: The tag to check (e.g., 'latest').
+        - name: list
+          description: Lists artifacts that are prewarmed within a given repository.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Location of the repository.
+            --page-size=: Some services group resource list output into pages.
+            --repository=: ID of the repository or fully qualified identifier for the repository.
     - name: locations
       description: Manage Artifact Registry resource locations.
       commands:
@@ -305,6 +344,11 @@ commands:
     - name: operations
       description: Manage Artifact Registry long-running operations.
       commands:
+        - name: cancel
+          description: Cancel an Artifact Registry operation.
+          hidden: true
+          flags:
+            --location=: Location of the operation.
         - name: describe
           description: Describe an Artifact Registry operation.
           flags:
@@ -367,6 +411,29 @@ commands:
             --json-key=: Path to service account JSON key.
             --location=: Location of the repository.
             --repository=: ID of the repository or fully qualified identifier for the repository.
+    - name: projects
+      description: Manage Artifact Registry project-level configurations for a specific location.
+      commands:
+        - name: describe
+          description: Describe project configuration.
+          flags:
+            --location=: ID of the location or fully qualified identifier for the location.
+        - name: update
+          description: Update project configuration.
+          flags:
+            --clear-platform-logs: Clear platform logging settings for the project in this location to fall back to
+            --disable-platform-logs: Disable platform logging for the project in this location.
+            --enable-platform-logs: Enable platform logging for the project in this location.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-clear-platform-logs&: Clear platform logging settings for the project in this location to fall back to
+            --no-disable-platform-logs&: Disable platform logging for the project in this location.
+            --no-enable-platform-logs&: Enable platform logging for the project in this location.
+            --severity=: The minimum severity level of logs to generate.
+          completion:
+            flag:
+                severity:
+                    - error
+                    - info
     - name: repositories
       description: Manage Artifact Registry repositories.
       commands:
@@ -383,8 +450,15 @@ commands:
           hidden: true
           flags:
             --async: Return immediately, without waiting for the operation in progress to
+            --continue-on-skipped-version: If true, the repo copy operation will continue when a non-transient version copy error occurs, rather than failing the entire copy operation.
+            --exclude-all-tags: Exclude all tags for each artifact version copied.
+            --include-all-attachments: Include all attachments for each artifact version copied.
             --location=: Location of the repository.
+            --max-version-age-days=: If set, only versions updated within the specified number of days (24-hour periods) up to the operation's start time will be copied.
             --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-continue-on-skipped-version&: If true, the repo copy operation will continue when a non-transient version copy error occurs, rather than failing the entire copy operation.
+            --no-exclude-all-tags&: Exclude all tags for each artifact version copied.
+            --no-include-all-attachments&: Include all attachments for each artifact version copied.
             --source-repo=!: The source repository path to copy artifacts from.
         - name: create
           description: Create an Artifact Registry repository.
@@ -396,11 +470,14 @@ commands:
             --alternative-hostname-path-prefix=&: An alternative hostname path prefix that a repository can be accessed through.
             --alternative-hostname=&: An alternative hostname that a repository can be accessed through.
             --async: Return immediately, without waiting for the operation in progress to
+            --clear-platform-logs: Clear platform logging settings for the repository to fall back to project settings.
             --description=: Description for the repository.
+            --disable-platform-logs: Disable platform logging for the repository.
             --disable-remote-validation: Do not make an HTTP request to validate the remote upstream.
             --disable-sbom-generation&: Disable SBOM generation on the repository.
             --disable-vulnerability-scanning: Disable vulnerability scanning on the repository.
             --enable-ingestion-attestation&: Enable generating attestation with verifiable signature on imported files in remote repositories.
+            --enable-platform-logs: Enable platform logging for the repository.
             --immutable-tags: (Docker only) Prevent changes to tagged images in the repository.
             --kms-key=: Name of the encryption key that's used for encrypting the contents of the repository.
             --labels=: List of label KEY=VALUE pairs to add.
@@ -411,10 +488,13 @@ commands:
             --no-allow-vulnerability-scanning&: Allow vulnerability scanning on the repository.
             --no-alternative-hostname-default&: Whether this is the default repository for the alternative hostname if no repository matches the path prefix.
             --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-platform-logs&: Clear platform logging settings for the repository to fall back to project settings.
+            --no-disable-platform-logs&: Disable platform logging for the repository.
             --no-disable-remote-validation&: Do not make an HTTP request to validate the remote upstream.
             --no-disable-sbom-generation&: Disable SBOM generation on the repository.
             --no-disable-vulnerability-scanning&: Disable vulnerability scanning on the repository.
             --no-enable-ingestion-attestation&: Enable generating attestation with verifiable signature on imported files in remote repositories.
+            --no-enable-platform-logs&: Enable platform logging for the repository.
             --no-immutable-tags&: (Docker only) Prevent changes to tagged images in the repository.
             --remote-apt-repo-path=: (Apt only) Remaining URL path to apt remote repository.
             --remote-apt-repo=: (Apt only) Repository base for apt remote repository.
@@ -431,15 +511,20 @@ commands:
             --remote-yum-repo=: (Yum only) Repository base for yum remote repository.
             --repository-format=!: Format of the repository.
             --service-directory-config=&: Service Directory config link for using Private Networks.
+            --severity=: The minimum severity level of logs to generate.
             --upstream-policy-file=: (Virtual Repositories only) is the upstreams for the Virtual Repository.
             --version-policy=: (Maven only) The package versions that the repository will store.
           completion:
             flag:
                 mode:
+                    - connector-repository
                     - none
                     - remote-repository
                     - standard-repository
                     - virtual-repository
+                severity:
+                    - error
+                    - info
                 version-policy:
                     - none
                     - release
@@ -510,27 +595,39 @@ commands:
             --alternative-hostname-path-prefix=&: An alternative hostname path prefix that a repository can be accessed through.
             --alternative-hostname=&: An alternative hostname that a repository can be accessed through.
             --clear-labels: Remove all labels.
+            --clear-platform-logs: Clear platform logging settings for the repository to fall back to project settings.
             --description=: Description for the repository.
+            --disable-platform-logs: Disable platform logging for the repository.
             --disable-remote-validation: Do not make an HTTP request to validate the remote upstream.
             --disable-sbom-generation&: Disable SBOM generation on the repository.
             --disable-vulnerability-scanning: Disable vulnerability scanning on the repository.
             --enable-ingestion-attestation&: Enable generating attestation with verifiable signature on imported files in remote repositories.
+            --enable-platform-logs: Enable platform logging for the repository.
             --immutable-tags: (Docker only) Prevent changes to tagged images in the repository.
             --location=: Location of the repository.
             --no-allow-sbom-generation&: Allow SBOM generation on the repository.
             --no-allow-vulnerability-scanning&: Allow vulnerability scanning on the repository.
             --no-alternative-hostname-default&: Whether this is the default repository for the alternative hostname if no repository matches the path prefix.
             --no-clear-labels&: Remove all labels.
+            --no-clear-platform-logs&: Clear platform logging settings for the repository to fall back to project settings.
+            --no-disable-platform-logs&: Disable platform logging for the repository.
             --no-disable-remote-validation&: Do not make an HTTP request to validate the remote upstream.
             --no-disable-sbom-generation&: Disable SBOM generation on the repository.
             --no-disable-vulnerability-scanning&: Disable vulnerability scanning on the repository.
             --no-enable-ingestion-attestation&: Enable generating attestation with verifiable signature on imported files in remote repositories.
+            --no-enable-platform-logs&: Enable platform logging for the repository.
             --no-immutable-tags&: (Docker only) Prevent changes to tagged images in the repository.
             --remote-password-secret-version=: Secret Manager secret version that contains password for the remote repository upstream.
             --remote-username=: Remote Repository upstream registry username.
             --remove-labels=: List of label keys to remove.
+            --severity=: The minimum severity level of logs to generate.
             --update-labels=: List of label KEY=VALUE pairs to update.
             --upstream-policy-file=: (Virtual Repositories only) is the upstreams for the Virtual Repository.
+          completion:
+            flag:
+                severity:
+                    - error
+                    - info
     - name: rules
       description: Manage Artifact Registry rules.
       commands:
@@ -682,7 +779,7 @@ commands:
             --no-show-package-vulnerability&: Include vulnerability metadata in the output.
             --package=: The package associated with the version.
             --repository=: The repository associated with the version.
-            --show-package-vulnerability&: Include vulnerability metadata in the output.
+            --show-package-vulnerability: Include vulnerability metadata in the output.
         - name: export
           description: Export an Artifact Registry package version.
           flags:

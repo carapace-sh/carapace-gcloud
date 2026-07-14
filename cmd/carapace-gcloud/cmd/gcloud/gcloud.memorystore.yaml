@@ -2,6 +2,49 @@
 name: memorystore
 description: Manage Memorystore resources.
 commands:
+    - name: acl-policies
+      description: Manage Acl Policy resources.
+      commands:
+        - name: create
+          description: Create aclPolicies.
+          flags:
+            --location=: The location id of the aclPolicy resource.
+            --request-id=: Idempotent request UUID.
+            --rules=!: Required, The ACL rules within the ACL policy.
+        - name: delete
+          description: Delete aclPolicies.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --etag=: Etag of the ACL policy.
+            --location=: The location id of the aclPolicy resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --request-id=: Idempotent request UUID.
+        - name: describe
+          description: Describe aclPolicies.
+          flags:
+            --location=: The location id of the aclPolicy resource.
+        - name: list
+          description: List aclPolicies.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update aclPolicies.
+          flags:
+            --add-rules=: Add new value to rules list.
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-rules: Clear rules value and set to empty list.
+            --location=: The location id of the aclPolicy resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-rules&: Clear rules value and set to empty list.
+            --remove-rules=: Remove existing value from rules list.
+            --request-id=: Idempotent request UUID.
+            --rules=: Set rules to new value.
     - name: backup-collections
       description: Manage Backup Collection resources.
       commands:
@@ -68,6 +111,7 @@ commands:
         - name: create
           description: Create a Memorystore instance.
           flags:
+            --acl-policy=!: ID of the aclPolicy or fully qualified identifier for the aclPolicy.
             --allow-fewer-zones-deployment&: Allows customers to specify if they are okay with deploying a multi-zone
             --aof-config-append-fsync=: The fsync mode.
             --async: Return immediately, without waiting for the operation in progress to
@@ -89,7 +133,7 @@ commands:
             --key-ring=: The keyRing id of the cryptoKey resource.
             --kms-key=!: ID of the cryptoKey or fully qualified identifier for the cryptoKey.
             --labels=: Labels to represent user-provided metadata.
-            --location=: For resources [instance, kms-key, primary-instance], provides fallback value for resource location attribute.
+            --location=: For resources [instance, acl-policy, kms-key, primary-instance, server-ca-pool], provides fallback value for resource location attribute.
             --maintenance-policy-weekly-window=: Maintenance window that is applied to resources covered by this
             --managed-backup-source=: 'Example:'
             --mode=: The mode config for the instance.
@@ -98,6 +142,7 @@ commands:
             --no-async-instance-endpoints-deletion-enabled&: If true, instance endpoints that are created and registered by customers
             --no-deletion-protection-enabled&: If set to true deletion of the instance will fail.
             --no-ondemand-maintenance&: Ondemand maintenance for the instance.
+            --no-rotate-server-certificate&: Rotate the server certificates.
             --no-simulate-maintenance-event&: Simulate a maintenance event.
             --node-type=: Machine type for individual nodes of the instance.
             --ondemand-maintenance: Ondemand maintenance for the instance.
@@ -108,10 +153,14 @@ commands:
             --rdb-config-snapshot-start-time=: Time that the first snapshot was/will be attempted, and to which future
             --replica-count=: Number of replica nodes per shard.
             --request-id=: An optional request ID to identify requests.
+            --rotate-server-certificate: Rotate the server certificates.
+            --server-ca-mode=: The Server CA mode for the instance.
+            --server-ca-pool=!: ID of the caPool or fully qualified identifier for the caPool.
             --shard-count=: Number of shards for the instance.
             --simulate-maintenance-event: Simulate a maintenance event.
             --transit-encryption-mode=: In-transit encryption mode of the instance.
             --zone-distribution-config-mode=: Current zone distribution mode.
+            --zone-distribution-config-zones=: Specify the zones of a multi-zone instance where Memorystore instance
             --zone-distribution-config=: Defines zone where all resources will be allocated with SINGLE_ZONE mode.
           completion:
             flag:
@@ -134,9 +183,15 @@ commands:
                     - cluster-disabled
                     - standalone
                 node-type:
+                    - custom-micro
+                    - custom-mini
+                    - custom-pico
+                    - highcpu-medium
+                    - highmem-2xlarge
                     - highmem-medium
                     - highmem-xlarge
                     - shared-core-nano
+                    - standard-large
                     - standard-small
                 persistence-config-mode:
                     - aof
@@ -147,6 +202,13 @@ commands:
                     - six-hours
                     - twelve-hours
                     - twenty-four-hours
+                server-ca-mode:
+                    - customer-managed-cas-ca
+                    - google-managed-per-instance-ca
+                    - google-managed-shared-ca
+                    - server-ca-mode-customer-managed-cas-ca
+                    - server-ca-mode-google-managed-per-instance-ca
+                    - server-ca-mode-google-managed-shared-ca
                 transit-encryption-mode:
                     - server-authentication
                     - transit-encryption-disabled
@@ -164,10 +226,22 @@ commands:
           description: Get details of a Memorystore instance.
           flags:
             --location=: The location id of the instance resource.
+        - name: finish-migration
+          description: Finish migration for a Memorystore instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --force: By default, the `FinishMigration` operation ensures the target
+            --location=: The location id of the instance resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-force&: By default, the `FinishMigration` operation ensures the target
         - name: get-certificate-authority
           description: Get certificate authority details of a Memorystore instance.
           flags:
             --location=: The location ID of the instance resource.
+        - name: get-shared-regional-certificate-authority
+          description: Get the shared regional CA certificate bundle for Memorystore.
+          flags:
+            --location=!: ID of the location or fully qualified identifier for the location.
         - name: list
           description: List all Memorystore instances in a specified project and location.
           flags:
@@ -191,9 +265,19 @@ commands:
                 reschedule-type:
                     - immediate
                     - specific-time
+        - name: start-migration
+          description: Start migration for a Memorystore instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the instance resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --self-managed-source-ip-address=!: The IP address of the source instance.
+            --self-managed-source-network-attachment=!: The resource name of the Private Service Connect Network Attachment used to
+            --self-managed-source-port=!: The port of the source instance.
         - name: update
           description: Update the configuration of a Memorystore instance.
           flags:
+            --acl-policy=!: ID of the aclPolicy or fully qualified identifier for the aclPolicy.
             --add-cross-instance-replication-config-secondary-instances=: Add new value to cross_instance_replication_config_secondary_instances list.
             --add-endpoints=: Add new value to endpoints list.
             --add-maintenance-policy-weekly-window=: Add new value to maintenance_policy_weekly_window list.
@@ -202,6 +286,7 @@ commands:
             --async-instance-endpoints-deletion-enabled: If true, instance endpoints that are created and registered by customers
             --automated-backup-config-mode=: The automated backup mode.
             --automated-backup-config-retention=: How long to keep automated backups before the backups are deleted.
+            --clear-acl-policy: Clear acl_policy value and set to null.
             --clear-automated-backup-config: Set instance.automatedBackupConfig back to default value.
             --clear-cross-instance-replication-config: Set instance.crossInstanceReplicationConfig back to default value.
             --clear-cross-instance-replication-config-secondary-instances: Clear cross_instance_replication_config_secondary_instances value and set to empty list.
@@ -226,12 +311,13 @@ commands:
             --key-ring=: The keyRing id of the cryptoKey resource.
             --kms-key=!: ID of the cryptoKey or fully qualified identifier for the cryptoKey.
             --labels=: Set labels to new value.
-            --location=: For resources [instance, kms-key, primary-instance], provides fallback value for resource location attribute.
+            --location=: For resources [instance, acl-policy, kms-key, primary-instance], provides fallback value for resource location attribute.
             --maintenance-policy-weekly-window=: Set maintenance_policy_weekly_window to new value.
             --maintenance-version=: This field can be used to trigger self service update to indicate the
             --mode=: The mode config for the instance.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-async-instance-endpoints-deletion-enabled&: If true, instance endpoints that are created and registered by customers
+            --no-clear-acl-policy&: Clear acl_policy value and set to null.
             --no-clear-automated-backup-config&: Set instance.automatedBackupConfig back to default value.
             --no-clear-cross-instance-replication-config&: Set instance.crossInstanceReplicationConfig back to default value.
             --no-clear-cross-instance-replication-config-secondary-instances&: Clear cross_instance_replication_config_secondary_instances value and set to empty list.
@@ -245,6 +331,7 @@ commands:
             --no-clear-primary-instance&: Clear primary_instance value and set to null.
             --no-deletion-protection-enabled&: If set to true deletion of the instance will fail.
             --no-ondemand-maintenance&: Ondemand maintenance for the instance.
+            --no-rotate-server-certificate&: Rotate the server certificates.
             --no-simulate-maintenance-event&: Simulate a maintenance event.
             --node-type=: Machine type for individual nodes of the instance.
             --ondemand-maintenance: Ondemand maintenance for the instance.
@@ -259,6 +346,7 @@ commands:
             --remove-maintenance-policy-weekly-window=: Remove existing value from maintenance_policy_weekly_window list.
             --replica-count=: Number of replica nodes per shard.
             --request-id=: An optional request ID to identify requests.
+            --rotate-server-certificate: Rotate the server certificates.
             --shard-count=: Number of shards for the instance.
             --simulate-maintenance-event: Simulate a maintenance event.
             --update-engine-configs=: Update engine_configs value or add key value pair.
@@ -281,9 +369,15 @@ commands:
                     - cluster-disabled
                     - standalone
                 node-type:
+                    - custom-micro
+                    - custom-mini
+                    - custom-pico
+                    - highcpu-medium
+                    - highmem-2xlarge
                     - highmem-medium
                     - highmem-xlarge
                     - shared-core-nano
+                    - standard-large
                     - standard-small
                 persistence-config-mode:
                     - aof

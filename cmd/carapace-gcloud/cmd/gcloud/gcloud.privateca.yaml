@@ -42,7 +42,8 @@ commands:
             --no-rdn-sequence-subject&: If this value is set then the issued certificate will use the subject found in the CSR preserving the exact RDN sequence.
             --no-unconstrained-chain-length&: If set, allows an unbounded number of subordinate CAs under this newly issued CA certificate.
             --no-validate-only&: If this flag is set, the certificate resource will not be persisted and the returned certificate will not contain the pem_certificate field.
-            --rdn-sequence-subject&: If this value is set then the issued certificate will use the subject found in the CSR preserving the exact RDN sequence.
+            --rdn-sequence-subject: If this value is set then the issued certificate will use the subject found in the CSR preserving the exact RDN sequence.
+            --requested-not-before-time=: The requested not before time for the certificate, in ISO 8601 format (e.g., 2026-04-29T23:18:06Z).
             --subject-file=&: A yaml file containing the RDN sequence for the Subject field.
             --subject-key-id=: Optional field to specify subject key ID for certificate.
             --subject=: X.501 name of the certificate subject.
@@ -120,16 +121,13 @@ commands:
             --uri: Print a list of resource URIs instead of the default output, and change the
     - name: operations
       description: Manage operations.
-      hidden: true
       commands:
         - name: describe
           description: Describe an operation ran on the Private CA API.
-          hidden: true
           flags:
             --location=: The location of the operation to describe.
         - name: list
           description: List operations for the Private CA API.
-          hidden: true
           flags:
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
@@ -152,7 +150,7 @@ commands:
         - name: create
           description: Create a new CA Pool.
           flags:
-            --encryption-key=&: The full resource name of the Cloud KMS key to use for encrypting certificate data at rest.
+            --encryption-key=: The full resource name of the Cloud KMS key to use for encrypting certificate data at rest.
             --issuance-policy=: A YAML file describing this CA Pool's issuance policy.
             --labels=: List of label KEY=VALUE pairs to add.
             --location=: The location of the CA_POOL.
@@ -221,7 +219,7 @@ commands:
           description: Update an existing  CA Pool.
           flags:
             --clear-labels: Remove all labels.
-            --encryption-key=&: The full resource name of the Cloud KMS key to use for encrypting certificate data at rest.
+            --encryption-key=: The full resource name of the Cloud KMS key to use for encrypting certificate data at rest.
             --issuance-policy=: A YAML file describing this CA Pool's issuance policy.
             --location=: The location of the CA_POOL.
             --no-clear-labels&: Remove all labels.
@@ -324,6 +322,7 @@ commands:
         - name: list
           description: List root certificate authorities.
           flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
             --location=: Location of the certificate authorities.
             --no-uri&: Print a list of resource URIs instead of the default output, and change the

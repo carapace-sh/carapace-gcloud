@@ -83,7 +83,9 @@ commands:
         - name: describe
           description: Describe a Managed Service for Apache Kafka cluster.
           flags:
+            --full: Show detailed information about individual brokers, such as broker id and zone, as well as the
             --location=: ID of the location of the Managed Service for Apache Kafka resource.
+            --no-full&: Show detailed information about individual brokers, such as broker id and zone, as well as the
         - name: list
           description: List all Managed Service for Apache Kafka clusters in a given location.
           flags:
@@ -116,7 +118,7 @@ commands:
         - name: create
           description: Create a Managed Service for Apache Kafka connect cluster.
           flags:
-            --additional-subnet=: Additional subnet to make available to the Kafka Connect cluster.
+            --additional-subnet=: (DEPRECATED) Additional subnet to make available to the Kafka Connect cluster.
             --async: Return immediately, without waiting for the operation in progress to
             --config-file=: The path to the JSON or YAML file containing the configuration that are overridden
             --configs=: Configuration for the connect cluster that are overridden from the cluster defaults.
@@ -150,7 +152,7 @@ commands:
         - name: update
           description: Update a Managed Service for Apache Kafka for BigQuery connect cluster.
           flags:
-            --additional-subnet=: Additional subnet to make available to the Kafka Connect cluster.
+            --additional-subnet=: (DEPRECATED) Additional subnet to make available to the Kafka Connect cluster.
             --async: Return immediately, without waiting for the operation in progress to
             --clear-configs: Remove all the configurations for the topic.
             --clear-dns-names: Remove all the DNS domain names for the connect cluster.
@@ -180,8 +182,10 @@ commands:
             --configs=: Configuration for the connector that are overridden from the connector defaults.
             --connect-cluster=: The connect cluster name.
             --location=: ID of the location of the Managed Service for Apache Kafka resource.
+            --no-task-retry-disabled&: Disable default task retry policy.
             --task-restart-max-backoff=!: The maximum amount of time to wait before retrying a failed task in seconds.
             --task-restart-min-backoff=!: The minimum amount of time to wait before retrying a failed task in seconds.
+            --task-retry-disabled: Disable default task retry policy.
         - name: delete
           description: Delete a Managed Service for Apache Kafka connector.
           flags:
@@ -227,8 +231,10 @@ commands:
             --configs=: Configuration for the connector that are overridden from the connector defaults.
             --connect-cluster=: The connect cluster name.
             --location=: ID of the location of the Managed Service for Apache Kafka resource.
+            --no-task-retry-disabled&: Disable default task retry policy.
             --task-restart-max-backoff=!: The maximum amount of time to wait before retrying a failed task in seconds.
             --task-restart-min-backoff=!: The minimum amount of time to wait before retrying a failed task in seconds.
+            --task-retry-disabled: Disable default task retry policy.
     - name: consumer-groups
       description: Administer Managed Service for Apache Kafka consumer groups.
       commands:
@@ -250,6 +256,12 @@ commands:
             --location=: ID of the location of the Managed Service for Apache Kafka resource.
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
+            --view=: The level of detail to return for consumer groups.
+          completion:
+            flag:
+                view:
+                    - basic
+                    - full
         - name: update
           description: Update a Managed Service for Apache Kafka consumer group.
           flags:

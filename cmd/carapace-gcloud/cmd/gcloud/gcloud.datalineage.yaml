@@ -1,0 +1,68 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: datalineage
+description: Manage Google Cloud Data Lineage resources.
+commands:
+    - name: config
+      description: Manage Data Lineage configurations.
+      commands:
+        - name: describe
+          description: Describe Data Lineage configuration.
+          flags:
+            --folder=: Folder ID.
+            --organization=: Organization ID.
+        - name: update
+          description: Update Data Lineage configuration.
+          flags:
+            --config=!: Inline JSON/YAML config or path to a file containing it.
+            --folder=: Folder ID.
+            --organization=: Organization ID.
+    - name: processes
+      description: Manage Data Lineage processes.
+      commands:
+        - name: create
+          description: Create a Data Lineage process.
+          flags:
+            --attributes=: Additional attributes for the process.
+            --display-name=: A human-readable name for the process.
+            --location=: The location of the process.
+            --origin-name=: The name of the origin (e.g. the application or pipeline name).
+            --origin-source-type=: Type of the source.
+          completion:
+            flag:
+                origin-source-type:
+                    - bigquery
+                    - composer
+                    - custom
+                    - dataflow
+                    - dataproc
+                    - data-fusion
+                    - looker-core
+                    - looker-studio
+                    - source-type-unspecified
+                    - vertex-ai
+        - name: delete
+          description: Delete a Data Lineage process.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location of the process.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe a Data Lineage process.
+          flags:
+            --location=: The location of the process.
+        - name: list
+          description: List Data Lineage processes.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a data lineage process.
+          flags:
+            --attributes=: The new attributes of the process.
+            --display-name=: The new display name of the process.
+            --location=: The location of the process.

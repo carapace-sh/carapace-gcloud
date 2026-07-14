@@ -19,7 +19,7 @@ commands:
             --no-row-affinity&: Use row-affinity routing for this app profile.
             --no-standard&: Use standard provisioned node compute option, rather than Data Boost compute option.
             --no-transactional-writes&: Allow transactional writes with a Single Cluster Routing policy.
-            --priority=!: Specify the request priority under standard provisioned node compute capabilities.
+            --priority=: Specify the request priority under standard provisioned node compute capabilities.
             --restrict-to=: Cluster IDs to route to using the Multi Cluster Routing Policy.
             --route-any!: Use Multi Cluster Routing policy.
             --route-to=!: Cluster ID to route to using Single Cluster Routing policy.
@@ -70,7 +70,7 @@ commands:
             --no-row-affinity&: Use row-affinity routing for this app profile.
             --no-standard&: Use standard provisioned node compute option, rather than Data Boost compute option.
             --no-transactional-writes&: Allow transactional writes with a Single Cluster Routing policy.
-            --priority=!: Specify the request priority under standard provisioned node compute capabilities.
+            --priority=: Specify the request priority under standard provisioned node compute capabilities.
             --restrict-to=: Cluster IDs to route to using the Multi Cluster Routing Policy.
             --route-any!: Use Multi Cluster Routing policy.
             --route-to=!: Cluster ID to route to using Single Cluster Routing policy.
@@ -357,13 +357,18 @@ commands:
             --cluster-zone=: (DEPRECATED) ID of the zone where the cluster is located.
             --cluster=: (DEPRECATED) ID of the cluster
             --display-name=!: Friendly name of the instance.
+            --edition=: The edition of the instance.
             --instance-type=: (DEPRECATED) The type of instance to create.
             --no-async&: Return immediately, without waiting for the operation in progress to
+            --tags=: List of tags KEY=VALUE pairs to bind.
           completion:
             flag:
                 cluster-storage-type:
                     - hdd
                     - ssd
+                edition:
+                    - ENTERPRISE
+                    - ENTERPRISE_PLUS
                 instance-type:
                     - DEVELOPMENT
                     - PRODUCTION
@@ -412,6 +417,7 @@ commands:
             - name: create
               description: Create a new Cloud Bigtable table.
               flags:
+                --automated-backup-locations=: List of Cloud Bigtable zones where automated backups are allowed to be created.
                 --automated-backup-retention-period=: The retention period of automated backup in the format of `30d` for 30 days.
                 --change-stream-retention-period=: The length of time to retain change stream data for the table, in the range of
                 --column-families=!: A double-quote (`"`) wrapped list of family name and corresponding garbage collection rules
@@ -493,8 +499,10 @@ commands:
               description: Update an existing Cloud Bigtable table.
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
+                --automated-backup-locations=: List of Cloud Bigtable zones where automated backups are allowed to be created.
                 --automated-backup-retention-period=: The retention period of automated backup in the format of `30d` for 30 days.
                 --change-stream-retention-period=: The length of time to retain change stream data for the table, in the range of [1 day, 7 days].
+                --clear-automated-backup-locations: Empty the automated backup locations list if populated.
                 --clear-change-stream-retention-period: This disables the change stream and eventually removes the change stream data.
                 --clear-row-key-schema: Whether to clear the row key schema in the updated table.
                 --deletion-protection: Once specified, the table is deletion protected.
@@ -511,6 +519,12 @@ commands:
           description: Modify an existing Bigtable instance.
           flags:
             --display-name=: Friendly name of the instance.
+            --edition=: The edition of the instance.
+          completion:
+            flag:
+                edition:
+                    - ENTERPRISE
+                    - ENTERPRISE_PLUS
         - name: upgrade
           description: Upgrade an existing instance's type from development to production.
           flags:
@@ -709,6 +723,7 @@ commands:
         - name: create
           description: Create a new Cloud Bigtable table.
           flags:
+            --automated-backup-locations=: List of Cloud Bigtable zones where automated backups are allowed to be created.
             --automated-backup-retention-period=: The retention period of automated backup in the format of `30d` for 30 days.
             --change-stream-retention-period=: The length of time to retain change stream data for the table, in the range of
             --column-families=!: A double-quote (`"`) wrapped list of family name and corresponding garbage collection rules
@@ -790,8 +805,10 @@ commands:
           description: Update an existing Cloud Bigtable table.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
+            --automated-backup-locations=: List of Cloud Bigtable zones where automated backups are allowed to be created.
             --automated-backup-retention-period=: The retention period of automated backup in the format of `30d` for 30 days.
             --change-stream-retention-period=: The length of time to retain change stream data for the table, in the range of [1 day, 7 days].
+            --clear-automated-backup-locations: Empty the automated backup locations list if populated.
             --clear-change-stream-retention-period: This disables the change stream and eventually removes the change stream data.
             --clear-row-key-schema: Whether to clear the row key schema in the updated table.
             --deletion-protection: Once specified, the table is deletion protected.

@@ -10,14 +10,18 @@ commands:
           flags:
             --async: Return immediately, without waiting for the operation in progress to
             --domain=: Domain used by Workstations for HTTP ingress.
+            --enable-http2: Whether HTTP/2 is enabled for the workstation cluster.
             --enable-private-endpoint: Default is false.
             --labels=: Labels that are applied to the cluster and propagated to the underlying Compute Engine
             --network=: Fully specified network path for instances created in this cluster.
             --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-enable-http2&: Whether HTTP/2 is enabled for the workstation cluster.
             --no-enable-private-endpoint&: Default is false.
             --region=: The name of the region of the cluster.
             --subnetwork=: Fully specified subnetwork path for instances created in this cluster.
             --tags=: Resource manager tags to be bound to this cluster.
+            --workstation-authorization-url=: The redirect URL for unauthorized requests.
+            --workstation-launch-url=: The launch URL for workstations.
         - name: delete
           description: Delete a workstation cluster.
           flags:
@@ -36,6 +40,21 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --region=: ID of the region or fully qualified identifier for the region.
             --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: update
+          description: Update a workstation cluster.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Remove all labels.
+            --display-name=: Human-readable name for this workstation cluster.
+            --enable-http2: Enable or disable HTTP/2 for the workstation cluster.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --no-enable-http2&: Enable or disable HTTP/2 for the workstation cluster.
+            --region=: The name of the region of the cluster.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+            --workstation-authorization-url=: The redirect URL for unauthorized requests.
+            --workstation-launch-url=: The launch URL for workstations.
     - name: configs
       description: Manage Cloud Workstations configuration resources.
       commands:
@@ -58,6 +77,11 @@ commands:
             --disable-public-ip-addresses: Default value is false.
             --disable-ssh-to-vm: (DEPRECATED)   Default value is False.
             --disable-tcp-connections: Default value is false.
+            --disk-archive-timeout=: Number of seconds to wait after initially creating or subsequently
+            --disk-reclaim-policy=: What should happen to the disk after the Workstation is deleted.
+            --disk-size=: Size of the persistent directory in GB.
+            --disk-source-snapshot=: Name of the snapshot to use as the source for the home disk.
+            --disk-type=: Type of the persistent directory.
             --enable-audit-agent: Whether to enable Linux `auditd` logging on the workstation.
             --enable-confidential-compute: Default value is false.
             --enable-nested-virtualization: Default value is false.
@@ -65,6 +89,7 @@ commands:
             --ephemeral-directory=: Ephemeral directory which won't persist across workstation sessions.
             --grant-workstation-admin-role-on-create: Default value is false.
             --idle-timeout=: How long (in seconds) to wait before automatically stopping an instance that
+            --instance-metadata=: Custom metadata to apply to Compute Engine instances.
             --kms-key-service-account=: The service account associated with the provided customer-managed encryption
             --kms-key=!: The customer-managed encryption key to use for this config.
             --labels=: Labels that are applied to the configuration and propagated to the underlying
@@ -97,6 +122,7 @@ commands:
             --shielded-integrity-monitoring: Default value is false.
             --shielded-secure-boot: Default value is false.
             --shielded-vtpm: Default value is false.
+            --startup-script-uri=: Link to the startup script stored in Cloud Storage.
             --vm-tags=: Resource manager tags to be bound to the instance.
           completion:
             flag:
@@ -112,6 +138,21 @@ commands:
                     - rider
                     - rubymine
                     - webstorm
+                disk-reclaim-policy:
+                    - delete
+                    - retain
+                disk-size:
+                    - "10"
+                    - "50"
+                    - "100"
+                    - "200"
+                    - "500"
+                    - "1000"
+                disk-type:
+                    - pd-standard
+                    - pd-balanced
+                    - pd-ssd
+                    - hyperdisk-balanced-ha
                 pd-disk-size:
                     - "10"
                     - "50"
@@ -180,6 +221,10 @@ commands:
             --disable-public-ip-addresses: Default value is false.
             --disable-ssh-to-vm: If set, workstations disable SSH connections to the root VM.
             --disable-tcp-connections: If set, workstations don't allow plain TCP connections.
+            --disk-archive-timeout=: Number of seconds to wait after initially creating or subsequently
+            --disk-size=: Size of the persistent directory in GB.
+            --disk-source-snapshot=: Name of the snapshot to use as the source for the home disk.
+            --disk-type=: Type of the persistent directory.
             --enable-audit-agent: Whether to enable Linux `auditd` logging on the workstation.
             --enable-confidential-compute: Default value is false.
             --enable-nested-virtualization: Default value is false.
@@ -187,6 +232,7 @@ commands:
             --enable-tcp-connections: If set, workstations allow plain TCP connections.
             --grant-workstation-admin-role-on-create: Default value is false.
             --idle-timeout=: How long (in seconds) to wait before automatically stopping an instance that
+            --instance-metadata=: Custom metadata to apply to Compute Engine instances.
             --labels=: Labels that are applied to the configuration and propagated to the underlying
             --machine-type=: Machine type determines the specifications of the Compute Engine machines
             --max-usable-workstations-count=: Maximum number of workstations under this configuration a user can have
@@ -215,6 +261,7 @@ commands:
             --shielded-integrity-monitoring: Default value is false.
             --shielded-secure-boot: Default value is false.
             --shielded-vtpm: Default value is false.
+            --startup-script-uri=: Link to the startup script stored in Cloud Storage.
             --vm-tags=: Resource manager tags to be bound to the instance.
           completion:
             flag:
@@ -230,6 +277,18 @@ commands:
                     - rider
                     - rubymine
                     - webstorm
+                disk-size:
+                    - "10"
+                    - "50"
+                    - "100"
+                    - "200"
+                    - "500"
+                    - "1000"
+                disk-type:
+                    - pd-standard
+                    - pd-balanced
+                    - pd-ssd
+                    - hyperdisk-balanced-ha
                 pd-disk-size:
                     - "10"
                     - "50"
@@ -309,9 +368,11 @@ commands:
         --command=: A command to run on the workstation.
         --config=: The config for the workstation.
         --local-host-port=: '`LOCAL_HOST:LOCAL_PORT` on which gcloud should bind and listen for connections'
+        --no-start-workstation&: If set, automatically starts the workstation if it is currently stopped.
         --port=: The port on the workstation to which traffic should be sent.
         --region=: The region for the workstation.
         --ssh-flag=: Additional flags to be passed to *ssh(1)*.
+        --start-workstation: If set, automatically starts the workstation if it is currently stopped.
         --user=: The username with which to SSH.
     - name: start
       description: Start a workstation.
@@ -327,7 +388,9 @@ commands:
         --cluster=: The cluster for the workstation.
         --config=: The config for the workstation.
         --local-host-port=: '`LOCAL_HOST:LOCAL_PORT` on which gcloud should bind and listen for connections'
+        --no-start-workstation&: If set, automatically starts the workstation if it is currently stopped.
         --region=: The region for the workstation.
+        --start-workstation: If set, automatically starts the workstation if it is currently stopped.
     - name: stop
       description: Stop a workstation.
       flags:
@@ -335,4 +398,13 @@ commands:
         --cluster=: The cluster for the workstation.
         --config=: The config for the workstation.
         --no-async&: Return immediately, without waiting for the operation in progress to
+        --region=: The region for the workstation.
+    - name: update
+      description: Update a workstation.
+      flags:
+        --async: Return immediately, without waiting for the operation in progress to
+        --cluster=: The cluster for the workstation.
+        --config=: The config for the workstation.
+        --no-async&: Return immediately, without waiting for the operation in progress to
+        --pd-disk-size=: Specifies the desired size in GB of the persistent directory mounted at /home.
         --region=: The region for the workstation.

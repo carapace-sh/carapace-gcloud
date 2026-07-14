@@ -20,6 +20,49 @@ commands:
             flag:
                 type:
                     - maintenance
+    - name: datastores
+      description: Manage VMware Engine datastores in Google Cloud VMware Engine.
+      commands:
+        - name: create
+          description: Create a datastore.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: Text describing the datastore.
+            --filestore=: Google Filestore instance to be used as datastore.
+            --location=: Location of the private cloud or cluster.
+            --netapp=: Google NetApp volume to be used as datastore.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --third-party-nfs-file-share=!: Mount folder name of NFS.
+            --third-party-nfs-network=!: Network name of NFS's VPC.
+            --third-party-nfs-servers=!: Comma-separated list of server IP addresses of the NFS file service.
+        - name: delete
+          description: Delete a datastore.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --etag=: Etag of the datastore.
+            --location=: Location of the private cloud or cluster.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe a datastore.
+          flags:
+            --location=: Location of the private cloud or cluster.
+        - name: list
+          description: List datastores.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a datastore.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: New description for the datastore.
+            --location=: Location of the private cloud or cluster.
+            --no-async&: Return immediately, without waiting for the operation in progress to
     - name: dns-bind-permission
       description: Manage DNS binding permission in Google Cloud VMware Engine.
       commands:
@@ -370,6 +413,30 @@ commands:
                 --private-cloud=!: ID of the private cloud or fully qualified identifier for the private cloud.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: mount-datastore
+              description: Mount a datastore to a Google Cloud VMware Engine cluster.
+              flags:
+                --access-mode=: Access mode for the datastore.
+                --async: Return immediately, without waiting for the operation in progress to
+                --connection-count=: Connection count for inlined datastore network configuration.
+                --datastore-network=: Path to a JSON file containing the datastore network configuration.
+                --datastore=!: The datastore resource name to mount.
+                --ignore-colocation: If set, ignore colocation checks.
+                --location=: Location of the private cloud or cluster.
+                --mtu=: MTU for inlined datastore network configuration.
+                --nfs-version=: NFS version for the datastore.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-ignore-colocation&: If set, ignore colocation checks.
+                --private-cloud=: VMware Engine private cloud.
+                --subnet=!: Subnet to use for inlined datastore network configuration.
+              completion:
+                flag:
+                    access-mode:
+                        - READ_WRITE
+                        - READ_ONLY
+                    nfs-version:
+                        - NFS_V3
+                        - NFS_V4
             - name: nodes
               description: Manage nodes in Google Cloud VMware Engine.
               commands:
@@ -391,6 +458,14 @@ commands:
                     --private-cloud=: VMware Engine private cloud.
                     --sort-by=: Comma-separated list of resource field key names to sort by.
                     --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: unmount-datastore
+              description: Unmount a datastore from a Google Cloud VMware Engine cluster.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --datastore=!: The datastore resource name to unmount.
+                --location=: Location of the private cloud or cluster.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --private-cloud=: VMware Engine private cloud.
             - name: update
               description: Update a Google Cloud VMware Engine cluster.
               flags:
@@ -418,10 +493,14 @@ commands:
             --autoscaling-settings-from-file=&: A YAML file containing the autoscaling settings to be applied to the cluster
             --cluster=!: ID of the cluster or fully qualified identifier for the cluster.
             --description=: Text describing the private cloud.
+            --kms-key=&: The KMS key to use for encryption of the private cloud.
             --location=: Location of the private cloud or cluster.
             --management-range=!: IP address range in the private cloud to use for management appliances, in CIDR format.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --node-type-config=!: Information about the type and number of nodes associated with the cluster.
+            --nsx-edge-count=&: The number of edge VMs in the NSX Edge cluster.
+            --nsx-edge-ha-mode=&: The HA mode of the NSX Edge cluster.
+            --nsx-edge-size=&: The size of the edge VMs in the NSX Edge cluster.
             --preferred-zone=: Zone that will remain operational when connection between the two zones is
             --secondary-zone=: Additional zone for a higher level of availability and load balancing.
             --service-subnet=&: A non-overlapping CIDR range and prefix length for the service subnets.
@@ -429,6 +508,12 @@ commands:
             --vmware-engine-network=!: Resource ID of the VMware Engine network attached to the private cloud.
           completion:
             flag:
+                nsx-edge-ha-mode:
+                    - active-active
+                    - active-standby
+                nsx-edge-size:
+                    - large
+                    - xlarge
                 type:
                     - STANDARD
                     - STRETCHED
@@ -748,6 +833,14 @@ commands:
                 --location=: Location of the private cloud or cluster.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --private-cloud=: VMware Engine private cloud.
+        - name: migrate-management-vms
+          description: Migrate the management VMs of a private cloud to a workload cluster.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --cluster=!: The ID of the cluster to migrate the management VMs to.
+            --location=: Location of the private cloud or cluster.
+            --no-async&: Return immediately, without waiting for the operation in progress to
         - name: nsx
           description: Manage NSX using Google Cloud VMware Engine.
           commands:
@@ -802,8 +895,24 @@ commands:
           flags:
             --async: Return immediately, without waiting for the operation in progress to
             --description=: Text describing the private cloud
+            --encryption-type=&: The encryption type to use for the private cloud.
+            --kms-key=&: The Cloud KMS key resource name to use for encryption.
             --location=: Location of the private cloud or cluster.
             --no-async&: Return immediately, without waiting for the operation in progress to
+            --nsx-edge-count=&: The number of edge VMs in the NSX Edge cluster.
+            --nsx-edge-ha-mode=&: The HA mode of the NSX Edge cluster.
+            --nsx-edge-size=&: The size of the edge VMs in the NSX Edge cluster.
+          completion:
+            flag:
+                encryption-type:
+                    - CMEK
+                    - GMEK
+                nsx-edge-ha-mode:
+                    - active-active
+                    - active-standby
+                nsx-edge-size:
+                    - large
+                    - xlarge
         - name: upgrades
           description: Manage upgrades in Google Cloud VMware Engine.
           commands:
