@@ -30,6 +30,7 @@ commands:
             --github-enterprise-config-app-id=: ID of the GitHub App created from the manifest.
             --github-enterprise-config-app-installation-id=: ID of the installation of the GitHub App.
             --github-enterprise-config-host-uri=!: The URI of the GitHub Enterprise host this connection is for.
+            --github-enterprise-config-organization=: GitHub Enterprise organization in which the GitHub App is created.
             --github-enterprise-config-private-key-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
             --github-enterprise-config-service-directory=!: ID of the service or fully qualified identifier for the service.
             --github-enterprise-config-ssl-ca-certificate=: SSL certificate to use for requests to GitHub Enterprise.
@@ -43,15 +44,15 @@ commands:
             --gitlab-enterprise-config-service-directory=!: ID of the service or fully qualified identifier for the service.
             --gitlab-enterprise-config-ssl-ca-certificate=: SSL Certificate Authority certificate to use for requests to GitLab
             --gitlab-enterprise-config-webhook-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
-            --http-config-basic-authentication-password-secret-version=!&: ID of the secretVersion or fully qualified identifier for the secretVersion.
-            --http-config-basic-authentication-username=!&: The username to authenticate as.
-            --http-config-bearer-token-authentication-secret-version=!&: ID of the secretVersion or fully qualified identifier for the secretVersion.
-            --http-config-host-uri=!&: The service provider's https endpoint.
-            --http-config-service-directory=!&: ID of the service or fully qualified identifier for the service.
-            --http-config-ssl-ca-certificate=&: The SSL certificate to use for requests to the HTTP service provider.
+            --http-config-basic-authentication-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --http-config-basic-authentication-username=!: The username to authenticate as.
+            --http-config-bearer-token-authentication-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --http-config-host-uri=!: The service provider's https endpoint.
+            --http-config-service-directory=!: ID of the service or fully qualified identifier for the service.
+            --http-config-ssl-ca-certificate=: The SSL certificate to use for requests to the HTTP service provider.
             --key-ring=: The keyRing id of the cryptoKey resource.
             --labels=: Labels as key value pairs.
-            --location=: For resources [connection, bitbucket-data-center-config-service-directory, crypto-key-config-reference, github-enterprise-config-service-directory, gitlab-enterprise-config-service-directory, http-config-service-directory], provides fallback value for resource location attribute.
+            --location=: For resources [connection, bitbucket-cloud-config-authorizer-credential-user-token-secret-version, bitbucket-cloud-config-read-authorizer-credential-user-token-secret-version, bitbucket-cloud-config-webhook-secret-version, bitbucket-data-center-config-authorizer-credential-user-token-secret-version, bitbucket-data-center-config-read-authorizer-credential-user-token-secret-version, bitbucket-data-center-config-service-directory, bitbucket-data-center-config-webhook-secret-version, crypto-key-config-reference, github-config-authorizer-credential-oauth-token-secret-version, github-enterprise-config-private-key-secret-version, github-enterprise-config-service-directory, github-enterprise-config-webhook-secret-version, gitlab-config-authorizer-credential-user-token-secret-version, gitlab-config-read-authorizer-credential-user-token-secret-version, gitlab-config-webhook-secret-version, gitlab-enterprise-config-authorizer-credential-user-token-secret-version, gitlab-enterprise-config-read-authorizer-credential-user-token-secret-version, gitlab-enterprise-config-service-directory, gitlab-enterprise-config-webhook-secret-version, http-config-basic-authentication-password-secret-version, http-config-bearer-token-authentication-secret-version, http-config-service-directory, secure-source-manager-instance-config], provides fallback value for resource location attribute.
             --namespace=: For resources [bitbucket-data-center-config-service-directory, github-enterprise-config-service-directory, gitlab-enterprise-config-service-directory, http-config-service-directory], provides fallback value for resource namespace attribute.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-disabled&: If disabled is set to true, functionality is disabled for this connection.
@@ -59,12 +60,15 @@ commands:
             --no-validate-only&: If set, validate the request, but do not actually post it.
             --request-id=: An optional request ID to identify requests.
             --secret=: For resources [bitbucket-cloud-config-authorizer-credential-user-token-secret-version, bitbucket-cloud-config-read-authorizer-credential-user-token-secret-version, bitbucket-cloud-config-webhook-secret-version, bitbucket-data-center-config-authorizer-credential-user-token-secret-version, bitbucket-data-center-config-read-authorizer-credential-user-token-secret-version, bitbucket-data-center-config-webhook-secret-version, github-config-authorizer-credential-oauth-token-secret-version, github-enterprise-config-private-key-secret-version, github-enterprise-config-webhook-secret-version, gitlab-config-authorizer-credential-user-token-secret-version, gitlab-config-read-authorizer-credential-user-token-secret-version, gitlab-config-webhook-secret-version, gitlab-enterprise-config-authorizer-credential-user-token-secret-version, gitlab-enterprise-config-read-authorizer-credential-user-token-secret-version, gitlab-enterprise-config-webhook-secret-version, http-config-basic-authentication-password-secret-version, http-config-bearer-token-authentication-secret-version], provides fallback value for resource secret attribute.
+            --secure-source-manager-instance-config=!: ID of the instance or fully qualified identifier for the instance.
             --validate-only: If set, validate the request, but do not actually post it.
           completion:
             flag:
                 github-config-app:
+                    - dataform
                     - developer-connect
                     - firebase
+                    - gemini-code-assist
         - name: delete
           description: Delete a single connection.
           flags:
@@ -168,9 +172,9 @@ commands:
             --clear-github-enterprise-config-webhook-secret-version: Clear github_enterprise_config_webhook_secret_version value and set to null.
             --clear-gitlab-config: Set connection.gitlabConfig back to default value.
             --clear-gitlab-enterprise-config: Set connection.gitlabEnterpriseConfig back to default value.
-            --clear-http-config&: Set connection.httpConfig back to default value.
-            --clear-http-config-basic-authentication-password-secret-version&: Clear http_config_basic_authentication_password_secret_version value and set to null.
-            --clear-http-config-bearer-token-authentication-secret-version&: Clear http_config_bearer_token_authentication_secret_version value and set to null.
+            --clear-http-config: Set connection.httpConfig back to default value.
+            --clear-http-config-basic-authentication-password-secret-version: Clear http_config_basic_authentication_password_secret_version value and set to null.
+            --clear-http-config-bearer-token-authentication-secret-version: Clear http_config_bearer_token_authentication_secret_version value and set to null.
             --clear-labels: Clear labels value and set to empty map.
             --crypto-key-config-reference=!: ID of the cryptoKey or fully qualified identifier for the cryptoKey.
             --disabled: If disabled is set to true, functionality is disabled for this connection.
@@ -192,14 +196,14 @@ commands:
             --gitlab-enterprise-config-read-authorizer-credential-user-token-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
             --gitlab-enterprise-config-service-directory=!: ID of the service or fully qualified identifier for the service.
             --gitlab-enterprise-config-ssl-ca-certificate=: SSL Certificate Authority certificate to use for requests to GitLab
-            --http-config-basic-authentication-password-secret-version=!&: ID of the secretVersion or fully qualified identifier for the secretVersion.
-            --http-config-basic-authentication-username=&: The username to authenticate as.
-            --http-config-bearer-token-authentication-secret-version=!&: ID of the secretVersion or fully qualified identifier for the secretVersion.
-            --http-config-service-directory=!&: ID of the service or fully qualified identifier for the service.
-            --http-config-ssl-ca-certificate=&: The SSL certificate to use for requests to the HTTP service provider.
+            --http-config-basic-authentication-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --http-config-basic-authentication-username=: The username to authenticate as.
+            --http-config-bearer-token-authentication-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --http-config-service-directory=!: ID of the service or fully qualified identifier for the service.
+            --http-config-ssl-ca-certificate=: The SSL certificate to use for requests to the HTTP service provider.
             --key-ring=: The keyRing id of the cryptoKey resource.
             --labels=: Set labels to new value.
-            --location=: For resources [connection, bitbucket-data-center-config-service-directory, crypto-key-config-reference, github-enterprise-config-service-directory, gitlab-enterprise-config-service-directory, http-config-service-directory], provides fallback value for resource location attribute.
+            --location=: For resources [connection, bitbucket-cloud-config-authorizer-credential-user-token-secret-version, bitbucket-cloud-config-read-authorizer-credential-user-token-secret-version, bitbucket-data-center-config-authorizer-credential-user-token-secret-version, bitbucket-data-center-config-read-authorizer-credential-user-token-secret-version, bitbucket-data-center-config-service-directory, crypto-key-config-reference, github-config-authorizer-credential-oauth-token-secret-version, github-enterprise-config-private-key-secret-version, github-enterprise-config-service-directory, github-enterprise-config-webhook-secret-version, gitlab-config-authorizer-credential-user-token-secret-version, gitlab-config-read-authorizer-credential-user-token-secret-version, gitlab-enterprise-config-authorizer-credential-user-token-secret-version, gitlab-enterprise-config-read-authorizer-credential-user-token-secret-version, gitlab-enterprise-config-service-directory, http-config-basic-authentication-password-secret-version, http-config-bearer-token-authentication-secret-version, http-config-service-directory], provides fallback value for resource location attribute.
             --namespace=: For resources [bitbucket-data-center-config-service-directory, github-enterprise-config-service-directory, gitlab-enterprise-config-service-directory, http-config-service-directory], provides fallback value for resource namespace attribute.
             --no-allow-missing&: If set to true, and the connection is not found a new connection
             --no-async&: Return immediately, without waiting for the operation in progress to
@@ -237,7 +241,8 @@ commands:
             --app-hub-application=: The App Hub application to which the insight config is associated.
             --artifact-config=: Specifies a single artifact configuration.
             --location=: The region of the insight config.
-            --target-projects=&: A comma-separated list of target project IDs/numbers to which the insight config is associated.
+            --source-config=&: The source config of the git repository link.
+            --target-projects=: A comma-separated list of target project IDs/numbers to which the insight config is associated.
         - name: delete
           description: Delete insightsConfigs.
           flags:

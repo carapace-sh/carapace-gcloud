@@ -205,6 +205,7 @@ commands:
       flags:
         --database-role=: Database role user used to access the database.
         --delimiter=: Set the statement delimiter.
+        --directed-read=: Enables directed reads to provide the flexibility to route read-only transactions and single reads to a specific replica type or region (replica_location:replica_type).
         --execute=: Execute the statement and then exits.
         --host=: Host on which Spanner server is located.
         --html: Show output in HTML format.
@@ -220,6 +221,7 @@ commands:
         --no-xml&: Show output in XML format.
         --port=: Port number that gcloud uses to connect to Spanner.
         --prompt=: Set the prompt to the specified format.
+        --proto-descriptor-file=: Path of a file that contains a protobuf-serialized google.protobuf.FileDescriptorSet message to use in this invocation.
         --show-exec-error&: If true and command fails, print the underlying command that was executed and its exit status.
         --skip-column-names: Do not show column names in output.
         --skip-system-command: Do not allow system command.
@@ -442,10 +444,12 @@ commands:
           description: Update a Cloud Spanner database.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
+            --clear-kms-keys: Removes all KMS key references and reverts the database to Google-managed encryption.
             --enable-drop-protection: Enable database deletion protection on this database.
             --instance=: The Cloud Spanner instance for the database.
             --kms-keys=: Update KMS key references for this database.
             --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-kms-keys&: Removes all KMS key references and reverts the database to Google-managed encryption.
             --no-enable-drop-protection&: Enable database deletion protection on this database.
     - name: instance-configs
       description: Manage Cloud Spanner instance configs.
@@ -502,13 +506,13 @@ commands:
           description: Create a Spanner instance partition.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
-            --autoscaling-high-priority-cpu-target=&: Specifies the target percentage of high-priority CPU the autoscaled instance can utilize.
-            --autoscaling-max-nodes=!&: Maximum number of nodes for the autoscaled instance.
-            --autoscaling-max-processing-units=!&: Maximum number of processing units for the autoscaled instance.
-            --autoscaling-min-nodes=!&: Minimum number of nodes for the autoscaled instance.
-            --autoscaling-min-processing-units=!&: Minimum number of processing units for the autoscaled instance.
-            --autoscaling-storage-target=!&: Specifies the target percentage of storage the autoscaled instance can utilize.
-            --autoscaling-total-cpu-target=&: Specifies the target percentage of total CPU the autoscaled instance can utilize.
+            --autoscaling-high-priority-cpu-target=: Specifies the target percentage of high-priority CPU the autoscaled instance can utilize.
+            --autoscaling-max-nodes=!: Maximum number of nodes for the autoscaled instance.
+            --autoscaling-max-processing-units=!: Maximum number of processing units for the autoscaled instance.
+            --autoscaling-min-nodes=!: Minimum number of nodes for the autoscaled instance.
+            --autoscaling-min-processing-units=!: Minimum number of processing units for the autoscaled instance.
+            --autoscaling-storage-target=!: Specifies the target percentage of storage the autoscaled instance can utilize.
+            --autoscaling-total-cpu-target=: Specifies the target percentage of total CPU the autoscaled instance can utilize.
             --config=!: Instance configuration defines the geographic placement and replication used by the instance partition.
             --description=!: Description of the instance partition.
             --instance=: The Cloud Spanner instance for the instance partition.
@@ -536,13 +540,13 @@ commands:
           description: Update a Spanner instance partition. You can't update the default instance partition using this command.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
-            --autoscaling-high-priority-cpu-target=&: Specifies the target percentage of high-priority CPU the autoscaled instance can utilize.
-            --autoscaling-max-nodes=&: Maximum number of nodes for the autoscaled instance.
-            --autoscaling-max-processing-units=&: Maximum number of processing units for the autoscaled instance.
-            --autoscaling-min-nodes=&: Minimum number of nodes for the autoscaled instance.
-            --autoscaling-min-processing-units=&: Minimum number of processing units for the autoscaled instance.
-            --autoscaling-storage-target=&: Specifies the target percentage of storage the autoscaled instance can utilize.
-            --autoscaling-total-cpu-target=&: Specifies the target percentage of total CPU the autoscaled instance can utilize.
+            --autoscaling-high-priority-cpu-target=: Specifies the target percentage of high-priority CPU the autoscaled instance can utilize.
+            --autoscaling-max-nodes=: Maximum number of nodes for the autoscaled instance.
+            --autoscaling-max-processing-units=: Maximum number of processing units for the autoscaled instance.
+            --autoscaling-min-nodes=: Minimum number of nodes for the autoscaled instance.
+            --autoscaling-min-processing-units=: Minimum number of processing units for the autoscaled instance.
+            --autoscaling-storage-target=: Specifies the target percentage of storage the autoscaled instance can utilize.
+            --autoscaling-total-cpu-target=: Specifies the target percentage of total CPU the autoscaled instance can utilize.
             --description=: Description of the instance partition.
             --instance=: The Cloud Spanner instance for the instance partition.
             --no-async&: Return immediately, without waiting for the operation in progress to
@@ -569,14 +573,17 @@ commands:
             --autoscaling-min-nodes=!: Minimum number of nodes for the autoscaled instance.
             --autoscaling-min-processing-units=!: Minimum number of processing units for the autoscaled instance.
             --autoscaling-storage-target=!: Specifies the target percentage of storage the autoscaled instance can utilize.
-            --autoscaling-total-cpu-target=&: Specifies the target percentage of total CPU the autoscaled instance can utilize.
+            --autoscaling-total-cpu-target=: Specifies the target percentage of total CPU the autoscaled instance can utilize.
             --config=!: Instance configuration defines the geographic placement and replication of the databases in that instance.
             --default-backup-schedule-type=: The default backup schedule type that is used in the instance.
             --description=!: Description of the instance.
+            --disable-downscaling: Set the flag to disable downscaling for the autoscaled instance.
             --edition=: Spanner edition.
             --expire-behavior=: The expire behavior of a free trial instance.
             --instance-type=: Specifies the type for this instance.
+            --labels=: List of label KEY=VALUE pairs to add.
             --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-disable-downscaling&: Set the flag to disable downscaling for the autoscaled instance.
             --nodes=: Number of nodes for the instance.
             --processing-units=: Number of processing units for the instance.
             --tags=&: List of tags KEY=VALUE pairs to bind.
@@ -649,16 +656,22 @@ commands:
             --autoscaling-min-nodes=: Minimum number of nodes for the autoscaled instance.
             --autoscaling-min-processing-units=: Minimum number of processing units for the autoscaled instance.
             --autoscaling-storage-target=: Specifies the target percentage of storage the autoscaled instance can utilize.
-            --autoscaling-total-cpu-target=&: Specifies the target percentage of total CPU the autoscaled instance can utilize.
+            --autoscaling-total-cpu-target=: Specifies the target percentage of total CPU the autoscaled instance can utilize.
             --clear-asymmetric-autoscaling-option=: Specify a comma separated list of locations from which to remove asymmetric autoscaling options
+            --clear-labels: Remove all labels.
             --default-backup-schedule-type=: The default backup schedule type that is used in the instance.
             --description=: Description of the instance.
+            --disable-downscaling: Set the flag to disable downscaling for the autoscaled instance.
             --edition=: Spanner edition.
             --expire-behavior=: The expire behavior of a free trial instance.
             --instance-type=: Specifies the type for this instance.
             --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --no-disable-downscaling&: Set the flag to disable downscaling for the autoscaled instance.
             --nodes=: Number of nodes for the instance.
             --processing-units=: Number of processing units for the instance.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
           completion:
             flag:
                 default-backup-schedule-type:

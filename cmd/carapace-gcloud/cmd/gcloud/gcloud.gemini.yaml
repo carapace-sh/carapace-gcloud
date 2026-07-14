@@ -48,8 +48,9 @@ commands:
                 --labels=: Labels as key value pairs.
                 --location=: The location id of the repositoryGroup resource.
                 --no-async&: Return immediately, without waiting for the operation in progress to
-                --repositories=!: Required, List of repositories to group.
+                --repositories=: List of repositories to group.
                 --request-id=: An optional request ID to identify requests.
+                --resources=: List of third party connection resources.
             - name: delete
               description: Delete a repository group from a given code repository index instance.
               flags:
@@ -92,19 +93,24 @@ commands:
               description: Update the configuration of a repository group.
               flags:
                 --add-repositories=: Add new value to repositories list.
+                --add-resources=: Add new value to resources list.
                 --async: Return immediately, without waiting for the operation in progress to
                 --clear-labels: Clear labels value and set to empty map.
                 --clear-repositories: Clear repositories value and set to empty list.
+                --clear-resources: Clear resources value and set to empty list.
                 --code-repository-index=: The codeRepositoryIndex id of the repositoryGroup resource.
                 --labels=: Set labels to new value.
                 --location=: The location id of the repositoryGroup resource.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-clear-labels&: Clear labels value and set to empty map.
                 --no-clear-repositories&: Clear repositories value and set to empty list.
+                --no-clear-resources&: Clear resources value and set to empty list.
                 --remove-labels=: Remove existing value from map labels.
                 --remove-repositories=: Remove existing value from repositories list.
+                --remove-resources=: Remove existing value from resources list.
                 --repositories=: Set repositories to new value.
                 --request-id=: An optional request ID to identify requests.
+                --resources=: Set resources to new value.
                 --update-labels=: Update labels value or add key value pair.
         - name: update
           description: Update the configuration of a code repository index instance.
@@ -169,6 +175,7 @@ commands:
                         - gemini-cloud-assist
                         - gemini-code-assist
                         - gemini-in-bigquery
+                        - gemini-in-looker
             - name: delete
               description: Delete settingBindings.
               flags:
@@ -214,6 +221,7 @@ commands:
                         - gemini-cloud-assist
                         - gemini-code-assist
                         - gemini-in-bigquery
+                        - gemini-in-looker
         - name: update
           description: Update codeToolsSettings.
           flags:
@@ -281,6 +289,7 @@ commands:
                         - gemini-cloud-assist
                         - gemini-code-assist
                         - gemini-in-bigquery
+                        - gemini-in-looker
             - name: delete
               description: Delete settingBindings.
               flags:
@@ -326,6 +335,7 @@ commands:
                         - gemini-cloud-assist
                         - gemini-code-assist
                         - gemini-in-bigquery
+                        - gemini-in-looker
         - name: update
           description: Update dataSharingWithGoogleSettings.
           flags:
@@ -340,19 +350,158 @@ commands:
             --remove-labels=: Remove existing value from map labels.
             --request-id=: An optional request ID to identify requests.
             --update-labels=: Update labels value or add key value pair.
+    - name: gda-observability-settings
+      description: Manage Gda Observability Setting resources.
+      commands:
+        - name: create
+          description: Create gdaObservabilitySettings.
+          flags:
+            --conversational-analytics-setting-feedback-enabled: Whether to enable feedback.
+            --conversational-analytics-setting-logging-enabled: Whether to enable logging.
+            --conversational-analytics-setting-metrics-enabled: Whether to enable metrics.
+            --conversational-analytics-setting-traces-enabled: Whether to enable traces.
+            --labels=: Labels as key value pairs.
+            --location=: The location id of the gdaObservabilitySetting resource.
+            --no-conversational-analytics-setting-feedback-enabled&: Whether to enable feedback.
+            --no-conversational-analytics-setting-logging-enabled&: Whether to enable logging.
+            --no-conversational-analytics-setting-metrics-enabled&: Whether to enable metrics.
+            --no-conversational-analytics-setting-traces-enabled&: Whether to enable traces.
+            --request-id=: An optional request ID to identify requests.
+        - name: delete
+          description: Delete gdaObservabilitySettings.
+          flags:
+            --location=: The location id of the gdaObservabilitySetting resource.
+            --request-id=: An optional request ID to identify requests.
+        - name: describe
+          description: Describe gdaObservabilitySettings.
+          flags:
+            --location=: The location id of the gdaObservabilitySetting resource.
+        - name: list
+          description: List gdaObservabilitySettings.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: setting-bindings
+          description: Manage Setting Binding resources.
+          commands:
+            - name: create
+              description: Create settingBindings.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --gda-observability-setting=: The gdaObservabilitySetting id of the settingBinding resource.
+                --labels=: Labels as key value pairs.
+                --location=: The location id of the settingBinding resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --product=: Product type of the setting binding.
+                --request-id=: An optional request ID to identify requests.
+                --target=!: Target of the binding.
+              completion:
+                flag:
+                    product:
+                        - gemini-cloud-assist
+                        - gemini-code-assist
+                        - gemini-in-bigquery
+                        - gemini-in-looker
+            - name: delete
+              description: Delete settingBindings.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --gda-observability-setting=: The gdaObservabilitySetting id of the settingBinding resource.
+                --location=: The location id of the settingBinding resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --request-id=: An optional request ID to identify requests.
+            - name: describe
+              description: Describe settingBindings.
+              flags:
+                --gda-observability-setting=: The gdaObservabilitySetting id of the settingBinding resource.
+                --location=: The location id of the settingBinding resource.
+            - name: list
+              description: List settingBindings.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --gda-observability-setting=!: ID of the gdaObservabilitySetting or fully qualified identifier for the gdaObservabilitySetting.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the gdaObservabilitySetting resource.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Update settingBindings.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-labels: Clear labels value and set to empty map.
+                --gda-observability-setting=: The gdaObservabilitySetting id of the settingBinding resource.
+                --labels=: Set labels to new value.
+                --location=: The location id of the settingBinding resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Clear labels value and set to empty map.
+                --product=: Product type of the setting binding.
+                --remove-labels=: Remove existing value from map labels.
+                --request-id=: An optional request ID to identify requests.
+                --target=: Target of the binding.
+                --update-labels=: Update labels value or add key value pair.
+              completion:
+                flag:
+                    product:
+                        - gemini-cloud-assist
+                        - gemini-code-assist
+                        - gemini-in-bigquery
+                        - gemini-in-looker
+        - name: update
+          description: Update gdaObservabilitySettings.
+          flags:
+            --clear-conversational-analytics-setting: Set gdaObservabilitySetting.conversationalAnalyticsSetting back to default value.
+            --clear-labels: Clear labels value and set to empty map.
+            --conversational-analytics-setting-feedback-enabled: Whether to enable feedback.
+            --conversational-analytics-setting-logging-enabled: Whether to enable logging.
+            --conversational-analytics-setting-metrics-enabled: Whether to enable metrics.
+            --conversational-analytics-setting-traces-enabled: Whether to enable traces.
+            --labels=: Set labels to new value.
+            --location=: The location id of the gdaObservabilitySetting resource.
+            --no-clear-conversational-analytics-setting&: Set gdaObservabilitySetting.conversationalAnalyticsSetting back to default value.
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --no-conversational-analytics-setting-feedback-enabled&: Whether to enable feedback.
+            --no-conversational-analytics-setting-logging-enabled&: Whether to enable logging.
+            --no-conversational-analytics-setting-metrics-enabled&: Whether to enable metrics.
+            --no-conversational-analytics-setting-traces-enabled&: Whether to enable traces.
+            --remove-labels=: Remove existing value from map labels.
+            --request-id=: An optional request ID to identify requests.
+            --update-labels=: Update labels value or add key value pair.
     - name: gemini-gcp-enablement-settings
       description: Manage Gemini Gcp Enablement Setting resources.
       commands:
         - name: create
           description: Create geminiGcpEnablementSettings.
           flags:
+            --custom-instructions=: Contains custom instructions to be applied to the GCA agent.
             --disable-web-grounding: Whether web grounding should be disabled.
-            --enable-customer-data-sharing: Whether customer data sharing should be enabled.
+            --enable-customer-data-sharing: Not implemented.
+            --gemini-enterprise-project=: The Gemini enterprise project for this setting.
             --labels=: Labels as key value pairs.
             --location=: The location id of the geminiGcpEnablementSetting resource.
+            --mutations-enabled: Indicates whether resource mutations are enabled.
             --no-disable-web-grounding&: Whether web grounding should be disabled.
-            --no-enable-customer-data-sharing&: Whether customer data sharing should be enabled.
+            --no-enable-customer-data-sharing&: Not implemented.
+            --no-mutations-enabled&: Indicates whether resource mutations are enabled.
+            --no-proactive-agents-enabled&: Indicates whether proactive agents are enabled.
+            --proactive-agents-enabled: Indicates whether proactive agents are enabled.
+            --release-channel=: Specifies the release channel for Gemini features.
             --request-id=: An optional request ID to identify requests.
+            --web-grounding-type=: Web grounding type.
+          completion:
+            flag:
+                release-channel:
+                    - experimental
+                    - stable
+                web-grounding-type:
+                    - grounding-with-google-search
+                    - web-grounding-for-enterprise
         - name: delete
           description: Delete geminiGcpEnablementSettings.
           flags:
@@ -392,6 +541,7 @@ commands:
                         - gemini-cloud-assist
                         - gemini-code-assist
                         - gemini-in-bigquery
+                        - gemini-in-looker
             - name: delete
               description: Delete settingBindings.
               flags:
@@ -437,17 +587,157 @@ commands:
                         - gemini-cloud-assist
                         - gemini-code-assist
                         - gemini-in-bigquery
+                        - gemini-in-looker
         - name: update
           description: Update geminiGcpEnablementSettings.
           flags:
             --clear-labels: Clear labels value and set to empty map.
+            --custom-instructions=: Contains custom instructions to be applied to the GCA agent.
             --disable-web-grounding: Whether web grounding should be disabled.
-            --enable-customer-data-sharing: Whether customer data sharing should be enabled.
+            --enable-customer-data-sharing: Not implemented.
+            --gemini-enterprise-project=: The Gemini enterprise project for this setting.
             --labels=: Set labels to new value.
             --location=: The location id of the geminiGcpEnablementSetting resource.
+            --mutations-enabled: Indicates whether resource mutations are enabled.
             --no-clear-labels&: Clear labels value and set to empty map.
             --no-disable-web-grounding&: Whether web grounding should be disabled.
-            --no-enable-customer-data-sharing&: Whether customer data sharing should be enabled.
+            --no-enable-customer-data-sharing&: Not implemented.
+            --no-mutations-enabled&: Indicates whether resource mutations are enabled.
+            --no-proactive-agents-enabled&: Indicates whether proactive agents are enabled.
+            --proactive-agents-enabled: Indicates whether proactive agents are enabled.
+            --release-channel=: Specifies the release channel for Gemini features.
+            --remove-labels=: Remove existing value from map labels.
+            --request-id=: An optional request ID to identify requests.
+            --update-labels=: Update labels value or add key value pair.
+            --web-grounding-type=: Web grounding type.
+          completion:
+            flag:
+                release-channel:
+                    - experimental
+                    - stable
+                web-grounding-type:
+                    - grounding-with-google-search
+                    - web-grounding-for-enterprise
+    - name: gibq-observability-settings
+      description: Manage Gibq Observability Setting resources.
+      commands:
+        - name: create
+          description: Create gibqObservabilitySettings.
+          flags:
+            --conversational-analytics-setting-feedback-enabled: Whether to enable feedback.
+            --conversational-analytics-setting-logging-enabled: Whether to enable logging.
+            --conversational-analytics-setting-metrics-enabled: Whether to enable metrics.
+            --conversational-analytics-setting-traces-enabled: Whether to enable traces.
+            --labels=: Labels as key value pairs.
+            --location=: The location id of the gibqObservabilitySetting resource.
+            --no-conversational-analytics-setting-feedback-enabled&: Whether to enable feedback.
+            --no-conversational-analytics-setting-logging-enabled&: Whether to enable logging.
+            --no-conversational-analytics-setting-metrics-enabled&: Whether to enable metrics.
+            --no-conversational-analytics-setting-traces-enabled&: Whether to enable traces.
+            --request-id=: An optional request ID to identify requests.
+        - name: delete
+          description: Delete gibqObservabilitySettings.
+          flags:
+            --location=: The location id of the gibqObservabilitySetting resource.
+            --request-id=: An optional request ID to identify requests.
+        - name: describe
+          description: Describe gibqObservabilitySettings.
+          flags:
+            --location=: The location id of the gibqObservabilitySetting resource.
+        - name: list
+          description: List gibqObservabilitySettings.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: setting-bindings
+          description: Manage Setting Binding resources.
+          commands:
+            - name: create
+              description: Create settingBindings.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --gibq-observability-setting=: The gibqObservabilitySetting id of the settingBinding resource.
+                --labels=: Labels as key value pairs.
+                --location=: The location id of the settingBinding resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --product=: Product type of the setting binding.
+                --request-id=: An optional request ID to identify requests.
+                --target=!: Target of the binding.
+              completion:
+                flag:
+                    product:
+                        - gemini-cloud-assist
+                        - gemini-code-assist
+                        - gemini-in-bigquery
+                        - gemini-in-looker
+            - name: delete
+              description: Delete settingBindings.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --gibq-observability-setting=: The gibqObservabilitySetting id of the settingBinding resource.
+                --location=: The location id of the settingBinding resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --request-id=: An optional request ID to identify requests.
+            - name: describe
+              description: Describe settingBindings.
+              flags:
+                --gibq-observability-setting=: The gibqObservabilitySetting id of the settingBinding resource.
+                --location=: The location id of the settingBinding resource.
+            - name: list
+              description: List settingBindings.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --gibq-observability-setting=!: ID of the gibqObservabilitySetting or fully qualified identifier for the gibqObservabilitySetting.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the gibqObservabilitySetting resource.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Update settingBindings.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-labels: Clear labels value and set to empty map.
+                --gibq-observability-setting=: The gibqObservabilitySetting id of the settingBinding resource.
+                --labels=: Set labels to new value.
+                --location=: The location id of the settingBinding resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Clear labels value and set to empty map.
+                --product=: Product type of the setting binding.
+                --remove-labels=: Remove existing value from map labels.
+                --request-id=: An optional request ID to identify requests.
+                --target=: Target of the binding.
+                --update-labels=: Update labels value or add key value pair.
+              completion:
+                flag:
+                    product:
+                        - gemini-cloud-assist
+                        - gemini-code-assist
+                        - gemini-in-bigquery
+                        - gemini-in-looker
+        - name: update
+          description: Update gibqObservabilitySettings.
+          flags:
+            --clear-conversational-analytics-setting: Set gibqObservabilitySetting.conversationalAnalyticsSetting back to default value.
+            --clear-labels: Clear labels value and set to empty map.
+            --conversational-analytics-setting-feedback-enabled: Whether to enable feedback.
+            --conversational-analytics-setting-logging-enabled: Whether to enable logging.
+            --conversational-analytics-setting-metrics-enabled: Whether to enable metrics.
+            --conversational-analytics-setting-traces-enabled: Whether to enable traces.
+            --labels=: Set labels to new value.
+            --location=: The location id of the gibqObservabilitySetting resource.
+            --no-clear-conversational-analytics-setting&: Set gibqObservabilitySetting.conversationalAnalyticsSetting back to default value.
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --no-conversational-analytics-setting-feedback-enabled&: Whether to enable feedback.
+            --no-conversational-analytics-setting-logging-enabled&: Whether to enable logging.
+            --no-conversational-analytics-setting-metrics-enabled&: Whether to enable metrics.
+            --no-conversational-analytics-setting-traces-enabled&: Whether to enable traces.
             --remove-labels=: Remove existing value from map labels.
             --request-id=: An optional request ID to identify requests.
             --update-labels=: Update labels value or add key value pair.
@@ -503,6 +793,7 @@ commands:
                         - gemini-cloud-assist
                         - gemini-code-assist
                         - gemini-in-bigquery
+                        - gemini-in-looker
             - name: delete
               description: Delete settingBindings.
               flags:
@@ -548,6 +839,7 @@ commands:
                         - gemini-cloud-assist
                         - gemini-code-assist
                         - gemini-in-bigquery
+                        - gemini-in-looker
         - name: update
           description: Update loggingSettings.
           flags:
@@ -645,6 +937,7 @@ commands:
                         - gemini-cloud-assist
                         - gemini-code-assist
                         - gemini-in-bigquery
+                        - gemini-in-looker
             - name: delete
               description: Delete settingBindings.
               flags:
@@ -690,6 +983,7 @@ commands:
                         - gemini-cloud-assist
                         - gemini-code-assist
                         - gemini-in-bigquery
+                        - gemini-in-looker
         - name: update
           description: Update releaseChannelSettings.
           flags:

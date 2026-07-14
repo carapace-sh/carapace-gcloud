@@ -1,0 +1,138 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: cluster-director
+description: Manage Cluster Director resources.
+hidden: true
+commands:
+    - name: clusters
+      description: Manage Cluster Director cluster resources.
+      hidden: true
+      commands:
+        - name: create
+          description: Creates a Cluster Director resource.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --blueprint=: Reference a pre-defined architecture (e.g., "a3-ultra").
+            --buckets=: Reference of existing Google Cloud Storage bucket.
+            --config=: Configuration of the cluster specs in the form of a JSON object.
+            --create-buckets=: Parameters to create a Google Cloud Storage bucket.
+            --create-filestores=: Parameters to create a filestore instance.
+            --create-lustres=: Parameters to create a Lustre instance.
+            --create-network=: Parameters to create a VPC (Virtual Private Cloud) network.
+            --description=: Description of the cluster.
+            --filestores=: Reference of existing filestore instance.
+            --flex-start-instances=: Parameters to define cluster Flex Start instances.
+            --labels=: Cluster labels as key value pairs.
+            --location=: The location id of the cluster resource.
+            --lustres=: Reference of existing Lustre instance.
+            --network-project=: Project ID of the project containing the network and subnetwork
+            --network=!: Reference of existing network name.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-quickstart-cluster&: If specified, creates a cluster with sensible defaults for compute, network, and orchestrator.
+            --on-demand-instances=: Parameters to define cluster on demand instances.
+            --quickstart-cluster: If specified, creates a cluster with sensible defaults for compute, network, and orchestrator.
+            --reserved-instances=: Parameters to define cluster reserved instances.
+            --slurm-default-partition=: Parameters to define slurm cluster default partition.
+            --slurm-epilog-scripts=: Slurm epilog bash scripts.
+            --slurm-login-node=: Parameters to define slurm cluster login node.
+            --slurm-node-sets=: Parameters to define slurm cluster nodeset config.
+            --slurm-partitions=: Parameters to define slurm cluster partitions.
+            --slurm-prolog-scripts=: Slurm prolog bash scripts.
+            --spot-instances=: Parameters to define cluster spot instances.
+            --subnet=!: Reference of existing subnetwork name.
+          completion:
+            flag:
+                blueprint:
+                    - a3-ultra
+                    - a4-high-flex-start
+                    - a4x-high
+                    - g4
+                    - h4d-highmem
+        - name: delete
+          description: Deletes a Cluster Director resource.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the cluster resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Gets details of a Cluster Director resource.
+          hidden: true
+          flags:
+            --location=: The location id of the cluster resource.
+        - name: list
+          description: List Cluster Director resources.
+          hidden: true
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Updates a Cluster Director resource.
+          hidden: true
+          flags:
+            --add-filestore-instances=: Reference of existing filestore instance.
+            --add-flex-start-instances=: Parameters to define cluster Flex Start instances.
+            --add-labels=: Cluster labels as key value pairs.
+            --add-lustre-instances=: Reference of existing Lustre instance.
+            --add-new-filestore-instances=: Parameters to create a filestore instance.
+            --add-new-lustre-instances=: Parameters to create a Lustre instance.
+            --add-new-storage-buckets=: Parameters to create a Google Cloud Storage bucket.
+            --add-on-demand-instances=: Parameters to define cluster on demand instances.
+            --add-reserved-instances=: Parameters to define cluster reserved instances.
+            --add-slurm-epilog-scripts=: Slurm epilog bash scripts.
+            --add-slurm-node-sets=: Parameters to define slurm cluster nodeset config.
+            --add-slurm-partitions=: Parameters to define slurm cluster partitions.
+            --add-slurm-prolog-scripts=: Slurm prolog bash scripts.
+            --add-spot-instances=: Parameters to define cluster spot instances.
+            --add-storage-buckets=: Reference of existing Google Cloud Storage bucket.
+            --async: Return immediately, without waiting for the operation in progress to
+            --config=!: Configuration of the cluster specs in the form of a JSON object.
+            --description=: Description of the cluster.
+            --location=: The location id of the cluster resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --remove-filestore-instances=: Parameters to remove filestore instance config by filestore name.
+            --remove-flex-start-instances=: Parameters to remove Flex Start instance config by compute id.
+            --remove-labels=: Parameters to remove cluster label by key.
+            --remove-lustre-instances=: Parameters to remove lustre instance config by lustre name.
+            --remove-on-demand-instances=: Parameters to remove on demand instances config by compute id.
+            --remove-reserved-instances=: Parameters to remove reserved instance config by compute id.
+            --remove-slurm-epilog-scripts=: Scripts to remove from Slurm epilog bash scripts.
+            --remove-slurm-node-sets=: Parameters to remove slurm nodeset config by nodeset id.
+            --remove-slurm-partitions=: Parameters to remove slurm partition config by partition id.
+            --remove-slurm-prolog-scripts=: Scripts to remove from Slurm prolog bash scripts.
+            --remove-spot-instances=: Parameters to remove spot instance config by compute id.
+            --remove-storage-buckets=: Parameters to remove Google Cloud Storage bucket by bucket name.
+            --slurm-default-partition=: Parameters to define slurm cluster default partition.
+            --update-mask=!: Update mask to specify the fields to update.
+            --update-slurm-login-node=: Parameters to update slurm cluster login node.
+            --update-slurm-node-sets=: Parameters to define and update slurm cluster nodeset config.
+            --update-slurm-partitions=: Parameters to define and update slurm cluster partition config.
+    - name: locations
+      description: View Locations resources.
+      hidden: true
+      commands:
+        - name: describe
+          description: Describe locations.
+          hidden: true
+        - name: list
+          description: List locations.
+          hidden: true
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+    - name: operations
+      description: Manage Operation resources.
+      hidden: true
+      commands:
+        - name: describe
+          description: Describe operations.
+          hidden: true
+          flags:
+            --location=: The location id of the operation resource.

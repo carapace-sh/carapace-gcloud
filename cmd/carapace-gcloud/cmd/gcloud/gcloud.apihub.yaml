@@ -1,0 +1,1213 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: apihub
+description: Manage Apihub resources.
+commands:
+    - name: addons
+      description: Manage Addon resources.
+      commands:
+        - name: describe
+          description: Describe an Addon.
+          flags:
+            --location=: The location id of the addon resource.
+        - name: list
+          description: List Addons.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: manage-config
+          description: Manage the Config of an Addon.
+          flags:
+            --all-data-addon-config-enabled!: If true, the addon is enabled for all data in the API hub.
+            --async: Return immediately, without waiting for the operation in progress to
+            --gateway-plugin-addon-config-configs=!: Required, The list of gateway plugin configs for which the addon is enabled.
+            --location=: The location id of the addon resource.
+            --no-all-data-addon-config-enabled!&: If true, the addon is enabled for all data in the API hub.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+    - name: api-hub-instances
+      description: Manage Api Hub Instance resources.
+      commands:
+        - name: create
+          description: Create an Api Hub Instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --config-cmek-key-name=: The Customer Managed Encryption Key (CMEK) used for data encryption.
+            --config-disable-search: If true, the search will be disabled for the instance.
+            --config-encryption-type=: Encryption type for the region.
+            --config-vertex-location=: The name of the Vertex AI location where the data store is stored.
+            --description=: Description of the ApiHub instance.
+            --labels=: Instance labels to represent user-provided metadata.
+            --location=: The location id of the apiHubInstance resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-config-disable-search&: If true, the search will be disabled for the instance.
+          completion:
+            flag:
+                config-encryption-type:
+                    - cmek
+                    - gmek
+        - name: delete
+          description: Delete an Api Hub Instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the apiHubInstance resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe an Api Hub Instance.
+          flags:
+            --location=: The location id of the apiHubInstance resource.
+        - name: lookup
+          description: lookup apiHubInstances.
+          flags:
+            --location=!: ID of the location or fully qualified identifier for the location.
+    - name: apis
+      description: Manage Api resources.
+      commands:
+        - name: create
+          description: Create apis.
+          flags:
+            --api-functional-requirements-enum-values=!: Required, The attribute values in case attribute data type is enum.
+            --api-functional-requirements-json-values=!: The attribute values in case attribute data type is string or JSON.
+            --api-functional-requirements-string-values=!: The attribute values in case attribute data type is string or JSON.
+            --api-functional-requirements-uri-values=!: The attribute values in case attribute data type is string or JSON.
+            --api-requirements-enum-values=!: Required, The attribute values in case attribute data type is enum.
+            --api-requirements-json-values=!: The attribute values in case attribute data type is string or JSON.
+            --api-requirements-string-values=!: The attribute values in case attribute data type is string or JSON.
+            --api-requirements-uri-values=!: The attribute values in case attribute data type is string or JSON.
+            --api-style-enum-values=!: Required, The attribute values in case attribute data type is enum.
+            --api-style-json-values=!: The attribute values in case attribute data type is string or JSON.
+            --api-style-string-values=!: The attribute values in case attribute data type is string or JSON.
+            --api-style-uri-values=!: The attribute values in case attribute data type is string or JSON.
+            --api-technical-requirements-enum-values=!: Required, The attribute values in case attribute data type is enum.
+            --api-technical-requirements-json-values=!: The attribute values in case attribute data type is string or JSON.
+            --api-technical-requirements-string-values=!: The attribute values in case attribute data type is string or JSON.
+            --api-technical-requirements-uri-values=!: The attribute values in case attribute data type is string or JSON.
+            --api=: For resources [api, selected-version], provides fallback value for resource api attribute.
+            --attributes=: The list of user defined attributes associated with the API resource.
+            --business-unit-enum-values=!: Required, The attribute values in case attribute data type is enum.
+            --business-unit-json-values=!: The attribute values in case attribute data type is string or JSON.
+            --business-unit-string-values=!: The attribute values in case attribute data type is string or JSON.
+            --business-unit-uri-values=!: The attribute values in case attribute data type is string or JSON.
+            --description=: The description of the API resource.
+            --display-name=!: The display name of the API resource.
+            --documentation-external-uri=: The uri of the externally hosted documentation.
+            --fingerprint=: Fingerprint of the API resource.
+            --location=: For resources [api, selected-version], provides fallback value for resource location attribute.
+            --maturity-level-enum-values=!: Required, The attribute values in case attribute data type is enum.
+            --maturity-level-json-values=!: The attribute values in case attribute data type is string or JSON.
+            --maturity-level-string-values=!: The attribute values in case attribute data type is string or JSON.
+            --maturity-level-uri-values=!: The attribute values in case attribute data type is string or JSON.
+            --owner-display-name=: The name of the owner.
+            --owner-email=!: The email of the owner.
+            --selected-version=!: ID of the version or fully qualified identifier for the version.
+            --target-user-enum-values=!: Required, The attribute values in case attribute data type is enum.
+            --target-user-json-values=!: The attribute values in case attribute data type is string or JSON.
+            --target-user-string-values=!: The attribute values in case attribute data type is string or JSON.
+            --target-user-uri-values=!: The attribute values in case attribute data type is string or JSON.
+            --team-enum-values=!: Required, The attribute values in case attribute data type is enum.
+            --team-json-values=!: The attribute values in case attribute data type is string or JSON.
+            --team-string-values=!: The attribute values in case attribute data type is string or JSON.
+            --team-uri-values=!: The attribute values in case attribute data type is string or JSON.
+        - name: delete
+          description: Delete an Api.
+          flags:
+            --force: If set to true, any versions from this API will also be deleted.
+            --location=: The location id of the api resource.
+            --no-force&: If set to true, any versions from this API will also be deleted.
+        - name: describe
+          description: Describe an Api.
+          flags:
+            --location=: The location id of the api resource.
+        - name: list
+          description: List Apis.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update apis.
+          flags:
+            --add-api-functional-requirements-enum-values=: Add new value to api_functional_requirements_enum_values list.
+            --add-api-requirements-enum-values=: Add new value to api_requirements_enum_values list.
+            --add-api-style-enum-values=: Add new value to api_style_enum_values list.
+            --add-api-technical-requirements-enum-values=: Add new value to api_technical_requirements_enum_values list.
+            --add-business-unit-enum-values=: Add new value to business_unit_enum_values list.
+            --add-maturity-level-enum-values=: Add new value to maturity_level_enum_values list.
+            --add-target-user-enum-values=: Add new value to target_user_enum_values list.
+            --add-team-enum-values=: Add new value to team_enum_values list.
+            --api-functional-requirements-enum-values=: Set api_functional_requirements_enum_values to new value.
+            --api-functional-requirements-json-values=: The attribute values in case attribute data type is string or JSON.
+            --api-functional-requirements-string-values=: The attribute values in case attribute data type is string or JSON.
+            --api-functional-requirements-uri-values=: The attribute values in case attribute data type is string or JSON.
+            --api-requirements-enum-values=: Set api_requirements_enum_values to new value.
+            --api-requirements-json-values=: The attribute values in case attribute data type is string or JSON.
+            --api-requirements-string-values=: The attribute values in case attribute data type is string or JSON.
+            --api-requirements-uri-values=: The attribute values in case attribute data type is string or JSON.
+            --api-style-enum-values=: Set api_style_enum_values to new value.
+            --api-style-json-values=: The attribute values in case attribute data type is string or JSON.
+            --api-style-string-values=: The attribute values in case attribute data type is string or JSON.
+            --api-style-uri-values=: The attribute values in case attribute data type is string or JSON.
+            --api-technical-requirements-enum-values=: Set api_technical_requirements_enum_values to new value.
+            --api-technical-requirements-json-values=: The attribute values in case attribute data type is string or JSON.
+            --api-technical-requirements-string-values=: The attribute values in case attribute data type is string or JSON.
+            --api-technical-requirements-uri-values=: The attribute values in case attribute data type is string or JSON.
+            --api=: For resources [api, selected-version], provides fallback value for resource api attribute.
+            --attributes=: Set attributes to new value.
+            --business-unit-enum-values=: Set business_unit_enum_values to new value.
+            --business-unit-json-values=: The attribute values in case attribute data type is string or JSON.
+            --business-unit-string-values=: The attribute values in case attribute data type is string or JSON.
+            --business-unit-uri-values=: The attribute values in case attribute data type is string or JSON.
+            --clear-api-functional-requirements: Set googleCloudApihubV1Api.apiFunctionalRequirements back to default value.
+            --clear-api-functional-requirements-enum-values: Clear api_functional_requirements_enum_values value and set to empty list.
+            --clear-api-requirements: Set googleCloudApihubV1Api.apiRequirements back to default value.
+            --clear-api-requirements-enum-values: Clear api_requirements_enum_values value and set to empty list.
+            --clear-api-style: Set googleCloudApihubV1Api.apiStyle back to default value.
+            --clear-api-style-enum-values: Clear api_style_enum_values value and set to empty list.
+            --clear-api-technical-requirements: Set googleCloudApihubV1Api.apiTechnicalRequirements back to default value.
+            --clear-api-technical-requirements-enum-values: Clear api_technical_requirements_enum_values value and set to empty list.
+            --clear-attributes: Clear attributes value and set to empty map.
+            --clear-business-unit: Set googleCloudApihubV1Api.businessUnit back to default value.
+            --clear-business-unit-enum-values: Clear business_unit_enum_values value and set to empty list.
+            --clear-documentation: Set googleCloudApihubV1Api.documentation back to default value.
+            --clear-maturity-level: Set googleCloudApihubV1Api.maturityLevel back to default value.
+            --clear-maturity-level-enum-values: Clear maturity_level_enum_values value and set to empty list.
+            --clear-owner: Set googleCloudApihubV1Api.owner back to default value.
+            --clear-selected-version: Clear selected_version value and set to null.
+            --clear-target-user: Set googleCloudApihubV1Api.targetUser back to default value.
+            --clear-target-user-enum-values: Clear target_user_enum_values value and set to empty list.
+            --clear-team: Set googleCloudApihubV1Api.team back to default value.
+            --clear-team-enum-values: Clear team_enum_values value and set to empty list.
+            --description=: The description of the API resource.
+            --display-name=: The display name of the API resource.
+            --documentation-external-uri=: The uri of the externally hosted documentation.
+            --fingerprint=: Fingerprint of the API resource.
+            --location=: For resources [api, selected-version], provides fallback value for resource location attribute.
+            --maturity-level-enum-values=: Set maturity_level_enum_values to new value.
+            --maturity-level-json-values=: The attribute values in case attribute data type is string or JSON.
+            --maturity-level-string-values=: The attribute values in case attribute data type is string or JSON.
+            --maturity-level-uri-values=: The attribute values in case attribute data type is string or JSON.
+            --no-clear-api-functional-requirements&: Set googleCloudApihubV1Api.apiFunctionalRequirements back to default value.
+            --no-clear-api-functional-requirements-enum-values&: Clear api_functional_requirements_enum_values value and set to empty list.
+            --no-clear-api-requirements&: Set googleCloudApihubV1Api.apiRequirements back to default value.
+            --no-clear-api-requirements-enum-values&: Clear api_requirements_enum_values value and set to empty list.
+            --no-clear-api-style&: Set googleCloudApihubV1Api.apiStyle back to default value.
+            --no-clear-api-style-enum-values&: Clear api_style_enum_values value and set to empty list.
+            --no-clear-api-technical-requirements&: Set googleCloudApihubV1Api.apiTechnicalRequirements back to default value.
+            --no-clear-api-technical-requirements-enum-values&: Clear api_technical_requirements_enum_values value and set to empty list.
+            --no-clear-attributes&: Clear attributes value and set to empty map.
+            --no-clear-business-unit&: Set googleCloudApihubV1Api.businessUnit back to default value.
+            --no-clear-business-unit-enum-values&: Clear business_unit_enum_values value and set to empty list.
+            --no-clear-documentation&: Set googleCloudApihubV1Api.documentation back to default value.
+            --no-clear-maturity-level&: Set googleCloudApihubV1Api.maturityLevel back to default value.
+            --no-clear-maturity-level-enum-values&: Clear maturity_level_enum_values value and set to empty list.
+            --no-clear-owner&: Set googleCloudApihubV1Api.owner back to default value.
+            --no-clear-selected-version&: Clear selected_version value and set to null.
+            --no-clear-target-user&: Set googleCloudApihubV1Api.targetUser back to default value.
+            --no-clear-target-user-enum-values&: Clear target_user_enum_values value and set to empty list.
+            --no-clear-team&: Set googleCloudApihubV1Api.team back to default value.
+            --no-clear-team-enum-values&: Clear team_enum_values value and set to empty list.
+            --owner-display-name=: The name of the owner.
+            --owner-email=: The email of the owner.
+            --remove-api-functional-requirements-enum-values=: Remove existing value from api_functional_requirements_enum_values list.
+            --remove-api-requirements-enum-values=: Remove existing value from api_requirements_enum_values list.
+            --remove-api-style-enum-values=: Remove existing value from api_style_enum_values list.
+            --remove-api-technical-requirements-enum-values=: Remove existing value from api_technical_requirements_enum_values list.
+            --remove-attributes=: Remove existing value from map attributes.
+            --remove-business-unit-enum-values=: Remove existing value from business_unit_enum_values list.
+            --remove-maturity-level-enum-values=: Remove existing value from maturity_level_enum_values list.
+            --remove-target-user-enum-values=: Remove existing value from target_user_enum_values list.
+            --remove-team-enum-values=: Remove existing value from team_enum_values list.
+            --selected-version=!: ID of the version or fully qualified identifier for the version.
+            --target-user-enum-values=: Set target_user_enum_values to new value.
+            --target-user-json-values=: The attribute values in case attribute data type is string or JSON.
+            --target-user-string-values=: The attribute values in case attribute data type is string or JSON.
+            --target-user-uri-values=: The attribute values in case attribute data type is string or JSON.
+            --team-enum-values=: Set team_enum_values to new value.
+            --team-json-values=: The attribute values in case attribute data type is string or JSON.
+            --team-string-values=: The attribute values in case attribute data type is string or JSON.
+            --team-uri-values=: The attribute values in case attribute data type is string or JSON.
+            --update-attributes=: Update attributes value or add key value pair.
+        - name: versions
+          description: Manage Version resources.
+          commands:
+            - name: create
+              description: Create a Version.
+              flags:
+                --accreditation-enum-values=!: Required, The attribute values in case attribute data type is enum.
+                --accreditation-json-values=!: The attribute values in case attribute data type is string or JSON.
+                --accreditation-string-values=!: The attribute values in case attribute data type is string or JSON.
+                --accreditation-uri-values=!: The attribute values in case attribute data type is string or JSON.
+                --api=: The api id of the version resource.
+                --attributes=: The list of user defined attributes associated with the Version resource.
+                --compliance-enum-values=!: Required, The attribute values in case attribute data type is enum.
+                --compliance-json-values=!: The attribute values in case attribute data type is string or JSON.
+                --compliance-string-values=!: The attribute values in case attribute data type is string or JSON.
+                --compliance-uri-values=!: The attribute values in case attribute data type is string or JSON.
+                --deployments=!: IDs of the deployments or fully qualified identifiers for the deployments.
+                --description=: The description of the version.
+                --display-name=!: The display name of the version.
+                --documentation-external-uri=: The uri of the externally hosted documentation.
+                --lifecycle-enum-values=!: Required, The attribute values in case attribute data type is enum.
+                --lifecycle-json-values=!: The attribute values in case attribute data type is string or JSON.
+                --lifecycle-string-values=!: The attribute values in case attribute data type is string or JSON.
+                --lifecycle-uri-values=!: The attribute values in case attribute data type is string or JSON.
+                --location=: For resources [version, deployments, selected-deployment], provides fallback value for resource location attribute.
+                --selected-deployment=!: ID of the deployment or fully qualified identifier for the deployment.
+            - name: delete
+              description: Delete a Version.
+              flags:
+                --api=: The api id of the version resource.
+                --force: If set to true, any specs from this version will also be deleted.
+                --location=: The location id of the version resource.
+                --no-force&: If set to true, any specs from this version will also be deleted.
+            - name: describe
+              description: Describe a Version.
+              flags:
+                --api=: The api id of the version resource.
+                --location=: The location id of the version resource.
+            - name: list
+              description: List Versions.
+              flags:
+                --api=!: ID of the api or fully qualified identifier for the api.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the api resource.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: operations
+              description: Manage Api Operation resources.
+              commands:
+                - name: create
+                  description: Create apiOperations.
+                  flags:
+                    --api=: The api id of the operation resource.
+                    --attributes=: The list of user defined attributes associated with the API operation
+                    --details-deprecated: For OpenAPI spec, this will be set if `operation.deprecated`is marked as
+                    --details-description=: Description of the operation behavior.
+                    --documentation-external-uri=: The uri of the externally hosted documentation.
+                    --http-operation-method=: Operation method
+                    --http-operation-path-description=: A short description for the path applicable to all operations.
+                    --http-operation-path=: Complete path relative to server endpoint.
+                    --location=: The location id of the operation resource.
+                    --mcp-tool-annotations-additional-hints=: Additional hints which may help tools and not covered in defaults.
+                    --mcp-tool-annotations-destructive-hint: Hint indicating if the tool may have destructive side effects.
+                    --mcp-tool-annotations-idempotent-hint: Hint indicating if the tool is idempotent.
+                    --mcp-tool-annotations-open-world-hint: Hint indicating if the tool interacts with the open world (e.g., internet).
+                    --mcp-tool-annotations-read-only-hint: Hint indicating if the tool is read-only.
+                    --mcp-tool-annotations-title=: A human-readable title for the tool (if different from Tool.title).
+                    --mcp-tool-description=: Description of what the tool does.
+                    --mcp-tool-input-schema-json=: The JSON schema.
+                    --mcp-tool-name=!: The name of the tool, unique within its parent scope (version).
+                    --mcp-tool-output-schema-json=: The JSON schema.
+                    --mcp-tool-title=: Optional title for the tool.
+                    --no-details-deprecated&: For OpenAPI spec, this will be set if `operation.deprecated`is marked as
+                    --no-mcp-tool-annotations-destructive-hint&: Hint indicating if the tool may have destructive side effects.
+                    --no-mcp-tool-annotations-idempotent-hint&: Hint indicating if the tool is idempotent.
+                    --no-mcp-tool-annotations-open-world-hint&: Hint indicating if the tool interacts with the open world (e.g., internet).
+                    --no-mcp-tool-annotations-read-only-hint&: Hint indicating if the tool is read-only.
+                  completion:
+                    flag:
+                        http-operation-method:
+                            - delete
+                            - get
+                            - head
+                            - options
+                            - patch
+                            - post
+                            - put
+                            - trace
+                - name: delete
+                  description: Delete apiOperations.
+                  flags:
+                    --api=: The api id of the operation resource.
+                    --location=: The location id of the operation resource.
+                - name: describe
+                  description: Describe apiOperations.
+                  flags:
+                    --api=: The api id of the operation resource.
+                    --location=: The location id of the operation resource.
+                - name: list
+                  description: List apiOperations.
+                  flags:
+                    --api=: The api id of the version resource.
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --location=: The location id of the version resource.
+                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                    --page-size=: Some services group resource list output into pages.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --uri: Print a list of resource URIs instead of the default output, and change the
+                - name: update
+                  description: Update apiOperations.
+                  flags:
+                    --api=: The api id of the operation resource.
+                    --attributes=: Set attributes to new value.
+                    --clear-attributes: Clear attributes value and set to empty map.
+                    --clear-details: Set googleCloudApihubV1ApiOperation.details back to default value.
+                    --clear-mcp-tool-annotations-additional-hints: Clear mcp_tool_annotations_additional_hints value and set to empty map.
+                    --details-deprecated: For OpenAPI spec, this will be set if `operation.deprecated`is marked as
+                    --details-description=: Description of the operation behavior.
+                    --documentation-external-uri=: The uri of the externally hosted documentation.
+                    --http-operation-method=: Operation method
+                    --http-operation-path-description=: A short description for the path applicable to all operations.
+                    --http-operation-path=: Complete path relative to server endpoint.
+                    --location=: The location id of the operation resource.
+                    --mcp-tool-annotations-additional-hints=: Set mcp_tool_annotations_additional_hints to new value.
+                    --mcp-tool-annotations-destructive-hint: Hint indicating if the tool may have destructive side effects.
+                    --mcp-tool-annotations-idempotent-hint: Hint indicating if the tool is idempotent.
+                    --mcp-tool-annotations-open-world-hint: Hint indicating if the tool interacts with the open world (e.g., internet).
+                    --mcp-tool-annotations-read-only-hint: Hint indicating if the tool is read-only.
+                    --mcp-tool-annotations-title=: A human-readable title for the tool (if different from Tool.title).
+                    --mcp-tool-description=: Description of what the tool does.
+                    --mcp-tool-input-schema-json=: The JSON schema.
+                    --mcp-tool-name=: The name of the tool, unique within its parent scope (version).
+                    --mcp-tool-output-schema-json=: The JSON schema.
+                    --mcp-tool-title=: Optional title for the tool.
+                    --no-clear-attributes&: Clear attributes value and set to empty map.
+                    --no-clear-details&: Set googleCloudApihubV1ApiOperation.details back to default value.
+                    --no-clear-mcp-tool-annotations-additional-hints&: Clear mcp_tool_annotations_additional_hints value and set to empty map.
+                    --no-details-deprecated&: For OpenAPI spec, this will be set if `operation.deprecated`is marked as
+                    --no-mcp-tool-annotations-destructive-hint&: Hint indicating if the tool may have destructive side effects.
+                    --no-mcp-tool-annotations-idempotent-hint&: Hint indicating if the tool is idempotent.
+                    --no-mcp-tool-annotations-open-world-hint&: Hint indicating if the tool interacts with the open world (e.g., internet).
+                    --no-mcp-tool-annotations-read-only-hint&: Hint indicating if the tool is read-only.
+                    --remove-attributes=: Remove existing value from map attributes.
+                    --remove-mcp-tool-annotations-additional-hints=: Remove existing value from map mcp_tool_annotations_additional_hints.
+                    --update-attributes=: Update attributes value or add key value pair.
+                    --update-mcp-tool-annotations-additional-hints=: Update mcp_tool_annotations_additional_hints value or add key value pair.
+                  completion:
+                    flag:
+                        http-operation-method:
+                            - delete
+                            - get
+                            - head
+                            - options
+                            - patch
+                            - post
+                            - put
+                            - trace
+            - name: specs
+              description: Manage Spec resources.
+              commands:
+                - name: create
+                  description: Create a Spec.
+                  flags:
+                    --api=: The api id of the spec resource.
+                    --attributes=: The list of user defined attributes associated with the spec.
+                    --contents-mime-type=!: The mime type of the content for example application/json,
+                    --contents=!: The contents of the spec.
+                    --display-name=!: The display name of the spec.
+                    --documentation-external-uri=: The uri of the externally hosted documentation.
+                    --lint-response-create-time=!: Timestamp when the linting response was generated.
+                    --lint-response-issues=: Array of issues found in the analyzed document.
+                    --lint-response-linter=!: Name of the linter used.
+                    --lint-response-source=!: Name of the linting application.
+                    --lint-response-state=!: Lint state represents success or failure for linting.
+                    --lint-response-summary=: Summary of all issue types and counts for each severity level.
+                    --location=: The location id of the spec resource.
+                    --parsing-mode=: Enum specifying the parsing mode for OpenAPI Specification (OAS) parsing.
+                    --source-uri=: The URI of the spec source in case file is uploaded
+                    --spec-type-enum-values=!: Required, The attribute values in case attribute data type is enum.
+                    --spec-type-json-values=!: The attribute values in case attribute data type is string or JSON.
+                    --spec-type-string-values=!: The attribute values in case attribute data type is string or JSON.
+                    --spec-type-uri-values=!: The attribute values in case attribute data type is string or JSON.
+                  completion:
+                    flag:
+                        lint-response-linter:
+                            - other
+                            - spectral
+                        lint-response-state:
+                            - lint-state-error
+                            - lint-state-success
+                        parsing-mode:
+                            - relaxed
+                            - strict
+                - name: delete
+                  description: Delete a Spec.
+                  flags:
+                    --api=: The api id of the spec resource.
+                    --location=: The location id of the spec resource.
+                - name: describe
+                  description: Describe a Spec.
+                  flags:
+                    --api=: The api id of the spec resource.
+                    --location=: The location id of the spec resource.
+                - name: get-contents
+                  description: Get the contents of a spec.
+                  flags:
+                    --api=!: The API ID.
+                    --location=!: The location ID.
+                - name: lint
+                  description: Lint a Spec.
+                  flags:
+                    --api=: The api id of the spec resource.
+                    --location=: The location id of the spec resource.
+                - name: list
+                  description: List Specs.
+                  flags:
+                    --api=: The api id of the version resource.
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --location=: The location id of the version resource.
+                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                    --page-size=: Some services group resource list output into pages.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --uri: Print a list of resource URIs instead of the default output, and change the
+                - name: update
+                  description: Update specs.
+                  flags:
+                    --add-lint-response-issues=: Add new value to lint_response_issues list.
+                    --add-lint-response-summary=: Add new value to lint_response_summary list.
+                    --add-spec-type-enum-values=: Add new value to spec_type_enum_values list.
+                    --api=: The api id of the spec resource.
+                    --attributes=: Set attributes to new value.
+                    --clear-attributes: Clear attributes value and set to empty map.
+                    --clear-contents: Set googleCloudApihubV1Spec.contents back to default value.
+                    --clear-documentation: Set googleCloudApihubV1Spec.documentation back to default value.
+                    --clear-lint-response: Set googleCloudApihubV1Spec.lintResponse back to default value.
+                    --clear-lint-response-issues: Clear lint_response_issues value and set to empty list.
+                    --clear-lint-response-summary: Clear lint_response_summary value and set to empty list.
+                    --clear-spec-type: Set googleCloudApihubV1Spec.specType back to default value.
+                    --clear-spec-type-enum-values: Clear spec_type_enum_values value and set to empty list.
+                    --contents-mime-type=: The mime type of the content for example application/json,
+                    --contents=: The contents of the spec.
+                    --display-name=: The display name of the spec.
+                    --documentation-external-uri=: The uri of the externally hosted documentation.
+                    --lint-response-create-time=: Timestamp when the linting response was generated.
+                    --lint-response-issues=: Set lint_response_issues to new value.
+                    --lint-response-linter=: Name of the linter used.
+                    --lint-response-source=: Name of the linting application.
+                    --lint-response-state=: Lint state represents success or failure for linting.
+                    --lint-response-summary=: Set lint_response_summary to new value.
+                    --location=: The location id of the spec resource.
+                    --no-clear-attributes&: Clear attributes value and set to empty map.
+                    --no-clear-contents&: Set googleCloudApihubV1Spec.contents back to default value.
+                    --no-clear-documentation&: Set googleCloudApihubV1Spec.documentation back to default value.
+                    --no-clear-lint-response&: Set googleCloudApihubV1Spec.lintResponse back to default value.
+                    --no-clear-lint-response-issues&: Clear lint_response_issues value and set to empty list.
+                    --no-clear-lint-response-summary&: Clear lint_response_summary value and set to empty list.
+                    --no-clear-spec-type&: Set googleCloudApihubV1Spec.specType back to default value.
+                    --no-clear-spec-type-enum-values&: Clear spec_type_enum_values value and set to empty list.
+                    --parsing-mode=: Enum specifying the parsing mode for OpenAPI Specification (OAS) parsing.
+                    --remove-attributes=: Remove existing value from map attributes.
+                    --remove-lint-response-issues=: Remove existing value from lint_response_issues list.
+                    --remove-lint-response-summary=: Remove existing value from lint_response_summary list.
+                    --remove-spec-type-enum-values=: Remove existing value from spec_type_enum_values list.
+                    --source-uri=: The URI of the spec source in case file is uploaded
+                    --spec-type-enum-values=: Set spec_type_enum_values to new value.
+                    --spec-type-json-values=: The attribute values in case attribute data type is string or JSON.
+                    --spec-type-string-values=: The attribute values in case attribute data type is string or JSON.
+                    --spec-type-uri-values=: The attribute values in case attribute data type is string or JSON.
+                    --update-attributes=: Update attributes value or add key value pair.
+                  completion:
+                    flag:
+                        lint-response-linter:
+                            - other
+                            - spectral
+                        lint-response-state:
+                            - lint-state-error
+                            - lint-state-success
+                        parsing-mode:
+                            - relaxed
+                            - strict
+            - name: update
+              description: Update versions.
+              flags:
+                --accreditation-enum-values=: Set accreditation_enum_values to new value.
+                --accreditation-json-values=: The attribute values in case attribute data type is string or JSON.
+                --accreditation-string-values=: The attribute values in case attribute data type is string or JSON.
+                --accreditation-uri-values=: The attribute values in case attribute data type is string or JSON.
+                --add-accreditation-enum-values=: Add new value to accreditation_enum_values list.
+                --add-compliance-enum-values=: Add new value to compliance_enum_values list.
+                --add-deployments=!: IDs of the deployments or fully qualified identifiers for the deployments.
+                --add-lifecycle-enum-values=: Add new value to lifecycle_enum_values list.
+                --api=: The api id of the version resource.
+                --attributes=: Set attributes to new value.
+                --clear-accreditation: Set googleCloudApihubV1Version.accreditation back to default value.
+                --clear-accreditation-enum-values: Clear accreditation_enum_values value and set to empty list.
+                --clear-attributes: Clear attributes value and set to empty map.
+                --clear-compliance: Set googleCloudApihubV1Version.compliance back to default value.
+                --clear-compliance-enum-values: Clear compliance_enum_values value and set to empty list.
+                --clear-deployments: Clear deployments value and set to empty list.
+                --clear-documentation: Set googleCloudApihubV1Version.documentation back to default value.
+                --clear-lifecycle: Set googleCloudApihubV1Version.lifecycle back to default value.
+                --clear-lifecycle-enum-values: Clear lifecycle_enum_values value and set to empty list.
+                --clear-selected-deployment: Clear selected_deployment value and set to null.
+                --compliance-enum-values=: Set compliance_enum_values to new value.
+                --compliance-json-values=: The attribute values in case attribute data type is string or JSON.
+                --compliance-string-values=: The attribute values in case attribute data type is string or JSON.
+                --compliance-uri-values=: The attribute values in case attribute data type is string or JSON.
+                --deployments=!: IDs of the deployments or fully qualified identifiers for the deployments.
+                --description=: The description of the version.
+                --display-name=: The display name of the version.
+                --documentation-external-uri=: The uri of the externally hosted documentation.
+                --lifecycle-enum-values=: Set lifecycle_enum_values to new value.
+                --lifecycle-json-values=: The attribute values in case attribute data type is string or JSON.
+                --lifecycle-string-values=: The attribute values in case attribute data type is string or JSON.
+                --lifecycle-uri-values=: The attribute values in case attribute data type is string or JSON.
+                --location=: For resources [version, deployments, selected-deployment], provides fallback value for resource location attribute.
+                --no-clear-accreditation&: Set googleCloudApihubV1Version.accreditation back to default value.
+                --no-clear-accreditation-enum-values&: Clear accreditation_enum_values value and set to empty list.
+                --no-clear-attributes&: Clear attributes value and set to empty map.
+                --no-clear-compliance&: Set googleCloudApihubV1Version.compliance back to default value.
+                --no-clear-compliance-enum-values&: Clear compliance_enum_values value and set to empty list.
+                --no-clear-deployments&: Clear deployments value and set to empty list.
+                --no-clear-documentation&: Set googleCloudApihubV1Version.documentation back to default value.
+                --no-clear-lifecycle&: Set googleCloudApihubV1Version.lifecycle back to default value.
+                --no-clear-lifecycle-enum-values&: Clear lifecycle_enum_values value and set to empty list.
+                --no-clear-selected-deployment&: Clear selected_deployment value and set to null.
+                --remove-accreditation-enum-values=: Remove existing value from accreditation_enum_values list.
+                --remove-attributes=: Remove existing value from map attributes.
+                --remove-compliance-enum-values=: Remove existing value from compliance_enum_values list.
+                --remove-deployments=!: IDs of the deployments or fully qualified identifiers for the deployments.
+                --remove-lifecycle-enum-values=: Remove existing value from lifecycle_enum_values list.
+                --selected-deployment=!: ID of the deployment or fully qualified identifier for the deployment.
+                --update-attributes=: Update attributes value or add key value pair.
+    - name: attributes
+      description: Manage Attribute resources.
+      commands:
+        - name: create
+          description: Create an Attribute.
+          flags:
+            --allowed-values=: The list of allowed values when the attribute value is of type enum.
+            --cardinality=: The maximum number of values that the attribute can have when associated
+            --data-type=!: The type of the data of the attribute.
+            --description=: The description of the attribute.
+            --display-name=!: The display name of the attribute.
+            --location=: The location id of the attribute resource.
+            --scope=!: The scope of the attribute.
+          completion:
+            flag:
+                data-type:
+                    - enum
+                    - json
+                    - string
+                    - uri
+                scope:
+                    - api
+                    - api-operation
+                    - definition
+                    - dependency
+                    - deployment
+                    - external-api
+                    - plugin
+                    - spec
+                    - version
+        - name: delete
+          description: Delete an Attribute.
+          flags:
+            --location=: The location id of the attribute resource.
+        - name: describe
+          description: Describe an Attribute.
+          flags:
+            --location=: The location id of the attribute resource.
+        - name: list
+          description: List Attributes.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update an Attribute.
+          flags:
+            --add-allowed-values=: Add new value to allowed_values list.
+            --allowed-values=: Set allowed_values to new value.
+            --cardinality=: The maximum number of values that the attribute can have when associated
+            --clear-allowed-values: Clear allowed_values value and set to empty list.
+            --data-type=: The type of the data of the attribute.
+            --description=: The description of the attribute.
+            --display-name=: The display name of the attribute.
+            --location=: The location id of the attribute resource.
+            --no-clear-allowed-values&: Clear allowed_values value and set to empty list.
+            --remove-allowed-values=: Remove existing value from allowed_values list.
+            --scope=: The scope of the attribute.
+          completion:
+            flag:
+                data-type:
+                    - enum
+                    - json
+                    - string
+                    - uri
+                scope:
+                    - api
+                    - api-operation
+                    - definition
+                    - dependency
+                    - deployment
+                    - external-api
+                    - plugin
+                    - spec
+                    - version
+    - name: curations
+      description: Manage Curation resources.
+      commands:
+        - name: create
+          description: Create a Curation.
+          flags:
+            --application-integration-endpoint-details-trigger-id=!: The API trigger ID of the Application Integration workflow.
+            --application-integration-endpoint-details-uri=!: The endpoint URI should be a valid REST URI for triggering an Application
+            --description=: The description of the curation.
+            --display-name=!: The display name of the curation.
+            --location=: The location id of the curation resource.
+        - name: delete
+          description: Delete a Curation.
+          flags:
+            --location=: The location id of the curation resource.
+        - name: describe
+          description: Describe a Curation.
+          flags:
+            --location=: The location id of the curation resource.
+        - name: list
+          description: List Curations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a Curation.
+          flags:
+            --application-integration-endpoint-details-trigger-id=: The API trigger ID of the Application Integration workflow.
+            --application-integration-endpoint-details-uri=: The endpoint URI should be a valid REST URI for triggering an Application
+            --clear-endpoint: Set googleCloudApihubV1Curation.endpoint back to default value.
+            --description=: The description of the curation.
+            --display-name=: The display name of the curation.
+            --location=: The location id of the curation resource.
+            --no-clear-endpoint&: Set googleCloudApihubV1Curation.endpoint back to default value.
+    - name: dependencies
+      description: Manage Dependency resources.
+      commands:
+        - name: create
+          description: Create a Dependency.
+          flags:
+            --attributes=: The list of user defined attributes associated with the dependency
+            --consumer-external-api-resource-name=: The resource name of an external API in the API Hub.
+            --consumer-operation-resource-name=: The resource name of an operation in the API Hub.
+            --description=: Human readable description corresponding of the dependency.
+            --location=: The location id of the dependency resource.
+            --supplier-external-api-resource-name=: The resource name of an external API in the API Hub.
+            --supplier-operation-resource-name=: The resource name of an operation in the API Hub.
+        - name: delete
+          description: Delete a Dependency.
+          flags:
+            --location=: The location id of the dependency resource.
+        - name: describe
+          description: Describe a Dependency.
+          flags:
+            --location=: The location id of the dependency resource.
+        - name: list
+          description: List Dependencies.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a Dependency.
+          flags:
+            --attributes=: Set attributes to new value.
+            --clear-attributes: Clear attributes value and set to empty map.
+            --description=: Human readable description corresponding of the dependency.
+            --location=: The location id of the dependency resource.
+            --no-clear-attributes&: Clear attributes value and set to empty map.
+            --remove-attributes=: Remove existing value from map attributes.
+            --update-attributes=: Update attributes value or add key value pair.
+    - name: deployments
+      description: Manage Deployment resources.
+      commands:
+        - name: create
+          description: Create a Deployment.
+          flags:
+            --attributes=: The list of user defined attributes associated with the deployment
+            --deployment-type-enum-values=!: Required, The attribute values in case attribute data type is enum.
+            --deployment-type-json-values=!: The attribute values in case attribute data type is string or JSON.
+            --deployment-type-string-values=!: The attribute values in case attribute data type is string or JSON.
+            --deployment-type-uri-values=!: The attribute values in case attribute data type is string or JSON.
+            --description=: The description of the deployment.
+            --display-name=!: The display name of the deployment.
+            --documentation-external-uri=: The uri of the externally hosted documentation.
+            --endpoints=!: The endpoints at which this deployment resource is listening for API
+            --environment-enum-values=!: Required, The attribute values in case attribute data type is enum.
+            --environment-json-values=!: The attribute values in case attribute data type is string or JSON.
+            --environment-string-values=!: The attribute values in case attribute data type is string or JSON.
+            --environment-uri-values=!: The attribute values in case attribute data type is string or JSON.
+            --location=: The location id of the deployment resource.
+            --management-url-enum-values=!: Required, The attribute values in case attribute data type is enum.
+            --management-url-json-values=!: The attribute values in case attribute data type is string or JSON.
+            --management-url-string-values=!: The attribute values in case attribute data type is string or JSON.
+            --management-url-uri-values=!: The attribute values in case attribute data type is string or JSON.
+            --resource-uri=!: The resource URI identifies the deployment within its gateway.
+            --slo-enum-values=!: Required, The attribute values in case attribute data type is enum.
+            --slo-json-values=!: The attribute values in case attribute data type is string or JSON.
+            --slo-string-values=!: The attribute values in case attribute data type is string or JSON.
+            --slo-uri-values=!: The attribute values in case attribute data type is string or JSON.
+            --source-environment=: The environment at source for the deployment.
+            --source-project=: The project to which the deployment belongs.
+            --source-uri-enum-values=!: Required, The attribute values in case attribute data type is enum.
+            --source-uri-json-values=!: The attribute values in case attribute data type is string or JSON.
+            --source-uri-string-values=!: The attribute values in case attribute data type is string or JSON.
+            --source-uri-values=!: The attribute values in case attribute data type is string or JSON.
+        - name: delete
+          description: Delete a Deployment.
+          flags:
+            --location=: The location id of the deployment resource.
+        - name: describe
+          description: Describe a Deployment.
+          flags:
+            --location=: The location id of the deployment resource.
+        - name: list
+          description: List Deployments.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update deployments.
+          flags:
+            --add-deployment-type-enum-values=: Add new value to deployment_type_enum_values list.
+            --add-environment-enum-values=: Add new value to environment_enum_values list.
+            --add-management-url-enum-values=: Add new value to management_url_enum_values list.
+            --add-slo-enum-values=: Add new value to slo_enum_values list.
+            --add-source-uri-enum-values=: Add new value to source_uri_enum_values list.
+            --attributes=: Set attributes to new value.
+            --clear-attributes: Clear attributes value and set to empty map.
+            --clear-deployment-type: Set googleCloudApihubV1Deployment.deploymentType back to default value.
+            --clear-deployment-type-enum-values: Clear deployment_type_enum_values value and set to empty list.
+            --clear-documentation: Set googleCloudApihubV1Deployment.documentation back to default value.
+            --clear-environment: Set googleCloudApihubV1Deployment.environment back to default value.
+            --clear-environment-enum-values: Clear environment_enum_values value and set to empty list.
+            --clear-management-url: Set googleCloudApihubV1Deployment.managementUrl back to default value.
+            --clear-management-url-enum-values: Clear management_url_enum_values value and set to empty list.
+            --clear-slo: Set googleCloudApihubV1Deployment.slo back to default value.
+            --clear-slo-enum-values: Clear slo_enum_values value and set to empty list.
+            --clear-source-uri: Set googleCloudApihubV1Deployment.sourceUri back to default value.
+            --clear-source-uri-enum-values: Clear source_uri_enum_values value and set to empty list.
+            --deployment-type-enum-values=: Set deployment_type_enum_values to new value.
+            --deployment-type-json-values=: The attribute values in case attribute data type is string or JSON.
+            --deployment-type-string-values=: The attribute values in case attribute data type is string or JSON.
+            --deployment-type-uri-values=: The attribute values in case attribute data type is string or JSON.
+            --description=: The description of the deployment.
+            --display-name=: The display name of the deployment.
+            --documentation-external-uri=: The uri of the externally hosted documentation.
+            --endpoints=: The endpoints at which this deployment resource is listening for API
+            --environment-enum-values=: Set environment_enum_values to new value.
+            --environment-json-values=: The attribute values in case attribute data type is string or JSON.
+            --environment-string-values=: The attribute values in case attribute data type is string or JSON.
+            --environment-uri-values=: The attribute values in case attribute data type is string or JSON.
+            --location=: The location id of the deployment resource.
+            --management-url-enum-values=: Set management_url_enum_values to new value.
+            --management-url-json-values=: The attribute values in case attribute data type is string or JSON.
+            --management-url-string-values=: The attribute values in case attribute data type is string or JSON.
+            --management-url-uri-values=: The attribute values in case attribute data type is string or JSON.
+            --no-clear-attributes&: Clear attributes value and set to empty map.
+            --no-clear-deployment-type&: Set googleCloudApihubV1Deployment.deploymentType back to default value.
+            --no-clear-deployment-type-enum-values&: Clear deployment_type_enum_values value and set to empty list.
+            --no-clear-documentation&: Set googleCloudApihubV1Deployment.documentation back to default value.
+            --no-clear-environment&: Set googleCloudApihubV1Deployment.environment back to default value.
+            --no-clear-environment-enum-values&: Clear environment_enum_values value and set to empty list.
+            --no-clear-management-url&: Set googleCloudApihubV1Deployment.managementUrl back to default value.
+            --no-clear-management-url-enum-values&: Clear management_url_enum_values value and set to empty list.
+            --no-clear-slo&: Set googleCloudApihubV1Deployment.slo back to default value.
+            --no-clear-slo-enum-values&: Clear slo_enum_values value and set to empty list.
+            --no-clear-source-uri&: Set googleCloudApihubV1Deployment.sourceUri back to default value.
+            --no-clear-source-uri-enum-values&: Clear source_uri_enum_values value and set to empty list.
+            --remove-attributes=: Remove existing value from map attributes.
+            --remove-deployment-type-enum-values=: Remove existing value from deployment_type_enum_values list.
+            --remove-environment-enum-values=: Remove existing value from environment_enum_values list.
+            --remove-management-url-enum-values=: Remove existing value from management_url_enum_values list.
+            --remove-slo-enum-values=: Remove existing value from slo_enum_values list.
+            --remove-source-uri-enum-values=: Remove existing value from source_uri_enum_values list.
+            --resource-uri=: The resource URI identifies the deployment within its gateway.
+            --slo-enum-values=: Set slo_enum_values to new value.
+            --slo-json-values=: The attribute values in case attribute data type is string or JSON.
+            --slo-string-values=: The attribute values in case attribute data type is string or JSON.
+            --slo-uri-values=: The attribute values in case attribute data type is string or JSON.
+            --source-environment=: The environment at source for the deployment.
+            --source-project=: The project to which the deployment belongs.
+            --source-uri-enum-values=: Set source_uri_enum_values to new value.
+            --source-uri-json-values=: The attribute values in case attribute data type is string or JSON.
+            --source-uri-string-values=: The attribute values in case attribute data type is string or JSON.
+            --source-uri-values=: The attribute values in case attribute data type is string or JSON.
+            --update-attributes=: Update attributes value or add key value pair.
+    - name: discovered-api-observations
+      description: Manage Discovered Api Observation resources.
+      commands:
+        - name: describe
+          description: Describe a Discovered Api Observation.
+          flags:
+            --location=: The location id of the discoveredApiObservation resource.
+        - name: discovered-api-operations
+          description: Manage Discovered Api Operation resources.
+          commands:
+            - name: describe
+              description: Describe a Discovered Api Operation.
+              flags:
+                --discovered-api-observation=: The discoveredApiObservation id of the discoveredApiOperation resource.
+                --location=: The location id of the discoveredApiOperation resource.
+            - name: list
+              description: List Discovered Api Operations.
+              flags:
+                --discovered-api-observation=!: ID of the discoveredApiObservation or fully qualified identifier for the discoveredApiObservation.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the discoveredApiObservation resource.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: list
+          description: List Discovered Api Observations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: external-apis
+      description: Manage External Api resources.
+      commands:
+        - name: create
+          description: Create an External Api.
+          flags:
+            --attributes=: The list of user defined attributes associated with the Version resource.
+            --description=: Description of the external API.
+            --display-name=!: Display name of the external API.
+            --documentation-external-uri=: The uri of the externally hosted documentation.
+            --endpoints=: List of endpoints on which this API is accessible.
+            --location=: The location id of the externalApi resource.
+            --paths=: List of paths served by this API.
+        - name: delete
+          description: Delete an External Api.
+          flags:
+            --location=: The location id of the externalApi resource.
+        - name: describe
+          description: Describe an External Api.
+          flags:
+            --location=: The location id of the externalApi resource.
+        - name: list
+          description: List External Apis.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update an External Api.
+          flags:
+            --add-endpoints=: Add new value to endpoints list.
+            --add-paths=: Add new value to paths list.
+            --attributes=: Set attributes to new value.
+            --clear-attributes: Clear attributes value and set to empty map.
+            --clear-documentation: Set googleCloudApihubV1ExternalApi.documentation back to default value.
+            --clear-endpoints: Clear endpoints value and set to empty list.
+            --clear-paths: Clear paths value and set to empty list.
+            --description=: Description of the external API.
+            --display-name=: Display name of the external API.
+            --documentation-external-uri=: The uri of the externally hosted documentation.
+            --endpoints=: Set endpoints to new value.
+            --location=: The location id of the externalApi resource.
+            --no-clear-attributes&: Clear attributes value and set to empty map.
+            --no-clear-documentation&: Set googleCloudApihubV1ExternalApi.documentation back to default value.
+            --no-clear-endpoints&: Clear endpoints value and set to empty list.
+            --no-clear-paths&: Clear paths value and set to empty list.
+            --paths=: Set paths to new value.
+            --remove-attributes=: Remove existing value from map attributes.
+            --remove-endpoints=: Remove existing value from endpoints list.
+            --remove-paths=: Remove existing value from paths list.
+            --update-attributes=: Update attributes value or add key value pair.
+    - name: host-project-registrations
+      description: Manage Host Project Registration resources.
+      commands:
+        - name: create
+          description: Create a Host Project Registration.
+          flags:
+            --gcp-project=!: 'Google cloud project name in the format: "projects/abc" or "projects/123".'
+            --location=: The location id of the hostProjectRegistration resource.
+        - name: describe
+          description: Describe a Host Project Registration.
+          flags:
+            --location=: The location id of the hostProjectRegistration resource.
+        - name: list
+          description: List Host Project Registrations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: operations
+      description: Manage Operation resources.
+      commands:
+        - name: cancel
+          description: Cancel operations.
+          flags:
+            --location=: The location id of the operation resource.
+        - name: delete
+          description: Delete operations.
+          flags:
+            --location=: The location id of the operation resource.
+        - name: describe
+          description: Describe operations.
+          flags:
+            --location=: The location id of the operation resource.
+        - name: list
+          description: List operations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: wait
+          description: Wait operations.
+          flags:
+            --location=: The location id of the operation resource.
+    - name: plugins
+      description: Manage Plugin resources.
+      commands:
+        - name: create
+          description: Create a Plugin.
+          flags:
+            --actions-config=: The configuration of actions supported by the plugin.
+            --auth-config-template-supported-types=!: The list of authentication types supported by the plugin.
+            --config-template-additional=: The list of additional configuration variables for the plugin's
+            --description=: The plugin description.
+            --display-name=!: The display name of the plugin.
+            --documentation-external-uri=: The uri of the externally hosted documentation.
+            --enum-values=!: Required, The attribute values in case attribute data type is enum.
+            --gateway-type=: The type of the gateway.
+            --hosting-service-uri=: The URI of the service implemented by the plugin developer, used to
+            --json-values=!: The attribute values in case attribute data type is string or JSON.
+            --location=: The location id of the plugin resource.
+            --plugin-category=: The category of the plugin, identifying its primary category or purpose.
+            --string-values=!: The attribute values in case attribute data type is string or JSON.
+            --uri-values=!: The attribute values in case attribute data type is string or JSON.
+          completion:
+            flag:
+                gateway-type:
+                    - api-discovery
+                    - apigee-edge-private-cloud
+                    - apigee-edge-public-cloud
+                    - apigee-x-and-hybrid
+                    - cloud-api-gateway
+                    - cloud-endpoints
+                    - others
+                plugin-category:
+                    - api-gateway
+                    - api-producer
+        - name: delete
+          description: Delete a Plugin.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the plugin resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe a Plugin.
+          flags:
+            --location=: The location id of the plugin resource.
+        - name: disable
+          description: Disable a Plugin.
+          flags:
+            --location=: The location id of the plugin resource.
+        - name: enable
+          description: Enable a Plugin.
+          flags:
+            --location=: The location id of the plugin resource.
+        - name: instances
+          description: Manage Plugin Instance resources.
+          commands:
+            - name: create
+              description: Create a Plugin Instance.
+              flags:
+                --actions=!: Required, The action status for the plugin instance.
+                --additional-config=: The additional information for this plugin instance corresponding to the
+                --api-key-config-http-element-location=!: The location of the API key.
+                --api-key-config-name=!: The parameter name of the API key.
+                --api-key-config-secret-version=!: The resource name of the secret version in the format,
+                --async: Return immediately, without waiting for the operation in progress to
+                --auth-config-type=!: The authentication type.
+                --display-name=!: The display name for this plugin instance.
+                --location=: The location id of the instance resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --oauth2-client-credentials-config-id=!: The client identifier.
+                --oauth2-client-credentials-config-secret-version=!: The resource name of the secret version in the format,
+                --plugin=: The plugin id of the instance resource.
+                --source-environments-config=: The source environment's config present in the gateway instance linked to
+                --source-project-id=: The source project id of the plugin instance.
+                --user-password-config-secret-version=!: The resource name of the secret version in the format,
+                --user-password-config-username=!: Username.
+              completion:
+                flag:
+                    api-key-config-http-element-location:
+                        - body
+                        - cookie
+                        - header
+                        - path
+                        - query
+                    auth-config-type:
+                        - api-key
+                        - google-service-account
+                        - no-auth
+                        - oauth2-client-credentials
+                        - user-password
+            - name: delete
+              description: Delete a Plugin Instance.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location id of the instance resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --plugin=: The plugin id of the instance resource.
+            - name: describe
+              description: Describe a Plugin Instance.
+              flags:
+                --location=: The location id of the instance resource.
+                --plugin=: The plugin id of the instance resource.
+            - name: list
+              description: List Plugin Instances.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the plugin resource.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --plugin=!: ID of the plugin or fully qualified identifier for the plugin.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: manage-source-data
+              description: manage pluginInstances.
+              flags:
+                --action=!: Action to be performed.
+                --data-type=!: Type of data to be managed.
+                --data=!: Data to be managed.
+                --location=: The location id of the instance resource.
+                --plugin=: The plugin id of the instance resource.
+                --relative-path=!: Relative path of data being managed for a given plugin instance.
+              completion:
+                flag:
+                    action:
+                        - delete
+                        - upload
+                    data-type:
+                        - environment-manifest
+                        - proxy-bundle
+                        - proxy-deployment-manifest
+                        - shared-flow-bundle
+            - name: update
+              description: Update a Plugin Instance.
+              flags:
+                --actions=: Set actions to new value.
+                --add-actions=: Add new value to actions list.
+                --additional-config=: Set additional_config to new value.
+                --api-key-config-http-element-location=: The location of the API key.
+                --api-key-config-name=: The parameter name of the API key.
+                --api-key-config-secret-version=: The resource name of the secret version in the format,
+                --auth-config-type=: The authentication type.
+                --clear-actions: Clear actions value and set to empty list.
+                --clear-additional-config: Clear additional_config value and set to empty map.
+                --clear-auth-config: Set googleCloudApihubV1PluginInstance.authConfig back to default value.
+                --clear-source-environments-config: Clear source_environments_config value and set to empty map.
+                --display-name=: The display name for this plugin instance.
+                --location=: The location id of the instance resource.
+                --no-clear-actions&: Clear actions value and set to empty list.
+                --no-clear-additional-config&: Clear additional_config value and set to empty map.
+                --no-clear-auth-config&: Set googleCloudApihubV1PluginInstance.authConfig back to default value.
+                --no-clear-source-environments-config&: Clear source_environments_config value and set to empty map.
+                --oauth2-client-credentials-config-id=: The client identifier.
+                --oauth2-client-credentials-config-secret-version=: The resource name of the secret version in the format,
+                --plugin=: The plugin id of the instance resource.
+                --remove-actions=: Remove existing value from actions list.
+                --remove-additional-config=: Remove existing value from map additional_config.
+                --remove-source-environments-config=: Remove existing value from map source_environments_config.
+                --source-environments-config=: Set source_environments_config to new value.
+                --source-project-id=: The source project id of the plugin instance.
+                --update-additional-config=: Update additional_config value or add key value pair.
+                --update-source-environments-config=: Update source_environments_config value or add key value pair.
+                --user-password-config-secret-version=: The resource name of the secret version in the format,
+                --user-password-config-username=: Username.
+              completion:
+                flag:
+                    api-key-config-http-element-location:
+                        - body
+                        - cookie
+                        - header
+                        - path
+                        - query
+                    auth-config-type:
+                        - api-key
+                        - google-service-account
+                        - no-auth
+                        - oauth2-client-credentials
+                        - user-password
+        - name: list
+          description: List Plugins.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: runtime-project-attachments
+      description: Manage Runtime Project Attachment resources.
+      commands:
+        - name: create
+          description: Create a Runtime Project Attachment.
+          flags:
+            --location=: The location id of the runtimeProjectAttachment resource.
+            --runtime-project=!: 'Google cloud project name in the format: "projects/abc" or "projects/123".'
+        - name: delete
+          description: Delete a Runtime Project Attachment.
+          flags:
+            --location=: The location id of the runtimeProjectAttachment resource.
+        - name: describe
+          description: Describe a Runtime Project Attachment.
+          flags:
+            --location=: The location id of the runtimeProjectAttachment resource.
+        - name: list
+          description: List Runtime Project Attachments.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: lookup
+          description: Lookup a runtime project attachment.
+          flags:
+            --location=!: The location of the runtime project attachment.
+            --service-project=!: The service project ID to lookup attachment for.

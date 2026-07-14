@@ -1,0 +1,258 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: agent-registry
+description: Manage Agent Registry resources.
+commands:
+    - name: agents
+      description: Manage Agent resources.
+      commands:
+        - name: describe
+          description: Get details of an agent.
+          flags:
+            --location=: The location id of the agent resource.
+        - name: list
+          description: List accessible agents.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: search
+          description: Search for agents matching a query.
+          flags:
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --page-size=: The maximum number of agents to return.
+            --page-token=: A page token, received from a previous `SearchAgents` call.
+            --search-string=: Search criteria used to select the Agents to return.
+    - name: bindings
+      description: Manage Binding resources.
+      commands:
+        - name: create
+          description: Create a new binding.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --auth-provider-binding-continue-uri=: The continue URI of the AuthProvider.
+            --auth-provider-binding-scopes=: The list of OAuth2 scopes of the AuthProvider.
+            --auth-provider-binding=!: The resource name of the target AuthProvider.
+            --description=: User-defined description of a Binding.
+            --display-name=: User-defined display name for the Binding.
+            --location=: The location id of the binding resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --request-id=: An optional request ID to identify requests.
+            --source-identifier=: The identifier of the source Agent.
+            --target-identifier=: The identifier of the target Agent, MCP Server, or Endpoint.
+        - name: delete
+          description: Delete a binding connection.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the binding resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --request-id=: An optional request ID to identify requests.
+        - name: describe
+          description: Retrieve binding details.
+          flags:
+            --location=: The location id of the binding resource.
+        - name: fetch-available
+          description: fetch bindings.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --source-identifier=: The identifier of the source Agent.
+            --target-identifier=: The identifier of the target Agent, MCP Server, or Endpoint.
+        - name: list
+          description: List bindings.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Modify binding parameters.
+          flags:
+            --add-auth-provider-binding-scopes=: Add new value to auth_provider_binding_scopes list.
+            --async: Return immediately, without waiting for the operation in progress to
+            --auth-provider-binding-continue-uri=: The continue URI of the AuthProvider.
+            --auth-provider-binding-scopes=: Set auth_provider_binding_scopes to new value.
+            --auth-provider-binding=: The resource name of the target AuthProvider.
+            --clear-auth-provider-binding: Set binding.authProviderBinding back to default value.
+            --clear-auth-provider-binding-scopes: Clear auth_provider_binding_scopes value and set to empty list.
+            --clear-source: Set binding.source back to default value.
+            --clear-target: Set binding.target back to default value.
+            --description=: User-defined description of a Binding.
+            --display-name=: User-defined display name for the Binding.
+            --location=: The location id of the binding resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-auth-provider-binding&: Set binding.authProviderBinding back to default value.
+            --no-clear-auth-provider-binding-scopes&: Clear auth_provider_binding_scopes value and set to empty list.
+            --no-clear-source&: Set binding.source back to default value.
+            --no-clear-target&: Set binding.target back to default value.
+            --remove-auth-provider-binding-scopes=: Remove existing value from auth_provider_binding_scopes list.
+            --request-id=: An optional request ID to identify requests.
+            --source-identifier=: The identifier of the source Agent.
+            --target-identifier=: The identifier of the target Agent, MCP Server, or Endpoint.
+    - name: endpoints
+      description: Manage Endpoint resources.
+      commands:
+        - name: describe
+          description: Retrieve endpoint details.
+          flags:
+            --location=: The location id of the endpoint resource.
+        - name: list
+          description: Enumerate service endpoints.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: mcp-servers
+      description: Manage Mcp Server resources.
+      commands:
+        - name: describe
+          description: Get details of an MCP server.
+          flags:
+            --location=: The location id of the mcpServer resource.
+        - name: list
+          description: List registered MCP servers.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: search
+          description: Search MCP servers matching criteria.
+          flags:
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --page-size=: The maximum number of MCP servers to return.
+            --page-token=: A page token, received from a previous `SearchMcpServers` call.
+            --search-string=: Search criteria used to select the MCP Servers to return.
+    - name: operations
+      description: Manage Operation resources.
+      commands:
+        - name: cancel
+          description: Cancel operations.
+          flags:
+            --location=: The location id of the operation resource.
+        - name: delete
+          description: Delete operations.
+          flags:
+            --location=: The location id of the operation resource.
+        - name: describe
+          description: Describe operations.
+          flags:
+            --location=: The location id of the operation resource.
+        - name: list
+          description: List operations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: wait
+          description: Wait operations.
+          flags:
+            --location=: The location id of the operation resource.
+    - name: services
+      description: Manage Service resources.
+      commands:
+        - name: create
+          description: Register a new service.
+          flags:
+            --agent-spec-content=: The content of the Agent spec in the JSON format.
+            --agent-spec-type=!: The type of the agent spec content.
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: User-defined description of an Service.
+            --display-name=: User-defined display name for the Service.
+            --endpoint-spec-content=: The content of the endpoint spec.
+            --endpoint-spec-type=!: The type of the endpoint spec content.
+            --interfaces=: The connection details for the Service.
+            --location=: The location id of the service resource.
+            --mcp-server-spec-content=: The content of the MCP Server spec.
+            --mcp-server-spec-type=!: The type of the MCP Server spec content.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --request-id=: An optional request ID to identify requests.
+          completion:
+            flag:
+                agent-spec-type:
+                    - a2a-agent-card
+                    - no-spec
+                endpoint-spec-type:
+                    - no-spec
+                    - openapi-spec
+                mcp-server-spec-type:
+                    - no-spec
+                    - tool-spec
+        - name: delete
+          description: Remove a registered service.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the service resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --request-id=: An optional request ID to identify requests.
+        - name: describe
+          description: Get details of a registered service.
+          flags:
+            --location=: The location id of the service resource.
+        - name: list
+          description: List registered services.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Modify service parameters.
+          flags:
+            --add-interfaces=: Add new value to interfaces list.
+            --agent-spec-content=: The content of the Agent spec in the JSON format.
+            --agent-spec-type=: The type of the agent spec content.
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-agent-spec: Set service.agentSpec back to default value.
+            --clear-endpoint-spec: Set service.endpointSpec back to default value.
+            --clear-interfaces: Clear interfaces value and set to empty list.
+            --clear-mcp-server-spec: Set service.mcpServerSpec back to default value.
+            --description=: User-defined description of an Service.
+            --display-name=: User-defined display name for the Service.
+            --endpoint-spec-content=: The content of the endpoint spec.
+            --endpoint-spec-type=: The type of the endpoint spec content.
+            --interfaces=: Set interfaces to new value.
+            --location=: The location id of the service resource.
+            --mcp-server-spec-content=: The content of the MCP Server spec.
+            --mcp-server-spec-type=: The type of the MCP Server spec content.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-agent-spec&: Set service.agentSpec back to default value.
+            --no-clear-endpoint-spec&: Set service.endpointSpec back to default value.
+            --no-clear-interfaces&: Clear interfaces value and set to empty list.
+            --no-clear-mcp-server-spec&: Set service.mcpServerSpec back to default value.
+            --remove-interfaces=: Remove existing value from interfaces list.
+            --request-id=: An optional request ID to identify requests.
+          completion:
+            flag:
+                agent-spec-type:
+                    - a2a-agent-card
+                    - no-spec
+                endpoint-spec-type:
+                    - no-spec
+                    - openapi-spec
+                mcp-server-spec-type:
+                    - no-spec
+                    - tool-spec

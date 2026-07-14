@@ -2,6 +2,47 @@
 name: redis
 description: Manage Cloud Memorystore Redis resources.
 commands:
+    - name: acl-policies
+      description: Manage ACL policies of Memorystore for Redis Cluster instances.
+      commands:
+        - name: create
+          description: Create a Redis ACL Policy.
+          flags:
+            --region=: The name of the Redis region of the acl policy.
+            --request-id=: Idempotent request UUID.
+            --rules=!: Required, The ACL rules within the ACL policy.
+        - name: delete
+          description: Delete a Redis ACL Policy.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The name of the Redis region of the acl policy.
+        - name: describe
+          description: Show metadata for a Memorystore for Redis Cluster ACL policy.
+          flags:
+            --region=: The name of the Redis region of the acl policy.
+        - name: list
+          description: List Redis ACL Policies.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: ID of the region or fully qualified identifier for the region.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update aclPolicies.
+          flags:
+            --add-rules=: Add new value to rules list.
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-rules: Clear rules value and set to empty list.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-rules&: Clear rules value and set to empty list.
+            --region=: The name of the Redis region of the acl policy.
+            --remove-rules=: Remove existing value from rules list.
+            --request-id=: Idempotent request UUID.
+            --rules=: Set rules to new value.
     - name: clusters
       description: Manage Memorystore for Redis Cluster instances.
       commands:
@@ -66,6 +107,7 @@ commands:
         - name: create
           description: Create a new Memorystore for Redis Cluster instance.
           flags:
+            --acl-policy=: The ACL policy to use for the cluster.
             --aof-append-fsync=: Fsync configuration.
             --async: Return immediately, without waiting for the operation in progress to
             --auth-mode=: Available authorization mode of a Redis cluster.
@@ -77,6 +119,7 @@ commands:
             --import-gcs-object-uris=: URIs of Google Cloud Storage objects to import from.
             --import-managed-backup=: Managed backup to import from.
             --kms-key=: The resource name of the customer-managed encryption key (CMEK) to use for the cluster.
+            --labels=: List of label KEY=VALUE pairs to add.
             --maintenance-window-day=: Day of week when the window starts, e.g. `sunday`.
             --maintenance-window-hour=: Hour of day (`0` to `23`) for the start of maintenance window, in UTC time zone.
             --network=: The network used to create your instance.
@@ -90,10 +133,13 @@ commands:
             --redis-config=: A list of Redis config KEY=VALUE pairs to set on the Redis Cluster according to
             --region=: The name of the Redis region of the cluster.
             --replica-count=: The replica count of each shard.
+            --server-ca-mode=: Server CA mode for the cluster.
+            --server-ca-pool=: The customer-managed Certificate Authority Service CA Pool resource name to use for issuing server certificates.
             --shard-count=: The shard count of the cluster.
             --transit-encryption-mode=: Transit encryption mode used for the Redis cluster.
             --zone-distribution-mode=: Determines how the cluster nodes are distributed across zones.
             --zone=: The zone used to allocate the cluster nodes.
+            --zones=: Specify the zones of a multi-zone cluster where Memorystore for Redis Cluster allocates
           completion:
             flag:
                 aof-append-fsync:
@@ -117,9 +163,12 @@ commands:
                     - tuesday
                     - wednesday
                 node-type:
+                    - redis-highcpu-medium
+                    - redis-highmem-2xlarge
                     - redis-highmem-medium
                     - redis-highmem-xlarge
                     - redis-shared-core-nano
+                    - redis-standard-large
                     - redis-standard-small
                 persistence-mode:
                     - aof
@@ -130,6 +179,10 @@ commands:
                     - 1h
                     - 24h
                     - 6h
+                server-ca-mode:
+                    - customer-managed-cas-ca
+                    - google-managed-per-instance-ca
+                    - google-managed-shared-ca
                 transit-encryption-mode:
                     - disabled
                     - server-authentication
@@ -171,6 +224,10 @@ commands:
           description: Get the certificate authority information for a Memorystore for Redis Cluster instance.
           flags:
             --region=: The name of the Redis region of the cluster.
+        - name: get-shared-regional-certificate-authority
+          description: Get the shared regional certificate authority certificates for Memorystore for Redis Cluster.
+          flags:
+            --region=: ID of the region or fully qualified identifier for the region.
         - name: list
           description: List Memorystore for Redis Cluster instances.
           flags:
@@ -210,29 +267,36 @@ commands:
         - name: update
           description: Update Memorystore Cluster for Redis instance.
           flags:
+            --acl-policy=: The ACL policy to use for the cluster.
             --aof-append-fsync=: Fsync configuration.
             --async: Return immediately, without waiting for the operation in progress to
             --automated-backup-mode=: Automated backup mode.
             --automated-backup-start-time=: One-hour window when you want automated-backup operations to start.
             --automated-backup-ttl=: Time to live for automated backups.
+            --clear-labels: Remove all labels.
             --deletion-protection: Enable deletion protection for the Redis Cluster.
             --maintenance-version=: The maintenance version of the cluster.
             --maintenance-window-any: Removes the user-specified maintenance window.
             --maintenance-window-day=: The day of week when the window starts, e.g. `sunday`.
             --maintenance-window-hour=: Hour of day (`0` to `23`) for the start of maintenance window, in UTC time zone.
             --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
             --no-deletion-protection&: Enable deletion protection for the Redis Cluster.
             --no-maintenance-window-any&: Removes the user-specified maintenance window.
+            --no-rotate-server-certificate&: Rotate the server certificates for the cluster.
             --no-simulate-maintenance-event&: Trigger a simulation for maintenance event.
             --node-type=: Node Type of the redis cluster Node.
             --persistence-mode=: Operation mode for persistence.
             --rdb-snapshot-period=: Attempted period between RDB snapshots.
             --rdb-snapshot-start-time=: Date and time of the first snapshot in the ISO 1801 format, and alignment time for future snapshots.
             --region=: The name of the Redis region of the cluster.
+            --remove-labels=: List of label keys to remove.
             --remove-redis-config=: A list of Redis Cluster config parameters to remove.
             --replica-count=: The replica count of each shard.
+            --rotate-server-certificate: Rotate the server certificates for the cluster.
             --shard-count=: The shard count of the cluster.
             --simulate-maintenance-event: Trigger a simulation for maintenance event.
+            --update-labels=: List of label KEY=VALUE pairs to update.
             --update-redis-config=: A list of Redis Cluster config KEY=VALUE pairs to update.
           completion:
             flag:
@@ -252,9 +316,12 @@ commands:
                     - tuesday
                     - wednesday
                 node-type:
+                    - redis-highcpu-medium
+                    - redis-highmem-2xlarge
                     - redis-highmem-medium
                     - redis-highmem-xlarge
                     - redis-shared-core-nano
+                    - redis-standard-large
                     - redis-standard-small
                 persistence-mode:
                     - aof
