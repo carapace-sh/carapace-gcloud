@@ -33,6 +33,16 @@ commands:
             --tags=&: A list of comma-separated key-value pairs to bind as Cloud Tags to the
             --timeout=: Timeout (in seconds) for waiting on the operation to complete.
             --zone=: Compute zone (e.g. us-central1-a) for a zonal cluster.
+        - name: delete
+          description: Delete an Accelerator Network Profile.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Compute zone or region (e.g. us-central1-a or us-central1) for the cluster.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: Compute region (e.g. us-central1) for a regional cluster.
+            --timeout=: Timeout (in seconds) for waiting on the operation to complete.
+            --zone=: Compute zone (e.g. us-central1-a) for a zonal cluster.
     - name: ai
       description: Manage AI related workloads for GKE.
       commands:
@@ -1548,7 +1558,6 @@ commands:
             --zone=: Compute zone (e.g. us-central1-a) for a zonal cluster.
         - name: complete-control-plane-upgrade
           description: Complete the control plane upgrade for an existing cluster.
-          hidden: true
           flags:
             --location=: Compute zone or region (e.g. us-central1-a or us-central1) for the cluster.
             --region=: Compute region (e.g. us-central1) for a regional cluster.
@@ -1728,6 +1737,7 @@ commands:
             --maintenance-window-recurrence=!: An RFC 5545 RRULE, specifying how the window will recur.
             --maintenance-window-start=!: Start time of the first window (can occur in the past).
             --maintenance-window=: Set a time of day when you prefer maintenance to start on this cluster.
+            --managed-otel-scope=: Specifies the scope of Managed OpenTelemetry within the cluster.
             --master-authorized-networks=: The list of CIDR blocks (up to 100 for private cluster, 50 for public cluster) that are allowed to connect to Kubernetes master through HTTPS.
             --master-ipv4-cidr=: IPv4 CIDR range to use for the master network.
             --max-accelerator=!: Sets maximum limit for a single type of accelerators (e.g. GPUs) in cluster.
@@ -1942,6 +1952,9 @@ commands:
                 logging-variant:
                     - DEFAULT
                     - MAX_THROUGHPUT
+                managed-otel-scope:
+                    - COLLECTION_AND_INSTRUMENTATION_COMPONENTS
+                    - NONE
                 membership-type:
                     - LIGHTWEIGHT
                 network-tier:
@@ -2084,6 +2097,7 @@ commands:
             --logging=: Set the components that have logging enabled.
             --maintenance-minor-version-disruption-interval=: Set the minimum interval of time between minor version cluster upgrades.
             --maintenance-patch-version-disruption-interval=: Set the minimum interval of time between patch version cluster upgrades.
+            --managed-otel-scope=: Specifies the scope of Managed OpenTelemetry within the cluster.
             --master-authorized-networks=: The list of CIDR blocks (up to 100 for private cluster, 50 for public cluster) that are allowed to connect to Kubernetes master through HTTPS.
             --master-ipv4-cidr=: IPv4 CIDR range to use for the master network.
             --membership-type=: Specify a membership type for the cluster's fleet membership.
@@ -2173,6 +2187,9 @@ commands:
                     - DISABLED
                     - EXTERNAL_LB
                     - INTERNAL_VPC_LB
+                managed-otel-scope:
+                    - COLLECTION_AND_INSTRUMENTATION_COMPONENTS
+                    - NONE
                 membership-type:
                     - LIGHTWEIGHT
                 node-creation-mode:
@@ -2397,6 +2414,7 @@ commands:
             --maintenance-window-recurrence=!: An RFC 5545 RRULE, specifying how the window will recur.
             --maintenance-window-start=!: Start time of the first window (can occur in the past).
             --maintenance-window=: Set a time of day when you prefer maintenance to start on this cluster.
+            --managed-otel-scope=: Specifies the scope of Managed OpenTelemetry within the cluster.
             --master-authorized-networks=: The list of CIDR blocks (up to 100 for private cluster, 50 for public cluster) that are allowed to connect to Kubernetes master through HTTPS.
             --max-accelerator=!: Sets maximum limit for a single type of accelerators (e.g. GPUs) in cluster.
             --max-cpu=: Maximum number of cores in the cluster.
@@ -2573,6 +2591,9 @@ commands:
                 logging-variant:
                     - DEFAULT
                     - MAX_THROUGHPUT
+                managed-otel-scope:
+                    - COLLECTION_AND_INSTRUMENTATION_COMPONENTS
+                    - NONE
                 membership-type:
                     - LIGHTWEIGHT
                 network-tier:
@@ -2611,7 +2632,7 @@ commands:
           flags:
             --async: Return immediately, without waiting for the operation in progress to
             --cluster-version=: The GKE release version to which to upgrade the cluster's node pools or master.
-            --control-plane-soak-duration=&: The soak duration for the rollback-able control plane upgrade.
+            --control-plane-soak-duration=: The soak duration for the rollback-able control plane upgrade.
             --image-project=: The Google Cloud project storing the Operating System image for the node pool.
             --image-type=: The image type to use for the cluster/node pool.
             --image=: The Operating System image for the node pool.

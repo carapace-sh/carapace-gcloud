@@ -2,30 +2,38 @@
 name: biglake
 description: Create and manage Google Cloud BigLake resources.
 commands:
+    - name: data-product-sharing
+      description: Manage sharing of Knowledge Catalog Data Products or BigLake tables.
+      commands:
+        - name: publish
+          description: Publish a Knowledge Catalog Data Product or BigLake tables to external partners.
+          flags:
+            --connection-catalog=!: ID of the catalog or fully qualified identifier for the catalog.
+            --data-product=: The Knowledge Catalog Data Product to publish.
+            --description=: The optional detailed description of the published share.
+            --iceberg-catalog=!: ID of the catalog or fully qualified identifier for the catalog.
+            --sap-federated-identity-provider=!: The resource name of the Workload Identity Federation (WIF) provider resource representing the SAP federated identity.
+            --share=!: The desired name of the Share as it will be published to
+            --short-description=: The short, concise description of the published share.
+            --title=: The title of the published share.
     - name: delta-sharing
       description: Biglake Delta Sharing Catalogs.
-      hidden: true
       commands:
         - name: catalogs
           description: Biglake Delta Sharing Catalogs.
-          hidden: true
           commands:
             - name: create
               description: Create a BigLake Delta Sharing catalog.
-              hidden: true
               flags:
                 --location=!: The location of the catalog.
                 --refresh-interval=: The interval for refreshing metadata from the remote catalog (e.g. 300s or 5m).
                 --service-directory-name=: The service directory resource name for private networking.
             - name: delete
               description: Delete a BigLake Delta Sharing catalog.
-              hidden: true
             - name: describe
               description: Describe a BigLake Delta Sharing catalog.
-              hidden: true
             - name: list
               description: List BigLake Delta Sharing catalogs.
-              hidden: true
               flags:
                 --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
                 --limit=: Maximum number of resources to list.
@@ -33,7 +41,6 @@ commands:
                 --sort-by=: Comma-separated list of resource field key names to sort by.
             - name: update
               description: Update a BigLake Delta Sharing catalog.
-              hidden: true
               flags:
                 --connector-endpoint=: The SAP BDC Connector Endpoint.
                 --invitation-code=: The SAP BDC Invitation Code.
@@ -41,11 +48,9 @@ commands:
                 --refresh-interval=: The interval for refreshing metadata from the remote catalog (e.g. 300s or 5m).
         - name: schemas
           description: Biglake Delta Sharing Schemas.
-          hidden: true
           commands:
             - name: list
               description: List BigLake Delta Sharing schemas.
-              hidden: true
               flags:
                 --catalog=: The BigQuery catalog ID.
                 --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
@@ -55,11 +60,9 @@ commands:
                 --sort-by=: Comma-separated list of resource field key names to sort by.
         - name: shares
           description: Biglake Delta Sharing Shares.
-          hidden: true
           commands:
             - name: list
               description: List BigLake Delta Sharing shares.
-              hidden: true
               flags:
                 --catalog=!: ID of the catalog or fully qualified identifier for the catalog.
                 --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
@@ -68,11 +71,9 @@ commands:
                 --sort-by=: Comma-separated list of resource field key names to sort by.
         - name: tables
           description: Biglake Delta Sharing Tables.
-          hidden: true
           commands:
             - name: list
               description: List BigLake Delta Sharing tables.
-              hidden: true
               flags:
                 --catalog=: The BigQuery catalog ID.
                 --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
@@ -102,6 +103,7 @@ commands:
                         - biglake
                         - federated
                         - gcs-bucket
+                        - lakehouse
                     credential-mode:
                         - end-user
                         - vended-credentials
@@ -145,6 +147,7 @@ commands:
                 flag:
                     catalog-type:
                         - biglake
+                        - lakehouse
                     credential-mode:
                         - end-user
                         - vended-credentials

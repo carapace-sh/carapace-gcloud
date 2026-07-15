@@ -235,6 +235,13 @@ commands:
             --global: If set, the backend bucket is global.
             --no-global&: If set, the backend bucket is global.
             --region=: Region of the backend bucket to setIamPolicy.
+        - name: test-iam-permissions
+          description: Test IAM permissions for a Compute Engine backend bucket.
+          flags:
+            --global: If set, the backend bucket is global.
+            --no-global&: If set, the backend bucket is global.
+            --permissions=!: The set of permissions to check for the resource.
+            --region=: Region of the backend bucket to test IAM permissions for.
         - name: update
           description: Update a backend bucket.
           flags:
@@ -1116,6 +1123,13 @@ commands:
                 --source-instant-snapshot-group-zone=: Zone of the source instant snapshot group to operate on.
                 --source-instant-snapshot-group=: URL of the format regions/<REGION>/instantSnapshotGroups/<INSTANT_SNAPSHOT_GROUP> or zones/<ZONE>/instantSnapshotGroups/<INSTANT_SNAPSHOT_GROUP> of the source consistency group of instant snapshots used to create the disks.
                 --zone=: Target zone of the created disks, which currently must be the same as the source zone.
+            - name: set-labels
+              description: Add or remove labels on multiple Compute Engine disks.
+              flags:
+                --disks=!: Comma-separated list of disk names to update.
+                --labels=!: List of label KEY=VALUE pairs to set on all specified disks.
+                --source=: Path to a JSON file containing a list of disk label update requests.
+                --zone=: Zone of the disk to update labels.
         - name: convert
           description: Convert a Compute Engine Persistent Disk volume to a Hyperdisk volume.
           flags:
@@ -1344,6 +1358,10 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: test-iam-permissions
+          description: Test IAM permissions for a Compute Engine external VPN gateway.
+          flags:
+            --permissions=!: Set of permissions to check for the resource.
         - name: update
           description: Update a Compute Engine external VPN gateway.
           flags:
@@ -1407,6 +1425,10 @@ commands:
           flags:
             --destination=: Path to a YAML file where the configuration will be exported.
             --organization=: Organization in which the organization firewall policy rules export from.
+        - name: get-iam-policy
+          description: Get the IAM policy for a Compute Engine organization firewall policy.
+          flags:
+            --organization=: Organization ID in which the organization firewall policy is to be described.
         - name: import-rules
           description: Import Compute Engine organization firewall policy rules.
           flags:
@@ -1540,6 +1562,10 @@ commands:
                     direction:
                         - INGRESS
                         - EGRESS
+        - name: set-iam-policy
+          description: Set the IAM policy for a Compute Engine organization firewall policy.
+          flags:
+            --organization=: Organization ID in which the organization firewall policy is to be set.
         - name: update
           description: Update a Compute Engine organization firewall policy.
           flags:
@@ -2774,14 +2800,14 @@ commands:
             --limit=: Maximum number of resources to list.
             --no-preview-images&: Show images that are in limited preview.
             --no-show-deprecated&: If provided, deprecated images are shown.
-            --no-show-preview-images&: THIS ARGUMENT NEEDS HELP TEXT.
+            --no-show-preview-images&: When this flag is enabled, gcloud expands the scope of projects it queries.
             --no-standard-images&: List images from public image projects.
             --no-uri&: Print a list of resource URIs instead of the default output, and change the
             --page-size=: Some services group resource list output into pages.
             --preview-images: Show images that are in limited preview.
             --regexp=: (DEPRECATED)         Regular expression to filter the names of the results  on.
             --show-deprecated: If provided, deprecated images are shown.
-            --show-preview-images&: THIS ARGUMENT NEEDS HELP TEXT.
+            --show-preview-images&: When this flag is enabled, gcloud expands the scope of projects it queries.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --standard-images: List images from public image projects.
             --uri: Print a list of resource URIs instead of the default output, and change the
@@ -2907,6 +2933,7 @@ commands:
                 --instance-selection=: Named selection of machine types with an optional rank.
                 --list-managed-instances-results=: Pagination behavior for the group's listManagedInstances API method.
                 --no-force-update-on-repair&: ""
+                --on-repair-allow-changing-zone=: Specifies whether the MIG can change a VM's zone during a repair.
                 --region=: Region of the managed instance group to create.
                 --size=!: Initial number of instances you want in this group.
                 --standby-policy-initial-delay=: Specifies the number of seconds that the MIG should wait before suspending or stopping a VM.
@@ -2944,6 +2971,9 @@ commands:
                     list-managed-instances-results:
                         - pageless
                         - paginated
+                    on-repair-allow-changing-zone:
+                        - "no"
+                        - "yes"
                     standby-policy-mode:
                         - manual
                         - scale-out-pool
@@ -2984,6 +3014,8 @@ commands:
             - name: delete
               description: Delete Compute Engine managed instance groups.
               flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --no-async&: Return immediately, without waiting for the operation in progress to
                 --region=: Region of the managed instance groups to delete.
                 --zone=: Zone of the managed instance groups to delete.
             - name: delete-instances
@@ -3146,9 +3178,10 @@ commands:
                 - name: create
                   description: Create a Compute Engine managed instance group resize request.
                   flags:
+                    --instances=: A comma-separated list of instance names.
                     --region=: Region of the managed instance group to operate on.
                     --requested-run-duration=: The time you need the requested VMs to run before being
-                    --resize-by=!: The number of VMs to resize managed instance group by.
+                    --resize-by=: The number of instances to create with this resize request.
                     --resize-request=!: The name of the resize request to create.
                     --zone=: Zone of the managed instance group to operate on.
                 - name: delete
@@ -3348,6 +3381,7 @@ commands:
                 --no-force-update-on-repair&: ""
                 --no-remove-instance-selections-all&: Remove all instance selections from the instance flexibility policy.
                 --no-remove-workload-policy&: Detaches the workload policy from the managed instance group.
+                --on-repair-allow-changing-zone=: Specifies whether the MIG can change a VM's zone during a repair.
                 --region=: Region of the managed instance group to update.
                 --remove-instance-selections-all: Remove all instance selections from the instance flexibility policy.
                 --remove-instance-selections=: Remove specific instance selections from the instance flexibility policy.
@@ -3388,6 +3422,9 @@ commands:
                     list-managed-instances-results:
                         - pageless
                         - paginated
+                    on-repair-allow-changing-zone:
+                        - "no"
+                        - "yes"
                     standby-policy-mode:
                         - manual
                         - scale-out-pool
@@ -3595,6 +3632,8 @@ commands:
             --external-ipv6-address=: Assigns the given external IPv6 address to the instance that is created.
             --external-ipv6-prefix-length=: The prefix length of the external IPv6 address range.
             --host-error-timeout-seconds=: The timeout in seconds for host error detection.
+            --identity-certificate: Enables or disables managed workload identity certificates on a VM.
+            --identity=: The workload identity to use for the instance.
             --image-family=: The image family for the operating system that the boot disk will
             --image-project=: The Google Cloud project against which all image and
             --image=: Specifies the boot image for the instances.
@@ -3626,6 +3665,7 @@ commands:
             --no-custom-extensions&: Use the extended custom machine type.
             --no-enable-nested-virtualization&: If set to true, enables nested virtualization for the instance.
             --no-enable-uefi-networking&: If set to true, enables UEFI networking for the instance creation.
+            --no-identity-certificate&: Enables or disables managed workload identity certificates on a VM.
             --no-preemptible&: If provided, instances will be preemptible and time-limited.
             --no-restart-on-failure&: The instances will be restarted if they are terminated by Compute Engine.
             --no-scopes: Create instance without scopes
@@ -3739,6 +3779,8 @@ commands:
             --disk=: Attaches an existing disk to the instances.
             --external-ipv6-address=: Assigns the given external IPv6 address to the instance that is created.
             --external-ipv6-prefix-length=: The prefix length of the external IPv6 address range.
+            --identity-certificate: Enables or disables managed workload identity certificates on a VM.
+            --identity=: The workload identity to use for the instance.
             --image-family=: The image family for the operating system that the boot disk will
             --image-project=: The Google Cloud project against which all image and
             --image=: Specifies the boot image for the instances.
@@ -3762,6 +3804,7 @@ commands:
             --no-container-stdin&: Keep container STDIN open even if not attached.
             --no-container-tty&: Allocate a pseudo-TTY for the container.
             --no-custom-extensions&: Use the extended custom machine type.
+            --no-identity-certificate&: Enables or disables managed workload identity certificates on a VM.
             --no-preemptible&: If provided, instances will be preemptible and time-limited.
             --no-restart-on-failure&: The instances will be restarted if they are terminated by Compute Engine.
             --no-scopes: Create instance without scopes
@@ -3966,6 +4009,8 @@ commands:
                 --enable-uefi-networking: If set to true, enables UEFI networking for the instance creation.
                 --erase-windows-vss-signature: Specifies whether the disk restored from source snapshots or source machine image should
                 --host-error-timeout-seconds=: The timeout in seconds for host error detection.
+                --identity-certificate: Enables or disables managed workload identity certificates on a VM.
+                --identity=: The workload identity to use for the instance.
                 --image-family=: The image family for the operating system that the boot disk will
                 --image-project=: The Google Cloud project against which all image and
                 --image=: Specifies the boot image for the instances.
@@ -4000,6 +4045,7 @@ commands:
                 --no-enable-nested-virtualization&: If set to true, enables nested virtualization for the instance.
                 --no-enable-uefi-networking&: If set to true, enables UEFI networking for the instance creation.
                 --no-erase-windows-vss-signature&: ""
+                --no-identity-certificate&: Enables or disables managed workload identity certificates on a VM.
                 --no-preemptible&: If provided, instances will be preemptible and time-limited.
                 --no-public-dns: If provided, the instance will not be assigned a public DNS name.
                 --no-restart-on-failure&: The instances will be restarted if they are terminated by Compute Engine.
@@ -4116,6 +4162,8 @@ commands:
             --external-ipv6-prefix-length=: The prefix length of the external IPv6 address range.
             --host-error-timeout-seconds=: The timeout in seconds for host error detection.
             --hostname=: Specify the hostname of the instance to be created.
+            --identity-certificate: Enables or disables managed workload identity certificates on a VM.
+            --identity=: The workload identity to use for the instance.
             --image-family-scope=: Sets the scope for the `--image-family` flag.
             --image-family=: The image family for the operating system that the boot disk will
             --image-project=: The Google Cloud project against which all image and
@@ -4156,6 +4204,7 @@ commands:
             --no-enable-nested-virtualization&: If set to true, enables nested virtualization for the instance.
             --no-enable-uefi-networking&: If set to true, enables UEFI networking for the instance creation.
             --no-erase-windows-vss-signature&: ""
+            --no-identity-certificate&: Enables or disables managed workload identity certificates on a VM.
             --no-preemptible&: If provided, instances will be preemptible and time-limited.
             --no-public-ptr: If provided, no DNS PTR record is created for the external IP of the
             --no-public-ptr-domain: If both this flag and --public-ptr are specified, creates a DNS PTR
@@ -4283,6 +4332,8 @@ commands:
             --external-ipv6-address=: Assigns the given external IPv6 address to the instance that is created.
             --external-ipv6-prefix-length=: The prefix length of the external IPv6 address range.
             --host-error-timeout-seconds=: The timeout in seconds for host error detection.
+            --identity-certificate: Enables or disables managed workload identity certificates on a VM.
+            --identity=: The workload identity to use for the instance.
             --image-family=: The image family for the operating system that the boot disk will
             --image-project=: The Google Cloud project against which all image and
             --image=: Specifies the boot image for the instances.
@@ -4311,6 +4362,7 @@ commands:
             --no-container-tty&: Allocate a pseudo-TTY for the container.
             --no-custom-extensions&: Use the extended custom machine type.
             --no-enable-nested-virtualization&: If set to true, enables nested virtualization for the instance.
+            --no-identity-certificate&: Enables or disables managed workload identity certificates on a VM.
             --no-preemptible&: If provided, instances will be preemptible and time-limited.
             --no-public-ptr: If provided, no DNS PTR record is created for the external IP of the
             --no-public-ptr-domain: If both this flag and --public-ptr are specified, creates a DNS PTR
@@ -4918,11 +4970,15 @@ commands:
             --clear-node-affinities: Removes the node affinities field from the instance.
             --deletion-protection: Enables deletion protection for the instance.
             --enable-display-device: Enable a display device on VM instances.
+            --identity-certificate: Enables or disables managed workload identity certificates on a VM.
+            --identity=: The workload identity to use for the instance.
             --min-cpu-platform=: When specified, the VM will be scheduled on host with specified CPU
+            --most-disruptive-allowed-action=: If specified, Compute Engine returns an error if the update
             --no-clear-labels&: Remove all labels.
             --no-clear-node-affinities&: Removes the node affinities field from the instance.
             --no-deletion-protection&: Enables deletion protection for the instance.
             --no-enable-display-device&: Enable a display device on VM instances.
+            --no-identity-certificate&: Enables or disables managed workload identity certificates on a VM.
             --no-shielded-integrity-monitoring&: Enables monitoring and attestation of the boot integrity of the
             --no-shielded-learn-integrity-policy&: Causes the instance to re-learn the integrity policy baseline using
             --no-shielded-secure-boot&: The instance boots with secure boot enabled.
@@ -4937,6 +4993,12 @@ commands:
             --shielded-vtpm: The instance boots with the TPM (Trusted Platform Module) enabled.
             --update-labels=: List of label KEY=VALUE pairs to update.
             --zone=: Zone of the instance to update.
+          completion:
+            flag:
+                most-disruptive-allowed-action:
+                    - NO_EFFECT
+                    - REFRESH
+                    - RESTART
         - name: update-access-config
           description: Update a Compute Engine virtual machine access configuration.
           flags:
@@ -5026,6 +5088,12 @@ commands:
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
             --zones=: If provided, only zonal resources are shown.
+        - name: test-iam-permissions
+          description: Test IAM permissions for a Compute Engine instant snapshot group.
+          flags:
+            --permissions=!: Set of permissions to check for the resource.
+            --region=: Region of the instant snapshot group to test IAM permissions.
+            --zone=: Zone of the instant snapshot group to test IAM permissions.
     - name: instant-snapshots
       description: Create, list and delete Compute Engine instant snapshots.
       commands:
@@ -5065,6 +5133,11 @@ commands:
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
             --zones=: If provided, only zonal resources are shown.
+        - name: set-iam-policy
+          description: Set the IAM policy binding for a Compute Engine instant snapshot.
+          flags:
+            --region=: Region of the instant snapshot to set the IAM policy on.
+            --zone=: Zone of the instant snapshot to set the IAM policy on.
     - name: interconnects
       description: Read and manipulate Compute Engine interconnects.
       commands:
@@ -5675,6 +5748,7 @@ commands:
           flags:
             --admin-enabled: Administrative status of the interconnect.
             --description=: An optional, textual description for the interconnect.
+            --location=: The location for the interconnect.
             --no-admin-enabled&: Administrative status of the interconnect.
             --noc-contact-email=: Email address to contact the customer NOC for operations and maintenance
             --requested-link-count=: Target number of physical links in the link bundle.
@@ -6106,6 +6180,11 @@ commands:
           description: Set the IAM policy for a Compute Engine network attachment.
           flags:
             --region=: The name of the Google Compute Engine region.
+        - name: test-iam-permissions
+          description: Test IAM permissions for a Compute Engine network attachment.
+          flags:
+            --permissions=!: Permissions to be tested.
+            --region=: The name of the Google Compute Engine region.
         - name: update
           description: Update a Google Compute Engine network attachment.
           flags:
@@ -6309,6 +6388,12 @@ commands:
             --region=: The region to get the effective regional firewalls.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: get-iam-policy
+          description: Get the IAM policy for a Compute Engine network firewall policy.
+          flags:
+            --global: If set, the firewall policy is global.
+            --no-global&: If set, the firewall policy is global.
+            --region=: Region of the firewall policy to get.
         - name: import-rules
           description: Import a Compute Engine network firewall policy rules.
           flags:
@@ -6511,6 +6596,12 @@ commands:
                     target-type:
                         - INSTANCES
                         - INTERNAL_MANAGED_LB
+        - name: set-iam-policy
+          description: Set the IAM policy binding for a Compute Engine network firewall policy.
+          flags:
+            --global: If set, the firewall policy is global.
+            --no-global&: If set, the firewall policy is global.
+            --region=: Region of the firewall policy to get.
         - name: update
           description: Update a Compute Engine network firewall policy.
           flags:
@@ -8146,6 +8237,13 @@ commands:
                 --block-name=!: The name of the reservation block.
                 --sub-block-name=!: The name of the reservation sub block.
                 --zone=: Zone of the reservation to set-iam-policy.
+            - name: test-iam-permissions
+              description: Test IAM permissions on a Compute Engine reservation sub-block.
+              flags:
+                --block-name=!: The name of the reservation block.
+                --permissions=!: Set of permissions to check for the resource.
+                --sub-block-name=!: The name of the reservation sub block.
+                --zone=: Zone of the reservation to test-iam-permissions.
         - name: test-iam-permissions
           description: Test IAM permissions for a Compute Engine reservation.
           flags:
@@ -9338,6 +9436,7 @@ commands:
             --domain-names=: Specifies a comma separated list of DNS domain names that are used during
             --enable-proxy-protocol: If True, then enable the proxy protocol which is for supplying client
             --global-producer-forwarding-rule: If set, the forwarding rule is global.
+            --nat-ips-per-endpoint=: The number of NAT IP addresses to be allocated per connected endpoint.
             --nat-subnets-region=: Region of the subnetworks to operate on.
             --nat-subnets=!: The subnetworks provided by service producer to use for NAT
             --no-enable-proxy-protocol&: If True, then enable the proxy protocol which is for supplying client
@@ -9375,6 +9474,10 @@ commands:
             --regions=: If provided, only resources from the given regions are queried.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: set-iam-policy
+          description: Set the IAM policy for a Compute Engine service attachment.
+          flags:
+            --region=: The name of the Google Compute Engine region.
         - name: update
           description: Update a Google Compute Engine service attachment.
           flags:
@@ -9383,6 +9486,7 @@ commands:
             --consumer-reject-list=: Specifies a comma-separated list of projects/networks/endpoints that are not
             --description=: An optional, textual description for the service attachment.
             --enable-proxy-protocol: If True, then enable the proxy protocol which is for supplying client
+            --nat-ips-per-endpoint=: The number of NAT IP addresses to be allocated per connected endpoint.
             --nat-subnets-region=: Region of the subnetworks to operate on.
             --nat-subnets=: The subnetworks provided by service producer to use for NAT
             --no-enable-proxy-protocol&: If True, then enable the proxy protocol which is for supplying client
@@ -9667,6 +9771,11 @@ commands:
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --nodes=: The names of the nodes to simulate maintenance event.
                 --zone=: Zone of the node group to operate on.
+            - name: test-iam-permissions
+              description: Test IAM permissions for a Compute Engine node group.
+              flags:
+                --permissions=!: The permissions to test.
+                --zone=: The name of the Google Compute Engine zone.
             - name: update
               description: Update a Compute Engine node group.
               flags:
@@ -9752,6 +9861,11 @@ commands:
             - name: set-iam-policy
               description: Set the IAM policy for a Compute Engine node template.
               flags:
+                --region=: The name of the Google Compute Engine region.
+            - name: test-iam-permissions
+              description: Test IAM permissions for a Compute Engine sole-tenancy node template.
+              flags:
+                --permissions=!: Permissions to be tested.
                 --region=: The name of the Google Compute Engine region.
         - name: node-types
           description: Read Compute Engine sole-tenancy node types.
@@ -10442,6 +10556,7 @@ commands:
             --description=: An optional, textual description for the target TCP proxy.
             --global: If set, the target TCP proxy is global.
             --global-backend-service: If set, the backend service is global.
+            --load-balancing-scheme=: Specifies the load balancing scheme for the target TCP proxy.
             --no-global&: If set, the target TCP proxy is global.
             --no-global-backend-service&: If set, the backend service is global.
             --no-proxy-bind&: This field only applies when the forwarding rule that references this
@@ -10450,6 +10565,10 @@ commands:
             --region=: Region of the target TCP proxy to create.
           completion:
             flag:
+                load-balancing-scheme:
+                    - EXTERNAL
+                    - EXTERNAL_MANAGED
+                    - INTERNAL_MANAGED
                 proxy-header:
                     - NONE
                     - PROXY_V1
@@ -10478,6 +10597,10 @@ commands:
             --regions=: If provided, only regional resources are shown.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: test-iam-permissions
+          description: Test IAM permissions for a target TCP proxy.
+          flags:
+            --permissions=!: Set of permissions to check for the resource.
         - name: update
           description: Update a target TCP proxy.
           flags:

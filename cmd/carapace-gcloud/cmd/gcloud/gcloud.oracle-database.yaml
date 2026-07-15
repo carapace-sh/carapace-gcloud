@@ -44,14 +44,16 @@ commands:
             --encryption-key-provider=: The provider of the encryption key.
             --key-ring=: The keyRing id of the cryptoKey resource.
             --labels=: The labels or tags associated with the Autonomous Database.
-            --location=: For resources [autonomous_database, encryption-key-kms, odb-network, odb-subnet, source-config-autonomous-database], provides fallback value for resource location attribute.
+            --location=: For resources [autonomous_database, encryption-key-kms, odb-network, odb-subnet, source-config-autonomous-database, source-config-autonomous-database-backup], provides fallback value for resource location attribute.
             --network=!: ID of the network or fully qualified identifier for the network.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-properties-is-auto-scaling-enabled&: This field indicates if auto scaling is enabled for the Autonomous Database
             --no-properties-is-storage-auto-scaling-enabled&: This field indicates if auto scaling is enabled for the Autonomous Database
             --no-properties-local-data-guard-enabled&: Indicates whether the Autonomous Database has a local (in-region) standby
             --no-properties-mtls-connection-required&: This field specifies if the Autonomous Database requires mTLS connections.
+            --no-properties-refreshable-clone&: Indicates if the Autonomous Database is a refreshable clone.
             --no-source-config-automatic-backups-replication-enabled&: This field specifies if the replication of automatic backups is enabled
+            --no-source-config-use-latest-available-backup&: Clone from latest available backup timestamp.
             --odb-network=: For resources [odb-network, odb-subnet], provides fallback value for resource odb-network attribute.
             --odb-subnet=!: ID of the odbSubnet or fully qualified identifier for the odbSubnet.
             --properties-allowlisted-ips=: The list of allowlisted IP addresses for the Autonomous Database.
@@ -75,12 +77,22 @@ commands:
             --properties-n-character-set=: The national character set for the Autonomous Database.
             --properties-private-endpoint-ip=: The private endpoint IP address for the Autonomous Database.
             --properties-private-endpoint-label=: The private endpoint label for the Autonomous Database.
+            --properties-refreshable-clone: Indicates if the Autonomous Database is a refreshable clone.
             --properties-secret-id=: The ID of the Oracle Cloud Infrastructure vault secret.
             --properties-vault-id=: The ID of the Oracle Cloud Infrastructure vault.
             --request-id=: An optional ID to identify the request.
             --secret=: The secret id of the secretVersion resource.
+            --source-config-auto-refresh-frequency-seconds=: The frequency in seconds a refreshable clone is refreshed after
+            --source-config-auto-refresh-point-lag-seconds=: The time, in seconds, the data of the automatic refreshable clone lags the
+            --source-config-auto-refresh-start-time=: The date and time that auto-refreshing will begin for an Autonomous
             --source-config-automatic-backups-replication-enabled: This field specifies if the replication of automatic backups is enabled
+            --source-config-autonomous-database-backup=!: ID of the autonomousDatabaseBackup or fully qualified identifier for the autonomousDatabaseBackup.
             --source-config-autonomous-database=!: ID of the autonomousDatabase or fully qualified identifier for the autonomousDatabase.
+            --source-config-backup-time=: The timestamp specified for the point-in-time clone of the source
+            --source-config-clone-type=: The clone type of the Autonomous Database.
+            --source-config-refreshable-mode=: The refresh mode of the clone.
+            --source-config-type=: The source type of the Autonomous Database.
+            --source-config-use-latest-available-backup: Clone from latest available backup timestamp.
           completion:
             flag:
                 encryption-key-provider:
@@ -100,6 +112,18 @@ commands:
                 properties-maintenance-schedule-type:
                     - early
                     - regular
+                source-config-clone-type:
+                    - full
+                    - metadata
+                source-config-refreshable-mode:
+                    - automatic
+                    - manual
+                source-config-type:
+                    - backup-from-id
+                    - backup-from-timestamp
+                    - clone-database
+                    - clone-to-refreshable
+                    - cross-region-disaster-recovery
         - name: delete
           description: Delete an AutonomousDatabase.
           flags:
@@ -131,6 +155,10 @@ commands:
                 type:
                     - all
                     - single
+        - name: get-refreshable-clones
+          description: Get refreshable clones for an AutonomousDatabase.
+          flags:
+            --location=: The location id of the autonomousDatabase resource.
         - name: list
           description: List all AutonomousDatabases.
           flags:
@@ -141,6 +169,13 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: refresh
+          description: Refresh an AutonomousDatabase clone.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the autonomousDatabase resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --refresh-cutoff-time=!: The timestamp to which the Autonomous Database refreshable clone will
         - name: restart
           description: Restarts an AutonomousDatabase.
           flags:
@@ -190,8 +225,10 @@ commands:
             --no-clear-labels&: Clear labels value and set to empty map.
             --no-clear-properties&: Set autonomousDatabase.properties back to default value.
             --no-properties-local-data-guard-enabled&: Indicates whether the Autonomous Database has a local (in-region) standby
+            --no-properties-refreshable-clone&: Indicates if the Autonomous Database is a refreshable clone.
             --properties-local-adg-auto-failover-max-data-loss-limit-duration=: This field indicates the maximum data loss limit for an Autonomous
             --properties-local-data-guard-enabled: Indicates whether the Autonomous Database has a local (in-region) standby
+            --properties-refreshable-clone: Indicates if the Autonomous Database is a refreshable clone.
             --remove-labels=: Remove existing value from map labels.
             --request-id=: An optional ID to identify the request.
             --update-labels=: Update labels value or add key value pair.
@@ -478,7 +515,7 @@ commands:
             --db-home-version=!: A valid Oracle Database version.
             --db-system-options-storage-management=: The storage option used in DB system.
             --display-name=!: The display name for the System db.
-            --gcp-oracle-zone=: The GCP Oracle zone where Oracle DbSystem is hosted.
+            --gcp-oracle-zone=: The Google Cloud Oracle zone where Oracle DbSystem is hosted.
             --labels=: The labels or tags associated with the DbSystem.
             --location=: For resources [db_system, odb-network, odb-subnet], provides fallback value for resource location attribute.
             --no-async&: Return immediately, without waiting for the operation in progress to

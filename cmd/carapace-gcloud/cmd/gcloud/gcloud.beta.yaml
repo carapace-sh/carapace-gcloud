@@ -3073,6 +3073,7 @@ commands:
                 --database-flags=: Comma-separated list of database flags to set on the instance.
                 --enable-autoscaler&: Enable autoscaler for the instance.
                 --enable-connection-pooling: Enable connection pooling for the instance.
+                --enable-psc-auto-dns&: Enable PSC auto DNS for an AlloyDB instance.
                 --insights-config-query-plans-per-minute=: Number of query plans to sample every minute.
                 --insights-config-query-string-length=: Query string length in bytes to be stored by the query insights
                 --insights-config-record-application-tags: Allow application tags to be recorded by the query insights
@@ -3083,6 +3084,7 @@ commands:
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-enable-autoscaler&: Enable autoscaler for the instance.
                 --no-enable-connection-pooling&: Enable connection pooling for the instance.
+                --no-enable-psc-auto-dns&: Enable PSC auto DNS for an AlloyDB instance.
                 --no-insights-config-record-application-tags&: Allow application tags to be recorded by the query insights
                 --no-insights-config-record-client-address&: Allow the client address to be recorded by the query insights
                 --no-observability-config-assistive-experiences-enabled&: Enable assistive experiences to monitor, troubleshoot and recommend.
@@ -3205,9 +3207,11 @@ commands:
                 --connection-pooling-stats-users=: Comma-separated list of database users to access connection pooling stats.
                 --database-flags=: Comma-separated list of database flags to set on the instance.
                 --enable-connection-pooling: Enable connection pooling for the instance.
+                --enable-psc-auto-dns&: Enable PSC auto DNS for an AlloyDB instance.
                 --labels=: List of label KEY=VALUE pairs to add.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-enable-connection-pooling&: Enable connection pooling for the instance.
+                --no-enable-psc-auto-dns&: Enable PSC auto DNS for an AlloyDB instance.
                 --no-outbound-public-ip&: Add outbound Public IP connectivity to an AlloyDB instance.
                 --no-require-connectors&: 'Enable or disable enforcing connectors only (ex: AuthProxy) connections to the database.'
                 --outbound-public-ip: Add outbound Public IP connectivity to an AlloyDB instance.
@@ -3323,6 +3327,7 @@ commands:
                 --database-flags=: Comma-separated list of database flags to set on the instance.
                 --enable-autoscaler&: Enable autoscaler for the instance.
                 --enable-connection-pooling: Enable connection pooling for the instance.
+                --enable-psc-auto-dns&: Enable PSC auto DNS for an AlloyDB instance.
                 --insights-config-query-plans-per-minute=: Number of query plans to sample every minute.
                 --insights-config-query-string-length=: Query string length in bytes to be stored by the query insights
                 --insights-config-record-application-tags: Allow application tags to be recorded by the query insights
@@ -3334,6 +3339,7 @@ commands:
                 --no-clear-psc-network-attachment-uri&: Disable outbound connectivity from an AlloyDB instance which uses Private Service Connect (PSC).
                 --no-enable-autoscaler&: Enable autoscaler for the instance.
                 --no-enable-connection-pooling&: Enable connection pooling for the instance.
+                --no-enable-psc-auto-dns&: Enable PSC auto DNS for an AlloyDB instance.
                 --no-insights-config-record-application-tags&: Allow application tags to be recorded by the query insights
                 --no-insights-config-record-client-address&: Allow the client address to be recorded by the query insights
                 --no-observability-config-assistive-experiences-enabled&: Enable assistive experiences to monitor, troubleshoot and recommend.
@@ -7608,6 +7614,15 @@ commands:
                   flags:
                     --catalog=: The Hive Catalog for the resource.
                     --database=: The Hive Database for the resource.
+                - name: update
+                  description: '*(BETA)*  Update a BigLake Hive table.'
+                  flags:
+                    --catalog=: The Hive Catalog for the resource.
+                    --columns-from-file=: Path to a JSON or YAML file containing the new columns list.
+                    --database=: The Hive Database for the resource.
+                    --description=: Description of the Hive table.
+                    --location-uri=: The Cloud Storage location path where the table's data will be stored.
+                    --parameters=: Additional parameters associated with the table.
         - name: iceberg
           description: '*(BETA)*  Biglake Iceberg REST Catalogs.'
           commands:
@@ -7639,6 +7654,7 @@ commands:
                             - biglake
                             - federated
                             - gcs-bucket
+                            - lakehouse
                         credential-mode:
                             - end-user
                             - vended-credentials
@@ -7690,6 +7706,7 @@ commands:
                     flag:
                         catalog-type:
                             - biglake
+                            - lakehouse
                         credential-mode:
                             - end-user
                             - vended-credentials
@@ -11455,6 +11472,13 @@ commands:
                 --global: If set, the backend bucket is global.
                 --no-global&: If set, the backend bucket is global.
                 --region=: Region of the backend bucket to setIamPolicy.
+            - name: test-iam-permissions
+              description: '*(BETA)*  Test IAM permissions for a Compute Engine backend bucket.'
+              flags:
+                --global: If set, the backend bucket is global.
+                --no-global&: If set, the backend bucket is global.
+                --permissions=!: The set of permissions to check for the resource.
+                --region=: Region of the backend bucket to test IAM permissions for.
             - name: update
               description: '*(BETA)*  Update a backend bucket.'
               flags:
@@ -12419,6 +12443,13 @@ commands:
                     --source-instant-snapshot-group-zone=: Zone of the source instant snapshot group to operate on.
                     --source-instant-snapshot-group=: URL of the format regions/<REGION>/instantSnapshotGroups/<INSTANT_SNAPSHOT_GROUP> or zones/<ZONE>/instantSnapshotGroups/<INSTANT_SNAPSHOT_GROUP> of the source consistency group of instant snapshots used to create the disks.
                     --zone=: The zone in which to create the disks, which must be the same as the source zone.
+                - name: set-labels
+                  description: '*(BETA)*  Add or remove labels on multiple Compute Engine disks.'
+                  flags:
+                    --disks=!: Comma-separated list of disk names to update.
+                    --labels=!: List of label KEY=VALUE pairs to set on all specified disks.
+                    --source=: Path to a JSON file containing a list of disk label update requests.
+                    --zone=: Zone of the disk to update labels.
             - name: convert
               description: '*(BETA)*  Convert a Compute Engine Persistent Disk volume to a Hyperdisk volume.'
               flags:
@@ -12664,6 +12695,10 @@ commands:
                 --page-size=: Some services group resource list output into pages.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: test-iam-permissions
+              description: '*(BETA)*  Test IAM permissions for a Compute Engine external VPN gateway.'
+              flags:
+                --permissions=!: Set of permissions to check for the resource.
             - name: update
               description: '*(BETA)*  Update a Compute Engine external VPN gateway.'
               flags:
@@ -12727,6 +12762,10 @@ commands:
               flags:
                 --destination=: Path to a YAML file where the configuration will be exported.
                 --organization=: Organization in which the organization firewall policy rules export from.
+            - name: get-iam-policy
+              description: '*(BETA)*  Get the IAM policy for a Compute Engine organization firewall policy.'
+              flags:
+                --organization=: Organization ID in which the organization firewall policy is to be described.
             - name: import-rules
               description: '*(BETA)*  Import Compute Engine organization firewall policy rules.'
               flags:
@@ -12930,6 +12969,10 @@ commands:
                         direction:
                             - INGRESS
                             - EGRESS
+            - name: set-iam-policy
+              description: '*(BETA)*  Set the IAM policy for a Compute Engine organization firewall policy.'
+              flags:
+                --organization=: Organization ID in which the organization firewall policy is to be set.
             - name: update
               description: '*(BETA)*  Update a Compute Engine organization firewall policy.'
               flags:
@@ -13910,6 +13953,40 @@ commands:
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --region=: The name of the Google Compute Engine region.
                 --sources=: URLs to the source resources.
+        - name: hosts
+          description: '*(BETA)*  Read Compute Engine hosts.'
+          commands:
+            - name: describe
+              description: '*(BETA)*  Describe a Google Compute Engine host.'
+              flags:
+                --association=: The association of the host.
+                --reservation-block=: Name of the reservation block the host is associated with.
+                --reservation=: Name of the reservation the host is associated with.
+                --zone=: The name of the Google Compute Engine zone.
+            - name: get-version
+              description: '*(BETA)*  Get software versions for a Compute Engine host.'
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --current: Include current SBOM selection in the result.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-current&: Include current SBOM selection in the result.
+                --no-target&: Include target SBOM selection in the result.
+                --reservation-block=: Name of the reservation block the host is associated with.
+                --reservation=: Name of the reservation the host is associated with.
+                --target: Include target SBOM selection in the result.
+                --zone=: Zone of the host to get version setting for.
+            - name: list
+              description: '*(BETA)*  List Google Compute Engine hosts.'
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --reservation-block=: Name of the reservation block the hosts are associated with.
+                --reservation=: Name of the reservation the hosts are associated with.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+                --zone=: ID of the zone or fully qualified identifier for the zone.
         - name: http-health-checks
           description: '*(BETA)*  Read and manipulate HTTP health checks for load balanced instances.'
           commands:
@@ -14195,14 +14272,14 @@ commands:
                 --limit=: Maximum number of resources to list.
                 --no-preview-images&: Show images that are in limited preview.
                 --no-show-deprecated&: If provided, deprecated images are shown.
-                --no-show-preview-images&: THIS ARGUMENT NEEDS HELP TEXT.
+                --no-show-preview-images&: When this flag is enabled, gcloud expands the scope of projects it queries.
                 --no-standard-images&: List images from public image projects.
                 --no-uri&: Print a list of resource URIs instead of the default output, and change the
                 --page-size=: Some services group resource list output into pages.
                 --preview-images: Show images that are in limited preview.
                 --regexp=: (DEPRECATED)         Regular expression to filter the names of the results  on.
                 --show-deprecated: If provided, deprecated images are shown.
-                --show-preview-images&: THIS ARGUMENT NEEDS HELP TEXT.
+                --show-preview-images&: When this flag is enabled, gcloud expands the scope of projects it queries.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --standard-images: List images from public image projects.
                 --uri: Print a list of resource URIs instead of the default output, and change the
@@ -14293,6 +14370,11 @@ commands:
                     --instances=!: Names of instances to abandon.
                     --region=: Region of the managed instance group to operate on.
                     --zone=: Zone of the managed instance group to operate on.
+                - name: adopt-instances
+                  description: '*(BETA)*  Adopt instances into a regional managed instance group.'
+                  flags:
+                    --instances=!: Names of instances to adopt.
+                    --region=: Region of the managed instance group to operate on.
                 - name: all-instances-config
                   description: '*(BETA)*  Override instance template settings for all instances in a managed instance group.'
                   commands:
@@ -14411,6 +14493,8 @@ commands:
                 - name: delete
                   description: '*(BETA)*  Delete Compute Engine managed instance groups.'
                   flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --no-async&: Return immediately, without waiting for the operation in progress to
                     --region=: Region of the managed instance groups to delete.
                     --zone=: Zone of the managed instance groups to delete.
                 - name: delete-instances
@@ -15061,6 +15145,8 @@ commands:
                 --graceful-shutdown: Enables graceful shutdown for the instance.
                 --graceful-shutdown-max-duration=: Specifies the maximum time for the graceful shutdown.
                 --host-error-timeout-seconds=: The timeout in seconds for host error detection.
+                --identity-certificate: Enables or disables managed workload identity certificates on a VM.
+                --identity=: The workload identity to use for the instance.
                 --image-family=: The image family for the operating system that the boot disk will
                 --image-project=: The Google Cloud project against which all image and
                 --image=: Specifies the boot image for the instances.
@@ -15095,6 +15181,7 @@ commands:
                 --no-enable-display-device&: Enable a display device on VM instances.
                 --no-enable-nested-virtualization&: If set to true, enables nested virtualization for the instance.
                 --no-enable-uefi-networking&: If set to true, enables UEFI networking for the instance creation.
+                --no-identity-certificate&: Enables or disables managed workload identity certificates on a VM.
                 --no-preemptible&: If provided, instances will be preemptible and time-limited.
                 --no-restart-on-failure&: The instances will be restarted if they are terminated by Compute Engine.
                 --no-scopes: Create instance without scopes
@@ -15221,6 +15308,8 @@ commands:
                 --disk=: Attaches an existing disk to the instances.
                 --external-ipv6-address=: Assigns the given external IPv6 address to the instance that is created.
                 --external-ipv6-prefix-length=: The prefix length of the external IPv6 address range.
+                --identity-certificate: Enables or disables managed workload identity certificates on a VM.
+                --identity=: The workload identity to use for the instance.
                 --image-family=: The image family for the operating system that the boot disk will
                 --image-project=: The Google Cloud project against which all image and
                 --image=: Specifies the boot image for the instances.
@@ -15245,6 +15334,7 @@ commands:
                 --no-container-stdin&: Keep container STDIN open even if not attached.
                 --no-container-tty&: Allocate a pseudo-TTY for the container.
                 --no-custom-extensions&: Use the extended custom machine type.
+                --no-identity-certificate&: Enables or disables managed workload identity certificates on a VM.
                 --no-preemptible&: If provided, instances will be preemptible and time-limited.
                 --no-restart-on-failure&: The instances will be restarted if they are terminated by Compute Engine.
                 --no-scopes: Create instance without scopes
@@ -15474,6 +15564,8 @@ commands:
                     --graceful-shutdown: Enables graceful shutdown for the instance.
                     --graceful-shutdown-max-duration=: Specifies the maximum time for the graceful shutdown.
                     --host-error-timeout-seconds=: The timeout in seconds for host error detection.
+                    --identity-certificate: Enables or disables managed workload identity certificates on a VM.
+                    --identity=: The workload identity to use for the instance.
                     --image-family=: The image family for the operating system that the boot disk will
                     --image-project=: The Google Cloud project against which all image and
                     --image=: Specifies the boot image for the instances.
@@ -15509,6 +15601,7 @@ commands:
                     --no-enable-nested-virtualization&: If set to true, enables nested virtualization for the instance.
                     --no-enable-uefi-networking&: If set to true, enables UEFI networking for the instance creation.
                     --no-erase-windows-vss-signature&: ""
+                    --no-identity-certificate&: Enables or disables managed workload identity certificates on a VM.
                     --no-preemptible&: If provided, instances will be preemptible and time-limited.
                     --no-public-dns: If provided, the instance will not be assigned a public DNS name.
                     --no-restart-on-failure&: The instances will be restarted if they are terminated by Compute Engine.
@@ -15632,6 +15725,8 @@ commands:
                 --graceful-shutdown-max-duration=: Specifies the maximum time for the graceful shutdown.
                 --host-error-timeout-seconds=: The timeout in seconds for host error detection.
                 --hostname=: Specify the hostname of the instance to be created.
+                --identity-certificate: Enables or disables managed workload identity certificates on a VM.
+                --identity=: The workload identity to use for the instance.
                 --image-family-scope=: Sets the scope for the `--image-family` flag.
                 --image-family=: The image family for the operating system that the boot disk will
                 --image-project=: The Google Cloud project against which all image and
@@ -15672,6 +15767,7 @@ commands:
                 --no-enable-nested-virtualization&: If set to true, enables nested virtualization for the instance.
                 --no-enable-uefi-networking&: If set to true, enables UEFI networking for the instance creation.
                 --no-erase-windows-vss-signature&: ""
+                --no-identity-certificate&: Enables or disables managed workload identity certificates on a VM.
                 --no-preemptible&: If provided, instances will be preemptible and time-limited.
                 --no-public-ptr: If provided, no DNS PTR record is created for the external IP of the
                 --no-public-ptr-domain: If both this flag and --public-ptr are specified, creates a DNS PTR
@@ -15812,6 +15908,8 @@ commands:
                 --graceful-shutdown: Enables graceful shutdown for the instance.
                 --graceful-shutdown-max-duration=: Specifies the maximum time for the graceful shutdown.
                 --host-error-timeout-seconds=: The timeout in seconds for host error detection.
+                --identity-certificate: Enables or disables managed workload identity certificates on a VM.
+                --identity=: The workload identity to use for the instance.
                 --image-family=: The image family for the operating system that the boot disk will
                 --image-project=: The Google Cloud project against which all image and
                 --image=: Specifies the boot image for the instances.
@@ -15841,6 +15939,7 @@ commands:
                 --no-container-tty&: Allocate a pseudo-TTY for the container.
                 --no-custom-extensions&: Use the extended custom machine type.
                 --no-enable-nested-virtualization&: If set to true, enables nested virtualization for the instance.
+                --no-identity-certificate&: Enables or disables managed workload identity certificates on a VM.
                 --no-preemptible&: If provided, instances will be preemptible and time-limited.
                 --no-public-ptr: If provided, no DNS PTR record is created for the external IP of the
                 --no-public-ptr-domain: If both this flag and --public-ptr are specified, creates a DNS PTR
@@ -16498,12 +16597,16 @@ commands:
                 --enable-display-device: Enable a display device on VM instances.
                 --graceful-shutdown: Enables or disables graceful shutdown for the instance.
                 --graceful-shutdown-max-duration=: Specifies the maximum time for the graceful shutdown.
+                --identity-certificate: Enables or disables managed workload identity certificates on a VM.
+                --identity=: The workload identity to use for the instance.
                 --min-cpu-platform=: When specified, the VM will be scheduled on host with specified CPU
+                --most-disruptive-allowed-action=: If specified, Compute Engine returns an error if the update
                 --no-clear-labels&: Remove all labels.
                 --no-clear-node-affinities&: Removes the node affinities field from the instance.
                 --no-deletion-protection&: Enables deletion protection for the instance.
                 --no-enable-display-device&: Enable a display device on VM instances.
                 --no-graceful-shutdown&: Enables or disables graceful shutdown for the instance.
+                --no-identity-certificate&: Enables or disables managed workload identity certificates on a VM.
                 --no-shielded-integrity-monitoring&: Enables monitoring and attestation of the boot integrity of the
                 --no-shielded-learn-integrity-policy&: Causes the instance to re-learn the integrity policy baseline using
                 --no-shielded-secure-boot&: The instance boots with secure boot enabled.
@@ -16520,6 +16623,12 @@ commands:
                 --shielded-vtpm: The instance boots with the TPM (Trusted Platform Module) enabled.
                 --update-labels=: List of label KEY=VALUE pairs to update.
                 --zone=: Zone of the instance to update.
+              completion:
+                flag:
+                    most-disruptive-allowed-action:
+                        - NO_EFFECT
+                        - REFRESH
+                        - RESTART
             - name: update-access-config
               description: '*(BETA)*  Update a Compute Engine virtual machine access configuration.'
               flags:
@@ -16609,6 +16718,12 @@ commands:
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
                 --zones=: If provided, only zonal resources are shown.
+            - name: test-iam-permissions
+              description: '*(BETA)*  Test IAM permissions for a Compute Engine instant snapshot group.'
+              flags:
+                --permissions=!: Set of permissions to check for the resource.
+                --region=: Region of the instant snapshot group to test IAM permissions.
+                --zone=: Zone of the instant snapshot group to test IAM permissions.
         - name: instant-snapshots
           description: '*(BETA)*  Create, list and delete Compute Engine instant snapshots.'
           commands:
@@ -16648,6 +16763,17 @@ commands:
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
                 --zones=: If provided, only zonal resources are shown.
+            - name: set-iam-policy
+              description: '*(BETA)*  Set the IAM policy binding for a Compute Engine instant snapshot.'
+              flags:
+                --region=: Region of the instant snapshot to set the IAM policy on.
+                --zone=: Zone of the instant snapshot to set the IAM policy on.
+            - name: test-iam-permissions
+              description: '*(BETA)*  Test IAM permissions for a Compute Engine instant snapshot.'
+              flags:
+                --permissions=!: The set of permissions to check for the resource.
+                --region=: Region of the instant snapshot to test IAM permissions for.
+                --zone=: Zone of the instant snapshot to test IAM permissions for.
         - name: interconnects
           description: '*(BETA)*  Read and manipulate Compute Engine interconnects.'
           commands:
@@ -17270,6 +17396,10 @@ commands:
                     --page-size=: Some services group resource list output into pages.
                     --sort-by=: Comma-separated list of resource field key names to sort by.
                     --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: test-iam-permissions
+              description: '*(BETA)*  Test IAM permissions for a Compute Engine interconnect.'
+              flags:
+                --permissions=!: The permissions to test.
             - name: update
               description: '*(BETA)*  Update a Compute Engine interconnect.'
               flags:
@@ -17621,6 +17751,11 @@ commands:
               description: '*(BETA)*  Set the IAM policy for a Compute Engine network attachment.'
               flags:
                 --region=: The name of the Google Compute Engine region.
+            - name: test-iam-permissions
+              description: '*(BETA)*  Test IAM permissions for a Compute Engine network attachment.'
+              flags:
+                --permissions=!: Permissions to be tested.
+                --region=: The name of the Google Compute Engine region.
             - name: update
               description: '*(BETA)*  Update a Google Compute Engine network attachment.'
               flags:
@@ -17842,6 +17977,12 @@ commands:
                 --region=: The region to get the effective regional firewalls.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: get-iam-policy
+              description: '*(BETA)*  Get the IAM policy for a Compute Engine network firewall policy.'
+              flags:
+                --global: If set, the firewall policy is global.
+                --no-global&: If set, the firewall policy is global.
+                --region=: Region of the firewall policy to get.
             - name: import-rules
               description: '*(BETA)*  Import a Compute Engine network firewall policy rules.'
               flags:
@@ -18052,6 +18193,12 @@ commands:
                         target-type:
                             - INSTANCES
                             - INTERNAL_MANAGED_LB
+            - name: set-iam-policy
+              description: '*(BETA)*  Set the IAM policy binding for a Compute Engine network firewall policy.'
+              flags:
+                --global: If set, the firewall policy is global.
+                --no-global&: If set, the firewall policy is global.
+                --region=: Region of the firewall policy to get.
             - name: update
               description: '*(BETA)*  Update a Compute Engine network firewall policy.'
               flags:
@@ -19403,6 +19550,13 @@ commands:
                         - CA_STANDARD
                         - CAMP_PLUS_PAYGO
                         - CAMP_PLUS_ANNUAL
+        - name: project-views
+          description: '*(BETA)*  Read project views with regional context.'
+          commands:
+            - name: describe
+              description: '*(BETA)*  Describe the Compute Engine project-view resource.'
+              flags:
+                --region=!: Region of the project view.
         - name: project-zonal-metadata
           description: '*(BETA)*  Describe and update project zonal metadata.'
           commands:
@@ -19675,6 +19829,40 @@ commands:
                 --page-size=: Some services group resource list output into pages.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --zone=: The name of the Google Compute Engine zone.
+            - name: hosts
+              description: '*(BETA)*  Read Compute Engine reservation hosts.'
+              commands:
+                - name: describe
+                  description: '*(BETA)*  Describe a Google Compute Engine host in a reservation.'
+                  flags:
+                    --association=: The association of the host.
+                    --reservation-block=: Name of the reservation block the host is associated with.
+                    --reservation=: Name of the reservation the host is associated with.
+                    --zone=: The name of the Google Compute Engine zone.
+                - name: get-version
+                  description: '*(BETA)*  Get software versions for a Compute Engine host in a reservation.'
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --current: Include current SBOM selection in the result.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --no-current&: Include current SBOM selection in the result.
+                    --no-target&: Include target SBOM selection in the result.
+                    --reservation-block=: Name of the reservation block the host is associated with.
+                    --reservation=: Name of the reservation the host is associated with.
+                    --target: Include target SBOM selection in the result.
+                    --zone=: Zone of the host to get version setting for.
+                - name: list
+                  description: '*(BETA)*  List Google Compute Engine hosts for a reservation.'
+                  flags:
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                    --page-size=: Some services group resource list output into pages.
+                    --reservation-block=: Name of the reservation block the hosts are associated with.
+                    --reservation=: Name of the reservation the hosts are associated with.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --uri: Print a list of resource URIs instead of the default output, and change the
+                    --zone=: ID of the zone or fully qualified identifier for the zone.
             - name: list
               description: '*(BETA)*  List Compute Engine reservations.'
               flags:
@@ -19808,6 +19996,13 @@ commands:
                     --block-name=!: The name of the reservation block.
                     --sub-block-name=!: The name of the reservation sub block.
                     --zone=: Zone of the reservation to set-iam-policy.
+                - name: test-iam-permissions
+                  description: '*(BETA)*  Test IAM permissions on a Compute Engine reservation sub-block.'
+                  flags:
+                    --block-name=!: The name of the reservation block.
+                    --permissions=!: Set of permissions to check for the resource.
+                    --sub-block-name=!: The name of the reservation sub block.
+                    --zone=: Zone of the reservation to test-iam-permissions.
             - name: test-iam-permissions
               description: '*(BETA)*  Test IAM permissions for a Compute Engine reservation.'
               flags:
@@ -21064,7 +21259,7 @@ commands:
             - name: update
               description: '*(BETA)*  Update a Compute Engine security policy.'
               flags:
-                --clear-network-ddos-impacted-baseline-threshold&: If provided, clears the Network DDoS impacted baseline threshold from the security policy.
+                --clear-network-ddos-impacted-baseline-threshold: If provided, clears the Network DDoS impacted baseline threshold from the security policy.
                 --description=: An optional, textual description for the security policy.
                 --enable-layer7-ddos-defense: Whether to enable Cloud Armor Layer 7 DDoS Defense Adaptive Protection.
                 --global: If set, the security policy is global.
@@ -21076,8 +21271,8 @@ commands:
                 --layer7-ddos-defense-auto-deploy-load-threshold=: Load threshold above which Adaptive Protection's auto-deploy takes actions
                 --layer7-ddos-defense-rule-visibility=: The visibility type indicates whether the rules are opaque or transparent.
                 --log-level=: The level of detail to display for WAF logging.
-                --network-ddos-adaptive-protection=&: The DDoS adaptive protection level for network load balancing and instances with external IPs
-                --network-ddos-impacted-baseline-threshold=&: DDoS Protection for Network Load Balancers (and VMs with public IPs)
+                --network-ddos-adaptive-protection=: The DDoS adaptive protection level for network load balancing and instances with external IPs.
+                --network-ddos-impacted-baseline-threshold=: DDoS Protection for Network Load Balancers (and VMs with public IPs)
                 --network-ddos-protection=: The DDoS protection level for network load balancing and instances with external IPs.
                 --no-clear-network-ddos-impacted-baseline-threshold&: If provided, clears the Network DDoS impacted baseline threshold from the security policy.
                 --no-enable-layer7-ddos-defense&: Whether to enable Cloud Armor Layer 7 DDoS Defense Adaptive Protection.
@@ -21125,6 +21320,7 @@ commands:
                 --domain-names=: Specifies a comma separated list of DNS domain names that are used during
                 --enable-proxy-protocol: If True, then enable the proxy protocol which is for supplying client
                 --global-producer-forwarding-rule: If set, the forwarding rule is global.
+                --nat-ips-per-endpoint=: The number of NAT IP addresses to be allocated per connected endpoint.
                 --nat-subnets-region=: Region of the subnetworks to operate on.
                 --nat-subnets=!: The subnetworks provided by service producer to use for NAT
                 --no-enable-proxy-protocol&: If True, then enable the proxy protocol which is for supplying client
@@ -21162,6 +21358,10 @@ commands:
                 --regions=: If provided, only resources from the given regions are queried.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: set-iam-policy
+              description: '*(BETA)*  Set the IAM policy for a Compute Engine service attachment.'
+              flags:
+                --region=: The name of the Google Compute Engine region.
             - name: update
               description: '*(BETA)*  Update a Google Compute Engine service attachment.'
               flags:
@@ -21170,6 +21370,7 @@ commands:
                 --consumer-reject-list=: Specifies a comma-separated list of projects/networks/endpoints that are not
                 --description=: An optional, textual description for the service attachment.
                 --enable-proxy-protocol: If True, then enable the proxy protocol which is for supplying client
+                --nat-ips-per-endpoint=: The number of NAT IP addresses to be allocated per connected endpoint.
                 --nat-subnets-region=: Region of the subnetworks to operate on.
                 --nat-subnets=: The subnetworks provided by service producer to use for NAT
                 --no-enable-proxy-protocol&: If True, then enable the proxy protocol which is for supplying client
@@ -21516,6 +21717,11 @@ commands:
                     --no-async&: Return immediately, without waiting for the operation in progress to
                     --nodes=: The names of the nodes to simulate maintenance event.
                     --zone=: Zone of the node group to operate on.
+                - name: test-iam-permissions
+                  description: '*(BETA)*  Test IAM permissions for a Compute Engine node group.'
+                  flags:
+                    --permissions=!: The permissions to test.
+                    --zone=: The name of the Google Compute Engine zone.
                 - name: update
                   description: '*(BETA)*  Update a Compute Engine node group.'
                   flags:
@@ -21601,6 +21807,11 @@ commands:
                 - name: set-iam-policy
                   description: '*(BETA)*  Set the IAM policy for a Compute Engine node template.'
                   flags:
+                    --region=: The name of the Google Compute Engine region.
+                - name: test-iam-permissions
+                  description: '*(BETA)*  Test IAM permissions for a Compute Engine sole-tenancy node template.'
+                  flags:
+                    --permissions=!: Permissions to be tested.
                     --region=: The name of the Google Compute Engine region.
             - name: node-types
               description: '*(BETA)*  Read Compute Engine sole-tenancy node types.'
@@ -22337,6 +22548,13 @@ commands:
                 --regions=: If provided, only regional resources are shown.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: test-iam-permissions
+              description: '*(BETA)*  Test IAM permissions for a target TCP proxy.'
+              flags:
+                --global: If set, the target TCP proxy is global.
+                --no-global&: If set, the target TCP proxy is global.
+                --permissions=!: Set of permissions to check for the resource.
+                --region=: Region of the target TCP proxy to test IAM permissions for.
             - name: update
               description: '*(BETA)*  Update a target TCP proxy.'
               flags:
@@ -22846,6 +23064,16 @@ commands:
                 --no-auto-create-local-mrdma-vpc&: If specified, the AcceleratorNetworkProfile automatically creates
                 --region=: Compute region (e.g. us-central1) for a regional cluster.
                 --tags=&: A list of comma-separated key-value pairs to bind as Cloud Tags to the
+                --timeout=: Timeout (in seconds) for waiting on the operation to complete.
+                --zone=: Compute zone (e.g. us-central1-a) for a zonal cluster.
+            - name: delete
+              description: '*(BETA)*  Delete an Accelerator Network Profile.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: Compute zone or region (e.g. us-central1-a or us-central1) for the cluster.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --region=: Compute region (e.g. us-central1) for a regional cluster.
                 --timeout=: Timeout (in seconds) for waiting on the operation to complete.
                 --zone=: Compute zone (e.g. us-central1-a) for a zonal cluster.
         - name: backup-restore
@@ -29661,6 +29889,42 @@ commands:
                 --config=!: Inline JSON/YAML config or path to a file containing it.
                 --folder=: Folder ID.
                 --organization=: Organization ID.
+        - name: lineage-events
+          description: '*(BETA)*  Manage Data Lineage events.'
+          commands:
+            - name: create
+              description: '*(BETA)*  Create a Data Lineage event.'
+              flags:
+                --end-time=: The end time of the lineage event.
+                --links=: A list of source-target links representing data lineage.
+                --location=: The location of the lineage_event.
+                --process=: The name of the process.
+                --run=: The name of the run.
+                --start-time=!: The start time of the lineage event.
+            - name: delete
+              description: '*(BETA)*  Delete a Data Lineage event.'
+              flags:
+                --location=: The location of the lineage_event.
+                --process=: The name of the process.
+                --run=: The name of the run.
+            - name: describe
+              description: '*(BETA)*  Describe a Data Lineage event.'
+              flags:
+                --location=: The location of the lineage_event.
+                --process=: The name of the process.
+                --run=: The name of the run.
+            - name: list
+              description: '*(BETA)*  List Data Lineage events.'
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location of the run.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --process=: The name of the process.
+                --run=!: ID of the run or fully qualified identifier for the run.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
         - name: processes
           description: '*(BETA)*  Manage Data Lineage processes.'
           commands:
@@ -29711,6 +29975,67 @@ commands:
                 --attributes=: The new attributes of the process.
                 --display-name=: The new display name of the process.
                 --location=: The location of the process.
+        - name: runs
+          description: '*(BETA)*  Manage Data Lineage runs.'
+          commands:
+            - name: create
+              description: '*(BETA)*  Create a data lineage run.'
+              flags:
+                --attributes=: Additional attributes for the run.
+                --display-name=: The display name of the run.
+                --end-time=: The end time of the run.
+                --location=: The location of the run.
+                --process=: The name of the process.
+                --start-time=!: The start time of the run.
+                --state=!: The state of the run.
+              completion:
+                flag:
+                    state:
+                        - aborted
+                        - completed
+                        - failed
+                        - started
+                        - unknown
+            - name: delete
+              description: '*(BETA)*  Delete a Data Lineage run.'
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location of the run.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --process=: The name of the process.
+            - name: describe
+              description: '*(BETA)*  Describe a Data Lineage run.'
+              flags:
+                --location=: The location of the run.
+                --process=: The name of the process.
+            - name: list
+              description: '*(BETA)*  List Data Lineage runs.'
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location of the process.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --process=!: ID of the process or fully qualified identifier for the process.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: '*(BETA)*  Update a data lineage run.'
+              flags:
+                --attributes=: The new attributes of the run.
+                --display-name=: The new display name of the run.
+                --end-time=: The end time of the run.
+                --location=: The location of the run.
+                --process=: The name of the process.
+                --state=: The new state of the run.
+              completion:
+                flag:
+                    state:
+                        - aborted
+                        - completed
+                        - failed
+                        - started
+                        - unknown
     - name: datapipelines
       description: '*(BETA)*  Manage Data Pipelines resources.'
       commands:
@@ -29975,7 +30300,6 @@ commands:
                     --version=: Optional runtime version.
                 - name: pyspark-notebook
                   description: '*(BETA)*  Submit a PySpark notebook batch job.'
-                  hidden: true
                   flags:
                     --archives=: Archives to be extracted into the working directory.
                     --async: Return immediately without waiting for the operation in progress to complete.
@@ -38215,7 +38539,9 @@ commands:
               flags:
                 --folder=: The folder id in which the AutokeyConfig resource exists.
             - name: show-effective-config
-              description: '*(BETA)*  Gets the effective Cloud KMS AutokeyConfig for a given project.'
+              description: '*(BETA)*  Get the effective Cloud KMS AutokeyConfig for a given folder or project.'
+              flags:
+                --folder=: The folder id in which the AutokeyConfig resource exists.
             - name: update
               description: '*(BETA)*  Update the AutokeyConfig for a folder or project.'
         - name: decapsulate
@@ -38598,11 +38924,13 @@ commands:
                 --crypto-key-backend=: The resource name of the backend environment where the key material for all CryptoKeyVersions associated with this CryptoKey reside and where all related cryptographic operations are performed.
                 --default-algorithm=: The default algorithm for the crypto key.
                 --destroy-scheduled-duration=: The amount of time that versions of the key should spend in the DESTROY_SCHEDULED state before transitioning to DESTROYED.
+                --hsm-trusted-wrapping: Enable HSM trusted wrapping capabilities for the key.
                 --import-only: Restrict this key to imported versions only.
                 --keyring=: The KMS keyring of the key.
                 --labels=: List of label KEY=VALUE pairs to add.
                 --location=: The Google Cloud location for the key.
                 --next-rotation-time=: Next automatic rotation time of the key.
+                --no-hsm-trusted-wrapping&: Enable HSM trusted wrapping capabilities for the key.
                 --no-import-only&: Restrict this key to imported versions only.
                 --no-skip-initial-version-creation&: Skip creating the first version in a key and setting it as primary during creation.
                 --protection-level=: Protection level of the key.
@@ -38618,6 +38946,7 @@ commands:
                         - aes-256-cbc
                         - aes-256-ctr
                         - aes-256-gcm
+                        - aes-256-kwp
                         - ec-sign-ed25519
                         - ec-sign-p256-sha256
                         - ec-sign-p384-sha384
@@ -38665,6 +38994,7 @@ commands:
                         - external
                         - external-vpc
                     purpose:
+                        - aes-wrapping
                         - asymmetric-encryption
                         - asymmetric-signing
                         - encryption
@@ -38761,6 +39091,7 @@ commands:
                         - aes-256-cbc
                         - aes-256-ctr
                         - aes-256-gcm
+                        - aes-256-kwp
                         - ec-sign-ed25519
                         - ec-sign-p256-sha256
                         - ec-sign-p384-sha384
@@ -38845,6 +39176,14 @@ commands:
                     --key=: The containing key.
                     --keyring=: Key ring of the key.
                     --location=: Location of the keyring.
+                - name: export-trusted-key-wrapped
+                  description: '*(BETA)*  Export a trusted key wrapped CryptoKeyVersion.'
+                  flags:
+                    --key=: The containing key.
+                    --keyring=: Key ring of the key.
+                    --location=: Location of the keyring.
+                    --wrapped-key-file=: Path to the RSA/RSA+AES wrapped key file to store the wrapped key material.
+                    --wrapping-key-version=!: The resource name of the CryptoKeyVersion to use as a wrapping key.
                 - name: get-certificate-chain
                   description: '*(BETA)*  Get a certificate chain for a given version.'
                   flags:
@@ -38872,10 +39211,12 @@ commands:
                   description: '*(BETA)*  Import a version into an existing crypto key.'
                   flags:
                     --algorithm=!: The algorithm to assign to the new key version.
+                    --hsm-trusted-wrapping: Enable HSM trusted wrapping capabilities for the key.
                     --import-job=!: Name of the import job to import from.
                     --key=: The containing key to import into.
                     --keyring=: Key ring of the key.
                     --location=: Location of the keyring.
+                    --no-hsm-trusted-wrapping&: Enable HSM trusted wrapping capabilities for the key.
                     --public-key-file=: Path to the public key of the ImportJob, used to wrap the key for import.
                     --rsa-aes-wrapped-key-file=&: (DEPRECATED) Path to the wrapped RSA AES key file to import.
                     --target-key-file=: Path to the unwrapped target key to import into a Cloud KMS key version.
@@ -38889,6 +39230,65 @@ commands:
                             - aes-256-cbc
                             - aes-256-ctr
                             - aes-256-gcm
+                            - aes-256-kwp
+                            - ec-sign-ed25519
+                            - ec-sign-p256-sha256
+                            - ec-sign-p384-sha384
+                            - ec-sign-secp256k1-sha256
+                            - google-symmetric-encryption
+                            - hmac-sha1
+                            - hmac-sha224
+                            - hmac-sha256
+                            - hmac-sha384
+                            - hmac-sha512
+                            - kem-xwing
+                            - ml-kem-1024
+                            - ml-kem-768
+                            - pq-sign-hash-slh-dsa-sha2-128s-sha256
+                            - pq-sign-ml-dsa-44
+                            - pq-sign-ml-dsa-44-external-mu
+                            - pq-sign-ml-dsa-65
+                            - pq-sign-ml-dsa-65-external-mu
+                            - pq-sign-ml-dsa-87
+                            - pq-sign-ml-dsa-87-external-mu
+                            - pq-sign-slh-dsa-sha2-128s
+                            - rsa-decrypt-oaep-2048-sha1
+                            - rsa-decrypt-oaep-2048-sha256
+                            - rsa-decrypt-oaep-3072-sha1
+                            - rsa-decrypt-oaep-3072-sha256
+                            - rsa-decrypt-oaep-4096-sha1
+                            - rsa-decrypt-oaep-4096-sha256
+                            - rsa-decrypt-oaep-4096-sha512
+                            - rsa-sign-pkcs1-2048-sha256
+                            - rsa-sign-pkcs1-3072-sha256
+                            - rsa-sign-pkcs1-4096-sha256
+                            - rsa-sign-pkcs1-4096-sha512
+                            - rsa-sign-pss-2048-sha256
+                            - rsa-sign-pss-3072-sha256
+                            - rsa-sign-pss-4096-sha256
+                            - rsa-sign-pss-4096-sha512
+                            - rsa-sign-raw-pkcs1-2048
+                            - rsa-sign-raw-pkcs1-3072
+                            - rsa-sign-raw-pkcs1-4096
+                - name: import-trusted-key-wrapped
+                  description: '*(BETA)*  Import a trusted key wrapped CryptoKeyVersion.'
+                  flags:
+                    --algorithm=!: The algorithm to assign to the new key version.
+                    --importing-key-version=!: The resource name of the CryptoKeyVersion to use as an importing key.
+                    --key=: The containing key to import into.
+                    --keyring=: Key ring of the key.
+                    --location=: Location of the keyring.
+                    --wrapped-key-file=: Path to the RSA/RSA+AES wrapped key file to import.
+                  completion:
+                    flag:
+                        algorithm:
+                            - aes-128-cbc
+                            - aes-128-ctr
+                            - aes-128-gcm
+                            - aes-256-cbc
+                            - aes-256-ctr
+                            - aes-256-gcm
+                            - aes-256-kwp
                             - ec-sign-ed25519
                             - ec-sign-p256-sha256
                             - ec-sign-p384-sha384
@@ -39073,11 +39473,13 @@ commands:
                 - name: create
                   description: '*(BETA)*  Create a single tenant HSM instance proposal.'
                   flags:
+                    --crypto-key-version-name=: ID to use for the crypto key version.
                     --location=: The Google Cloud location for the singleTenantHsmInstance.
                     --member-public-key-pem=: The PEM file containing the public key of the quorum member to add or remove.
                     --operation-type=!: The type of operation for the single tenant HSM instance proposal.
                     --required-approver-count=: The number of approvers required for the single tenant HSM instance.
                     --single-tenant-hsm-instance-proposal-id=: The ID to use for the single tenant HSM instance proposal, which will become the final component of the single tenant HSM instance resource name.
+                    --two-factor-public-key-pem=: PEM file containing the two-factor public key.
                     --two-factor-public-key-pems=: The PEM files containing the two factor public keys  2FA keys for M of N quorum auth tenant HSM instance.
                 - name: delete
                   description: '*(BETA)*  Delete a single tenant HSM instance proposal.'
@@ -46025,11 +46427,9 @@ commands:
                     --uri: Print a list of resource URIs instead of the default output, and change the
             - name: wildfire-analysis
               description: '*(BETA)*  Manage Security Profiles - WildFire Analysis Profile.'
-              hidden: true
               commands:
                 - name: add-inline-cloud-analysis-rule
                   description: '*(BETA)*  Add a WildFire inline cloud analysis rule to a WildFire Analysis Profile.'
-                  hidden: true
                   flags:
                     --action=!: Action to take when Inline Cloud Analysis detects a threat.
                     --async: Return immediately, without waiting for the operation in progress to
@@ -46050,7 +46450,6 @@ commands:
                             - BOTH
                 - name: add-inline-ml-exception
                   description: '*(BETA)*  Add a WildFire inline machine learning exception to a WildFire Analysis Profile.'
-                  hidden: true
                   flags:
                     --async: Return immediately, without waiting for the operation in progress to
                     --filename=: Name of the file.
@@ -46060,7 +46459,6 @@ commands:
                     --partial-hash=!: Machine learning partial hash of the file.
                 - name: add-override
                   description: '*(BETA)*  Add an override to a WildFire Analysis Profile.'
-                  hidden: true
                   flags:
                     --action=!: The action to take for this override.
                     --async: Return immediately, without waiting for the operation in progress to
@@ -46079,7 +46477,6 @@ commands:
                             - ALERT
                 - name: add-submission-rule
                   description: '*(BETA)*  Add a WildFire submission rule to a WildFire Analysis Profile.'
-                  hidden: true
                   flags:
                     --async: Return immediately, without waiting for the operation in progress to
                     --direction=!: Direction of traffic that will be checked for files to submit to WildFire.
@@ -46095,7 +46492,6 @@ commands:
                             - BOTH
                 - name: create
                   description: '*(BETA)*  Create a new WildFire Analysis Profile.'
-                  hidden: true
                   flags:
                     --async: Return immediately, without waiting for the operation in progress to
                     --description=: Brief description of the security profile
@@ -46105,7 +46501,6 @@ commands:
                     --organization=: Organization ID to which the changes should apply.
                 - name: delete
                   description: '*(BETA)*  Delete a WildFire Analysis Profile.'
-                  hidden: true
                   flags:
                     --async: Return immediately, without waiting for the operation in progress to
                     --location=: Location of the security profile.
@@ -46113,7 +46508,6 @@ commands:
                     --organization=: Organization ID to which the changes should apply.
                 - name: delete-inline-cloud-analysis-rule
                   description: '*(BETA)*  Delete a WildFire inline cloud analysis rule from a WildFire Analysis Profile.'
-                  hidden: true
                   flags:
                     --action=!: Action to take when Inline Cloud Analysis detects a threat.
                     --async: Return immediately, without waiting for the operation in progress to
@@ -46134,7 +46528,6 @@ commands:
                             - BOTH
                 - name: delete-inline-ml-exception
                   description: '*(BETA)*  Delete a WildFire inline machine learning exception from a WildFire Analysis Profile.'
-                  hidden: true
                   flags:
                     --async: Return immediately, without waiting for the operation in progress to
                     --filename=: Name of the file.
@@ -46144,7 +46537,6 @@ commands:
                     --partial-hash=!: Machine learning partial hash of the file.
                 - name: delete-override
                   description: '*(BETA)*  Delete an override from a WildFire Analysis Profile.'
-                  hidden: true
                   flags:
                     --async: Return immediately, without waiting for the operation in progress to
                     --location=: Location of the security profile.
@@ -46155,7 +46547,6 @@ commands:
                     --wildfire=: Comma-separated list of protocols to delete the override for WildFire threats.
                 - name: delete-submission-rule
                   description: '*(BETA)*  Delete a WildFire submission rule from a WildFire Analysis Profile.'
-                  hidden: true
                   flags:
                     --async: Return immediately, without waiting for the operation in progress to
                     --direction=!: Direction of traffic that will be checked for files to submit to WildFire.
@@ -46171,13 +46562,11 @@ commands:
                             - BOTH
                 - name: describe
                   description: '*(BETA)*  Describe a WildFire Analysis Security Profile.'
-                  hidden: true
                   flags:
                     --location=: Location of the security profile.
                     --organization=: Organization ID to which the changes should apply.
                 - name: list
                   description: '*(BETA)*  List WildFire Analysis Security Profiles.'
-                  hidden: true
                   flags:
                     --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
                     --limit=: Maximum number of resources to list.
@@ -46189,7 +46578,6 @@ commands:
                     --uri: Print a list of resource URIs instead of the default output, and change the
                 - name: update
                   description: '*(BETA)*  Update a WildFire Analysis Security Profile.'
-                  hidden: true
                   flags:
                     --analyze-elf: Enable machine learning engine to dynamically detect malicious ELF files.
                     --analyze-macho: Enable machine learning engine to dynamically detect malicious Mach-O files.
@@ -46220,7 +46608,6 @@ commands:
                     --wildfire-realtime-lookup: Hold the transfer of a file while the WildFire real-time signature cloud performs a signature lookup.
                 - name: update-override
                   description: '*(BETA)*  Update an override in a WildFire Analysis Profile.'
-                  hidden: true
                   flags:
                     --action=!: The action to take for this override.
                     --async: Return immediately, without waiting for the operation in progress to
@@ -47670,7 +48057,7 @@ commands:
           flags:
             --bundle=!: The ID of the bundle to delete.
             --environment=: The target environment of the pipeline, as defined in deployment.yaml.
-            --runner=: The full resource name to delete a pipeline from.
+            --runner=: The full resource name of the runner to delete a pipeline from.
             --substitutions-file=: Path to a YAML file containing variable substitutions for the pipeline configuration.
             --substitutions=: Variables to substitute in the pipeline configuration.
         - name: deploy
@@ -47698,18 +48085,18 @@ commands:
             --bundle=!: The ID of the bundle the pipeline belongs to.
             --environment=: The target environment of the pipeline, as defined in deployment.yaml.
             --pipeline=!: The ID of the pipeline to describe.
-            --runner=: The full resource name to describe a pipeline from.
+            --runner=: The full resource name of the runner to describe a pipeline from.
             --substitutions-file=: Path to a YAML file containing variable substitutions for the pipeline configuration.
             --substitutions=: Variables to substitute in the pipeline configuration.
         - name: init
-          description: '*(BETA)*  Initialize a orchestration pipeline.'
+          description: '*(BETA)*  Initialize an orchestration pipeline.'
           hidden: true
           flags:
-            --artifacts-bucket=: Cloud Storage bucket for artifacts.
-            --composer-environment=: Cloud Composer environment.
-            --environment=!: Environment name (e.g. dev, staging, prod).
-            --region=: Google Cloud region.
-            --service-account=: Service account to use for Composer environment.
+            --artifacts-bucket=: The Cloud Storage bucket for artifacts.
+            --composer-environment=: The Cloud Composer environment.
+            --environment=!: The environment name (e.g., dev, staging, prod).
+            --region=: The Google Cloud region.
+            --service-account=: The service account to use for the Composer environment.
         - name: init-demo
           description: '*(BETA)*  Initialize a demo orchestration pipeline project.'
           hidden: true
@@ -47720,11 +48107,11 @@ commands:
             --bundle=: The ID of the bundle to filter by.
             --environment=: The target environment of the pipeline, as defined in deployment.yaml.
             --owner=: The owner of the pipeline to filter by.
-            --runner=: The full resource name to list pipelines from.
+            --runner=: The full resource name of the runner to list pipelines from.
             --substitutions-file=: Path to a YAML file containing variable substitutions for the pipeline configuration.
             --substitutions=: Variables to substitute in the pipeline configuration.
         - name: pause
-          description: '*(BETA)*  A command that pauses an orchestration pipeline.'
+          description: '*(BETA)*  Pause an orchestration pipeline.'
           hidden: true
           flags:
             --async: If set, the command will return after updating the pipeline files and pause the pipeline asynchronously in the background.
@@ -47732,7 +48119,7 @@ commands:
             --environment=: The target environment of the pipeline, as defined in deployment.yaml.
             --no-async&: If set, the command will return after updating the pipeline files and pause the pipeline asynchronously in the background.
             --pipeline=!: The ID of the pipeline to pause.
-            --runner=: The full resource name to pause a pipeline from.
+            --runner=: The full resource name of the runner to pause a pipeline from.
             --substitutions-file=: Path to a YAML file containing variable substitutions for the pipeline configuration.
             --substitutions=: Variables to substitute in the pipeline configuration.
         - name: resource-types
@@ -47754,24 +48141,24 @@ commands:
           hidden: true
           commands:
             - name: describe
-              description: '*(BETA)*  Describe an orchestration pipeline run details.'
+              description: '*(BETA)*  Describe an orchestration pipeline run.'
               hidden: true
               flags:
                 --bundle=!: The ID of the bundle the pipeline belongs to.
                 --environment=: The target environment of the pipeline, as defined in deployment.yaml.
-                --pipeline=!: The ID of the pipeline to describe.
+                --pipeline=!: The ID of the pipeline the run belongs to.
                 --run-id=!: The ID of the pipeline run.
-                --runner=: The full resource name to describe a pipeline run from.
+                --runner=: The full resource name of the runner to describe a pipeline run from.
                 --substitutions-file=: Path to a YAML file containing variable substitutions for the pipeline configuration.
                 --substitutions=: Variables to substitute in the pipeline configuration.
             - name: list
-              description: '*(BETA)*  List orchestration pipelines run history.'
+              description: '*(BETA)*  List orchestration pipeline run history.'
               hidden: true
               flags:
                 --bundle=!: The ID of the bundle the pipeline runs belong to.
                 --environment=: The target environment of the pipeline, as defined in deployment.yaml.
                 --pipeline=!: The ID of the pipeline to list pipeline runs for.
-                --runner=: The full resource name to list pipeline runs from.
+                --runner=: The full resource name of the runner to list pipeline runs from.
                 --substitutions-file=: Path to a YAML file containing variable substitutions for the pipeline configuration.
                 --substitutions=: Variables to substitute in the pipeline configuration.
         - name: trigger
@@ -47783,11 +48170,11 @@ commands:
             --environment=: The target environment of the pipeline, as defined in deployment.yaml.
             --no-async&: Whether to trigger the pipeline run asynchronously.
             --pipeline=!: The ID of the pipeline to trigger.
-            --runner=: The full resource name to trigger a pipeline from.
+            --runner=: The full resource name of the runner to trigger a pipeline from.
             --substitutions-file=: Path to a YAML file containing variable substitutions for the pipeline configuration.
             --substitutions=: Variables to substitute in the pipeline configuration.
         - name: unpause
-          description: '*(BETA)*  A command that unpauses an orchestration pipeline.'
+          description: '*(BETA)*  Unpause an orchestration pipeline.'
           hidden: true
           flags:
             --async: If set, the command will return after updating the pipeline files and unpause the pipeline asynchronously in the background.
@@ -47795,7 +48182,7 @@ commands:
             --environment=: The target environment of the pipeline, as defined in deployment.yaml.
             --no-async&: If set, the command will return after updating the pipeline files and unpause the pipeline asynchronously in the background.
             --pipeline=!: The ID of the pipeline to unpause.
-            --runner=: The full resource name to unpause a pipeline from.
+            --runner=: The full resource name of the runner to unpause a pipeline from.
             --substitutions-file=: Path to a YAML file containing variable substitutions for the pipeline configuration.
             --substitutions=: Variables to substitute in the pipeline configuration.
         - name: validate
@@ -48881,8 +49268,11 @@ commands:
                 --bigquery-service-account-email=: The service account email to use when writing to BigQuery.
                 --bigquery-table=!: A BigQuery table  of the form {project}:{dataset_name}.{table_name} to which to write messages for this subscription.
                 --bigtable-app-profile-id=: The app profile to use for the Bigtable writes.
+                --bigtable-delimiter=&: The delimiter to use when joining the Bigtable row key fields.
+                --bigtable-key-fields=!&: The Pub/Sub message fields that will be joined for the Bigtable row key when writing to Bigtable.
                 --bigtable-service-account-email=: The service account email to use when writing to Bigtable.
                 --bigtable-table=!: A Bigtable table of the form projects/{project}/instances/{instance_name}/tables/{table_name} to which to write messages for this subscription.
+                --bigtable-use-row-key-schema&: Whether or not to write Bigtable row keys for each message based on the row key schema of the target table.
                 --bigtable-write-metadata: Whether or not to write the subscription name, message_id, publish_time, attributes, and ordering_key as additional fields in the output.
                 --cloud-storage-bucket=!: A Cloud Storage bucket to which to write messages for this subscription.
                 --cloud-storage-file-datetime-format=: The custom datetime format string for Cloud Storage filename.
@@ -48908,6 +49298,7 @@ commands:
                 --message-retention-duration=: How long to retain unacknowledged messages in the
                 --message-transforms-file=: Path to YAML or JSON file containing message transforms.
                 --min-retry-delay=: The minimum delay between consecutive deliveries of a given
+                --no-bigtable-use-row-key-schema&: Whether or not to write Bigtable row keys for each message based on the row key schema of the target table.
                 --no-bigtable-write-metadata&: Whether or not to write the subscription name, message_id, publish_time, attributes, and ordering_key as additional fields in the output.
                 --no-cloud-storage-use-topic-schema&: Whether or not to use the schema for the subscription's topic (if it exists) when writing messages to Cloud Storage.
                 --no-cloud-storage-write-metadata&: Whether or not to write the subscription name, message_id, publish_time, attributes, and ordering_key as additional fields in the output.
@@ -49011,8 +49402,11 @@ commands:
                 --bigquery-service-account-email=: The service account email to use when writing to BigQuery.
                 --bigquery-table=!: A BigQuery table  of the form {project}:{dataset_name}.{table_name} to which to write messages for this subscription.
                 --bigtable-app-profile-id=: The app profile to use for the Bigtable writes.
+                --bigtable-delimiter=&: The delimiter to use when joining the Bigtable row key fields.
+                --bigtable-key-fields=!&: The Pub/Sub message fields that will be joined for the Bigtable row key when writing to Bigtable.
                 --bigtable-service-account-email=: The service account email to use when writing to Bigtable.
                 --bigtable-table=!: A Bigtable table of the form projects/{project}/instances/{instance_name}/tables/{table_name} to which to write messages for this subscription.
+                --bigtable-use-row-key-schema&: Whether or not to write Bigtable row keys for each message based on the row key schema of the target table.
                 --bigtable-write-metadata: Whether or not to write the subscription name, message_id, publish_time, attributes, and ordering_key as additional fields in the output.
                 --clear-bigquery-config: If set, clear the BigQuery config from the subscription.
                 --clear-bigtable-config: If set, clear the Bigtable config from the subscription.
@@ -49044,6 +49438,7 @@ commands:
                 --message-retention-duration=: How long to retain unacknowledged messages in the
                 --message-transforms-file=: Path to YAML or JSON file containing message transforms.
                 --min-retry-delay=: The minimum delay between consecutive deliveries of a given
+                --no-bigtable-use-row-key-schema&: Whether or not to write Bigtable row keys for each message based on the row key schema of the target table.
                 --no-bigtable-write-metadata&: Whether or not to write the subscription name, message_id, publish_time, attributes, and ordering_key as additional fields in the output.
                 --no-clear-bigquery-config&: If set, clear the BigQuery config from the subscription.
                 --no-clear-bigtable-config&: If set, clear the Bigtable config from the subscription.
@@ -50965,6 +51360,7 @@ commands:
                 --no-clear-volumes&: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
                 --no-execute-now&: Execute the job immediately after the creation or update  completes.
                 --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
+                --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --no-wait&: Wait until the execution has completed running before exiting.
                 --parallelism=: Number of tasks that may run concurrently.
                 --region=: Region in which the resource can be found.
@@ -50972,6 +51368,7 @@ commands:
                 --remove-secrets=: List of secrets to be removed.
                 --remove-volume-mount=: Removes the volume mounted at the specified path from the current container.
                 --remove-volume=: Removes volumes from the Cloud Run resource.
+                --sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --service-account=: the email address of an IAM service account associated with the revision of the service.
                 --set-cloudsql-instances=: You can specify a name of a Cloud SQL instance if it's in the same
                 --set-env-vars=: List of key-value pairs to set as environment variables.
@@ -51057,6 +51454,7 @@ commands:
                 --no-clear-volumes&: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
                 --no-execute-now&: Execute the job immediately after the creation or update  completes.
                 --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
+                --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --no-wait&: Wait until the execution has completed running before exiting.
                 --parallelism=: Number of tasks that may run concurrently.
                 --region=: Region in which the resource can be found.
@@ -51065,6 +51463,7 @@ commands:
                 --remove-secrets=: List of secrets to be removed.
                 --remove-volume-mount=: Removes the volume mounted at the specified path from the current container.
                 --remove-volume=: Removes volumes from the Cloud Run resource.
+                --sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --service-account=: the email address of an IAM service account associated with the revision of the service.
                 --set-cloudsql-instances=: You can specify a name of a Cloud SQL instance if it's in the same
                 --set-env-vars=: List of key-value pairs to set as environment variables.
@@ -51419,6 +51818,7 @@ commands:
                 --no-clear-vpc-connector&: Remove the VPC connector for this resource.
                 --no-execute-now&: Execute the job immediately after the creation or update  completes.
                 --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
+                --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --no-wait&: Wait until the execution has completed running before exiting.
                 --parallelism=: Number of tasks that may run concurrently.
                 --region=: Region in which the resource can be found.
@@ -51429,6 +51829,7 @@ commands:
                 --remove-secrets=: List of secrets to be removed.
                 --remove-volume-mount=: Removes the volume mounted at the specified path from the current container.
                 --remove-volume=: Removes volumes from the Cloud Run resource.
+                --sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --service-account=: the email address of an IAM service account associated with the revision of the service.
                 --set-cloudsql-instances=: Completely replace the current Cloud SQL instances with the given values.
                 --set-env-vars=: List of key-value pairs to set as environment variables.
@@ -52583,6 +52984,7 @@ commands:
                 --no-dry-run&: If set to true, only validates the configuration.
                 --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
                 --no-promote: True to avoid assign instances to the worker revision being deployed.
+                --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --post-key-revocation-action-type=: Action type after CMEK key revocation.
                 --region=: The Cloud region for the WorkerPool.
                 --remove-cloudsql-instances=: Remove the given values from the current Cloud SQL instances.
@@ -52594,6 +52996,7 @@ commands:
                 --remove-volume=: Removes volumes from the Cloud Run resource.
                 --revision-suffix=: Specify the suffix of the revision name.
                 --runtime=&: The runtime to use.
+                --sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --scaling=&: The scaling mode to use for this service.
                 --service-account=: the email address of an IAM service account associated with the revision of the service.
                 --set-cloudsql-instances=: Completely replace the current Cloud SQL instances with the given values.
@@ -52838,6 +53241,7 @@ commands:
                 --no-dry-run&: If set to true, only validates the configuration.
                 --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
                 --no-promote: True to avoid assign instances to the worker revision being deployed.
+                --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --post-key-revocation-action-type=: Action type after CMEK key revocation.
                 --region=: The Cloud region for the WorkerPool.
                 --remove-cloudsql-instances=: Remove the given values from the current Cloud SQL instances.
@@ -52849,6 +53253,7 @@ commands:
                 --remove-volume=: Removes volumes from the Cloud Run resource.
                 --revision-suffix=: Specify the suffix of the revision name.
                 --runtime=&: The runtime to use.
+                --sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --scaling=&: The scaling mode to use for this service.
                 --service-account=: the email address of an IAM service account associated with the revision of the service.
                 --set-cloudsql-instances=: Completely replace the current Cloud SQL instances with the given values.
@@ -57869,7 +58274,10 @@ commands:
                 --instance=!: Cloud SQL instance ID.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-revoke-existing-roles&: A boolean flag for revoking existing database roles from the user.
+                --no-revoke-existing-server-roles&: A boolean flag for revoking existing server roles from the user.
                 --revoke-existing-roles: A boolean flag for revoking existing database roles from the user.
+                --revoke-existing-server-roles&: A boolean flag for revoking existing server roles from the user.
+                --server-roles=&: A comma-separated list of server roles to be assigned to the user.
                 --type=!: Cloud SQL user's type.
             - name: create
               description: '*(BETA)*  Creates a user in a given instance.'
@@ -57886,6 +58294,7 @@ commands:
                 --password-policy-enable-password-verification: The current password must be specified when altering the password.
                 --password-policy-password-expiration-duration=: Expiration duration after a password is updated, for example,
                 --password=: Cloud SQL user's password.
+                --server-roles=&: A comma-separated list of server roles to be assigned to the user.
                 --type=: Cloud SQL user's type.
             - name: delete
               description: '*(BETA)*  Deletes a Cloud SQL user in a given instance.'

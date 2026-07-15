@@ -293,9 +293,11 @@ commands:
                 --data-source-resource=: 'Fully-qualified service resource name of the cloud resource that contains the data for the data documentation scan, of the form: //bigquery.{universe_domain}/projects/{project_id_or_number}/datasets/{dataset_id}/tables/{table_id}.'
                 --description=: Description of the data documentation scan.
                 --display-name=: Display name of the data documentation scan.
+                --enable-catalog-publishing: Publish data documentation results to Knowledge Catalog.
                 --labels=: List of label KEY=VALUE pairs to add.
                 --location=: The location of the Dataplex resource.
                 --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-enable-catalog-publishing&: Publish data documentation results to Knowledge Catalog.
                 --no-one-time&: If set, the data documentation scan runs once, and is auto-deleted once the ttl_after_scan_completion expires.
                 --no-validate-only&: Validate the create action, but don't actually perform it.
                 --on-demand=: If set, the scan runs one-time shortly after data documentation scan creation.
@@ -319,6 +321,7 @@ commands:
                 --incremental-field=: Field that contains values that monotonically increase over time (e.g. timestamp).
                 --labels=: List of label KEY=VALUE pairs to add.
                 --location=: The location of the Dataplex resource.
+                --mode=: The execution mode for the profile scan.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-enable-catalog-publishing&: Publish data profile results to Dataplex catalog.
                 --no-one-time&: If set, the data profile scan runs once, and auto deleted once the ttl_after_scan_completion expires.
@@ -333,6 +336,11 @@ commands:
                 --ttl-after-scan-completion=: The time to live for one-time scans.
                 --use-user-credential: If set, the scan runs with the caller's credential.
                 --validate-only: Validate the create action, but don't actually perform it.
+              completion:
+                flag:
+                    mode:
+                        - LIGHTWEIGHT
+                        - STANDARD
             - name: data-quality
               description: Create a Dataplex data quality scan job.
               flags:
@@ -458,9 +466,11 @@ commands:
                 --async: Return immediately, without waiting for the operation in progress to
                 --description=: Description of the data documentation scan.
                 --display-name=: Display name of the data documentation scan.
+                --enable-catalog-publishing: Publish data documentation results to Knowledge Catalog.
                 --labels=: List of label KEY=VALUE pairs to add.
                 --location=: The location of the Dataplex resource.
                 --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-enable-catalog-publishing&: Publish data documentation results to Knowledge Catalog.
                 --no-one-time&: If set, the data documentation scan runs once, and auto deleted once the ttl_after_scan_completion expires.
                 --no-validate-only&: Validate the update action, but don't actually perform it.
                 --on-demand=: If set, the scan runs one-time shortly after data documentation scan creation.
@@ -480,6 +490,7 @@ commands:
                 --include-field-names=: Names of the fields to include in data profile.
                 --labels=: List of label KEY=VALUE pairs to add.
                 --location=: The location of the Dataplex resource.
+                --mode=: The execution mode for the profile scan.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-enable-catalog-publishing&: Publish data profile results to Dataplex catalog.
                 --no-validate-only&: Validate the update action, but don't actually perform it.
@@ -488,6 +499,11 @@ commands:
                 --sampling-percent=: The percentage of the records to be selected from the dataset for data profile scan.
                 --schedule=: Cron schedule (https://en.wikipedia.org/wiki/Cron) for running scans periodically.
                 --validate-only: Validate the update action, but don't actually perform it.
+              completion:
+                flag:
+                    mode:
+                        - LIGHTWEIGHT
+                        - STANDARD
             - name: data-quality
               description: Update a Dataplex data quality scan job.
               flags:

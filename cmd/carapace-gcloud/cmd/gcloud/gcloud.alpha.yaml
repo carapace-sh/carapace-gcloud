@@ -1343,6 +1343,26 @@ commands:
                 --search-string=: Search criteria used to select the MCP Servers to return.
         - name: operations
           description: '*(ALPHA)*  Manage Operation resources.'
+        - name: publishers
+          description: '*(ALPHA)*  Manage Publisher resources.'
+          hidden: true
+          commands:
+            - name: describe
+              description: '*(ALPHA)*  Describe publishers.'
+              hidden: true
+              flags:
+                --location=: The location id of the publisher resource.
+            - name: list
+              description: '*(ALPHA)*  List publishers.'
+              hidden: true
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=!: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
         - name: services
           description: '*(ALPHA)*  Manage Service resources.'
           commands:
@@ -1431,6 +1451,237 @@ commands:
                     mcp-server-spec-type:
                         - no-spec
                         - tool-spec
+        - name: skills
+          description: '*(ALPHA)*  Manage Skill resources.'
+          hidden: true
+          commands:
+            - name: create
+              description: '*(ALPHA)*  Create skills.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --default-revision=!: ID of the revision or fully qualified identifier for the revision.
+                --description=: Brief summary describing the capabilities of the skill.
+                --display-name=: Human-readable display name of the skill.
+                --gcs-source-generation=: Cloud Storage object generation ID.
+                --gcs-source-uri=!: Cloud Storage object URI.
+                --initial-revision-name=: Identifier.
+                --location=: For resources [skill, default-revision, publisher], provides fallback value for resource location attribute.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --payload=!: Local path to the ZIP archive payload containing the skill.
+                --publisher=!: ID of the publisher or fully qualified identifier for the publisher.
+                --request-id=: Signed UUID request idempotency token.
+                --target-state=: User-managed target state of the skill.
+                --type=: Structural deployment type (SIMPLE leaf vs COMPOSITE bundle).
+              completion:
+                flag:
+                    target-state:
+                        - active
+                        - decommissioned
+                        - deprecated
+                        - disabled
+                        - draft
+                        - target-state-active
+                        - target-state-decommissioned
+                        - target-state-deprecated
+                        - target-state-disabled
+                        - target-state-draft
+                    type:
+                        - simple
+            - name: delete
+              description: '*(ALPHA)*  Delete skills.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location id of the skill resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --request-id=: Signed UUID request idempotency token.
+            - name: describe
+              description: '*(ALPHA)*  Describe skills.'
+              hidden: true
+              flags:
+                --location=: The location id of the skill resource.
+            - name: list
+              description: '*(ALPHA)*  List skills.'
+              hidden: true
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=!: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: revisions
+              description: '*(ALPHA)*  Manage Skill Revision resources.'
+              hidden: true
+              commands:
+                - name: create
+                  description: '*(ALPHA)*  Create skillRevisions.'
+                  hidden: true
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --gcs-source-generation=: Cloud Storage object generation ID.
+                    --gcs-source-uri=!: Cloud Storage object URI.
+                    --location=: The location id of the revision resource.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --payload=!: Local path to the ZIP archive payload containing the skill.
+                    --request-id=: Signed UUID request idempotency token.
+                    --skill=: The skill id of the revision resource.
+                - name: delete
+                  description: '*(ALPHA)*  Delete skillRevisions.'
+                  hidden: true
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --location=: The location id of the revision resource.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --request-id=: Signed UUID request idempotency token.
+                    --skill=: The skill id of the revision resource.
+                - name: describe
+                  description: '*(ALPHA)*  Describe skillRevisions.'
+                  hidden: true
+                  flags:
+                    --location=: The location id of the revision resource.
+                    --skill=: The skill id of the revision resource.
+                - name: download
+                  description: '*(ALPHA)*  Download the payload of a Skill Revision.'
+                  hidden: true
+                  flags:
+                    --allow-overwrite: Overwrite the local file if it already exists.
+                    --destination=!: The path (directory or file) where you want to download the payload.
+                    --location=: The Cloud location for the revision.
+                    --no-allow-overwrite&: Overwrite the local file if it already exists.
+                    --skill=: The Skill ID for the revision.
+                - name: list
+                  description: '*(ALPHA)*  List skillRevisions.'
+                  hidden: true
+                  flags:
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --location=: The location id of the skill resource.
+                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                    --page-size=: Some services group resource list output into pages.
+                    --skill=!: ID of the skill or fully qualified identifier for the skill.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: search
+              description: '*(ALPHA)*  search skills.'
+              hidden: true
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=!: ID of the location or fully qualified identifier for the location.
+                --page-size=: Some services group resource list output into pages.
+                --query=: Search criteria used to select the Skills to return.
+                --search-type=: The type of search.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+              completion:
+                flag:
+                    search-type:
+                        - keyword
+                        - semantic
+            - name: update
+              description: '*(ALPHA)*  Update skills.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-default-revision: Clear default_revision value and set to null.
+                --clear-initial-revision: Set skill.initialRevision back to default value.
+                --default-revision=!: ID of the revision or fully qualified identifier for the revision.
+                --description=: Brief summary describing the capabilities of the skill.
+                --display-name=: Human-readable display name of the skill.
+                --initial-revision-name=: Identifier.
+                --location=: For resources [skill, default-revision, publisher], provides fallback value for resource location attribute.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-default-revision&: Clear default_revision value and set to null.
+                --no-clear-initial-revision&: Set skill.initialRevision back to default value.
+                --publisher=!: ID of the publisher or fully qualified identifier for the publisher.
+                --request-id=: Signed UUID request idempotency token.
+                --target-state=: User-managed target state of the skill.
+                --type=: Structural deployment type (SIMPLE leaf vs COMPOSITE bundle).
+              completion:
+                flag:
+                    target-state:
+                        - active
+                        - decommissioned
+                        - deprecated
+                        - disabled
+                        - draft
+                        - target-state-active
+                        - target-state-decommissioned
+                        - target-state-deprecated
+                        - target-state-disabled
+                        - target-state-draft
+                    type:
+                        - simple
+    - name: agentic-applications
+      description: '*(ALPHA)*  Manage Agentic Applications resources.'
+      hidden: true
+      commands:
+        - name: omnichannel-gateway
+          description: '*(ALPHA)*  Manage Omnichannel Gateway resources.'
+          hidden: true
+          commands:
+            - name: endpoint-configs
+              description: '*(ALPHA)*  Manage Endpoint Configs resources.'
+              hidden: true
+              commands:
+                - name: create
+                  description: '*(ALPHA)*  Create an omnichannel endpoint configuration.'
+                  hidden: true
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --endpoint-config=!: The endpoint configuration to create.
+                    --location=!: ID of the location or fully qualified identifier for the location.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                - name: delete
+                  description: '*(ALPHA)*  Delete an omnichannel endpoint configuration.'
+                  hidden: true
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --etag=: Strict concurrency token matching the current etag of the config.
+                    --location=!: ID of the location or fully qualified identifier for the location.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                - name: describe
+                  description: '*(ALPHA)*  Describe an omnichannel endpoint configuration.'
+                  hidden: true
+                  flags:
+                    --location=!: ID of the location or fully qualified identifier for the location.
+                - name: list
+                  description: '*(ALPHA)*  List omnichannel endpoint configurations.'
+                  hidden: true
+                  flags:
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --location=!: ID of the location or fully qualified identifier for the location.
+                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                    --page-size=: Some services group resource list output into pages.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --uri: Print a list of resource URIs instead of the default output, and change the
+                - name: update
+                  description: '*(ALPHA)*  Update an omnichannel endpoint configuration.'
+                  hidden: true
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --endpoint-config=!: The endpoint configuration fields to update.
+                    --location=!: ID of the location or fully qualified identifier for the location.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --update-mask=: Field mask that specifies which fields of the endpoint config to update.
+            - name: routes
+              description: '*(ALPHA)*  Manage omnichannel routes.'
+              hidden: true
+              commands:
+                - name: list
+                  description: '*(ALPHA)*  List omnichannel routes.'
+                  hidden: true
+                  flags:
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --location=!: ID of the location or fully qualified identifier for the location.
+                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                    --page-size=: Some services group resource list output into pages.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --uri: Print a list of resource URIs instead of the default output, and change the
     - name: ai
       description: '*(ALPHA)*  Manage entities in Vertex AI.'
       commands:
@@ -3615,6 +3866,7 @@ commands:
                 --database-flags=: Comma-separated list of database flags to set on the instance.
                 --enable-autoscaler&: Enable autoscaler for the instance.
                 --enable-connection-pooling: Enable connection pooling for the instance.
+                --enable-psc-auto-dns&: Enable PSC auto DNS for an AlloyDB instance.
                 --insights-config-query-plans-per-minute=: Number of query plans to sample every minute.
                 --insights-config-query-string-length=: Query string length in bytes to be stored by the query insights
                 --insights-config-record-application-tags: Allow application tags to be recorded by the query insights
@@ -3625,6 +3877,7 @@ commands:
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-enable-autoscaler&: Enable autoscaler for the instance.
                 --no-enable-connection-pooling&: Enable connection pooling for the instance.
+                --no-enable-psc-auto-dns&: Enable PSC auto DNS for an AlloyDB instance.
                 --no-insights-config-record-application-tags&: Allow application tags to be recorded by the query insights
                 --no-insights-config-record-client-address&: Allow the client address to be recorded by the query insights
                 --no-observability-config-assistive-experiences-enabled&: Enable assistive experiences to monitor, troubleshoot and recommend.
@@ -3747,9 +4000,11 @@ commands:
                 --connection-pooling-stats-users=: Comma-separated list of database users to access connection pooling stats.
                 --database-flags=: Comma-separated list of database flags to set on the instance.
                 --enable-connection-pooling: Enable connection pooling for the instance.
+                --enable-psc-auto-dns&: Enable PSC auto DNS for an AlloyDB instance.
                 --labels=: List of label KEY=VALUE pairs to add.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-enable-connection-pooling&: Enable connection pooling for the instance.
+                --no-enable-psc-auto-dns&: Enable PSC auto DNS for an AlloyDB instance.
                 --no-outbound-public-ip&: Add outbound Public IP connectivity to an AlloyDB instance.
                 --no-require-connectors&: 'Enable or disable enforcing connectors only (ex: AuthProxy) connections to the database.'
                 --outbound-public-ip: Add outbound Public IP connectivity to an AlloyDB instance.
@@ -3865,6 +4120,7 @@ commands:
                 --database-flags=: Comma-separated list of database flags to set on the instance.
                 --enable-autoscaler&: Enable autoscaler for the instance.
                 --enable-connection-pooling: Enable connection pooling for the instance.
+                --enable-psc-auto-dns&: Enable PSC auto DNS for an AlloyDB instance.
                 --insights-config-query-plans-per-minute=: Number of query plans to sample every minute.
                 --insights-config-query-string-length=: Query string length in bytes to be stored by the query insights
                 --insights-config-record-application-tags: Allow application tags to be recorded by the query insights
@@ -3876,6 +4132,7 @@ commands:
                 --no-clear-psc-network-attachment-uri&: Disable outbound connectivity from an AlloyDB instance which uses Private Service Connect (PSC).
                 --no-enable-autoscaler&: Enable autoscaler for the instance.
                 --no-enable-connection-pooling&: Enable connection pooling for the instance.
+                --no-enable-psc-auto-dns&: Enable PSC auto DNS for an AlloyDB instance.
                 --no-insights-config-record-application-tags&: Allow application tags to be recorded by the query insights
                 --no-insights-config-record-client-address&: Allow the client address to be recorded by the query insights
                 --no-observability-config-assistive-experiences-enabled&: Enable assistive experiences to monitor, troubleshoot and recommend.
@@ -9206,11 +9463,9 @@ commands:
       commands:
         - name: data-product-sharing
           description: '*(ALPHA)*  Manage sharing of Knowledge Catalog Data Products or BigLake tables.'
-          hidden: true
           commands:
             - name: publish
               description: '*(ALPHA)*  Publish a Knowledge Catalog Data Product or BigLake tables to external partners.'
-              hidden: true
               flags:
                 --connection-catalog=!: ID of the catalog or fully qualified identifier for the catalog.
                 --data-product=: The Knowledge Catalog Data Product to publish.
@@ -9222,28 +9477,22 @@ commands:
                 --title=: The title of the published share.
         - name: delta-sharing
           description: '*(ALPHA)*  Biglake Delta Sharing Catalogs.'
-          hidden: true
           commands:
             - name: catalogs
               description: '*(ALPHA)*  Biglake Delta Sharing Catalogs.'
-              hidden: true
               commands:
                 - name: create
                   description: '*(ALPHA)*  Create a BigLake Delta Sharing catalog.'
-                  hidden: true
                   flags:
                     --location=!: The location of the catalog.
                     --refresh-interval=: The interval for refreshing metadata from the remote catalog (e.g. 300s or 5m).
                     --service-directory-name=: The service directory resource name for private networking.
                 - name: delete
                   description: '*(ALPHA)*  Delete a BigLake Delta Sharing catalog.'
-                  hidden: true
                 - name: describe
                   description: '*(ALPHA)*  Describe a BigLake Delta Sharing catalog.'
-                  hidden: true
                 - name: list
                   description: '*(ALPHA)*  List BigLake Delta Sharing catalogs.'
-                  hidden: true
                   flags:
                     --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
                     --limit=: Maximum number of resources to list.
@@ -9251,7 +9500,6 @@ commands:
                     --sort-by=: Comma-separated list of resource field key names to sort by.
                 - name: update
                   description: '*(ALPHA)*  Update a BigLake Delta Sharing catalog.'
-                  hidden: true
                   flags:
                     --connector-endpoint=: The SAP BDC Connector Endpoint.
                     --invitation-code=: The SAP BDC Invitation Code.
@@ -9259,11 +9507,9 @@ commands:
                     --refresh-interval=: The interval for refreshing metadata from the remote catalog (e.g. 300s or 5m).
             - name: schemas
               description: '*(ALPHA)*  Biglake Delta Sharing Schemas.'
-              hidden: true
               commands:
                 - name: list
                   description: '*(ALPHA)*  List BigLake Delta Sharing schemas.'
-                  hidden: true
                   flags:
                     --catalog=: The BigQuery catalog ID.
                     --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
@@ -9273,11 +9519,9 @@ commands:
                     --sort-by=: Comma-separated list of resource field key names to sort by.
             - name: shares
               description: '*(ALPHA)*  Biglake Delta Sharing Shares.'
-              hidden: true
               commands:
                 - name: list
                   description: '*(ALPHA)*  List BigLake Delta Sharing shares.'
-                  hidden: true
                   flags:
                     --catalog=!: ID of the catalog or fully qualified identifier for the catalog.
                     --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
@@ -9286,11 +9530,9 @@ commands:
                     --sort-by=: Comma-separated list of resource field key names to sort by.
             - name: tables
               description: '*(ALPHA)*  Biglake Delta Sharing Tables.'
-              hidden: true
               commands:
                 - name: list
                   description: '*(ALPHA)*  List BigLake Delta Sharing tables.'
-                  hidden: true
                   flags:
                     --catalog=: The BigQuery catalog ID.
                     --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
@@ -9428,6 +9670,15 @@ commands:
                   flags:
                     --catalog=: The Hive Catalog for the resource.
                     --database=: The Hive Database for the resource.
+                - name: update
+                  description: '*(ALPHA)*  Update a BigLake Hive table.'
+                  flags:
+                    --catalog=: The Hive Catalog for the resource.
+                    --columns-from-file=: Path to a JSON or YAML file containing the new columns list.
+                    --database=: The Hive Database for the resource.
+                    --description=: Description of the Hive table.
+                    --location-uri=: The Cloud Storage location path where the table's data will be stored.
+                    --parameters=: Additional parameters associated with the table.
         - name: iceberg
           description: '*(ALPHA)*  Biglake Iceberg REST Catalogs.'
           commands:
@@ -9452,6 +9703,7 @@ commands:
                     --secret-name=: The secret resource name in Secret Manager, in the format `projects/{project_id}/locations/{location}/secrets/{secret_id}` or `projects/{project_id}/locations/{location}/secrets/{secret_id}/versions/{version_id}`.
                     --service-directory-name=: The service directory resource name for request routing, in the format `projects/{project_id}/locations/{location}/namespaces/{namespace}/services/{service_name}`.
                     --snowflake-account-identifier=&: The account identifier of the Snowflake catalog to connect to.
+                    --snowflake-role=&: The specific role to request for the Snowflake catalog.
                     --snowflake-warehouse=&: The warehouse to connect to in Snowflake.
                     --unity-catalog-name=: Name of the catalog in Unity Catalog.
                     --unity-instance-name=: The instance name is the first part of the URL when you log into your Databricks deployment.
@@ -9464,6 +9716,7 @@ commands:
                             - biglake
                             - federated
                             - gcs-bucket
+                            - lakehouse
                         credential-mode:
                             - end-user
                             - vended-credentials
@@ -9513,11 +9766,13 @@ commands:
                     --restricted-locations=: Additional Google Cloud Storage buckets and locations (e.g., `gs://my-other-bucket/...`) that are permitted for use by resources within a catalog.
                     --secret-name=: Resource name of the Secret Manager secret, in the format `projects/{project_id}/locations/{location}/secrets/{secret_id}` or `projects/{project_id}/locations/{location}/secrets/{secret_id}/versions/{version_id}`.
                     --service-directory-name=: The service directory resource name for request routing, in the format `projects/{project_id}/locations/{location}/namespaces/{namespace}/services/{service_name}`.
+                    --snowflake-role=&: The specific role to request for the Snowflake catalog.
                     --unity-service-principal-application-id=: Optional.
                   completion:
                     flag:
                         catalog-type:
                             - biglake
+                            - lakehouse
                         credential-mode:
                             - end-user
                             - vended-credentials
@@ -11770,52 +12025,6 @@ commands:
                     --webhook-key=: The unique identifier that Cloud Build expects to be set as the value for
                     --webhook-secret-name=!: Secret Manager resource containing the webhook key.
                     --webhook-secret-version-name=: Secret Manager SecretVersion resource containing the webhook key.
-            - name: gitlab
-              description: '*(ALPHA)*  Manage GitLab Enterprise configurations for Cloud Build.'
-              commands:
-                - name: create
-                  description: '*(ALPHA)*  Create a GitLab Enterprise config for use by Cloud Build.'
-                  flags:
-                    --api-access-token-secret-version=!: Secret Manager resource containing the API access token.
-                    --api-key-secret-version=!: Secret Manager resource containing the Cloud Build API key that should be associated with this config.
-                    --host-uri=!: The host uri of the GitLab Enterprise instance.
-                    --name=!: The name of the GitLab config.
-                    --read-access-token-secret-version=!: Secret Manager resource containing the read access token.
-                    --region=!: The Cloud location of the GitLab config.
-                    --service-directory-service=: Service Directory service that should be used when making calls to the GitLab Enterprise instance.
-                    --ssl-ca-file=: Path to a local file that contains SSL certificate to use for requests to GitLab Enterprise.
-                    --user-name=!: The GitLab user name that should be associated with this config.
-                    --webhook-secret-secret-version=!: Secret Manager resource containing the webhook secret.
-                - name: delete
-                  description: '*(ALPHA)*  Delete a GitLab Enterprise config from Cloud Build.'
-                  flags:
-                    --region=: The Cloud location for the gitLabConfig.
-                - name: describe
-                  description: '*(ALPHA)*  Describe a GitLab Enterprise config in a Google Cloud project.'
-                  flags:
-                    --region=: The Cloud location for the gitLabConfig.
-                - name: list
-                  description: '*(ALPHA)*  List all GitLab Enterprise configs in a Google Cloud project.'
-                  flags:
-                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                    --limit=: Maximum number of resources to list.
-                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                    --page-size=: Some services group resource list output into pages.
-                    --region=: ID of the region or fully qualified identifier for the region.
-                    --sort-by=: Comma-separated list of resource field key names to sort by.
-                    --uri: Print a list of resource URIs instead of the default output, and change the
-                - name: update
-                  description: '*(ALPHA)*  Update a GitLab Enterprise config for use by Cloud Build.'
-                  flags:
-                    --api-access-token-secret-version=: Secret Manager resource containing the API access token.
-                    --api-key-secret-version=: Secret Manager resource containing the Cloud Build API key that should be associated with this config.
-                    --host-uri=: The host uri of the GitLab Enterprise instance.
-                    --read-access-token-secret-version=: Secret Manager resource containing the read access token.
-                    --region=: The Cloud location for the gitLabConfig.
-                    --service-directory-service=: Service Directory service that should be used when making calls to the GitLab Enterprise instance.
-                    --ssl-ca-file=: Path to a local file that contains SSL certificate to use for requests to GitLab Enterprise.
-                    --user-name=: The GitLab user name that should be associated with this config.
-                    --webhook-secret-secret-version=: Secret Manager resource containing the webhook secret.
         - name: get-default-service-account
           description: '*(ALPHA)*  Get the default service account for a project.'
           flags:
@@ -14230,6 +14439,13 @@ commands:
                 --global: If set, the backend bucket is global.
                 --no-global&: If set, the backend bucket is global.
                 --region=: Region of the backend bucket to setIamPolicy.
+            - name: test-iam-permissions
+              description: '*(ALPHA)*  Test IAM permissions for a Compute Engine backend bucket.'
+              flags:
+                --global: If set, the backend bucket is global.
+                --no-global&: If set, the backend bucket is global.
+                --permissions=!: The set of permissions to check for the resource.
+                --region=: Region of the backend bucket to test IAM permissions for.
             - name: update
               description: '*(ALPHA)*  Update a backend bucket.'
               flags:
@@ -14852,6 +15068,10 @@ commands:
         - name: commitments
           description: '*(ALPHA)*  Manage Compute Engine commitments.'
           commands:
+            - name: calculate-cancellation-fee
+              description: '*(ALPHA)*  Calculate the cancellation fee for a Compute Engine commitment.'
+              flags:
+                --region=: Region of the commitment to calculate cancellation fee.
             - name: create
               description: '*(ALPHA)*  Create Compute Engine commitments.'
               flags:
@@ -14945,6 +15165,9 @@ commands:
                         - memory-optimized-x4-960-12t
                         - memory-optimized-x4-960-16t
                         - network-optimized-c4n
+                        - network-optimized-u4c
+                        - network-optimized-u4p
+                        - network-optimized-u4s
                         - storage-optimized-z3
                         - storage-optimized-z4d
             - name: create-license
@@ -14975,6 +15198,11 @@ commands:
                 --regions=: If provided, only resources from the given regions are queried.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: test-iam-permissions
+              description: '*(ALPHA)*  Test IAM permissions for a Compute Engine commitment.'
+              flags:
+                --permissions=!: The permissions to test.
+                --region=: The name of the Google Compute Engine region.
             - name: update
               description: '*(ALPHA)*  Update Compute Engine commitments.'
               flags:
@@ -15216,6 +15444,13 @@ commands:
                     --source-instant-snapshot-group=: URL of the format regions/<REGION>/instantSnapshotGroups/<INSTANT_SNAPSHOT_GROUP> or zones/<ZONE>/instantSnapshotGroups/<INSTANT_SNAPSHOT_GROUP> of the source consistency group of instant snapshots used to create the disks.
                     --source-snapshot-group=: Source snapshot group used to create the disks.
                     --zone=: Target zone of the created disks, which currently must be the same as the source zone.
+                - name: set-labels
+                  description: '*(ALPHA)*  Add or remove labels on multiple Compute Engine disks.'
+                  flags:
+                    --disks=!: Comma-separated list of disk names to update.
+                    --labels=!: List of label KEY=VALUE pairs to set on all specified disks.
+                    --source=: Path to a JSON file containing a list of disk label update requests.
+                    --zone=: Zone of the disk to update labels.
             - name: config
               description: '*(ALPHA)*  Manage Compute Engine disk configurations.'
               commands:
@@ -15493,6 +15728,10 @@ commands:
                 --page-size=: Some services group resource list output into pages.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: test-iam-permissions
+              description: '*(ALPHA)*  Test IAM permissions for a Compute Engine external VPN gateway.'
+              flags:
+                --permissions=!: Set of permissions to check for the resource.
             - name: update
               description: '*(ALPHA)*  Update a Compute Engine external VPN gateway.'
               flags:
@@ -15561,6 +15800,10 @@ commands:
               description: '*(ALPHA)*  Starts a new rollout of organization firewall policy.'
               flags:
                 --organization=: Organization in which the organization firewall policy to start the rollout of resides.
+            - name: get-iam-policy
+              description: '*(ALPHA)*  Get the IAM policy for a Compute Engine organization firewall policy.'
+              flags:
+                --organization=: Organization ID in which the organization firewall policy is to be described.
             - name: import-rules
               description: '*(ALPHA)*  Import Compute Engine organization firewall policy rules.'
               flags:
@@ -15764,6 +16007,10 @@ commands:
                         direction:
                             - INGRESS
                             - EGRESS
+            - name: set-iam-policy
+              description: '*(ALPHA)*  Set the IAM policy for a Compute Engine organization firewall policy.'
+              flags:
+                --organization=: Organization ID in which the organization firewall policy is to be set.
             - name: update
               description: '*(ALPHA)*  Update a Compute Engine organization firewall policy.'
               flags:
@@ -16073,6 +16320,13 @@ commands:
                         - INTERNAL
                         - INTERNAL_MANAGED
                         - INTERNAL_SELF_MANAGED
+            - name: test-iam-permissions
+              description: '*(ALPHA)*  Test IAM permissions for a Compute Engine forwarding rule.'
+              flags:
+                --global: If set, the forwarding rule is global.
+                --no-global&: If set, the forwarding rule is global.
+                --permissions=!: The set of permissions to check for the resource.
+                --region=: Region of the forwarding rule to test-iam-permissions.
             - name: update
               description: '*(ALPHA)*  Update a Compute Engine forwarding rule.'
               flags:
@@ -17264,14 +17518,14 @@ commands:
                 --limit=: Maximum number of resources to list.
                 --no-preview-images&: Show images that are in limited preview.
                 --no-show-deprecated&: If provided, deprecated images are shown.
-                --no-show-preview-images&: THIS ARGUMENT NEEDS HELP TEXT.
+                --no-show-preview-images&: When this flag is enabled, gcloud expands the scope of projects it queries.
                 --no-standard-images&: List images from public image projects.
                 --no-uri&: Print a list of resource URIs instead of the default output, and change the
                 --page-size=: Some services group resource list output into pages.
                 --preview-images: Show images that are in limited preview.
                 --regexp=: (DEPRECATED)         Regular expression to filter the names of the results  on.
                 --show-deprecated: If provided, deprecated images are shown.
-                --show-preview-images&: THIS ARGUMENT NEEDS HELP TEXT.
+                --show-preview-images&: When this flag is enabled, gcloud expands the scope of projects it queries.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --standard-images: List images from public image projects.
                 --uri: Print a list of resource URIs instead of the default output, and change the
@@ -17410,6 +17664,11 @@ commands:
                     --instances=!: Names of instances to abandon.
                     --region=: Region of the managed instance group to operate on.
                     --zone=: Zone of the managed instance group to operate on.
+                - name: adopt-instances
+                  description: '*(ALPHA)*  Adopt instances into a regional managed instance group.'
+                  flags:
+                    --instances=!: Names of instances to adopt.
+                    --region=: Region of the managed instance group to operate on.
                 - name: all-instances-config
                   description: '*(ALPHA)*  Override instance template settings for all instances in a managed instance group.'
                   commands:
@@ -17535,6 +17794,8 @@ commands:
                 - name: delete
                   description: '*(ALPHA)*  Delete Compute Engine managed instance groups.'
                   flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --no-async&: Return immediately, without waiting for the operation in progress to
                     --region=: Region of the managed instance groups to delete.
                     --zone=: Zone of the managed instance groups to delete.
                 - name: delete-instances
@@ -19971,6 +20232,12 @@ commands:
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
                 --zones=: If provided, only zonal resources are shown.
+            - name: test-iam-permissions
+              description: '*(ALPHA)*  Test IAM permissions for a Compute Engine instant snapshot group.'
+              flags:
+                --permissions=!: Set of permissions to check for the resource.
+                --region=: Region of the instant snapshot group to test IAM permissions.
+                --zone=: Zone of the instant snapshot group to test IAM permissions.
         - name: instant-snapshots
           description: '*(ALPHA)*  Create, list and delete Compute Engine instant snapshots.'
           commands:
@@ -20010,6 +20277,17 @@ commands:
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
                 --zones=: If provided, only zonal resources are shown.
+            - name: set-iam-policy
+              description: '*(ALPHA)*  Set the IAM policy binding for a Compute Engine instant snapshot.'
+              flags:
+                --region=: Region of the instant snapshot to set the IAM policy on.
+                --zone=: Zone of the instant snapshot to set the IAM policy on.
+            - name: test-iam-permissions
+              description: '*(ALPHA)*  Test IAM permissions for a Compute Engine instant snapshot.'
+              flags:
+                --permissions=!: The set of permissions to check for the resource.
+                --region=: Region of the instant snapshot to test IAM permissions for.
+                --zone=: Zone of the instant snapshot to test IAM permissions for.
         - name: interconnects
           description: '*(ALPHA)*  Read and manipulate Compute Engine interconnects.'
           commands:
@@ -20459,6 +20737,10 @@ commands:
                                 - 50g
                                 - 50m
                                 - 5g
+                - name: set-iam-policy
+                  description: '*(ALPHA)*  Set the IAM policy for a Compute Engine interconnect attachment.'
+                  flags:
+                    --region=: The name of the Google Compute Engine region.
             - name: create
               description: '*(ALPHA)*  Create a Compute Engine interconnect.'
               flags:
@@ -20648,6 +20930,10 @@ commands:
                     --page-size=: Some services group resource list output into pages.
                     --sort-by=: Comma-separated list of resource field key names to sort by.
                     --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: test-iam-permissions
+              description: '*(ALPHA)*  Test IAM permissions for a Compute Engine interconnect.'
+              flags:
+                --permissions=!: The permissions to test.
             - name: update
               description: '*(ALPHA)*  Update a Compute Engine interconnect.'
               flags:
@@ -21247,6 +21533,11 @@ commands:
               description: '*(ALPHA)*  Set the IAM policy for a Compute Engine network attachment.'
               flags:
                 --region=: The name of the Google Compute Engine region.
+            - name: test-iam-permissions
+              description: '*(ALPHA)*  Test IAM permissions for a Compute Engine network attachment.'
+              flags:
+                --permissions=!: Permissions to be tested.
+                --region=: The name of the Google Compute Engine region.
             - name: update
               description: '*(ALPHA)*  Update a Google Compute Engine network attachment.'
               flags:
@@ -21472,6 +21763,12 @@ commands:
                 --region=: The region to get the effective regional firewalls.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: get-iam-policy
+              description: '*(ALPHA)*  Get the IAM policy for a Compute Engine network firewall policy.'
+              flags:
+                --global: If set, the firewall policy is global.
+                --no-global&: If set, the firewall policy is global.
+                --region=: Region of the firewall policy to get.
             - name: import-rules
               description: '*(ALPHA)*  Import a Compute Engine network firewall policy rules.'
               flags:
@@ -21682,6 +21979,12 @@ commands:
                         target-type:
                             - INSTANCES
                             - INTERNAL_MANAGED_LB
+            - name: set-iam-policy
+              description: '*(ALPHA)*  Set the IAM policy binding for a Compute Engine network firewall policy.'
+              flags:
+                --global: If set, the firewall policy is global.
+                --no-global&: If set, the firewall policy is global.
+                --region=: Region of the firewall policy to get.
             - name: update
               description: '*(ALPHA)*  Update a Compute Engine network firewall policy.'
               flags:
@@ -23153,6 +23456,13 @@ commands:
                         - CA_STANDARD
                         - CAMP_PLUS_PAYGO
                         - CAMP_PLUS_ANNUAL
+        - name: project-views
+          description: '*(ALPHA)*  Read project views with regional context.'
+          commands:
+            - name: describe
+              description: '*(ALPHA)*  Describe the Compute Engine project-view resource.'
+              flags:
+                --region=!: Region of the project view.
         - name: project-zonal-metadata
           description: '*(ALPHA)*  Describe and update project zonal metadata.'
           commands:
@@ -23525,6 +23835,14 @@ commands:
               hidden: true
               flags:
                 --snapshot-name=: Name of the snapshot after the recovery.
+            - name: set-iam-policy
+              description: '*(ALPHA)*  Set the IAM policy binding for a Compute Engine recoverable snapshot.'
+              hidden: true
+            - name: test-iam-permissions
+              description: '*(ALPHA)*  Test the IAM permissions for a Compute Engine recoverable snapshot.'
+              hidden: true
+              flags:
+                --permissions=!: The set of permissions to check for the resource.
         - name: regions
           description: '*(ALPHA)*  List Compute Engine regions.'
           commands:
@@ -25114,7 +25432,7 @@ commands:
             - name: update
               description: '*(ALPHA)*  Update a Compute Engine security policy.'
               flags:
-                --clear-network-ddos-impacted-baseline-threshold&: If provided, clears the Network DDoS impacted baseline threshold from the security policy.
+                --clear-network-ddos-impacted-baseline-threshold: If provided, clears the Network DDoS impacted baseline threshold from the security policy.
                 --ddos-protection=: The DDoS protection level for network load balancing and instances with external IPs.
                 --description=: An optional, textual description for the security policy.
                 --enable-layer7-ddos-defense: Whether to enable Cloud Armor Layer 7 DDoS Defense Adaptive Protection.
@@ -25128,8 +25446,8 @@ commands:
                 --layer7-ddos-defense-auto-deploy-load-threshold=: Load threshold above which Adaptive Protection's auto-deploy takes actions
                 --layer7-ddos-defense-rule-visibility=: The visibility type indicates whether the rules are opaque or transparent.
                 --log-level=: The level of detail to display for WAF logging.
-                --network-ddos-adaptive-protection=&: The DDoS adaptive protection level for network load balancing and instances with external IPs
-                --network-ddos-impacted-baseline-threshold=&: DDoS Protection for Network Load Balancers (and VMs with public IPs)
+                --network-ddos-adaptive-protection=: The DDoS adaptive protection level for network load balancing and instances with external IPs.
+                --network-ddos-impacted-baseline-threshold=: DDoS Protection for Network Load Balancers (and VMs with public IPs)
                 --network-ddos-protection=: The DDoS protection level for network load balancing and instances with external IPs.
                 --no-clear-network-ddos-impacted-baseline-threshold&: If provided, clears the Network DDoS impacted baseline threshold from the security policy.
                 --no-enable-layer7-ddos-defense&: Whether to enable Cloud Armor Layer 7 DDoS Defense Adaptive Protection.
@@ -25220,6 +25538,10 @@ commands:
                 --regions=: If provided, only resources from the given regions are queried.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: set-iam-policy
+              description: '*(ALPHA)*  Set the IAM policy for a Compute Engine service attachment.'
+              flags:
+                --region=: The name of the Google Compute Engine region.
             - name: update
               description: '*(ALPHA)*  Update a Google Compute Engine service attachment.'
               flags:
@@ -25597,6 +25919,11 @@ commands:
                     --no-async&: Return immediately, without waiting for the operation in progress to
                     --nodes=: The names of the nodes to simulate maintenance event.
                     --zone=: Zone of the node group to operate on.
+                - name: test-iam-permissions
+                  description: '*(ALPHA)*  Test IAM permissions for a Compute Engine node group.'
+                  flags:
+                    --permissions=!: The permissions to test.
+                    --zone=: The name of the Google Compute Engine zone.
                 - name: update
                   description: '*(ALPHA)*  Update a Compute Engine node group.'
                   flags:
@@ -25688,6 +26015,11 @@ commands:
                 - name: set-iam-policy
                   description: '*(ALPHA)*  Set the IAM policy for a Compute Engine node template.'
                   flags:
+                    --region=: The name of the Google Compute Engine region.
+                - name: test-iam-permissions
+                  description: '*(ALPHA)*  Test IAM permissions for a Compute Engine sole-tenancy node template.'
+                  flags:
+                    --permissions=!: Permissions to be tested.
                     --region=: The name of the Google Compute Engine region.
             - name: node-types
               description: '*(ALPHA)*  Read Compute Engine sole-tenancy node types.'
@@ -26172,6 +26504,7 @@ commands:
                 --global-ssl-certificates: If set, the ssl certificates are global.
                 --global-ssl-policy: If set, the SSL policy is global.
                 --global-url-map: If set, the URL map is global.
+                --http-filters=!: IDs of the http filters or fully qualified identifiers for the http filters.
                 --http-keep-alive-timeout-sec=: Represents the maximum amount of time that a TCP connection can be idle
                 --no-global&: If set, the target HTTPS proxy is global.
                 --no-global-ssl-certificates&: If set, the ssl certificates are global.
@@ -26250,6 +26583,10 @@ commands:
                         - disable
                         - enable
                         - none
+            - name: test-iam-permissions
+              description: '*(ALPHA)*  Test IAM permissions for a Compute Engine target HTTPS proxy.'
+              flags:
+                --permissions=!: Permissions to be tested.
             - name: update
               description: '*(ALPHA)*  Update a target HTTPS proxy.'
               flags:
@@ -26578,6 +26915,13 @@ commands:
                 --regions=: If provided, only regional resources are shown.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: test-iam-permissions
+              description: '*(ALPHA)*  Test IAM permissions for a target TCP proxy.'
+              flags:
+                --global: If set, the target TCP proxy is global.
+                --no-global&: If set, the target TCP proxy is global.
+                --permissions=!: Set of permissions to check for the resource.
+                --region=: Region of the target TCP proxy to test IAM permissions for.
             - name: update
               description: '*(ALPHA)*  Update a target TCP proxy.'
               flags:
@@ -27588,6 +27932,16 @@ commands:
                 --no-auto-create-local-mrdma-vpc&: If specified, the AcceleratorNetworkProfile automatically creates
                 --region=: Compute region (e.g. us-central1) for a regional cluster.
                 --tags=&: A list of comma-separated key-value pairs to bind as Cloud Tags to the
+                --timeout=: Timeout (in seconds) for waiting on the operation to complete.
+                --zone=: Compute zone (e.g. us-central1-a) for a zonal cluster.
+            - name: delete
+              description: '*(ALPHA)*  Delete an Accelerator Network Profile.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: Compute zone or region (e.g. us-central1-a or us-central1) for the cluster.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --region=: Compute region (e.g. us-central1) for a regional cluster.
                 --timeout=: Timeout (in seconds) for waiting on the operation to complete.
                 --zone=: Compute zone (e.g. us-central1-a) for a zonal cluster.
         - name: ai
@@ -36099,6 +36453,42 @@ commands:
                 --config=!: Inline JSON/YAML config or path to a file containing it.
                 --folder=: Folder ID.
                 --organization=: Organization ID.
+        - name: lineage-events
+          description: '*(ALPHA)*  Manage Data Lineage events.'
+          commands:
+            - name: create
+              description: '*(ALPHA)*  Create a Data Lineage event.'
+              flags:
+                --end-time=: The end time of the lineage event.
+                --links=: A list of source-target links representing data lineage.
+                --location=: The location of the lineage_event.
+                --process=: The name of the process.
+                --run=: The name of the run.
+                --start-time=!: The start time of the lineage event.
+            - name: delete
+              description: '*(ALPHA)*  Delete a Data Lineage event.'
+              flags:
+                --location=: The location of the lineage_event.
+                --process=: The name of the process.
+                --run=: The name of the run.
+            - name: describe
+              description: '*(ALPHA)*  Describe a Data Lineage event.'
+              flags:
+                --location=: The location of the lineage_event.
+                --process=: The name of the process.
+                --run=: The name of the run.
+            - name: list
+              description: '*(ALPHA)*  List Data Lineage events.'
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location of the run.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --process=: The name of the process.
+                --run=!: ID of the run or fully qualified identifier for the run.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
         - name: processes
           description: '*(ALPHA)*  Manage Data Lineage processes.'
           commands:
@@ -36149,6 +36539,67 @@ commands:
                 --attributes=: The new attributes of the process.
                 --display-name=: The new display name of the process.
                 --location=: The location of the process.
+        - name: runs
+          description: '*(ALPHA)*  Manage Data Lineage runs.'
+          commands:
+            - name: create
+              description: '*(ALPHA)*  Create a data lineage run.'
+              flags:
+                --attributes=: Additional attributes for the run.
+                --display-name=: The display name of the run.
+                --end-time=: The end time of the run.
+                --location=: The location of the run.
+                --process=: The name of the process.
+                --start-time=!: The start time of the run.
+                --state=!: The state of the run.
+              completion:
+                flag:
+                    state:
+                        - aborted
+                        - completed
+                        - failed
+                        - started
+                        - unknown
+            - name: delete
+              description: '*(ALPHA)*  Delete a Data Lineage run.'
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location of the run.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --process=: The name of the process.
+            - name: describe
+              description: '*(ALPHA)*  Describe a Data Lineage run.'
+              flags:
+                --location=: The location of the run.
+                --process=: The name of the process.
+            - name: list
+              description: '*(ALPHA)*  List Data Lineage runs.'
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location of the process.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --process=!: ID of the process or fully qualified identifier for the process.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: '*(ALPHA)*  Update a data lineage run.'
+              flags:
+                --attributes=: The new attributes of the run.
+                --display-name=: The new display name of the run.
+                --end-time=: The end time of the run.
+                --location=: The location of the run.
+                --process=: The name of the process.
+                --state=: The new state of the run.
+              completion:
+                flag:
+                    state:
+                        - aborted
+                        - completed
+                        - failed
+                        - started
+                        - unknown
     - name: dataplex
       description: '*(ALPHA)*  Manage Dataplex resources.'
       commands:
@@ -36675,9 +37126,11 @@ commands:
                     --data-source-resource=: 'Fully-qualified service resource name of the cloud resource that contains the data for the data documentation scan, of the form: //bigquery.{universe_domain}/projects/{project_id_or_number}/datasets/{dataset_id}/tables/{table_id}.'
                     --description=: Description of the data documentation scan.
                     --display-name=: Display name of the data documentation scan.
+                    --enable-catalog-publishing: Publish data documentation results to Knowledge Catalog.
                     --labels=: List of label KEY=VALUE pairs to add.
                     --location=: The location of the Dataplex resource.
                     --no-async&: Return immediately, without waiting for the operation in progress to
+                    --no-enable-catalog-publishing&: Publish data documentation results to Knowledge Catalog.
                     --no-one-time&: If set, the data documentation scan runs once, and is auto-deleted once the ttl_after_scan_completion expires.
                     --no-validate-only&: Validate the create action, but don't actually perform it.
                     --on-demand=: If set, the scan runs one-time shortly after data documentation scan creation.
@@ -36701,6 +37154,7 @@ commands:
                     --incremental-field=: Field that contains values that monotonically increase over time (e.g. timestamp).
                     --labels=: List of label KEY=VALUE pairs to add.
                     --location=: The location of the Dataplex resource.
+                    --mode=: The execution mode for the profile scan.
                     --no-async&: Return immediately, without waiting for the operation in progress to
                     --no-enable-catalog-publishing&: Publish data profile results to Dataplex catalog.
                     --no-one-time&: If set, the data profile scan runs once, and auto deleted once the ttl_after_scan_completion expires.
@@ -36715,6 +37169,11 @@ commands:
                     --ttl-after-scan-completion=: The time to live for one-time scans.
                     --use-user-credential: If set, the scan runs with the caller's credential.
                     --validate-only: Validate the create action, but don't actually perform it.
+                  completion:
+                    flag:
+                        mode:
+                            - LIGHTWEIGHT
+                            - STANDARD
                 - name: data-quality
                   description: '*(ALPHA)*  Create a Dataplex data quality scan job.'
                   flags:
@@ -36840,9 +37299,11 @@ commands:
                     --async: Return immediately, without waiting for the operation in progress to
                     --description=: Description of the data documentation scan.
                     --display-name=: Display name of the data documentation scan.
+                    --enable-catalog-publishing: Publish data documentation results to Knowledge Catalog.
                     --labels=: List of label KEY=VALUE pairs to add.
                     --location=: The location of the Dataplex resource.
                     --no-async&: Return immediately, without waiting for the operation in progress to
+                    --no-enable-catalog-publishing&: Publish data documentation results to Knowledge Catalog.
                     --no-one-time&: If set, the data documentation scan runs once, and auto deleted once the ttl_after_scan_completion expires.
                     --no-validate-only&: Validate the update action, but don't actually perform it.
                     --on-demand=: If set, the scan runs one-time shortly after data documentation scan creation.
@@ -36862,6 +37323,7 @@ commands:
                     --include-field-names=: Names of the fields to include in data profile.
                     --labels=: List of label KEY=VALUE pairs to add.
                     --location=: The location of the Dataplex resource.
+                    --mode=: The execution mode for the profile scan.
                     --no-async&: Return immediately, without waiting for the operation in progress to
                     --no-enable-catalog-publishing&: Publish data profile results to Dataplex catalog.
                     --no-validate-only&: Validate the update action, but don't actually perform it.
@@ -36870,6 +37332,11 @@ commands:
                     --sampling-percent=: The percentage of the records to be selected from the dataset for data profile scan.
                     --schedule=: Cron schedule (https://en.wikipedia.org/wiki/Cron) for running scans periodically.
                     --validate-only: Validate the update action, but don't actually perform it.
+                  completion:
+                    flag:
+                        mode:
+                            - LIGHTWEIGHT
+                            - STANDARD
                 - name: data-quality
                   description: '*(ALPHA)*  Update a Dataplex data quality scan job.'
                   flags:
@@ -40304,10 +40771,12 @@ commands:
                         --environment=: Environment name.
                         --location=: The location id of the component resource.
                         --no-criticality-mission-critical&: Indicates mission-critical Application, Service, or Workload.
+                        --no-use-as-root-module&: Whether the component is exported as a separate terraform root module in
                         --parameters=: The component parameters.
                         --scope-type=!: Scope Type.
                         --shared-template-revision-uri=!: The shared template used to generate the component.
                         --space=: The space id of the component resource.
+                        --use-as-root-module: Whether the component is exported as a separate terraform root module in
                       completion:
                         flag:
                             criticality-type:
@@ -40381,6 +40850,7 @@ commands:
                         --no-clear-attributes-operator-owners&: Clear attributes_operator_owners value and set to empty list.
                         --no-clear-parameters&: Clear parameters value and set to empty list.
                         --no-criticality-mission-critical&: Indicates mission-critical Application, Service, or Workload.
+                        --no-use-as-root-module&: Whether the component is exported as a separate terraform root module in
                         --parameters=: Set parameters to new value.
                         --remove-attributes-business-owners=: Remove existing value from attributes_business_owners list.
                         --remove-attributes-developer-owners=: Remove existing value from attributes_developer_owners list.
@@ -40388,6 +40858,7 @@ commands:
                         --remove-parameters=: Remove existing value from parameters list.
                         --scope-type=: Scope Type.
                         --space=: The space id of the component resource.
+                        --use-as-root-module: Whether the component is exported as a separate terraform root module in
                       completion:
                         flag:
                             criticality-type:
@@ -41727,7 +42198,7 @@ commands:
               flags:
                 --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
                 --limit=: Maximum number of resources to list.
-                --location=!: ID of the location or fully qualified identifier for the location.
+                --location=: ID of the location or fully qualified identifier for the location.
                 --no-uri&: Print a list of resource URIs instead of the default output, and change the
                 --page-size=: Some services group resource list output into pages.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
@@ -41746,13 +42217,15 @@ commands:
             - name: describe
               description: '*(ALPHA)*  Describe a Device Run session.'
               flags:
+                --full: Display full session details instead of the simplified summary.
                 --location=: Cloud location for the session.
+                --no-full&: Display full session details instead of the simplified summary.
             - name: list
               description: '*(ALPHA)*  List all Device Run sessions.'
               flags:
                 --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
                 --limit=: Maximum number of resources to list.
-                --location=!: ID of the location or fully qualified identifier for the location.
+                --location=: ID of the location or fully qualified identifier for the location.
                 --no-uri&: Print a list of resource URIs instead of the default output, and change the
                 --page-size=: Some services group resource list output into pages.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
@@ -41764,26 +42237,33 @@ commands:
                   description: '*(ALPHA)*  Submit a Device Run session with an instrumentation job.'
                   flags:
                     --additional-test-options=: A dictionary of additional options to pass to the instrumentation test.
-                    --apps=: A list of application binary files to install before running the test.
+                    --apps=: A list of application binary files (.apk, .aab, or .apks) to install before running the test.
+                    --async: Return immediately, without waiting for the operation in progress to
                     --bucket-name=: The name of a Google Cloud Storage bucket to store test artifacts, including
-                    --device=!: Id of the device to run the test on.
+                    --device=!: Id of the device type to run the test on.
+                    --flaky-test-attempts=: Specifies the maximum number of execution attempts per test shard to handle flakiness or infrastructure errors.
                     --instrumentation-timeout=: Specifies the maximum duration allowed for the instrumentation test run (e.g., `10m`, `20s`, `1h`).
                     --labels=: A dictionary of user-defined key-value labels to attach to the session.
-                    --location=!: ID of the location or fully qualified identifier for the location.
-                    --max-attempts=: Specifies the maximum number of execution attempts per test shard to handle flakiness or infrastructure errors.
+                    --locale=: Specifies the locale (language and region) to switch the device to before running the test.
+                    --location=: ID of the location or fully qualified identifier for the location.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
                     --orchestrator-version=: Specifies the version of the Android Test Orchestrator to use during test execution.
+                    --orientation=: Specifies the orientation to set the device to before running the test.
                     --other-files-to-push=: A dictionary of additional files to be pushed to the device before running the test.
                     --paths-to-pull=: A list of file or directory paths to pull from the device following test completion.
                     --sharding-option=: Specifies the sharding strategy to partition the test execution across multiple device allocations.
                     --smart-sharding-record-name=: Specifies the name of the smart sharding record file, excluding the file extension.
-                    --target-smart-shard-time=: Specifies the targeted execution time (in seconds) per shard for smart sharding.
+                    --smart-sharding-target-duration=: Specifies the targeted execution time (e.g., `2m`, `10m`, `1h`) per shard for smart sharding.
                     --test-runner-class=: The instrumentation test runner class to use.
                     --test-targets=: A list of test targets or target filters to run.
-                    --test=!: The path to the binary file containing instrumentation tests.
+                    --test=!: The path to the APK file containing instrumentation tests.
                     --uniform-shard-count=: Specifies the total number of shards to create for uniform sharding.
                     --video=: Specifies when to record video of the device screen during the test run.
                   completion:
                     flag:
+                        orientation:
+                            - portrait
+                            - landscape
                         sharding-option:
                             - uniform
                             - smart
@@ -44230,28 +44710,23 @@ commands:
       commands:
         - name: exclusion-windows
           description: '*(ALPHA)*  Manage Exclusion Window resources.'
-          hidden: true
           commands:
             - name: create
               description: '*(ALPHA)*  Create exclusionWindows.'
-              hidden: true
               flags:
-                --description=: Optional user-provided description.
-                --duration=!: How long the exclusion window lasts once started.
+                --description=: Description of the exclusion window's purpose
+                --duration=!: The length of time the exclusion window remains active once
                 --location=: The location id of the exclusionWindow resource.
             - name: delete
               description: '*(ALPHA)*  Delete exclusionWindows.'
-              hidden: true
               flags:
                 --location=: The location id of the exclusionWindow resource.
             - name: describe
               description: '*(ALPHA)*  Describe exclusionWindows.'
-              hidden: true
               flags:
                 --location=: The location id of the exclusionWindow resource.
             - name: list
               description: '*(ALPHA)*  List exclusionWindows.'
-              hidden: true
               flags:
                 --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
                 --limit=: Maximum number of resources to list.
@@ -44262,20 +44737,17 @@ commands:
                 --uri: Print a list of resource URIs instead of the default output, and change the
             - name: start
               description: '*(ALPHA)*  start exclusionWindows.'
-              hidden: true
               flags:
                 --location=: The location id of the exclusionWindow resource.
             - name: stop
               description: '*(ALPHA)*  stop exclusionWindows.'
-              hidden: true
               flags:
                 --location=: The location id of the exclusionWindow resource.
             - name: update
               description: '*(ALPHA)*  Update exclusionWindows.'
-              hidden: true
               flags:
-                --description=: Optional user-provided description.
-                --duration=: How long the exclusion window lasts once started.
+                --description=: Description of the exclusion window's purpose
+                --duration=: The length of time the exclusion window remains active once
                 --location=: The location id of the exclusionWindow resource.
         - name: experiment-templates
           description: '*(ALPHA)*  Manage Experiment Template resources.'
@@ -44367,6 +44839,8 @@ commands:
                 --display-name=: A human-readable name of the experiment.
                 --experiment-template=!: ID of the experimentTemplate or fully qualified identifier for the experimentTemplate.
                 --location=: For resources [experiment, experiment-template], provides fallback value for resource location attribute.
+                --no-start-on-create-enabled&: If true, the experiment will be started immediately after creation.
+                --start-on-create-enabled: If true, the experiment will be started immediately after creation.
             - name: delete
               description: '*(ALPHA)*  Delete an experiment.'
               flags:
@@ -48338,6 +48812,7 @@ commands:
                 --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
                 --condition=: A condition to include in the binding.
                 --endpoint=: Endpoint ID for the agent-registry resource type.
+                --instance=: Instance ID.
                 --mcp-server=: MCP server ID for the agent-registry resource type.
                 --member=!: The principal to add the binding for.
                 --region=: Region name.
@@ -48382,6 +48857,7 @@ commands:
                 --agent=: Agent ID for the agent-registry resource type.
                 --endpoint=: Endpoint ID for the agent-registry resource type.
                 --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --instance=: Instance ID.
                 --limit=: Maximum number of resources to list.
                 --mcp-server=: MCP server ID for the agent-registry resource type.
                 --page-size=: Some services group resource list output into pages.
@@ -48405,6 +48881,7 @@ commands:
                 --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
                 --condition=: The condition of the binding that you want to remove.
                 --endpoint=: Endpoint ID for the agent-registry resource type.
+                --instance=: Instance ID.
                 --mcp-server=: MCP server ID for the agent-registry resource type.
                 --member=!: The principal to remove the binding for.
                 --no-all&: ""
@@ -48425,6 +48902,7 @@ commands:
               flags:
                 --agent=: Agent ID for the agent-registry resource type.
                 --endpoint=: Endpoint ID for the agent-registry resource type.
+                --instance=: Instance ID.
                 --mcp-server=: MCP server ID for the agent-registry resource type.
                 --region=: Region name.
                 --resource-type=: Resource type of the IAP resource.
@@ -48870,7 +49348,9 @@ commands:
               flags:
                 --folder=: The folder id in which the AutokeyConfig resource exists.
             - name: show-effective-config
-              description: '*(ALPHA)*  Gets the effective Cloud KMS AutokeyConfig for a given project.'
+              description: '*(ALPHA)*  Get the effective Cloud KMS AutokeyConfig for a given folder or project.'
+              flags:
+                --folder=: The folder id in which the AutokeyConfig resource exists.
             - name: update
               description: '*(ALPHA)*  Update the AutokeyConfig for a folder or project.'
         - name: decapsulate
@@ -49286,11 +49766,13 @@ commands:
                 --crypto-key-backend=: The resource name of the backend environment where the key material for all CryptoKeyVersions associated with this CryptoKey reside and where all related cryptographic operations are performed.
                 --default-algorithm=: The default algorithm for the crypto key.
                 --destroy-scheduled-duration=: The amount of time that versions of the key should spend in the DESTROY_SCHEDULED state before transitioning to DESTROYED.
+                --hsm-trusted-wrapping: Enable HSM trusted wrapping capabilities for the key.
                 --import-only: Restrict this key to imported versions only.
                 --keyring=: The KMS keyring of the key.
                 --labels=: List of label KEY=VALUE pairs to add.
                 --location=: The Google Cloud location for the key.
                 --next-rotation-time=: Next automatic rotation time of the key.
+                --no-hsm-trusted-wrapping&: Enable HSM trusted wrapping capabilities for the key.
                 --no-import-only&: Restrict this key to imported versions only.
                 --no-skip-initial-version-creation&: Skip creating the first version in a key and setting it as primary during creation.
                 --protection-level=: Protection level of the key.
@@ -49306,6 +49788,7 @@ commands:
                         - aes-256-cbc
                         - aes-256-ctr
                         - aes-256-gcm
+                        - aes-256-kwp
                         - ec-sign-ed25519
                         - ec-sign-p256-sha256
                         - ec-sign-p384-sha384
@@ -49353,6 +49836,7 @@ commands:
                         - external
                         - external-vpc
                     purpose:
+                        - aes-wrapping
                         - asymmetric-encryption
                         - asymmetric-signing
                         - encryption
@@ -49449,6 +49933,7 @@ commands:
                         - aes-256-cbc
                         - aes-256-ctr
                         - aes-256-gcm
+                        - aes-256-kwp
                         - ec-sign-ed25519
                         - ec-sign-p256-sha256
                         - ec-sign-p384-sha384
@@ -49533,6 +50018,14 @@ commands:
                     --key=: The containing key.
                     --keyring=: Key ring of the key.
                     --location=: Location of the keyring.
+                - name: export-trusted-key-wrapped
+                  description: '*(ALPHA)*  Export a trusted key wrapped CryptoKeyVersion.'
+                  flags:
+                    --key=: The containing key.
+                    --keyring=: Key ring of the key.
+                    --location=: Location of the keyring.
+                    --wrapped-key-file=: Path to the RSA/RSA+AES wrapped key file to store the wrapped key material.
+                    --wrapping-key-version=!: The resource name of the CryptoKeyVersion to use as a wrapping key.
                 - name: get-certificate-chain
                   description: '*(ALPHA)*  Get a certificate chain for a given version.'
                   flags:
@@ -49560,10 +50053,12 @@ commands:
                   description: '*(ALPHA)*  Import a version into an existing crypto key.'
                   flags:
                     --algorithm=!: The algorithm to assign to the new key version.
+                    --hsm-trusted-wrapping: Enable HSM trusted wrapping capabilities for the key.
                     --import-job=!: Name of the import job to import from.
                     --key=: The containing key to import into.
                     --keyring=: Key ring of the key.
                     --location=: Location of the keyring.
+                    --no-hsm-trusted-wrapping&: Enable HSM trusted wrapping capabilities for the key.
                     --public-key-file=: Path to the public key of the ImportJob, used to wrap the key for import.
                     --rsa-aes-wrapped-key-file=&: (DEPRECATED) Path to the wrapped RSA AES key file to import.
                     --target-key-file=: Path to the unwrapped target key to import into a Cloud KMS key version.
@@ -49577,6 +50072,65 @@ commands:
                             - aes-256-cbc
                             - aes-256-ctr
                             - aes-256-gcm
+                            - aes-256-kwp
+                            - ec-sign-ed25519
+                            - ec-sign-p256-sha256
+                            - ec-sign-p384-sha384
+                            - ec-sign-secp256k1-sha256
+                            - google-symmetric-encryption
+                            - hmac-sha1
+                            - hmac-sha224
+                            - hmac-sha256
+                            - hmac-sha384
+                            - hmac-sha512
+                            - kem-xwing
+                            - ml-kem-1024
+                            - ml-kem-768
+                            - pq-sign-hash-slh-dsa-sha2-128s-sha256
+                            - pq-sign-ml-dsa-44
+                            - pq-sign-ml-dsa-44-external-mu
+                            - pq-sign-ml-dsa-65
+                            - pq-sign-ml-dsa-65-external-mu
+                            - pq-sign-ml-dsa-87
+                            - pq-sign-ml-dsa-87-external-mu
+                            - pq-sign-slh-dsa-sha2-128s
+                            - rsa-decrypt-oaep-2048-sha1
+                            - rsa-decrypt-oaep-2048-sha256
+                            - rsa-decrypt-oaep-3072-sha1
+                            - rsa-decrypt-oaep-3072-sha256
+                            - rsa-decrypt-oaep-4096-sha1
+                            - rsa-decrypt-oaep-4096-sha256
+                            - rsa-decrypt-oaep-4096-sha512
+                            - rsa-sign-pkcs1-2048-sha256
+                            - rsa-sign-pkcs1-3072-sha256
+                            - rsa-sign-pkcs1-4096-sha256
+                            - rsa-sign-pkcs1-4096-sha512
+                            - rsa-sign-pss-2048-sha256
+                            - rsa-sign-pss-3072-sha256
+                            - rsa-sign-pss-4096-sha256
+                            - rsa-sign-pss-4096-sha512
+                            - rsa-sign-raw-pkcs1-2048
+                            - rsa-sign-raw-pkcs1-3072
+                            - rsa-sign-raw-pkcs1-4096
+                - name: import-trusted-key-wrapped
+                  description: '*(ALPHA)*  Import a trusted key wrapped CryptoKeyVersion.'
+                  flags:
+                    --algorithm=!: The algorithm to assign to the new key version.
+                    --importing-key-version=!: The resource name of the CryptoKeyVersion to use as an importing key.
+                    --key=: The containing key to import into.
+                    --keyring=: Key ring of the key.
+                    --location=: Location of the keyring.
+                    --wrapped-key-file=: Path to the RSA/RSA+AES wrapped key file to import.
+                  completion:
+                    flag:
+                        algorithm:
+                            - aes-128-cbc
+                            - aes-128-ctr
+                            - aes-128-gcm
+                            - aes-256-cbc
+                            - aes-256-ctr
+                            - aes-256-gcm
+                            - aes-256-kwp
                             - ec-sign-ed25519
                             - ec-sign-p256-sha256
                             - ec-sign-p384-sha384
@@ -49761,11 +50315,13 @@ commands:
                 - name: create
                   description: '*(ALPHA)*  Create a single tenant HSM instance proposal.'
                   flags:
+                    --crypto-key-version-name=: ID to use for the crypto key version.
                     --location=: The Google Cloud location for the singleTenantHsmInstance.
                     --member-public-key-pem=: The PEM file containing the public key of the quorum member to add or remove.
                     --operation-type=!: The type of operation for the single tenant HSM instance proposal.
                     --required-approver-count=: The number of approvers required for the single tenant HSM instance.
                     --single-tenant-hsm-instance-proposal-id=: The ID to use for the single tenant HSM instance proposal, which will become the final component of the single tenant HSM instance resource name.
+                    --two-factor-public-key-pem=: PEM file containing the two-factor public key.
                     --two-factor-public-key-pems=: The PEM files containing the two factor public keys  2FA keys for M of N quorum auth tenant HSM instance.
                 - name: delete
                   description: '*(ALPHA)*  Delete a single tenant HSM instance proposal.'
@@ -50890,7 +51446,7 @@ commands:
                 --allowed-source-ip-ranges=: A comma-separated list of IPv4 ranges in CIDR notation that are allowed to connect
                 --async: Return immediately, without waiting for the operation in progress to
                 --auto-rebalance: Whether the automatic rebalancing is enabled.
-                --broker-disk-size-gib=: The amount of local disk to provision for each broker in Gibibytes.
+                --broker-disk=: The amount of local disk to provision for each broker.
                 --cpu=!: The number of vCPUs to provision for the cluster.
                 --encryption-key=: 'The relative resource path of the Cloud KMS key to use for encryption in the form:'
                 --labels=: List of label KEY=VALUE pairs to add.
@@ -50930,7 +51486,7 @@ commands:
                 --allowed-source-ip-ranges=: A comma-separated list of IPv4 ranges in CIDR notation that are allowed to connect
                 --async: Return immediately, without waiting for the operation in progress to
                 --auto-rebalance: Whether the automatic rebalancing is enabled.
-                --broker-disk-size-gib=: The amount of local disk to provision for each broker in Gibibytes.
+                --broker-disk=: The amount of local disk to provision for each broker.
                 --clear-mtls-ca-pools: Remove all the CA pools from the cluster.
                 --cpu=: The number of vCPUs to provision for the cluster.
                 --labels=: List of label KEY=VALUE pairs to add.
@@ -57483,11 +58039,9 @@ commands:
                     --uri: Print a list of resource URIs instead of the default output, and change the
             - name: wildfire-analysis
               description: '*(ALPHA)*  Manage Security Profiles - WildFire Analysis Profile.'
-              hidden: true
               commands:
                 - name: add-inline-cloud-analysis-rule
                   description: '*(ALPHA)*  Add a WildFire inline cloud analysis rule to a WildFire Analysis Profile.'
-                  hidden: true
                   flags:
                     --action=!: Action to take when Inline Cloud Analysis detects a threat.
                     --async: Return immediately, without waiting for the operation in progress to
@@ -57508,7 +58062,6 @@ commands:
                             - BOTH
                 - name: add-inline-ml-exception
                   description: '*(ALPHA)*  Add a WildFire inline machine learning exception to a WildFire Analysis Profile.'
-                  hidden: true
                   flags:
                     --async: Return immediately, without waiting for the operation in progress to
                     --filename=: Name of the file.
@@ -57518,7 +58071,6 @@ commands:
                     --partial-hash=!: Machine learning partial hash of the file.
                 - name: add-override
                   description: '*(ALPHA)*  Add an override to a WildFire Analysis Profile.'
-                  hidden: true
                   flags:
                     --action=!: The action to take for this override.
                     --async: Return immediately, without waiting for the operation in progress to
@@ -57537,7 +58089,6 @@ commands:
                             - ALERT
                 - name: add-submission-rule
                   description: '*(ALPHA)*  Add a WildFire submission rule to a WildFire Analysis Profile.'
-                  hidden: true
                   flags:
                     --async: Return immediately, without waiting for the operation in progress to
                     --direction=!: Direction of traffic that will be checked for files to submit to WildFire.
@@ -57553,7 +58104,6 @@ commands:
                             - BOTH
                 - name: create
                   description: '*(ALPHA)*  Create a new WildFire Analysis Profile.'
-                  hidden: true
                   flags:
                     --async: Return immediately, without waiting for the operation in progress to
                     --description=: Brief description of the security profile
@@ -57563,7 +58113,6 @@ commands:
                     --organization=: Organization ID to which the changes should apply.
                 - name: delete
                   description: '*(ALPHA)*  Delete a WildFire Analysis Profile.'
-                  hidden: true
                   flags:
                     --async: Return immediately, without waiting for the operation in progress to
                     --location=: Location of the security profile.
@@ -57571,7 +58120,6 @@ commands:
                     --organization=: Organization ID to which the changes should apply.
                 - name: delete-inline-cloud-analysis-rule
                   description: '*(ALPHA)*  Delete a WildFire inline cloud analysis rule from a WildFire Analysis Profile.'
-                  hidden: true
                   flags:
                     --action=!: Action to take when Inline Cloud Analysis detects a threat.
                     --async: Return immediately, without waiting for the operation in progress to
@@ -57592,7 +58140,6 @@ commands:
                             - BOTH
                 - name: delete-inline-ml-exception
                   description: '*(ALPHA)*  Delete a WildFire inline machine learning exception from a WildFire Analysis Profile.'
-                  hidden: true
                   flags:
                     --async: Return immediately, without waiting for the operation in progress to
                     --filename=: Name of the file.
@@ -57602,7 +58149,6 @@ commands:
                     --partial-hash=!: Machine learning partial hash of the file.
                 - name: delete-override
                   description: '*(ALPHA)*  Delete an override from a WildFire Analysis Profile.'
-                  hidden: true
                   flags:
                     --async: Return immediately, without waiting for the operation in progress to
                     --location=: Location of the security profile.
@@ -57613,7 +58159,6 @@ commands:
                     --wildfire=: Comma-separated list of protocols to delete the override for WildFire threats.
                 - name: delete-submission-rule
                   description: '*(ALPHA)*  Delete a WildFire submission rule from a WildFire Analysis Profile.'
-                  hidden: true
                   flags:
                     --async: Return immediately, without waiting for the operation in progress to
                     --direction=!: Direction of traffic that will be checked for files to submit to WildFire.
@@ -57629,13 +58174,11 @@ commands:
                             - BOTH
                 - name: describe
                   description: '*(ALPHA)*  Describe a WildFire Analysis Security Profile.'
-                  hidden: true
                   flags:
                     --location=: Location of the security profile.
                     --organization=: Organization ID to which the changes should apply.
                 - name: list
                   description: '*(ALPHA)*  List WildFire Analysis Security Profiles.'
-                  hidden: true
                   flags:
                     --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
                     --limit=: Maximum number of resources to list.
@@ -57647,7 +58190,6 @@ commands:
                     --uri: Print a list of resource URIs instead of the default output, and change the
                 - name: update
                   description: '*(ALPHA)*  Update a WildFire Analysis Security Profile.'
-                  hidden: true
                   flags:
                     --analyze-elf: Enable machine learning engine to dynamically detect malicious ELF files.
                     --analyze-macho: Enable machine learning engine to dynamically detect malicious Mach-O files.
@@ -57678,7 +58220,6 @@ commands:
                     --wildfire-realtime-lookup: Hold the transfer of a file while the WildFire real-time signature cloud performs a signature lookup.
                 - name: update-override
                   description: '*(ALPHA)*  Update an override in a WildFire Analysis Profile.'
-                  hidden: true
                   flags:
                     --action=!: The action to take for this override.
                     --async: Return immediately, without waiting for the operation in progress to
@@ -57826,14 +58367,14 @@ commands:
                   flags:
                     --async: Return immediately, without waiting for the operation in progress to
                     --labels=: Labels as key value pairs.
-                    --location=: The location id of the rule resource.
+                    --location=: The location id of the ullMirroringCollectorRule resource.
                     --match-direction=: Direction of traffic to match.
                     --match-dst-ip-ranges=: Destination IP ranges to match.
                     --match-ip-protocols=: IP protocols to match.
                     --match-src-ip-ranges=: Source IP ranges to match.
                     --no-async&: Return immediately, without waiting for the operation in progress to
                     --request-id=: An optional request ID to identify requests.
-                    --ull-mirroring-collector=: The ullMirroringCollector id of the rule resource.
+                    --ull-mirroring-collector=: The ullMirroringCollector id of the ullMirroringCollectorRule resource.
                   completion:
                     flag:
                         match-direction:
@@ -57844,16 +58385,16 @@ commands:
                   hidden: true
                   flags:
                     --async: Return immediately, without waiting for the operation in progress to
-                    --location=: The location id of the rule resource.
+                    --location=: The location id of the ullMirroringCollectorRule resource.
                     --no-async&: Return immediately, without waiting for the operation in progress to
                     --request-id=: An optional request ID to identify requests.
-                    --ull-mirroring-collector=: The ullMirroringCollector id of the rule resource.
+                    --ull-mirroring-collector=: The ullMirroringCollector id of the ullMirroringCollectorRule resource.
                 - name: describe
                   description: '*(ALPHA)*  Describe ullMirroringCollectorRules.'
                   hidden: true
                   flags:
-                    --location=: The location id of the rule resource.
-                    --ull-mirroring-collector=: The ullMirroringCollector id of the rule resource.
+                    --location=: The location id of the ullMirroringCollectorRule resource.
+                    --ull-mirroring-collector=: The ullMirroringCollector id of the ullMirroringCollectorRule resource.
                 - name: list
                   description: '*(ALPHA)*  List ullMirroringCollectorRules.'
                   hidden: true
@@ -57880,7 +58421,7 @@ commands:
                     --clear-match-ip-protocols: Clear match_ip_protocols value and set to empty list.
                     --clear-match-src-ip-ranges: Clear match_src_ip_ranges value and set to empty list.
                     --labels=: Set labels to new value.
-                    --location=: The location id of the rule resource.
+                    --location=: The location id of the ullMirroringCollectorRule resource.
                     --match-direction=: Direction of traffic to match.
                     --match-dst-ip-ranges=: Set match_dst_ip_ranges to new value.
                     --match-ip-protocols=: Set match_ip_protocols to new value.
@@ -57895,7 +58436,7 @@ commands:
                     --remove-match-dst-ip-ranges=: Remove existing value from match_dst_ip_ranges list.
                     --remove-match-ip-protocols=: Remove existing value from match_ip_protocols list.
                     --remove-match-src-ip-ranges=: Remove existing value from match_src_ip_ranges list.
-                    --ull-mirroring-collector=: The ullMirroringCollector id of the rule resource.
+                    --ull-mirroring-collector=: The ullMirroringCollector id of the ullMirroringCollectorRule resource.
                     --update-labels=: Update labels value or add key value pair.
                   completion:
                     flag:
@@ -59305,6 +59846,41 @@ commands:
                 --page-size=: Some services group resource list output into pages.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: telemetry-policies
+          description: '*(ALPHA)*  Manage Network Services Telemetry Policies.'
+          commands:
+            - name: delete
+              description: '*(ALPHA)*  Delete a TelemetryPolicy.'
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location Id.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: describe
+              description: '*(ALPHA)*  Describe a TelemetryPolicy.'
+              flags:
+                --location=: The location Id.
+            - name: export
+              description: '*(ALPHA)*  Export a TelemetryPolicy.'
+              flags:
+                --destination=: Path to a YAML file where the configuration will be exported.
+                --location=: The location Id.
+            - name: import
+              description: '*(ALPHA)*  Import a TelemetryPolicy.'
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location Id.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --source=: Path to a YAML file containing the configuration export data.
+            - name: list
+              description: '*(ALPHA)*  List TelemetryPolicies.'
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=!: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
         - name: tls-routes
           description: '*(ALPHA)*  Manage Network Services TlsRoutes.'
           commands:
@@ -60402,7 +60978,7 @@ commands:
                 --exadata-infrastructure=!: ID of the cloudExadataInfrastructure or fully qualified identifier for the cloudExadataInfrastructure.
                 --exascale-db-storage-vault=!: ID of the exascaleDbStorageVault or fully qualified identifier for the exascaleDbStorageVault.
                 --labels=: Labels or tags associated with the VM Cluster.
-                --location=: For resources [backup-odb-subnet, cloud_vm_cluster, exadata-infrastructure, exascale-db-storage-vault, odb-network, odb-subnet], provides fallback value for resource location attribute.
+                --location=: For resources [backup-odb-subnet, cloud_vm_cluster, exadata-infrastructure, exascale-db-storage-vault, odb-dns-zone, odb-network, odb-subnet], provides fallback value for resource location attribute.
                 --network=!: ID of the network or fully qualified identifier for the network.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-diagnostics-data-collection-options-events-enabled&: Indicates whether diagnostic collection is enabled for the VM cluster
@@ -60410,7 +60986,8 @@ commands:
                 --no-diagnostics-data-collection-options-incident-logs-enabled&: Indicates whether incident logs and trace collection are enabled for the VM
                 --no-properties-local-backup-enabled&: Use local backup.
                 --no-properties-sparse-diskgroup-enabled&: Use exadata sparse snapshots.
-                --odb-network=: For resources [backup-odb-subnet, odb-network, odb-subnet], provides fallback value for resource odb-network attribute.
+                --odb-dns-zone=!: ID of the odbDnsZone or fully qualified identifier for the odbDnsZone.
+                --odb-network=: For resources [backup-odb-subnet, odb-dns-zone, odb-network, odb-subnet], provides fallback value for resource odb-network attribute.
                 --odb-subnet=!: ID of the odbSubnet or fully qualified identifier for the odbSubnet.
                 --properties-cluster-name=: OCI Cluster name.
                 --properties-cpu-core-count=!: Number of enabled CPU cores.
@@ -60585,7 +61162,7 @@ commands:
                 --db-home-version=!: A valid Oracle Database version.
                 --db-system-options-storage-management=: The storage option used in DB system.
                 --display-name=!: The display name for the System db.
-                --gcp-oracle-zone=: The GCP Oracle zone where Oracle DbSystem is hosted.
+                --gcp-oracle-zone=: The Google Cloud Oracle zone where Oracle DbSystem is hosted.
                 --labels=: The labels or tags associated with the DbSystem.
                 --location=: For resources [db_system, odb-network, odb-subnet], provides fallback value for resource location attribute.
                 --no-async&: Return immediately, without waiting for the operation in progress to
@@ -61573,6 +62150,48 @@ commands:
                 --page-size=: Some services group resource list output into pages.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: odb-dns-zones
+              description: '*(ALPHA)*  Manage Odb Dns Zone resources.'
+              hidden: true
+              commands:
+                - name: create
+                  description: '*(ALPHA)*  Create a new OdbDnsZone.'
+                  hidden: true
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --domain=!: The DNS suffix for the zone.
+                    --labels=: Labels or tags associated with the resource.
+                    --location=: The location id of the odbDnsZone resource.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --odb-network=: The odbNetwork id of the odbDnsZone resource.
+                    --request-id=: An optional ID to identify the request.
+                - name: delete
+                  description: '*(ALPHA)*  Delete an OdbDnsZone.'
+                  hidden: true
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --location=: The location id of the odbDnsZone resource.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --odb-network=: The odbNetwork id of the odbDnsZone resource.
+                    --request-id=: An optional ID to identify the request.
+                - name: describe
+                  description: '*(ALPHA)*  Get details of an OdbDnsZone.'
+                  hidden: true
+                  flags:
+                    --location=: The location id of the odbDnsZone resource.
+                    --odb-network=: The odbNetwork id of the odbDnsZone resource.
+                - name: list
+                  description: '*(ALPHA)*  List all OdbDnsZones.'
+                  hidden: true
+                  flags:
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --location=: The location id of the odbNetwork resource.
+                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                    --odb-network=!: ID of the odbNetwork or fully qualified identifier for the odbNetwork.
+                    --page-size=: Some services group resource list output into pages.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --uri: Print a list of resource URIs instead of the default output, and change the
             - name: odb-subnets
               description: '*(ALPHA)*  Manage Odb Subnet resources.'
               hidden: true
@@ -62758,8 +63377,11 @@ commands:
                 --bigquery-service-account-email=: The service account email to use when writing to BigQuery.
                 --bigquery-table=!: A BigQuery table  of the form {project}:{dataset_name}.{table_name} to which to write messages for this subscription.
                 --bigtable-app-profile-id=: The app profile to use for the Bigtable writes.
+                --bigtable-delimiter=&: The delimiter to use when joining the Bigtable row key fields.
+                --bigtable-key-fields=!&: The Pub/Sub message fields that will be joined for the Bigtable row key when writing to Bigtable.
                 --bigtable-service-account-email=: The service account email to use when writing to Bigtable.
                 --bigtable-table=!: A Bigtable table of the form projects/{project}/instances/{instance_name}/tables/{table_name} to which to write messages for this subscription.
+                --bigtable-use-row-key-schema&: Whether or not to write Bigtable row keys for each message based on the row key schema of the target table.
                 --bigtable-write-metadata: Whether or not to write the subscription name, message_id, publish_time, attributes, and ordering_key as additional fields in the output.
                 --cloud-storage-bucket=!: A Cloud Storage bucket to which to write messages for this subscription.
                 --cloud-storage-file-datetime-format=: The custom datetime format string for Cloud Storage filename.
@@ -62785,6 +63407,7 @@ commands:
                 --message-retention-duration=: How long to retain unacknowledged messages in the
                 --message-transforms-file=: Path to YAML or JSON file containing message transforms.
                 --min-retry-delay=: The minimum delay between consecutive deliveries of a given
+                --no-bigtable-use-row-key-schema&: Whether or not to write Bigtable row keys for each message based on the row key schema of the target table.
                 --no-bigtable-write-metadata&: Whether or not to write the subscription name, message_id, publish_time, attributes, and ordering_key as additional fields in the output.
                 --no-cloud-storage-use-topic-schema&: Whether or not to use the schema for the subscription's topic (if it exists) when writing messages to Cloud Storage.
                 --no-cloud-storage-write-metadata&: Whether or not to write the subscription name, message_id, publish_time, attributes, and ordering_key as additional fields in the output.
@@ -62892,8 +63515,11 @@ commands:
                 --bigquery-service-account-email=: The service account email to use when writing to BigQuery.
                 --bigquery-table=!: A BigQuery table  of the form {project}:{dataset_name}.{table_name} to which to write messages for this subscription.
                 --bigtable-app-profile-id=: The app profile to use for the Bigtable writes.
+                --bigtable-delimiter=&: The delimiter to use when joining the Bigtable row key fields.
+                --bigtable-key-fields=!&: The Pub/Sub message fields that will be joined for the Bigtable row key when writing to Bigtable.
                 --bigtable-service-account-email=: The service account email to use when writing to Bigtable.
                 --bigtable-table=!: A Bigtable table of the form projects/{project}/instances/{instance_name}/tables/{table_name} to which to write messages for this subscription.
+                --bigtable-use-row-key-schema&: Whether or not to write Bigtable row keys for each message based on the row key schema of the target table.
                 --bigtable-write-metadata: Whether or not to write the subscription name, message_id, publish_time, attributes, and ordering_key as additional fields in the output.
                 --clear-bigquery-config: If set, clear the BigQuery config from the subscription.
                 --clear-bigtable-config: If set, clear the Bigtable config from the subscription.
@@ -62925,6 +63551,7 @@ commands:
                 --message-retention-duration=: How long to retain unacknowledged messages in the
                 --message-transforms-file=: Path to YAML or JSON file containing message transforms.
                 --min-retry-delay=: The minimum delay between consecutive deliveries of a given
+                --no-bigtable-use-row-key-schema&: Whether or not to write Bigtable row keys for each message based on the row key schema of the target table.
                 --no-bigtable-write-metadata&: Whether or not to write the subscription name, message_id, publish_time, attributes, and ordering_key as additional fields in the output.
                 --no-clear-bigquery-config&: If set, clear the BigQuery config from the subscription.
                 --no-clear-bigtable-config&: If set, clear the Bigtable config from the subscription.
@@ -64904,6 +65531,16 @@ commands:
               flags:
                 --folder=: Folder ID.
                 --organization=: Organization ID.
+        - name: resource-semantics
+          description: '*(ALPHA)*  View Resource Semantics.'
+          hidden: true
+          commands:
+            - name: list
+              description: '*(ALPHA)*  Command for listing semantic meanings applicable to a resource.'
+              hidden: true
+              flags:
+                --location=: Region or zone of the resource.
+                --parent=!: Full resource name of the resource to get semantics for.
         - name: semantics-catalog
           description: '*(ALPHA)*  View semantic catalog entries.'
           commands:
@@ -65347,11 +65984,11 @@ commands:
             --no-invoker-iam-check&: Optionally disable invoker IAM checks.
             --no-overflow-scaling&: Whether to start instances for new requests when no capacity is available on existing instances.
             --no-public&: Make the service public by disabling invoker IAM checks and IAP.
+            --no-run-upload&: Specifies that the source should be uploaded via Cloud Run UploadSource API.
             --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
             --no-session-affinity&: Whether to enable session affinity for connections to the service.
             --no-ssh&: Whether to enable SSH access to the container for inspection and debugging.
             --no-traffic: True to avoid sending traffic to the revision being deployed.
-            --no-upload&: Specifies that the source should be uploaded via Cloud Run UploadSource API.
             --no-use-http2&: Whether to use HTTP/2 for connections to the service.
             --overflow-scaling&: Whether to start instances for new requests when no capacity is available on existing instances.
             --platform=&: Target platform for running commands.
@@ -65373,6 +66010,7 @@ commands:
             --remove-volume-mount=: Removes the volume mounted at the specified path from the current container.
             --remove-volume=: Removes volumes from the Cloud Run resource.
             --revision-suffix=: Specify the suffix of the revision name.
+            --run-upload&: Specifies that the source should be uploaded via Cloud Run UploadSource API.
             --runtime=&: The runtime to use.
             --sandbox-launcher: Set the container as a sandbox supervisor to launch sandboxes.
             --scaling-concurrency-target=: This represents the concurrency utilization target threshold for scaling up new instances.
@@ -65400,7 +66038,6 @@ commands:
             --update-env-vars=: List of key-value pairs to set as environment variables.
             --update-labels=: List of label KEY=VALUE pairs to update.
             --update-secrets=: List of key-value pairs to set as secrets.
-            --upload&: Specifies that the source should be uploaded via Cloud Run UploadSource API.
             --use-http2: Whether to use HTTP/2 for connections to the service.
             --vpc-connector=: Set a VPC connector for this resource.
             --vpc-egress=: Specify which of the outbound traffic to send through Direct VPC egress or the VPC connector for this resource.
@@ -65588,14 +66225,18 @@ commands:
                 --no-clear-volumes&: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
                 --no-default-url&: Toggles the default url for a run instance.
                 --no-invoker-iam-check&: Optionally disable invoker IAM checks.
+                --no-public&: Make the service public by disabling invoker IAM checks and IAP.
+                --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --no-ssh&: Whether to enable SSH access to the container for inspection and debugging.
                 --port=: Container port to receive requests at.
+                --public: Make the service public by disabling invoker IAM checks and IAP.
                 --region=: Region in which the resource can be found.
                 --remove-env-vars=: List of environment variables to be removed.
                 --remove-secrets=: List of secrets to be removed.
                 --remove-volume-mount=: Removes the volume mounted at the specified path from the current container.
                 --remove-volume=: Removes volumes from the Cloud Run resource.
                 --restart-policy=: Set the restart policy for the instance.
+                --sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --service-account=: the email address of an IAM service account associated with the revision of the service.
                 --set-cloudsql-instances=: You can specify a name of a Cloud SQL instance if it's in the same
                 --set-env-vars=: List of key-value pairs to set as environment variables.
@@ -65673,18 +66314,18 @@ commands:
                     --no-clear-build-env-vars&: Remove all build environment variables.
                     --no-clear-config-maps&: Remove all config-maps.
                     --no-invoker-iam-check&: Optionally disable invoker IAM checks.
-                    --no-upload&: Specifies that the source should be uploaded via Cloud Run UploadSource API.
+                    --no-run-upload&: Specifies that the source should be uploaded via Cloud Run UploadSource API.
                     --port=: Container port to receive requests at.
                     --region=: Region in which the resource can be found.
                     --remove-build-env-vars=: List of build environment variables to be removed.
                     --remove-config-maps=&: List of config-maps to be removed.
+                    --run-upload&: Specifies that the source should be uploaded via Cloud Run UploadSource API.
                     --service-account=: the email address of an IAM service account associated with the revision of the service.
                     --set-build-env-vars=: List of key-value pairs to set as build environment variables.
                     --set-config-maps=&: List of key-value pairs to set as config-maps.
                     --source=: The location of the source to build.
                     --update-build-env-vars=: List of key-value pairs to set as build environment variables.
                     --update-config-maps=&: List of key-value pairs to set as config-maps.
-                    --upload&: Specifies that the source should be uploaded via Cloud Run UploadSource API.
                   completion:
                     flag:
                         endpoint-mode:
@@ -65746,6 +66387,14 @@ commands:
                     --no-show-exec-error&: If true and command fails, print the underlying command that was executed and its exit status.
                     --region=: Region in which the resource can be found.
                     --show-exec-error&: If true and command fails, print the underlying command that was executed and its exit status.
+            - name: proxy
+              description: '*(ALPHA)*  Proxy an instance to localhost authenticating as the active account or with the specified token.'
+              flags:
+                --no-show-exec-error&: If true and command fails, print the underlying command that was executed and its exit status.
+                --port=: Local port number to expose the proxied instance.
+                --region=: Region in which the resource can be found.
+                --show-exec-error&: If true and command fails, print the underlying command that was executed and its exit status.
+                --token=: The specific identity token to add to all requests of the proxied service.
             - name: remove-iam-policy-binding
               description: '*(ALPHA)*  Remove IAM policy binding of a Cloud Run instance.'
               flags:
@@ -65780,6 +66429,18 @@ commands:
                         - global
                         - regional
                         - regional-preferred
+            - name: scp
+              description: '*(ALPHA)*  A command to copy files to and from a Cloud Run instance.'
+              hidden: true
+              flags:
+                --compress: Enable compression.
+                --container=: Name of a specific container to SSH into.
+                --iap-tunnel-url-override=&: Allows for overriding the connection endpoint for integration testing.
+                --no-compress&: Enable compression.
+                --no-recurse&: Copy directories recursively.
+                --recurse: Copy directories recursively.
+                --region=: Region in which the resource can be found.
+                --scp-flag=: Extra flag to be sent to scp.
             - name: set-iam-policy
               description: '*(ALPHA)*  Set the IAM policy for a instance.'
               flags:
@@ -65862,8 +66523,11 @@ commands:
                 --no-clear-volumes&: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
                 --no-default-url&: Toggles the default url for a run instance.
                 --no-invoker-iam-check&: Optionally disable invoker IAM checks.
+                --no-public&: Make the service public by disabling invoker IAM checks and IAP.
+                --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --no-ssh&: Whether to enable SSH access to the container for inspection and debugging.
                 --port=: Container port to receive requests at.
+                --public: Make the service public by disabling invoker IAM checks and IAP.
                 --region=: Region in which the resource can be found.
                 --remove-containers=: List of containers to remove.
                 --remove-env-vars=: List of environment variables to be removed.
@@ -65872,6 +66536,7 @@ commands:
                 --remove-volume-mount=: Removes the volume mounted at the specified path from the current container.
                 --remove-volume=: Removes volumes from the Cloud Run resource.
                 --restart-policy=: Set the restart policy for the instance.
+                --sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --service-account=: the email address of an IAM service account associated with the revision of the service.
                 --set-cloudsql-instances=: You can specify a name of a Cloud SQL instance if it's in the same
                 --set-env-vars=: List of key-value pairs to set as environment variables.
@@ -65962,6 +66627,7 @@ commands:
                 --no-delay-execution&: True if the executions of the job can be delayed to start.
                 --no-execute-now&: Execute the job immediately after the creation or update  completes.
                 --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
+                --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --no-wait&: Wait until the execution has completed running before exiting.
                 --parallelism=: Number of tasks that may run concurrently.
                 --region=: Region in which the resource can be found.
@@ -65970,6 +66636,7 @@ commands:
                 --remove-volume-mount=: Removes the volume mounted at the specified path from the current container.
                 --remove-volume=: Removes volumes from the Cloud Run resource.
                 --runtime=&: The runtime to use.
+                --sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --service-account=: the email address of an IAM service account associated with the revision of the service.
                 --set-cloudsql-instances=: You can specify a name of a Cloud SQL instance if it's in the same
                 --set-env-vars=: List of key-value pairs to set as environment variables.
@@ -66057,6 +66724,7 @@ commands:
                 --no-delay-execution&: True if the executions of the job can be delayed to start.
                 --no-execute-now&: Execute the job immediately after the creation or update  completes.
                 --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
+                --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --no-wait&: Wait until the execution has completed running before exiting.
                 --parallelism=: Number of tasks that may run concurrently.
                 --region=: Region in which the resource can be found.
@@ -66066,6 +66734,7 @@ commands:
                 --remove-volume-mount=: Removes the volume mounted at the specified path from the current container.
                 --remove-volume=: Removes volumes from the Cloud Run resource.
                 --runtime=&: The runtime to use.
+                --sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --service-account=: the email address of an IAM service account associated with the revision of the service.
                 --set-cloudsql-instances=: You can specify a name of a Cloud SQL instance if it's in the same
                 --set-env-vars=: List of key-value pairs to set as environment variables.
@@ -66439,6 +67108,7 @@ commands:
                 --no-delay-execution&: True if the executions of the job can be delayed to start.
                 --no-execute-now&: Execute the job immediately after the creation or update  completes.
                 --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
+                --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --no-wait&: Wait until the execution has completed running before exiting.
                 --parallelism=: Number of tasks that may run concurrently.
                 --region=: Region in which the resource can be found.
@@ -66450,6 +67120,7 @@ commands:
                 --remove-volume-mount=: Removes the volume mounted at the specified path from the current container.
                 --remove-volume=: Removes volumes from the Cloud Run resource.
                 --runtime=&: The runtime to use.
+                --sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --service-account=: the email address of an IAM service account associated with the revision of the service.
                 --set-cloudsql-instances=: Completely replace the current Cloud SQL instances with the given values.
                 --set-env-vars=: List of key-value pairs to set as environment variables.
@@ -66679,6 +67350,7 @@ commands:
                 --no-identity-certificate&: Enables workload certificates using managed workload identity.
                 --no-invoker-iam-check&: Optionally disable invoker IAM checks.
                 --no-overflow-scaling&: Whether to start instances for new requests when no capacity is available on existing instances.
+                --no-public&: Make the service public by disabling invoker IAM checks and IAP.
                 --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --no-session-affinity&: Whether to enable session affinity for connections to the service.
                 --no-ssh&: Whether to enable SSH access to the container for inspection and debugging.
@@ -66688,6 +67360,7 @@ commands:
                 --platform=&: Target platform for running commands.
                 --port=: Container port to receive requests at.
                 --post-key-revocation-action-type=: Action type after CMEK key revocation.
+                --public: Make the service public by disabling invoker IAM checks and IAP.
                 --readiness-probe=: Comma separated settings for readiness probe in the form KEY=VALUE.
                 --region=: Region in which the resource can be found.
                 --remove-cloudsql-instances=: Remove the given values from the current Cloud SQL instances.
@@ -67202,19 +67875,19 @@ commands:
                     --no-clear-build-env-vars&: Remove all build environment variables.
                     --no-clear-config-maps&: Remove all config-maps.
                     --no-invoker-iam-check&: Optionally disable invoker IAM checks.
-                    --no-upload&: Specifies that the source should be uploaded via Cloud Run UploadSource API.
+                    --no-run-upload&: Specifies that the source should be uploaded via Cloud Run UploadSource API.
                     --platform=&: Target platform for running commands.
                     --port=: Container port to receive requests at.
                     --region=: Region in which the resource can be found.
                     --remove-build-env-vars=: List of build environment variables to be removed.
                     --remove-config-maps=&: List of config-maps to be removed.
+                    --run-upload&: Specifies that the source should be uploaded via Cloud Run UploadSource API.
                     --service-account=: the email address of an IAM service account associated with the revision of the service.
                     --set-build-env-vars=: List of key-value pairs to set as build environment variables.
                     --set-config-maps=&: List of key-value pairs to set as config-maps.
                     --source=: The location of the source to build.
                     --update-build-env-vars=: List of key-value pairs to set as build environment variables.
                     --update-config-maps=&: List of key-value pairs to set as config-maps.
-                    --upload&: Specifies that the source should be uploaded via Cloud Run UploadSource API.
                   completion:
                     flag:
                         endpoint-mode:
@@ -67581,6 +68254,7 @@ commands:
                 --no-identity-certificate&: Enables workload certificates using managed workload identity.
                 --no-invoker-iam-check&: Optionally disable invoker IAM checks.
                 --no-overflow-scaling&: Whether to start instances for new requests when no capacity is available on existing instances.
+                --no-public&: Make the service public by disabling invoker IAM checks and IAP.
                 --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --no-session-affinity&: Whether to enable session affinity for connections to the service.
                 --no-ssh&: Whether to enable SSH access to the container for inspection and debugging.
@@ -67590,6 +68264,7 @@ commands:
                 --platform=&: Target platform for running commands.
                 --port=: Container port to receive requests at.
                 --post-key-revocation-action-type=: Action type after CMEK key revocation.
+                --public: Make the service public by disabling invoker IAM checks and IAP.
                 --readiness-probe=: Comma separated settings for readiness probe in the form KEY=VALUE.
                 --region=: Region in which the resource can be found.
                 --remove-cloudsql-instances=: Remove the given values from the current Cloud SQL instances.
@@ -67810,6 +68485,7 @@ commands:
                 --no-dry-run&: If set to true, only validates the configuration.
                 --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
                 --no-promote: True to avoid assign instances to the worker revision being deployed.
+                --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --post-key-revocation-action-type=: Action type after CMEK key revocation.
                 --region=: The Cloud region for the WorkerPool.
                 --remove-cloudsql-instances=: Remove the given values from the current Cloud SQL instances.
@@ -67821,6 +68497,7 @@ commands:
                 --remove-volume=: Removes volumes from the Cloud Run resource.
                 --revision-suffix=: Specify the suffix of the revision name.
                 --runtime=&: The runtime to use.
+                --sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --scaling-cpu-target=&: This represents the CPU utilization target threshold for scaling up new instances.
                 --scaling=&: The scaling mode to use for this service.
                 --service-account=: the email address of an IAM service account associated with the revision of the service.
@@ -68089,6 +68766,7 @@ commands:
                 --no-dry-run&: If set to true, only validates the configuration.
                 --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
                 --no-promote: True to avoid assign instances to the worker revision being deployed.
+                --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --post-key-revocation-action-type=: Action type after CMEK key revocation.
                 --region=: The Cloud region for the WorkerPool.
                 --remove-cloudsql-instances=: Remove the given values from the current Cloud SQL instances.
@@ -68100,6 +68778,7 @@ commands:
                 --remove-volume=: Removes volumes from the Cloud Run resource.
                 --revision-suffix=: Specify the suffix of the revision name.
                 --runtime=&: The runtime to use.
+                --sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --scaling-cpu-target=&: This represents the CPU utilization target threshold for scaling up new instances.
                 --scaling=&: The scaling mode to use for this service.
                 --service-account=: the email address of an IAM service account associated with the revision of the service.
@@ -73460,6 +74139,7 @@ commands:
                 --auto-scale-out-cooldown-seconds=: The cooldown period for automatic read pool scale-out.
                 --auto-scale-target-metrics=: Target metrics for read pool auto scaling.
                 --availability-type=: Specifies level of availability.
+                --backend-type=&: The backend type of the instance.
                 --backup: Enables daily backup.
                 --backup-location=: Choose where to store your backups.
                 --backup-start-time=: Start time of daily backups, specified in the HH:MM format, in the UTC timezone.
@@ -73506,6 +74186,7 @@ commands:
                 --failover-replica-name=: Also create a failover replica with the specified name.
                 --final-backup: Enables the final backup to be taken at the time of instance deletion.
                 --final-backup-retention-days=: Specifies number of days to retain final backup.
+                --gce-instance=&: The full resource name of the GCE instance that is to be onboarded to Cloud SQL.`--gce-instance=projects/test-project/zones/us-central1/instances/my-gce-instance
                 --gce-zone=: (DEPRECATED) Preferred Compute Engine zone (e.g. us-central1-a, us-central1-b, etc.).
                 --insights-config-enhanced-query-insights-enabled: Enable enhanced query insights for Enterprise Plus edition to provide more detailed query
                 --insights-config-query-insights-enabled: Enable query insights feature to provide query and query plan
@@ -73615,6 +74296,8 @@ commands:
                     availability-type:
                         - regional
                         - zonal
+                    backend-type:
+                        - SEMI_MANAGED
                     connector-enforcement:
                         - CONNECTOR_ENFORCEMENT_UNSPECIFIED
                         - NOT_REQUIRED
@@ -74413,7 +75096,10 @@ commands:
                 --instance=!: Cloud SQL instance ID.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-revoke-existing-roles&: A boolean flag for revoking existing database roles from the user.
+                --no-revoke-existing-server-roles&: A boolean flag for revoking existing server roles from the user.
                 --revoke-existing-roles: A boolean flag for revoking existing database roles from the user.
+                --revoke-existing-server-roles&: A boolean flag for revoking existing server roles from the user.
+                --server-roles=&: A comma-separated list of server roles to be assigned to the user.
                 --type=!: Cloud SQL user's type.
             - name: create
               description: '*(ALPHA)*  Creates a user in a given instance.'
@@ -74430,6 +75116,7 @@ commands:
                 --password-policy-enable-password-verification: The current password must be specified when altering the password.
                 --password-policy-password-expiration-duration=: Expiration duration after a password is updated, for example,
                 --password=: Cloud SQL user's password.
+                --server-roles=&: A comma-separated list of server roles to be assigned to the user.
                 --type=: Cloud SQL user's type.
             - name: delete
               description: '*(ALPHA)*  Deletes a Cloud SQL user in a given instance.'
@@ -74961,11 +75648,9 @@ commands:
             --zero-terminator: Ends each output line with a 0 byte rather than a newline.
         - name: feature-configs
           description: '*(ALPHA)*  Manage Google Cloud Storage Smart Storage Feature Configurations.'
-          hidden: true
           commands:
             - name: create
               description: '*(ALPHA)*  Create a new Feature Config.'
-              hidden: true
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
                 --auto-annotate-models=: Comma-separated list of models to configure.
@@ -74977,16 +75662,13 @@ commands:
                 --no-async&: Return immediately, without waiting for the operation in progress to
             - name: delete
               description: '*(ALPHA)*  Delete a Feature Config.'
-              hidden: true
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
                 --no-async&: Return immediately, without waiting for the operation in progress to
             - name: describe
               description: '*(ALPHA)*  Describe a Feature Config.'
-              hidden: true
             - name: list
               description: '*(ALPHA)*  List Cloud Storage Smart Storage Feature Configurations.'
-              hidden: true
               flags:
                 --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
                 --limit=: Maximum number of resources to list.
@@ -74996,7 +75678,6 @@ commands:
                 --uri: Print a list of resource URIs instead of the default output, and change the
             - name: update
               description: '*(ALPHA)*  Update a Feature Config.'
-              hidden: true
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
                 --auto-annotate-models=: Comma-separated list of models to configure.
@@ -75845,6 +76526,7 @@ commands:
             --custom-time=: Custom time for Cloud Storage objects in RFC 3339 format.
             --decryption-keys=: A comma-separated list of customer-supplied encryption keys (RFC 4648 section 4 base64-encoded AES256 strings) that will be used to decrypt Cloud Storage objects.
             --delete-unmatched-destination-objects: Delete extra files under DESTINATION not found under SOURCE.
+            --do-not-decompress: Do not automatically decompress downloaded gzip files.
             --dry-run: Print what operations rsync would perform without actually executing them.
             --encryption-key=: The encryption key to use for encrypting target objects.
             --exclude=: Exclude objects matching regex pattern from rsync.
@@ -75859,6 +76541,7 @@ commands:
             --no-clear-custom-metadata&: Clears all custom metadata on objects.
             --no-clobber: Do not overwrite existing files or objects at the destination.
             --no-delete-unmatched-destination-objects&: Delete extra files under DESTINATION not found under SOURCE.
+            --no-do-not-decompress&: Do not automatically decompress downloaded gzip files.
             --no-dry-run&: Print what operations rsync would perform without actually executing them.
             --no-ignore-symlinks&: Ignore file symlinks instead of copying what they point to.
             --no-include-managed-folders&: Includes managed folders in command operations.
@@ -76420,10 +77103,10 @@ commands:
                 --mount-directories=: If you want to grant agents access to specific parts of your filesystem
                 --network=: Specify the network to connect the container to.
                 --no-enable-multipart&: Split up files and transfer the resulting chunks in parallel before merging them at the destination.
-                --no-s3-compatible-mode&: ""
+                --no-s3-compatible-mode&: '(DEPRECATED) '
                 --pool=!: The agent pool to associate with the newly installed agent.
                 --proxy=: Specify the HTTP URL and port of a proxy server if you want to use a forward
-                --s3-compatible-mode: Allow the agent to work with S3-compatible sources.
+                --s3-compatible-mode&: '(DEPRECATED) '
               completion:
                 flag:
                     container-manager:

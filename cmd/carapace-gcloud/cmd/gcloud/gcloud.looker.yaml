@@ -39,6 +39,7 @@ commands:
         - name: create
           description: Create a Looker instance.
           flags:
+            --accelerated-security-patch-enabled: If specified, accelerated security patch will be enabled, otherwise it will be disabled by default.
             --async: Return immediately, without waiting for the operation in progress to
             --catalog-integration-opt-out: If specified, catalog integration will be disabled, otherwise it will be enabled by default.
             --class-type=: The class type of the Looker instance.
@@ -51,6 +52,7 @@ commands:
             --kms-key=: ID of the key or fully qualified identifier for the key.
             --maintenance-window-day=!: Day of week for maintenance window, in UTC time zone.
             --maintenance-window-time=!: Hour of day for maintenance window, in UTC time zone.
+            --no-accelerated-security-patch-enabled&: If specified, accelerated security patch will be enabled, otherwise it will be disabled by default.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-catalog-integration-opt-out&: If specified, catalog integration will be disabled, otherwise it will be enabled by default.
             --no-fips-enabled&: This specifies whether FIPS is enabled on the Looker instance.
@@ -64,6 +66,7 @@ commands:
             --psc-enabled!: This specifies whether Private Service Connect (PSC) is enabled on the Looker instance.
             --public-ip-enabled: This specifies whether public IP is enabled on the Looker instance.
             --region=: The name of the Looker region of the instance.
+            --release-channel=: The selected release channel for the instance.
             --reserved-range=: The name of a reserved IP address range within the consumer network to be used for private
           completion:
             flag:
@@ -90,6 +93,11 @@ commands:
                     - thursday
                     - tuesday
                     - wednesday
+                release-channel:
+                    - no-channel
+                    - rapid
+                    - regular
+                    - stable
         - name: delete
           description: Delete a Looker instance.
           flags:
@@ -139,6 +147,7 @@ commands:
         - name: update
           description: Update a Looker instance.
           flags:
+            --accelerated-security-patch-enabled: If specified, accelerated security patch will be enabled.
             --add-developer-users=: Number of additional Developer Users to allocate to the Looker Instance.
             --add-standard-users=: Number of additional Standard Users to allocate to the Looker Instance.
             --add-viewer-users=: Number of additional Viewer Users to allocate to the Looker Instance.
@@ -159,6 +168,7 @@ commands:
             --maintenance-window-day=!: Day of the week for the maintenance window, in UTC time zone.
             --maintenance-window-time=!: Hour of day for maintenance window, in UTC time zone.
             --marketplace-enabled: This specifies whether marketplace is enabled for controlled egress on the Looker instance.
+            --no-accelerated-security-patch-enabled&: If specified, accelerated security patch will be enabled.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-catalog-integration-opt-out&: If specified, catalog integration will be disabled.
             --no-clear-periodic-export-config&: Clears all periodic export configuration from the instance.
@@ -176,6 +186,7 @@ commands:
             --psc-service-attachment=: Service attachments representing egress connections for the Looker instance.
             --public-ip-enabled: This specifies whether public IP is enabled on the Looker instance.
             --region=: The name of the Looker region of the instance.
+            --release-channel=: The selected release channel for the instance.
           completion:
             flag:
                 class-type:
@@ -189,6 +200,11 @@ commands:
                     - thursday
                     - tuesday
                     - wednesday
+                release-channel:
+                    - no-channel
+                    - rapid
+                    - regular
+                    - stable
     - name: operations
       description: Manage Looker operations.
       commands:
