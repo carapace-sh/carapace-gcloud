@@ -398,11 +398,13 @@ commands:
             --crypto-key-backend=: The resource name of the backend environment where the key material for all CryptoKeyVersions associated with this CryptoKey reside and where all related cryptographic operations are performed.
             --default-algorithm=: The default algorithm for the crypto key.
             --destroy-scheduled-duration=: The amount of time that versions of the key should spend in the DESTROY_SCHEDULED state before transitioning to DESTROYED.
+            --hsm-trusted-wrapping: Enable HSM trusted wrapping capabilities for the key.
             --import-only: Restrict this key to imported versions only.
             --keyring=: The KMS keyring of the key.
             --labels=: List of label KEY=VALUE pairs to add.
             --location=: The Google Cloud location for the key.
             --next-rotation-time=: Next automatic rotation time of the key.
+            --no-hsm-trusted-wrapping&: Enable HSM trusted wrapping capabilities for the key.
             --no-import-only&: Restrict this key to imported versions only.
             --no-skip-initial-version-creation&: Skip creating the first version in a key and setting it as primary during creation.
             --protection-level=: Protection level of the key.
@@ -418,6 +420,7 @@ commands:
                     - aes-256-cbc
                     - aes-256-ctr
                     - aes-256-gcm
+                    - aes-256-kwp
                     - ec-sign-ed25519
                     - ec-sign-p256-sha256
                     - ec-sign-p384-sha384
@@ -465,6 +468,7 @@ commands:
                     - external
                     - external-vpc
                 purpose:
+                    - aes-wrapping
                     - asymmetric-encryption
                     - asymmetric-signing
                     - encryption
@@ -561,6 +565,7 @@ commands:
                     - aes-256-cbc
                     - aes-256-ctr
                     - aes-256-gcm
+                    - aes-256-kwp
                     - ec-sign-ed25519
                     - ec-sign-p256-sha256
                     - ec-sign-p384-sha384
@@ -645,6 +650,14 @@ commands:
                 --key=: The containing key.
                 --keyring=: Key ring of the key.
                 --location=: Location of the keyring.
+            - name: export-trusted-key-wrapped
+              description: Export a trusted key wrapped CryptoKeyVersion.
+              flags:
+                --key=: The containing key.
+                --keyring=: Key ring of the key.
+                --location=: Location of the keyring.
+                --wrapped-key-file=: Path to the RSA/RSA+AES wrapped key file to store the wrapped key material.
+                --wrapping-key-version=!: The resource name of the CryptoKeyVersion to use as a wrapping key.
             - name: get-certificate-chain
               description: Get a certificate chain for a given version.
               flags:
@@ -672,10 +685,12 @@ commands:
               description: Import a version into an existing crypto key.
               flags:
                 --algorithm=!: The algorithm to assign to the new key version.
+                --hsm-trusted-wrapping: Enable HSM trusted wrapping capabilities for the key.
                 --import-job=!: Name of the import job to import from.
                 --key=: The containing key to import into.
                 --keyring=: Key ring of the key.
                 --location=: Location of the keyring.
+                --no-hsm-trusted-wrapping&: Enable HSM trusted wrapping capabilities for the key.
                 --public-key-file=: Path to the public key of the ImportJob, used to wrap the key for import.
                 --rsa-aes-wrapped-key-file=&: (DEPRECATED) Path to the wrapped RSA AES key file to import.
                 --target-key-file=: Path to the unwrapped target key to import into a Cloud KMS key version.
@@ -689,6 +704,65 @@ commands:
                         - aes-256-cbc
                         - aes-256-ctr
                         - aes-256-gcm
+                        - aes-256-kwp
+                        - ec-sign-ed25519
+                        - ec-sign-p256-sha256
+                        - ec-sign-p384-sha384
+                        - ec-sign-secp256k1-sha256
+                        - google-symmetric-encryption
+                        - hmac-sha1
+                        - hmac-sha224
+                        - hmac-sha256
+                        - hmac-sha384
+                        - hmac-sha512
+                        - kem-xwing
+                        - ml-kem-1024
+                        - ml-kem-768
+                        - pq-sign-hash-slh-dsa-sha2-128s-sha256
+                        - pq-sign-ml-dsa-44
+                        - pq-sign-ml-dsa-44-external-mu
+                        - pq-sign-ml-dsa-65
+                        - pq-sign-ml-dsa-65-external-mu
+                        - pq-sign-ml-dsa-87
+                        - pq-sign-ml-dsa-87-external-mu
+                        - pq-sign-slh-dsa-sha2-128s
+                        - rsa-decrypt-oaep-2048-sha1
+                        - rsa-decrypt-oaep-2048-sha256
+                        - rsa-decrypt-oaep-3072-sha1
+                        - rsa-decrypt-oaep-3072-sha256
+                        - rsa-decrypt-oaep-4096-sha1
+                        - rsa-decrypt-oaep-4096-sha256
+                        - rsa-decrypt-oaep-4096-sha512
+                        - rsa-sign-pkcs1-2048-sha256
+                        - rsa-sign-pkcs1-3072-sha256
+                        - rsa-sign-pkcs1-4096-sha256
+                        - rsa-sign-pkcs1-4096-sha512
+                        - rsa-sign-pss-2048-sha256
+                        - rsa-sign-pss-3072-sha256
+                        - rsa-sign-pss-4096-sha256
+                        - rsa-sign-pss-4096-sha512
+                        - rsa-sign-raw-pkcs1-2048
+                        - rsa-sign-raw-pkcs1-3072
+                        - rsa-sign-raw-pkcs1-4096
+            - name: import-trusted-key-wrapped
+              description: Import a trusted key wrapped CryptoKeyVersion.
+              flags:
+                --algorithm=!: The algorithm to assign to the new key version.
+                --importing-key-version=!: The resource name of the CryptoKeyVersion to use as an importing key.
+                --key=: The containing key to import into.
+                --keyring=: Key ring of the key.
+                --location=: Location of the keyring.
+                --wrapped-key-file=: Path to the RSA/RSA+AES wrapped key file to import.
+              completion:
+                flag:
+                    algorithm:
+                        - aes-128-cbc
+                        - aes-128-ctr
+                        - aes-128-gcm
+                        - aes-256-cbc
+                        - aes-256-ctr
+                        - aes-256-gcm
+                        - aes-256-kwp
                         - ec-sign-ed25519
                         - ec-sign-p256-sha256
                         - ec-sign-p384-sha384
@@ -873,11 +947,13 @@ commands:
             - name: create
               description: Create a single tenant HSM instance proposal.
               flags:
+                --crypto-key-version-name=: ID to use for the crypto key version.
                 --location=: The Google Cloud location for the singleTenantHsmInstance.
                 --member-public-key-pem=: The PEM file containing the public key of the quorum member to add or remove.
                 --operation-type=!: The type of operation for the single tenant HSM instance proposal.
                 --required-approver-count=: The number of approvers required for the single tenant HSM instance.
                 --single-tenant-hsm-instance-proposal-id=: The ID to use for the single tenant HSM instance proposal, which will become the final component of the single tenant HSM instance resource name.
+                --two-factor-public-key-pem=: PEM file containing the two-factor public key.
                 --two-factor-public-key-pems=: The PEM files containing the two factor public keys  2FA keys for M of N quorum auth tenant HSM instance.
             - name: delete
               description: Delete a single tenant HSM instance proposal.

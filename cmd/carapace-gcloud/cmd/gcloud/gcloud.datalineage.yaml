@@ -16,6 +16,42 @@ commands:
             --config=!: Inline JSON/YAML config or path to a file containing it.
             --folder=: Folder ID.
             --organization=: Organization ID.
+    - name: lineage-events
+      description: Manage Data Lineage events.
+      commands:
+        - name: create
+          description: Create a Data Lineage event.
+          flags:
+            --end-time=: The end time of the lineage event.
+            --links=: A list of source-target links representing data lineage.
+            --location=: The location of the lineage_event.
+            --process=: The name of the process.
+            --run=: The name of the run.
+            --start-time=!: The start time of the lineage event.
+        - name: delete
+          description: Delete a Data Lineage event.
+          flags:
+            --location=: The location of the lineage_event.
+            --process=: The name of the process.
+            --run=: The name of the run.
+        - name: describe
+          description: Describe a Data Lineage event.
+          flags:
+            --location=: The location of the lineage_event.
+            --process=: The name of the process.
+            --run=: The name of the run.
+        - name: list
+          description: List Data Lineage events.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: The location of the run.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --process=: The name of the process.
+            --run=!: ID of the run or fully qualified identifier for the run.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
     - name: processes
       description: Manage Data Lineage processes.
       commands:
@@ -66,3 +102,64 @@ commands:
             --attributes=: The new attributes of the process.
             --display-name=: The new display name of the process.
             --location=: The location of the process.
+    - name: runs
+      description: Manage Data Lineage runs.
+      commands:
+        - name: create
+          description: Create a data lineage run.
+          flags:
+            --attributes=: Additional attributes for the run.
+            --display-name=: The display name of the run.
+            --end-time=: The end time of the run.
+            --location=: The location of the run.
+            --process=: The name of the process.
+            --start-time=!: The start time of the run.
+            --state=!: The state of the run.
+          completion:
+            flag:
+                state:
+                    - aborted
+                    - completed
+                    - failed
+                    - started
+                    - unknown
+        - name: delete
+          description: Delete a Data Lineage run.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location of the run.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --process=: The name of the process.
+        - name: describe
+          description: Describe a Data Lineage run.
+          flags:
+            --location=: The location of the run.
+            --process=: The name of the process.
+        - name: list
+          description: List Data Lineage runs.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: The location of the process.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --process=!: ID of the process or fully qualified identifier for the process.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a data lineage run.
+          flags:
+            --attributes=: The new attributes of the run.
+            --display-name=: The new display name of the run.
+            --end-time=: The end time of the run.
+            --location=: The location of the run.
+            --process=: The name of the process.
+            --state=: The new state of the run.
+          completion:
+            flag:
+                state:
+                    - aborted
+                    - completed
+                    - failed
+                    - started
+                    - unknown
