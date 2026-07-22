@@ -401,6 +401,8 @@ commands:
             --ip-address-selection-policy=: Specifies a preference for traffic sent from the proxy to the backend (or
             --load-balancing-scheme=: Specifies the load balancer type.
             --locality-lb-policy=: The load balancing algorithm used within the scope of the locality.
+            --logging-http-request-headers=: This field can only be specified if logging is enabled for the backend
+            --logging-http-response-headers=: This field can only be specified if logging is enabled for the backend
             --logging-optional-fields=: This field can only be specified if logging is enabled for the backend
             --logging-optional=: This field can only be specified if logging is enabled for the backend
             --logging-sample-rate=: This field can only be specified if logging is enabled for the backend
@@ -666,6 +668,8 @@ commands:
             --ip-address-selection-policy=: Specifies a preference for traffic sent from the proxy to the backend (or
             --load-balancing-scheme=: Specifies the load balancer type.
             --locality-lb-policy=: The load balancing algorithm used within the scope of the locality.
+            --logging-http-request-headers=: This field can only be specified if logging is enabled for the backend
+            --logging-http-response-headers=: This field can only be specified if logging is enabled for the backend
             --logging-optional-fields=: This field can only be specified if logging is enabled for the backend
             --logging-optional=: This field can only be specified if logging is enabled for the backend
             --logging-sample-rate=: This field can only be specified if logging is enabled for the backend
@@ -691,6 +695,8 @@ commands:
             --no-global-health-checks&: If set, the health checks are global.
             --no-health-checks: Removes all health checks for the backend service if the backend service
             --no-locality-lb-policy: Removes the locality load balancing policy from the backend service.
+            --no-logging-http-request-headers: Remove all logging HTTP request headers for the backend service.
+            --no-logging-http-response-headers: Remove all logging HTTP response headers for the backend service.
             --no-max-ttl: (DEPRECATED) Clears max TTL value.
             --no-negative-caching&: Negative caching allows per-status code cache TTLs to be set, in order to
             --no-negative-caching-policies: Remove all negative caching policies for the backend service.
@@ -902,6 +908,7 @@ commands:
                     - memory-optimized-x4-480-8t
                     - memory-optimized-x4-960-12t
                     - memory-optimized-x4-960-16t
+                    - network-optimized-c4n
                     - storage-optimized-z3
         - name: create-license
           description: Create Compute Engine license-based commitments.
@@ -1146,7 +1153,7 @@ commands:
             --access-mode=: Specifies how VMs attached to the disk can access the data on the disk.
             --architecture=: Specifies the architecture or processor type that this disk can support.
             --confidential-compute: Creates the disk with confidential compute mode enabled.
-            --csek-key-file=: Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
+            --csek-key-file=: (DEPRECATED)       Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
             --description=: An optional, textual description for the disks being created.
             --guest-os-features=: Enables one or more features for VM instances that use the
             --image-family-scope=: Sets the scope for the `--image-family` flag.
@@ -1161,7 +1168,7 @@ commands:
             --licenses=: A list of URIs to license resources.
             --location-hint=&: Used by internal tools to control sub-zone location of the disk.
             --no-confidential-compute&: ""
-            --no-require-csek-key-create&: Refuse to create resources not protected by a user managed key in
+            --no-require-csek-key-create&: (DEPRECATED)         Refuse to create resources not protected by a user managed key in
             --primary-disk-project=: Project of the primary disk for asynchronous replication.
             --primary-disk-region=: Region of the primary disk for asynchronous replication.
             --primary-disk-zone=: Zone of the primary disk for asynchronous replication.
@@ -1170,7 +1177,7 @@ commands:
             --provisioned-throughput=: Provisioned throughput of disk to create.
             --region=: Region of the disks to create.
             --replica-zones=: A comma-separated list of exactly 2 zones that a regional disk will be replicated to.
-            --require-csek-key-create: Refuse to create resources not protected by a user managed key in
+            --require-csek-key-create: (DEPRECATED)         Refuse to create resources not protected by a user managed key in
             --resource-manager-tags=: A comma-separated list of Resource Manager tags to apply to the disk.
             --resource-policies=: A list of resource policy names to be added to the disk.
             --size=: Size of the disks.
@@ -1270,7 +1277,7 @@ commands:
           flags:
             --async: Return immediately, without waiting for the operation in progress to
             --chain-name=: Create the new snapshot in the snapshot chain labeled with the specified name.
-            --csek-key-file=: Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
+            --csek-key-file=: (DEPRECATED)       Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
             --description=: Text to describe the snapshots being created.
             --guest-flush: Create an application-consistent snapshot by informing the OS
             --labels=: List of label KEY=VALUE pairs to add.
@@ -2302,6 +2309,13 @@ commands:
             --regions=: If provided, only regional resources are shown.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: test-iam-permissions
+          description: Test IAM permissions for a Compute Engine health check.
+          flags:
+            --global: If set, the  health check is global.
+            --no-global&: If set, the  health check is global.
+            --permissions=!: The set of permissions to check for the resource.
+            --region=: Region of the  health check to test IAM permissions for.
         - name: update
           description: Update health checks for load balanced instances.
           commands:
@@ -2512,6 +2526,11 @@ commands:
             --regions=: If provided, only resources from the given regions are queried.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: test-iam-permissions
+          description: Test IAM permissions for a health source.
+          flags:
+            --permissions=!: Permissions to be tested.
+            --region=: The name of the Google Compute Engine region.
         - name: update
           description: Update a health source.
           flags:
@@ -2617,7 +2636,7 @@ commands:
           description: Create Compute Engine images.
           flags:
             --architecture=: Specifies the architecture or processor type that this image can support.
-            --csek-key-file=: Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
+            --csek-key-file=: (DEPRECATED)       Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
             --description=: An optional, textual description for the image being created.
             --family=: The family of the image.
             --forbidden-database-file=: Comma-separated list of file paths that point to revoked X.509
@@ -2633,9 +2652,9 @@ commands:
             --locked&: Specifies that any boot disk created from this image can't be used
             --no-force&: By default, image creation fails when it is created from a disk that
             --no-locked&: Specifies that any boot disk created from this image can't be used
-            --no-require-csek-key-create&: Refuse to create images not protected by a user managed key in
+            --no-require-csek-key-create&: (DEPRECATED)         Refuse to create images not protected by a user managed key in
             --platform-key-file=: File path that points to an X.509 certificate in DER format or raw binary
-            --require-csek-key-create: Refuse to create images not protected by a user managed key in
+            --require-csek-key-create: (DEPRECATED)         Refuse to create images not protected by a user managed key in
             --resource-manager-tags=: A comma-separated list of Resource Manager tags to apply to the image.
             --signature-database-file=: Comma-separated list of file paths that point to valid X.509 certificates
             --source-disk-project=: Project name of the source disk.
@@ -3953,7 +3972,7 @@ commands:
           description: Attach a disk to an instance.
           flags:
             --boot: Attach the disk to the instance as a boot disk.
-            --csek-key-file=: Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
+            --csek-key-file=: (DEPRECATED)       Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
             --device-name=: An optional name that indicates the disk name the guest operating system will see.
             --disk-scope=: The scope of the disk.
             --disk=!: The name of the disk to attach to the instance.
@@ -4145,7 +4164,7 @@ commands:
             --confidential-compute: (DEPRECATED)       The instance boots with Confidential Computing enabled.
             --confidential-compute-type=: The instance boots with Confidential Computing enabled.
             --create-disk=: Creates and attaches persistent disks to the instances.
-            --csek-key-file=: Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
+            --csek-key-file=: (DEPRECATED)       Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
             --custom-cpu=!: A whole number value specifying the number of cores that are needed in
             --custom-extensions: Use the extended custom machine type.
             --custom-memory=!: A whole number value indicating how much memory is desired in the custom
@@ -4179,6 +4198,7 @@ commands:
             --ipv6-public-ptr-domain=: Assigns a custom PTR domain for the external IPv6 in the IPv6 access
             --key-revocation-action-type=: Specifies the behavior of the instance when the KMS key of one of its attached disks is revoked.
             --labels=: List of label KEY=VALUE pairs to add.
+            --local-ssd-encryption-mode=: Specifies which method should be used for encrypting the Local SSDs
             --local-ssd-recovery-timeout=: Specifies the maximum amount of time a Local Ssd Vm should wait while
             --local-ssd=: Attaches a local SSD to the instances.
             --location-hint=&: Used by internal tools to control sub-zone location of the instance.
@@ -4208,7 +4228,7 @@ commands:
             --no-preemptible&: If provided, instances will be preemptible and time-limited.
             --no-public-ptr: If provided, no DNS PTR record is created for the external IP of the
             --no-public-ptr-domain: If both this flag and --public-ptr are specified, creates a DNS PTR
-            --no-require-csek-key-create&: Refuse to create resources not protected by a user managed key in
+            --no-require-csek-key-create&: (DEPRECATED)         Refuse to create resources not protected by a user managed key in
             --no-restart-on-failure&: The instances will be restarted if they are terminated by Compute Engine.
             --no-scopes: Create instance without scopes
             --no-service-account: Create instance without service account
@@ -4228,7 +4248,7 @@ commands:
             --public-ptr: Creates a DNS PTR record for the external IP of the instance.
             --public-ptr-domain=: Assigns a custom PTR domain for the external IP of the instance.
             --request-valid-for-duration=: When you create an instance by using the FLEX_START provisioning model,
-            --require-csek-key-create: Refuse to create resources not protected by a user managed key in
+            --require-csek-key-create: (DEPRECATED)         Refuse to create resources not protected by a user managed key in
             --reservation-affinity=: The type of reservation for the instance.
             --reservation=: The name of the reservation, required when `--reservation-affinity=specific`.
             --resource-manager-tags=: Specifies a list of resource manager tags to apply to the instance.
@@ -4241,7 +4261,7 @@ commands:
             --shielded-vtpm: The instance boots with the TPM (Trusted Platform Module) enabled.
             --skip-guest-os-shutdown: If enabled, then, when the instance is stopped or deleted, the instance
             --source-instance-template=: The name of the instance template that the instance will be created from.
-            --source-machine-image-csek-key-file=: Path to a Customer-Supplied Encryption Key (CSEK) key file, mapping resources to user managed keys which were used to encrypt the source machine-image.
+            --source-machine-image-csek-key-file=: (DEPRECATED)       Path to a Customer-Supplied Encryption Key (CSEK) key file, mapping resources to user managed keys which were used to encrypt the source machine-image.
             --source-machine-image=: The name of the machine image that the instance will be created from.
             --source-snapshot=: The name of the source disk snapshot that the instance boot disk
             --stack-type=: Specifies whether IPv6 is enabled on the default network interface.
@@ -4269,6 +4289,9 @@ commands:
                 key-revocation-action-type:
                     - none
                     - stop
+                local-ssd-encryption-mode:
+                    - STANDARD_ENCRYPTION
+                    - EPHEMERAL_KEY_ENCRYPTION
                 maintenance-policy:
                     - MIGRATE
                     - TERMINATE
@@ -4937,7 +4960,7 @@ commands:
           description: Start a stopped virtual machine instance.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
-            --csek-key-file=: Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
+            --csek-key-file=: (DEPRECATED)       Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
             --no-async&: Return immediately, without waiting for the operation in progress to
             --zone=: Zone of the instances to operate on.
         - name: stop
@@ -5848,7 +5871,7 @@ commands:
         - name: create
           description: Create a Compute Engine machine image.
           flags:
-            --csek-key-file=: Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
+            --csek-key-file=: (DEPRECATED)       Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
             --description=: Specifies a text description of the machine image.
             --guest-flush: Create an application-consistent machine image by informing the OS
             --kms-key=!: ID of the key or fully qualified identifier for the key.
@@ -5856,10 +5879,10 @@ commands:
             --kms-location=: The Google Cloud location for the key.
             --kms-project=: The Google Cloud project for the key.
             --no-guest-flush&: ""
-            --no-require-csek-key-create&: Refuse to create machine images not protected by a user managed key in
-            --require-csek-key-create: Refuse to create machine images not protected by a user managed key in
+            --no-require-csek-key-create&: (DEPRECATED)         Refuse to create machine images not protected by a user managed key in
+            --require-csek-key-create: (DEPRECATED)         Refuse to create machine images not protected by a user managed key in
             --resource-manager-tags=: A comma-separated list of Resource Manager tags to apply to the machine image.
-            --source-disk-csek-key=: Customer-supplied encryption key of the disk attached to the
+            --source-disk-csek-key=: '(DEPRECATED) '
             --source-instance-zone=: Zone of the instance to operate on.
             --source-instance=!: The source instance to create a machine image from.
             --storage-location=: Google Cloud Storage location, either regional or multi-regional, where
@@ -5986,6 +6009,10 @@ commands:
             --role=!: The role to remove the principal from.
         - name: set-iam-policy
           description: Set the IAM policy for a Compute Engine machine image.
+        - name: test-iam-permissions
+          description: Test IAM permissions for a Compute Engine machine image.
+          flags:
+            --permissions=!: Permissions to be tested.
     - name: machine-types
       description: Read Compute Engine virtual machine types.
       commands:
@@ -8555,6 +8582,23 @@ commands:
                 ip-version:
                     - IPV4
                     - IPV6
+        - name: add-named-set
+          description: Add an empty named set to a Compute Engine router.
+          flags:
+            --region=: Region of the router to insert.
+            --set-name=!: Name of the named set to add.
+            --set-type=!: Type of the set's elements.
+          completion:
+            flag:
+                set-type:
+                    - COMMUNITY
+                    - PREFIX
+        - name: add-named-set-element
+          description: Adds an element to an existing named set of a Compute Engine router.
+          flags:
+            --new-set-element=!: CEL expression for the element.
+            --region=: Region of the router to update.
+            --set-name=!: Name of the set.
         - name: add-route-policy
           description: Add an empty route policy to a Compute Engine router.
           flags:
@@ -8605,6 +8649,18 @@ commands:
           description: Describe a Compute Engine router.
           flags:
             --region=: Region of the router to describe.
+        - name: download-named-set
+          description: Download a named set from a Compute Engine router.
+          flags:
+            --file-format=: Format of the file passed to --file-name.
+            --file-name=!: The name of the file to download the named set config to.
+            --region=: Region of the router to export.
+            --set-name=!: Name of the named set to download.
+          completion:
+            flag:
+                file-format:
+                    - json
+                    - yaml
         - name: download-route-policy
           description: Download a route policy from a Compute Engine router.
           flags:
@@ -8617,6 +8673,11 @@ commands:
                 file-format:
                     - json
                     - yaml
+        - name: get-named-set
+          description: Get a named set from a Compute Engine router.
+          flags:
+            --region=: Region of the router to get.
+            --set-name=!: Name of the named set to get.
         - name: get-nat-ip-info
           description: Display NAT IP information in a router.
           flags:
@@ -8675,6 +8736,16 @@ commands:
                 route-direction:
                     - INBOUND
                     - OUTBOUND
+        - name: list-named-sets
+          description: List named sets from a Compute Engine router.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: Region of the router to list.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
         - name: list-route-policies
           description: List route policies from a Compute Engine router.
           flags:
@@ -8889,6 +8960,17 @@ commands:
             --interface-name=: The name of the interface being removed.
             --interface-names=: The list of names for interfaces being removed.
             --region=: Region of the router to update.
+        - name: remove-named-set
+          description: Remove a named set from a Compute Engine router.
+          flags:
+            --region=: Region of the router to delete.
+            --set-name=!: Name of the named set to be removed.
+        - name: remove-named-set-element
+          description: Remove an element from a named set of a Compute Engine router.
+          flags:
+            --region=: Region of the router to update.
+            --set-element=!: CEL expression for the element.
+            --set-name=!: Name of the match set.
         - name: remove-route-policy
           description: Remove a route policy from a Compute Engine router.
           flags:
@@ -8997,6 +9079,18 @@ commands:
             --policy-name=!: Name of the route policy to which the term should be updated.
             --priority=!: Order of the term within the policy.
             --region=: Region of the router to update.
+        - name: upload-named-set
+          description: Upload a named set into a Compute Engine router.
+          flags:
+            --file-format=: Format of the file passed to --file-name.
+            --file-name=!: Local path to the file defining the named set
+            --region=: Region of the router to upload.
+            --set-name=: Name of the named set to add/replace.
+          completion:
+            flag:
+                file-format:
+                    - json
+                    - yaml
         - name: upload-route-policy
           description: Upload a route policy into a Compute Engine router.
           flags:
@@ -9591,7 +9685,7 @@ commands:
           flags:
             --async: Return immediately, without waiting for the operation in progress to
             --chain-name=: Create the new snapshot in the snapshot chain labeled with the specified name.
-            --csek-key-file=: Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
+            --csek-key-file=: (DEPRECATED)       Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
             --description=: Text to describe the new snapshot.
             --guest-flush: Create an application-consistent snapshot by informing the OS
             --labels=: List of label KEY=VALUE pairs to add.
@@ -9601,11 +9695,11 @@ commands:
             --snapshot-type=: Type of snapshot.
             --source-disk-for-recovery-checkpoint-region=: Region of the source disk for recovery checkpoint to operate on.
             --source-disk-for-recovery-checkpoint=: Source disk whose recovery checkpoint used to create the snapshot.
-            --source-disk-key-file=: Path to the customer-supplied encryption key of the source disk.
+            --source-disk-key-file=: '(DEPRECATED) '
             --source-disk-region=: Region of the source disk to operate on.
             --source-disk-zone=: Zone of the source disk to operate on.
             --source-disk=: Source disk used to create the snapshot.
-            --source-instant-snapshot-key-file=: Path to the customer-supplied encryption key of the source instant snapshot.
+            --source-instant-snapshot-key-file=: '(DEPRECATED) '
             --source-instant-snapshot-region=: Region of the source instant snapshot to operate on.
             --source-instant-snapshot-zone=: Zone of the source instant snapshot to operate on.
             --source-instant-snapshot=: The name or URL of the source instant snapshot.
