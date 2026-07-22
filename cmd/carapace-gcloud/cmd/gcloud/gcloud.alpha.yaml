@@ -1345,16 +1345,13 @@ commands:
           description: '*(ALPHA)*  Manage Operation resources.'
         - name: publishers
           description: '*(ALPHA)*  Manage Publisher resources.'
-          hidden: true
           commands:
             - name: describe
               description: '*(ALPHA)*  Describe publishers.'
-              hidden: true
               flags:
                 --location=: The location id of the publisher resource.
             - name: list
               description: '*(ALPHA)*  List publishers.'
-              hidden: true
               flags:
                 --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
                 --limit=: Maximum number of resources to list.
@@ -1453,11 +1450,9 @@ commands:
                         - tool-spec
         - name: skills
           description: '*(ALPHA)*  Manage Skill resources.'
-          hidden: true
           commands:
             - name: create
               description: '*(ALPHA)*  Create skills.'
-              hidden: true
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
                 --default-revision=!: ID of the revision or fully qualified identifier for the revision.
@@ -1490,7 +1485,6 @@ commands:
                         - simple
             - name: delete
               description: '*(ALPHA)*  Delete skills.'
-              hidden: true
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
                 --location=: The location id of the skill resource.
@@ -1498,12 +1492,10 @@ commands:
                 --request-id=: Signed UUID request idempotency token.
             - name: describe
               description: '*(ALPHA)*  Describe skills.'
-              hidden: true
               flags:
                 --location=: The location id of the skill resource.
             - name: list
               description: '*(ALPHA)*  List skills.'
-              hidden: true
               flags:
                 --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
                 --limit=: Maximum number of resources to list.
@@ -1514,11 +1506,9 @@ commands:
                 --uri: Print a list of resource URIs instead of the default output, and change the
             - name: revisions
               description: '*(ALPHA)*  Manage Skill Revision resources.'
-              hidden: true
               commands:
                 - name: create
                   description: '*(ALPHA)*  Create skillRevisions.'
-                  hidden: true
                   flags:
                     --async: Return immediately, without waiting for the operation in progress to
                     --gcs-source-generation=: Cloud Storage object generation ID.
@@ -1530,7 +1520,6 @@ commands:
                     --skill=: The skill id of the revision resource.
                 - name: delete
                   description: '*(ALPHA)*  Delete skillRevisions.'
-                  hidden: true
                   flags:
                     --async: Return immediately, without waiting for the operation in progress to
                     --location=: The location id of the revision resource.
@@ -1539,13 +1528,11 @@ commands:
                     --skill=: The skill id of the revision resource.
                 - name: describe
                   description: '*(ALPHA)*  Describe skillRevisions.'
-                  hidden: true
                   flags:
                     --location=: The location id of the revision resource.
                     --skill=: The skill id of the revision resource.
                 - name: download
                   description: '*(ALPHA)*  Download the payload of a Skill Revision.'
-                  hidden: true
                   flags:
                     --allow-overwrite: Overwrite the local file if it already exists.
                     --destination=!: The path (directory or file) where you want to download the payload.
@@ -1554,7 +1541,6 @@ commands:
                     --skill=: The Skill ID for the revision.
                 - name: list
                   description: '*(ALPHA)*  List skillRevisions.'
-                  hidden: true
                   flags:
                     --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
                     --limit=: Maximum number of resources to list.
@@ -1566,7 +1552,6 @@ commands:
                     --uri: Print a list of resource URIs instead of the default output, and change the
             - name: search
               description: '*(ALPHA)*  search skills.'
-              hidden: true
               flags:
                 --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
                 --limit=: Maximum number of resources to list.
@@ -1582,7 +1567,6 @@ commands:
                         - semantic
             - name: update
               description: '*(ALPHA)*  Update skills.'
-              hidden: true
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
                 --clear-default-revision: Clear default_revision value and set to null.
@@ -1667,10 +1651,42 @@ commands:
                     --location=!: ID of the location or fully qualified identifier for the location.
                     --no-async&: Return immediately, without waiting for the operation in progress to
                     --update-mask=: Field mask that specifies which fields of the endpoint config to update.
+            - name: onboard-social
+              description: '*(ALPHA)*  Onboard a social channel (Instagram or WhatsApp) via Meta authentication flow.'
+              hidden: true
+              flags:
+                --location=!: ID of the location or fully qualified identifier for the location.
+                --type=!: The social channel type to onboard (instagram or whatsapp).
+              completion:
+                flag:
+                    type:
+                        - instagram
+                        - whatsapp
             - name: routes
               description: '*(ALPHA)*  Manage omnichannel routes.'
               hidden: true
               commands:
+                - name: create
+                  description: '*(ALPHA)*  Create an omnichannel route.'
+                  hidden: true
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --location=!: ID of the location or fully qualified identifier for the location.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --route-config=!: The route configuration to create.
+                - name: delete
+                  description: '*(ALPHA)*  Delete an omnichannel route.'
+                  hidden: true
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --etag=: Strict concurrency token matching the current etag of the route.
+                    --location=!: ID of the location or fully qualified identifier for the location.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                - name: describe
+                  description: '*(ALPHA)*  Describe an omnichannel route.'
+                  hidden: true
+                  flags:
+                    --location=!: ID of the location or fully qualified identifier for the location.
                 - name: list
                   description: '*(ALPHA)*  List omnichannel routes.'
                   hidden: true
@@ -1682,6 +1698,15 @@ commands:
                     --page-size=: Some services group resource list output into pages.
                     --sort-by=: Comma-separated list of resource field key names to sort by.
                     --uri: Print a list of resource URIs instead of the default output, and change the
+                - name: update
+                  description: '*(ALPHA)*  Update an omnichannel route.'
+                  hidden: true
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --location=!: ID of the location or fully qualified identifier for the location.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --route-config=!: The route fields to update.
+                    --update-mask=: Field mask that specifies which fields of the route to update.
     - name: ai
       description: '*(ALPHA)*  Manage entities in Vertex AI.'
       commands:
@@ -3840,15 +3865,15 @@ commands:
                 --assign-inbound-public-ip=: Specify to enable or disable public IP on an instance.
                 --async: Return immediately, without waiting for the operation in progress to
                 --authorized-external-networks=: Comma-separated list of authorized external networks to set on the instance.
-                --autoscaler-cool-down-period-seconds=&: Cool down period in seconds for the autoscaler.
-                --autoscaler-max-node-count=&: Maximum node count for the autoscaler.
-                --autoscaler-schedule-cron-exp=&: Cron expression for the autoscaler schedule.
-                --autoscaler-schedule-description=&: Description for the autoscaler schedule.
-                --autoscaler-schedule-duration-seconds=&: Duration for which the autoscaler schedule is active in seconds.
-                --autoscaler-schedule-min-node-count=&: Minimum node count for the autoscaler schedule.
-                --autoscaler-schedule-time-zone=&: Time zone for the autoscaler schedule.
-                --autoscaler-set-schedule=&: The name of the schedule to create or update for the autoscaler.
-                --autoscaler-target-cpu-usage=&: Target CPU usage for the autoscaler.
+                --autoscaler-cool-down-period-seconds=: Cool down period in seconds for the autoscaler.
+                --autoscaler-max-node-count=: Maximum node count for the autoscaler.
+                --autoscaler-schedule-cron-exp=: Cron expression for the autoscaler schedule.
+                --autoscaler-schedule-description=: Description for the autoscaler schedule.
+                --autoscaler-schedule-duration-seconds=: Duration for which the autoscaler schedule is active in seconds.
+                --autoscaler-schedule-min-node-count=: Minimum node count for the autoscaler schedule.
+                --autoscaler-schedule-time-zone=: Time zone for the autoscaler schedule.
+                --autoscaler-set-schedule=: The name of the schedule to create for the autoscaler.
+                --autoscaler-target-cpu-usage=: Target CPU usage for the autoscaler.
                 --availability-type=: Specifies level of availability.
                 --cluster=!: AlloyDB cluster ID
                 --connection-pooling-client-connection-idle-timeout=: The maximum number of seconds a client is allowed to be idle before it is disconnected.
@@ -3864,7 +3889,7 @@ commands:
                 --connection-pooling-stats-users=: Comma-separated list of database users to access connection pooling stats.
                 --cpu-count=: Whole number value indicating how many vCPUs the machine should contain.
                 --database-flags=: Comma-separated list of database flags to set on the instance.
-                --enable-autoscaler&: Enable autoscaler for the instance.
+                --enable-autoscaler: Enable autoscaler for the instance.
                 --enable-connection-pooling: Enable connection pooling for the instance.
                 --enable-psc-auto-dns&: Enable PSC auto DNS for an AlloyDB instance.
                 --insights-config-query-plans-per-minute=: Number of query plans to sample every minute.
@@ -4088,18 +4113,18 @@ commands:
                 --assign-inbound-public-ip=: Specify to enable or disable public IP on an instance.
                 --async: Return immediately, without waiting for the operation in progress to
                 --authorized-external-networks=: Comma-separated list of authorized external networks to set on the instance.
-                --autoscaler-cool-down-period-seconds=&: Cool down period in seconds for the autoscaler.
-                --autoscaler-delete-schedule=&: The name of the schedule to delete for the autoscaler.
-                --autoscaler-disable-schedule=&: The name of the schedule to disable for the autoscaler.
-                --autoscaler-enable-schedule=&: The name of the schedule to enable for the autoscaler.
-                --autoscaler-max-node-count=&: Maximum node count for the autoscaler.
-                --autoscaler-schedule-cron-exp=&: Cron expression for the autoscaler schedule.
-                --autoscaler-schedule-description=&: Description for the autoscaler schedule.
-                --autoscaler-schedule-duration-seconds=&: Duration for which the autoscaler schedule is active in seconds.
-                --autoscaler-schedule-min-node-count=&: Minimum node count for the autoscaler schedule.
-                --autoscaler-schedule-time-zone=&: Time zone for the autoscaler schedule.
-                --autoscaler-set-schedule=&: The name of the schedule to create or update for the autoscaler.
-                --autoscaler-target-cpu-usage=&: Target CPU usage for the autoscaler.
+                --autoscaler-cool-down-period-seconds=: Cool down period in seconds for the autoscaler.
+                --autoscaler-delete-schedule=: The name of the schedule to delete for the autoscaler.
+                --autoscaler-disable-schedule=: The name of the schedule to disable for the autoscaler.
+                --autoscaler-enable-schedule=: The name of the schedule to enable for the autoscaler.
+                --autoscaler-max-node-count=: Maximum node count for the autoscaler.
+                --autoscaler-schedule-cron-exp=: Cron expression for the autoscaler schedule.
+                --autoscaler-schedule-description=: Description for the autoscaler schedule.
+                --autoscaler-schedule-duration-seconds=: Duration for which the autoscaler schedule is active in seconds.
+                --autoscaler-schedule-min-node-count=: Minimum node count for the autoscaler schedule.
+                --autoscaler-schedule-time-zone=: Time zone for the autoscaler schedule.
+                --autoscaler-set-schedule=: The name of the schedule to create or update for the autoscaler.
+                --autoscaler-target-cpu-usage=: Target CPU usage for the autoscaler.
                 --availability-type=: Specifies level of availability.
                 --clear-labels: Remove all labels.
                 --clear-psc-auto-connections: Remove all PSC auto connections for an AlloyDB instance.
@@ -4118,7 +4143,7 @@ commands:
                 --connection-pooling-stats-users=: Comma-separated list of database users to access connection pooling stats.
                 --cpu-count=: Whole number value indicating how many vCPUs the machine should contain.
                 --database-flags=: Comma-separated list of database flags to set on the instance.
-                --enable-autoscaler&: Enable autoscaler for the instance.
+                --enable-autoscaler: Enable autoscaler for the instance.
                 --enable-connection-pooling: Enable connection pooling for the instance.
                 --enable-psc-auto-dns&: Enable PSC auto DNS for an AlloyDB instance.
                 --insights-config-query-plans-per-minute=: Number of query plans to sample every minute.
@@ -9702,9 +9727,9 @@ commands:
                     --restricted-locations=: Additional Google Cloud Storage buckets and locations (e.g., `gs://my-other-bucket/...`) that are permitted for use by resources within a catalog.
                     --secret-name=: The secret resource name in Secret Manager, in the format `projects/{project_id}/locations/{location}/secrets/{secret_id}` or `projects/{project_id}/locations/{location}/secrets/{secret_id}/versions/{version_id}`.
                     --service-directory-name=: The service directory resource name for request routing, in the format `projects/{project_id}/locations/{location}/namespaces/{namespace}/services/{service_name}`.
-                    --snowflake-account-identifier=&: The account identifier of the Snowflake catalog to connect to.
-                    --snowflake-role=&: The specific role to request for the Snowflake catalog.
-                    --snowflake-warehouse=&: The warehouse to connect to in Snowflake.
+                    --snowflake-account-identifier=: The account identifier of the Snowflake catalog to connect to.
+                    --snowflake-role=: The specific role to request for the Snowflake catalog.
+                    --snowflake-warehouse=: The warehouse to connect to in Snowflake.
                     --unity-catalog-name=: Name of the catalog in Unity Catalog.
                     --unity-instance-name=: The instance name is the first part of the URL when you log into your Databricks deployment.
                     --unity-service-principal-application-id=: Optional.
@@ -9766,7 +9791,7 @@ commands:
                     --restricted-locations=: Additional Google Cloud Storage buckets and locations (e.g., `gs://my-other-bucket/...`) that are permitted for use by resources within a catalog.
                     --secret-name=: Resource name of the Secret Manager secret, in the format `projects/{project_id}/locations/{location}/secrets/{secret_id}` or `projects/{project_id}/locations/{location}/secrets/{secret_id}/versions/{version_id}`.
                     --service-directory-name=: The service directory resource name for request routing, in the format `projects/{project_id}/locations/{location}/namespaces/{namespace}/services/{service_name}`.
-                    --snowflake-role=&: The specific role to request for the Snowflake catalog.
+                    --snowflake-role=: The specific role to request for the Snowflake catalog.
                     --unity-service-principal-application-id=: Optional.
                   completion:
                     flag:
@@ -14611,6 +14636,8 @@ commands:
                 --ip-port-dynamic-forwarding: Enables Dynamic Forwarding in IpPort selection mode.
                 --load-balancing-scheme=: Specifies the load balancer type.
                 --locality-lb-policy=: The load balancing algorithm used within the scope of the locality.
+                --logging-http-request-headers=: This field can only be specified if logging is enabled for the backend
+                --logging-http-response-headers=: This field can only be specified if logging is enabled for the backend
                 --logging-optional-fields=: This field can only be specified if logging is enabled for the backend
                 --logging-optional=: This field can only be specified if logging is enabled for the backend
                 --logging-sample-rate=: This field can only be specified if logging is enabled for the backend
@@ -14904,6 +14931,8 @@ commands:
                 --ip-port-dynamic-forwarding: Enables Dynamic Forwarding in IpPort selection mode.
                 --load-balancing-scheme=: Specifies the load balancer type.
                 --locality-lb-policy=: The load balancing algorithm used within the scope of the locality.
+                --logging-http-request-headers=: This field can only be specified if logging is enabled for the backend
+                --logging-http-response-headers=: This field can only be specified if logging is enabled for the backend
                 --logging-optional-fields=: This field can only be specified if logging is enabled for the backend
                 --logging-optional=: This field can only be specified if logging is enabled for the backend
                 --logging-sample-rate=: This field can only be specified if logging is enabled for the backend
@@ -14933,6 +14962,8 @@ commands:
                 --no-health-checks: Removes all health checks for the backend service if the backend service
                 --no-ip-port-dynamic-forwarding&: Enables Dynamic Forwarding in IpPort selection mode.
                 --no-locality-lb-policy: Removes the locality load balancing policy from the backend service.
+                --no-logging-http-request-headers: Remove all logging HTTP request headers for the backend service.
+                --no-logging-http-response-headers: Remove all logging HTTP response headers for the backend service.
                 --no-max-ttl: (DEPRECATED) Clears max TTL value.
                 --no-negative-caching&: Negative caching allows per-status code cache TTLs to be set, in order to
                 --no-negative-caching-policies: Remove all negative caching policies for the backend service.
@@ -15438,6 +15469,7 @@ commands:
                   description: '*(ALPHA)*  Create multiple Compute Engine disks or a consistency group of instant snapshots.'
                   flags:
                     --region=: Target region of the created disks, which currently must be the same as the source region.
+                    --snapshot-group-params=: Parameters of the Snapshot Group to restore from.
                     --source-consistency-group-policy=: URL of the source consistency group resource policy.
                     --source-instant-snapshot-group-region=: Region of the source instant snapshot group to operate on.
                     --source-instant-snapshot-group-zone=: Zone of the source instant snapshot group to operate on.
@@ -15483,7 +15515,7 @@ commands:
                 --access-mode=: Specifies how VMs attached to the disk can access the data on the disk.
                 --architecture=: Specifies the architecture or processor type that this disk can support.
                 --confidential-compute: Creates the disk with confidential compute mode enabled.
-                --csek-key-file=: Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
+                --csek-key-file=: (DEPRECATED)       Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
                 --description=: An optional, textual description for the disks being created.
                 --erase-windows-vss-signature: Specifies whether the disk restored from a source snapshot should
                 --global-source-snapshot: If set, the snapshot is global.
@@ -15505,7 +15537,7 @@ commands:
                 --no-erase-windows-vss-signature&: ""
                 --no-global-source-snapshot&: If set, the snapshot is global.
                 --no-multi-writer&: ""
-                --no-require-csek-key-create&: Refuse to create resources not protected by a user managed key in
+                --no-require-csek-key-create&: (DEPRECATED)         Refuse to create resources not protected by a user managed key in
                 --physical-block-size=: Physical block size of the persistent disk in bytes.
                 --primary-disk-project=: Project of the primary disk for asynchronous replication.
                 --primary-disk-region=: Region of the primary disk for asynchronous replication.
@@ -15515,7 +15547,7 @@ commands:
                 --provisioned-throughput=: Provisioned throughput of disk to create.
                 --region=: Region of the disks to create.
                 --replica-zones=: A comma-separated list of exactly 2 zones that a regional disk will be replicated to.
-                --require-csek-key-create: Refuse to create resources not protected by a user managed key in
+                --require-csek-key-create: (DEPRECATED)         Refuse to create resources not protected by a user managed key in
                 --resource-manager-tags=: A comma-separated list of Resource Manager tags to apply to the disk.
                 --resource-policies=: A list of resource policy names to be added to the disk.
                 --size=: Size of the disks.
@@ -15628,7 +15660,7 @@ commands:
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
                 --chain-name=: Create the new snapshot in the snapshot chain labeled with the specified name.
-                --csek-key-file=: Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
+                --csek-key-file=: (DEPRECATED)       Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
                 --description=: Text to describe the snapshots being created.
                 --guest-flush: Create an application-consistent snapshot by informing the OS
                 --labels=: List of label KEY=VALUE pairs to add.
@@ -16948,6 +16980,13 @@ commands:
                 --regions=: If provided, only regional resources are shown.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: test-iam-permissions
+              description: '*(ALPHA)*  Test IAM permissions for a Compute Engine health check.'
+              flags:
+                --global: If set, the  health check is global.
+                --no-global&: If set, the  health check is global.
+                --permissions=!: The set of permissions to check for the resource.
+                --region=: Region of the  health check to test IAM permissions for.
             - name: update
               description: '*(ALPHA)*  Update health checks for load balanced instances.'
               commands:
@@ -17189,6 +17228,11 @@ commands:
                 --regions=: If provided, only resources from the given regions are queried.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: test-iam-permissions
+              description: '*(ALPHA)*  Test IAM permissions for a health source.'
+              flags:
+                --permissions=!: Permissions to be tested.
+                --region=: The name of the Google Compute Engine region.
             - name: update
               description: '*(ALPHA)*  Update a health source.'
               flags:
@@ -17328,7 +17372,7 @@ commands:
               description: '*(ALPHA)*  Create Compute Engine images.'
               flags:
                 --architecture=: Specifies the architecture or processor type that this image can support.
-                --csek-key-file=: Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
+                --csek-key-file=: (DEPRECATED)       Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
                 --description=: An optional, textual description for the image being created.
                 --family=: The family of the image.
                 --forbidden-database-file=: Comma-separated list of file paths that point to revoked X.509
@@ -17346,9 +17390,9 @@ commands:
                 --no-force&: By default, image creation fails when it is created from a disk that
                 --no-force-create&: (DEPRECATED)           DEPRECATED, use --force instead.
                 --no-locked&: Specifies that any boot disk created from this image can't be used
-                --no-require-csek-key-create&: Refuse to create images not protected by a user managed key in
+                --no-require-csek-key-create&: (DEPRECATED)         Refuse to create images not protected by a user managed key in
                 --platform-key-file=: File path that points to an X.509 certificate in DER format or raw binary
-                --require-csek-key-create: Refuse to create images not protected by a user managed key in
+                --require-csek-key-create: (DEPRECATED)         Refuse to create images not protected by a user managed key in
                 --resource-manager-tags=: A comma-separated list of Resource Manager tags to apply to the image.
                 --rollout-override=: A rollout policy for the image.
                 --signature-database-file=: Comma-separated list of file paths that point to valid X.509 certificates
@@ -18887,7 +18931,7 @@ commands:
               description: '*(ALPHA)*  Attach a disk to an instance.'
               flags:
                 --boot: Attach the disk to the instance as a boot disk.
-                --csek-key-file=: Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
+                --csek-key-file=: (DEPRECATED)       Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
                 --device-name=: An optional name that indicates the disk name the guest operating system will see.
                 --disk-scope=: The scope of the disk.
                 --disk=!: The name of the disk to attach to the instance.
@@ -19118,7 +19162,7 @@ commands:
                 --confidential-compute: (DEPRECATED)       The instance boots with Confidential Computing enabled.
                 --confidential-compute-type=: The instance boots with Confidential Computing enabled.
                 --create-disk=: Creates and attaches persistent disks to the instances.
-                --csek-key-file=: Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
+                --csek-key-file=: (DEPRECATED)       Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
                 --current-cpus=: Current number of vCPUs available for VM.
                 --custom-cpu=!: A whole number value specifying the number of cores that are needed in
                 --custom-extensions: Use the extended custom machine type.
@@ -19159,6 +19203,7 @@ commands:
                 --key-revocation-action-type=: Specifies the behavior of the instance when the KMS key of one of its attached disks is revoked.
                 --labels=: List of label KEY=VALUE pairs to add.
                 --local-nvdimm=: Attaches a local NVDIMM to the instances.
+                --local-ssd-encryption-mode=: Specifies which method should be used for encrypting the Local SSDs
                 --local-ssd-recovery-timeout=: Specifies the maximum amount of time a Local Ssd Vm should wait while
                 --local-ssd=: Attaches a local SSD to the instances.
                 --location-hint=&: Used by internal tools to control sub-zone location of the instance.
@@ -19194,7 +19239,7 @@ commands:
                 --no-public-dns: If provided, the instance will not be assigned a public DNS name.
                 --no-public-ptr: If provided, no DNS PTR record is created for the external IP of the
                 --no-public-ptr-domain: If both this flag and --public-ptr are specified, creates a DNS PTR
-                --no-require-csek-key-create&: Refuse to create resources not protected by a user managed key in
+                --no-require-csek-key-create&: (DEPRECATED)         Refuse to create resources not protected by a user managed key in
                 --no-restart-on-failure&: The instances will be restarted if they are terminated by Compute Engine.
                 --no-scopes: Create instance without scopes
                 --no-service-account: Create instance without service account
@@ -19221,7 +19266,7 @@ commands:
                 --public-ptr: Creates a DNS PTR record for the external IP of the instance.
                 --public-ptr-domain=: Assigns a custom PTR domain for the external IP of the instance.
                 --request-valid-for-duration=: When you create an instance by using the FLEX_START provisioning model,
-                --require-csek-key-create: Refuse to create resources not protected by a user managed key in
+                --require-csek-key-create: (DEPRECATED)         Refuse to create resources not protected by a user managed key in
                 --reservation-affinity=: The type of reservation for the instance.
                 --reservation=: 'The name of the reservation, required when `--reservation-affinity` is one of: `specific`, `specific-then-any-reservation` or `specific-then-no-reservation`.'
                 --resource-manager-tags=: Specifies a list of resource manager tags to apply to the instance.
@@ -19236,7 +19281,7 @@ commands:
                 --skip-guest-os-shutdown: If enabled, then, when the instance is stopped or deleted, the instance
                 --source-instance-template=: The name of the instance template that the instance will be created from.
                 --source-instant-snapshot=: The name of the source disk instant snapshot that the instance boot disk
-                --source-machine-image-csek-key-file=: Path to a Customer-Supplied Encryption Key (CSEK) key file, mapping resources to user managed keys which were used to encrypt the source machine-image.
+                --source-machine-image-csek-key-file=: (DEPRECATED)       Path to a Customer-Supplied Encryption Key (CSEK) key file, mapping resources to user managed keys which were used to encrypt the source machine-image.
                 --source-machine-image=: The name of the machine image that the instance will be created from.
                 --source-snapshot-region=: Sets the region for the `--source-snapshot` flag.
                 --source-snapshot=: The name of the source disk snapshot that the instance boot disk
@@ -19268,6 +19313,9 @@ commands:
                     key-revocation-action-type:
                         - none
                         - stop
+                    local-ssd-encryption-mode:
+                        - STANDARD_ENCRYPTION
+                        - EPHEMERAL_KEY_ENCRYPTION
                     maintenance-interval:
                         - PERIODIC
                         - RECURRENT
@@ -20051,7 +20099,7 @@ commands:
               description: '*(ALPHA)*  Start a stopped virtual machine instance.'
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
-                --csek-key-file=: Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
+                --csek-key-file=: (DEPRECATED)       Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --zone=: Zone of the instances to operate on.
             - name: stop
@@ -21063,7 +21111,7 @@ commands:
             - name: create
               description: '*(ALPHA)*  Create a Compute Engine machine image.'
               flags:
-                --csek-key-file=: Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
+                --csek-key-file=: (DEPRECATED)       Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
                 --description=: Specifies a text description of the machine image.
                 --exclude-disks=: Specifies a filter for disks to be excluded from the machine image.
                 --guest-flush: Create an application-consistent machine image by informing the OS
@@ -21073,10 +21121,10 @@ commands:
                 --kms-location=: The Google Cloud location for the key.
                 --kms-project=: The Google Cloud project for the key.
                 --no-guest-flush&: ""
-                --no-require-csek-key-create&: Refuse to create machine images not protected by a user managed key in
-                --require-csek-key-create: Refuse to create machine images not protected by a user managed key in
+                --no-require-csek-key-create&: (DEPRECATED)         Refuse to create machine images not protected by a user managed key in
+                --require-csek-key-create: (DEPRECATED)         Refuse to create machine images not protected by a user managed key in
                 --resource-manager-tags=: A comma-separated list of Resource Manager tags to apply to the machine image.
-                --source-disk-csek-key=: Customer-supplied encryption key of the disk attached to the
+                --source-disk-csek-key=: '(DEPRECATED) '
                 --source-instance-zone=: Zone of the instance to operate on.
                 --source-instance=!: The source instance to create a machine image from.
                 --storage-location=: Google Cloud Storage location, either regional or multi-regional, where
@@ -21204,6 +21252,10 @@ commands:
                 --role=!: The role to remove the principal from.
             - name: set-iam-policy
               description: '*(ALPHA)*  Set the IAM policy for a Compute Engine machine image.'
+            - name: test-iam-permissions
+              description: '*(ALPHA)*  Test IAM permissions for a Compute Engine machine image.'
+              flags:
+                --permissions=!: Permissions to be tested.
         - name: machine-types
           description: '*(ALPHA)*  Read Compute Engine virtual machine types.'
           commands:
@@ -25705,7 +25757,7 @@ commands:
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
                 --chain-name=: Create the new snapshot in the snapshot chain labeled with the specified name.
-                --csek-key-file=: Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
+                --csek-key-file=: (DEPRECATED)       Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
                 --description=: Text to describe the new snapshot.
                 --global: If set, the snapshot will be created in the global scope
                 --guest-flush: Create an application-consistent snapshot by informing the OS
@@ -25723,11 +25775,11 @@ commands:
                 --snapshot-type=: Type of snapshot.
                 --source-disk-for-recovery-checkpoint-region=: Region of the source disk for recovery checkpoint to operate on.
                 --source-disk-for-recovery-checkpoint=: Source disk whose recovery checkpoint used to create the snapshot.
-                --source-disk-key-file=: Path to the customer-supplied encryption key of the source disk.
+                --source-disk-key-file=: '(DEPRECATED) '
                 --source-disk-region=: Region of the source disk to operate on.
                 --source-disk-zone=: Zone of the source disk to operate on.
                 --source-disk=: Source disk used to create the snapshot.
-                --source-instant-snapshot-key-file=: Path to the customer-supplied encryption key of the source instant snapshot.
+                --source-instant-snapshot-key-file=: '(DEPRECATED) '
                 --source-instant-snapshot-region=: Region of the source instant snapshot to operate on.
                 --source-instant-snapshot-zone=: Zone of the source instant snapshot to operate on.
                 --source-instant-snapshot=: The name or URL of the source instant snapshot.
@@ -26593,6 +26645,7 @@ commands:
                 --certificate-manager-certificates=!: IDs of the certificates or fully qualified identifiers for the certificates.
                 --certificate-map=!: ID of the certificate map or fully qualified identifier for the certificate map.
                 --clear-certificate-map: Removes any attached certificate map from the HTTPS proxy.
+                --clear-http-filters: Removes any attached Http filters.
                 --clear-http-keep-alive-timeout-sec: Clears the previously configured HTTP keepalive timeout.
                 --clear-server-tls-policy: Removes any attached Server TLS policy.
                 --clear-ssl-certificates: Remove any attached SSL certificates from the HTTPS proxy.
@@ -26601,8 +26654,10 @@ commands:
                 --global-ssl-certificates: If set, the ssl certificates are global.
                 --global-ssl-policy: If set, the SSL policy is global.
                 --global-url-map: If set, the URL map is global.
+                --http-filters=!: IDs of the http filters or fully qualified identifiers for the http filters.
                 --http-keep-alive-timeout-sec=: Represents the maximum amount of time that a TCP connection can be idle
                 --no-clear-certificate-map&: Removes any attached certificate map from the HTTPS proxy.
+                --no-clear-http-filters&: Removes any attached Http filters.
                 --no-clear-http-keep-alive-timeout-sec&: Clears the previously configured HTTP keepalive timeout.
                 --no-clear-server-tls-policy&: Removes any attached Server TLS policy.
                 --no-clear-ssl-certificates&: Remove any attached SSL certificates from the HTTPS proxy.
@@ -26772,6 +26827,11 @@ commands:
                 --failover-ratio=: The new failover ratio value for the target pool.
                 --no-backup-pool: Unsets the backup pool.
                 --region=: Region of the target pool to set a backup pool for.
+            - name: test-iam-permissions
+              description: '*(ALPHA)*  Test IAM permissions for a Compute Engine target pool.'
+              flags:
+                --permissions=!: The permissions to test.
+                --region=: The name of the Google Compute Engine region.
             - name: update
               description: '*(ALPHA)*  Update a Compute Engine target pool.'
               flags:
@@ -27766,6 +27826,11 @@ commands:
                 --regions=: If provided, only resources from the given regions are queried.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: test-iam-permissions
+              description: '*(ALPHA)*  Test IAM permissions for a Compute Engine VPN tunnel.'
+              flags:
+                --permissions=!: Permissions to be tested.
+                --region=: The name of the Google Compute Engine region.
             - name: update
               description: '*(ALPHA)*  Update a Compute Engine VPN tunnel.'
               flags:
@@ -27943,6 +28008,26 @@ commands:
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --region=: Compute region (e.g. us-central1) for a regional cluster.
                 --timeout=: Timeout (in seconds) for waiting on the operation to complete.
+                --zone=: Compute zone (e.g. us-central1-a) for a zonal cluster.
+            - name: describe
+              description: '*(ALPHA)*  Describe an Accelerator Network Profile.'
+              hidden: true
+              flags:
+                --location=: Compute zone or region (e.g. us-central1-a or us-central1) for the cluster.
+                --region=: Compute region (e.g. us-central1) for a regional cluster.
+                --zone=: Compute zone (e.g. us-central1-a) for a zonal cluster.
+            - name: list
+              description: '*(ALPHA)*  List Accelerator Network Profiles.'
+              hidden: true
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: Compute zone or region (e.g. us-central1-a or us-central1) for the cluster.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --region=: Compute region (e.g. us-central1) for a regional cluster.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
                 --zone=: Compute zone (e.g. us-central1-a) for a zonal cluster.
         - name: ai
           description: '*(ALPHA)*  Manage AI related workloads for GKE.'
@@ -32205,6 +32290,7 @@ commands:
                     --membership=: (DEPRECATED) Membership name to update.
                     --memberships=!: IDs of the memberships or fully qualified identifiers for the memberships.
                     --modernization-compatibility=: The modernization compatibility of the mesh.
+                    --modernization-strategy=: The modernization strategy of the mesh.
                     --origin=: Changing the origin of the membership.
                   completion:
                     flag:
@@ -32222,6 +32308,9 @@ commands:
                         modernization-compatibility:
                             - validation-enabled
                             - validation-disabled
+                        modernization-strategy:
+                            - automatic
+                            - deferred
                         origin:
                             - fleet
             - name: multi-cluster-services
@@ -33689,6 +33778,7 @@ commands:
                     --membership=: (DEPRECATED) Membership name to update.
                     --memberships=!: IDs of the memberships or fully qualified identifiers for the memberships.
                     --modernization-compatibility=: The modernization compatibility of the mesh.
+                    --modernization-strategy=: The modernization strategy of the mesh.
                     --origin=: Changing the origin of the membership.
                   completion:
                     flag:
@@ -33706,6 +33796,9 @@ commands:
                         modernization-compatibility:
                             - validation-enabled
                             - validation-disabled
+                        modernization-strategy:
+                            - automatic
+                            - deferred
                         origin:
                             - fleet
             - name: multi-cluster-services
@@ -42170,6 +42263,23 @@ commands:
     - name: device-run
       description: '*(ALPHA)*  Manage automation sessions and jobs on devices.'
       commands:
+        - name: devices
+          description: '*(ALPHA)*  Manage Device Run devices.'
+          commands:
+            - name: describe
+              description: '*(ALPHA)*  Describe a Device Run device.'
+              flags:
+                --location=: Cloud location for the device.
+            - name: list
+              description: '*(ALPHA)*  List available Device Run devices.'
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
         - name: locations
           description: '*(ALPHA)*  Get information about Device Run locations.'
           commands:
@@ -42257,7 +42367,7 @@ commands:
                     --test-runner-class=: The instrumentation test runner class to use.
                     --test-targets=: A list of test targets or target filters to run.
                     --test=!: The path to the APK file containing instrumentation tests.
-                    --uniform-shard-count=: Specifies the total number of shards to create for uniform sharding.
+                    --uniform-sharding-count=: Specifies the total number of shards to create for uniform sharding.
                     --video=: Specifies when to record video of the device screen during the test run.
                   completion:
                     flag:
@@ -48400,6 +48510,11 @@ commands:
                             - code
                             - id-token
                             - response-type-unspecified
+            - name: suggest-workspace-link-attribute-mapping
+              description: '*(ALPHA)*  Suggest workspace link attribute mappings for a workforce pool.'
+              hidden: true
+              flags:
+                --location=: The location for the workforce pool.
             - name: undelete
               description: '*(ALPHA)*  Undelete a workforce pool.'
               flags:
@@ -52176,6 +52291,25 @@ commands:
                 --page-size=: Some services group resource list output into pages.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: revisions
+              description: '*(ALPHA)*  Manage Acl Policy Revision resources.'
+              commands:
+                - name: describe
+                  description: '*(ALPHA)*  Describe aclPolicyRevisions.'
+                  flags:
+                    --acl-policy=: The aclPolicy id of the revision resource.
+                    --location=: The location id of the revision resource.
+                - name: list
+                  description: '*(ALPHA)*  List aclPolicyRevisions.'
+                  flags:
+                    --acl-policy=!: ID of the aclPolicy or fully qualified identifier for the aclPolicy.
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --location=: The location id of the aclPolicy resource.
+                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                    --page-size=: Some services group resource list output into pages.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --uri: Print a list of resource URIs instead of the default output, and change the
             - name: update
               description: '*(ALPHA)*  Update aclPolicies.'
               flags:
@@ -54459,6 +54593,39 @@ commands:
                 --page-size=: Some services group resource list output into pages.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: start-continuous-profiling
+              description: '*(ALPHA)*  Start continuous profiling for a machine learning run.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --device-tracer-level=: Device tracer level for the session.
+                --host-tracer-level=: Host tracer level for the session.
+                --location=: For resources [machine-learning-run, targets], provides fallback value for resource location attribute.
+                --machine-learning-run=: For resources [machine-learning-run, targets], provides fallback value for resource machine-learning-run attribute.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --python-tracer-level=: Python tracer level for the session.
+                --targets=!: IDs of the profilerTargets or fully qualified identifiers for the profilerTargets.
+              completion:
+                flag:
+                    device-tracer-level:
+                        - disabled
+                        - enabled
+                    host-tracer-level:
+                        - critical
+                        - disabled
+                        - info
+                        - verbose
+                    python-tracer-level:
+                        - disabled
+                        - enabled
+            - name: stop-continuous-profiling
+              description: '*(ALPHA)*  Stop continuous profiling for a machine learning run.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location id of the machine_learning_run resource.
+                --machine-learning-run=!: ID of the machine_learning_run or fully qualified identifier for the machine_learning_run.
+                --no-async&: Return immediately, without waiting for the operation in progress to
             - name: update
               description: '*(ALPHA)*  Update a machine learning run.'
               flags:
@@ -54520,6 +54687,7 @@ commands:
                 --duration=!: Duration for the profiler session.
                 --host-tracer-level=: Host tracer level for the session.
                 --is-trace-enabled: Customer setting to enable trace level details for the session.
+                --kind=: Profiler session kind.
                 --location=: For resources [profiler_session, targets], provides fallback value for resource location attribute.
                 --machine-learning-run=: For resources [profiler_session, targets], provides fallback value for resource machine-learning-run attribute.
                 --no-async&: Return immediately, without waiting for the operation in progress to
@@ -54536,6 +54704,9 @@ commands:
                         - host-tracer-level-disabled
                         - host-tracer-level-info
                         - host-tracer-level-verbose
+                    kind:
+                        - on-demand
+                        - snapshot
                     python-tracer-level:
                         - python-tracer-level-disabled
                         - python-tracer-level-enabled
@@ -58620,6 +58791,58 @@ commands:
                 --page-size=: Some services group resource list output into pages.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: express-links
+          description: '*(ALPHA)*  Manage Network Services Express Links.'
+          commands:
+            - name: create
+              description: '*(ALPHA)*  Create an express link.'
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --description=: The description for the express link.
+                --destination-services=: List of service URIs to which the ExpressLink resource is bound.
+                --location=: The location Id.
+                --matches-hostname=: List of hostnames to match against the HTTP request host header.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --source-services=: List of resources attached to the ExpressLink.
+            - name: delete
+              description: '*(ALPHA)*  Delete express link.'
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location Id.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: describe
+              description: '*(ALPHA)*  Describe an express link.'
+              flags:
+                --location=: The location Id.
+            - name: export
+              description: '*(ALPHA)*  Export an express link.'
+              flags:
+                --destination=: Path to a YAML file where the configuration will be exported.
+                --location=: The location Id.
+            - name: import
+              description: '*(ALPHA)*  Import an express link.'
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location Id.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --source=: Path to a YAML file containing the configuration export data.
+            - name: list
+              description: '*(ALPHA)*  List express links.'
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=!: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: '*(ALPHA)*  Update an express link.'
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --description=: The description for the express link.
+                --location=: The location Id.
+                --no-async&: Return immediately, without waiting for the operation in progress to
         - name: gateways
           description: '*(ALPHA)*  Manage Network Services Gateways.'
           commands:
@@ -63968,7 +64191,7 @@ commands:
                 --team-id=!: The Apple team ID (10-character string) owning the provisioning profile
                 --testing-challenge=: For CHECKBOX and INVISIBLE Keys only, this option configures
                 --testing-score=: If set, all assessments for this key will return this score.
-                --universal!&: Creates a Universal site key.
+                --universal!: Creates a Universal site key.
                 --waf-feature=: The WAF feature to use.
                 --waf-service=!: The WAF service provider to use.
                 --web!: Creates a Key configured for websites.
@@ -64062,7 +64285,7 @@ commands:
                 --private-key-file=!: File path to a private key (downloaded as a text file with a .p8 file extension)
                 --security-preference=: Represents the possible challenge frequency and difficulty configurations for a web key.
                 --team-id=!: The Apple team ID (10-character string) owning the provisioning profile
-                --universal!&: Configures the Key as Universal.
+                --universal!: Configures the Key as Universal.
                 --web!: Configures the Key for websites.
               completion:
                 flag:
@@ -65790,6 +66013,11 @@ commands:
         - name: compose
           description: '*(ALPHA)*  Support Docker Compose workflows on Cloud Run.'
           commands:
+            - name: down
+              description: '*(ALPHA)*  Tear down resources created by gcloud run compose up.'
+              hidden: true
+              flags:
+                --region=: Region in which the resource can be found.
             - name: up
               description: '*(ALPHA)*  Deploy to Cloud Run from compose specification.'
               flags:
@@ -65927,7 +66155,7 @@ commands:
             --gpu-zonal-redundancy: Set GPU zonal redundancy.
             --gpu=: Cloud Run supports values 0 or 1.  1 gpu also requires a minimum 4 `--cpu` value and  a minimum 16Gi `--memory` value.
             --iap: Whether to enable IAP for the Service.
-            --identity-certificate&: Enables workload certificates using managed workload identity.
+            --identity-certificate: Enables workload certificates using managed workload identity.
             --identity-type=: Configures the type of identity to be used by the resource.
             --identity=&: Configures a managed workload identity to be used by the service.
             --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/hello:latest`).
@@ -65937,6 +66165,7 @@ commands:
             --kubeconfig=&: The absolute path to your kubectl config file.
             --labels=: List of label KEY=VALUE pairs to add.
             --liveness-probe=: Comma separated settings for liveness probe in the form KEY=VALUE.
+            --local-build: When set, the application dependencies are installed and runtime configurations (like base-image, cmd, args) are prepared locally on your machine using your local development environment, and the resulting packaged source archive is deployed directly to Cloud Run without building a container image.
             --max-instances=: The maximum number of container instances for this Revision to run or 'default' to remove.
             --max=: The maximum number of container instances to run for this Service.
             --memory=: Set a memory limit.
@@ -65982,6 +66211,7 @@ commands:
             --no-iap&: Whether to enable IAP for the Service.
             --no-identity-certificate&: Enables workload certificates using managed workload identity.
             --no-invoker-iam-check&: Optionally disable invoker IAM checks.
+            --no-local-build&: When set, the application dependencies are installed and runtime configurations (like base-image, cmd, args) are prepared locally on your machine using your local development environment, and the resulting packaged source archive is deployed directly to Cloud Run without building a container image.
             --no-overflow-scaling&: Whether to start instances for new requests when no capacity is available on existing instances.
             --no-public&: Make the service public by disabling invoker IAM checks and IAP.
             --no-run-upload&: Specifies that the source should be uploaded via Cloud Run UploadSource API.
@@ -66299,33 +66529,75 @@ commands:
                   description: '*(ALPHA)*  Sync into a Cloud Run Instance.'
                   hidden: true
                   flags:
+                    --add-volume-mount=: Adds a mount to the current container.
+                    --add-volume=: Adds a volume to the Cloud Run resource.
+                    --args=: Comma-separated arguments passed to the command run by the container image.
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --binary-authorization=: Binary Authorization policy to check against.
+                    --breakglass=: Justification to bypass Binary Authorization policy constraints and allow the operation.
                     --build-env-vars-file=: Path to a local YAML file with definitions for all build
                     --cleanup: If set, the Cloud Run instance created for the dev sync session will not be automatically deleted when the session terminates.
                     --clear-build-env-vars: Remove all build environment variables.
                     --clear-config-maps&: Remove all config-maps.
+                    --clear-env-vars: Remove all environment variables.
+                    --clear-secrets: Remove all secrets.
+                    --clear-volume-mounts: Remove all existing mounts from the current container.
+                    --clear-volumes: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
+                    --client-name=&: Name of the client handling the deployment.
+                    --client-version=&: Version of the client handling the deployment.
+                    --command=: Entrypoint for the container image.
                     --container=: Specifies a container by name.
+                    --cpu=: Set a CPU limit in Kubernetes cpu units.
+                    --default-url: Toggles the default url for a run instance.
+                    --depends-on=: List of container dependencies to add to the current container.
                     --endpoint-mode=: Specifies endpoint mode for a given command.
+                    --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
                     --iap-tunnel-url-override=&: Allows for overriding the connection endpoint for integration testing.
-                    --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/hello:latest`).
                     --ingress=: Set the ingress traffic sources allowed to call the service.
                     --invoker-iam-check: Optionally disable invoker IAM checks.
-                    --no-build: When set, the cloud build step will be skipped and the provided source code will be extracted directly on the base image.
+                    --key=: CMEK key reference to encrypt the container with.
+                    --labels=: List of label KEY=VALUE pairs to add.
+                    --memory=: Set a memory limit.
+                    --network-tags=: Applies the given network tags (comma separated) to the Cloud Run instance.
+                    --network=: The VPC network that the Cloud Run instance will be able to send traffic to.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
                     --no-cleanup&: If set, the Cloud Run instance created for the dev sync session will not be automatically deleted when the session terminates.
                     --no-clear-build-env-vars&: Remove all build environment variables.
                     --no-clear-config-maps&: Remove all config-maps.
+                    --no-clear-env-vars&: Remove all environment variables.
+                    --no-clear-secrets&: Remove all secrets.
+                    --no-clear-volume-mounts&: Remove all existing mounts from the current container.
+                    --no-clear-volumes&: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
+                    --no-default-url&: Toggles the default url for a run instance.
                     --no-invoker-iam-check&: Optionally disable invoker IAM checks.
-                    --no-run-upload&: Specifies that the source should be uploaded via Cloud Run UploadSource API.
+                    --no-public&: Make the service public by disabling invoker IAM checks and IAP.
+                    --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                     --port=: Container port to receive requests at.
+                    --public: Make the service public by disabling invoker IAM checks and IAP.
                     --region=: Region in which the resource can be found.
                     --remove-build-env-vars=: List of build environment variables to be removed.
                     --remove-config-maps=&: List of config-maps to be removed.
-                    --run-upload&: Specifies that the source should be uploaded via Cloud Run UploadSource API.
+                    --remove-env-vars=: List of environment variables to be removed.
+                    --remove-secrets=: List of secrets to be removed.
+                    --remove-volume-mount=: Removes the volume mounted at the specified path from the current container.
+                    --remove-volume=: Removes volumes from the Cloud Run resource.
+                    --restart-policy=: Set the restart policy for the instance.
+                    --sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                     --service-account=: the email address of an IAM service account associated with the revision of the service.
                     --set-build-env-vars=: List of key-value pairs to set as build environment variables.
+                    --set-cloudsql-instances=: You can specify a name of a Cloud SQL instance if it's in the same
                     --set-config-maps=&: List of key-value pairs to set as config-maps.
+                    --set-env-vars=: List of key-value pairs to set as environment variables.
+                    --set-secrets=: List of key-value pairs to set as secrets.
                     --source=: The location of the source to build.
+                    --startup-probe=: Comma separated settings for startup probe in the form KEY=VALUE.
+                    --subnet=: The VPC subnetwork that the Cloud Run instance will get IPs from.
+                    --update-annotations=&: List of annotation KEY=VALUE pairs to update.
                     --update-build-env-vars=: List of key-value pairs to set as build environment variables.
                     --update-config-maps=&: List of key-value pairs to set as config-maps.
+                    --update-env-vars=: List of key-value pairs to set as environment variables.
+                    --update-secrets=: List of key-value pairs to set as secrets.
+                    --vpc-egress=: Specify which of the outbound traffic to send through Direct VPC egress or the VPC connector for this resource.
                   completion:
                     flag:
                         endpoint-mode:
@@ -66336,6 +66608,14 @@ commands:
                             - all
                             - internal
                             - internal-and-cloud-load-balancing
+                        restart-policy:
+                            - always
+                            - never
+                            - on-failure
+                        vpc-egress:
+                            - all
+                            - all-traffic
+                            - private-ranges-only
             - name: get-iam-policy
               description: '*(ALPHA)*  Get the IAM policy for a Cloud Run instance.'
               flags:
@@ -66609,9 +66889,12 @@ commands:
                 --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
                 --execute-now: Execute the job immediately after the creation or update  completes.
                 --execution-environment=&: Selects the execution environment where the application will run.
+                --functional-type=&: Specifies the function of the workload for Agent Registry.
                 --gpu-type=: The GPU type to use.
                 --gpu-zonal-redundancy: Set GPU zonal redundancy.
                 --gpu=: Cloud Run supports values 0 or 1.  1 gpu also requires a minimum 4 `--cpu` value and  a minimum 16Gi `--memory` value.
+                --identity-certificate&: Enables workload certificates using managed workload identity.
+                --identity-type=&: Configures the type of identity to be used by the resource.
                 --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/job:latest`).
                 --key=: CMEK key reference to encrypt the container with.
                 --labels=: List of label KEY=VALUE pairs to add.
@@ -66627,6 +66910,7 @@ commands:
                 --no-delay-execution&: True if the executions of the job can be delayed to start.
                 --no-execute-now&: Execute the job immediately after the creation or update  completes.
                 --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
+                --no-identity-certificate&: Enables workload certificates using managed workload identity.
                 --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --no-wait&: Wait until the execution has completed running before exiting.
                 --parallelism=: Number of tasks that may run concurrently.
@@ -66661,6 +66945,13 @@ commands:
                     execution-environment:
                         - gen1
                         - gen2
+                    functional-type:
+                        - agent
+                        - mcp-server
+                    identity-type:
+                        - service-account
+                        - workload-identity
+                        - agent-identity
                     vpc-egress:
                         - all
                         - all-traffic
@@ -66704,9 +66995,12 @@ commands:
                 --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
                 --execute-now: Execute the job immediately after the creation or update  completes.
                 --execution-environment=&: Selects the execution environment where the application will run.
+                --functional-type=&: Specifies the function of the workload for Agent Registry.
                 --gpu-type=: The GPU type to use.
                 --gpu-zonal-redundancy: Set GPU zonal redundancy.
                 --gpu=: Cloud Run supports values 0 or 1.  1 gpu also requires a minimum 4 `--cpu` value and  a minimum 16Gi `--memory` value.
+                --identity-certificate&: Enables workload certificates using managed workload identity.
+                --identity-type=&: Configures the type of identity to be used by the resource.
                 --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/job:latest`).
                 --key=: CMEK key reference to encrypt the container with.
                 --labels=: List of label KEY=VALUE pairs to add.
@@ -66724,6 +67018,7 @@ commands:
                 --no-delay-execution&: True if the executions of the job can be delayed to start.
                 --no-execute-now&: Execute the job immediately after the creation or update  completes.
                 --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
+                --no-identity-certificate&: Enables workload certificates using managed workload identity.
                 --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --no-wait&: Wait until the execution has completed running before exiting.
                 --parallelism=: Number of tasks that may run concurrently.
@@ -66760,6 +67055,13 @@ commands:
                     execution-environment:
                         - gen1
                         - gen2
+                    functional-type:
+                        - agent
+                        - mcp-server
+                    identity-type:
+                        - service-account
+                        - workload-identity
+                        - agent-identity
                     vpc-egress:
                         - all
                         - all-traffic
@@ -67084,9 +67386,12 @@ commands:
                 --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
                 --execute-now: Execute the job immediately after the creation or update  completes.
                 --execution-environment=&: Selects the execution environment where the application will run.
+                --functional-type=&: Specifies the function of the workload for Agent Registry.
                 --gpu-type=: The GPU type to use.
                 --gpu-zonal-redundancy: Set GPU zonal redundancy.
                 --gpu=: Cloud Run supports values 0 or 1.  1 gpu also requires a minimum 4 `--cpu` value and  a minimum 16Gi `--memory` value.
+                --identity-certificate&: Enables workload certificates using managed workload identity.
+                --identity-type=&: Configures the type of identity to be used by the resource.
                 --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/job:latest`).
                 --key=: CMEK key reference to encrypt the container with.
                 --labels=: List of label KEY=VALUE pairs to add.
@@ -67108,6 +67413,7 @@ commands:
                 --no-delay-execution&: True if the executions of the job can be delayed to start.
                 --no-execute-now&: Execute the job immediately after the creation or update  completes.
                 --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
+                --no-identity-certificate&: Enables workload certificates using managed workload identity.
                 --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --no-wait&: Wait until the execution has completed running before exiting.
                 --parallelism=: Number of tasks that may run concurrently.
@@ -67146,6 +67452,13 @@ commands:
                     execution-environment:
                         - gen1
                         - gen2
+                    functional-type:
+                        - agent
+                        - mcp-server
+                    identity-type:
+                        - service-account
+                        - workload-identity
+                        - agent-identity
                     vpc-egress:
                         - all
                         - all-traffic
@@ -67303,7 +67616,7 @@ commands:
                 --gpu-zonal-redundancy: Set GPU zonal redundancy.
                 --gpu=: Cloud Run supports values 0 or 1.  1 gpu also requires a minimum 4 `--cpu` value and  a minimum 16Gi `--memory` value.
                 --iap: Whether to enable IAP for the Service.
-                --identity-certificate&: Enables workload certificates using managed workload identity.
+                --identity-certificate: Enables workload certificates using managed workload identity.
                 --identity-type=: Configures the type of identity to be used by the resource.
                 --identity=&: Configures a managed workload identity to be used by the service.
                 --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/hello:latest`).
@@ -67855,45 +68168,166 @@ commands:
                   description: '*(ALPHA)*  A command to sync local workspace to a Cloud Run Service.'
                   hidden: true
                   flags:
+                    --add-cloudsql-instances=: Append the given values to the current Cloud SQL instances.
+                    --add-custom-audiences=: Append the given values to the current custom audiences.
+                    --add-volume-mount=: Adds a mount to the current container.
+                    --add-volume=: Adds a volume to the Cloud Run resource.
+                    --allow-unauthenticated: Whether to enable allowing unauthenticated access to the service.
+                    --allow-unencrypted-build&: (DEPRECATED) Whether to allow customer-managed encryption key (CMEK) deployments without encrypting the build process.
+                    --args=: Comma-separated arguments passed to the command run by the container image.
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --binary-authorization=: Binary Authorization policy to check against.
+                    --breakglass=: Justification to bypass Binary Authorization policy constraints and allow the operation.
                     --build-env-vars-file=: Path to a local YAML file with definitions for all build
+                    --build-service-account=: Specifies the service account to use to execute the build.
                     --cleanup: If set, the Cloud Run instance created for the dev sync session will not be automatically deleted when the session terminates.
+                    --clear-binary-authorization: Remove any previously set Binary Authorization policy.
                     --clear-build-env-vars: Remove all build environment variables.
+                    --clear-build-service-account: Clears the Cloud Build service account field.
+                    --clear-cloudsql-instances: Empty the current Cloud SQL instances.
                     --clear-config-maps&: Remove all config-maps.
+                    --clear-custom-audiences: Empty the current custom audiences.
+                    --clear-encryption-key-shutdown-hours: Remove any previously set CMEK key shutdown hours setting.
+                    --clear-env-vars: Remove all environment variables.
+                    --clear-key: Remove any previously set CMEK key reference.
+                    --clear-labels: Remove all labels.
+                    --clear-network: Disconnect this Cloud Run service from the VPC network it is connected to.
+                    --clear-network-tags: Clears all existing network tags from the Cloud Run service.
+                    --clear-post-key-revocation-action-type: Remove any previously set post CMEK key revocation action type.
+                    --clear-secrets: Remove all secrets.
+                    --clear-volume-mounts: Remove all existing mounts from the current container.
+                    --clear-volumes: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
+                    --clear-vpc-connector: Remove the VPC connector for this resource.
+                    --client-name=&: Name of the client handling the deployment.
+                    --client-version=&: Version of the client handling the deployment.
                     --cluster-location=&: Zone in which the cluster is located.
                     --cluster=&: ID of the cluster or fully qualified identifier for the cluster.
+                    --command=: Entrypoint for the container image.
+                    --concurrency=: Set the maximum number of concurrent requests allowed per container instance.
+                    --connectivity=&: (DEPRECATED) Defaults to 'external'.
                     --container=: Specifies a container by name.
                     --context=&: The name of the context in your kubectl config file to use for connecting.
+                    --cpu-boost: Whether to allocate extra CPU to containers on startup to reduce the perceived latency of a cold start request.
+                    --cpu-throttling: Whether to throttle the CPU when the container is not actively serving requests.
+                    --cpu=: Set a CPU limit in Kubernetes cpu units.
+                    --default-url: Toggles the default url for a run service.
+                    --depends-on=: List of container dependencies to add to the current container.
+                    --deploy-health-check: Schedules a single instance of the Revision and waits for it to pass its startup probe for the deployment to succeed.
+                    --description=: Provides an optional, human-readable description of the service.
+                    --dry-run: If set to true, only validates the configuration.
+                    --encryption-key-shutdown-hours=: The number of hours to wait before an automatic shutdown server after CMEK key revocation is detected.
                     --endpoint-mode=: Specifies endpoint mode for a given command.
+                    --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
+                    --execution-environment=: Selects the execution environment where the application will run.
+                    --function=: Specifies that the deployed object is a function.
+                    --gpu-type=: The GPU type to use.
+                    --gpu-zonal-redundancy: Set GPU zonal redundancy.
+                    --gpu=: Cloud Run supports values 0 or 1.  1 gpu also requires a minimum 4 `--cpu` value and  a minimum 16Gi `--memory` value.
+                    --iap: Whether to enable IAP for the Service.
                     --iap-tunnel-url-override=&: Allows for overriding the connection endpoint for integration testing.
-                    --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/hello:latest`).
                     --ingress=: Set the ingress traffic sources allowed to call the service.
                     --invoker-iam-check: Optionally disable invoker IAM checks.
+                    --key=: CMEK key reference to encrypt the container with.
                     --kubeconfig=&: The absolute path to your kubectl config file.
+                    --labels=: List of label KEY=VALUE pairs to add.
+                    --liveness-probe=: Comma separated settings for liveness probe in the form KEY=VALUE.
+                    --max-instances=: The maximum number of container instances for this Revision to run or 'default' to remove.
+                    --max=: The maximum number of container instances to run for this Service.
+                    --memory=: Set a memory limit.
+                    --min-instances=: The minimum number of container instances to run for this Revision  or 'default' to remove.
+                    --min=: The minimum number of container instances to run for this Service or 'default' to remove.
                     --namespace=: 'Specific to Cloud Run for Anthos: Kubernetes namespace for the service.'
-                    --no-build: When set, the cloud build step will be skipped and the provided source code will be extracted directly on the base image.
+                    --network-tags=: Applies the given network tags (comma separated) to the Cloud Run service.
+                    --network=: The VPC network that the Cloud Run service will be able to send traffic to.
+                    --no-allow-unauthenticated&: Whether to enable allowing unauthenticated access to the service.
+                    --no-allow-unencrypted-build&: (DEPRECATED) Whether to allow customer-managed encryption key (CMEK) deployments without encrypting the build process.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
                     --no-cleanup&: If set, the Cloud Run instance created for the dev sync session will not be automatically deleted when the session terminates.
+                    --no-clear-binary-authorization&: Remove any previously set Binary Authorization policy.
                     --no-clear-build-env-vars&: Remove all build environment variables.
+                    --no-clear-build-service-account&: Clears the Cloud Build service account field.
+                    --no-clear-cloudsql-instances&: Empty the current Cloud SQL instances.
                     --no-clear-config-maps&: Remove all config-maps.
+                    --no-clear-custom-audiences&: Empty the current custom audiences.
+                    --no-clear-encryption-key-shutdown-hours&: Remove any previously set CMEK key shutdown hours setting.
+                    --no-clear-env-vars&: Remove all environment variables.
+                    --no-clear-key&: Remove any previously set CMEK key reference.
+                    --no-clear-labels&: Remove all labels.
+                    --no-clear-network&: Disconnect this Cloud Run service from the VPC network it is connected to.
+                    --no-clear-network-tags&: 'Clears all existing network tags from the Cloud Run service. '
+                    --no-clear-post-key-revocation-action-type&: Remove any previously set post CMEK key revocation action type.
+                    --no-clear-secrets&: Remove all secrets.
+                    --no-clear-volume-mounts&: Remove all existing mounts from the current container.
+                    --no-clear-volumes&: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
+                    --no-clear-vpc-connector&: Remove the VPC connector for this resource.
+                    --no-cpu-boost&: Whether to allocate extra CPU to containers on startup to reduce the perceived latency of a cold start request.
+                    --no-cpu-throttling&: Whether to throttle the CPU when the container is not actively serving requests.
+                    --no-default-url&: Toggles the default url for a run service.
+                    --no-deploy-health-check&: Schedules a single instance of the Revision and waits for it to pass its startup probe for the deployment to succeed.
+                    --no-dry-run&: If set to true, only validates the configuration.
+                    --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
+                    --no-iap&: Whether to enable IAP for the Service.
                     --no-invoker-iam-check&: Optionally disable invoker IAM checks.
-                    --no-run-upload&: Specifies that the source should be uploaded via Cloud Run UploadSource API.
+                    --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
+                    --no-session-affinity&: Whether to enable session affinity for connections to the service.
+                    --no-traffic: True to avoid sending traffic to the revision being deployed.
+                    --no-use-http2&: Whether to use HTTP/2 for connections to the service.
                     --platform=&: Target platform for running commands.
                     --port=: Container port to receive requests at.
+                    --post-key-revocation-action-type=: Action type after CMEK key revocation.
+                    --readiness-probe=: Comma separated settings for readiness probe in the form KEY=VALUE.
                     --region=: Region in which the resource can be found.
+                    --regions=: Comma-separated list of regions in which the multi-region Service can be found.
                     --remove-build-env-vars=: List of build environment variables to be removed.
+                    --remove-cloudsql-instances=: Remove the given values from the current Cloud SQL instances.
                     --remove-config-maps=&: List of config-maps to be removed.
-                    --run-upload&: Specifies that the source should be uploaded via Cloud Run UploadSource API.
+                    --remove-containers=: List of containers to remove.
+                    --remove-custom-audiences=: Remove the given values from the current custom audiences.
+                    --remove-env-vars=: List of environment variables to be removed.
+                    --remove-labels=: List of label keys to remove.
+                    --remove-secrets=: List of secrets to be removed.
+                    --remove-volume-mount=: Removes the volume mounted at the specified path from the current container.
+                    --remove-volume=: Removes volumes from the Cloud Run resource.
+                    --revision-suffix=: Specify the suffix of the revision name.
+                    --sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
+                    --scaling=: The scaling mode to use for this service.
                     --service-account=: the email address of an IAM service account associated with the revision of the service.
+                    --service-max-instances=&: The maximum number of container instances for this Service to run.
+                    --service-min-instances=&: The minimum number of container instances to run for this Service or 'default' to remove.
+                    --session-affinity: Whether to enable session affinity for connections to the service.
                     --set-build-env-vars=: List of key-value pairs to set as build environment variables.
+                    --set-cloudsql-instances=: Completely replace the current Cloud SQL instances with the given values.
                     --set-config-maps=&: List of key-value pairs to set as config-maps.
+                    --set-custom-audiences=: Completely replace the current custom audiences with the given values.
+                    --set-env-vars=: List of key-value pairs to set as environment variables.
+                    --set-secrets=: List of key-value pairs to set as secrets.
                     --source=: The location of the source to build.
+                    --startup-probe=: Comma separated settings for startup probe in the form KEY=VALUE.
+                    --subnet=: The VPC subnetwork that the Cloud Run service will get IPs from.
+                    --tag=: Traffic tag to assign to the newly
+                    --timeout=: Set the maximum request execution time (timeout).
+                    --update-annotations=&: List of annotation KEY=VALUE pairs to update.
                     --update-build-env-vars=: List of key-value pairs to set as build environment variables.
                     --update-config-maps=&: List of key-value pairs to set as config-maps.
+                    --update-env-vars=: List of key-value pairs to set as environment variables.
+                    --update-labels=: List of label KEY=VALUE pairs to update.
+                    --update-secrets=: List of key-value pairs to set as secrets.
+                    --use-http2: Whether to use HTTP/2 for connections to the service.
+                    --vpc-connector=: Set a VPC connector for this resource.
+                    --vpc-egress=: Specify which of the outbound traffic to send through Direct VPC egress or the VPC connector for this resource.
+                    --workdir=: Working directory of the container process.
                   completion:
                     flag:
+                        connectivity:
+                            - external
+                            - internal
                         endpoint-mode:
                             - global
                             - regional
                             - regional-preferred
+                        execution-environment:
+                            - gen1
+                            - gen2
                         ingress:
                             - all
                             - internal
@@ -67902,6 +68336,13 @@ commands:
                             - gke
                             - kubernetes
                             - managed
+                        post-key-revocation-action-type:
+                            - prevent-new
+                            - shut-down
+                        vpc-egress:
+                            - all
+                            - all-traffic
+                            - private-ranges-only
             - name: get-iam-policy
               description: '*(ALPHA)*  Get the IAM policy for a Cloud Run service.'
               flags:
@@ -68207,7 +68648,7 @@ commands:
                 --gpu-zonal-redundancy: Set GPU zonal redundancy.
                 --gpu=: Cloud Run supports values 0 or 1.  1 gpu also requires a minimum 4 `--cpu` value and  a minimum 16Gi `--memory` value.
                 --iap: Whether to enable IAP for the Service.
-                --identity-certificate&: Enables workload certificates using managed workload identity.
+                --identity-certificate: Enables workload certificates using managed workload identity.
                 --identity-type=: Configures the type of identity to be used by the resource.
                 --identity=&: Configures a managed workload identity to be used by the service.
                 --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/hello:latest`).
@@ -68499,6 +68940,8 @@ commands:
                 --runtime=&: The runtime to use.
                 --sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --scaling-cpu-target=&: This represents the CPU utilization target threshold for scaling up new instances.
+                --scaling-pubsub-subscription=&: The Pub/Sub subscription to monitor for scaling.
+                --scaling-pubsub-target=&: The target value for the Pub/Sub subscription backlog metric to scale on.
                 --scaling=&: The scaling mode to use for this service.
                 --service-account=: the email address of an IAM service account associated with the revision of the service.
                 --set-cloudsql-instances=: Completely replace the current Cloud SQL instances with the given values.
@@ -68780,6 +69223,8 @@ commands:
                 --runtime=&: The runtime to use.
                 --sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --scaling-cpu-target=&: This represents the CPU utilization target threshold for scaling up new instances.
+                --scaling-pubsub-subscription=&: The Pub/Sub subscription to monitor for scaling.
+                --scaling-pubsub-target=&: The target value for the Pub/Sub subscription backlog metric to scale on.
                 --scaling=&: The scaling mode to use for this service.
                 --service-account=: the email address of an IAM service account associated with the revision of the service.
                 --set-cloudsql-instances=: Completely replace the current Cloud SQL instances with the given values.
@@ -74153,6 +74598,7 @@ commands:
                 --cpu=: Whole number value indicating how many cores are desired in the machine.
                 --custom-subject-alternative-names=: A comma-separated list of DNS names to add to the instance's SSL certificate.
                 --data-api-access=: Controls connectivity to the instance using ExecuteSql API.
+                --database-center-integration-enabled&: Whether the instance is integrated with Database Center.
                 --database-flags=: Comma-separated list of database flags to set on the instance.
                 --database-version=: The database engine type and versions.
                 --deletion-protection: Enable deletion protection on a Cloud SQL instance.
@@ -74216,6 +74662,7 @@ commands:
                 --no-backup&: Enables daily backup.
                 --no-cascadable-replica&: Specifies whether a SQL Server replica is a cascadable replica.
                 --no-clear-active-directory-dns-servers&: Removes the list of DNS Servers from the Active Directory Config.
+                --no-database-center-integration-enabled&: Whether the instance is integrated with Database Center.
                 --no-deletion-protection&: Enable deletion protection on a Cloud SQL instance.
                 --no-enable-accelerated-replica-mode&: Accelerated replica mode improves the write performance of the replica instance by reducing its durability.
                 --no-enable-auto-upgrade-minor-version&: Enables auto-upgrade for MySQL 8.0 minor versions.
@@ -74467,6 +74914,7 @@ commands:
                 --cpu=: Whole number value indicating how many cores are desired in the machine.
                 --custom-subject-alternative-names=: A comma-separated list of DNS names to add to the instance's SSL certificate.
                 --data-api-access=: Controls connectivity to the instance using ExecuteSql API.
+                --database-center-integration-enabled&: Whether the instance is integrated with Database Center.
                 --database-flags=: Comma-separated list of database flags to set on the instance.
                 --database-version=: The database engine type and versions.
                 --deletion-protection: Enable deletion protection on a Cloud SQL instance.
@@ -74536,6 +74984,7 @@ commands:
                 --no-clear-psc-auto-connections&: This removes all automatically created connections.
                 --no-clear-psc-network-attachment-uri&: Disable outbound connectivity from a Cloud SQL instance which uses Private Service Connect (PSC).
                 --no-clear-unc-mappings&: Clear the UNC mappings for the SQL Server instance.
+                --no-database-center-integration-enabled&: Whether the instance is integrated with Database Center.
                 --no-deletion-protection&: Enable deletion protection on a Cloud SQL instance.
                 --no-diff&: Show what changed as a result of the update.
                 --no-enable-accelerated-replica-mode&: Accelerated replica mode improves the write performance of the replica instance by reducing its durability.
@@ -78337,6 +78786,14 @@ commands:
             --start-workstation: If set, automatically starts the workstation if it is currently stopped.
         - name: stop
           description: '*(ALPHA)*  Stop a workstation.'
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --cluster=: The cluster for the workstation.
+            --config=: The config for the workstation.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The region for the workstation.
+        - name: suspend
+          description: '*(ALPHA)*  Suspend a workstation to reduce costs.'
           flags:
             --async: Return immediately, without waiting for the operation in progress to
             --cluster=: The cluster for the workstation.

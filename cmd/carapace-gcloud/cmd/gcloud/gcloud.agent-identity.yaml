@@ -1,0 +1,188 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: agent-identity
+description: Manage Agent Identity resources.
+commands:
+    - name: access-summaries
+      description: Manage Access Summary resources.
+      commands:
+        - name: describe
+          description: Describe an access summary.
+          flags:
+            --location=: The location id of the accessSummary resource.
+        - name: list
+          description: List access summaries.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: auth-providers
+      description: Manage Auth Provider resources.
+      commands:
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding to an Agent Identity authProvider.
+          flags:
+            --location=: The location id of the authProvider resource.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: authorizations
+          description: Manage Authorization resources.
+          commands:
+            - name: delete
+              description: Delete an authorization.
+              flags:
+                --auth-provider=: The authProvider id of the authorization resource.
+                --location=: The location id of the authorization resource.
+                --request-id=: An optional request ID to identify requests.
+            - name: describe
+              description: Describe an authorization.
+              flags:
+                --auth-provider=: The authProvider id of the authorization resource.
+                --location=: The location id of the authorization resource.
+            - name: list
+              description: List authorizations.
+              flags:
+                --auth-provider=!: ID of the authProvider or fully qualified identifier for the authProvider.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the authProvider resource.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: create
+          description: Create an auth provider.
+          flags:
+            --allowed-scopes=: List of scopes that are allowed to be requested for this auth_provider.
+            --api-key=: The API key for this auth_provider.
+            --auth-provider-type-params-ge=&: Message describing GeminiEnterpriseAuthProviderParams object.
+            --blocked-scopes=: List of scopes that are blocked from being requested for this
+            --description=: Description of the resource.
+            --labels=: Labels as key value pairs.
+            --location=: The location id of the authProvider resource.
+            --no-three-legged-oauth-enable-pkce&: Enables Proof Key for Code Exchange (PKCE) for the OAuth flow to prevent
+            --request-id=: An optional request ID to identify requests.
+            --three-legged-oauth-authorization-url=: The authorization endpoint to send users to for consenting to delegate
+            --three-legged-oauth-client-id=: The client ID of the OAuth client.
+            --three-legged-oauth-client-secret=: The client secret of the OAuth client.
+            --three-legged-oauth-enable-pkce: Enables Proof Key for Code Exchange (PKCE) for the OAuth flow to prevent
+            --three-legged-oauth-token-url=: The token endpoint for requesting tokens on behalf of an end user.
+            --two-legged-oauth-client-id=: The client ID of the OAuth client.
+            --two-legged-oauth-client-secret=: The client secret of the OAuth client.
+            --two-legged-oauth-token-url=: The token endpoint of the OAuth client.
+            --workload-ids=: Represents the workload identity in IAM `principal://` format of the
+        - name: delete
+          description: Delete an auth provider.
+          flags:
+            --location=: The location id of the authProvider resource.
+            --request-id=: An optional request ID to identify requests.
+        - name: describe
+          description: Describe an auth provider.
+          flags:
+            --location=: The location id of the authProvider resource.
+        - name: disable
+          description: Disable an auth provider.
+          flags:
+            --location=: The location id of the authProvider resource.
+            --request-id=: An optional request ID to identify requests.
+        - name: enable
+          description: Enable an auth provider.
+          flags:
+            --location=: The location id of the authProvider resource.
+            --request-id=: An optional request ID to identify requests.
+        - name: get-iam-policy
+          description: Get the IAM policy for an Agent Identity authProvider.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: The location id of the authProvider resource.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: List auth providers.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-show-deleted&: Deleted auth_providers will be kept with a soft-delete for 30 days before
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --show-deleted: Deleted auth_providers will be kept with a soft-delete for 30 days before
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: query
+          description: Query auth providers used by a workload.
+          flags:
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --workload-id=!: The workload identifier to filter by.
+        - name: query-workloads
+          description: Query workloads using an auth provider.
+          flags:
+            --location=: The location id of the authProvider resource.
+        - name: remove-iam-policy-binding
+          description: Remove IAM policy binding from an Agent Identity authProvider.
+          flags:
+            --location=: The location id of the authProvider resource.
+            --member=!: The principal to remove the binding for.
+            --role=!: The role to remove the principal from.
+        - name: revoke-authorization
+          description: Revoke authorization for a user on an auth provider.
+          flags:
+            --location=: The location id of the authProvider resource.
+            --user-id=!: The identity of the user to revoke authorization for.
+        - name: set-iam-policy
+          description: Set the IAM policy for an Agent Identity authProvider.
+          flags:
+            --location=: The location id of the authProvider resource.
+        - name: test-iam-permissions
+          description: Test IAM permissions for an Agent Identity authProvider.
+          flags:
+            --location=: The location id of the authProvider resource.
+            --permissions=!: The permissions to test.
+        - name: undelete
+          description: Undelete an auth provider.
+          flags:
+            --location=: The location id of the authProvider resource.
+            --request-id=: An optional request ID to identify requests.
+        - name: update
+          description: Update an auth provider.
+          flags:
+            --add-allowed-scopes=: Add new value to allowed_scopes list.
+            --add-blocked-scopes=: Add new value to blocked_scopes list.
+            --add-workload-ids=: Add new value to workload_ids list.
+            --allowed-scopes=: Set allowed_scopes to new value.
+            --api-key=: The API key for this auth_provider.
+            --auth-provider-type-params-ge=&: Message describing GeminiEnterpriseAuthProviderParams object.
+            --blocked-scopes=: Set blocked_scopes to new value.
+            --clear-allowed-scopes: Clear allowed_scopes value and set to empty list.
+            --clear-auth-provider-type-params: Set authProvider.authProviderTypeParams back to default value.
+            --clear-blocked-scopes: Clear blocked_scopes value and set to empty list.
+            --clear-labels: Clear labels value and set to empty map.
+            --clear-workload-ids: Clear workload_ids value and set to empty list.
+            --description=: Description of the resource.
+            --labels=: Set labels to new value.
+            --location=: The location id of the authProvider resource.
+            --no-clear-allowed-scopes&: Clear allowed_scopes value and set to empty list.
+            --no-clear-auth-provider-type-params&: Set authProvider.authProviderTypeParams back to default value.
+            --no-clear-blocked-scopes&: Clear blocked_scopes value and set to empty list.
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --no-clear-workload-ids&: Clear workload_ids value and set to empty list.
+            --no-three-legged-oauth-enable-pkce&: Enables Proof Key for Code Exchange (PKCE) for the OAuth flow to prevent
+            --remove-allowed-scopes=: Remove existing value from allowed_scopes list.
+            --remove-blocked-scopes=: Remove existing value from blocked_scopes list.
+            --remove-labels=: Remove existing value from map labels.
+            --remove-workload-ids=: Remove existing value from workload_ids list.
+            --request-id=: An optional request ID to identify requests.
+            --three-legged-oauth-authorization-url=: The authorization endpoint to send users to for consenting to delegate
+            --three-legged-oauth-client-id=: The client ID of the OAuth client.
+            --three-legged-oauth-client-secret=: The client secret of the OAuth client.
+            --three-legged-oauth-enable-pkce: Enables Proof Key for Code Exchange (PKCE) for the OAuth flow to prevent
+            --three-legged-oauth-token-url=: The token endpoint for requesting tokens on behalf of an end user.
+            --two-legged-oauth-client-id=: The client ID of the OAuth client.
+            --two-legged-oauth-client-secret=: The client secret of the OAuth client.
+            --two-legged-oauth-token-url=: The token endpoint of the OAuth client.
+            --update-labels=: Update labels value or add key value pair.
+            --workload-ids=: Set workload_ids to new value.

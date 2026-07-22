@@ -5,6 +5,7 @@ func init() {
 		"access-approval":        "Manage Access Approval requests and settings.",
 		"access-context-manager": "Manage Access Context Manager resources.",
 		"active-directory":       "Manage Managed Microsoft AD resources.",
+		"agent-identity":         "Manage Agent Identity resources.",
 		"agent-registry":         "Manage Agent Registry resources.",
 		"ai-platform":            "Manage AI Platform jobs and models.",
 		"ai":                     "Manage entities in Vertex AI.",
