@@ -109,7 +109,7 @@ func init() {
 		"orglifecycle":           "Manage Org Lifecycle resources.",
 		"pam":                    "Manage Privileged Access Manager (PAM) entitlements and grants.",
 		"parallelstore":          "Manage Parallelstore resources.",
-		"parametermanager":       "Parameter Manager is a single source of truth to store, access and manage the lifecycle of your application parameters.",
+		"parametermanager":       "Parameter Manager is a single source of truth for your parameters.",
 		"policy-intelligence":    "A platform to help better understand, use, and manage policies at scale.",
 		"policy-troubleshoot":    "Troubleshoot Google Cloud Platform policies.",
 		"preview":                "*(PREVIEW)*  Preview versions of gcloud commands.",

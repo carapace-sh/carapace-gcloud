@@ -173,12 +173,21 @@ commands:
         - name: update-options
           description: Update pipeline options on-the-fly for running Dataflow jobs.
           flags:
+            --latency-tier=&: Latency tier for the job.
             --max-num-workers=: Upper-bound for autoscaling, between 1-1000.
             --min-num-workers=: Lower-bound for autoscaling, between 1-1000.
+            --no-unset-latency-tier&: Unset --latency-tier.
             --no-unset-worker-utilization-hint&: Unset --worker-utilization-hint.
             --region=: Region ID of the job's regional endpoint.
+            --unset-latency-tier&: Unset --latency-tier.
             --unset-worker-utilization-hint: Unset --worker-utilization-hint.
             --worker-utilization-hint=: Target CPU utilization for autoscaling, ranging from 0.1 to 0.9. Only supported for streaming-engine jobs with autoscaling enabled.
+          completion:
+            flag:
+                latency-tier:
+                    - low_latency
+                    - medium_latency
+                    - high_latency
     - name: snapshots
       description: A group of subcommands for working with Cloud Dataflow snapshots.
       commands:

@@ -28,6 +28,7 @@ commands:
             --description=: An optional textual description for the addresses.
             --endpoint-type=: The endpoint type of the external IPv6 address to be reserved.
             --global: If set, the addresses are global.
+            --internal-range=: If specified, the internal range from which to allocate the global internal IP address.
             --ip-collection-region=&: 'Region of the ipCollection to operate on. '
             --ip-collection=: If specified, the public delegated prefix (PDP) from which to allocate the BYOIP IP address.
             --ip-version=: Version of the IP address to be allocated and reserved.
@@ -1679,6 +1680,7 @@ commands:
             --ip-version=: Version of the IP address to be allocated or assigned.
             --is-mirroring-collector: If set, this forwarding rule can be used as a collector for packet
             --load-balancing-scheme=: This defines the forwarding rule's load balancing scheme.
+            --metadata-filter=: Opaque filter criteria used by load balancer to restrict routing configuration
             --network-tier=: Network tier to assign to the forwarding rules.
             --network=: (Only for --load-balancing-scheme=INTERNAL or --load-balancing-scheme=INTERNAL_SELF_MANAGED or --load-balancing-scheme=EXTERNAL_MANAGED (regional) or --load-balancing-scheme=INTERNAL_MANAGED) Network that this
             --no-allow-global-access&: If True, then clients from all regions can access this internal
@@ -1833,6 +1835,7 @@ commands:
             --external-managed-backend-bucket-migration-testing-percentage=: Determines the fraction of requests that should be processed by
             --global: If set, the forwarding rule is global.
             --load-balancing-scheme=: Only for the Global external Application Load Balancer migration.
+            --metadata-filter=: Opaque filter criteria used by load balancer to restrict routing configuration
             --no-allow-global-access&: If True, then clients from all regions can access this internal
             --no-allow-psc-global-access&: If specified, clients from all regions can access this Private
             --no-clear-external-managed-backend-bucket-migration-state&: Clears current state of external managed migration.
@@ -5111,6 +5114,11 @@ commands:
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
             --zones=: If provided, only zonal resources are shown.
+        - name: set-iam-policy
+          description: Set the IAM policy binding for a Compute Engine instant snapshot group.
+          flags:
+            --region=: Region of the instant snapshot group to set IAM policy.
+            --zone=: Zone of the instant snapshot group to set IAM policy.
         - name: test-iam-permissions
           description: Test IAM permissions for a Compute Engine instant snapshot group.
           flags:
@@ -5334,6 +5342,8 @@ commands:
                   description: Remove member interconnect attachments from a Compute Engine interconnect attachment group.
                   flags:
                     --attachments=!: Member interconnect attachments to add to or remove from the interconnect
+                - name: set-iam-policy
+                  description: Set the IAM policy for a Compute Engine interconnect attachment group.
                 - name: test-iam-permissions
                   description: Test IAM permissions for a Compute Engine interconnect attachment group.
                   flags:
@@ -6934,6 +6944,11 @@ commands:
             - name: set-iam-policy
               description: Set the IAM policy for a Compute Engine subnetwork.
               flags:
+                --region=: The name of the Google Compute Engine region.
+            - name: test-iam-permissions
+              description: Test IAM permissions for a Compute Engine subnetwork.
+              flags:
+                --permissions=!: Permissions to be tested.
                 --region=: The name of the Google Compute Engine region.
             - name: update
               description: Updates properties of an existing Compute Engine subnetwork.
@@ -9747,6 +9762,10 @@ commands:
             --no-all&: Remove all labels from the resource.
         - name: set-iam-policy
           description: Set the IAM policy for a Compute Engine snapshot.
+        - name: test-iam-permissions
+          description: Test IAM permissions for a Compute Engine standard or archive snapshot.
+          flags:
+            --permissions=!: The permissions to test.
         - name: update
           description: Update a Compute Engine snapshot.
           flags:
