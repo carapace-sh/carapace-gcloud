@@ -914,6 +914,7 @@ commands:
                 --three-legged-oauth-authorization-url=: The authorization endpoint to send users to for consenting to delegate
                 --three-legged-oauth-client-id=: The client ID of the OAuth client.
                 --three-legged-oauth-client-secret=: The client secret of the OAuth client.
+                --three-legged-oauth-default-continue-uri=: The default continue URI for 3LO flow to redirect end users after consent.
                 --three-legged-oauth-enable-pkce: Enables Proof Key for Code Exchange (PKCE) for the OAuth flow to prevent
                 --three-legged-oauth-token-url=: The token endpoint for requesting tokens on behalf of an end user.
                 --two-legged-oauth-client-id=: The client ID of the OAuth client.
@@ -1025,6 +1026,7 @@ commands:
                 --three-legged-oauth-authorization-url=: The authorization endpoint to send users to for consenting to delegate
                 --three-legged-oauth-client-id=: The client ID of the OAuth client.
                 --three-legged-oauth-client-secret=: The client secret of the OAuth client.
+                --three-legged-oauth-default-continue-uri=: The default continue URI for 3LO flow to redirect end users after consent.
                 --three-legged-oauth-enable-pkce: Enables Proof Key for Code Exchange (PKCE) for the OAuth flow to prevent
                 --three-legged-oauth-token-url=: The token endpoint for requesting tokens on behalf of an end user.
                 --two-legged-oauth-client-id=: The client ID of the OAuth client.
@@ -1703,6 +1705,21 @@ commands:
                     --no-async&: Return immediately, without waiting for the operation in progress to
                     --route-config=!: The route fields to update.
                     --update-mask=: Field mask that specifies which fields of the route to update.
+            - name: token-brokers
+              description: '*(ALPHA)*  Manage omnichannel token brokers.'
+              hidden: true
+              commands:
+                - name: issue-public
+                  description: '*(ALPHA)*  Issue a public token for a given token broker.'
+                  hidden: true
+                  flags:
+                    --location=: Location/Region of the token broker.
+                - name: issue-secured
+                  description: '*(ALPHA)*  Issue a secured token for a given token broker.'
+                  hidden: true
+                  flags:
+                    --location=: Location/Region of the token broker.
+                    --trusted-fields=: Trusted fields (as JSON) to include in the token.
     - name: ai
       description: '*(ALPHA)*  Manage entities in Vertex AI.'
       commands:
@@ -1911,6 +1928,14 @@ commands:
                 --region=: ID of the region or fully qualified identifier for the region.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: mutate-deployed-model
+              description: '*(ALPHA)*  Mutate a deployed model in a Vertex AI endpoint.'
+              hidden: true
+              flags:
+                --deployed-model-id=!: Id of the deployed model.
+                --max-replica-count=: New maximum number of machine replicas for the deployment resources.
+                --min-replica-count=: New minimum number of machine replicas for the deployment resources.
+                --region=: Cloud region for the endpoint.
             - name: predict
               description: '*(ALPHA)*  Run Vertex AI online prediction.'
               flags:
@@ -3887,6 +3912,7 @@ commands:
                 --database-flags=: Comma-separated list of database flags to set on the instance.
                 --enable-autoscaler: Enable autoscaler for the instance.
                 --enable-connection-pooling: Enable connection pooling for the instance.
+                --enable-psc-auto-connection-policy&: Enable PSC auto connection policy for an AlloyDB instance.
                 --enable-psc-auto-dns&: Enable PSC auto DNS for an AlloyDB instance.
                 --insights-config-query-plans-per-minute=: Number of query plans to sample every minute.
                 --insights-config-query-string-length=: Query string length in bytes to be stored by the query insights
@@ -3898,6 +3924,7 @@ commands:
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-enable-autoscaler&: Enable autoscaler for the instance.
                 --no-enable-connection-pooling&: Enable connection pooling for the instance.
+                --no-enable-psc-auto-connection-policy&: Enable PSC auto connection policy for an AlloyDB instance.
                 --no-enable-psc-auto-dns&: Enable PSC auto DNS for an AlloyDB instance.
                 --no-insights-config-record-application-tags&: Allow application tags to be recorded by the query insights
                 --no-insights-config-record-client-address&: Allow the client address to be recorded by the query insights
@@ -4021,10 +4048,12 @@ commands:
                 --connection-pooling-stats-users=: Comma-separated list of database users to access connection pooling stats.
                 --database-flags=: Comma-separated list of database flags to set on the instance.
                 --enable-connection-pooling: Enable connection pooling for the instance.
+                --enable-psc-auto-connection-policy&: Enable PSC auto connection policy for an AlloyDB instance.
                 --enable-psc-auto-dns&: Enable PSC auto DNS for an AlloyDB instance.
                 --labels=: List of label KEY=VALUE pairs to add.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-enable-connection-pooling&: Enable connection pooling for the instance.
+                --no-enable-psc-auto-connection-policy&: Enable PSC auto connection policy for an AlloyDB instance.
                 --no-enable-psc-auto-dns&: Enable PSC auto DNS for an AlloyDB instance.
                 --no-outbound-public-ip&: Add outbound Public IP connectivity to an AlloyDB instance.
                 --no-require-connectors&: 'Enable or disable enforcing connectors only (ex: AuthProxy) connections to the database.'
@@ -4141,6 +4170,7 @@ commands:
                 --database-flags=: Comma-separated list of database flags to set on the instance.
                 --enable-autoscaler: Enable autoscaler for the instance.
                 --enable-connection-pooling: Enable connection pooling for the instance.
+                --enable-psc-auto-connection-policy&: Enable PSC auto connection policy for an AlloyDB instance.
                 --enable-psc-auto-dns&: Enable PSC auto DNS for an AlloyDB instance.
                 --insights-config-query-plans-per-minute=: Number of query plans to sample every minute.
                 --insights-config-query-string-length=: Query string length in bytes to be stored by the query insights
@@ -4153,6 +4183,7 @@ commands:
                 --no-clear-psc-network-attachment-uri&: Disable outbound connectivity from an AlloyDB instance which uses Private Service Connect (PSC).
                 --no-enable-autoscaler&: Enable autoscaler for the instance.
                 --no-enable-connection-pooling&: Enable connection pooling for the instance.
+                --no-enable-psc-auto-connection-policy&: Enable PSC auto connection policy for an AlloyDB instance.
                 --no-enable-psc-auto-dns&: Enable PSC auto DNS for an AlloyDB instance.
                 --no-insights-config-record-application-tags&: Allow application tags to be recorded by the query insights
                 --no-insights-config-record-client-address&: Allow the client address to be recorded by the query insights
@@ -4719,9 +4750,11 @@ commands:
           description: '*(ALPHA)*  *(DEPRECATED)*  Manage MCP Command Group.'
           commands:
             - name: disable
-              description: '*(ALPHA)*  *(DEPRECATED)*  Disables MCP server for a given service in the current project.'
+              description: '*(ALPHA)*  *(DEPRECATED)*  *(REMOVED)*  Disables MCP server for a given service in the current project.'
+              hidden: true
             - name: enable
-              description: '*(ALPHA)*  *(DEPRECATED)*  Enables MCP server for a given service in the current project.'
+              description: '*(ALPHA)*  *(DEPRECATED)*  *(REMOVED)*  Enables MCP server for a given service in the current project.'
+              hidden: true
             - name: servers
               description: '*(ALPHA)*  *(DEPRECATED)*  Manage Cloud API Registry MCP servers.'
               commands:
@@ -8580,6 +8613,7 @@ commands:
                   description: '*(ALPHA)*  Create an enterprise-certificate configuration file for Linux.'
                   flags:
                     --ecp-client=: Provide a custom path to the enterprise-certificate-proxy shared client library.
+                    --ecp-http-proxy=: Provide a custom path to the ECP HTTP proxy binary.
                     --ecp=: Provide a custom path to the enterprise-certificate-proxy binary.
                     --label=!: 'The PKCS #11 label for the target credentials.'
                     --module=!: 'The full file path to the PKCS #11 module.'
@@ -8591,6 +8625,7 @@ commands:
                   description: '*(ALPHA)*  Create an enterprise-certificate configuration file for MacOS.'
                   flags:
                     --ecp-client=: Provide a custom path to the enterprise-certificate-proxy shared client library.
+                    --ecp-http-proxy=: Provide a custom path to the ECP HTTP proxy binary.
                     --ecp=: Provide a custom path to the enterprise-certificate-proxy binary.
                     --issuer=!: The certificate issuer.
                     --keychain-type=: Specify the target keychain(s) for certificate lookup.Accepted values are "login", "system", or "all".
@@ -8600,6 +8635,7 @@ commands:
                   description: '*(ALPHA)*  Create an enterprise-certificate configuration file for Windows.'
                   flags:
                     --ecp-client=: Provide a custom path to the enterprise-certificate-proxy shared client library.
+                    --ecp-http-proxy=: Provide a custom path to the ECP HTTP proxy binary.
                     --ecp=: Provide a custom path to the enterprise-certificate-proxy binary.
                     --issuer=!: The certificate issuer.
                     --output-file=: Override the file path that the enterprise-certificate-proxy configuration is written to.
@@ -13312,7 +13348,6 @@ commands:
               description: '*(ALPHA)*  Creates a Cluster Director resource.'
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
-                --blueprint=: Reference a pre-defined architecture (e.g., "a3-ultra").
                 --buckets=: Reference of existing Google Cloud Storage bucket.
                 --config=: Configuration of the cluster specs in the form of a JSON object.
                 --create-buckets=: Parameters to create a Google Cloud Storage bucket.
@@ -13328,10 +13363,11 @@ commands:
                 --network-project=: Project ID of the project containing the network and subnetwork
                 --network=!: Reference of existing network name.
                 --no-async&: Return immediately, without waiting for the operation in progress to
-                --no-quickstart-cluster&: If specified, creates a cluster with sensible defaults for compute, network, and orchestrator.
+                --no-quickstart-cluster&: ""
                 --no-slurm-disable-health-check-program&: ""
                 --on-demand-instances=: Parameters to define cluster on demand instances.
-                --quickstart-cluster: If specified, creates a cluster with sensible defaults for compute, network, and orchestrator.
+                --quickstart-cluster: 'If specified, creates a cluster with sensible defaults:'
+                --reference-architecture=: Reference a pre-defined architecture.
                 --reserved-instances=: Parameters to define cluster reserved instances.
                 --slurm-config=: Parameters to define slurm cluster config.
                 --slurm-default-partition=: Parameters to define slurm cluster default partition.
@@ -13347,7 +13383,7 @@ commands:
                 --subnet=!: Reference of existing subnetwork name.
               completion:
                 flag:
-                    blueprint:
+                    reference-architecture:
                         - a3-ultra
                         - a4-high-flex-start
                         - a4x-high
@@ -14269,6 +14305,13 @@ commands:
                 --no-global&: If set, the address is global.
                 --region=: Region of the address to operate on.
                 --target-project=!: The target project to move address to.
+            - name: test-iam-permissions
+              description: '*(ALPHA)*  Test IAM permissions for a Compute Engine address.'
+              flags:
+                --global: If set, the address is global.
+                --no-global&: If set, the address is global.
+                --permissions=!: The set of permissions to check for the resource.
+                --region=: Region of the address to test-iam-permissions.
             - name: update
               description: '*(ALPHA)*  Update an address''s labels.'
               flags:
@@ -14626,8 +14669,6 @@ commands:
                 --global: If set, the backend service is global.
                 --global-health-checks: If set, the health checks are global.
                 --ha-policy-fast-ip-move=&: Fast IP move policy for high availability (HA).
-                --ha-policy-leader-backend-group=&: A fully-qualified URL of the zonal Network Endpoint Group (NEG) with
-                --ha-policy-leader-instance=&: The name of the VM instance of the leader network endpoint.
                 --health-checks-region=: Region of the health checks to operate on.
                 --health-checks=: Specifies a list of health check objects for checking the health of
                 --http-health-checks=: Specifies a list of legacy HTTP health check objects for checking the
@@ -15188,6 +15229,8 @@ commands:
                         - memory-optimized-m3
                         - memory-optimized-m4
                         - memory-optimized-m4-6tb
+                        - memory-optimized-m4n
+                        - memory-optimized-m4n-6tb
                         - memory-optimized-x4
                         - memory-optimized-x4-1440-24t
                         - memory-optimized-x4-16tb
@@ -15692,6 +15735,11 @@ commands:
               flags:
                 --region=: Region of the consistency group's primary or secondary disks.
                 --zone=: Zone of the consistency group's primary or secondary disks.
+            - name: test-iam-permissions
+              description: '*(ALPHA)*  Test IAM permissions for a Compute Engine disk.'
+              flags:
+                --permissions=!: Permissions to be tested.
+                --zone=: The name of the Google Compute Engine zone.
             - name: update
               description: '*(ALPHA)*  Update a Compute Engine persistent disk.'
               flags:
@@ -17255,6 +17303,7 @@ commands:
               flags:
                 --association=: The association of the host.
                 --reservation-block=: Name of the reservation block the host is associated with.
+                --reservation-subblock=: Name of the reservation subblock the host is associated with.
                 --reservation=: Name of the reservation the host is associated with.
                 --zone=: The name of the Google Compute Engine zone.
             - name: get-version
@@ -17277,6 +17326,7 @@ commands:
                 --no-uri&: Print a list of resource URIs instead of the default output, and change the
                 --page-size=: Some services group resource list output into pages.
                 --reservation-block=: Name of the reservation block the hosts are associated with.
+                --reservation-subblock=: Name of the reservation subblock the hosts are associated with.
                 --reservation=: Name of the reservation the hosts are associated with.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
@@ -17309,6 +17359,10 @@ commands:
                 --regexp=: (DEPRECATED)         Regular expression to filter the names of the results  on.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: test-iam-permissions
+              description: '*(ALPHA)*  Test IAM permissions for a Compute Engine HTTP health check.'
+              flags:
+                --permissions=!: Permissions to be tested.
             - name: update
               description: '*(ALPHA)*  Update a legacy HTTP health check.'
               flags:
@@ -18548,6 +18602,7 @@ commands:
                 --enable-nested-virtualization: If set to true, enables nested virtualization for the instance.
                 --enable-uefi-networking: If set to true, enables UEFI networking for the instance creation.
                 --enable-watchdog-timer: Enable a watchdog timer device on VM instances.
+                --expose-host-topology: If true, exposes the hashed physical host ID in the VM's ResourceStatus.
                 --external-ipv6-address=: Assigns the given external IPv6 address to the instance that is created.
                 --external-ipv6-prefix-length=: The prefix length of the external IPv6 address range.
                 --graceful-shutdown: Enables graceful shutdown for the instance.
@@ -18593,6 +18648,7 @@ commands:
                 --no-enable-nested-virtualization&: If set to true, enables nested virtualization for the instance.
                 --no-enable-uefi-networking&: If set to true, enables UEFI networking for the instance creation.
                 --no-enable-watchdog-timer&: Enable a watchdog timer device on VM instances.
+                --no-expose-host-topology&: If true, exposes the hashed physical host ID in the VM's ResourceStatus.
                 --no-identity-certificate&: Enables or disables managed workload identity certificates on a VM.
                 --no-preemptible&: If provided, instances will be preemptible and time-limited.
                 --no-restart-on-failure&: The instances will be restarted if they are terminated by Compute Engine.
@@ -18647,6 +18703,7 @@ commands:
               completion:
                 flag:
                     confidential-compute-type:
+                        - CCA
                         - SEV
                         - SEV_SNP
                         - TDX
@@ -19000,6 +19057,7 @@ commands:
                     --enable-uefi-networking: If set to true, enables UEFI networking for the instance creation.
                     --enable-watchdog-timer: Enable a watchdog timer device on VM instances.
                     --erase-windows-vss-signature: Specifies whether the disk restored from source snapshots or source machine image should
+                    --expose-host-topology: If true, exposes the hashed physical host ID in the VM's ResourceStatus.
                     --graceful-shutdown: Enables graceful shutdown for the instance.
                     --graceful-shutdown-max-duration=: Specifies the maximum time for the graceful shutdown.
                     --host-error-timeout-seconds=: The timeout in seconds for host error detection.
@@ -19042,6 +19100,7 @@ commands:
                     --no-enable-uefi-networking&: If set to true, enables UEFI networking for the instance creation.
                     --no-enable-watchdog-timer&: Enable a watchdog timer device on VM instances.
                     --no-erase-windows-vss-signature&: ""
+                    --no-expose-host-topology&: If true, exposes the hashed physical host ID in the VM's ResourceStatus.
                     --no-identity-certificate&: Enables or disables managed workload identity certificates on a VM.
                     --no-preemptible&: If provided, instances will be preemptible and time-limited.
                     --no-public-dns: If provided, the instance will not be assigned a public DNS name.
@@ -19092,6 +19151,7 @@ commands:
                   completion:
                     flag:
                         confidential-compute-type:
+                            - CCA
                             - SEV
                             - SEV_SNP
                             - TDX
@@ -19189,6 +19249,7 @@ commands:
                 --enable-uefi-networking: If set to true, enables UEFI networking for the instance creation.
                 --enable-watchdog-timer: Enable a watchdog timer device on VM instances.
                 --erase-windows-vss-signature: Specifies whether the disk restored from source snapshots or source machine image should
+                --expose-host-topology: If true, exposes the hashed physical host ID in the VM's ResourceStatus.
                 --external-ipv6-address=: Assigns the given external IPv6 address to the instance that is created.
                 --external-ipv6-prefix-length=: The prefix length of the external IPv6 address range.
                 --graceful-shutdown: Enables graceful shutdown for the instance.
@@ -19246,6 +19307,7 @@ commands:
                 --no-enable-uefi-networking&: If set to true, enables UEFI networking for the instance creation.
                 --no-enable-watchdog-timer&: Enable a watchdog timer device on VM instances.
                 --no-erase-windows-vss-signature&: ""
+                --no-expose-host-topology&: If true, exposes the hashed physical host ID in the VM's ResourceStatus.
                 --no-identity-certificate&: Enables or disables managed workload identity certificates on a VM.
                 --no-preemptible&: If provided, instances will be preemptible and time-limited.
                 --no-public-dns: If provided, the instance will not be assigned a public DNS name.
@@ -19310,6 +19372,7 @@ commands:
               completion:
                 flag:
                     confidential-compute-type:
+                        - CCA
                         - SEV
                         - SEV_SNP
                         - TDX
@@ -19403,6 +19466,7 @@ commands:
                 --discard-local-ssds-at-termination-timestamp=: Required to be set to `true` and only allowed for VMs that have one or
                 --disk=: Attaches an existing disk to the instances.
                 --enable-nested-virtualization: If set to true, enables nested virtualization for the instance.
+                --expose-host-topology: If true, exposes the hashed physical host ID in the VM's ResourceStatus.
                 --external-ipv6-address=: Assigns the given external IPv6 address to the instance that is created.
                 --external-ipv6-prefix-length=: The prefix length of the external IPv6 address range.
                 --graceful-shutdown: Enables graceful shutdown for the instance.
@@ -19442,6 +19506,7 @@ commands:
                 --no-container-tty&: Allocate a pseudo-TTY for the container.
                 --no-custom-extensions&: Use the extended custom machine type.
                 --no-enable-nested-virtualization&: If set to true, enables nested virtualization for the instance.
+                --no-expose-host-topology&: If true, exposes the hashed physical host ID in the VM's ResourceStatus.
                 --no-identity-certificate&: Enables or disables managed workload identity certificates on a VM.
                 --no-preemptible&: If provided, instances will be preemptible and time-limited.
                 --no-public-dns: If provided, the instance will not be assigned a public DNS name.
@@ -19487,6 +19552,7 @@ commands:
               completion:
                 flag:
                     confidential-compute-type:
+                        - CCA
                         - SEV
                         - SEV_SNP
                         - TDX
@@ -20143,6 +20209,11 @@ commands:
               flags:
                 --port=: Instances can support up to four serial port outputs, numbered 1 through
                 --zone=: Zone of the instance to operate on.
+            - name: test-iam-permissions
+              description: '*(ALPHA)*  Test IAM permissions for a Compute Engine instance.'
+              flags:
+                --permissions=!: Single IAM permission to test.
+                --zone=: Zone of the instance to operate on.
             - name: update
               description: '*(ALPHA)*  Update a Compute Engine virtual machine.'
               flags:
@@ -20150,6 +20221,7 @@ commands:
                 --clear-node-affinities: Removes the node affinities field from the instance.
                 --deletion-protection: Enables deletion protection for the instance.
                 --enable-display-device: Enable a display device on VM instances.
+                --expose-host-topology: If true, exposes the hashed physical host ID in the VM's ResourceStatus.
                 --graceful-shutdown: Enables or disables graceful shutdown for the instance.
                 --graceful-shutdown-max-duration=: Specifies the maximum time for the graceful shutdown.
                 --identity-certificate: Enables or disables managed workload identity certificates on a VM.
@@ -20161,6 +20233,7 @@ commands:
                 --no-clear-node-affinities&: Removes the node affinities field from the instance.
                 --no-deletion-protection&: Enables deletion protection for the instance.
                 --no-enable-display-device&: Enable a display device on VM instances.
+                --no-expose-host-topology&: If true, exposes the hashed physical host ID in the VM's ResourceStatus.
                 --no-graceful-shutdown&: Enables or disables graceful shutdown for the instance.
                 --no-identity-certificate&: Enables or disables managed workload identity certificates on a VM.
                 --no-shielded-integrity-monitoring&: Enables monitoring and attestation of the boot integrity of the
@@ -20932,6 +21005,8 @@ commands:
                   description: '*(ALPHA)*  Remove member interconnects from a Compute Engine interconnect group.'
                   flags:
                     --interconnects=!: Member interconnects to add to or remove from the interconnect group.
+                - name: set-iam-policy
+                  description: '*(ALPHA)*  Set the IAM policy for a Compute Engine interconnect group.'
                 - name: update
                   description: '*(ALPHA)*  Update a Compute Engine interconnect group.'
                   flags:
@@ -21002,6 +21077,10 @@ commands:
                     --page-size=: Some services group resource list output into pages.
                     --sort-by=: Comma-separated list of resource field key names to sort by.
                     --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: set-name
+              description: '*(ALPHA)*  Set the name of a Compute Engine interconnect.'
+              flags:
+                --new-name=!: Specifies the new name of the interconnect.
             - name: test-iam-permissions
               description: '*(ALPHA)*  Test IAM permissions for a Compute Engine interconnect.'
               flags:
@@ -22061,6 +22140,10 @@ commands:
                 --global: If set, the firewall policy is global.
                 --no-global&: If set, the firewall policy is global.
                 --region=: Region of the firewall policy to get.
+            - name: test-iam-permissions
+              description: '*(ALPHA)*  Test IAM permissions for a Compute Engine network firewall policy.'
+              flags:
+                --permissions=!: The permissions to test.
             - name: update
               description: '*(ALPHA)*  Update a Compute Engine network firewall policy.'
               flags:
@@ -22483,6 +22566,7 @@ commands:
                             - enable-outbound-vm-access
                         purpose:
                             - AGGREGATE
+                            - CLOUD_EXTENSION
                             - CUSTOM_HARDWARE_LINK
                             - GLOBAL_MANAGED_PROXY
                             - INTERNAL_HTTPS_LOAD_BALANCER
@@ -22832,6 +22916,11 @@ commands:
         - name: org-rollouts
           description: '*(ALPHA)*  Read and manipulate Compute Engine organization rollouts.'
           commands:
+            - name: advance
+              description: '*(ALPHA)*  Advance an organization rollout.'
+              flags:
+                --current-wave-number=!: Wave number of the current wave to be used for advancing the rollout.
+                --organization=: The Google Cloud organization ID.
             - name: cancel
               description: '*(ALPHA)*  Cancel an organization rollout.'
               flags:
@@ -23827,6 +23916,7 @@ commands:
               completion:
                 flag:
                     confidential-compute-type:
+                        - CCA
                         - SEV
                         - SEV_SNP
                         - TDX
@@ -24535,6 +24625,10 @@ commands:
         - name: rollouts
           description: '*(ALPHA)*  Read and manipulate Compute Engine Rollouts.'
           commands:
+            - name: advance
+              description: '*(ALPHA)*  Advance a Google Compute Engine rollout.'
+              flags:
+                --current-wave-number=!: Wave number of the current wave to be used for advancing the rollout.
             - name: cancel
               description: '*(ALPHA)*  Cancel a Google Compute Engine rollout.'
               flags:
@@ -25021,6 +25115,11 @@ commands:
                 --policy-name=!: Name of the route policy from which the term should be removed.
                 --priority=!: Order of the term within the policy.
                 --region=: Region of the router to remove a route policy term from.
+            - name: test-iam-permissions
+              description: '*(ALPHA)*  Test IAM permissions for a Compute Engine router.'
+              flags:
+                --permissions=!: The permissions to test.
+                --region=: The name of the Google Compute Engine region.
             - name: update
               description: '*(ALPHA)*  Update a Compute Engine router.'
               flags:
@@ -25607,12 +25706,16 @@ commands:
                 --propagated-connection-limit=: The number of consumer spokes that connected Private Service Connect
                 --reconcile-connections: Determines whether to apply changes to consumer accept or reject lists
                 --region=: Region of the service attachment to create.
+                --routing-mode=: Specifies the routing mode for tunneling configuration on this service attachment.
                 --target-service=: URL of the target service that receives forwarded traffic.
               completion:
                 flag:
                     connection-preference:
                         - ACCEPT_AUTOMATIC
                         - ACCEPT_MANUAL
+                    routing-mode:
+                        - PACKET_INJECTION
+                        - STANDARD_ROUTING
             - name: delete
               description: '*(ALPHA)*  Delete one or more Google Compute Engine service attachments.'
               flags:
@@ -25656,12 +25759,16 @@ commands:
                 --reconcile-connections: Determines whether to apply changes to consumer accept or reject lists
                 --region=: Region of the service attachment to update.
                 --remove-obsolete-endpoint-accept-reject-entries: If set to true, this flag cleans up the service attachment's consumer accept
+                --routing-mode=: Specifies the routing mode for tunneling configuration on this service attachment.
                 --target-service=: URL of the target service that receives forwarded traffic.
               completion:
                 flag:
                     connection-preference:
                         - ACCEPT_AUTOMATIC
                         - ACCEPT_MANUAL
+                    routing-mode:
+                        - PACKET_INJECTION
+                        - STANDARD_ROUTING
         - name: shared-vpc
           description: '*(ALPHA)*  Configure shared VPC.'
           commands:
@@ -25744,6 +25851,10 @@ commands:
                 --page-size=: Some services group resource list output into pages.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: test-iam-permissions
+              description: '*(ALPHA)*  Test IAM permissions for a Compute Engine snapshot group.'
+              flags:
+                --permissions=!: The permissions to test.
         - name: snapshot-recycle-bin-policy
           description: '*(ALPHA)*  Update and describe Compute Engine snapshot recycle bin policy.'
           hidden: true
@@ -26212,6 +26323,13 @@ commands:
                 --regions=: If provided, only regional resources are shown.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: test-iam-permissions
+              description: '*(ALPHA)*  Test IAM permissions for a Compute Engine SSL certificate.'
+              flags:
+                --global: (Default) If set, the SSL certificate is global.
+                --no-global&: (Default) If set, the SSL certificate is global.
+                --permissions=!: Permissions to be tested.
+                --region=: Region of the SSL certificate to test-iam-permissions.
         - name: ssl-policies
           description: '*(ALPHA)*  List, create, delete and update Compute Engine SSL policies.'
           commands:
@@ -26436,6 +26554,9 @@ commands:
                 --add-share-with=&: Projects to add to storage pool share list.
                 --async: Return immediately, without waiting for the operation in progress to
                 --description=: Description of the storage pool.
+                --exapool-capacity-optimized-capacity=: Provisioned capacity-optimized capacity of the exapool.
+                --exapool-read-optimized-capacity=: Provisioned read-optimized capacity of the exapool.
+                --exapool-write-optimized-capacity=: Provisioned write-optimized capacity of the exapool.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --provisioned-capacity=: Provisioned capacity of the storage pool.
                 --provisioned-iops=: IOPS to provision the pool with.
@@ -26492,6 +26613,10 @@ commands:
                 --regexp=: (DEPRECATED)         Regular expression to filter the names of the results  on.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: test-iam-permissions
+              description: '*(ALPHA)*  Test IAM permissions for a Compute Engine target gRPC proxy.'
+              flags:
+                --permissions=!: Permissions to test.
         - name: target-http-proxies
           description: '*(ALPHA)*  List, create, and delete target HTTP proxies.'
           commands:
@@ -26784,6 +26909,11 @@ commands:
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
                 --zones=: If provided, only resources from the given zones are queried.
+            - name: test-iam-permissions
+              description: '*(ALPHA)*  Test IAM permissions for a Compute Engine target instance.'
+              flags:
+                --permissions=!: The permissions to test.
+                --zone=: The name of the Google Compute Engine zone.
             - name: update
               description: '*(ALPHA)*  Update a Compute Engine target instance.'
               flags:
@@ -26936,6 +27066,7 @@ commands:
                 --limit=: Maximum number of resources to list.
                 --no-uri&: Print a list of resource URIs instead of the default output, and change the
                 --page-size=: Some services group resource list output into pages.
+                --regexp=: (DEPRECATED)         Regular expression to filter the names of the results  on.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
             - name: update
@@ -27786,6 +27917,11 @@ commands:
                 --regions=: If provided, only resources from the given regions are queried.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: test-iam-permissions
+              description: '*(ALPHA)*  Test IAM permissions for a Compute Engine VPN gateway.'
+              flags:
+                --permissions=!: Permissions to be tested.
+                --region=: The name of the Google Compute Engine region.
             - name: update
               description: '*(ALPHA)*  Update a Compute Engine Highly Available VPN gateway.'
               flags:
@@ -30700,6 +30836,7 @@ commands:
                 --ipv6-access-type=: IPv6 access type of the subnetwork.
                 --issue-client-certificate: Issue a TLS client certificate with admin permissions.
                 --istio-config=: (REMOVED) Configurations for Istio addon, requires --addons contains Istio for create,
+                --jwt-authenticator-config=&: Path to a YAML file containing the configuration for the native Kubernetes JWT authenticator.
                 --kubecontext-override=&: Name of kubectl context to use.
                 --kubernetes-objects-changes-target=&: Set kubernetes objects changes target [Currently only CLOUD_LOGGING value is supported].
                 --kubernetes-objects-snapshots-target=&: Set kubernetes objects snapshots target [Currently only CLOUD_LOGGING value is supported].
@@ -31132,6 +31269,7 @@ commands:
                 --image-project=: The Google Cloud project storing the Operating System image for the node pool.
                 --image-type=: The image type to use for the cluster.
                 --image=: The Operating System image for the node pool.
+                --jwt-authenticator-config=&: Path to a YAML file containing the configuration for the native Kubernetes JWT authenticator.
                 --kubecontext-override=&: Name of kubectl context to use.
                 --labels=: Labels to apply to the Google Cloud resources in use by the Kubernetes Engine
                 --location=: Compute zone or region (e.g. us-central1-a or us-central1) for the cluster.
@@ -36982,8 +37120,12 @@ commands:
               hidden: true
               flags:
                 --location=: ID of the location or fully qualified identifier for the location.
+                --max-results=: The maximum number of rows of data to return per page of results.
+                --page-token=: Page token received from a previous QueryCatalog call.
                 --query=: The SQL query string.
                 --reference-id=: The reference ID from a previous query to fetch results.
+                --scopes=: One "organizations/<org>" or multiple "projects/<project>" (e.g., "projects/my-project1,projects/my-project2").
+                --timeout=: The timeout for query execution.
         - name: context
           description: '*(ALPHA)*  Manage Dataplex Context.'
           commands:
@@ -37511,7 +37653,6 @@ commands:
                   flags:
                     --artifacts-path=: Local path to the dbt-core artifacts.
                     --async: Return immediately, without waiting for the operation in progress to
-                    --bigquery-location=: Dataplex region of the physical BigQuery table entries (the
                     --connector-types-project=&: Overrides the project that owns the 1P dbt aspect/entry types.
                     --entry-group=: Short ID of the entry group that receives the dbt entries.
                     --import-aspect-sync-mode=: Aspect sync mode for the import job.
@@ -37520,11 +37661,9 @@ commands:
                     --location=: The location of the Dataplex resource.
                     --no-async&: Return immediately, without waiting for the operation in progress to
                     --no-include-entry-links&: Also emit EntryLink records capturing dbt lineage and semantic
-                    --no-skip-bigquery-link&: Skip `materializes-to` links (dbt node -> physical BigQuery
-                    --no-skip-bigquery-location-lookup&: Do not call BigQuery to read the materialized datasets' actual
+                    --no-skip-bigquery-link&: Skip `represents` links (dbt node -> physical BigQuery
                     --no-validate-only&: Build and upload the JSONL and validate the metadata job, but
-                    --skip-bigquery-link: Skip `materializes-to` links (dbt node -> physical BigQuery
-                    --skip-bigquery-location-lookup: Do not call BigQuery to read the materialized datasets' actual
+                    --skip-bigquery-link: Skip `represents` links (dbt node -> physical BigQuery
                     --storage-uri=!: Cloud Storage URI prefix (gs://bucket/path/) the transformed
                     --system-types-project=&: Overrides the project that owns the core 1P types the dbt types
                     --validate-only: Build and upload the JSONL and validate the metadata job, but
@@ -38631,8 +38770,8 @@ commands:
                 --master-boot-disk-size-gb=&: (DEPRECATED) Use `--master-boot-disk-size` flag with "GB" after value.
                 --master-boot-disk-size=: The size of the boot disk.
                 --master-boot-disk-type=: The type of the boot disk.
-                --master-instance-flexibility-policy-file=&: Path to a YAML or JSON file containing the instance flexibility policy
-                --master-instance-selection=&: Instance selection configurations for the master node group.
+                --master-instance-flexibility-policy-file=: Path to a YAML or JSON file containing the instance flexibility policy
+                --master-instance-selection=: Instance selection configurations for the master node group.
                 --master-local-ssd-interface=: Interface to use to attach local SSDs to master node(s) in a cluster.
                 --master-machine-type=: The type of machine to use for the master.
                 --master-machine-types=: Types of machines with optional rank for master nodes to use.
@@ -38684,8 +38823,8 @@ commands:
                 --secondary-worker-boot-disk-provisioned-throughput=&: Indicates the [throughput](https://cloud.google.com/compute/docs/disks/hyperdisks#throughput)
                 --secondary-worker-boot-disk-size=: The size of the boot disk.
                 --secondary-worker-boot-disk-type=: The type of the boot disk.
-                --secondary-worker-instance-flexibility-policy-file=&: Path to a YAML or JSON file containing the instance flexibility policy
-                --secondary-worker-instance-selection=&: Instance selection configurations for the secondary worker node group.
+                --secondary-worker-instance-flexibility-policy-file=: Path to a YAML or JSON file containing the instance flexibility policy
+                --secondary-worker-instance-selection=: Instance selection configurations for the secondary worker node group.
                 --secondary-worker-local-ssd-interface=: Interface to use to attach local SSDs to each secondary worker
                 --secondary-worker-machine-types=: Types of machines with optional rank for secondary workers to use.
                 --secondary-worker-standard-capacity-base=: This flag sets the base number of Standard VMs to use for [secondary workers](https://cloud.google.com/dataproc/docs/concepts/compute/secondary-vms#preemptible_and_non-preemptible_secondary_workers). Dataproc will create only standard VMs until it reaches this number, then it will mix Spot and Standard VMs according to ``SECONDARY_WORKER_STANDARD_CAPACITY_PERCENT_ABOVE_BASE''.
@@ -38711,8 +38850,8 @@ commands:
                 --worker-boot-disk-size-gb=&: (DEPRECATED) Use `--worker-boot-disk-size` flag with "GB" after value.
                 --worker-boot-disk-size=: The size of the boot disk.
                 --worker-boot-disk-type=: The type of the boot disk.
-                --worker-instance-flexibility-policy-file=&: Path to a YAML or JSON file containing the instance flexibility policy
-                --worker-instance-selection=&: Instance selection configurations for the primary worker node group.
+                --worker-instance-flexibility-policy-file=: Path to a YAML or JSON file containing the instance flexibility policy
+                --worker-instance-selection=: Instance selection configurations for the primary worker node group.
                 --worker-local-ssd-interface=: Interface to use to attach local SSDs to each worker in a cluster.
                 --worker-machine-type=: The type of machine to use for primary workers.
                 --worker-machine-types=: '[Machine types](https://cloud.google.com/dataproc/docs/concepts/compute/supported-machine-types) for primary worker nodes to use with optional rank.'
@@ -39591,8 +39730,8 @@ commands:
                 --master-boot-disk-size-gb=&: (DEPRECATED) Use `--master-boot-disk-size` flag with "GB" after value.
                 --master-boot-disk-size=: The size of the boot disk.
                 --master-boot-disk-type=: The type of the boot disk.
-                --master-instance-flexibility-policy-file=&: Path to a YAML or JSON file containing the instance flexibility policy
-                --master-instance-selection=&: Instance selection configurations for the master node group.
+                --master-instance-flexibility-policy-file=: Path to a YAML or JSON file containing the instance flexibility policy
+                --master-instance-selection=: Instance selection configurations for the master node group.
                 --master-local-ssd-interface=: Interface to use to attach local SSDs to master node(s) in a cluster.
                 --master-machine-type=: The type of machine to use for the master.
                 --master-machine-types=: Types of machines with optional rank for master nodes to use.
@@ -39640,8 +39779,8 @@ commands:
                 --secondary-worker-boot-disk-provisioned-throughput=&: Indicates the [throughput](https://cloud.google.com/compute/docs/disks/hyperdisks#throughput)
                 --secondary-worker-boot-disk-size=: The size of the boot disk.
                 --secondary-worker-boot-disk-type=: The type of the boot disk.
-                --secondary-worker-instance-flexibility-policy-file=&: Path to a YAML or JSON file containing the instance flexibility policy
-                --secondary-worker-instance-selection=&: Instance selection configurations for the secondary worker node group.
+                --secondary-worker-instance-flexibility-policy-file=: Path to a YAML or JSON file containing the instance flexibility policy
+                --secondary-worker-instance-selection=: Instance selection configurations for the secondary worker node group.
                 --secondary-worker-local-ssd-interface=: Interface to use to attach local SSDs to each secondary worker
                 --secondary-worker-machine-types=: Types of machines with optional rank for secondary workers to use.
                 --secondary-worker-standard-capacity-base=: This flag sets the base number of Standard VMs to use for [secondary workers](https://cloud.google.com/dataproc/docs/concepts/compute/secondary-vms#preemptible_and_non-preemptible_secondary_workers). Dataproc will create only standard VMs until it reaches this number, then it will mix Spot and Standard VMs according to ``SECONDARY_WORKER_STANDARD_CAPACITY_PERCENT_ABOVE_BASE''.
@@ -39664,8 +39803,8 @@ commands:
                 --worker-boot-disk-size-gb=&: (DEPRECATED) Use `--worker-boot-disk-size` flag with "GB" after value.
                 --worker-boot-disk-size=: The size of the boot disk.
                 --worker-boot-disk-type=: The type of the boot disk.
-                --worker-instance-flexibility-policy-file=&: Path to a YAML or JSON file containing the instance flexibility policy
-                --worker-instance-selection=&: Instance selection configurations for the primary worker node group.
+                --worker-instance-flexibility-policy-file=: Path to a YAML or JSON file containing the instance flexibility policy
+                --worker-instance-selection=: Instance selection configurations for the primary worker node group.
                 --worker-local-ssd-interface=: Interface to use to attach local SSDs to each worker in a cluster.
                 --worker-machine-type=: The type of machine to use for primary workers.
                 --worker-machine-types=: '[Machine types](https://cloud.google.com/dataproc/docs/concepts/compute/supported-machine-types) for primary worker nodes to use with optional rank.'
@@ -42462,13 +42601,19 @@ commands:
                     --apps=: A list of application binary files (.apk, .aab, or .apks) to install before running the test.
                     --async: Return immediately, without waiting for the operation in progress to
                     --bucket-name=: The name of a Google Cloud Storage bucket to store test artifacts, including
+                    --bugreport=: Specify when to collect bugreport from the device.
+                    --coordinates=: Specify the mock location coordinates (latitude and longitude) to set on the device before running the test.
                     --device=!: Id of the device type to run the test on.
+                    --dumpsys=: Specify when to collect dumpsys from the device.
                     --flaky-test-attempts=: Specify the maximum number of execution attempts per test shard to handle flakiness or infrastructure errors.
+                    --flaky-test-parallel-retry: Whether to retry the test failures in parallel.
+                    --flaky-test-retry-level=: Specify the level to retry the test failures.
                     --instrumentation-timeout=: Specify the maximum duration allowed for the instrumentation test run (e.g., `10m`, `20s`, `1h`).
                     --labels=: A dictionary of user-defined key-value labels to attach to the session.
                     --locale=: Specify the locale (language and region) to switch the device to before running the test.
                     --location=: ID of the location or fully qualified identifier for the location.
                     --no-async&: Return immediately, without waiting for the operation in progress to
+                    --no-flaky-test-parallel-retry&: Whether to retry the test failures in parallel.
                     --orchestrator-version=: Specify the version of the Android Test Orchestrator to use during test execution.
                     --orientation=: Specify the orientation to set the device to before running the test.
                     --other-files-to-push=: A dictionary of additional files to be pushed to the device before running the test.
@@ -42484,6 +42629,15 @@ commands:
                     --video=: Specify when to record video of the device screen during the test run.
                   completion:
                     flag:
+                        bugreport:
+                            - always
+                            - on-failure
+                        dumpsys:
+                            - always
+                            - on-failure
+                        flaky-test-retry-level:
+                            - shard
+                            - test
                         orientation:
                             - portrait
                             - landscape
@@ -44701,9 +44855,12 @@ commands:
                 --export-on-exit=: Directory path in which emulator data will be saved upon shutdown.
                 --host-port=: The host:port to which the emulator should be bound.
                 --import-data=: File path to the data to be loaded into the emulator upon start up.
+                --index-file=: File path to the index file to be used by the emulator.
                 --licenses: If set, the emulator will print open-source dependencies and licenses, then exit.
                 --no-licenses&: If set, the emulator will print open-source dependencies and licenses, then exit.
+                --no-require-indexes&: If set, the emulator will require composite indexes to be defined in the index file for all queries that require them.
                 --no-use-firestore-in-datastore-mode&: Runs the emulator in Datastore Mode.
+                --require-indexes: If set, the emulator will require composite indexes to be defined in the index file for all queries that require them.
                 --rules=: If set, all projects will use the security rules in this file.
                 --use-firestore-in-datastore-mode&: Runs the emulator in Datastore Mode.
               completion:
@@ -45971,6 +46128,17 @@ commands:
             --database=: The database to operate on.
             --namespace-ids=: List specifying which namespaces will be included in the operation.
             --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: change-streams
+          description: '*(ALPHA)*  Manage Cloud Firestore ChangeStreams.'
+          commands:
+            - name: create
+              description: '*(ALPHA)*  Create a Cloud Firestore change stream.'
+              flags:
+                --collection-group-scope=: Create a collection-group-scoped change stream for the specified collection group (e.g., --collection-group-scope=my-collection-group).
+                --database-scope: Create a database-scoped change stream.
+                --database=: The database to operate on.
+                --no-database-scope&: Create a database-scoped change stream.
+                --retention=: The retention period of the change stream (e.g. 1d, 7d).
         - name: databases
           description: '*(ALPHA)*  Manage Creation of Cloud Firestore in Native mode Database.'
           commands:
@@ -46020,6 +46188,7 @@ commands:
                 --no-enable-mongodb-compatible-data-access&: Whether to enable MongoDB Compatible API Data Access on the
                 --no-enable-pitr&: Whether to enable Point In Time Recovery (PITR) on the created database.
                 --no-enable-realtime-updates&: Whether to enable Realtime Updates feature on the created database.
+                --storage-placement=: The storage placement for the database.
                 --tags=: Tags to attach to the destination database.
                 --type=: The type of the database.
               completion:
@@ -46434,6 +46603,7 @@ commands:
                 direct-vpc-egress:
                     - private-ranges-only
                     - all
+                    - all-traffic
                 docker-registry:
                     - artifact-registry
                     - container-registry
@@ -55757,6 +55927,7 @@ commands:
                 --allow-auto-tiering=: Boolean flag indicating whether Storage Pool is allowed to use auto-tiering
                 --async: Return immediately, without waiting for the operation in progress to
                 --capacity=!: The desired capacity of the Storage Pool in GiB or TiB units.If no capacity unit is specified, GiB is assumed.
+                --cluster=&: The name of the cluster.
                 --custom-performance-enabled=: Boolean flag indicating whether Storage Pool is a custom performance Storage Pool or not
                 --description=: A description of the Cloud NetApp Storage Pool
                 --enable-hot-tier-auto-resize=: Boolean flag indicating whether Storage Pool is allowed to use hot tier auto resize
@@ -58850,6 +59021,41 @@ commands:
     - name: network-services
       description: '*(ALPHA)*  Manage Network Services resources.'
       commands:
+        - name: agent-connectivity-templates
+          description: '*(ALPHA)*  Manage Network Services Agent Connectivity Templates.'
+          commands:
+            - name: delete
+              description: '*(ALPHA)*  Delete an Agent Connectivity Template.'
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location Id.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: describe
+              description: '*(ALPHA)*  Describe a Agent Connectivity Template.'
+              flags:
+                --location=: The location Id.
+            - name: export
+              description: '*(ALPHA)*  Export an Agent Connectivity Template.'
+              flags:
+                --destination=: Path to a YAML file where the configuration will be exported.
+                --location=: The location Id.
+            - name: import
+              description: '*(ALPHA)*  Import an Agent Connectivity Template.'
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location Id.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --source=: Path to a YAML file containing the configuration export data.
+            - name: list
+              description: '*(ALPHA)*  List Agent Connectivity Templates.'
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=!: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
         - name: agent-gateways
           description: '*(ALPHA)*  Manage Network Services AgentGateways.'
           commands:
@@ -72741,7 +72947,7 @@ commands:
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --organization=: The Google Cloud Platform organization ID to use for this invocation.
             - name: enable
-              description: '*(ALPHA)*  Enable a service for MCP on a project, folder or organization.'
+              description: '*(ALPHA)*  *(DEPRECATED)*  Enable a service for MCP on a project, folder or organization.'
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
                 --folder=: The Google Cloud Platform folder ID to use for this invocation.
@@ -72750,7 +72956,7 @@ commands:
                 --organization=: The Google Cloud Platform organization ID to use for this invocation.
                 --skip-mcp-endpoint-check&: If true, the system will bypass the check for MCP endpoint while enabling a service.
             - name: list
-              description: '*(ALPHA)*  List MCP services for a project, folder or organization.'
+              description: '*(ALPHA)*  *(DEPRECATED)*  List MCP services for a project, folder or organization.'
               flags:
                 --available: Return the services available to the project, folder or organization to enable for MCP.
                 --enabled: (DEFAULT) Return the MCP services which the project, folder or organization has enabled.
@@ -78014,7 +78220,7 @@ commands:
                             - europe-west1
                             - asia-southeast1
         - name: authorize
-          description: '*(ALPHA)*  Authorize an account for all Transfer Service features.'
+          description: '*(ALPHA)*  Authorize an account for all Storage Transfer Service features.'
           flags:
             --add-missing: Add IAM roles necessary to use all Transfer Service features to the specified account.
             --creds-file=: The path to the creds file for an account to authorize.
@@ -78046,9 +78252,9 @@ commands:
                 --destination-agent-pool=: If using a POSIX filesystem destination, specify the ID of the agent pool associated with destination filesystem.
                 --do-not-run: Disable default Transfer Service behavior of running job upon creation if no schedule is set.
                 --enable-posix-transfer-logs: Sets whether to generate logs for transfers with a POSIX filesystem source.
-                --event-stream-expires=: Set when to stop listening for events UTC using the %Y-%m-%dT%H:%M:%S%z datetime format (e.g., 2020-04-12T06:42:12+04:00).
-                --event-stream-name=: Specify an event stream that Storage Transfer Service can use to listen for when objects are created or updated.
-                --event-stream-starts=: Set when to start listening for events UTC using the %Y-%m-%dT%H:%M:%S%z datetime format (e.g., 2020-04-12T06:42:12+04:00).
+                --event-stream-expires=: When to stop listening for events, in UTC using the %Y-%m-%dT%H:%M:%S%z datetime format (e.g., `2020-04-12T06:42:12+04:00`).
+                --event-stream-name=: Specify the event stream used to listen for object creations and updates.
+                --event-stream-starts=: When to start listening for events, in UTC using the %Y-%m-%dT%H:%M:%S%z datetime format (e.g., `2020-04-12T06:42:12+04:00`).
                 --exclude-prefixes=: Exclude any objects that start with the prefix(es) entered.
                 --include-modified-after-absolute=: Include objects last modified after an absolute date/time.
                 --include-modified-after-relative=: Include objects that were modified after a relative date/time in the past.
@@ -78063,13 +78269,13 @@ commands:
                 --no-async: For jobs set to run upon creation, this flag blocks other tasks in your terminal until the job's initial, immediate transfer operation has completed.
                 --no-do-not-run&: Disable default Transfer Service behavior of running job upon creation if no schedule is set.
                 --no-enable-posix-transfer-logs&: Sets whether to generate logs for transfers with a POSIX filesystem source.
-                --no-replication&: Enable replication to automatically copy all new and existing objects from the source to the destination.
+                --no-replication&: Enable replication to automatically copy all new and existing objects from one Cloud Storage bucket to another.
                 --notification-event-types=: Define which change of transfer operation status will trigger Pub/Sub notifications.
                 --notification-payload-format=: If 'none', no transfer operation details are included with notifications.
                 --notification-pubsub-topic=: Pub/Sub topic used for notifications.
                 --overwrite-when=: Determine when destination objects are overwritten by source objects.
                 --preserve-metadata=: Specify object metadata values that can optionally be preserved.
-                --replication: Enable replication to automatically copy all new and existing objects from the source to the destination.
+                --replication: Enable replication to automatically copy all new and existing objects from one Cloud Storage bucket to another.
                 --s3-cloudfront-domain=: For transfers from S3, optionally route egress traffic through a CloudFront instance.
                 --schedule-repeats-every=: Set the frequency of the job using the absolute duration format (e.g., 1 month is p1m; 1 hour 30 minutes is 1h30m).
                 --schedule-repeats-until=: Set when the job will stop recurring using the %Y-%m-%dT%H:%M:%S%z datetime format (e.g., 2020-04-12T06:42:12+04:00).
@@ -78138,7 +78344,7 @@ commands:
                 --clear-delete-from: Remove a specified deletion option from the transfer job.
                 --clear-description: Remove the description from the transfer job.
                 --clear-destination-agent-pool: Remove the destination agent pool from the transfer job.
-                --clear-event-stream: Remove the job's entire event stream configuration by clearing all scheduling all event stream flags.
+                --clear-event-stream: Remove the job's entire event stream configuration by clearing all event stream flags.
                 --clear-exclude-prefixes: Remove the list of object prefixes to exclude from the object conditions.
                 --clear-include-modified-after-absolute: Remove the minimum modification datetime from the object conditions.
                 --clear-include-modified-after-relative: Remove the minimum duration since modification from the object conditions.
@@ -78167,9 +78373,9 @@ commands:
                 --destination-agent-pool=: If using a POSIX filesystem destination, specify the ID of the agent pool associated with destination filesystem.
                 --destination=: The destination of your transferred data.
                 --enable-posix-transfer-logs: Sets whether to generate logs for transfers with a POSIX filesystem source.
-                --event-stream-expires=: Set when to stop listening for events UTC using the %Y-%m-%dT%H:%M:%S%z datetime format (e.g., 2020-04-12T06:42:12+04:00).
-                --event-stream-name=: Specify an event stream that Storage Transfer Service can use to listen for when objects are created or updated.
-                --event-stream-starts=: Set when to start listening for events UTC using the %Y-%m-%dT%H:%M:%S%z datetime format (e.g., 2020-04-12T06:42:12+04:00).
+                --event-stream-expires=: When to stop listening for events, in UTC using the %Y-%m-%dT%H:%M:%S%z datetime format (e.g., `2020-04-12T06:42:12+04:00`).
+                --event-stream-name=: Specify the event stream used to listen for object creations and updates.
+                --event-stream-starts=: When to start listening for events, in UTC using the %Y-%m-%dT%H:%M:%S%z datetime format (e.g., `2020-04-12T06:42:12+04:00`).
                 --exclude-prefixes=: Exclude any objects that start with the prefix(es) entered.
                 --include-modified-after-absolute=: Include objects last modified after an absolute date/time.
                 --include-modified-after-relative=: Include objects that were modified after a relative date/time in the past.
@@ -78184,7 +78390,7 @@ commands:
                 --no-clear-delete-from&: Remove a specified deletion option from the transfer job.
                 --no-clear-description&: Remove the description from the transfer job.
                 --no-clear-destination-agent-pool&: Remove the destination agent pool from the transfer job.
-                --no-clear-event-stream&: Remove the job's entire event stream configuration by clearing all scheduling all event stream flags.
+                --no-clear-event-stream&: Remove the job's entire event stream configuration by clearing all event stream flags.
                 --no-clear-exclude-prefixes&: Remove the list of object prefixes to exclude from the object conditions.
                 --no-clear-include-modified-after-absolute&: Remove the minimum modification datetime from the object conditions.
                 --no-clear-include-modified-after-relative&: Remove the minimum duration since modification from the object conditions.

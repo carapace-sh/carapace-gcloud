@@ -725,6 +725,7 @@ commands:
                 --three-legged-oauth-authorization-url=: The authorization endpoint to send users to for consenting to delegate
                 --three-legged-oauth-client-id=: The client ID of the OAuth client.
                 --three-legged-oauth-client-secret=: The client secret of the OAuth client.
+                --three-legged-oauth-default-continue-uri=: The default continue URI for 3LO flow to redirect end users after consent.
                 --three-legged-oauth-enable-pkce: Enables Proof Key for Code Exchange (PKCE) for the OAuth flow to prevent
                 --three-legged-oauth-token-url=: The token endpoint for requesting tokens on behalf of an end user.
                 --two-legged-oauth-client-id=: The client ID of the OAuth client.
@@ -836,6 +837,7 @@ commands:
                 --three-legged-oauth-authorization-url=: The authorization endpoint to send users to for consenting to delegate
                 --three-legged-oauth-client-id=: The client ID of the OAuth client.
                 --three-legged-oauth-client-secret=: The client secret of the OAuth client.
+                --three-legged-oauth-default-continue-uri=: The default continue URI for 3LO flow to redirect end users after consent.
                 --three-legged-oauth-enable-pkce: Enables Proof Key for Code Exchange (PKCE) for the OAuth flow to prevent
                 --three-legged-oauth-token-url=: The token endpoint for requesting tokens on behalf of an end user.
                 --two-legged-oauth-client-id=: The client ID of the OAuth client.
@@ -1051,6 +1053,14 @@ commands:
                 --region=: ID of the region or fully qualified identifier for the region.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: mutate-deployed-model
+              description: '*(BETA)*  Mutate a deployed model in a Vertex AI endpoint.'
+              hidden: true
+              flags:
+                --deployed-model-id=!: Id of the deployed model.
+                --max-replica-count=: New maximum number of machine replicas for the deployment resources.
+                --min-replica-count=: New minimum number of machine replicas for the deployment resources.
+                --region=: Cloud region for the endpoint.
             - name: predict
               description: '*(BETA)*  Run Vertex AI online prediction.'
               flags:
@@ -3073,6 +3083,7 @@ commands:
                 --database-flags=: Comma-separated list of database flags to set on the instance.
                 --enable-autoscaler: Enable autoscaler for the instance.
                 --enable-connection-pooling: Enable connection pooling for the instance.
+                --enable-psc-auto-connection-policy&: Enable PSC auto connection policy for an AlloyDB instance.
                 --enable-psc-auto-dns&: Enable PSC auto DNS for an AlloyDB instance.
                 --insights-config-query-plans-per-minute=: Number of query plans to sample every minute.
                 --insights-config-query-string-length=: Query string length in bytes to be stored by the query insights
@@ -3084,6 +3095,7 @@ commands:
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-enable-autoscaler&: Enable autoscaler for the instance.
                 --no-enable-connection-pooling&: Enable connection pooling for the instance.
+                --no-enable-psc-auto-connection-policy&: Enable PSC auto connection policy for an AlloyDB instance.
                 --no-enable-psc-auto-dns&: Enable PSC auto DNS for an AlloyDB instance.
                 --no-insights-config-record-application-tags&: Allow application tags to be recorded by the query insights
                 --no-insights-config-record-client-address&: Allow the client address to be recorded by the query insights
@@ -3207,10 +3219,12 @@ commands:
                 --connection-pooling-stats-users=: Comma-separated list of database users to access connection pooling stats.
                 --database-flags=: Comma-separated list of database flags to set on the instance.
                 --enable-connection-pooling: Enable connection pooling for the instance.
+                --enable-psc-auto-connection-policy&: Enable PSC auto connection policy for an AlloyDB instance.
                 --enable-psc-auto-dns&: Enable PSC auto DNS for an AlloyDB instance.
                 --labels=: List of label KEY=VALUE pairs to add.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-enable-connection-pooling&: Enable connection pooling for the instance.
+                --no-enable-psc-auto-connection-policy&: Enable PSC auto connection policy for an AlloyDB instance.
                 --no-enable-psc-auto-dns&: Enable PSC auto DNS for an AlloyDB instance.
                 --no-outbound-public-ip&: Add outbound Public IP connectivity to an AlloyDB instance.
                 --no-require-connectors&: 'Enable or disable enforcing connectors only (ex: AuthProxy) connections to the database.'
@@ -3327,6 +3341,7 @@ commands:
                 --database-flags=: Comma-separated list of database flags to set on the instance.
                 --enable-autoscaler: Enable autoscaler for the instance.
                 --enable-connection-pooling: Enable connection pooling for the instance.
+                --enable-psc-auto-connection-policy&: Enable PSC auto connection policy for an AlloyDB instance.
                 --enable-psc-auto-dns&: Enable PSC auto DNS for an AlloyDB instance.
                 --insights-config-query-plans-per-minute=: Number of query plans to sample every minute.
                 --insights-config-query-string-length=: Query string length in bytes to be stored by the query insights
@@ -3339,6 +3354,7 @@ commands:
                 --no-clear-psc-network-attachment-uri&: Disable outbound connectivity from an AlloyDB instance which uses Private Service Connect (PSC).
                 --no-enable-autoscaler&: Enable autoscaler for the instance.
                 --no-enable-connection-pooling&: Enable connection pooling for the instance.
+                --no-enable-psc-auto-connection-policy&: Enable PSC auto connection policy for an AlloyDB instance.
                 --no-enable-psc-auto-dns&: Enable PSC auto DNS for an AlloyDB instance.
                 --no-insights-config-record-application-tags&: Allow application tags to be recorded by the query insights
                 --no-insights-config-record-client-address&: Allow the client address to be recorded by the query insights
@@ -3794,9 +3810,11 @@ commands:
           description: '*(BETA)*  *(DEPRECATED)*  Manage MCP Command Group.'
           commands:
             - name: disable
-              description: '*(BETA)*  *(DEPRECATED)*  Disables MCP server for a given service in the current project.'
+              description: '*(BETA)*  *(DEPRECATED)*  *(REMOVED)*  Disables MCP server for a given service in the current project.'
+              hidden: true
             - name: enable
-              description: '*(BETA)*  *(DEPRECATED)*  Enables MCP server for a given service in the current project.'
+              description: '*(BETA)*  *(DEPRECATED)*  *(REMOVED)*  Enables MCP server for a given service in the current project.'
+              hidden: true
             - name: servers
               description: '*(BETA)*  *(DEPRECATED)*  Manage Cloud API Registry MCP servers.'
               commands:
@@ -6289,6 +6307,7 @@ commands:
                   description: '*(BETA)*  Create an enterprise-certificate configuration file for Linux.'
                   flags:
                     --ecp-client=: Provide a custom path to the enterprise-certificate-proxy shared client library.
+                    --ecp-http-proxy=: Provide a custom path to the ECP HTTP proxy binary.
                     --ecp=: Provide a custom path to the enterprise-certificate-proxy binary.
                     --label=!: 'The PKCS #11 label for the target credentials.'
                     --module=!: 'The full file path to the PKCS #11 module.'
@@ -6300,6 +6319,7 @@ commands:
                   description: '*(BETA)*  Create an enterprise-certificate configuration file for MacOS.'
                   flags:
                     --ecp-client=: Provide a custom path to the enterprise-certificate-proxy shared client library.
+                    --ecp-http-proxy=: Provide a custom path to the ECP HTTP proxy binary.
                     --ecp=: Provide a custom path to the enterprise-certificate-proxy binary.
                     --issuer=!: The certificate issuer.
                     --keychain-type=: Specify the target keychain(s) for certificate lookup.Accepted values are "login", "system", or "all".
@@ -6309,6 +6329,7 @@ commands:
                   description: '*(BETA)*  Create an enterprise-certificate configuration file for Windows.'
                   flags:
                     --ecp-client=: Provide a custom path to the enterprise-certificate-proxy shared client library.
+                    --ecp-http-proxy=: Provide a custom path to the ECP HTTP proxy binary.
                     --ecp=: Provide a custom path to the enterprise-certificate-proxy binary.
                     --issuer=!: The certificate issuer.
                     --output-file=: Override the file path that the enterprise-certificate-proxy configuration is written to.
@@ -10233,7 +10254,6 @@ commands:
               description: '*(BETA)*  Creates a Cluster Director resource.'
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
-                --blueprint=: Reference a pre-defined architecture (e.g., "a3-ultra").
                 --buckets=: Reference of existing Google Cloud Storage bucket.
                 --config=: Configuration of the cluster specs in the form of a JSON object.
                 --create-buckets=: Parameters to create a Google Cloud Storage bucket.
@@ -10249,9 +10269,10 @@ commands:
                 --network-project=: Project ID of the project containing the network and subnetwork
                 --network=!: Reference of existing network name.
                 --no-async&: Return immediately, without waiting for the operation in progress to
-                --no-quickstart-cluster&: If specified, creates a cluster with sensible defaults for compute, network, and orchestrator.
+                --no-quickstart-cluster&: ""
                 --on-demand-instances=: Parameters to define cluster on demand instances.
-                --quickstart-cluster: If specified, creates a cluster with sensible defaults for compute, network, and orchestrator.
+                --quickstart-cluster: 'If specified, creates a cluster with sensible defaults:'
+                --reference-architecture=: Reference a pre-defined architecture.
                 --reserved-instances=: Parameters to define cluster reserved instances.
                 --slurm-default-partition=: Parameters to define slurm cluster default partition.
                 --slurm-epilog-scripts=: Slurm epilog bash scripts.
@@ -10263,7 +10284,7 @@ commands:
                 --subnet=!: Reference of existing subnetwork name.
               completion:
                 flag:
-                    blueprint:
+                    reference-architecture:
                         - a3-ultra
                         - a4-high-flex-start
                         - a4x-high
@@ -11635,8 +11656,6 @@ commands:
                 --global: If set, the backend service is global.
                 --global-health-checks: If set, the health checks are global.
                 --ha-policy-fast-ip-move=&: Fast IP move policy for high availability (HA).
-                --ha-policy-leader-backend-group=&: A fully-qualified URL of the zonal Network Endpoint Group (NEG) with
-                --ha-policy-leader-instance=&: The name of the VM instance of the leader network endpoint.
                 --health-checks-region=: Region of the health checks to operate on.
                 --health-checks=: Specifies a list of health check objects for checking the health of
                 --http-health-checks=: Specifies a list of legacy HTTP health check objects for checking the
@@ -12645,6 +12664,11 @@ commands:
               flags:
                 --region=: Region of the consistency group's primary or secondary disks.
                 --zone=: Zone of the consistency group's primary or secondary disks.
+            - name: test-iam-permissions
+              description: '*(BETA)*  Test IAM permissions for a Compute Engine disk.'
+              flags:
+                --permissions=!: Permissions to be tested.
+                --zone=: The name of the Google Compute Engine zone.
             - name: update
               description: '*(BETA)*  Update a Compute Engine persistent disk.'
               flags:
@@ -14041,6 +14065,10 @@ commands:
                 --regexp=: (DEPRECATED)         Regular expression to filter the names of the results  on.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: test-iam-permissions
+              description: '*(BETA)*  Test IAM permissions for a Compute Engine HTTP health check.'
+              flags:
+                --permissions=!: Permissions to be tested.
             - name: update
               description: '*(BETA)*  Update a legacy HTTP health check.'
               flags:
@@ -15263,6 +15291,7 @@ commands:
               completion:
                 flag:
                     confidential-compute-type:
+                        - CCA
                         - SEV
                         - SEV_SNP
                         - TDX
@@ -15271,6 +15300,7 @@ commands:
                         - STOP
                     ipv6-network-tier:
                         - PREMIUM
+                        - STANDARD
                     key-revocation-action-type:
                         - none
                         - stop
@@ -15679,6 +15709,7 @@ commands:
                   completion:
                     flag:
                         confidential-compute-type:
+                            - CCA
                             - SEV
                             - SEV_SNP
                             - TDX
@@ -15857,6 +15888,7 @@ commands:
               completion:
                 flag:
                     confidential-compute-type:
+                        - CCA
                         - SEV
                         - SEV_SNP
                         - TDX
@@ -15868,6 +15900,7 @@ commands:
                         - STOP
                     ipv6-network-tier:
                         - PREMIUM
+                        - STANDARD
                     key-revocation-action-type:
                         - none
                         - stop
@@ -16015,6 +16048,7 @@ commands:
               completion:
                 flag:
                     confidential-compute-type:
+                        - CCA
                         - SEV
                         - SEV_SNP
                         - TDX
@@ -16270,6 +16304,7 @@ commands:
                     --aliases=: The IP alias ranges to allocate for this interface.
                     --external-ipv6-address=: Assigns the given external IPv6 address to an instance.
                     --external-ipv6-prefix-length=: The prefix length of the external IPv6 address range.
+                    --igmp-query=: Determines if the Compute Engine instance can receive and respond to IGMP query packets on the specified network interface.
                     --internal-ipv6-address=: Assigns the given internal IPv6 address or range to an instance.
                     --internal-ipv6-prefix-length=: Optional field that indicates the prefix length of the internal IPv6
                     --ipv6-aliases=: The IPv6 alias ranges to allocate for this interface.
@@ -16287,8 +16322,12 @@ commands:
                     --zone=: Zone of the instance to operate on.
                   completion:
                     flag:
+                        igmp-query:
+                            - IGMP_QUERY_DISABLED
+                            - IGMP_QUERY_V2
                         ipv6-network-tier:
                             - PREMIUM
+                            - STANDARD
                         network-tier:
                             - FIXED_STANDARD
                             - PREMIUM
@@ -16340,6 +16379,7 @@ commands:
                             - IGMP_QUERY_V2
                         ipv6-network-tier:
                             - PREMIUM
+                            - STANDARD
                         stack-type:
                             - IPV4_IPV6
                             - IPV4_ONLY
@@ -16624,6 +16664,11 @@ commands:
               description: '*(BETA)*  Periodically fetch new output from a virtual machine instance''s serial port and display it as it becomes available.'
               flags:
                 --port=: Instances can support up to four serial port outputs, numbered 1 through
+                --zone=: Zone of the instance to operate on.
+            - name: test-iam-permissions
+              description: '*(BETA)*  Test IAM permissions for a Compute Engine instance.'
+              flags:
+                --permissions=!: Single IAM permission to test.
                 --zone=: Zone of the instance to operate on.
             - name: update
               description: '*(BETA)*  Update a Compute Engine virtual machine.'
@@ -17370,6 +17415,8 @@ commands:
                   description: '*(BETA)*  Remove member interconnects from a Compute Engine interconnect group.'
                   flags:
                     --interconnects=!: Member interconnects to add to or remove from the interconnect group.
+                - name: set-iam-policy
+                  description: '*(BETA)*  Set the IAM policy for a Compute Engine interconnect group.'
                 - name: update
                   description: '*(BETA)*  Update a Compute Engine interconnect group.'
                   flags:
@@ -18247,6 +18294,10 @@ commands:
                 --global: If set, the firewall policy is global.
                 --no-global&: If set, the firewall policy is global.
                 --region=: Region of the firewall policy to get.
+            - name: test-iam-permissions
+              description: '*(BETA)*  Test IAM permissions for a Compute Engine network firewall policy.'
+              flags:
+                --permissions=!: The permissions to test.
             - name: update
               description: '*(BETA)*  Update a Compute Engine network firewall policy.'
               flags:
@@ -18566,6 +18617,7 @@ commands:
                     --ip-collection-region=&: 'Region of the ipCollection to operate on. '
                     --ip-collection=: Resource reference to a public delegated prefix.
                     --ipv6-access-type=: IPv6 access type can be specified only when the subnet is created, or when the subnet is first updated to have a stack type of IPV4_IPV6.
+                    --ipv6-network-tier=: The network tier for EXTERNAL IPv6 addresses in this subnetwork.
                     --logging-aggregation-interval=: Can only be specified if VPC Flow Logs for this subnetwork is
                     --logging-filter-expr=: Can only be specified if VPC Flow Logs for this subnetwork is enabled.
                     --logging-flow-sampling=: Can only be specified if VPC Flow Logs for this subnetwork is
@@ -18592,6 +18644,9 @@ commands:
                         ipv6-access-type:
                             - EXTERNAL
                             - INTERNAL
+                        ipv6-network-tier:
+                            - PREMIUM
+                            - STANDARD
                         logging-aggregation-interval:
                             - interval-10-min
                             - interval-15-min
@@ -18708,6 +18763,7 @@ commands:
                     --ip-collection-region=&: 'Region of the ipCollection to update. '
                     --ip-collection=: Resource reference to a public delegated prefix.
                     --ipv6-access-type=: IPv6 access type can be specified only when the subnet is created, or when the subnet is first updated to have a stack type of IPV4_IPV6.
+                    --ipv6-network-tier=: The network tier for EXTERNAL IPv6 addresses in this subnetwork.
                     --logging-aggregation-interval=: Can only be specified if VPC Flow Logs for this subnetwork is
                     --logging-filter-expr=: Can only be specified if VPC Flow Logs for this subnetwork is enabled.
                     --logging-flow-sampling=: Can only be specified if VPC Flow logs for this subnetwork is
@@ -18728,6 +18784,9 @@ commands:
                         ipv6-access-type:
                             - EXTERNAL
                             - INTERNAL
+                        ipv6-network-tier:
+                            - PREMIUM
+                            - STANDARD
                         logging-aggregation-interval:
                             - interval-10-min
                             - interval-15-min
@@ -20810,6 +20869,11 @@ commands:
                 --policy-name=!: Name of the route policy from which the term should be removed.
                 --priority=!: Order of the term within the policy.
                 --region=: Region of the router to remove a route policy term from.
+            - name: test-iam-permissions
+              description: '*(BETA)*  Test IAM permissions for a Compute Engine router.'
+              flags:
+                --permissions=!: The permissions to test.
+                --region=: The name of the Google Compute Engine region.
             - name: update
               description: '*(BETA)*  Update a Compute Engine router.'
               flags:
@@ -21385,12 +21449,16 @@ commands:
                 --propagated-connection-limit=: The number of consumer spokes that connected Private Service Connect
                 --reconcile-connections: Determines whether to apply changes to consumer accept or reject lists
                 --region=: Region of the service attachment to create.
+                --routing-mode=: Specifies the routing mode for tunneling configuration on this service attachment.
                 --target-service=: URL of the target service that receives forwarded traffic.
               completion:
                 flag:
                     connection-preference:
                         - ACCEPT_AUTOMATIC
                         - ACCEPT_MANUAL
+                    routing-mode:
+                        - PACKET_INJECTION
+                        - STANDARD_ROUTING
             - name: delete
               description: '*(BETA)*  Delete one or more Google Compute Engine service attachments.'
               flags:
@@ -21434,12 +21502,16 @@ commands:
                 --reconcile-connections: Determines whether to apply changes to consumer accept or reject lists
                 --region=: Region of the service attachment to update.
                 --remove-obsolete-endpoint-accept-reject-entries: If set to true, this flag cleans up the service attachment's consumer accept
+                --routing-mode=: Specifies the routing mode for tunneling configuration on this service attachment.
                 --target-service=: URL of the target service that receives forwarded traffic.
               completion:
                 flag:
                     connection-preference:
                         - ACCEPT_AUTOMATIC
                         - ACCEPT_MANUAL
+                    routing-mode:
+                        - PACKET_INJECTION
+                        - STANDARD_ROUTING
         - name: shared-vpc
           description: '*(BETA)*  Configure shared VPC.'
           commands:
@@ -21527,6 +21599,11 @@ commands:
                 --page-size=: Some services group resource list output into pages.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: test-iam-permissions
+              description: '*(BETA)*  Test IAM permissions for a Compute Engine snapshot group.'
+              hidden: true
+              flags:
+                --permissions=!: The permissions to test.
         - name: snapshot-settings
           description: '*(BETA)*  Describe and update Compute Engine snapshot settings.'
           commands:
@@ -22530,6 +22607,7 @@ commands:
                 --limit=: Maximum number of resources to list.
                 --no-uri&: Print a list of resource URIs instead of the default output, and change the
                 --page-size=: Some services group resource list output into pages.
+                --regexp=: (DEPRECATED)         Regular expression to filter the names of the results  on.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
             - name: update
@@ -22888,6 +22966,11 @@ commands:
                 --regions=: If provided, only resources from the given regions are queried.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: test-iam-permissions
+              description: '*(BETA)*  Test IAM permissions for a Compute Engine VPN gateway.'
+              flags:
+                --permissions=!: Permissions to be tested.
+                --region=: The name of the Google Compute Engine region.
             - name: update
               description: '*(BETA)*  Update a Compute Engine Highly Available VPN gateway.'
               flags:
@@ -24569,6 +24652,7 @@ commands:
                 --ipv6-access-type=: IPv6 access type of the subnetwork.
                 --issue-client-certificate: Issue a TLS client certificate with admin permissions.
                 --istio-config=: (REMOVED) Configurations for Istio addon, requires --addons contains Istio for create,
+                --jwt-authenticator-config=&: Path to a YAML file containing the configuration for the native Kubernetes JWT authenticator.
                 --kubecontext-override=&: Name of kubectl context to use.
                 --kubernetes-objects-changes-target=&: Set kubernetes objects changes target [Currently only CLOUD_LOGGING value is supported].
                 --kubernetes-objects-snapshots-target=&: Set kubernetes objects snapshots target [Currently only CLOUD_LOGGING value is supported].
@@ -24994,6 +25078,7 @@ commands:
                 --image-project=: The Google Cloud project storing the Operating System image for the node pool.
                 --image-type=: The image type to use for the cluster.
                 --image=: The Operating System image for the node pool.
+                --jwt-authenticator-config=&: Path to a YAML file containing the configuration for the native Kubernetes JWT authenticator.
                 --kubecontext-override=&: Name of kubectl context to use.
                 --labels=: Labels to apply to the Google Cloud resources in use by the Kubernetes Engine
                 --location=: Compute zone or region (e.g. us-central1-a or us-central1) for the cluster.
@@ -25728,6 +25813,19 @@ commands:
                   flags:
                     --location=: Location for the membership.
                     --membership=!: ID of the membership or fully qualified identifier for the membership.
+                - name: update
+                  description: '*(BETA)*  Update the Config Management feature.'
+                  flags:
+                    --all-memberships: All memberships in the fleet.
+                    --config=: Path to YAML file, or `-` to read from stdin, that specifies the
+                    --fleet-default-member-config=: Path to YAML file, or `-` to read from stdin, that specifies the
+                    --location=: Location for the memberships.
+                    --memberships=!: IDs of the memberships or fully qualified identifiers for the memberships.
+                    --origin=: Update the configuration of the target membership(s) to the [fleet-default membership configuration](https://docs.cloud.google.com/kubernetes-engine/fleet-management/docs/manage-features).
+                  completion:
+                    flag:
+                        origin:
+                            - fleet
                 - name: upgrade
                   description: '*(BETA)*  Upgrade the version of the Config Management feature.'
                   flags:
@@ -27057,6 +27155,19 @@ commands:
                   flags:
                     --location=: Location for the membership.
                     --membership=!: ID of the membership or fully qualified identifier for the membership.
+                - name: update
+                  description: '*(BETA)*  Update the Config Management feature.'
+                  flags:
+                    --all-memberships: All memberships in the fleet.
+                    --config=: Path to YAML file, or `-` to read from stdin, that specifies the
+                    --fleet-default-member-config=: Path to YAML file, or `-` to read from stdin, that specifies the
+                    --location=: Location for the memberships.
+                    --memberships=!: IDs of the memberships or fully qualified identifiers for the memberships.
+                    --origin=: Update the configuration of the target membership(s) to the [fleet-default membership configuration](https://docs.cloud.google.com/kubernetes-engine/fleet-management/docs/manage-features).
+                  completion:
+                    flag:
+                        origin:
+                            - fleet
                 - name: upgrade
                   description: '*(BETA)*  Upgrade the version of the Config Management feature.'
                   flags:
@@ -30636,6 +30747,8 @@ commands:
                 --master-boot-disk-size-gb=&: (DEPRECATED) Use `--master-boot-disk-size` flag with "GB" after value.
                 --master-boot-disk-size=: The size of the boot disk.
                 --master-boot-disk-type=: The type of the boot disk.
+                --master-instance-flexibility-policy-file=: Path to a YAML or JSON file containing the instance flexibility policy
+                --master-instance-selection=: Instance selection configurations for the master node group.
                 --master-local-ssd-interface=: Interface to use to attach local SSDs to master node(s) in a cluster.
                 --master-machine-type=: The type of machine to use for the master.
                 --master-machine-types=: Types of machines with optional rank for master nodes to use.
@@ -30687,6 +30800,8 @@ commands:
                 --secondary-worker-boot-disk-provisioned-throughput=&: Indicates the [throughput](https://cloud.google.com/compute/docs/disks/hyperdisks#throughput)
                 --secondary-worker-boot-disk-size=: The size of the boot disk.
                 --secondary-worker-boot-disk-type=: The type of the boot disk.
+                --secondary-worker-instance-flexibility-policy-file=: Path to a YAML or JSON file containing the instance flexibility policy
+                --secondary-worker-instance-selection=: Instance selection configurations for the secondary worker node group.
                 --secondary-worker-local-ssd-interface=: Interface to use to attach local SSDs to each secondary worker
                 --secondary-worker-machine-types=: Types of machines with optional rank for secondary workers to use.
                 --secondary-worker-standard-capacity-base=: This flag sets the base number of Standard VMs to use for [secondary workers](https://cloud.google.com/dataproc/docs/concepts/compute/secondary-vms#preemptible_and_non-preemptible_secondary_workers). Dataproc will create only standard VMs until it reaches this number, then it will mix Spot and Standard VMs according to ``SECONDARY_WORKER_STANDARD_CAPACITY_PERCENT_ABOVE_BASE''.
@@ -30712,6 +30827,8 @@ commands:
                 --worker-boot-disk-size-gb=&: (DEPRECATED) Use `--worker-boot-disk-size` flag with "GB" after value.
                 --worker-boot-disk-size=: The size of the boot disk.
                 --worker-boot-disk-type=: The type of the boot disk.
+                --worker-instance-flexibility-policy-file=: Path to a YAML or JSON file containing the instance flexibility policy
+                --worker-instance-selection=: Instance selection configurations for the primary worker node group.
                 --worker-local-ssd-interface=: Interface to use to attach local SSDs to each worker in a cluster.
                 --worker-machine-type=: The type of machine to use for primary workers.
                 --worker-machine-types=: '[Machine types](https://cloud.google.com/dataproc/docs/concepts/compute/supported-machine-types) for primary worker nodes to use with optional rank.'
@@ -31681,6 +31798,8 @@ commands:
                 --master-boot-disk-size-gb=&: (DEPRECATED) Use `--master-boot-disk-size` flag with "GB" after value.
                 --master-boot-disk-size=: The size of the boot disk.
                 --master-boot-disk-type=: The type of the boot disk.
+                --master-instance-flexibility-policy-file=: Path to a YAML or JSON file containing the instance flexibility policy
+                --master-instance-selection=: Instance selection configurations for the master node group.
                 --master-local-ssd-interface=: Interface to use to attach local SSDs to master node(s) in a cluster.
                 --master-machine-type=: The type of machine to use for the master.
                 --master-machine-types=: Types of machines with optional rank for master nodes to use.
@@ -31728,6 +31847,8 @@ commands:
                 --secondary-worker-boot-disk-provisioned-throughput=&: Indicates the [throughput](https://cloud.google.com/compute/docs/disks/hyperdisks#throughput)
                 --secondary-worker-boot-disk-size=: The size of the boot disk.
                 --secondary-worker-boot-disk-type=: The type of the boot disk.
+                --secondary-worker-instance-flexibility-policy-file=: Path to a YAML or JSON file containing the instance flexibility policy
+                --secondary-worker-instance-selection=: Instance selection configurations for the secondary worker node group.
                 --secondary-worker-local-ssd-interface=: Interface to use to attach local SSDs to each secondary worker
                 --secondary-worker-machine-types=: Types of machines with optional rank for secondary workers to use.
                 --secondary-worker-standard-capacity-base=: This flag sets the base number of Standard VMs to use for [secondary workers](https://cloud.google.com/dataproc/docs/concepts/compute/secondary-vms#preemptible_and_non-preemptible_secondary_workers). Dataproc will create only standard VMs until it reaches this number, then it will mix Spot and Standard VMs according to ``SECONDARY_WORKER_STANDARD_CAPACITY_PERCENT_ABOVE_BASE''.
@@ -31750,6 +31871,8 @@ commands:
                 --worker-boot-disk-size-gb=&: (DEPRECATED) Use `--worker-boot-disk-size` flag with "GB" after value.
                 --worker-boot-disk-size=: The size of the boot disk.
                 --worker-boot-disk-type=: The type of the boot disk.
+                --worker-instance-flexibility-policy-file=: Path to a YAML or JSON file containing the instance flexibility policy
+                --worker-instance-selection=: Instance selection configurations for the primary worker node group.
                 --worker-local-ssd-interface=: Interface to use to attach local SSDs to each worker in a cluster.
                 --worker-machine-type=: The type of machine to use for primary workers.
                 --worker-machine-types=: '[Machine types](https://cloud.google.com/dataproc/docs/concepts/compute/supported-machine-types) for primary worker nodes to use with optional rank.'
@@ -33553,6 +33676,105 @@ commands:
               description: '*(BETA)*  Wait operations.'
               flags:
                 --location=: The location id of the operation resource.
+    - name: device-run
+      description: '*(BETA)*  Manage automation sessions and jobs on devices.'
+      commands:
+        - name: devices
+          description: '*(BETA)*  Manage Device Run devices.'
+          commands:
+            - name: describe
+              description: '*(BETA)*  Describe a Device Run device.'
+              flags:
+                --location=: Cloud location for the device.
+            - name: list
+              description: '*(BETA)*  List available Device Run devices.'
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: sessions
+          description: '*(BETA)*  Manage Device Run sessions.'
+          commands:
+            - name: cancel
+              description: '*(BETA)*  Cancel a Device Run session.'
+              flags:
+                --location=: Cloud location for the session.
+            - name: describe
+              description: '*(BETA)*  Describe a Device Run session.'
+              flags:
+                --full: Display full session details instead of the simplified summary.
+                --location=: Cloud location for the session.
+                --no-full&: Display full session details instead of the simplified summary.
+            - name: list
+              description: '*(BETA)*  List all Device Run sessions.'
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: submit
+              description: '*(BETA)*  Submit automation sessions with different types of jobs via Device Run.'
+              commands:
+                - name: instrumentation
+                  description: '*(BETA)*  Submit a Device Run session with an instrumentation job.'
+                  flags:
+                    --additional-test-options=: A dictionary of additional options to pass to the instrumentation test.
+                    --apps=: A list of application binary files (.apk, .aab, or .apks) to install before running the test.
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --bucket-name=: The name of a Google Cloud Storage bucket to store test artifacts, including
+                    --bugreport=: Specify when to collect bugreport from the device.
+                    --coordinates=: Specify the mock location coordinates (latitude and longitude) to set on the device before running the test.
+                    --device=!: Id of the device type to run the test on.
+                    --dumpsys=: Specify when to collect dumpsys from the device.
+                    --flaky-test-attempts=: Specify the maximum number of execution attempts per test shard to handle flakiness or infrastructure errors.
+                    --flaky-test-parallel-retry: Whether to retry the test failures in parallel.
+                    --flaky-test-retry-level=: Specify the level to retry the test failures.
+                    --instrumentation-timeout=: Specify the maximum duration allowed for the instrumentation test run (e.g., `10m`, `20s`, `1h`).
+                    --labels=: A dictionary of user-defined key-value labels to attach to the session.
+                    --locale=: Specify the locale (language and region) to switch the device to before running the test.
+                    --location=: ID of the location or fully qualified identifier for the location.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --no-flaky-test-parallel-retry&: Whether to retry the test failures in parallel.
+                    --orchestrator-version=: Specify the version of the Android Test Orchestrator to use during test execution.
+                    --orientation=: Specify the orientation to set the device to before running the test.
+                    --other-files-to-push=: A dictionary of additional files to be pushed to the device before running the test.
+                    --paths-to-pull=: A list of file or directory paths to pull from the device following test completion.
+                    --sharding-option=: Specify the sharding strategy to partition the test execution across multiple device allocations.
+                    --smart-sharding-max-shard-count=: Specify the maximum number of shards to create for smart sharding.
+                    --smart-sharding-record-name=: Specify the name of the smart sharding record file, excluding the file extension.
+                    --smart-sharding-target-duration=: Specify the targeted execution time (e.g., `2m`, `10m`, `1h`) per shard for smart sharding.
+                    --test-runner-class=: The instrumentation test runner class to use.
+                    --test-targets=: A list of test targets or target filters to run.
+                    --test=!: The path to the APK file containing instrumentation tests.
+                    --uniform-sharding-count=: Specify the total number of shards to create for uniform sharding.
+                    --video=: Specify when to record video of the device screen during the test run.
+                  completion:
+                    flag:
+                        bugreport:
+                            - always
+                            - on-failure
+                        dumpsys:
+                            - always
+                            - on-failure
+                        flaky-test-retry-level:
+                            - shard
+                            - test
+                        orientation:
+                            - portrait
+                            - landscape
+                        sharding-option:
+                            - uniform
+                            - smart
+                        video:
+                            - always
+                            - on-failure
     - name: dns
       description: '*(BETA)*  Manage your Cloud DNS managed-zones and record-sets.'
       commands:
@@ -34275,9 +34497,12 @@ commands:
                 --export-on-exit=: Directory path in which emulator data will be saved upon shutdown.
                 --host-port=: The host:port to which the emulator should be bound.
                 --import-data=: File path to the data to be loaded into the emulator upon start up.
+                --index-file=: File path to the index file to be used by the emulator.
                 --licenses: If set, the emulator will print open-source dependencies and licenses, then exit.
                 --no-licenses&: If set, the emulator will print open-source dependencies and licenses, then exit.
+                --no-require-indexes&: If set, the emulator will require composite indexes to be defined in the index file for all queries that require them.
                 --no-use-firestore-in-datastore-mode&: Runs the emulator in Datastore Mode.
+                --require-indexes: If set, the emulator will require composite indexes to be defined in the index file for all queries that require them.
                 --rules=: If set, all projects will use the security rules in this file.
                 --use-firestore-in-datastore-mode&: Runs the emulator in Datastore Mode.
               completion:
@@ -36146,6 +36371,7 @@ commands:
                 direct-vpc-egress:
                     - private-ranges-only
                     - all
+                    - all-traffic
                 docker-registry:
                     - artifact-registry
                     - container-registry
@@ -40617,6 +40843,25 @@ commands:
                 --page-size=: Some services group resource list output into pages.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: revisions
+              description: '*(BETA)*  Manage Acl Policy Revision resources.'
+              commands:
+                - name: describe
+                  description: '*(BETA)*  Describe aclPolicyRevisions.'
+                  flags:
+                    --acl-policy=: The aclPolicy id of the revision resource.
+                    --location=: The location id of the revision resource.
+                - name: list
+                  description: '*(BETA)*  List aclPolicyRevisions.'
+                  flags:
+                    --acl-policy=!: ID of the aclPolicy or fully qualified identifier for the aclPolicy.
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --location=: The location id of the aclPolicy resource.
+                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                    --page-size=: Some services group resource list output into pages.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --uri: Print a list of resource URIs instead of the default output, and change the
             - name: update
               description: '*(BETA)*  Update aclPolicies.'
               flags:
@@ -43379,6 +43624,7 @@ commands:
                 --allow-auto-tiering=: Boolean flag indicating whether Storage Pool is allowed to use auto-tiering
                 --async: Return immediately, without waiting for the operation in progress to
                 --capacity=!: The desired capacity of the Storage Pool in GiB or TiB units.If no capacity unit is specified, GiB is assumed.
+                --cluster=&: The name of the cluster.
                 --custom-performance-enabled=: Boolean flag indicating whether Storage Pool is a custom performance Storage Pool or not
                 --description=: A description of the Cloud NetApp Storage Pool
                 --enable-hot-tier-auto-resize=: Boolean flag indicating whether Storage Pool is allowed to use hot tier auto resize
@@ -47069,6 +47315,41 @@ commands:
     - name: network-services
       description: '*(BETA)*  Manage Network Services resources.'
       commands:
+        - name: agent-connectivity-templates
+          description: '*(BETA)*  Manage Network Services Agent Connectivity Templates.'
+          commands:
+            - name: delete
+              description: '*(BETA)*  Delete an Agent Connectivity Template.'
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location Id.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: describe
+              description: '*(BETA)*  Describe a Agent Connectivity Template.'
+              flags:
+                --location=: The location Id.
+            - name: export
+              description: '*(BETA)*  Export an Agent Connectivity Template.'
+              flags:
+                --destination=: Path to a YAML file where the configuration will be exported.
+                --location=: The location Id.
+            - name: import
+              description: '*(BETA)*  Import an Agent Connectivity Template.'
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location Id.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --source=: Path to a YAML file containing the configuration export data.
+            - name: list
+              description: '*(BETA)*  List Agent Connectivity Templates.'
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=!: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
         - name: agent-gateways
           description: '*(BETA)*  Manage Network Services AgentGateways.'
           commands:
@@ -55826,7 +56107,7 @@ commands:
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --organization=: The Google Cloud Platform organization ID to use for this invocation.
             - name: enable
-              description: '*(BETA)*  Enable a service for MCP on a project, folder or organization.'
+              description: '*(BETA)*  *(DEPRECATED)*  Enable a service for MCP on a project, folder or organization.'
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
                 --folder=: The Google Cloud Platform folder ID to use for this invocation.
@@ -55835,7 +56116,7 @@ commands:
                 --organization=: The Google Cloud Platform organization ID to use for this invocation.
                 --skip-mcp-endpoint-check&: If true, the system will bypass the check for MCP endpoint while enabling a service.
             - name: list
-              description: '*(BETA)*  List MCP services for a project, folder or organization.'
+              description: '*(BETA)*  *(DEPRECATED)*  List MCP services for a project, folder or organization.'
               flags:
                 --available: Return the services available to the project, folder or organization to enable for MCP.
                 --enabled: (DEFAULT) Return the MCP services which the project, folder or organization has enabled.
@@ -58649,6 +58930,50 @@ commands:
                 --password-policy-enable-failed-attempts-check: Enables the failed login attempts check if set to true.
                 --password-policy-enable-password-verification: The current password must be specified when altering the password.
                 --password-policy-password-expiration-duration=: Expiration duration after a password is updated, for example,
+    - name: support
+      description: '*(BETA)*  Manage Support resources.'
+      commands:
+        - name: support-event-subscriptions
+          description: '*(BETA)*  Manage Support Event Subscription resources.'
+          commands:
+            - name: create
+              description: '*(BETA)*  Create a support event subscription.'
+              flags:
+                --organization=!: Organization ID for the support event subscription.
+                --pub-sub-topic=!: The name of the Pub/Sub topic to publish notifications to.
+            - name: delete
+              description: '*(BETA)*  Delete supportEventSubscriptions.'
+              flags:
+                --organization=: The organization id of the supportEventSubscription resource.
+            - name: describe
+              description: '*(BETA)*  Describe supportEventSubscriptions.'
+              flags:
+                --organization=: The organization id of the supportEventSubscription resource.
+            - name: expunge
+              description: '*(BETA)*  expunge supportEventSubscriptions.'
+              flags:
+                --organization=: The organization id of the supportEventSubscription resource.
+            - name: list
+              description: '*(BETA)*  List supportEventSubscriptions.'
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-show-deleted&: Whether to show deleted subscriptions.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --organization=!: ID of the organization or fully qualified identifier for the organization.
+                --page-size=: Some services group resource list output into pages.
+                --show-deleted: Whether to show deleted subscriptions.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: undelete
+              description: '*(BETA)*  undelete supportEventSubscriptions.'
+              flags:
+                --organization=: The organization id of the supportEventSubscription resource.
+            - name: update
+              description: '*(BETA)*  Update supportEventSubscriptions.'
+              flags:
+                --organization=: The organization id of the supportEventSubscription resource.
+                --pub-sub-topic=: The name of the Pub/Sub topic to publish notifications to.
     - name: survey
       description: '*(BETA)*  Invoke a customer satisfaction survey for Google Cloud CLI.'
     - name: tasks

@@ -1,0 +1,106 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: quotas
+description: Manage Cloud Quotas quota info, quota preferences and quota adjuster settings.
+commands:
+    - name: adjuster
+      description: The command group for Cloud Quotas Adjuster.
+      commands:
+        - name: settings
+          description: The command group for Cloud Quotas AdjusterSettings.
+          commands:
+            - name: describe
+              description: Gets details of the QuotaAdjusterSettings for a resource container.
+              flags:
+                --folder=: Folder of the container id.
+                --organization=: Organization of the container id.
+            - name: update
+              description: Update the QuotaAdjusterSettings of a resource container.
+              flags:
+                --enablement=!: Enablement state of the QuotaAdjusterSettings.
+                --folder=: Folder of the container id.
+                --no-validate-only&: If specified, only validates the request, but does not actually update.
+                --organization=: Organization of the container id.
+                --validate-only: If specified, only validates the request, but does not actually update.
+              completion:
+                flag:
+                    enablement:
+                        - enabled
+                        - disabled
+                        - inherited
+    - name: info
+      description: Manage Cloud Quotas QuotaInfo.
+      commands:
+        - name: describe
+          description: Retrieve the QuotaInfo of a quota for a project, folder or organization.
+          flags:
+            --folder=: Folder of the quota info to describe.
+            --organization=: Organization of the quota info to describe.
+            --service=!: Name of the service in which the quota is defined.
+        - name: list
+          description: List QuotaInfos of all quotas for a given project, folder or organization.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --folder=: Folder of the quota info to list.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --organization=: Organization of the quota info to list.
+            --page-size=: Some services group resource list output into pages.
+            --service=!: Name of the service in which the quota is defined.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: preferences
+      description: Manage Cloud Quotas QuotaPreferences.
+      commands:
+        - name: create
+          description: Create a new QuotaPreference that declares the desired value for a quota.
+          flags:
+            --allow-high-percentage-quota-decrease: If specified, allows you to reduce your effective limit by more than 10 percent.
+            --allow-quota-decrease-below-usage: If specified, allows you to reduce your effective limit below your quota usage.
+            --dimensions=: Dimensions of the quota.
+            --email=: An optional email address that can be used for quota related communication between the Google Cloud and the user in case the Google Cloud needs further information to make a decision on whether the user preferred quota can be granted.
+            --folder=: Folder of the quota preference to create.
+            --justification=: A short statement to justify quota increase requests.
+            --no-allow-high-percentage-quota-decrease&: If specified, allows you to reduce your effective limit by more than 10 percent.
+            --no-allow-quota-decrease-below-usage&: If specified, allows you to reduce your effective limit below your quota usage.
+            --organization=: Organization of the quota preference to create.
+            --preference-id=: ID of the Quota Preference object, must be unique under its parent.
+            --preferred-value=!: Preferred value.
+            --quota-id=!: ID of the quota, which is unique within the service.
+            --service=!: Name of the service in which the quota is defined.
+        - name: describe
+          description: Get details about a single QuotaPreference.
+          flags:
+            --folder=: Folder of the quota preference to describe.
+            --organization=: Organization of the quota preference to describe.
+        - name: list
+          description: List QuotaPreferences in a given project, folder or organization.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --folder=: Folder of the quota preferences to list.
+            --limit=: Maximum number of resources to list.
+            --no-reconciling-only&: If specified, only displays quota preferences in unresolved states.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --organization=: Organization of the quota preferences to list.
+            --page-size=: Some services group resource list output into pages.
+            --reconciling-only: If specified, only displays quota preferences in unresolved states.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update the parameters of a single QuotaPreference.
+          flags:
+            --allow-high-percentage-quota-decrease: If specified, allows you to reduce your effective limit by more than 10 percent.
+            --allow-missing: If specified and the quota preference is not found, a new one will be created.
+            --allow-quota-decrease-below-usage: If specified, allows you to reduce your effective limit below your quota usage.
+            --dimensions=: Dimensions of the quota.
+            --email=: An optional email address that can be used for quota related communication between the Google Cloud and the user in case the Google Cloud needs further information to make a decision on whether the user preferred quota can be granted.
+            --folder=: Folder of the quota preference to update.
+            --justification=: A short statement to justify quota increase requests.
+            --no-allow-high-percentage-quota-decrease&: If specified, allows you to reduce your effective limit by more than 10 percent.
+            --no-allow-missing&: If specified and the quota preference is not found, a new one will be created.
+            --no-allow-quota-decrease-below-usage&: If specified, allows you to reduce your effective limit below your quota usage.
+            --no-validate-only&: If specified, only validates the request, but does not actually update.
+            --organization=: Organization of the quota preference to update.
+            --preferred-value=!: Preferred value.
+            --quota-id=!: ID of the quota, which is unique within the service.
+            --service=!: Name of the service in which the quota is defined.
+            --validate-only: If specified, only validates the request, but does not actually update.

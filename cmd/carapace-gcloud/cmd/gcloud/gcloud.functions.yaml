@@ -128,6 +128,7 @@ commands:
             direct-vpc-egress:
                 - private-ranges-only
                 - all
+                - all-traffic
             docker-registry:
                 - artifact-registry
                 - container-registry
@@ -259,3 +260,22 @@ commands:
         --gen2&: If enabled, this command will use Cloud Functions (Second generation).
         --no-gen2&: If enabled, this command will use Cloud Functions (Second generation).
         --region=: The Cloud region for the function.
+    - name: upgrade
+      description: Upgrade a 1st gen Cloud Function to the Cloud Run function.
+      flags:
+        --abort: Undoes all steps of the upgrade process done so far.
+        --commit: Finishes the upgrade process and permanently deletes the original 1st gen copy of the function.
+        --max-instances=: Sets the maximum number of instances for the function.
+        --no-abort&: Undoes all steps of the upgrade process done so far.
+        --no-commit&: Finishes the upgrade process and permanently deletes the original 1st gen copy of the function.
+        --no-redirect-traffic&: Redirects production traffic to the 2nd gen copy of the function.
+        --no-rollback-traffic&: Rolls back production traffic to the original 1st gen copy of the function.
+        --no-setup-config&: Sets up the function upgrade config by creating a 2nd gen copy of the function's code and configuration.
+        --no-skip-detach&: The function will not be detached when committing the upgrade to allow continued use of the Cloud Functions v2 API.
+        --redirect-traffic: Redirects production traffic to the 2nd gen copy of the function.
+        --region=: The Cloud region for the function.
+        --rollback-traffic: Rolls back production traffic to the original 1st gen copy of the function.
+        --runtime=: Runtime in which to run the function.
+        --setup-config: Sets up the function upgrade config by creating a 2nd gen copy of the function's code and configuration.
+        --skip-detach: The function will not be detached when committing the upgrade to allow continued use of the Cloud Functions v2 API.
+        --trigger-service-account=: The email address of the IAM service account associated with the Eventarc
