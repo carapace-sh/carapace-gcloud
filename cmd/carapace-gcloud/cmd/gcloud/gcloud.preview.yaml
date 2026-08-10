@@ -384,8 +384,6 @@ commands:
                 --global: If set, the backend service is global.
                 --global-health-checks: If set, the health checks are global.
                 --ha-policy-fast-ip-move=&: Fast IP move policy for high availability (HA).
-                --ha-policy-leader-backend-group=&: A fully-qualified URL of the zonal Network Endpoint Group (NEG) with
-                --ha-policy-leader-instance=&: The name of the VM instance of the leader network endpoint.
                 --health-checks-region=: Region of the health checks to operate on.
                 --health-checks=: Specifies a list of health check objects for checking the health of
                 --http-health-checks=: Specifies a list of legacy HTTP health check objects for checking the
@@ -1254,6 +1252,11 @@ commands:
               flags:
                 --region=: Region of the consistency group's primary or secondary disks.
                 --zone=: Zone of the consistency group's primary or secondary disks.
+            - name: test-iam-permissions
+              description: '*(PREVIEW)*  Test IAM permissions for a Compute Engine disk.'
+              flags:
+                --permissions=!: Permissions to be tested.
+                --zone=: The name of the Google Compute Engine zone.
             - name: update
               description: '*(PREVIEW)*  Update a Compute Engine Hyperdisk or Persistent Disk.'
               flags:
@@ -2354,6 +2357,10 @@ commands:
                 --regexp=: (DEPRECATED)         Regular expression to filter the names of the results  on.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: test-iam-permissions
+              description: '*(PREVIEW)*  Test IAM permissions for a Compute Engine HTTP health check.'
+              flags:
+                --permissions=!: Permissions to be tested.
             - name: update
               description: '*(PREVIEW)*  Update a legacy HTTP health check.'
               flags:
@@ -3515,6 +3522,7 @@ commands:
               completion:
                 flag:
                     confidential-compute-type:
+                        - CCA
                         - SEV
                         - SEV_SNP
                         - TDX
@@ -3893,6 +3901,7 @@ commands:
                   completion:
                     flag:
                         confidential-compute-type:
+                            - CCA
                             - SEV
                             - SEV_SNP
                             - TDX
@@ -4061,6 +4070,7 @@ commands:
               completion:
                 flag:
                     confidential-compute-type:
+                        - CCA
                         - SEV
                         - SEV_SNP
                         - TDX
@@ -4210,6 +4220,7 @@ commands:
               completion:
                 flag:
                     confidential-compute-type:
+                        - CCA
                         - SEV
                         - SEV_SNP
                         - TDX
@@ -4449,6 +4460,7 @@ commands:
                     --aliases=: The IP alias ranges to allocate for this interface.
                     --external-ipv6-address=: Assigns the given external IPv6 address to an instance.
                     --external-ipv6-prefix-length=: The prefix length of the external IPv6 address range.
+                    --igmp-query=: Determines if the Compute Engine instance can receive and respond to IGMP query packets on the specified network interface.
                     --internal-ipv6-address=: Assigns the given internal IPv6 address or range to an instance.
                     --internal-ipv6-prefix-length=: Optional field that indicates the prefix length of the internal IPv6
                     --ipv6-network-tier=: Specifies the IPv6 network tier that will be used to configure the instance network interface IPv6 access config.
@@ -4465,6 +4477,9 @@ commands:
                     --zone=: Zone of the instance to operate on.
                   completion:
                     flag:
+                        igmp-query:
+                            - IGMP_QUERY_DISABLED
+                            - IGMP_QUERY_V2
                         ipv6-network-tier:
                             - PREMIUM
                         network-tier:
@@ -4771,6 +4786,11 @@ commands:
               description: '*(PREVIEW)*  Periodically fetch new output from a virtual machine instance''s serial port and display it as it becomes available.'
               flags:
                 --port=: Instances can support up to four serial port outputs, numbered 1 through
+                --zone=: Zone of the instance to operate on.
+            - name: test-iam-permissions
+              description: '*(PREVIEW)*  Test IAM permissions for a Compute Engine instance.'
+              flags:
+                --permissions=!: Single IAM permission to test.
                 --zone=: Zone of the instance to operate on.
             - name: update
               description: '*(PREVIEW)*  Update a Compute Engine virtual machine.'
@@ -5455,6 +5475,8 @@ commands:
                   description: '*(PREVIEW)*  Remove member interconnects from a Compute Engine interconnect group.'
                   flags:
                     --interconnects=!: Member interconnects to add to or remove from the interconnect group.
+                - name: set-iam-policy
+                  description: '*(PREVIEW)*  Set the IAM policy for a Compute Engine interconnect group.'
                 - name: update
                   description: '*(PREVIEW)*  Update a Compute Engine interconnect group.'
                   flags:
@@ -6009,6 +6031,7 @@ commands:
                     policy-type:
                         - VPC_POLICY
                         - RDMA_ROCE_POLICY
+                        - ULL_POLICY
             - name: delete
               description: '*(PREVIEW)*  Delete a Compute Engine network firewall policy.'
               flags:
@@ -6253,6 +6276,10 @@ commands:
                 --global: If set, the firewall policy is global.
                 --no-global&: If set, the firewall policy is global.
                 --region=: Region of the firewall policy to get.
+            - name: test-iam-permissions
+              description: '*(PREVIEW)*  Test IAM permissions for a Compute Engine network firewall policy.'
+              flags:
+                --permissions=!: The permissions to test.
             - name: update
               description: '*(PREVIEW)*  Update a Compute Engine network firewall policy.'
               flags:
@@ -9797,6 +9824,7 @@ commands:
                 --limit=: Maximum number of resources to list.
                 --no-uri&: Print a list of resource URIs instead of the default output, and change the
                 --page-size=: Some services group resource list output into pages.
+                --regexp=: (DEPRECATED)         Regular expression to filter the names of the results  on.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
             - name: update
@@ -10099,6 +10127,11 @@ commands:
                 --regions=: If provided, only resources from the given regions are queried.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: test-iam-permissions
+              description: '*(PREVIEW)*  Test IAM permissions for a Compute Engine VPN gateway.'
+              flags:
+                --permissions=!: Permissions to be tested.
+                --region=: The name of the Google Compute Engine region.
             - name: update
               description: '*(PREVIEW)*  Update a Compute Engine Highly Available VPN gateway.'
               flags:

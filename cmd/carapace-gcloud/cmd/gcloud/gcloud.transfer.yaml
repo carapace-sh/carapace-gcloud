@@ -71,7 +71,7 @@ commands:
                     - integrity
                     - privacy
     - name: authorize
-      description: Authorize an account for all Transfer Service features.
+      description: Authorize an account for all Storage Transfer Service features.
       flags:
         --add-missing: Add IAM roles necessary to use all Transfer Service features to the specified account.
         --creds-file=: The path to the creds file for an account to authorize.
@@ -88,9 +88,9 @@ commands:
             --destination-agent-pool=: If using a POSIX filesystem destination, specify the ID of the agent pool associated with destination filesystem.
             --do-not-run: Disable default Transfer Service behavior of running job upon creation if no schedule is set.
             --enable-posix-transfer-logs: Sets whether to generate logs for transfers with a POSIX filesystem source.
-            --event-stream-expires=: Set when to stop listening for events UTC using the %Y-%m-%dT%H:%M:%S%z datetime format (e.g., 2020-04-12T06:42:12+04:00).
-            --event-stream-name=: Specify an event stream that Storage Transfer Service can use to listen for when objects are created or updated.
-            --event-stream-starts=: Set when to start listening for events UTC using the %Y-%m-%dT%H:%M:%S%z datetime format (e.g., 2020-04-12T06:42:12+04:00).
+            --event-stream-expires=: When to stop listening for events, in UTC using the %Y-%m-%dT%H:%M:%S%z datetime format (e.g., `2020-04-12T06:42:12+04:00`).
+            --event-stream-name=: Specify the event stream used to listen for object creations and updates.
+            --event-stream-starts=: When to start listening for events, in UTC using the %Y-%m-%dT%H:%M:%S%z datetime format (e.g., `2020-04-12T06:42:12+04:00`).
             --exclude-prefixes=: Exclude any objects that start with the prefix(es) entered.
             --include-modified-after-absolute=: Include objects last modified after an absolute date/time.
             --include-modified-after-relative=: Include objects that were modified after a relative date/time in the past.
@@ -105,13 +105,13 @@ commands:
             --no-async: For jobs set to run upon creation, this flag blocks other tasks in your terminal until the job's initial, immediate transfer operation has completed.
             --no-do-not-run&: Disable default Transfer Service behavior of running job upon creation if no schedule is set.
             --no-enable-posix-transfer-logs&: Sets whether to generate logs for transfers with a POSIX filesystem source.
-            --no-replication&: Enable replication to automatically copy all new and existing objects from the source to the destination.
+            --no-replication&: Enable replication to automatically copy all new and existing objects from one Cloud Storage bucket to another.
             --notification-event-types=: Define which change of transfer operation status will trigger Pub/Sub notifications.
             --notification-payload-format=: If 'none', no transfer operation details are included with notifications.
             --notification-pubsub-topic=: Pub/Sub topic used for notifications.
             --overwrite-when=: Determine when destination objects are overwritten by source objects.
             --preserve-metadata=: Specify object metadata values that can optionally be preserved.
-            --replication: Enable replication to automatically copy all new and existing objects from the source to the destination.
+            --replication: Enable replication to automatically copy all new and existing objects from one Cloud Storage bucket to another.
             --s3-cloudfront-domain=: For transfers from S3, optionally route egress traffic through a CloudFront instance.
             --schedule-repeats-every=: Set the frequency of the job using the absolute duration format (e.g., 1 month is p1m; 1 hour 30 minutes is 1h30m).
             --schedule-repeats-until=: Set when the job will stop recurring using the %Y-%m-%dT%H:%M:%S%z datetime format (e.g., 2020-04-12T06:42:12+04:00).
@@ -180,7 +180,7 @@ commands:
             --clear-delete-from: Remove a specified deletion option from the transfer job.
             --clear-description: Remove the description from the transfer job.
             --clear-destination-agent-pool: Remove the destination agent pool from the transfer job.
-            --clear-event-stream: Remove the job's entire event stream configuration by clearing all scheduling all event stream flags.
+            --clear-event-stream: Remove the job's entire event stream configuration by clearing all event stream flags.
             --clear-exclude-prefixes: Remove the list of object prefixes to exclude from the object conditions.
             --clear-include-modified-after-absolute: Remove the minimum modification datetime from the object conditions.
             --clear-include-modified-after-relative: Remove the minimum duration since modification from the object conditions.
@@ -209,9 +209,9 @@ commands:
             --destination-agent-pool=: If using a POSIX filesystem destination, specify the ID of the agent pool associated with destination filesystem.
             --destination=: The destination of your transferred data.
             --enable-posix-transfer-logs: Sets whether to generate logs for transfers with a POSIX filesystem source.
-            --event-stream-expires=: Set when to stop listening for events UTC using the %Y-%m-%dT%H:%M:%S%z datetime format (e.g., 2020-04-12T06:42:12+04:00).
-            --event-stream-name=: Specify an event stream that Storage Transfer Service can use to listen for when objects are created or updated.
-            --event-stream-starts=: Set when to start listening for events UTC using the %Y-%m-%dT%H:%M:%S%z datetime format (e.g., 2020-04-12T06:42:12+04:00).
+            --event-stream-expires=: When to stop listening for events, in UTC using the %Y-%m-%dT%H:%M:%S%z datetime format (e.g., `2020-04-12T06:42:12+04:00`).
+            --event-stream-name=: Specify the event stream used to listen for object creations and updates.
+            --event-stream-starts=: When to start listening for events, in UTC using the %Y-%m-%dT%H:%M:%S%z datetime format (e.g., `2020-04-12T06:42:12+04:00`).
             --exclude-prefixes=: Exclude any objects that start with the prefix(es) entered.
             --include-modified-after-absolute=: Include objects last modified after an absolute date/time.
             --include-modified-after-relative=: Include objects that were modified after a relative date/time in the past.
@@ -226,7 +226,7 @@ commands:
             --no-clear-delete-from&: Remove a specified deletion option from the transfer job.
             --no-clear-description&: Remove the description from the transfer job.
             --no-clear-destination-agent-pool&: Remove the destination agent pool from the transfer job.
-            --no-clear-event-stream&: Remove the job's entire event stream configuration by clearing all scheduling all event stream flags.
+            --no-clear-event-stream&: Remove the job's entire event stream configuration by clearing all event stream flags.
             --no-clear-exclude-prefixes&: Remove the list of object prefixes to exclude from the object conditions.
             --no-clear-include-modified-after-absolute&: Remove the minimum modification datetime from the object conditions.
             --no-clear-include-modified-after-relative&: Remove the minimum duration since modification from the object conditions.

@@ -391,8 +391,6 @@ commands:
             --global: If set, the backend service is global.
             --global-health-checks: If set, the health checks are global.
             --ha-policy-fast-ip-move=&: Fast IP move policy for high availability (HA).
-            --ha-policy-leader-backend-group=&: A fully-qualified URL of the zonal Network Endpoint Group (NEG) with
-            --ha-policy-leader-instance=&: The name of the VM instance of the leader network endpoint.
             --health-checks-region=: Region of the health checks to operate on.
             --health-checks=: Specifies a list of health check objects for checking the health of
             --http-health-checks=: Specifies a list of legacy HTTP health check objects for checking the
@@ -1307,6 +1305,11 @@ commands:
           flags:
             --region=: Region of the consistency group's primary or secondary disks.
             --zone=: Zone of the consistency group's primary or secondary disks.
+        - name: test-iam-permissions
+          description: Test IAM permissions for a Compute Engine disk.
+          flags:
+            --permissions=!: Permissions to be tested.
+            --zone=: The name of the Google Compute Engine zone.
         - name: update
           description: Update a Compute Engine Hyperdisk or Persistent Disk.
           flags:
@@ -2543,6 +2546,40 @@ commands:
             --no-async&: Return immediately, without waiting for the operation in progress to
             --region=: The name of the Google Compute Engine region.
             --sources=: URLs to the source resources.
+    - name: hosts
+      description: Read Compute Engine hosts.
+      commands:
+        - name: describe
+          description: Describe a Google Compute Engine host.
+          flags:
+            --association=: The association of the host.
+            --reservation-block=: Name of the reservation block the host is associated with.
+            --reservation=: Name of the reservation the host is associated with.
+            --zone=: The name of the Google Compute Engine zone.
+        - name: get-version
+          description: Get software versions for a Compute Engine host.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --current: Include current SBOM selection in the result.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-current&: Include current SBOM selection in the result.
+            --no-target&: Include target SBOM selection in the result.
+            --reservation-block=: Name of the reservation block the host is associated with.
+            --reservation=: Name of the reservation the host is associated with.
+            --target: Include target SBOM selection in the result.
+            --zone=: Zone of the host to get version setting for.
+        - name: list
+          description: List Google Compute Engine hosts.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --reservation-block=: Name of the reservation block the hosts are associated with.
+            --reservation=: Name of the reservation the hosts are associated with.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+            --zone=: ID of the zone or fully qualified identifier for the zone.
     - name: http-health-checks
       description: Read and manipulate HTTP health checks for load balanced instances.
       commands:
@@ -2571,6 +2608,10 @@ commands:
             --regexp=: (DEPRECATED)         Regular expression to filter the names of the results  on.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: test-iam-permissions
+          description: Test IAM permissions for a Compute Engine HTTP health check.
+          flags:
+            --permissions=!: Permissions to be tested.
         - name: update
           description: Update a legacy HTTP health check.
           flags:
@@ -3732,6 +3773,7 @@ commands:
           completion:
             flag:
                 confidential-compute-type:
+                    - CCA
                     - SEV
                     - SEV_SNP
                     - TDX
@@ -4110,6 +4152,7 @@ commands:
               completion:
                 flag:
                     confidential-compute-type:
+                        - CCA
                         - SEV
                         - SEV_SNP
                         - TDX
@@ -4278,6 +4321,7 @@ commands:
           completion:
             flag:
                 confidential-compute-type:
+                    - CCA
                     - SEV
                     - SEV_SNP
                     - TDX
@@ -4427,6 +4471,7 @@ commands:
           completion:
             flag:
                 confidential-compute-type:
+                    - CCA
                     - SEV
                     - SEV_SNP
                     - TDX
@@ -4666,6 +4711,7 @@ commands:
                 --aliases=: The IP alias ranges to allocate for this interface.
                 --external-ipv6-address=: Assigns the given external IPv6 address to an instance.
                 --external-ipv6-prefix-length=: The prefix length of the external IPv6 address range.
+                --igmp-query=: Determines if the Compute Engine instance can receive and respond to IGMP query packets on the specified network interface.
                 --internal-ipv6-address=: Assigns the given internal IPv6 address or range to an instance.
                 --internal-ipv6-prefix-length=: Optional field that indicates the prefix length of the internal IPv6
                 --ipv6-network-tier=: Specifies the IPv6 network tier that will be used to configure the instance network interface IPv6 access config.
@@ -4682,6 +4728,9 @@ commands:
                 --zone=: Zone of the instance to operate on.
               completion:
                 flag:
+                    igmp-query:
+                        - IGMP_QUERY_DISABLED
+                        - IGMP_QUERY_V2
                     ipv6-network-tier:
                         - PREMIUM
                     network-tier:
@@ -4988,6 +5037,11 @@ commands:
           description: Periodically fetch new output from a virtual machine instance's serial port and display it as it becomes available.
           flags:
             --port=: Instances can support up to four serial port outputs, numbered 1 through
+            --zone=: Zone of the instance to operate on.
+        - name: test-iam-permissions
+          description: Test IAM permissions for a Compute Engine instance.
+          flags:
+            --permissions=!: Single IAM permission to test.
             --zone=: Zone of the instance to operate on.
         - name: update
           description: Update a Compute Engine virtual machine.
@@ -5706,6 +5760,8 @@ commands:
               description: Remove member interconnects from a Compute Engine interconnect group.
               flags:
                 --interconnects=!: Member interconnects to add to or remove from the interconnect group.
+            - name: set-iam-policy
+              description: Set the IAM policy for a Compute Engine interconnect group.
             - name: update
               description: Update a Compute Engine interconnect group.
               flags:
@@ -6395,6 +6451,7 @@ commands:
                 policy-type:
                     - VPC_POLICY
                     - RDMA_ROCE_POLICY
+                    - ULL_POLICY
         - name: delete
           description: Delete a Compute Engine network firewall policy.
           flags:
@@ -6639,6 +6696,10 @@ commands:
             --global: If set, the firewall policy is global.
             --no-global&: If set, the firewall policy is global.
             --region=: Region of the firewall policy to get.
+        - name: test-iam-permissions
+          description: Test IAM permissions for a Compute Engine network firewall policy.
+          flags:
+            --permissions=!: The permissions to test.
         - name: update
           description: Update a Compute Engine network firewall policy.
           flags:
@@ -8146,6 +8207,40 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --zone=: The name of the Google Compute Engine zone.
+        - name: hosts
+          description: Read Compute Engine reservation hosts.
+          commands:
+            - name: describe
+              description: Describe a Google Compute Engine host in a reservation.
+              flags:
+                --association=: The association of the host.
+                --reservation-block=: Name of the reservation block the host is associated with.
+                --reservation=: Name of the reservation the host is associated with.
+                --zone=: The name of the Google Compute Engine zone.
+            - name: get-version
+              description: Get software versions for a Compute Engine host in a reservation.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --current: Include current SBOM selection in the result.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-current&: Include current SBOM selection in the result.
+                --no-target&: Include target SBOM selection in the result.
+                --reservation-block=: Name of the reservation block the host is associated with.
+                --reservation=: Name of the reservation the host is associated with.
+                --target: Include target SBOM selection in the result.
+                --zone=: Zone of the host to get version setting for.
+            - name: list
+              description: List Google Compute Engine hosts for a reservation.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --reservation-block=: Name of the reservation block the hosts are associated with.
+                --reservation=: Name of the reservation the hosts are associated with.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+                --zone=: ID of the zone or fully qualified identifier for the zone.
         - name: list
           description: List Compute Engine reservations.
           flags:
@@ -10634,6 +10729,7 @@ commands:
             --limit=: Maximum number of resources to list.
             --no-uri&: Print a list of resource URIs instead of the default output, and change the
             --page-size=: Some services group resource list output into pages.
+            --regexp=: (DEPRECATED)         Regular expression to filter the names of the results  on.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
         - name: update
@@ -11331,6 +11427,11 @@ commands:
             --regions=: If provided, only resources from the given regions are queried.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: test-iam-permissions
+          description: Test IAM permissions for a Compute Engine VPN gateway.
+          flags:
+            --permissions=!: Permissions to be tested.
+            --region=: The name of the Google Compute Engine region.
         - name: update
           description: Update a Compute Engine Highly Available VPN gateway.
           flags:
