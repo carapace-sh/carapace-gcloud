@@ -6754,8 +6754,8 @@ commands:
                     --replica-zones=: A comma-separated list of exactly 2 URLs of the zones where the disk should be replicated to.
                     --resource-policies=: A list of resource policy names to be added to the disk.
                     --size=: Size of the disk in GB.
-                    --source-instance-boot-disk&: Whether to restore the boot disk of the instance.
-                    --source-instance-disk-device-name=&: The device name of the disk to be restored.
+                    --source-instance-boot-disk: Whether to restore the boot disk of the instance.
+                    --source-instance-disk-device-name=: The device name of the disk to be restored.
                     --storage-pool=: Specifies the URI of the storage pool in which the disk is created.
                     --target-project=!: Project where the restore should happen.
                     --target-region=: Region where the target disk is restored.
@@ -9889,7 +9889,7 @@ commands:
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --private-key-file=!: Private key data in PEM-encoded form.
                 --scope=: Scope of the managed certificate.
-                --tags=&: List of tag KEY=VALUE pairs to add.
+                --tags=: List of tags KEY=VALUE pairs to bind.
               completion:
                 flag:
                     scope:
@@ -9942,7 +9942,7 @@ commands:
                 --labels=: List of label KEY=VALUE pairs to add.
                 --location=: Certificate Manager location.
                 --no-async&: Return immediately, without waiting for the operation in progress to
-                --tags=&: List of tag KEY=VALUE pairs to add.
+                --tags=: List of tags KEY=VALUE pairs to bind.
                 --type=: Type of the DNS authorization.
               completion:
                 flag:
@@ -9996,7 +9996,7 @@ commands:
                 --location=: Certificate Manager location.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --rotation-window-percentage=: How long along the lifetime of the ceritificate to renew, expressed as a percentage.
-                --tags=&: List of tag KEY=VALUE pairs to add.
+                --tags=: List of tags KEY=VALUE pairs to bind.
               completion:
                 flag:
                     key-algorithm:
@@ -10044,7 +10044,7 @@ commands:
                 --labels=: List of label KEY=VALUE pairs to add.
                 --location=: The Cloud location for the certificate map.
                 --no-async&: Return immediately, without waiting for the operation in progress to
-                --tags=&: List of tags KEY=VALUE pairs to bind.
+                --tags=: List of tags KEY=VALUE pairs to bind.
             - name: delete
               description: '*(BETA)*  Delete a certificate map.'
               flags:
@@ -10157,7 +10157,7 @@ commands:
                 --labels=: List of label KEY=VALUE pairs to add.
                 --location=: Certificate Manager location.
                 --no-async&: Return immediately, without waiting for the operation in progress to
-                --tags=&: List of tag KEY=VALUE pairs to add.
+                --tags=: List of tags KEY=VALUE pairs to bind.
                 --trust-store=: Trust Store with the given trust anchor and intermediate CA PEM-encoded certificates.
             - name: delete
               description: '*(BETA)*  Delete TrustConfig.'
@@ -11635,11 +11635,13 @@ commands:
                 --cache-key-query-string-blacklist=: Specifies a comma separated list of query string parameters to exclude
                 --cache-key-query-string-whitelist=: Specifies a comma separated list of query string parameters to include
                 --cache-mode=: Specifies the cache setting for all responses from this backend.
+                --circuit-breakers-max-requests=: Maximum number of parallel requests that can be made to all instances in
                 --client-ttl=: Specifies a separate client (for example, browser client) TTL, separate from the TTL
                 --compression-mode=: Compress text responses using Brotli or gzip compression, based on
                 --connection-drain-on-failover: Applicable only for backend service-based external and internal
                 --connection-draining-timeout=: Connection draining timeout to be used during removal of VMs from
                 --connection-persistence-on-unhealthy-backends=: Specifies connection persistence when backends are unhealthy.
+                --consistent-hash-minimum-ring-size=: The minimum number of virtual nodes to use for the hash ring when a
                 --custom-metrics-file=: File path to json file with custom metrics that are used for
                 --custom-metrics=: List of custom metrics that are used for
                 --custom-request-header=: Specifies a HTTP Header to be added by your load balancer.
@@ -11901,6 +11903,13 @@ commands:
                 --global: If set, the backend service is global.
                 --no-global&: If set, the backend service is global.
                 --region=: Region of the backend service to operate on.
+            - name: test-iam-permissions
+              description: '*(BETA)*  Test IAM permissions for a Compute Engine backend service.'
+              flags:
+                --global: If set, the backend service is global.
+                --no-global&: If set, the backend service is global.
+                --permissions=!: The set of permissions to check for the resource.
+                --region=: Region of the backend service to operate on.
             - name: update
               description: '*(BETA)*  Update a backend service.'
               flags:
@@ -11916,6 +11925,7 @@ commands:
                 --cache-key-query-string-blacklist=: Specifies a comma separated list of query string parameters to exclude
                 --cache-key-query-string-whitelist=: Specifies a comma separated list of query string parameters to include
                 --cache-mode=: Specifies the cache setting for all responses from this backend.
+                --circuit-breakers-max-requests=: Maximum number of parallel requests that can be made to all instances in
                 --clear-custom-metrics: Clears current list of CUSTOM_METRICS.
                 --clear-external-managed-migration-state: Clears current state of external managed migration.
                 --client-ttl=: Specifies a separate client (for example, browser client) TTL, separate from the TTL
@@ -11923,6 +11933,7 @@ commands:
                 --connection-drain-on-failover: Applicable only for backend service-based external and internal
                 --connection-draining-timeout=: Connection draining timeout to be used during removal of VMs from
                 --connection-persistence-on-unhealthy-backends=: Specifies connection persistence when backends are unhealthy.
+                --consistent-hash-minimum-ring-size=: The minimum number of virtual nodes to use for the hash ring when a
                 --custom-metrics-file=: File path to json file with custom metrics that are used for
                 --custom-metrics=: List of custom metrics that are used for
                 --custom-request-header=: Specifies a HTTP Header to be added by your load balancer.
@@ -12469,10 +12480,12 @@ commands:
                   description: '*(BETA)*  Create multiple Compute Engine disks or a consistency group of instant snapshots.'
                   flags:
                     --region=: The region in which to create the disks, which must be the same as the source region.
+                    --snapshot-group-params=&: Parameters of the Snapshot Group to restore from.
                     --source-consistency-group-policy=: URL of the format regions/<REGION>/resourcePolicies/<RESOURCE_POLICY> of the source consistency group resource policy.
                     --source-instant-snapshot-group-region=: Region of the source instant snapshot group to operate on.
                     --source-instant-snapshot-group-zone=: Zone of the source instant snapshot group to operate on.
                     --source-instant-snapshot-group=: URL of the format regions/<REGION>/instantSnapshotGroups/<INSTANT_SNAPSHOT_GROUP> or zones/<ZONE>/instantSnapshotGroups/<INSTANT_SNAPSHOT_GROUP> of the source consistency group of instant snapshots used to create the disks.
+                    --source-snapshot-group=&: Source snapshot group used to create the disks.
                     --zone=: The zone in which to create the disks, which must be the same as the source zone.
                 - name: set-labels
                   description: '*(BETA)*  Add or remove labels on multiple Compute Engine disks.'
@@ -12507,6 +12520,7 @@ commands:
                 --image-project=: The Google Cloud project against which all image and
                 --image=: An image to apply to the disks being created.
                 --interface=: Specifies the disk interface to use for attaching this disk.
+                --kms-key-service-account=: Service account email to use when requesting encryption for the specified KMS key.
                 --kms-key=!: ID of the key or fully qualified identifier for the key.
                 --kms-keyring=: The KMS keyring of the key.
                 --kms-location=: The Google Cloud location for the key.
@@ -13009,6 +13023,11 @@ commands:
               description: '*(BETA)*  Set the IAM policy for a Compute Engine organization firewall policy.'
               flags:
                 --organization=: Organization ID in which the organization firewall policy is to be set.
+            - name: test-iam-permissions
+              description: '*(BETA)*  Test IAM permissions for a Compute Engine organization firewall policy.'
+              flags:
+                --organization=: Organization ID in which the organization firewall policy is to be described.
+                --permissions=!: The permissions to test.
             - name: update
               description: '*(BETA)*  Update a Compute Engine organization firewall policy.'
               flags:
@@ -14152,6 +14171,7 @@ commands:
                 --force-create: (DEPRECATED)           DEPRECATED, use --force instead.
                 --guest-os-features=: Enables one or more features for VM instances that use the
                 --key-exchange-key-file=: Comma-separated list of file paths that point to X.509 certificates in DER
+                --kms-key-service-account=: Service account being used for the encryption request for the given KMS key.
                 --kms-key=!: ID of the key or fully qualified identifier for the key.
                 --kms-keyring=: The KMS keyring of the key.
                 --kms-location=: The Google Cloud location for the key.
@@ -14361,6 +14381,10 @@ commands:
                 --no-all&: Remove all labels from the resource.
             - name: set-iam-policy
               description: '*(BETA)*  Set the IAM policy for a Compute Engine image.'
+            - name: test-iam-permissions
+              description: '*(BETA)*  Test IAM permissions for a Compute Engine image.'
+              flags:
+                --permissions=!: The permissions to test.
             - name: update
               description: '*(BETA)*  Update a Compute Engine image.'
               flags:
@@ -15178,6 +15202,7 @@ commands:
                 --boot-disk-auto-delete: Automatically delete boot disks when their instances are deleted.
                 --boot-disk-device-name=: The name the guest operating system will see for the boot disk.
                 --boot-disk-interface=: Indicates the interface to use for the boot disk.
+                --boot-disk-kms-key-service-account=: Email address of the service account to use to request boot disk protection with a KMS key.
                 --boot-disk-kms-key=!: ID of the key or fully qualified identifier for the key.
                 --boot-disk-kms-keyring=: The KMS keyring of the key.
                 --boot-disk-kms-location=: The Google Cloud location for the key.
@@ -15600,6 +15625,7 @@ commands:
                     --boot-disk-auto-delete: Automatically delete boot disks when their instances are deleted.
                     --boot-disk-device-name=: The name the guest operating system will see for the boot disk.
                     --boot-disk-interface=: Indicates the interface to use for the boot disk.
+                    --boot-disk-kms-key-service-account=: Email address of the service account to use to request boot disk protection with a KMS key.
                     --boot-disk-kms-key=!: ID of the key or fully qualified identifier for the key.
                     --boot-disk-kms-keyring=: The KMS keyring of the key.
                     --boot-disk-kms-location=: The Google Cloud location for the key.
@@ -15758,6 +15784,7 @@ commands:
                 --boot-disk-auto-delete: Automatically delete boot disks when their instances are deleted.
                 --boot-disk-device-name=: The name the guest operating system will see for the boot disk.
                 --boot-disk-interface=: Indicates the interface to use for the boot disk.
+                --boot-disk-kms-key-service-account=: Email address of the service account to use to request boot disk protection with a KMS key.
                 --boot-disk-kms-key=!: ID of the key or fully qualified identifier for the key.
                 --boot-disk-kms-keyring=: The KMS keyring of the key.
                 --boot-disk-kms-location=: The Google Cloud location for the key.
@@ -15795,6 +15822,7 @@ commands:
                 --image-family=: The image family for the operating system that the boot disk will
                 --image-project=: The Google Cloud project against which all image and
                 --image=: Specifies the boot image for the instances.
+                --instance-kms-key-service-account=: Service account email to use to request instance protection with a KMS key.
                 --instance-kms-key=!: ID of the key or fully qualified identifier for the key.
                 --instance-kms-keyring=: The KMS keyring of the key.
                 --instance-kms-location=: The Google Cloud location for the key.
@@ -15811,6 +15839,7 @@ commands:
                 --local-ssd=: Attaches a local SSD to the instances.
                 --location-hint=&: Used by internal tools to control sub-zone location of the instance.
                 --machine-type=: Specifies the machine type used for the instances.
+                --maintenance-freeze-duration=: Specifies the amount of hours after instance creation where the instance
                 --maintenance-policy=: Specifies the behavior of the VMs when their host machines undergo
                 --max-run-duration=: Limits how long this VM instance can run, specified as a duration relative
                 --metadata-from-file=: Same as ``--metadata'' except that the value for the entry will
@@ -16568,6 +16597,7 @@ commands:
               flags:
                 --clear-discard-local-ssds-at-termination-timestamp: Removes the discard-local-ssds-at-termination-timestamp field from the scheduling options.
                 --clear-instance-termination-action: Disables the termination action for this VM if allowed OR
+                --clear-maintenance-freeze-duration: Clears the maintenance freeze duration from the instance.
                 --clear-max-run-duration: Removes the max-run-duration field from the scheduling options.
                 --clear-min-node-cpu: Removes the min-node-cpu field from the instance.
                 --clear-node-affinities: Removes the node affinities field from the instance.
@@ -16578,11 +16608,13 @@ commands:
                 --host-error-timeout-seconds=: The timeout in seconds for host error detection.
                 --instance-termination-action=: Specifies the termination action that will be taken upon VM preemption
                 --local-ssd-recovery-timeout=: Specifies the maximum amount of time a Local Ssd Vm should wait while
+                --maintenance-freeze-duration=: Specifies the amount of hours after instance creation where the instance
                 --maintenance-policy=: Specifies the behavior of the VMs when their host machines undergo
                 --max-run-duration=: Limits how long this VM instance can run, specified as a duration relative
                 --min-node-cpu=: Minimum number of virtual CPUs this instance will consume when running on
                 --no-clear-discard-local-ssds-at-termination-timestamp&: Removes the discard-local-ssds-at-termination-timestamp field from the scheduling options.
                 --no-clear-instance-termination-action&: Disables the termination action for this VM if allowed OR
+                --no-clear-maintenance-freeze-duration&: Clears the maintenance freeze duration from the instance.
                 --no-clear-max-run-duration&: Removes the max-run-duration field from the scheduling options.
                 --no-clear-min-node-cpu&: Removes the min-node-cpu field from the instance.
                 --no-clear-node-affinities&: Removes the node affinities field from the instance.
@@ -17615,6 +17647,7 @@ commands:
                 --exclude-disks=: Specifies a filter for disks to be excluded from the machine image.
                 --guest-flush: Create an application-consistent machine image by informing the OS
                 --include-disks=: Specifies a filter for disks to be included in the machine image.
+                --kms-key-service-account=: Service account being used for the encryption request for the given KMS key.
                 --kms-key=!: ID of the key or fully qualified identifier for the key.
                 --kms-keyring=: The KMS keyring of the key.
                 --kms-location=: The Google Cloud location for the key.
@@ -18361,7 +18394,7 @@ commands:
                   flags:
                     --action=!: Action to take if the request matches the match condition.
                     --description=: An optional, textual description for the rule.
-                    --dest-ip-ranges=!: Destination IP ranges to match for this rule.
+                    --dest-ip-ranges=: Destination IP ranges to match for this rule.
                     --disabled: Use this flag to disable the rule.
                     --dscp-mode=!: When set to AUTO, the DSCP value will be picked automatically based on selected traffic class.
                     --dscp-value=: Custom DSCP value from 0-63 range.
@@ -20314,6 +20347,11 @@ commands:
               description: '*(BETA)*  Set the IAM policy for a Compute Engine resource policy.'
               flags:
                 --region=: The name of the Google Compute Engine region.
+            - name: test-iam-permissions
+              description: '*(BETA)*  Test IAM permissions for a Compute Engine resource policy.'
+              flags:
+                --permissions=!: The permissions to test.
+                --region=: The name of the Google Compute Engine region.
             - name: update
               description: '*(BETA)*  Update Compute Engine Resource Policies.'
               commands:
@@ -20472,7 +20510,7 @@ commands:
             - name: add-named-set
               description: '*(BETA)*  Add an empty named set to a Compute Engine router.'
               flags:
-                --region=: Region of the router to insert.
+                --region=: Region of the router to update.
                 --set-name=!: Name of the named set to add.
                 --set-type=!: Type of the set's elements.
               completion:
@@ -20540,8 +20578,8 @@ commands:
               description: '*(BETA)*  Download a named set from a Compute Engine router.'
               flags:
                 --file-format=: Format of the file passed to --file-name.
-                --file-name=!: The name of the file to download the named set config to.
-                --region=: Region of the router to export.
+                --file-name=!: The name of the file to download the named set configuration to.
+                --region=: Region of the router to operate on.
                 --set-name=!: Name of the named set to download.
               completion:
                 flag:
@@ -20563,7 +20601,7 @@ commands:
             - name: get-named-set
               description: '*(BETA)*  Get a named set from a Compute Engine router.'
               flags:
-                --region=: Region of the router to get.
+                --region=: Region of the router to get the named set from.
                 --set-name=!: Name of the named set to get.
             - name: get-nat-ip-info
               description: '*(BETA)*  Display NAT IP information in a router.'
@@ -20850,7 +20888,7 @@ commands:
             - name: remove-named-set
               description: '*(BETA)*  Remove a named set from a Compute Engine router.'
               flags:
-                --region=: Region of the router to delete.
+                --region=: Region of the router to update.
                 --set-name=!: Name of the named set to be removed.
             - name: remove-named-set-element
               description: '*(BETA)*  Remove an element from a named set of a Compute Engine router.'
@@ -20976,7 +21014,7 @@ commands:
               flags:
                 --file-format=: Format of the file passed to --file-name.
                 --file-name=!: Local path to the file defining the named set
-                --region=: Region of the router to upload.
+                --region=: Region of the router to upload the named set to.
                 --set-name=: Name of the named set to add/replace.
               completion:
                 flag:
@@ -21599,6 +21637,9 @@ commands:
                 --page-size=: Some services group resource list output into pages.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: set-iam-policy
+              description: '*(BETA)*  Set the IAM policy for a Compute Engine snapshot group.'
+              hidden: true
             - name: test-iam-permissions
               description: '*(BETA)*  Test IAM permissions for a Compute Engine snapshot group.'
               hidden: true
@@ -21648,6 +21689,7 @@ commands:
                 --description=: Text to describe the new snapshot.
                 --global: If set, the snapshot will be created in the global scope
                 --guest-flush: Create an application-consistent snapshot by informing the OS
+                --kms-key-service-account=: Service account email to use when requesting encryption for the specified KMS key.
                 --kms-key=!: ID of the key or fully qualified identifier for the key.
                 --kms-keyring=: The KMS keyring of the key.
                 --kms-location=: The Google Cloud location for the key.
@@ -22105,6 +22147,13 @@ commands:
                 --region=: If provided, only features for the given region are shown.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: test-iam-permissions
+              description: '*(BETA)*  Test IAM permissions for a Compute Engine SSL policy.'
+              flags:
+                --global: If set, the SSL policy is global.
+                --no-global&: If set, the SSL policy is global.
+                --permissions=!: The set of permissions to check for the resource.
+                --region=: Region of the SSL policy to test-iam-permissions.
             - name: update
               description: '*(BETA)*  Update a Compute Engine SSL policy.'
               flags:
@@ -22176,6 +22225,7 @@ commands:
                 --provisioned-iops=: IOPS with which to provision the pool.
                 --provisioned-throughput=: Throughput in MB/s with which to provision the pool.
                 --resource-manager-tags=: Resource manager tags to be bound to the storage pool.
+                --share-with=&: Specify a comma-separated list of projects to share the storage pool with.
                 --storage-pool-type=!: ID of the storage pool type or fully qualified identifier for the storage pool type.
                 --zone=: For resources [storage-pool-type, storage_pool], provides fallback value for resource zone attribute.
               completion:
@@ -22227,12 +22277,17 @@ commands:
             - name: update
               description: '*(BETA)*  Update a storage pool.'
               flags:
+                --add-share-with=&: Projects to add to storage pool share list.
                 --async: Return immediately, without waiting for the operation in progress to
                 --description=: Description of the storage pool.
+                --exapool-capacity-optimized-capacity=: Provisioned capacity-optimized capacity of the exapool.
+                --exapool-read-optimized-capacity=: Provisioned read-optimized capacity of the exapool.
+                --exapool-write-optimized-capacity=: Provisioned write-optimized capacity of the exapool.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --provisioned-capacity=: Provisioned capacity of the storage pool.
                 --provisioned-iops=: IOPS to provision the pool with.
                 --provisioned-throughput=: Throughput in MB/s provision the pool with.
+                --remove-share-with=&: Projects to remove from storage pool share list.
                 --zone=: The name of the Google Compute Engine zone.
         - name: target-grpc-proxies
           description: '*(BETA)*  Manage Compute Engine target gRPC proxy resources.'
@@ -25310,6 +25365,7 @@ commands:
                 --binauthz-policy-bindings=: The relative resource name of the Binary Authorization policy to audit
                 --clear-cross-connect-subnetworks&: ""
                 --clear-fleet-project: Remove the cluster from current fleet host project.
+                --clear-jwt-authenticator-config&: Clear the native Kubernetes JWT authenticator configuration.
                 --clear-maintenance-minor-version-disruption-interval: Restore the default values for the minimum interval of time between minor version cluster upgrades.
                 --clear-maintenance-patch-version-disruption-interval: Restore the default values for the minimum interval of time between patch version cluster upgrades.
                 --clear-maintenance-window: If set, remove the maintenance window that was set with --maintenance-window
@@ -25430,6 +25486,7 @@ commands:
                 --identity-provider=: Enable 3P identity provider on the cluster.
                 --in-transit-encryption=: Enable Dataplane V2 in-transit encryption.
                 --istio-config=: (REMOVED) Configurations for Istio addon, requires --addons contains Istio for create,
+                --jwt-authenticator-config=&: Path to a YAML file containing the configuration for the native Kubernetes JWT authenticator.
                 --kubernetes-objects-changes-target=&: Set kubernetes objects changes target [Currently only CLOUD_LOGGING value is supported].
                 --kubernetes-objects-snapshots-target=&: Set kubernetes objects snapshots target [Currently only CLOUD_LOGGING value is supported].
                 --kuberun-config=&: Configurations for Cloud Run addon, requires `--addons=CloudRun` for create
@@ -25468,6 +25525,7 @@ commands:
                 --no-autoprovisioning-enable-insecure-kubelet-readonly-port&: Enables the Kubelet's insecure read only port for Autoprovisioned
                 --no-clear-cross-connect-subnetworks&: ""
                 --no-clear-fleet-project&: ""
+                --no-clear-jwt-authenticator-config&: Clear the native Kubernetes JWT authenticator configuration.
                 --no-clear-maintenance-minor-version-disruption-interval&: Restore the default values for the minimum interval of time between minor version cluster upgrades.
                 --no-clear-maintenance-patch-version-disruption-interval&: Restore the default values for the minimum interval of time between patch version cluster upgrades.
                 --no-clear-maintenance-window&: If set, remove the maintenance window that was set with --maintenance-window
@@ -25798,7 +25856,7 @@ commands:
                 - name: enable
                   description: '*(BETA)*  Enable the Config Management feature.'
                   flags:
-                    --fleet-default-member-config=: Path to YAML file that contains the [fleet-default membership configuration](https://cloud.google.com/kubernetes-engine/fleet-management/docs/manage-features) to enable with a new feature.
+                    --fleet-default-member-config=: Path to YAML file, or `-` to read from stdin, that specifies the
                 - name: status
                   description: '*(BETA)*  Print the status of all clusters with Config Management enabled.'
                   flags:
@@ -27140,7 +27198,7 @@ commands:
                 - name: enable
                   description: '*(BETA)*  Enable the Config Management feature.'
                   flags:
-                    --fleet-default-member-config=: Path to YAML file that contains the [fleet-default membership configuration](https://cloud.google.com/kubernetes-engine/fleet-management/docs/manage-features) to enable with a new feature.
+                    --fleet-default-member-config=: Path to YAML file, or `-` to read from stdin, that specifies the
                 - name: status
                   description: '*(BETA)*  Print the status of all clusters with Config Management enabled.'
                   flags:
@@ -29830,6 +29888,7 @@ commands:
                 --dataflow-kms-key=: Cloud KMS key to protect the job resources.
                 --disable-public-ips: Cloud Dataflow workers must not use public IP addresses.
                 --enable-streaming-engine: Enabling Streaming Engine for the streaming job.
+                --enable-turnkey-alerts: Enable Turnkey Alerts for this job.
                 --flexrs-goal=: FlexRS goal for the flex template job.
                 --launcher-machine-type=: The machine type to use for launching the job.
                 --launcher-vm-timeout-secs=: The timeout in seconds for the launcher VM.
@@ -29837,6 +29896,7 @@ commands:
                 --network=: Compute Engine network for launching instances to run your pipeline.
                 --no-disable-public-ips&: Cloud Dataflow workers must not use public IP addresses.
                 --no-enable-streaming-engine&: Enabling Streaming Engine for the streaming job.
+                --no-enable-turnkey-alerts&: Enable Turnkey Alerts for this job.
                 --no-update!&: Set this to true for streaming update jobs.
                 --num-workers=: Initial number of workers to use.
                 --parameters=: Parameters to pass to the job.
@@ -29909,11 +29969,13 @@ commands:
                 --dataflow-kms-key=: The Cloud KMS key to protect the job resources.
                 --disable-public-ips: The Cloud Dataflow workers must not use public IP addresses.
                 --enable-streaming-engine: Enabling Streaming Engine for the streaming job.
+                --enable-turnkey-alerts: Enable Turnkey Alerts for this job.
                 --gcs-location=!: The Google Cloud Storage location of the job template to run.
                 --max-workers=: The maximum number of workers to run.
                 --network=: The Compute Engine network for launching instances to run your pipeline.
                 --no-disable-public-ips&: The Cloud Dataflow workers must not use public IP addresses.
                 --no-enable-streaming-engine&: Enabling Streaming Engine for the streaming job.
+                --no-enable-turnkey-alerts&: Enable Turnkey Alerts for this job.
                 --no-update!&: Set this to true for streaming update jobs.
                 --num-workers=: The initial number of workers to use.
                 --parameters=: The parameters to pass to the job.
@@ -33775,6 +33837,10 @@ commands:
                         video:
                             - always
                             - on-failure
+            - name: wait
+              description: '*(BETA)*  Wait for a Device Run session to complete.'
+              flags:
+                --location=: Cloud location for the session.
     - name: dns
       description: '*(BETA)*  Manage your Cloud DNS managed-zones and record-sets.'
       commands:
@@ -38109,6 +38175,11 @@ commands:
                             - code
                             - id-token
                             - response-type-unspecified
+            - name: suggest-workspace-link-attribute-mapping
+              description: '*(BETA)*  Suggest workspace link attribute mappings for a workforce pool.'
+              hidden: true
+              flags:
+                --location=: The location for the workforce pool.
             - name: undelete
               description: '*(BETA)*  Undelete a workforce pool.'
               flags:
@@ -41827,26 +41898,27 @@ commands:
                     --sort-by=: Comma-separated list of resource field key names to sort by.
                     --uri: Print a list of resource URIs instead of the default output, and change the
                 - name: start
-                  description: '*(BETA)*  Start the migration on a Dataproc Metastore service.'
+                  description: '*(BETA)*  Start the migration from a Dataproc Metastore service to Lakehouse runtime catalog(s).'
                   flags:
                     --async: Return immediately, without waiting for the operation in progress to
-                    --bucket=: The bucket to write the intermediate stream event data in.
-                    --cdc-password=!: The password for the user that Datastream service should use for the MySQL
-                    --cdc-username=!: The username that the Datastream service should use for the MySQL connection.
-                    --connection-password=!: The password for the user that Dataproc Metastore service should use to connect to
-                    --connection-username=!: The username that Dataproc Metastore service should use to connect to the database.
-                    --hive-database-name=!: The name of the hive metastore database.
-                    --instance-connection-name=!: The Cloud SQL database connection name, in the format,
-                    --ip-address=!: The private IP address of the Cloud SQL instance.
+                    --conflict-policy=: The policy to handle conflicts when migrating resources to Lakehouse.
+                    --dry-run: If true, performs discovery of requested resources and analysis against
+                    --hive-catalog=!: The target catalog for migrated databases and tables.
+                    --hive-databases=: Comma-separated list of databases to migrate to the Hive catalog.
+                    --iceberg-catalog=!: The target catalog for migrated Iceberg metadata.
+                    --iceberg-namespaces=: Comma-separated list of namespaces to migrate to the Iceberg REST catalog.
                     --location=: The location of the Dataproc Metastore service.
-                    --nat-subnet=!: The relative resource name of the subnetwork to be used for Private Service
+                    --mode=: The execution mode of the migration.
                     --no-async&: Return immediately, without waiting for the operation in progress to
-                    --port=!: The network port of the database.
-                    --proxy-subnet=!: The relative resource name of the subnetwork to deploy the SOCKS5 proxy service
-                    --reverse-proxy-subnet=!: The URL of the subnetwork resource to create the VM instance hosting the reverse
-                    --root-path=: The root path inside the Cloud Storage bucket.
-                    --subnet-ip-range=!: A "/29" CIDR IP range for peering with datastream
-                    --vpc-network=!: Fully qualified name of the Cloud SQL instance's VPC network or the shared VPC
+                    --no-dry-run&: If true, performs discovery of requested resources and analysis against
+                    --report-path=: The Cloud Storage path where the backfill or dry run
+                  completion:
+                    flag:
+                        conflict-policy:
+                            - overwrite
+                            - skip
+                        mode:
+                            - backfill
             - name: move-table-to-database
               description: '*(BETA)*  Move table to another database.'
               flags:
@@ -44160,8 +44232,8 @@ commands:
                 --async: Return immediately, without waiting for the operation in progress to
                 --description=: Description of the hub.
                 --export-psc: This boolean controls whether Private Service Connect transitivity is enabled for the hub.
-                --export-psc-global-google-apis&: This boolean controls whether Private Service Connect endpoints for global Google APIs should be propagated.
-                --export-psc-published-services-and-regional-google-apis&: This boolean control whether Private Service Connect endpoints for regional ILBs and regional Google APIs should be propagated.
+                --export-psc-global-google-apis: This boolean controls whether Private Service Connect endpoints for global Google APIs should be propagated.
+                --export-psc-published-services-and-regional-google-apis: This boolean control whether Private Service Connect endpoints for regional ILBs and regional Google APIs should be propagated.
                 --labels=: List of label KEY=VALUE pairs to add.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-export-psc&: This boolean controls whether Private Service Connect transitivity is enabled for the hub.
@@ -44330,8 +44402,8 @@ commands:
                 --clear-labels: Remove all labels.
                 --description=: New description of the hub.
                 --export-psc: Whether Private Service Connect propagation is enabled for the hub.
-                --export-psc-global-google-apis&: Whether propagation for Private Service Connect for global Google APIs is enabled for the hub.
-                --export-psc-published-services-and-regional-google-apis&: Whether propagation for Private Service Connect for published services and regional Google APIs is enabled for the hub.
+                --export-psc-global-google-apis: Whether propagation for Private Service Connect for global Google APIs is enabled for the hub.
+                --export-psc-published-services-and-regional-google-apis: Whether propagation for Private Service Connect for published services and regional Google APIs is enabled for the hub.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-clear-labels&: Remove all labels.
                 --no-export-psc&: Whether Private Service Connect propagation is enabled for the hub.
@@ -48078,6 +48150,15 @@ commands:
                         - spray-to-world
                         - waterfall-by-region
                         - waterfall-by-zone
+        - name: telemetry-policies
+          description: '*(BETA)*  Manage Network Services Telemetry Policies.'
+          commands:
+            - name: delete
+              description: '*(BETA)*  Delete a TelemetryPolicy.'
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location Id.
+                --no-async&: Return immediately, without waiting for the operation in progress to
     - name: notebooks
       description: '*(BETA)*  *(DEPRECATED)*  Notebooks Command Group.'
       commands:
@@ -56133,7 +56214,7 @@ commands:
               hidden: true
               commands:
                 - name: get
-                  description: '*(BETA)*  Get MCP policy for a project, folder or organization.'
+                  description: '*(BETA)*  *(DEPRECATED)*  Get MCP policy for a project, folder or organization.'
                   hidden: true
                   flags:
                     --folder=: The Google Cloud Platform folder ID to use for this invocation.
@@ -56141,7 +56222,7 @@ commands:
                     --output-file=: Path to the file to write policy contents to.
                     --policy-name=: Name of the MCP policy.
                 - name: get-effective
-                  description: '*(BETA)*  Get effective MCP policy for a project, folder or organization.'
+                  description: '*(BETA)*  *(DEPRECATED)*  Get effective MCP policy for a project, folder or organization.'
                   hidden: true
                   flags:
                     --folder=: The Google Cloud Platform folder ID to use for this invocation.
@@ -56153,7 +56234,7 @@ commands:
                             - BASIC
                             - FULL
                 - name: test-enabled
-                  description: '*(BETA)*  Test a service against the result of merging MCP policies in the resource hierarchy.'
+                  description: '*(BETA)*  *(DEPRECATED)*  Test a service against the result of merging MCP policies in the resource hierarchy.'
                   hidden: true
                   flags:
                     --folder=: The Google Cloud Platform folder ID to use for this invocation.

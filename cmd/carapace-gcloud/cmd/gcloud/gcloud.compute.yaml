@@ -372,11 +372,13 @@ commands:
             --cache-key-query-string-blacklist=: Specifies a comma separated list of query string parameters to exclude
             --cache-key-query-string-whitelist=: Specifies a comma separated list of query string parameters to include
             --cache-mode=: Specifies the cache setting for all responses from this backend.
+            --circuit-breakers-max-requests=: Maximum number of parallel requests that can be made to all instances in
             --client-ttl=: Specifies a separate client (for example, browser client) TTL, separate from the TTL
             --compression-mode=: Compress text responses using Brotli or gzip compression, based on
             --connection-drain-on-failover: Applicable only for backend service-based external and internal
             --connection-draining-timeout=: Connection draining timeout to be used during removal of VMs from
             --connection-persistence-on-unhealthy-backends=: Specifies connection persistence when backends are unhealthy.
+            --consistent-hash-minimum-ring-size=: The minimum number of virtual nodes to use for the hash ring when a
             --custom-metrics-file=: File path to json file with custom metrics that are used for
             --custom-metrics=: List of custom metrics that are used for
             --custom-request-header=: Specifies a HTTP Header to be added by your load balancer.
@@ -618,6 +620,13 @@ commands:
             --global: If set, the backend service is global.
             --no-global&: If set, the backend service is global.
             --region=: Region of the backend service to operate on.
+        - name: test-iam-permissions
+          description: Test IAM permissions for a Compute Engine backend service.
+          flags:
+            --global: If set, the backend service is global.
+            --no-global&: If set, the backend service is global.
+            --permissions=!: The set of permissions to check for the resource.
+            --region=: Region of the backend service to operate on.
         - name: update
           description: Update a backend service.
           flags:
@@ -633,6 +642,7 @@ commands:
             --cache-key-query-string-blacklist=: Specifies a comma separated list of query string parameters to exclude
             --cache-key-query-string-whitelist=: Specifies a comma separated list of query string parameters to include
             --cache-mode=: Specifies the cache setting for all responses from this backend.
+            --circuit-breakers-max-requests=: Maximum number of parallel requests that can be made to all instances in
             --clear-custom-metrics: Clears current list of CUSTOM_METRICS.
             --clear-external-managed-migration-state: Clears current state of external managed migration.
             --client-ttl=: Specifies a separate client (for example, browser client) TTL, separate from the TTL
@@ -640,6 +650,7 @@ commands:
             --connection-drain-on-failover: Applicable only for backend service-based external and internal
             --connection-draining-timeout=: Connection draining timeout to be used during removal of VMs from
             --connection-persistence-on-unhealthy-backends=: Specifies connection persistence when backends are unhealthy.
+            --consistent-hash-minimum-ring-size=: The minimum number of virtual nodes to use for the hash ring when a
             --custom-metrics-file=: File path to json file with custom metrics that are used for
             --custom-metrics=: List of custom metrics that are used for
             --custom-request-header=: Specifies a HTTP Header to be added by your load balancer.
@@ -1577,6 +1588,11 @@ commands:
           description: Set the IAM policy for a Compute Engine organization firewall policy.
           flags:
             --organization=: Organization ID in which the organization firewall policy is to be set.
+        - name: test-iam-permissions
+          description: Test IAM permissions for a Compute Engine organization firewall policy.
+          flags:
+            --organization=: Organization ID in which the organization firewall policy is to be described.
+            --permissions=!: The permissions to test.
         - name: update
           description: Update a Compute Engine organization firewall policy.
           flags:
@@ -2891,6 +2907,10 @@ commands:
             --no-all&: Remove all labels from the resource.
         - name: set-iam-policy
           description: Set the IAM policy for a Compute Engine image.
+        - name: test-iam-permissions
+          description: Test IAM permissions for a Compute Engine image.
+          flags:
+            --permissions=!: The permissions to test.
         - name: update
           description: Update a Compute Engine image.
           flags:
@@ -3694,6 +3714,8 @@ commands:
             --enable-uefi-networking: If set to true, enables UEFI networking for the instance creation.
             --external-ipv6-address=: Assigns the given external IPv6 address to the instance that is created.
             --external-ipv6-prefix-length=: The prefix length of the external IPv6 address range.
+            --graceful-shutdown: Enables graceful shutdown for the instance.
+            --graceful-shutdown-max-duration=: Specifies the maximum time for the graceful shutdown.
             --host-error-timeout-seconds=: The timeout in seconds for host error detection.
             --identity-certificate: Enables or disables managed workload identity certificates on a VM.
             --identity=: The workload identity to use for the instance.
@@ -4072,6 +4094,8 @@ commands:
                 --enable-nested-virtualization: If set to true, enables nested virtualization for the instance.
                 --enable-uefi-networking: If set to true, enables UEFI networking for the instance creation.
                 --erase-windows-vss-signature: Specifies whether the disk restored from source snapshots or source machine image should
+                --graceful-shutdown: Enables graceful shutdown for the instance.
+                --graceful-shutdown-max-duration=: Specifies the maximum time for the graceful shutdown.
                 --host-error-timeout-seconds=: The timeout in seconds for host error detection.
                 --identity-certificate: Enables or disables managed workload identity certificates on a VM.
                 --identity=: The workload identity to use for the instance.
@@ -4225,6 +4249,8 @@ commands:
             --erase-windows-vss-signature: Specifies whether the disk restored from source snapshots or source machine image should
             --external-ipv6-address=: Assigns the given external IPv6 address to the instance that is created.
             --external-ipv6-prefix-length=: The prefix length of the external IPv6 address range.
+            --graceful-shutdown: Enables graceful shutdown for the instance.
+            --graceful-shutdown-max-duration=: Specifies the maximum time for the graceful shutdown.
             --host-error-timeout-seconds=: The timeout in seconds for host error detection.
             --hostname=: Specify the hostname of the instance to be created.
             --identity-certificate: Enables or disables managed workload identity certificates on a VM.
@@ -4401,6 +4427,8 @@ commands:
             --enable-nested-virtualization: If set to true, enables nested virtualization for the instance.
             --external-ipv6-address=: Assigns the given external IPv6 address to the instance that is created.
             --external-ipv6-prefix-length=: The prefix length of the external IPv6 address range.
+            --graceful-shutdown: Enables graceful shutdown for the instance.
+            --graceful-shutdown-max-duration=: Specifies the maximum time for the graceful shutdown.
             --host-error-timeout-seconds=: The timeout in seconds for host error detection.
             --identity-certificate: Enables or disables managed workload identity certificates on a VM.
             --identity=: The workload identity to use for the instance.
@@ -4509,6 +4537,7 @@ commands:
           flags:
             --delete-disks=: The types of disks to delete with instance deletion regardless
             --keep-disks=: The types of disks to not delete with instance deletion regardless
+            --no-graceful-shutdown: Deletes the instance immediately without gracefully shutting it down.
             --zone=: Zone of the instances to delete.
           completion:
             flag:
@@ -4957,6 +4986,8 @@ commands:
             --clear-node-affinities: Removes the node affinities field from the instance.
             --clear-termination-time: Removes the termination-time field from the scheduling options.
             --discard-local-ssds-at-termination-timestamp=: Required to be set to `true` and only allowed for VMs that have one or
+            --graceful-shutdown: Enables or disables graceful shutdown for the instance.
+            --graceful-shutdown-max-duration=: Specifies the maximum time for the graceful shutdown.
             --host-error-timeout-seconds=: The timeout in seconds for host error detection.
             --instance-termination-action=: Specifies the termination action that will be taken upon VM preemption
             --local-ssd-recovery-timeout=: Specifies the maximum amount of time a Local Ssd Vm should wait while
@@ -4969,6 +5000,7 @@ commands:
             --no-clear-min-node-cpu&: Removes the min-node-cpu field from the instance.
             --no-clear-node-affinities&: Removes the node affinities field from the instance.
             --no-clear-termination-time&: Removes the termination-time field from the scheduling options.
+            --no-graceful-shutdown&: Enables or disables graceful shutdown for the instance.
             --no-preemptible&: If provided, instances will be preemptible and time-limited.
             --no-restart-on-failure&: The instances will be restarted if they are terminated by Compute
             --no-skip-guest-os-shutdown&: If enabled, then, when the instance is stopped or deleted, the instance
@@ -5023,6 +5055,7 @@ commands:
                 description: If set to true, local SSD data is discarded.
                 nargs: -1
             --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-graceful-shutdown: Stops the instance immediately without gracefully shutting it down.
             --zone=: Zone of the instances to operate on.
         - name: suspend
           description: Suspend a virtual machine instance.
@@ -5050,6 +5083,8 @@ commands:
             --clear-node-affinities: Removes the node affinities field from the instance.
             --deletion-protection: Enables deletion protection for the instance.
             --enable-display-device: Enable a display device on VM instances.
+            --graceful-shutdown: Enables or disables graceful shutdown for the instance.
+            --graceful-shutdown-max-duration=: Specifies the maximum time for the graceful shutdown.
             --identity-certificate: Enables or disables managed workload identity certificates on a VM.
             --identity=: The workload identity to use for the instance.
             --min-cpu-platform=: When specified, the VM will be scheduled on host with specified CPU
@@ -5058,6 +5093,7 @@ commands:
             --no-clear-node-affinities&: Removes the node affinities field from the instance.
             --no-deletion-protection&: Enables deletion protection for the instance.
             --no-enable-display-device&: Enable a display device on VM instances.
+            --no-graceful-shutdown&: Enables or disables graceful shutdown for the instance.
             --no-identity-certificate&: Enables or disables managed workload identity certificates on a VM.
             --no-shielded-integrity-monitoring&: Enables monitoring and attestation of the boot integrity of the
             --no-shielded-learn-integrity-policy&: Causes the instance to re-learn the integrity policy baseline using
@@ -8537,6 +8573,11 @@ commands:
           description: Set the IAM policy for a Compute Engine resource policy.
           flags:
             --region=: The name of the Google Compute Engine region.
+        - name: test-iam-permissions
+          description: Test IAM permissions for a Compute Engine resource policy.
+          flags:
+            --permissions=!: The permissions to test.
+            --region=: The name of the Google Compute Engine region.
         - name: update
           description: Update Compute Engine Resource Policies.
           commands:
@@ -8695,7 +8736,7 @@ commands:
         - name: add-named-set
           description: Add an empty named set to a Compute Engine router.
           flags:
-            --region=: Region of the router to insert.
+            --region=: Region of the router to update.
             --set-name=!: Name of the named set to add.
             --set-type=!: Type of the set's elements.
           completion:
@@ -8763,8 +8804,8 @@ commands:
           description: Download a named set from a Compute Engine router.
           flags:
             --file-format=: Format of the file passed to --file-name.
-            --file-name=!: The name of the file to download the named set config to.
-            --region=: Region of the router to export.
+            --file-name=!: The name of the file to download the named set configuration to.
+            --region=: Region of the router to operate on.
             --set-name=!: Name of the named set to download.
           completion:
             flag:
@@ -8786,7 +8827,7 @@ commands:
         - name: get-named-set
           description: Get a named set from a Compute Engine router.
           flags:
-            --region=: Region of the router to get.
+            --region=: Region of the router to get the named set from.
             --set-name=!: Name of the named set to get.
         - name: get-nat-ip-info
           description: Display NAT IP information in a router.
@@ -9073,7 +9114,7 @@ commands:
         - name: remove-named-set
           description: Remove a named set from a Compute Engine router.
           flags:
-            --region=: Region of the router to delete.
+            --region=: Region of the router to update.
             --set-name=!: Name of the named set to be removed.
         - name: remove-named-set-element
           description: Remove an element from a named set of a Compute Engine router.
@@ -9194,7 +9235,7 @@ commands:
           flags:
             --file-format=: Format of the file passed to --file-name.
             --file-name=!: Local path to the file defining the named set
-            --region=: Region of the router to upload.
+            --region=: Region of the router to upload the named set to.
             --set-name=: Name of the named set to add/replace.
           completion:
             flag:
@@ -10303,6 +10344,7 @@ commands:
             --provisioned-iops=: IOPS with which to provision the pool.
             --provisioned-throughput=: Throughput in MB/s with which to provision the pool.
             --resource-manager-tags=: Resource manager tags to be bound to the storage pool.
+            --share-with=&: Specify a comma-separated list of projects to share the storage pool with.
             --storage-pool-type=!: ID of the storage pool type or fully qualified identifier for the storage pool type.
             --zone=: For resources [storage-pool-type, storage_pool], provides fallback value for resource zone attribute.
           completion:
@@ -10349,12 +10391,17 @@ commands:
         - name: update
           description: Update a storage pool.
           flags:
+            --add-share-with=&: Projects to add to storage pool share list.
             --async: Return immediately, without waiting for the operation in progress to
             --description=: Description of the storage pool.
+            --exapool-capacity-optimized-capacity=: Provisioned capacity-optimized capacity of the exapool.
+            --exapool-read-optimized-capacity=: Provisioned read-optimized capacity of the exapool.
+            --exapool-write-optimized-capacity=: Provisioned write-optimized capacity of the exapool.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --provisioned-capacity=: Provisioned capacity of the storage pool.
             --provisioned-iops=: IOPS to provision the pool with.
             --provisioned-throughput=: Throughput in MB/s provision the pool with.
+            --remove-share-with=&: Projects to remove from storage pool share list.
             --zone=: The name of the Google Compute Engine zone.
     - name: target-grpc-proxies
       description: Manage Compute Engine target gRPC proxy resources.
