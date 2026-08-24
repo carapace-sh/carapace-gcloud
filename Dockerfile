@@ -1,4 +1,4 @@
-FROM google/cloud-sdk:580.0.0
+FROM google/cloud-sdk:581.0.0
 
 RUN gcloud alpha interactive; true
 
