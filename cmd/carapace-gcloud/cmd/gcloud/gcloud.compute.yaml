@@ -392,6 +392,7 @@ commands:
             --failover-ratio=: Applicable only to backend service-based external passthrough Network load
             --global: If set, the backend service is global.
             --global-health-checks: If set, the health checks are global.
+            --global-network-endpoint-group&: If set, the network endpoint group is global.
             --ha-policy-fast-ip-move=&: Fast IP move policy for high availability (HA).
             --health-checks-region=: Region of the health checks to operate on.
             --health-checks=: Specifies a list of health check objects for checking the health of
@@ -407,9 +408,13 @@ commands:
             --logging-optional-fields=: This field can only be specified if logging is enabled for the backend
             --logging-optional=: This field can only be specified if logging is enabled for the backend
             --logging-sample-rate=: This field can only be specified if logging is enabled for the backend
+            --max-stream-duration=: Specifies the default maximum duration (timeout) for streams on this
             --max-ttl=: Specifies the maximum allowed TTL for cached content served by this origin.
             --negative-caching: Negative caching allows per-status code cache TTLs to be set, in order to
             --negative-caching-policy=: Sets a cache TTL for the specified HTTP status code.
+            --network-endpoint-group-region=&: Region of the network endpoint group to create the backend service.
+            --network-endpoint-group-zone=&: Zone of the network endpoint group to create the backend service.
+            --network-endpoint-group=&: Name of the network endpoint group to create the backend service.
             --network=: Network that this backend service applies to.
             --no-cache-key-include-host&: Enable including host in cache key.
             --no-cache-key-include-protocol&: Enable including protocol in cache key.
@@ -421,6 +426,7 @@ commands:
             --no-enable-strong-affinity&: Enable or disable strong session affinity.
             --no-global&: If set, the backend service is global.
             --no-global-health-checks&: If set, the health checks are global.
+            --no-global-network-endpoint-group&: If set, the network endpoint group is global.
             --no-negative-caching&: Negative caching allows per-status code cache TTLs to be set, in order to
             --no-request-coalescing&: Enables request coalescing to the backend (recommended).
             --port-name=: Backend services for Application Load Balancers and proxy Network
@@ -683,6 +689,7 @@ commands:
             --logging-optional-fields=: This field can only be specified if logging is enabled for the backend
             --logging-optional=: This field can only be specified if logging is enabled for the backend
             --logging-sample-rate=: This field can only be specified if logging is enabled for the backend
+            --max-stream-duration=: Specifies the default maximum duration (timeout) for streams on this
             --max-ttl=: Specifies the maximum allowed TTL for cached content served by this origin.
             --negative-caching: Negative caching allows per-status code cache TTLs to be set, in order to
             --negative-caching-policy=: Sets a cache TTL for the specified HTTP status code.
@@ -707,6 +714,7 @@ commands:
             --no-locality-lb-policy: Removes the locality load balancing policy from the backend service.
             --no-logging-http-request-headers: Remove all logging HTTP request headers for the backend service.
             --no-logging-http-response-headers: Remove all logging HTTP response headers for the backend service.
+            --no-max-stream-duration: Clears the maximum stream duration timeout on the backend service.
             --no-max-ttl: (DEPRECATED) Clears max TTL value.
             --no-negative-caching&: Negative caching allows per-status code cache TTLs to be set, in order to
             --no-negative-caching-policies: Remove all negative caching policies for the backend service.
@@ -919,6 +927,9 @@ commands:
                     - memory-optimized-x4-960-12t
                     - memory-optimized-x4-960-16t
                     - network-optimized-c4n
+                    - network-optimized-u4c
+                    - network-optimized-u4p
+                    - network-optimized-u4s
                     - storage-optimized-z3
         - name: create-license
           description: Create Compute Engine license-based commitments.
@@ -7877,6 +7888,11 @@ commands:
             --regions=: If provided, only resources from the given regions are queried.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: test-iam-permissions
+          description: Test IAM permissions for a Compute Engine packet mirroring policy.
+          flags:
+            --permissions=!: The set of permissions to check for the resource.
+            --region=: Region of the packet mirroring to test IAM permissions for.
         - name: update
           description: Update a Compute Engine packet mirroring policy.
           flags:
@@ -10779,6 +10795,10 @@ commands:
             --regexp=: (DEPRECATED)         Regular expression to filter the names of the results  on.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: test-iam-permissions
+          description: Test IAM permissions for a Compute Engine target SSL proxy.
+          flags:
+            --permissions=!: Permissions to test.
         - name: update
           description: Update a target SSL proxy.
           flags:
@@ -11509,7 +11529,7 @@ commands:
             --phase1-prf=: Phase 1 pseudorandom functions.
             --phase2-encryption=: Phase 2 encryption algorithms.
             --phase2-integrity=: Phase 2 integrity algorithms.
-            --phase2-pfs=: Phase 2 perfect forward secerecy algorithms.
+            --phase2-pfs=: Phase 2 perfect forward secrecy algorithms.
             --region=: Region of the VPN Tunnel to create.
             --remote-traffic-selector=: Traffic selector is an agreement between IKE peers to permit traffic
             --resource-manager-tags=: A comma-separated list of Resource Manager tags to apply to the VPN tunnel.

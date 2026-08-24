@@ -6404,6 +6404,71 @@ commands:
     - name: backup-dr
       description: '*(BETA)*  Manage Backup and DR resources.'
       commands:
+        - name: auto-protection-bindings
+          description: '*(BETA)*  Manage Backup and DR auto protection bindings.'
+          hidden: true
+          commands:
+            - name: describe
+              description: '*(BETA)*  Describe a Backup and DR auto-protection binding.'
+              hidden: true
+              flags:
+                --auto-protection-policy=: The ID of the AutoProtectionPolicy.
+                --location=: Location ID of the resource.
+            - name: list
+              description: '*(BETA)*  List Backup and DR auto-protection bindings.'
+              hidden: true
+              flags:
+                --auto-protection-policy=!: ID of the auto_protection_policy or fully qualified identifier for the auto_protection_policy.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: Location ID of the resource.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: auto-protection-policies
+          description: '*(BETA)*  Manage Backup and DR AutoProtectionPolicies.'
+          hidden: true
+          commands:
+            - name: create
+              description: '*(BETA)*  Create a Backup and DR AutoProtectionPolicy.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --backup-plan-details=!: Backup plan details in format resource-type=VALUE,backup-plan=VALUE.
+                --criteria=!: Criteria of the policy in format key=VALUE,value=VALUE.
+                --description=: Description for the policy.
+                --location=: The location of the AutoProtectionPolicy.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: delete
+              description: '*(BETA)*  Delete a Backup and DR AutoProtectionPolicy.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: Location ID of the resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: describe
+              description: '*(BETA)*  Describe a Backup and DR AutoProtectionPolicy.'
+              hidden: true
+              flags:
+                --location=: Location ID of the resource.
+            - name: list
+              description: '*(BETA)*  List Backup and DR AutoProtectionPolicies.'
+              hidden: true
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: ID of the location or fully qualified identifier for the location.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+            - name: update
+              description: '*(BETA)*  Update a Backup and DR AutoProtectionPolicy.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --backup-plan-details=: Backup plan details in format resource-type=VALUE,backup-plan=VALUE.
+                --criteria=: Criteria of the policy in format key=VALUE,value=VALUE.
+                --description=: Description for the policy.
+                --location=: The location of the AutoProtectionPolicy.
+                --no-async&: Return immediately, without waiting for the operation in progress to
         - name: backup-plan-associations
           description: '*(BETA)*  Manage Backup and DR backup plan associations.'
           commands:
@@ -10248,7 +10313,7 @@ commands:
       description: '*(BETA)*  Manage Cluster Director resources.'
       commands:
         - name: clusters
-          description: '*(BETA)*  Manage Cluster Director cluster resources.'
+          description: '*(BETA)*  Deploy and manage large-scale AI and high-performance computing (HPC) clusters.'
           commands:
             - name: create
               description: '*(BETA)*  Creates a Cluster Director resource.'
@@ -10288,8 +10353,8 @@ commands:
                         - a3-ultra
                         - a4-high-flex-start
                         - a4x-high
-                        - g4
-                        - h4d-highmem
+                        - g4-flex-start
+                        - h4d-highmem-flex-start
             - name: delete
               description: '*(BETA)*  Deletes a Cluster Director resource.'
               flags:
@@ -10351,7 +10416,7 @@ commands:
                 --update-slurm-node-sets=: Parameters to define and update slurm cluster nodeset config.
                 --update-slurm-partitions=: Parameters to define and update slurm cluster partition config.
         - name: locations
-          description: '*(BETA)*  View Locations resources.'
+          description: '*(BETA)*  View supported locations.'
           commands:
             - name: describe
               description: '*(BETA)*  Describe locations.'
@@ -10739,6 +10804,7 @@ commands:
                 --disable-private-environment: Enables internet connection for Composer components.
                 --disk-size=: The disk size for each VM node in the environment.
                 --enable-cloud-data-lineage-integration: Enable Cloud Data Lineage integration, supported for Composer 2 Environments.
+                --enable-development-mode&: Whether to build a development-mode environment.
                 --enable-high-resilience: Enable high resilience, supported for Composer 2 Environments.
                 --enable-ip-alias: Enable use of link:https://cloud.google.com/compute/docs/alias-ip[alias IPs]
                 --enable-ip-masq-agent: When enabled, the
@@ -10774,6 +10840,7 @@ commands:
                 --no-disable-cloud-data-lineage-integration&: Disable Cloud Data Lineage integration, supported for Composer 2 Environments.
                 --no-disable-private-environment&: Enables internet connection for Composer components.
                 --no-enable-cloud-data-lineage-integration&: Enable Cloud Data Lineage integration, supported for Composer 2 Environments.
+                --no-enable-development-mode&: Whether to build a development-mode environment.
                 --no-enable-ip-alias&: Enable use of link:https://cloud.google.com/compute/docs/alias-ip[alias IPs]
                 --no-enable-ip-masq-agent&: When enabled, the
                 --no-enable-master-authorized-networks&: Enable link:https://cloud.google.com/kubernetes-engine/docs/how-to/authorized-networks[Master
@@ -10854,6 +10921,13 @@ commands:
               description: '*(BETA)*  Fetch database properties.'
               flags:
                 --location=: Region where Composer environment runs or in which to create the environment.
+            - name: hibernate
+              description: '*(BETA)*  Hibernate a Cloud Composer environment.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: Region where Composer environment runs or in which to create the environment.
+                --no-async&: Return immediately, without waiting for the operation in progress to
             - name: list
               description: '*(BETA)*  List the Cloud Composer environments under a project and location.'
               flags:
@@ -10918,6 +10992,13 @@ commands:
                 --worker-storage=: Storage allocated to Airflow worker, ex.
             - name: restart-web-server
               description: '*(BETA)*  Restart web server for a Cloud Composer environment.'
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: Region where Composer environment runs or in which to create the environment.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: resume
+              description: '*(BETA)*  Resume a Cloud Composer environment.'
+              hidden: true
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
                 --location=: Region where Composer environment runs or in which to create the environment.
@@ -11657,6 +11738,7 @@ commands:
                 --forward-proxy-direct-forwarding: Enables Direct Forwarding in Forward Proxy mode.
                 --global: If set, the backend service is global.
                 --global-health-checks: If set, the health checks are global.
+                --global-network-endpoint-group&: If set, the network endpoint group is global.
                 --ha-policy-fast-ip-move=&: Fast IP move policy for high availability (HA).
                 --health-checks-region=: Region of the health checks to operate on.
                 --health-checks=: Specifies a list of health check objects for checking the health of
@@ -11674,9 +11756,13 @@ commands:
                 --logging-optional-fields=: This field can only be specified if logging is enabled for the backend
                 --logging-optional=: This field can only be specified if logging is enabled for the backend
                 --logging-sample-rate=: This field can only be specified if logging is enabled for the backend
+                --max-stream-duration=: Specifies the default maximum duration (timeout) for streams on this
                 --max-ttl=: Specifies the maximum allowed TTL for cached content served by this origin.
                 --negative-caching: Negative caching allows per-status code cache TTLs to be set, in order to
                 --negative-caching-policy=: Sets a cache TTL for the specified HTTP status code.
+                --network-endpoint-group-region=&: Region of the network endpoint group to create the backend service.
+                --network-endpoint-group-zone=&: Zone of the network endpoint group to create the backend service.
+                --network-endpoint-group=&: Name of the network endpoint group to create the backend service.
                 --network=: Network that this backend service applies to.
                 --no-cache-key-include-host&: Enable including host in cache key.
                 --no-cache-key-include-protocol&: Enable including protocol in cache key.
@@ -11690,6 +11776,7 @@ commands:
                 --no-forward-proxy-direct-forwarding&: Enables Direct Forwarding in Forward Proxy mode.
                 --no-global&: If set, the backend service is global.
                 --no-global-health-checks&: If set, the health checks are global.
+                --no-global-network-endpoint-group&: If set, the network endpoint group is global.
                 --no-ip-port-dynamic-forwarding&: Enables Dynamic Forwarding in IpPort selection mode.
                 --no-negative-caching&: Negative caching allows per-status code cache TTLs to be set, in order to
                 --no-request-coalescing&: Enables request coalescing to the backend (recommended).
@@ -11969,6 +12056,7 @@ commands:
                 --logging-optional-fields=: This field can only be specified if logging is enabled for the backend
                 --logging-optional=: This field can only be specified if logging is enabled for the backend
                 --logging-sample-rate=: This field can only be specified if logging is enabled for the backend
+                --max-stream-duration=: Specifies the default maximum duration (timeout) for streams on this
                 --max-ttl=: Specifies the maximum allowed TTL for cached content served by this origin.
                 --negative-caching: Negative caching allows per-status code cache TTLs to be set, in order to
                 --negative-caching-policy=: Sets a cache TTL for the specified HTTP status code.
@@ -11996,6 +12084,7 @@ commands:
                 --no-locality-lb-policy: Removes the locality load balancing policy from the backend service.
                 --no-logging-http-request-headers: Remove all logging HTTP request headers for the backend service.
                 --no-logging-http-response-headers: Remove all logging HTTP response headers for the backend service.
+                --no-max-stream-duration: Clears the maximum stream duration timeout on the backend service.
                 --no-max-ttl: (DEPRECATED) Clears max TTL value.
                 --no-negative-caching&: Negative caching allows per-status code cache TTLs to be set, in order to
                 --no-negative-caching-policies: Remove all negative caching policies for the backend service.
@@ -12218,6 +12307,9 @@ commands:
                         - memory-optimized-x4-960-12t
                         - memory-optimized-x4-960-16t
                         - network-optimized-c4n
+                        - network-optimized-u4c
+                        - network-optimized-u4p
+                        - network-optimized-u4s
                         - storage-optimized-z3
             - name: create-license
               description: '*(BETA)*  Create Compute Engine license-based commitments.'
@@ -19583,6 +19675,11 @@ commands:
                 --regions=: If provided, only resources from the given regions are queried.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: test-iam-permissions
+              description: '*(BETA)*  Test IAM permissions for a Compute Engine packet mirroring policy.'
+              flags:
+                --permissions=!: The set of permissions to check for the resource.
+                --region=: Region of the packet mirroring to test IAM permissions for.
             - name: update
               description: '*(BETA)*  Update a Compute Engine packet mirroring policy.'
               flags:
@@ -22665,6 +22762,10 @@ commands:
                 --regexp=: (DEPRECATED)         Regular expression to filter the names of the results  on.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: test-iam-permissions
+              description: '*(BETA)*  Test IAM permissions for a Compute Engine target SSL proxy.'
+              flags:
+                --permissions=!: Permissions to test.
             - name: update
               description: '*(BETA)*  Update a target SSL proxy.'
               flags:
@@ -23057,7 +23158,7 @@ commands:
                 --phase1-prf=: Phase 1 pseudorandom functions.
                 --phase2-encryption=: Phase 2 encryption algorithms.
                 --phase2-integrity=: Phase 2 integrity algorithms.
-                --phase2-pfs=: Phase 2 perfect forward secerecy algorithms.
+                --phase2-pfs=: Phase 2 perfect forward secrecy algorithms.
                 --region=: Region of the VPN Tunnel to create.
                 --remote-traffic-selector=: Traffic selector is an agreement between IKE peers to permit traffic
                 --resource-manager-tags=: A comma-separated list of Resource Manager tags to apply to the VPN tunnel.
@@ -24675,7 +24776,7 @@ commands:
                 --enable-security-posture&: (DEPRECATED) Enables the GKE Security Posture API's features.
                 --enable-service-externalips: Enables use of services with externalIPs field.
                 --enable-shielded-nodes: Enable Shielded Nodes for this cluster.
-                --enable-slice-controller&: Enable Slice Controller for the cluster.
+                --enable-slice-controller: Enable Slice Controller for the cluster.
                 --enable-stackdriver-kubernetes: (DEPRECATED) Enable Cloud Operations for GKE.
                 --enable-tpu&: Enable Cloud TPUs for this cluster.
                 --enable-tpu-service-networking&: Enable Cloud TPU's Service Networking mode.
@@ -24903,6 +25004,9 @@ commands:
                 --total-min-nodes=: Minimum number of all nodes in the node pool.
                 --tpu-ipv4-cidr=&: Set the IP range for the Cloud TPUs.
                 --username=: The user name to use for basic auth for the cluster.
+                --wiz-sensor-api-key-secret-uri=&: The GCP Secret Manager URI for the Wiz API key secret.
+                --wiz-sensor-proxy-secret-uri=&: The GCP Secret Manager URI for the Wiz proxy configuration.
+                --wiz-sensor-registry-secret-uri=&: The GCP Secret Manager URI for the Wiz registry secret.
                 --workload-metadata-from-node=&: Type of metadata server available to pods running in the node pool.
                 --workload-metadata=: Type of metadata server available to pods running in the node pool.
                 --workload-pool=: Enable Workload Identity on the cluster.
@@ -25208,6 +25312,9 @@ commands:
                 --tag-bindings=&: List of tag-bindings KEY=VALUE pairs to bind.
                 --tier=: (DEPRECATED) Set the desired tier for the cluster.
                 --timeout=&: Timeout (seconds) for waiting on the operation to complete.
+                --wiz-sensor-api-key-secret-uri=&: The GCP Secret Manager URI for the Wiz API key secret.
+                --wiz-sensor-proxy-secret-uri=&: The GCP Secret Manager URI for the Wiz proxy configuration.
+                --wiz-sensor-registry-secret-uri=&: The GCP Secret Manager URI for the Wiz registry secret.
                 --workload-policies=: Add Autopilot workload policies to the cluster.
                 --workload-vulnerability-scanning=: Sets the mode of the Kubernetes security posture API's workload
                 --zone=: Compute zone (e.g. us-central1-a) for a zonal cluster.
@@ -25469,7 +25576,7 @@ commands:
                 --enable-security-posture&: (DEPRECATED) Enables the GKE Security Posture API's features.
                 --enable-service-externalips: Enables use of services with externalIPs field.
                 --enable-shielded-nodes: Enable Shielded Nodes for this cluster.
-                --enable-slice-controller&: Enable Slice Controller for the cluster.
+                --enable-slice-controller: Enable Slice Controller for the cluster.
                 --enable-stackdriver-kubernetes: (DEPRECATED) Enable Cloud Operations for GKE.
                 --enable-tpu&: Enable Cloud TPUs for this cluster.
                 --enable-tpu-service-networking&: Enable Cloud TPU's Service Networking mode.
@@ -25658,6 +25765,9 @@ commands:
                 --update-addons=: Cluster addons to enable or disable.
                 --update-labels=: Labels to apply to the Google Cloud resources in use by the Kubernetes Engine
                 --username=: The user name to use for basic auth for the cluster.
+                --wiz-sensor-api-key-secret-uri=&: The GCP Secret Manager URI for the Wiz API key secret.
+                --wiz-sensor-proxy-secret-uri=&: The GCP Secret Manager URI for the Wiz proxy configuration.
+                --wiz-sensor-registry-secret-uri=&: The GCP Secret Manager URI for the Wiz registry secret.
                 --workload-policies=: Add Autopilot workload policies to the cluster.
                 --workload-pool=: Enable Workload Identity on the cluster.
                 --workload-vulnerability-scanning=: Sets the mode of the Kubernetes security posture API's workload
@@ -35441,6 +35551,42 @@ commands:
     - name: firebase
       description: '*(BETA)*  Work with Google Firebase.'
       commands:
+        - name: apps
+          description: '*(BETA)*  Manage Firebase applications.'
+          hidden: true
+          commands:
+            - name: create
+              description: '*(BETA)*  Create a new Firebase application.'
+              hidden: true
+              flags:
+                --app-store-id=: The App Store ID for the iOS app.
+                --bundle-id=: The canonical bundle ID of the iOS app as it would appear in the iOS App Store.
+                --display-name=: The user-assigned display name of the App.
+                --package-name=: The package name for the Android app (e.g. com.example.my_app).
+                --platform=!: The platform of the app to create (android, ios, web).
+              completion:
+                flag:
+                    platform:
+                        - android
+                        - ios
+                        - web
+            - name: list
+              description: '*(BETA)*  List the registered apps of a Firebase project.'
+              hidden: true
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --platform=: Filter apps by platform (ios, android, web).
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+              completion:
+                flag:
+                    platform:
+                        - android
+                        - ios
+                        - web
         - name: test
           description: '*(BETA)*  Interact with Firebase Test Lab.'
           commands:
@@ -36023,6 +36169,7 @@ commands:
                 --enable-mongodb-compatible-data-access: Whether to enable MongoDB Compatible API Data Access on the
                 --enable-pitr: Whether to enable Point In Time Recovery (PITR) on the created database.
                 --enable-realtime-updates: Whether to enable Realtime Updates feature on the created database.
+                --free-tier-limited&: Whether to restrict the created database to free tier usage only.
                 --kms-key-name=: The resource ID of a Cloud KMS key.
                 --location=!: The location to operate on.
                 --no-delete-protection&: Whether to enable delete protection on the created database.
@@ -36030,6 +36177,7 @@ commands:
                 --no-enable-mongodb-compatible-data-access&: Whether to enable MongoDB Compatible API Data Access on the
                 --no-enable-pitr&: Whether to enable Point In Time Recovery (PITR) on the created database.
                 --no-enable-realtime-updates&: Whether to enable Realtime Updates feature on the created database.
+                --no-free-tier-limited&: Whether to restrict the created database to free tier usage only.
                 --tags=: Tags to attach to the destination database.
                 --type=: The type of the database.
               completion:
@@ -37894,6 +38042,56 @@ commands:
                             - code
                             - id-token
                             - response-type-unspecified
+                - name: create-saml
+                  description: '*(BETA)*  Create a new SAML workforce pool provider.'
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --attribute-condition=: A [Common Expression Language](https://opensource.google/projects/cel) expression, in plain
+                    --attribute-mapping=!: Maps claims from the authentication credentials issued by the Identity Provider into Google
+                    --description=: A description for the workforce pool provider.
+                    --detailed-audit-logging: Enables detailed audit logging for this provider, which populates additional debug information
+                    --disabled: Disables the workforce pool provider.
+                    --display-name=: A display name for the workforce pool provider.
+                    --extended-attributes-client-id=!: The OAuth 2.0 client ID for retrieving extended attributes from the identity provider.
+                    --extended-attributes-client-secret-value=!: The OAuth 2.0 client secret for retrieving extended attributes from the identity provider.
+                    --extended-attributes-filter=: The filter used to request specific records from the IdP.
+                    --extended-attributes-issuer-uri=!: OIDC identity provider's issuer URI.
+                    --extended-attributes-type=!: Represents the identity provider and type of claims that should be fetched.
+                    --extra-attributes-client-id=!: The OAuth 2.0 client ID for retrieving extra attributes from the identity provider.
+                    --extra-attributes-client-secret-value=!: The OAuth 2.0 client secret for retrieving extra attributes from the identity provider.
+                    --extra-attributes-filter=: The filter used to request specific records from the IdP.
+                    --extra-attributes-issuer-uri=!: OIDC identity provider's issuer URI.
+                    --extra-attributes-type=!: Represents the identity provider and type of claims that should be fetched.
+                    --idp-metadata-path=!: XML file with configuration metadata for the SAML identity provider.
+                    --location=: The location for the workforce pool.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --no-detailed-audit-logging&: Enables detailed audit logging for this provider, which populates additional debug information
+                    --no-disabled&: Disables the workforce pool provider.
+                    --scim-usage=: Specifies whether the workforce identity pool provider uses SCIM-managed
+                    --vendor-type=&: The vendor type of the third-party identity provider.
+                    --workforce-pool=: The ID to use for the workforce pool, which becomes the final component of the
+                  completion:
+                    flag:
+                        extra-attributes-type:
+                            - attributes-type-unspecified
+                            - azure-ad-groups-display-name
+                            - azure-ad-groups-id
+                            - azure-ad-groups-mail
+                        scim-usage:
+                            - enabled-for-groups
+                            - enabled-for-users-groups
+                            - scim-usage-unspecified
+                        vendor-type:
+                            - adfs
+                            - entra-id
+                            - forge-rock
+                            - generic
+                            - jump-cloud
+                            - keycloak
+                            - okta
+                            - one-login
+                            - ping-federate
+                            - vendor-type-unspecified
                 - name: delete
                   description: '*(BETA)*  Delete a workforce pool provider.'
                   flags:
@@ -38175,6 +38373,62 @@ commands:
                             - code
                             - id-token
                             - response-type-unspecified
+                - name: update-saml
+                  description: '*(BETA)*  Update a new SAML workforce pool provider.'
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --attribute-condition=: A [Common Expression Language](https://opensource.google/projects/cel) expression, in plain
+                    --attribute-mapping=: Maps claims from the authentication credentials issued by the Identity Provider into Google
+                    --clear-extended-attributes-config: Clear the extended attributes configuration.
+                    --clear-extra-attributes-config: Clear the extra attributes configuration.
+                    --clear-scim-usage: Clear the SCIM usage configuration, resetting it to unspecified.
+                    --description=: A description for the workforce pool provider.
+                    --detailed-audit-logging: Enables detailed audit logging for this provider, which populates additional debug information
+                    --disabled: Disables the workforce pool provider.
+                    --display-name=: A display name for the workforce pool provider.
+                    --extended-attributes-client-id=: The OAuth 2.0 client ID for retrieving extended attributes from the identity provider.
+                    --extended-attributes-client-secret-value=: The OAuth 2.0 client secret for retrieving extended attributes from the identity provider.
+                    --extended-attributes-filter=: The filter used to request specific records from the IdP.
+                    --extended-attributes-issuer-uri=: OIDC identity provider's issuer URI.
+                    --extended-attributes-type=: Represents the identity provider and type of claims that should be fetched.
+                    --extra-attributes-client-id=: The OAuth 2.0 client ID for retrieving extra attributes from the identity provider.
+                    --extra-attributes-client-secret-value=: The OAuth 2.0 client secret for retrieving extra attributes from the identity provider.
+                    --extra-attributes-filter=: The filter used to request specific records from the IdP.
+                    --extra-attributes-issuer-uri=: OIDC identity provider's issuer URI.
+                    --extra-attributes-type=: Represents the identity provider and type of claims that should be fetched.
+                    --idp-metadata-path=: XML file with configuration metadata for the SAML identity provider.
+                    --location=: The location for the workforce pool.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --no-clear-extended-attributes-config&: Clear the extended attributes configuration.
+                    --no-clear-extra-attributes-config&: Clear the extra attributes configuration.
+                    --no-clear-scim-usage&: Clear the SCIM usage configuration, resetting it to unspecified.
+                    --no-detailed-audit-logging&: Enables detailed audit logging for this provider, which populates additional debug information
+                    --no-disabled&: Disables the workforce pool provider.
+                    --scim-usage=: Specifies whether the workforce identity pool provider uses SCIM-managed
+                    --vendor-type=&: The vendor type of the third-party identity provider.
+                    --workforce-pool=: The ID to use for the workforce pool, which becomes the final component of the
+                  completion:
+                    flag:
+                        extra-attributes-type:
+                            - attributes-type-unspecified
+                            - azure-ad-groups-display-name
+                            - azure-ad-groups-id
+                            - azure-ad-groups-mail
+                        scim-usage:
+                            - enabled-for-groups
+                            - enabled-for-users-groups
+                            - scim-usage-unspecified
+                        vendor-type:
+                            - adfs
+                            - entra-id
+                            - forge-rock
+                            - generic
+                            - jump-cloud
+                            - keycloak
+                            - okta
+                            - one-login
+                            - ping-federate
+                            - vendor-type-unspecified
             - name: suggest-workspace-link-attribute-mapping
               description: '*(BETA)*  Suggest workspace link attribute mappings for a workforce pool.'
               hidden: true
@@ -38199,6 +38453,12 @@ commands:
                 --no-disable-programmatic-signin&: Disables the programmatic sign-in for workforce pool users.
                 --no-disabled&: Disables the workforce pool.
                 --session-duration=: How long the Google Cloud access tokens, console sign-in sessions, and gcloud sign-in sessions
+                --workspace-link-state=&: The state of the workspace link config for this workforce pool.
+              completion:
+                flag:
+                    workspace-link-state:
+                        - linked
+                        - unlinked
         - name: workload-identity-pools
           description: '*(BETA)*  Manage IAM workload identity pools.'
           commands:
@@ -56068,11 +56328,13 @@ commands:
                 --allowed-referrers=: A list of regular expressions for the referrer URLs that are allowed to make API calls with this key.
                 --annotations=: Annotations are key resource.
                 --api-target=: Repeatable.
+                --append: If specified, merge the new restrictions with the current restrictions of the key instead of replacing them.
                 --async: Return immediately, without waiting for the operation in progress to
                 --clear-annotations: If set, clear all annotations on the key.
                 --clear-restrictions: If set, clear all restrictions on the key.
                 --display-name=: Display name of the key to update.
                 --location=: Location of the key.
+                --no-append&: If specified, merge the new restrictions with the current restrictions of the key instead of replacing them.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-clear-annotations&: If set, clear all annotations on the key.
                 --no-clear-restrictions&: If set, clear all restrictions on the key.
@@ -56181,14 +56443,16 @@ commands:
                 - name: remove
                   description: '*(BETA)*  Remove MCP content security provider of a project.'
             - name: disable
-              description: '*(BETA)*  *(DEPRECATED)*  Disable a service for MCP on a project, folder or organization.'
+              description: '*(BETA)*  *(REMOVED)*  Disable a service for MCP on a project, folder or organization.'
+              hidden: true
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
                 --folder=: The Google Cloud Platform folder ID to use for this invocation.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --organization=: The Google Cloud Platform organization ID to use for this invocation.
             - name: enable
-              description: '*(BETA)*  *(DEPRECATED)*  Enable a service for MCP on a project, folder or organization.'
+              description: '*(BETA)*  *(REMOVED)*  Enable a service for MCP on a project, folder or organization.'
+              hidden: true
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
                 --folder=: The Google Cloud Platform folder ID to use for this invocation.
@@ -56197,7 +56461,8 @@ commands:
                 --organization=: The Google Cloud Platform organization ID to use for this invocation.
                 --skip-mcp-endpoint-check&: If true, the system will bypass the check for MCP endpoint while enabling a service.
             - name: list
-              description: '*(BETA)*  *(DEPRECATED)*  List MCP services for a project, folder or organization.'
+              description: '*(BETA)*  *(REMOVED)*  List MCP services for a project, folder or organization.'
+              hidden: true
               flags:
                 --available: Return the services available to the project, folder or organization to enable for MCP.
                 --enabled: (DEFAULT) Return the MCP services which the project, folder or organization has enabled.

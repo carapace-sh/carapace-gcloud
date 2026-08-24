@@ -1449,6 +1449,14 @@ commands:
         - name: skills
           description: '*(ALPHA)*  Manage Skill resources.'
           commands:
+            - name: add-iam-policy-binding
+              description: '*(ALPHA)*  Add IAM policy binding for a skill.'
+              flags:
+                --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+                --condition=: A condition to include in the binding.
+                --location=: The location id of the skill resource.
+                --member=!: The principal to add the binding for.
+                --role=!: Role name to assign to the principal.
             - name: create
               description: '*(ALPHA)*  Create skills.'
               flags:
@@ -1492,6 +1500,14 @@ commands:
               description: '*(ALPHA)*  Describe skills.'
               flags:
                 --location=: The location id of the skill resource.
+            - name: get-iam-policy
+              description: '*(ALPHA)*  Get the IAM policy for a skill.'
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the skill resource.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
             - name: list
               description: '*(ALPHA)*  List skills.'
               flags:
@@ -1502,6 +1518,16 @@ commands:
                 --page-size=: Some services group resource list output into pages.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: remove-iam-policy-binding
+              description: '*(ALPHA)*  Remove IAM policy binding from a skill.'
+              flags:
+                --all: Remove all bindings with this role and principal, irrespective of any
+                --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
+                --condition=: The condition of the binding that you want to remove.
+                --location=: The location id of the skill resource.
+                --member=!: The principal to remove the binding for.
+                --no-all&: ""
+                --role=!: The role to remove the principal from.
             - name: revisions
               description: '*(ALPHA)*  Manage Skill Revision resources.'
               commands:
@@ -1563,6 +1589,10 @@ commands:
                     search-type:
                         - keyword
                         - semantic
+            - name: set-iam-policy
+              description: '*(ALPHA)*  Set the IAM policy for a skill.'
+              flags:
+                --location=: The location id of the skill resource.
             - name: update
               description: '*(ALPHA)*  Update skills.'
               flags:
@@ -4673,9 +4703,11 @@ commands:
                 --api=: API ID.
                 --async: Return immediately, without waiting for the operation in progress to
                 --display-name=: Human readable name which can optionally be supplied.
+                --enable-streaming&: Creates the gateway with response streaming enabled, which supports
                 --labels=: List of label KEY=VALUE pairs to add.
                 --location=: Cloud location for gateway.
                 --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-enable-streaming&: Creates the gateway with response streaming enabled, which supports
             - name: delete
               description: '*(ALPHA)*  Delete an API Gateway.'
               flags:
@@ -8794,6 +8826,71 @@ commands:
     - name: backup-dr
       description: '*(ALPHA)*  Manage Backup and DR resources.'
       commands:
+        - name: auto-protection-bindings
+          description: '*(ALPHA)*  Manage Backup and DR auto protection bindings.'
+          hidden: true
+          commands:
+            - name: describe
+              description: '*(ALPHA)*  Describe a Backup and DR auto-protection binding.'
+              hidden: true
+              flags:
+                --auto-protection-policy=: The ID of the AutoProtectionPolicy.
+                --location=: Location ID of the resource.
+            - name: list
+              description: '*(ALPHA)*  List Backup and DR auto-protection bindings.'
+              hidden: true
+              flags:
+                --auto-protection-policy=!: ID of the auto_protection_policy or fully qualified identifier for the auto_protection_policy.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: Location ID of the resource.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: auto-protection-policies
+          description: '*(ALPHA)*  Manage Backup and DR AutoProtectionPolicies.'
+          hidden: true
+          commands:
+            - name: create
+              description: '*(ALPHA)*  Create a Backup and DR AutoProtectionPolicy.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --backup-plan-details=!: Backup plan details in format resource-type=VALUE,backup-plan=VALUE.
+                --criteria=!: Criteria of the policy in format key=VALUE,value=VALUE.
+                --description=: Description for the policy.
+                --location=: The location of the AutoProtectionPolicy.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: delete
+              description: '*(ALPHA)*  Delete a Backup and DR AutoProtectionPolicy.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: Location ID of the resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: describe
+              description: '*(ALPHA)*  Describe a Backup and DR AutoProtectionPolicy.'
+              hidden: true
+              flags:
+                --location=: Location ID of the resource.
+            - name: list
+              description: '*(ALPHA)*  List Backup and DR AutoProtectionPolicies.'
+              hidden: true
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: ID of the location or fully qualified identifier for the location.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+            - name: update
+              description: '*(ALPHA)*  Update a Backup and DR AutoProtectionPolicy.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --backup-plan-details=: Backup plan details in format resource-type=VALUE,backup-plan=VALUE.
+                --criteria=: Criteria of the policy in format key=VALUE,value=VALUE.
+                --description=: Description for the policy.
+                --location=: The location of the AutoProtectionPolicy.
+                --no-async&: Return immediately, without waiting for the operation in progress to
         - name: backup-plan-associations
           description: '*(ALPHA)*  Manage Backup and DR backup plan associations.'
           commands:
@@ -13340,7 +13437,7 @@ commands:
       description: '*(ALPHA)*  Manage Cluster Director resources.'
       commands:
         - name: clusters
-          description: '*(ALPHA)*  Manage Cluster Director cluster resources.'
+          description: '*(ALPHA)*  Deploy and manage large-scale AI and high-performance computing (HPC) clusters.'
           commands:
             - name: create
               description: '*(ALPHA)*  Creates a Cluster Director resource.'
@@ -13385,8 +13482,8 @@ commands:
                         - a3-ultra
                         - a4-high-flex-start
                         - a4x-high
-                        - g4
-                        - h4d-highmem
+                        - g4-flex-start
+                        - h4d-highmem-flex-start
             - name: delete
               description: '*(ALPHA)*  Deletes a Cluster Director resource.'
               flags:
@@ -13455,7 +13552,7 @@ commands:
                 --update-slurm-node-sets=: Parameters to define and update slurm cluster nodeset config.
                 --update-slurm-partitions=: Parameters to define and update slurm cluster partition config.
         - name: locations
-          description: '*(ALPHA)*  View Locations resources.'
+          description: '*(ALPHA)*  View supported locations.'
           commands:
             - name: describe
               description: '*(ALPHA)*  Describe locations.'
@@ -14668,6 +14765,7 @@ commands:
                 --forward-proxy-direct-forwarding: Enables Direct Forwarding in Forward Proxy mode.
                 --global: If set, the backend service is global.
                 --global-health-checks: If set, the health checks are global.
+                --global-network-endpoint-group&: If set, the network endpoint group is global.
                 --ha-policy-fast-ip-move=&: Fast IP move policy for high availability (HA).
                 --health-checks-region=: Region of the health checks to operate on.
                 --health-checks=: Specifies a list of health check objects for checking the health of
@@ -14685,9 +14783,13 @@ commands:
                 --logging-optional-fields=: This field can only be specified if logging is enabled for the backend
                 --logging-optional=: This field can only be specified if logging is enabled for the backend
                 --logging-sample-rate=: This field can only be specified if logging is enabled for the backend
+                --max-stream-duration=: Specifies the default maximum duration (timeout) for streams on this
                 --max-ttl=: Specifies the maximum allowed TTL for cached content served by this origin.
                 --negative-caching: Negative caching allows per-status code cache TTLs to be set, in order to
                 --negative-caching-policy=: Sets a cache TTL for the specified HTTP status code.
+                --network-endpoint-group-region=&: Region of the network endpoint group to create the backend service.
+                --network-endpoint-group-zone=&: Zone of the network endpoint group to create the backend service.
+                --network-endpoint-group=&: Name of the network endpoint group to create the backend service.
                 --network=: Network that this backend service applies to.
                 --no-allow-multinetwork&: Allow or disallow backend services to be discovered across networks in
                 --no-cache-key-include-host&: Enable including host in cache key.
@@ -14702,6 +14804,7 @@ commands:
                 --no-forward-proxy-direct-forwarding&: Enables Direct Forwarding in Forward Proxy mode.
                 --no-global&: If set, the backend service is global.
                 --no-global-health-checks&: If set, the health checks are global.
+                --no-global-network-endpoint-group&: If set, the network endpoint group is global.
                 --no-ip-port-dynamic-forwarding&: Enables Dynamic Forwarding in IpPort selection mode.
                 --no-negative-caching&: Negative caching allows per-status code cache TTLs to be set, in order to
                 --no-request-coalescing&: Enables request coalescing to the backend (recommended).
@@ -14989,6 +15092,7 @@ commands:
                 --logging-optional-fields=: This field can only be specified if logging is enabled for the backend
                 --logging-optional=: This field can only be specified if logging is enabled for the backend
                 --logging-sample-rate=: This field can only be specified if logging is enabled for the backend
+                --max-stream-duration=: Specifies the default maximum duration (timeout) for streams on this
                 --max-ttl=: Specifies the maximum allowed TTL for cached content served by this origin.
                 --negative-caching: Negative caching allows per-status code cache TTLs to be set, in order to
                 --negative-caching-policy=: Sets a cache TTL for the specified HTTP status code.
@@ -15017,6 +15121,7 @@ commands:
                 --no-locality-lb-policy: Removes the locality load balancing policy from the backend service.
                 --no-logging-http-request-headers: Remove all logging HTTP request headers for the backend service.
                 --no-logging-http-response-headers: Remove all logging HTTP response headers for the backend service.
+                --no-max-stream-duration: Clears the maximum stream duration timeout on the backend service.
                 --no-max-ttl: (DEPRECATED) Clears max TTL value.
                 --no-negative-caching&: Negative caching allows per-status code cache TTLs to be set, in order to
                 --no-negative-caching-policies: Remove all negative caching policies for the backend service.
@@ -15421,6 +15526,10 @@ commands:
         - name: diagnose
           description: '*(ALPHA)*  Debugging tools for Compute Engine virtual machine instances.'
           commands:
+            - name: boot
+              description: '*(ALPHA)*  Analyze a VM''s serial console output for boot issues.'
+              flags:
+                --zone=: Zone of the instance to operate on.
             - name: export-logs
               description: '*(ALPHA)*  Triggers instance to gather logs and upload them to a Cloud Storage Bucket.'
               flags:
@@ -16777,6 +16886,7 @@ commands:
               completion:
                 flag:
                     failover-initiation:
+                        - automatic
                         - failover-initiation-unspecified
                         - manual-only
         - name: health-aggregation-policies
@@ -17424,6 +17534,10 @@ commands:
                 --regexp=: (DEPRECATED)         Regular expression to filter the names of the results  on.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: test-iam-permissions
+              description: '*(ALPHA)*  Test IAM permissions for a Compute Engine legacy HTTPS health check.'
+              flags:
+                --permissions=!: Permissions to test.
             - name: update
               description: '*(ALPHA)*  Update a legacy HTTPS health check.'
               flags:
@@ -20987,6 +21101,11 @@ commands:
                   description: '*(ALPHA)*  Set the IAM policy for a Compute Engine interconnect attachment.'
                   flags:
                     --region=: The name of the Google Compute Engine region.
+                - name: test-iam-permissions
+                  description: '*(ALPHA)*  Test IAM permissions for a Compute Engine interconnect attachment.'
+                  flags:
+                    --permissions=!: Permissions to be tested.
+                    --region=: The name of the Google Compute Engine region.
             - name: create
               description: '*(ALPHA)*  Create a Compute Engine interconnect.'
               flags:
@@ -21228,6 +21347,7 @@ commands:
                     --cross-site-network=!: Name of the crossSiteNetwork to operate on.
                     --description=: An optional, textual description for the wire group.
                     --fault-response=: The fault response for the wire group.
+                    --flow-management=: The flow management configuration for the wire group.
                     --network-service-class=: The network service class for the wire group.
                     --no-admin-enabled&: Administrative status of the wire group.
                     --no-validate-only&: Validate the new configuration, but don't update it.
@@ -21241,6 +21361,9 @@ commands:
                         fault-response:
                             - DISABLE_PORT
                             - NONE
+                        flow-management:
+                            - DYNAMIC_PATH
+                            - FIXED_PATH
                         network-service-class:
                             - BRONZE
                             - GOLD
@@ -21287,6 +21410,7 @@ commands:
                     --cross-site-network=!: Name of the crossSiteNetwork to operate on.
                     --description=: An optional, textual description for the wire group.
                     --fault-response=: The fault response for the wire group.
+                    --flow-management=: The flow management configuration for the wire group.
                     --network-service-class=: The network service class for the wire group.
                     --no-admin-enabled&: Administrative status of the wire group.
                     --no-validate-only&: Validate the new configuration, but don't update it.
@@ -21300,6 +21424,9 @@ commands:
                         fault-response:
                             - DISABLE_PORT
                             - NONE
+                        flow-management:
+                            - DYNAMIC_PATH
+                            - FIXED_PATH
                         network-service-class:
                             - BRONZE
                             - GOLD
@@ -21482,6 +21609,20 @@ commands:
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
                 --zones=: If provided, only resources from the given zones are queried.
+        - name: managed-rulesets
+          description: '*(ALPHA)*  Read Cloud Armor managed rulesets.'
+          commands:
+            - name: describe
+              description: '*(ALPHA)*  Describe a Cloud Armor managed ruleset.'
+            - name: list
+              description: '*(ALPHA)*  List pre-configured Cloud Armor managed rulesets.'
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
         - name: migration
           description: '*(ALPHA)*  Provides Migrate to Virtual Machines (VM migration) service functionality.'
           commands:
@@ -22841,6 +22982,10 @@ commands:
                         stack-type:
                             - IPV4_IPV6
                             - IPV4_ONLY
+            - name: test-iam-permissions
+              description: '*(ALPHA)*  Test IAM permissions for a Compute Engine network.'
+              flags:
+                --permissions=!: The permissions to test.
             - name: update
               description: '*(ALPHA)*  Update a Compute Engine network.'
               flags:
@@ -23616,6 +23761,11 @@ commands:
                 --regions=: If provided, only resources from the given regions are queried.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: test-iam-permissions
+              description: '*(ALPHA)*  Test IAM permissions for a Compute Engine packet mirroring policy.'
+              flags:
+                --permissions=!: The set of permissions to check for the resource.
+                --region=: Region of the packet mirroring to test IAM permissions for.
             - name: update
               description: '*(ALPHA)*  Update a Compute Engine packet mirroring policy.'
               flags:
@@ -24355,6 +24505,13 @@ commands:
                     --slot-name=!: The name of the reservation slot.
                     --sub-block-name=!: The name of the reservation sub block.
                     --zone=: Zone of the reservation to describe.
+                - name: get-health
+                  description: '*(ALPHA)*  Get the health of a reservation slot.'
+                  flags:
+                    --block-name=!: Name of the reservation block.
+                    --slot-name=!: Name of the reservation slot.
+                    --sub-block-name=!: Name of the reservation sub block.
+                    --zone=: Zone of the reservation to get-health.
                 - name: get-version
                   description: '*(ALPHA)*  Get the version of a reservation slot.'
                   flags:
@@ -25394,6 +25551,10 @@ commands:
                 --regexp=: (DEPRECATED)         Regular expression to filter the names of the results  on.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: test-iam-permissions
+              description: '*(ALPHA)*  Test IAM permissions for a Compute Engine route.'
+              flags:
+                --permissions=!: Permissions to be tested.
         - name: scp
           description: '*(ALPHA)*  Copy files to and from Google Compute Engine virtual machines via scp.'
           flags:
@@ -26778,6 +26939,7 @@ commands:
                 --description=: An optional, textual description for the target HTTP proxy.
                 --global: If set, the target HTTP proxy is global.
                 --global-url-map: If set, the URL map is global.
+                --http-filters=!: IDs of the http filters or fully qualified identifiers for the http filters.
                 --http-keep-alive-timeout-sec=: Represents the maximum amount of time that a TCP connection can be idle
                 --no-global&: If set, the target HTTP proxy is global.
                 --no-global-url-map&: If set, the URL map is global.
@@ -26832,16 +26994,19 @@ commands:
             - name: update
               description: '*(ALPHA)*  Update a target HTTP proxy.'
               flags:
+                --clear-http-filters: Clear existing HTTP filters.
                 --clear-http-keep-alive-timeout-sec: Clears the previously configured HTTP keepalive timeout.
                 --global: If set, the target HTTP proxy is global.
                 --global-url-map: If set, the URL map is global.
+                --http-filters=!: IDs of the http filters or fully qualified identifiers for the http filters.
                 --http-keep-alive-timeout-sec=: Represents the maximum amount of time that a TCP connection can be idle
+                --no-clear-http-filters&: Clear existing HTTP filters.
                 --no-clear-http-keep-alive-timeout-sec&: Clears the previously configured HTTP keepalive timeout.
                 --no-global&: If set, the target HTTP proxy is global.
                 --no-global-url-map&: If set, the URL map is global.
                 --region=: Region of the target HTTP proxy to update.
                 --url-map-region=: Region of the URL map to operate on.
-                --url-map=!: A reference to a URL map resource.
+                --url-map=: A reference to a URL map resource.
         - name: target-https-proxies
           description: '*(ALPHA)*  List, create, and delete target HTTPS proxies.'
           commands:
@@ -27206,6 +27371,10 @@ commands:
                 --regexp=: (DEPRECATED)         Regular expression to filter the names of the results  on.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: test-iam-permissions
+              description: '*(ALPHA)*  Test IAM permissions for a Compute Engine target SSL proxy.'
+              flags:
+                --permissions=!: Permissions to test.
             - name: update
               description: '*(ALPHA)*  Update a target SSL proxy.'
               flags:
@@ -28111,7 +28280,7 @@ commands:
                 --phase1-prf=: Phase 1 pseudorandom functions.
                 --phase2-encryption=: Phase 2 encryption algorithms.
                 --phase2-integrity=: Phase 2 integrity algorithms.
-                --phase2-pfs=: Phase 2 perfect forward secerecy algorithms.
+                --phase2-pfs=: Phase 2 perfect forward secrecy algorithms.
                 --region=: Region of the VPN Tunnel to create.
                 --remote-traffic-selector=: Traffic selector is an agreement between IKE peers to permit traffic
                 --resource-manager-tags=: A comma-separated list of Resource Manager tags to apply to the VPN tunnel.
@@ -30946,7 +31115,7 @@ commands:
                 --enable-security-posture&: (DEPRECATED) Enables the GKE Security Posture API's features.
                 --enable-service-externalips: Enables use of services with externalIPs field.
                 --enable-shielded-nodes: Enable Shielded Nodes for this cluster.
-                --enable-slice-controller&: Enable Slice Controller for the cluster.
+                --enable-slice-controller: Enable Slice Controller for the cluster.
                 --enable-stackdriver-kubernetes: (DEPRECATED) Enable Cloud Operations for GKE.
                 --enable-tpu&: Enable Cloud TPUs for this cluster.
                 --enable-tpu-service-networking&: Enable Cloud TPU's Service Networking mode.
@@ -31181,6 +31350,9 @@ commands:
                 --total-min-nodes=: Minimum number of all nodes in the node pool.
                 --tpu-ipv4-cidr=&: Set the IP range for the Cloud TPUs.
                 --username=: The user name to use for basic auth for the cluster.
+                --wiz-sensor-api-key-secret-uri=&: The GCP Secret Manager URI for the Wiz API key secret.
+                --wiz-sensor-proxy-secret-uri=&: The GCP Secret Manager URI for the Wiz proxy configuration.
+                --wiz-sensor-registry-secret-uri=&: The GCP Secret Manager URI for the Wiz registry secret.
                 --workload-metadata-from-node=&: Type of metadata server available to pods running in the node pool.
                 --workload-metadata=: Type of metadata server available to pods running in the node pool.
                 --workload-pool=: Enable Workload Identity on the cluster.
@@ -31486,6 +31658,9 @@ commands:
                 --tag-bindings=&: List of tag-bindings KEY=VALUE pairs to bind.
                 --tier=: (DEPRECATED) Set the desired tier for the cluster.
                 --timeout=&: Timeout (seconds) for waiting on the operation to complete.
+                --wiz-sensor-api-key-secret-uri=&: The GCP Secret Manager URI for the Wiz API key secret.
+                --wiz-sensor-proxy-secret-uri=&: The GCP Secret Manager URI for the Wiz proxy configuration.
+                --wiz-sensor-registry-secret-uri=&: The GCP Secret Manager URI for the Wiz registry secret.
                 --workload-policies=: Add Autopilot workload policies to the cluster.
                 --workload-vulnerability-scanning=: Sets the mode of the Kubernetes security posture API's workload
                 --zone=: Compute zone (e.g. us-central1-a) for a zonal cluster.
@@ -31747,7 +31922,7 @@ commands:
                 --enable-security-posture&: (DEPRECATED) Enables the GKE Security Posture API's features.
                 --enable-service-externalips: Enables use of services with externalIPs field.
                 --enable-shielded-nodes: Enable Shielded Nodes for this cluster.
-                --enable-slice-controller&: Enable Slice Controller for the cluster.
+                --enable-slice-controller: Enable Slice Controller for the cluster.
                 --enable-stackdriver-kubernetes: (DEPRECATED) Enable Cloud Operations for GKE.
                 --enable-tpu&: Enable Cloud TPUs for this cluster.
                 --enable-tpu-service-networking&: Enable Cloud TPU's Service Networking mode.
@@ -31937,6 +32112,9 @@ commands:
                 --update-addons=: Cluster addons to enable or disable.
                 --update-labels=: Labels to apply to the Google Cloud resources in use by the Kubernetes Engine
                 --username=: The user name to use for basic auth for the cluster.
+                --wiz-sensor-api-key-secret-uri=&: The GCP Secret Manager URI for the Wiz API key secret.
+                --wiz-sensor-proxy-secret-uri=&: The GCP Secret Manager URI for the Wiz proxy configuration.
+                --wiz-sensor-registry-secret-uri=&: The GCP Secret Manager URI for the Wiz registry secret.
                 --workload-policies=: Add Autopilot workload policies to the cluster.
                 --workload-pool=: Enable Workload Identity on the cluster.
                 --workload-vulnerability-scanning=: Sets the mode of the Kubernetes security posture API's workload
@@ -35137,6 +35315,7 @@ commands:
                 --enable-queued-provisioning: Mark the nodepool as Queued only.
                 --enable-surge-upgrade: Changes node pool upgrade strategy to surge upgrade.
                 --enable-system-telemetry-collection&: Enable system metrics and logs collection from the runner to Google Cloud.
+                --enable-upgrade-in-place&: Enable in-place upgrades for the node pool.
                 --enable-workload-log-collection&: Enable collecting container logs from default pods log directory path /var/log/pods.
                 --ephemeral-storage-local-ssd=:
                     description: Parameters for the ephemeral storage filesystem.
@@ -35201,6 +35380,7 @@ commands:
                 --no-enable-queued-provisioning&: Mark the nodepool as Queued only.
                 --no-enable-surge-upgrade&: Changes node pool upgrade strategy to surge upgrade.
                 --no-enable-system-telemetry-collection&: Enable system metrics and logs collection from the runner to Google Cloud.
+                --no-enable-upgrade-in-place&: Enable in-place upgrades for the node pool.
                 --no-enable-workload-log-collection&: Enable collecting container logs from default pods log directory path /var/log/pods.
                 --no-flex-start&: Start the node pool with Flex Start provisioning model.
                 --no-preemptible&: Create nodes using preemptible VM instances in the new node pool.
@@ -35398,6 +35578,7 @@ commands:
                 --enable-private-nodes: Enables provisioning nodes with private IP addresses only.
                 --enable-queued-provisioning: Mark the nodepool as Queued only.
                 --enable-surge-upgrade: Changes node pool upgrade strategy to surge upgrade.
+                --enable-upgrade-in-place&: Enable in-place upgrades for the node pool.
                 --flex-start: Start the node pool with Flex Start provisioning model.
                 --labels=: Labels to apply to the Google Cloud resources of node pools in the
                 --location-policy=: Location policy specifies the algorithm used when scaling-up the node pool.
@@ -35428,6 +35609,7 @@ commands:
                 --no-enable-private-nodes&: Enables provisioning nodes with private IP addresses only.
                 --no-enable-queued-provisioning&: Mark the nodepool as Queued only.
                 --no-enable-surge-upgrade&: Changes node pool upgrade strategy to surge upgrade.
+                --no-enable-upgrade-in-place&: Enable in-place upgrades for the node pool.
                 --no-flex-start&: Start the node pool with Flex Start provisioning model.
                 --no-remove-maintenance-exclusion-until-end-of-support&: Remove node pool maintenance exclusion until the end of support.
                 --no-respect-pdb-during-node-pool-deletion&: Whether to respect PDBs when deleting nodes in the node pool.
@@ -36492,6 +36674,8 @@ commands:
               description: '*(ALPHA)*  List IPs used for static IP connectivity method.'
               flags:
                 --endpoint-mode=: Specifies endpoint mode for a given command.
+                --fetch-reserved-public-ips: Indicates whether to fetch the reserved public IP addresses allocated for private connections in this location.
+                --no-fetch-reserved-public-ips&: Indicates whether to fetch the reserved public IP addresses allocated for private connections in this location.
               completion:
                 flag:
                     endpoint-mode:
@@ -37787,17 +37971,14 @@ commands:
                     --validate-only: Validate the update action, but don't actually perform it.
         - name: dbt
           description: '*(ALPHA)*  Ingest dbt-core metadata into Dataplex Knowledge Catalog.'
-          hidden: true
           commands:
             - name: metadata-jobs
               description: '*(ALPHA)*  Manage Dataplex metadata jobs that ingest dbt-core metadata.'
-              hidden: true
               commands:
                 - name: create
                   description: '*(ALPHA)*  Transform dbt-core artifacts and import them into Dataplex Catalog.'
-                  hidden: true
                   flags:
-                    --artifacts-path=: Local path to the dbt-core artifacts.
+                    --artifacts-path=: 'Path to the dbt-core artifacts: a local directory, or a Cloud'
                     --aspects-only: Update only the metadata this dbt run observed, and leave the rest
                     --async: Return immediately, without waiting for the operation in progress to
                     --connector-types-project=&: Overrides the project that owns the 1P dbt aspect/entry types.
@@ -42649,6 +42830,36 @@ commands:
               description: '*(ALPHA)*  Wait operations.'
               flags:
                 --location=: The location id of the operation resource.
+    - name: developer-knowledge
+      description: '*(ALPHA)*  Manage Developer Knowledge resources and query knowledge base.'
+      commands:
+        - name: answer-query
+          description: '*(ALPHA)*  Answer a natural language query using grounded generation.'
+          flags:
+            --query-filter=: Apply a strict filter to the search results used to ground the answer.
+            --query=!: The query to answer.
+        - name: documents
+          description: '*(ALPHA)*  Explore and search Developer Knowledge documents.'
+          commands:
+            - name: describe
+              description: '*(ALPHA)*  Retrieve a single document with its full Markdown content.'
+              flags:
+                --view=: Specify which fields of the document are included in the response.
+              completion:
+                flag:
+                    view:
+                        - basic
+                        - content
+                        - full
+            - name: search-chunks
+              description: '*(ALPHA)*  Search for developer knowledge across Google''s developer documentation.'
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --page-size=: Some services group resource list output into pages.
+                --query-filter=: Apply a strict filter to the search results.
+                --query=!: Raw query string provided by the user, such as "How to create a Cloud Storage bucket?".
+                --sort-by=: Comma-separated list of resource field key names to sort by.
     - name: device-run
       description: '*(ALPHA)*  Manage automation sessions and jobs on devices.'
       commands:
@@ -45698,6 +45909,72 @@ commands:
     - name: firebase
       description: '*(ALPHA)*  Work with Google Firebase.'
       commands:
+        - name: apps
+          description: '*(ALPHA)*  Manage Firebase applications.'
+          hidden: true
+          commands:
+            - name: create
+              description: '*(ALPHA)*  Create a new Firebase application.'
+              hidden: true
+              flags:
+                --app-store-id=: The App Store ID for the iOS app.
+                --bundle-id=: The canonical bundle ID of the iOS app as it would appear in the iOS App Store.
+                --display-name=: The user-assigned display name of the App.
+                --package-name=: The package name for the Android app (e.g. com.example.my_app).
+                --platform=!: The platform of the app to create (android, ios, web).
+              completion:
+                flag:
+                    platform:
+                        - android
+                        - ios
+                        - web
+            - name: list
+              description: '*(ALPHA)*  List the registered apps of a Firebase project.'
+              hidden: true
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --platform=: Filter apps by platform (ios, android, web).
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+              completion:
+                flag:
+                    platform:
+                        - android
+                        - ios
+                        - web
+        - name: security-rules
+          description: '*(ALPHA)*  Manage Firebase Security Rules releases and rulesets.'
+          hidden: true
+          commands:
+            - name: get
+              description: '*(ALPHA)*  Get a Firebase security rules release or ruleset.'
+              hidden: true
+              flags:
+                --no-release&: Get a release with the given name.
+                --no-ruleset&: Get a ruleset with the given ID/name.
+                --release: Get a release with the given name.
+                --ruleset: Get a ruleset with the given ID/name.
+            - name: list
+              description: '*(ALPHA)*  List Firebase security rules releases or rulesets in a project.'
+              hidden: true
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-rulesets&: If specified, lists rulesets instead of releases.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --rulesets: If specified, lists rulesets instead of releases.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: release
+              description: '*(ALPHA)*  Release security rules to a named Firebase release.'
+              hidden: true
+              flags:
+                --ruleset=: The existing ruleset name or ID to release.
+                --source=: Path to a local rules file to deploy and release.
         - name: test
           description: '*(ALPHA)*  Interact with Firebase Test Lab.'
           commands:
@@ -46283,6 +46560,25 @@ commands:
                 --database=: The database to operate on.
                 --no-database-scope&: Create a database-scoped change stream.
                 --retention=: The retention period of the change stream (e.g. 1d, 7d).
+            - name: delete
+              description: '*(ALPHA)*  Delete a Cloud Firestore change stream.'
+              flags:
+                --database=!: The database to operate on.
+                --etag=: The current etag of the change stream.
+            - name: describe
+              description: '*(ALPHA)*  Describe a Cloud Firestore change stream.'
+              flags:
+                --database=!: The database to operate on.
+            - name: list
+              description: '*(ALPHA)*  List change streams under a Firestore database.'
+              flags:
+                --database=!: The database to operate on.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
         - name: databases
           description: '*(ALPHA)*  Manage Creation of Cloud Firestore in Native mode Database.'
           commands:
@@ -46325,6 +46621,7 @@ commands:
                 --enable-mongodb-compatible-data-access: Whether to enable MongoDB Compatible API Data Access on the
                 --enable-pitr: Whether to enable Point In Time Recovery (PITR) on the created database.
                 --enable-realtime-updates: Whether to enable Realtime Updates feature on the created database.
+                --free-tier-limited&: Whether to restrict the created database to free tier usage only.
                 --kms-key-name=: The resource ID of a Cloud KMS key.
                 --location=!: The location to operate on.
                 --no-delete-protection&: Whether to enable delete protection on the created database.
@@ -46332,6 +46629,7 @@ commands:
                 --no-enable-mongodb-compatible-data-access&: Whether to enable MongoDB Compatible API Data Access on the
                 --no-enable-pitr&: Whether to enable Point In Time Recovery (PITR) on the created database.
                 --no-enable-realtime-updates&: Whether to enable Realtime Updates feature on the created database.
+                --no-free-tier-limited&: Whether to restrict the created database to free tier usage only.
                 --storage-placement=: The storage placement for the database.
                 --tags=: Tags to attach to the destination database.
                 --type=: The type of the database.
@@ -48656,6 +48954,56 @@ commands:
                             - code
                             - id-token
                             - response-type-unspecified
+                - name: create-saml
+                  description: '*(ALPHA)*  Create a new SAML workforce pool provider.'
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --attribute-condition=: A [Common Expression Language](https://opensource.google/projects/cel) expression, in plain
+                    --attribute-mapping=!: Maps claims from the authentication credentials issued by the Identity Provider into Google
+                    --description=: A description for the workforce pool provider.
+                    --detailed-audit-logging: Enables detailed audit logging for this provider, which populates additional debug information
+                    --disabled: Disables the workforce pool provider.
+                    --display-name=: A display name for the workforce pool provider.
+                    --extended-attributes-client-id=!: The OAuth 2.0 client ID for retrieving extended attributes from the identity provider.
+                    --extended-attributes-client-secret-value=!: The OAuth 2.0 client secret for retrieving extended attributes from the identity provider.
+                    --extended-attributes-filter=: The filter used to request specific records from the IdP.
+                    --extended-attributes-issuer-uri=!: OIDC identity provider's issuer URI.
+                    --extended-attributes-type=!: Represents the identity provider and type of claims that should be fetched.
+                    --extra-attributes-client-id=!: The OAuth 2.0 client ID for retrieving extra attributes from the identity provider.
+                    --extra-attributes-client-secret-value=!: The OAuth 2.0 client secret for retrieving extra attributes from the identity provider.
+                    --extra-attributes-filter=: The filter used to request specific records from the IdP.
+                    --extra-attributes-issuer-uri=!: OIDC identity provider's issuer URI.
+                    --extra-attributes-type=!: Represents the identity provider and type of claims that should be fetched.
+                    --idp-metadata-path=!: XML file with configuration metadata for the SAML identity provider.
+                    --location=: The location for the workforce pool.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --no-detailed-audit-logging&: Enables detailed audit logging for this provider, which populates additional debug information
+                    --no-disabled&: Disables the workforce pool provider.
+                    --scim-usage=: Specifies whether the workforce identity pool provider uses SCIM-managed
+                    --vendor-type=&: The vendor type of the third-party identity provider.
+                    --workforce-pool=: The ID to use for the workforce pool, which becomes the final component of the
+                  completion:
+                    flag:
+                        extra-attributes-type:
+                            - attributes-type-unspecified
+                            - azure-ad-groups-display-name
+                            - azure-ad-groups-id
+                            - azure-ad-groups-mail
+                        scim-usage:
+                            - enabled-for-groups
+                            - enabled-for-users-groups
+                            - scim-usage-unspecified
+                        vendor-type:
+                            - adfs
+                            - entra-id
+                            - forge-rock
+                            - generic
+                            - jump-cloud
+                            - keycloak
+                            - okta
+                            - one-login
+                            - ping-federate
+                            - vendor-type-unspecified
                 - name: delete
                   description: '*(ALPHA)*  Delete a workforce pool provider.'
                   flags:
@@ -48937,6 +49285,62 @@ commands:
                             - code
                             - id-token
                             - response-type-unspecified
+                - name: update-saml
+                  description: '*(ALPHA)*  Update a new SAML workforce pool provider.'
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --attribute-condition=: A [Common Expression Language](https://opensource.google/projects/cel) expression, in plain
+                    --attribute-mapping=: Maps claims from the authentication credentials issued by the Identity Provider into Google
+                    --clear-extended-attributes-config: Clear the extended attributes configuration.
+                    --clear-extra-attributes-config: Clear the extra attributes configuration.
+                    --clear-scim-usage: Clear the SCIM usage configuration, resetting it to unspecified.
+                    --description=: A description for the workforce pool provider.
+                    --detailed-audit-logging: Enables detailed audit logging for this provider, which populates additional debug information
+                    --disabled: Disables the workforce pool provider.
+                    --display-name=: A display name for the workforce pool provider.
+                    --extended-attributes-client-id=: The OAuth 2.0 client ID for retrieving extended attributes from the identity provider.
+                    --extended-attributes-client-secret-value=: The OAuth 2.0 client secret for retrieving extended attributes from the identity provider.
+                    --extended-attributes-filter=: The filter used to request specific records from the IdP.
+                    --extended-attributes-issuer-uri=: OIDC identity provider's issuer URI.
+                    --extended-attributes-type=: Represents the identity provider and type of claims that should be fetched.
+                    --extra-attributes-client-id=: The OAuth 2.0 client ID for retrieving extra attributes from the identity provider.
+                    --extra-attributes-client-secret-value=: The OAuth 2.0 client secret for retrieving extra attributes from the identity provider.
+                    --extra-attributes-filter=: The filter used to request specific records from the IdP.
+                    --extra-attributes-issuer-uri=: OIDC identity provider's issuer URI.
+                    --extra-attributes-type=: Represents the identity provider and type of claims that should be fetched.
+                    --idp-metadata-path=: XML file with configuration metadata for the SAML identity provider.
+                    --location=: The location for the workforce pool.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --no-clear-extended-attributes-config&: Clear the extended attributes configuration.
+                    --no-clear-extra-attributes-config&: Clear the extra attributes configuration.
+                    --no-clear-scim-usage&: Clear the SCIM usage configuration, resetting it to unspecified.
+                    --no-detailed-audit-logging&: Enables detailed audit logging for this provider, which populates additional debug information
+                    --no-disabled&: Disables the workforce pool provider.
+                    --scim-usage=: Specifies whether the workforce identity pool provider uses SCIM-managed
+                    --vendor-type=&: The vendor type of the third-party identity provider.
+                    --workforce-pool=: The ID to use for the workforce pool, which becomes the final component of the
+                  completion:
+                    flag:
+                        extra-attributes-type:
+                            - attributes-type-unspecified
+                            - azure-ad-groups-display-name
+                            - azure-ad-groups-id
+                            - azure-ad-groups-mail
+                        scim-usage:
+                            - enabled-for-groups
+                            - enabled-for-users-groups
+                            - scim-usage-unspecified
+                        vendor-type:
+                            - adfs
+                            - entra-id
+                            - forge-rock
+                            - generic
+                            - jump-cloud
+                            - keycloak
+                            - okta
+                            - one-login
+                            - ping-federate
+                            - vendor-type-unspecified
             - name: suggest-workspace-link-attribute-mapping
               description: '*(ALPHA)*  Suggest workspace link attribute mappings for a workforce pool.'
               hidden: true
@@ -48961,6 +49365,12 @@ commands:
                 --no-disable-programmatic-signin&: Disables the programmatic sign-in for workforce pool users.
                 --no-disabled&: Disables the workforce pool.
                 --session-duration=: How long the Google Cloud access tokens, console sign-in sessions, and gcloud sign-in sessions
+                --workspace-link-state=&: The state of the workspace link config for this workforce pool.
+              completion:
+                flag:
+                    workspace-link-state:
+                        - linked
+                        - unlinked
         - name: workload-identity-pools
           description: '*(ALPHA)*  Manage IAM workload identity pools.'
           commands:
@@ -49831,6 +50241,72 @@ commands:
                   hidden: true
                   flags:
                     --location=: Global location name.
+    - name: infra-manager
+      description: '*(ALPHA)*  Manage Infra Manager resources.'
+      commands:
+        - name: warm-pools
+          description: '*(ALPHA)*  Manage Warm Pool resources.'
+          hidden: true
+          commands:
+            - name: create
+              description: '*(ALPHA)*  Create a warm pool.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --labels=: List of label KEY=VALUE pairs to add.
+                --location=: locations TBD
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --pool-size=!: Size of the warm pool.
+                --provisioning-tool=: Tool used for provisioning.
+                --provisioning-version-constraint=: Version constraint of the provisioning tool.
+                --service-account=!: Service account to attach to the warm pool.
+              completion:
+                flag:
+                    provisioning-tool:
+                        - opentofu
+                        - terraform
+                        - tool-unspecified
+            - name: delete
+              description: '*(ALPHA)*  Delete a warm pool.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: locations TBD
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: describe
+              description: '*(ALPHA)*  Describe a warm pool.'
+              hidden: true
+              flags:
+                --location=: locations TBD
+            - name: list
+              description: '*(ALPHA)*  List warm pools.'
+              hidden: true
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: '*(ALPHA)*  Update a warm pool.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --labels=: User-defined labels for the warm pool.
+                --location=: locations TBD
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --pool-size=: Size of the warm pool.
+                --provisioning-tool=: Tool used for provisioning.
+                --provisioning-version-constraint=: Version constraint of the provisioning tool.
+                --service-account=: Service account to attach to the warm pool.
+              completion:
+                flag:
+                    provisioning-tool:
+                        - opentofu
+                        - terraform
+                        - tool-unspecified
     - name: init
       description: '*(ALPHA)*  Initialize or reinitialize gcloud.'
       flags:
@@ -61687,6 +62163,7 @@ commands:
                 --display-name=: User friendly name for this resource.
                 --exadata-infrastructure=!: ID of the cloudExadataInfrastructure or fully qualified identifier for the cloudExadataInfrastructure.
                 --exascale-db-storage-vault=!: ID of the exascaleDbStorageVault or fully qualified identifier for the exascaleDbStorageVault.
+                --identity-connector-disabled: If set to true, disables the automatic provisioning
                 --labels=: Labels or tags associated with the VM Cluster.
                 --location=: For resources [backup-odb-subnet, cloud_vm_cluster, exadata-infrastructure, exascale-db-storage-vault, odb-dns-zone, odb-network, odb-subnet], provides fallback value for resource location attribute.
                 --network=!: ID of the network or fully qualified identifier for the network.
@@ -61694,6 +62171,7 @@ commands:
                 --no-diagnostics-data-collection-options-events-enabled&: Indicates whether diagnostic collection is enabled for the VM cluster
                 --no-diagnostics-data-collection-options-health-monitoring-enabled&: Indicates whether health monitoring is enabled for the VM cluster
                 --no-diagnostics-data-collection-options-incident-logs-enabled&: Indicates whether incident logs and trace collection are enabled for the VM
+                --no-identity-connector-disabled&: If set to true, disables the automatic provisioning
                 --no-properties-local-backup-enabled&: Use local backup.
                 --no-properties-sparse-diskgroup-enabled&: Use exadata sparse snapshots.
                 --odb-dns-zone=!: ID of the odbDnsZone or fully qualified identifier for the odbDnsZone.
@@ -61768,6 +62246,20 @@ commands:
               hidden: true
               flags:
                 --location=: The location id of the cloudVmCluster resource.
+            - name: disable-identity-connector
+              description: '*(ALPHA)*  Disable the Workload Identity Connector for a Cloud VM Cluster.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location id of the cloudVmCluster resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: enable-identity-connector
+              description: '*(ALPHA)*  Enable the Workload Identity Connector for a Cloud VM Cluster.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location id of the cloudVmCluster resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
             - name: list
               description: '*(ALPHA)*  List all CloudVmClusters.'
               hidden: true
@@ -61794,6 +62286,80 @@ commands:
                 --page-size=: Some services group resource list output into pages.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: database-connections
+          description: '*(ALPHA)*  Manage Database Connection resources.'
+          hidden: true
+          commands:
+            - name: create
+              description: '*(ALPHA)*  Create databaseConnections.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --connection-string=!: Oracle Easy Connect or TNS connection string.
+                --display-name=: User-friendly display name for the connection.
+                --labels=: 'Optional: Labels as key-value pairs to organize the resource.'
+                --location=: For resources [database_connection, odb-network], provides fallback value for resource location attribute.
+                --network=!: ID of the network or fully qualified identifier for the network.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --odb-network=!: ID of the odbNetwork or fully qualified identifier for the odbNetwork.
+                --password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --request-id=: An optional ID to identify the request.
+                --secret=: For resources [password-secret-version, wallet-secret-version], provides fallback value for resource secret attribute.
+                --username=: The default database username to use for connections.
+                --wallet-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            - name: delete
+              description: '*(ALPHA)*  Delete databaseConnections.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location id of the databaseConnection resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --request-id=: An optional ID to identify the request.
+            - name: describe
+              description: '*(ALPHA)*  Describe databaseConnections.'
+              hidden: true
+              flags:
+                --location=: The location id of the databaseConnection resource.
+            - name: list
+              description: '*(ALPHA)*  List databaseConnections.'
+              hidden: true
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=!: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: '*(ALPHA)*  Update databaseConnections.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-labels: Clear labels value and set to empty map.
+                --clear-network: Clear network value and set to null.
+                --clear-odb-network: Clear odb_network value and set to null.
+                --clear-password-secret-version: Clear password_secret_version value and set to null.
+                --clear-wallet-secret-version: Clear wallet_secret_version value and set to null.
+                --connection-string=: Oracle Easy Connect or TNS connection string.
+                --display-name=: User-friendly display name for the connection.
+                --labels=: Set labels to new value.
+                --location=: For resources [database_connection, odb-network], provides fallback value for resource location attribute.
+                --network=!: ID of the network or fully qualified identifier for the network.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Clear labels value and set to empty map.
+                --no-clear-network&: Clear network value and set to null.
+                --no-clear-odb-network&: Clear odb_network value and set to null.
+                --no-clear-password-secret-version&: Clear password_secret_version value and set to null.
+                --no-clear-wallet-secret-version&: Clear wallet_secret_version value and set to null.
+                --odb-network=!: ID of the odbNetwork or fully qualified identifier for the odbNetwork.
+                --password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --remove-labels=: Remove existing value from map labels.
+                --request-id=: An optional ID to identify the request.
+                --secret=: For resources [password-secret-version, wallet-secret-version], provides fallback value for resource secret attribute.
+                --update-labels=: Update labels value or add key value pair.
+                --username=: The default database username to use for connections.
+                --wallet-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
         - name: databases
           description: '*(ALPHA)*  Manage Database resources.'
           hidden: true
@@ -61985,6 +62551,135 @@ commands:
                 --page-size=: Some services group resource list output into pages.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: '*(ALPHA)*  Update dbSystems.'
+              hidden: true
+              flags:
+                --add-db-backup-config-destination-details=: Add new value to db_backup_config_destination_details list.
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-database-admin-password-secret-version: Clear database_admin_password_secret_version value and set to null.
+                --clear-database-tde-wallet-password-secret-version: Clear database_tde_wallet_password_secret_version value and set to null.
+                --clear-db-backup-config-destination-details: Clear db_backup_config_destination_details value and set to empty list.
+                --clear-labels: Clear labels value and set to empty map.
+                --clear-odb-network: Clear odb_network value and set to null.
+                --clear-properties: Set dbSystem.properties back to default value.
+                --data-collection-options-is-diagnostics-events-enabled: Indicates whether to enable data collection for diagnostics.
+                --data-collection-options-is-incident-logs-enabled: Indicates whether to enable incident logs and trace collection.
+                --database-admin-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --database-admin-password=: The password for the default ADMIN user.
+                --database-character-set=: The character set for the database.
+                --database-db-home-name=: The name of the DbHome resource associated with the Database.
+                --database-db-name=: The database name.
+                --database-db-unique-name=: The DB_UNIQUE_NAME of the Oracle Database being backed up.
+                --database-id=: The database ID of the Database.
+                --database-name=: Identifier.
+                --database-ncharacter-set=: The national character set for the database.
+                --database-pluggable-id=: The ID of the pluggable database associated with the Database.
+                --database-pluggable-name=: The pluggable database associated with the Database.
+                --database-tde-wallet-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --database-tde-wallet-password=: The TDE wallet password for the database.
+                --db-backup-config-auto-enabled: If set to true, enables automatic backups on the database.
+                --db-backup-config-auto-full-day=: The day of the week on which the full backup should be performed on the
+                --db-backup-config-auto-full-window=: The window in which the full backup should be performed on the database.
+                --db-backup-config-auto-incremental-window=: The window in which the incremental backup should be performed on the
+                --db-backup-config-deletion-policy=: This defines when the backups will be deleted after Database termination.
+                --db-backup-config-destination-details=: Set db_backup_config_destination_details to new value.
+                --db-backup-config-retention-period-days=: The number of days an automatic backup is retained before being
+                --db-home-display-name=: The display name for the Database Home.
+                --db-home-is-unified-auditing-enabled: Whether unified auditing is enabled for the Database Home.
+                --db-home-version=: A valid Oracle Database version.
+                --db-system-options-storage-management=: The storage option used in DB system.
+                --display-name=: The display name for the System db.
+                --gcp-oracle-zone=: The GCP Oracle zone where Oracle DbSystem is hosted.
+                --labels=: Set labels to new value.
+                --location=: For resources [db_system, odb-network, odb-subnet], provides fallback value for resource location attribute.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-database-admin-password-secret-version&: Clear database_admin_password_secret_version value and set to null.
+                --no-clear-database-tde-wallet-password-secret-version&: Clear database_tde_wallet_password_secret_version value and set to null.
+                --no-clear-db-backup-config-destination-details&: Clear db_backup_config_destination_details value and set to empty list.
+                --no-clear-labels&: Clear labels value and set to empty map.
+                --no-clear-odb-network&: Clear odb_network value and set to null.
+                --no-clear-properties&: Set dbSystem.properties back to default value.
+                --no-data-collection-options-is-diagnostics-events-enabled&: Indicates whether to enable data collection for diagnostics.
+                --no-data-collection-options-is-incident-logs-enabled&: Indicates whether to enable incident logs and trace collection.
+                --no-db-backup-config-auto-enabled&: If set to true, enables automatic backups on the database.
+                --no-db-home-is-unified-auditing-enabled&: Whether unified auditing is enabled for the Database Home.
+                --odb-network=: For resources [odb-network, odb-subnet], provides fallback value for resource odb-network attribute.
+                --odb-subnet=!: ID of the odbSubnet or fully qualified identifier for the odbSubnet.
+                --properties-compute-count=: The number of CPU cores to enable for the DbSystem.
+                --properties-compute-model=: The compute model of the DbSystem.
+                --properties-data-storage-size-gb=: The data storage size in GB that is currently available to DbSystems.
+                --properties-database-edition=: The database edition of the DbSystem.
+                --properties-db-version=: The Oracle Database version.
+                --properties-domain=: The host domain name of the DbSystem.
+                --properties-hostname-prefix=: Prefix for DB System host names.
+                --properties-initial-data-storage-size-gb=: The initial data storage size in GB.
+                --properties-license-model=: The license model of the DbSystem.
+                --properties-memory-size-gb=: The memory size in GB.
+                --properties-node-count=: The number of nodes to launch for a virtual machine DbSystem.
+                --properties-private-ip=: The private IP address of the DbSystem.
+                --properties-reco-storage-size-gb=: The reco/redo storage size in GB.
+                --properties-shape=: Shape of DB System.
+                --properties-ssh-public-keys=: SSH public keys to be stored with the DbSystem.
+                --remove-db-backup-config-destination-details=: Remove existing value from db_backup_config_destination_details list.
+                --remove-labels=: Remove existing value from map labels.
+                --request-id=: An optional ID to identify the request.
+                --secret=: For resources [database-admin-password-secret-version, database-tde-wallet-password-secret-version], provides fallback value for resource secret attribute.
+                --time-zone-id=: IANA Time Zone Database time zone.
+                --time-zone-version=: IANA Time Zone Database version number.
+                --update-labels=: Update labels value or add key value pair.
+              completion:
+                flag:
+                    db-backup-config-auto-full-day:
+                        - friday
+                        - monday
+                        - saturday
+                        - sunday
+                        - thursday
+                        - tuesday
+                        - wednesday
+                    db-backup-config-auto-full-window:
+                        - slot-eight
+                        - slot-eleven
+                        - slot-five
+                        - slot-four
+                        - slot-nine
+                        - slot-one
+                        - slot-seven
+                        - slot-six
+                        - slot-ten
+                        - slot-three
+                        - slot-twelve
+                        - slot-two
+                    db-backup-config-auto-incremental-window:
+                        - slot-eight
+                        - slot-eleven
+                        - slot-five
+                        - slot-four
+                        - slot-nine
+                        - slot-one
+                        - slot-seven
+                        - slot-six
+                        - slot-ten
+                        - slot-three
+                        - slot-twelve
+                        - slot-two
+                    db-backup-config-deletion-policy:
+                        - delete-after-retention-period
+                        - delete-immediately
+                    db-system-options-storage-management:
+                        - asm
+                        - lvm
+                    properties-compute-model:
+                        - ecpu
+                        - ocpu
+                    properties-database-edition:
+                        - enterprise-edition
+                        - enterprise-edition-high-performance
+                        - standard-edition
+                    properties-license-model:
+                        - bring-your-own-license
+                        - license-included
         - name: db-versions
           description: '*(ALPHA)*  Manage Db Version resources.'
           hidden: true
@@ -62034,12 +62729,14 @@ commands:
                 --data-collection-options-is-health-monitoring-enabled: Indicates whether to enable health monitoring.
                 --data-collection-options-is-incident-logs-enabled: Indicates whether to enable incident logs and trace collection.
                 --display-name=!: The display name for the ExadbVmCluster.
+                --identity-connector-disabled: If set to true, disables the automatic provisioning
                 --labels=: The labels or tags associated with the ExadbVmCluster.
                 --location=: For resources [backup-odb-subnet, exadb_vm_cluster, odb-network, odb-subnet, properties-exascale-db-storage-vault], provides fallback value for resource location attribute.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-data-collection-options-is-diagnostics-events-enabled&: Indicates whether to enable data collection for diagnostics.
                 --no-data-collection-options-is-health-monitoring-enabled&: Indicates whether to enable health monitoring.
                 --no-data-collection-options-is-incident-logs-enabled&: Indicates whether to enable incident logs and trace collection.
+                --no-identity-connector-disabled&: If set to true, disables the automatic provisioning
                 --odb-network=: For resources [backup-odb-subnet, odb-network, odb-subnet], provides fallback value for resource odb-network attribute.
                 --odb-subnet=!: ID of the odbSubnet or fully qualified identifier for the odbSubnet.
                 --properties-additional-ecpu-count-per-node=: The number of additional ECPUs per node for an Exadata VM cluster on
@@ -62078,6 +62775,20 @@ commands:
               hidden: true
               flags:
                 --location=: The location id of the exadbVmCluster resource.
+            - name: disable-identity-connector
+              description: '*(ALPHA)*  Disable the Workload Identity Connector for an Exadb VM Cluster.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location id of the exadbVmCluster resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: enable-identity-connector
+              description: '*(ALPHA)*  Enable the Workload Identity Connector for an Exadb VM Cluster.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location id of the exadbVmCluster resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
             - name: list
               description: '*(ALPHA)*  List all ExadbVmClusters.'
               hidden: true
@@ -62105,11 +62816,13 @@ commands:
                 --async: Return immediately, without waiting for the operation in progress to
                 --clear-labels: Clear labels value and set to empty map.
                 --clear-properties: Set exadbVmCluster.properties back to default value.
+                --identity-connector-disabled: If set to true, disables the automatic provisioning
                 --labels=: Set labels to new value.
                 --location=: The location id of the exadbVmCluster resource.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-clear-labels&: Clear labels value and set to empty map.
                 --no-clear-properties&: Set exadbVmCluster.properties back to default value.
+                --no-identity-connector-disabled&: If set to true, disables the automatic provisioning
                 --properties-node-count=: The number of nodes/VMs in the ExadbVmCluster.
                 --remove-labels=: Remove existing value from map labels.
                 --request-id=: An optional ID to identify the request.
@@ -62148,6 +62861,49 @@ commands:
                 --location=: The location id of the exascaleDbStorageVault resource.
             - name: list
               description: '*(ALPHA)*  List all ExascaleDbStorageVaults.'
+              hidden: true
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=!: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: '*(ALPHA)*  Update exascaleDbStorageVaults.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-exadata-infrastructure: Clear exadata_infrastructure value and set to null.
+                --clear-labels: Clear labels value and set to empty map.
+                --clear-properties: Set exascaleDbStorageVault.properties back to default value.
+                --display-name=: The display name for the ExascaleDbStorageVault.
+                --exadata-infrastructure=!: ID of the cloudExadataInfrastructure or fully qualified identifier for the cloudExadataInfrastructure.
+                --exascale-db-storage-details-total-size-gbs=: The total storage allocation for the ExascaleDbStorageVault, in gigabytes
+                --gcp-oracle-zone=: The GCP Oracle zone where Oracle ExascaleDbStorageVault is hosted.
+                --labels=: Set labels to new value.
+                --location=: For resources [exadata-infrastructure, exascale_db_storage_vault], provides fallback value for resource location attribute.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-exadata-infrastructure&: Clear exadata_infrastructure value and set to null.
+                --no-clear-labels&: Clear labels value and set to empty map.
+                --no-clear-properties&: Set exascaleDbStorageVault.properties back to default value.
+                --properties-additional-flash-cache-percent=: The size of additional flash cache in percentage of high capacity
+                --properties-description=: The description of the ExascaleDbStorageVault.
+                --remove-labels=: Remove existing value from map labels.
+                --request-id=: An optional ID to identify the request.
+                --update-labels=: Update labels value or add key value pair.
+        - name: flex-components
+          description: '*(ALPHA)*  Manage Flex Component resources.'
+          hidden: true
+          commands:
+            - name: describe
+              description: '*(ALPHA)*  Describe flexComponents.'
+              hidden: true
+              flags:
+                --location=: The location id of the flexComponent resource.
+            - name: list
+              description: '*(ALPHA)*  List flexComponents.'
               hidden: true
               flags:
                 --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
@@ -62238,6 +62994,24 @@ commands:
                 flag:
                     type:
                         - default
+            - name: update
+              description: '*(ALPHA)*  Update goldengateConnectionAssignments.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-labels: Clear labels value and set to empty map.
+                --clear-properties: Set goldengateConnectionAssignment.properties back to default value.
+                --display-name=: The display name for the GoldengateConnectionAssignment.
+                --labels=: Set labels to new value.
+                --location=: For resources [goldengate_connection_assignment, properties-goldengate-connection, properties-goldengate-deployment], provides fallback value for resource location attribute.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Clear labels value and set to empty map.
+                --no-clear-properties&: Set goldengateConnectionAssignment.properties back to default value.
+                --properties-goldengate-connection=!: ID of the goldengateConnection or fully qualified identifier for the goldengateConnection.
+                --properties-goldengate-deployment=!: ID of the goldengateDeployment or fully qualified identifier for the goldengateDeployment.
+                --remove-labels=: Remove existing value from map labels.
+                --request-id=: An optional ID to identify the request.
+                --update-labels=: Update labels value or add key value pair.
         - name: goldengate-connection-types
           description: '*(ALPHA)*  Manage Goldengate Connection Type resources.'
           hidden: true
@@ -62695,6 +63469,508 @@ commands:
                 --page-size=: Some services group resource list output into pages.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: '*(ALPHA)*  Update goldengateConnections.'
+              hidden: true
+              flags:
+                --add-db2-connection-properties-additional-attributes=: Add new value to db2_connection_properties_additional_attributes list.
+                --add-kafka-connection-properties-bootstrap-servers=: Add new value to kafka_connection_properties_bootstrap_servers list.
+                --add-microsoft-sqlserver-connection-properties-additional-attributes=: Add new value to microsoft_sqlserver_connection_properties_additional_attributes list.
+                --add-mysql-connection-properties-additional-attributes=: Add new value to mysql_connection_properties_additional_attributes list.
+                --add-postgresql-connection-properties-additional-attributes=: Add new value to postgresql_connection_properties_additional_attributes list.
+                --amazon-kinesis-connection-properties-access-key-id=: Access key ID to access the Amazon Kinesis.
+                --amazon-kinesis-connection-properties-aws-region=: The name of the AWS region.
+                --amazon-kinesis-connection-properties-endpoint=: The endpoint URL of the Amazon Kinesis service.
+                --amazon-kinesis-connection-properties-secret-access-key=: Secret access key to access the Amazon Kinesis.
+                --amazon-kinesis-connection-properties-technology-type=: The technology type of AmazonKinesisConnection.
+                --amazon-redshift-connection-properties-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --amazon-redshift-connection-properties-password=: The password Oracle Goldengate uses for Amazon Redshift connection
+                --amazon-redshift-connection-properties-technology-type=: The technology type of AmazonRedshiftConnection.
+                --amazon-redshift-connection-properties-url=: Connection URL.
+                --amazon-redshift-connection-properties-username=: The username Oracle Goldengate uses to connect the associated system of
+                --amazon-s3-connection-properties-access-key-id=: Access key ID to access the Amazon S3 bucket.
+                --amazon-s3-connection-properties-endpoint=: The Amazon Endpoint for S3.
+                --amazon-s3-connection-properties-region=: The name of the AWS region where the bucket is created.
+                --amazon-s3-connection-properties-secret-access-key=: Secret access key to access the Amazon S3 bucket.
+                --amazon-s3-connection-properties-technology-type=: The technology type of AmazonS3Connection.
+                --async: Return immediately, without waiting for the operation in progress to
+                --azure-data-lake-storage-connection-properties-account-key-secret=: Azure storage account key.
+                --azure-data-lake-storage-connection-properties-account=: Sets the Azure storage account name.
+                --azure-data-lake-storage-connection-properties-authentication-type=: Authentication mechanism to access Azure Data Lake Storage.
+                --azure-data-lake-storage-connection-properties-authority-host=: The endpoint used for authentication with Microsoft Entra ID (formerly
+                --azure-data-lake-storage-connection-properties-client-id=: Azure client ID of the application.
+                --azure-data-lake-storage-connection-properties-client-secret=: Azure client secret (aka application password) for authentication.
+                --azure-data-lake-storage-connection-properties-endpoint=: Azure Storage service endpoint.
+                --azure-data-lake-storage-connection-properties-sas-token-secret=: Credential that uses a shared access signature (SAS) to authenticate to
+                --azure-data-lake-storage-connection-properties-technology-type=: The technology type of AzureDataLakeStorageConnection.
+                --azure-data-lake-storage-connection-properties-tenant-id=: Azure tenant ID of the application.
+                --azure-synapse-analytics-connection-properties-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --azure-synapse-analytics-connection-properties-password=: The password Oracle Goldengate uses for Azure Synapse Analytics
+                --azure-synapse-analytics-connection-properties-string=: JDBC connection string.
+                --azure-synapse-analytics-connection-properties-technology-type=: The technology type of AzureSynapseAnalyticsConnection.
+                --azure-synapse-analytics-connection-properties-username=: The username Oracle Goldengate uses to connect the associated system of
+                --clear-amazon-redshift-connection-properties-password-secret-version: Clear amazon_redshift_connection_properties_password_secret_version value and set to null.
+                --clear-azure-synapse-analytics-connection-properties-password-secret-version: Clear azure_synapse_analytics_connection_properties_password_secret_version value and set to null.
+                --clear-databricks-connection-properties-password-secret-version: Clear databricks_connection_properties_password_secret_version value and set to null.
+                --clear-db2-connection-properties-additional-attributes: Clear db2_connection_properties_additional_attributes value and set to empty list.
+                --clear-db2-connection-properties-password-secret-version: Clear db2_connection_properties_password_secret_version value and set to null.
+                --clear-elasticsearch-connection-properties-password-secret-version: Clear elasticsearch_connection_properties_password_secret_version value and set to null.
+                --clear-goldengate-connection-properties-deployment-id: Clear goldengate_connection_properties_deployment_id value and set to null.
+                --clear-goldengate-connection-properties-password-secret-version: Clear goldengate_connection_properties_password_secret_version value and set to null.
+                --clear-java-message-service-connection-properties-key-store-password-secret-version: Clear java_message_service_connection_properties_key_store_password_secret_version value and set to null.
+                --clear-java-message-service-connection-properties-password-secret-version: Clear java_message_service_connection_properties_password_secret_version value and set to null.
+                --clear-java-message-service-connection-properties-ssl-key-password-secret-version: Clear java_message_service_connection_properties_ssl_key_password_secret_version value and set to null.
+                --clear-java-message-service-connection-properties-trust-store-password-secret-version: Clear java_message_service_connection_properties_trust_store_password_secret_version value and set to null.
+                --clear-kafka-connection-properties-bootstrap-servers: Clear kafka_connection_properties_bootstrap_servers value and set to empty list.
+                --clear-kafka-connection-properties-key-store-password-secret-version: Clear kafka_connection_properties_key_store_password_secret_version value and set to null.
+                --clear-kafka-connection-properties-password-secret-version: Clear kafka_connection_properties_password_secret_version value and set to null.
+                --clear-kafka-connection-properties-ssl-key-password-secret-version: Clear kafka_connection_properties_ssl_key_password_secret_version value and set to null.
+                --clear-kafka-connection-properties-trust-store-password-secret-version: Clear kafka_connection_properties_trust_store_password_secret_version value and set to null.
+                --clear-kafka-schema-registry-connection-properties-key-store-password-secret-version: Clear kafka_schema_registry_connection_properties_key_store_password_secret_version value and set to null.
+                --clear-kafka-schema-registry-connection-properties-password-secret-version: Clear kafka_schema_registry_connection_properties_password_secret_version value and set to null.
+                --clear-kafka-schema-registry-connection-properties-ssl-key-password-secret-version: Clear kafka_schema_registry_connection_properties_ssl_key_password_secret_version value and set to null.
+                --clear-kafka-schema-registry-connection-properties-trust-store-password-secret-version: Clear kafka_schema_registry_connection_properties_trust_store_password_secret_version value and set to null.
+                --clear-labels: Clear labels value and set to empty map.
+                --clear-microsoft-sqlserver-connection-properties-additional-attributes: Clear microsoft_sqlserver_connection_properties_additional_attributes value and set to empty list.
+                --clear-microsoft-sqlserver-connection-properties-password-secret-version: Clear microsoft_sqlserver_connection_properties_password_secret_version value and set to null.
+                --clear-mongodb-connection-properties-password-secret-version: Clear mongodb_connection_properties_password_secret_version value and set to null.
+                --clear-mongodb-connection-properties-tls-certificate-key-file-password-secret-version: Clear mongodb_connection_properties_tls_certificate_key_file_password_secret_version value and set to null.
+                --clear-mysql-connection-properties-additional-attributes: Clear mysql_connection_properties_additional_attributes value and set to empty list.
+                --clear-mysql-connection-properties-password-secret-version: Clear mysql_connection_properties_password_secret_version value and set to null.
+                --clear-odb-network: Clear odb_network value and set to null.
+                --clear-odb-subnet: Clear odb_subnet value and set to null.
+                --clear-oracle-connection-properties-password-secret-version: Clear oracle_connection_properties_password_secret_version value and set to null.
+                --clear-postgresql-connection-properties-additional-attributes: Clear postgresql_connection_properties_additional_attributes value and set to empty list.
+                --clear-postgresql-connection-properties-password-secret-version: Clear postgresql_connection_properties_password_secret_version value and set to null.
+                --clear-properties: Set goldengateConnection.properties back to default value.
+                --clear-redis-connection-properties-key-store-password-secret-version: Clear redis_connection_properties_key_store_password_secret_version value and set to null.
+                --clear-redis-connection-properties-password-secret-version: Clear redis_connection_properties_password_secret_version value and set to null.
+                --clear-redis-connection-properties-trust-store-password-secret-version: Clear redis_connection_properties_trust_store_password_secret_version value and set to null.
+                --clear-snowflake-connection-properties-password-secret-version: Clear snowflake_connection_properties_password_secret_version value and set to null.
+                --databricks-connection-properties-authentication-type=: Authentication type for Databricks.
+                --databricks-connection-properties-client-id=: OAuth client id, only applicable for authentication_type == OAUTH_M2M
+                --databricks-connection-properties-client-secret=: OAuth client secret, only applicable for authentication_type == OAUTH_M2M
+                --databricks-connection-properties-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --databricks-connection-properties-password=: The password used to connect to Databricks in plain text.
+                --databricks-connection-properties-storage-credential=: External storage credential name to access files on object
+                --databricks-connection-properties-technology-type=: The technology type of DatabricksConnection.
+                --databricks-connection-properties-url=: Connection URL.
+                --db2-connection-properties-additional-attributes=: Set db2_connection_properties_additional_attributes to new value.
+                --db2-connection-properties-database=: The name of the database.
+                --db2-connection-properties-host=: The name or address of a host.
+                --db2-connection-properties-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --db2-connection-properties-password=: The password Oracle Goldengate uses for Db2 connection in plain text.
+                --db2-connection-properties-port=: The port of an endpoint usually specified for a connection.
+                --db2-connection-properties-security-protocol=: Security protocol for the DB2 database.
+                --db2-connection-properties-ssl-client-keystash-file=: The keystash file which contains the encrypted password to
+                --db2-connection-properties-ssl-client-keystoredb-file=: The keystore file created at the client containing the
+                --db2-connection-properties-ssl-server-certificate-file=: The file which contains the self-signed server certificate
+                --db2-connection-properties-technology-type=: The technology type of Db2Connection.
+                --db2-connection-properties-username=: The username Oracle Goldengate uses to connect to the DB2 database.
+                --elasticsearch-connection-properties-authentication-type=: Authentication type for Elasticsearch.
+                --elasticsearch-connection-properties-fingerprint=: Fingerprint required by TLS security protocol.
+                --elasticsearch-connection-properties-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --elasticsearch-connection-properties-password=: The password Oracle Goldengate uses for Elastic Search connection
+                --elasticsearch-connection-properties-security-protocol=: Security protocol for Elasticsearch.
+                --elasticsearch-connection-properties-servers=: Comma separated list of Elasticsearch server addresses, specified as
+                --elasticsearch-connection-properties-technology-type=: The technology type of ElasticsearchConnection.
+                --elasticsearch-connection-properties-username=: The username Oracle Goldengate uses to connect the associated system of
+                --gcp-oracle-zone=: The GCP Oracle zone where Oracle GoldengateConnection is hosted.
+                --generic-connection-properties-host=: The host of the GenericConnection.
+                --generic-connection-properties-technology-type=: The technology type.
+                --goldengate-connection-properties-deployment-id=!: ID of the goldengateDeployment or fully qualified identifier for the goldengateDeployment.
+                --goldengate-connection-properties-host=: The host of the GoldengateConnection.
+                --goldengate-connection-properties-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --goldengate-connection-properties-password=: The password used to connect to the Oracle Goldengate in plain text.
+                --goldengate-connection-properties-port=: The port of the GoldengateConnection.
+                --goldengate-connection-properties-technology-type=: The technology type.
+                --goldengate-connection-properties-username=: The username credential.
+                --google-big-query-connection-properties-service-account-key-file=: The base64 encoded content of the service account key file containing the
+                --google-big-query-connection-properties-technology-type=: The technology type.
+                --google-cloud-storage-connection-properties-service-account-key-file=: The base64 encoded content of the service account key file containing the
+                --google-cloud-storage-connection-properties-technology-type=: The technology type.
+                --google-pubsub-connection-properties-service-account-key-file=: The base64 encoded content of the service account key file containing the
+                --google-pubsub-connection-properties-technology-type=: The technology type of GooglePubsubConnection.
+                --hdfs-connection-properties-core-site-xml=: The content of the Hadoop Distributed File System
+                --hdfs-connection-properties-technology-type=: The technology type of HdfsConnection.
+                --iceberg-connection-properties-amazon-s3-storage-access-key-id=: The access key ID of Amazon S3.
+                --iceberg-connection-properties-amazon-s3-storage-bucket=: The bucket of Amazon S3.
+                --iceberg-connection-properties-amazon-s3-storage-endpoint=: The endpoint of Amazon S3.
+                --iceberg-connection-properties-amazon-s3-storage-region=: The region of Amazon S3.
+                --iceberg-connection-properties-amazon-s3-storage-scheme-type=: The scheme type of Amazon S3.
+                --iceberg-connection-properties-amazon-s3-storage-secret-access-key=: The secret access key of Amazon S3.
+                --iceberg-connection-properties-azure-data-lake-storage-account-key-secret=: The account key of Azure Data Lake Storage.
+                --iceberg-connection-properties-azure-data-lake-storage-account=: The account of Azure Data Lake Storage.
+                --iceberg-connection-properties-azure-data-lake-storage-container=: The container of Azure Data Lake Storage.
+                --iceberg-connection-properties-azure-data-lake-storage-endpoint=: The endpoint of Azure Data Lake Storage.
+                --iceberg-connection-properties-catalog-type=: The type of Iceberg catalog.
+                --iceberg-connection-properties-glue-catalog-id=: The catalog ID of Glue.
+                --iceberg-connection-properties-google-cloud-storage-bucket=: The bucket of Google Cloud Storage.
+                --iceberg-connection-properties-google-cloud-storage-project-id=: The project ID of Google Cloud Storage.
+                --iceberg-connection-properties-google-cloud-storage-service-account-key-file=: The base64 encoded content of the service account key file of Google Cloud
+                --iceberg-connection-properties-nessie-catalog-branch=: The Nessie branch.
+                --iceberg-connection-properties-nessie-catalog-uri=: The Nessie uri.
+                --iceberg-connection-properties-polaris-catalog-client-id=: The Polaris client ID.
+                --iceberg-connection-properties-polaris-catalog-client-secret=: The Polaris client secret.
+                --iceberg-connection-properties-polaris-catalog-principal-role=: The Polaris principal role.
+                --iceberg-connection-properties-polaris-catalog-uri=: The Polaris uri.
+                --iceberg-connection-properties-polaris-catalog=: The catalog name within Polaris.
+                --iceberg-connection-properties-rest-catalog-uri=: The REST uri.
+                --iceberg-connection-properties-rest-catalog=: The base64 encoded content of the configuration file containing additional
+                --iceberg-connection-properties-storage-type=: The type of Iceberg storage.
+                --iceberg-connection-properties-technology-type=: The technology type of Iceberg connection.
+                --java-message-service-connection-properties-authentication-type=: Authentication type for Java Message Service.
+                --java-message-service-connection-properties-factory=: The Java class implementing javax.jms.ConnectionFactory interface supplied
+                --java-message-service-connection-properties-jndi-factory=: The Connection Factory can be looked up using this name.
+                --java-message-service-connection-properties-jndi-initial-context-factory=: The implementation of javax.naming.spi.InitialContextFactory interface
+                --java-message-service-connection-properties-jndi-provider-url=: The URL that Java Message Service will use to contact the JNDI provider.
+                --java-message-service-connection-properties-jndi-security-credentials-secret=: The password associated to the principal.
+                --java-message-service-connection-properties-jndi-security-principal=: Specifies the identity of the principal (user) to be authenticated.
+                --java-message-service-connection-properties-key-store-file=: The base64 encoded content of the KeyStore file.
+                --java-message-service-connection-properties-key-store-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --java-message-service-connection-properties-key-store-password=: The KeyStore password in plain text.
+                --java-message-service-connection-properties-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --java-message-service-connection-properties-password=: The password Oracle Goldengate uses to connect the Java Message Service
+                --java-message-service-connection-properties-security-protocol=: Security protocol for Java Message Service.
+                --java-message-service-connection-properties-ssl-key-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --java-message-service-connection-properties-ssl-key-password=: The password for the cert inside of the KeyStore in plain text.
+                --java-message-service-connection-properties-technology-type=: The technology type of JavaMessageServiceConnection.
+                --java-message-service-connection-properties-trust-store-file=: The base64 encoded content of the TrustStore file.
+                --java-message-service-connection-properties-trust-store-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --java-message-service-connection-properties-trust-store-password=: The TrustStore password in plain text.
+                --java-message-service-connection-properties-url=: Connection URL of the Java Message Service, specifying the protocol, host,
+                --java-message-service-connection-properties-use-jndi: If set to true, Java Naming and Directory Interface (JNDI) properties
+                --java-message-service-connection-properties-username=: The username Oracle Goldengate uses to connect to the Java Message
+                --kafka-connection-properties-bootstrap-servers=: Set kafka_connection_properties_bootstrap_servers to new value.
+                --kafka-connection-properties-cluster-id=: The OCID of the Kafka cluster being referenced from OCI Streaming with
+                --kafka-connection-properties-consumer-file=: The base64 encoded content of the consumer.properties file.
+                --kafka-connection-properties-key-store-file=: The base64 encoded content of the KeyStore file.
+                --kafka-connection-properties-key-store-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --kafka-connection-properties-key-store-password=: The KeyStore password in plain text.
+                --kafka-connection-properties-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --kafka-connection-properties-password=: The password for Kafka basic/SASL auth in plain text.
+                --kafka-connection-properties-producer-file=: The base64 encoded content of the producer.properties file.
+                --kafka-connection-properties-security-protocol=: Security Type for Kafka.
+                --kafka-connection-properties-ssl-key-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --kafka-connection-properties-ssl-key-password=: The password for the cert inside of the KeyStore in plain text.
+                --kafka-connection-properties-stream-pool-id=: The OCID of the stream pool being referenced.
+                --kafka-connection-properties-technology-type=: The technology type of KafkaConnection.
+                --kafka-connection-properties-trust-store-file=: The base64 encoded content of the TrustStore file.
+                --kafka-connection-properties-trust-store-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --kafka-connection-properties-trust-store-password=: The TrustStore password in plain text.
+                --kafka-connection-properties-use-resource-principal: Specifies that the user intends to authenticate to the instance using a
+                --kafka-connection-properties-username=: The username Oracle Goldengate uses to connect the associated system of
+                --kafka-schema-registry-connection-properties-authentication-type=: Used authentication mechanism to access Schema Registry.
+                --kafka-schema-registry-connection-properties-key-store-file=: The base64 encoded content of the KeyStore file.
+                --kafka-schema-registry-connection-properties-key-store-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --kafka-schema-registry-connection-properties-key-store-password=: The KeyStore password in plain text.
+                --kafka-schema-registry-connection-properties-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --kafka-schema-registry-connection-properties-password=: The password to access Schema Registry in plain text.
+                --kafka-schema-registry-connection-properties-ssl-key-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --kafka-schema-registry-connection-properties-ssl-key-password=: The password for the cert inside the KeyStore in plain text.
+                --kafka-schema-registry-connection-properties-technology-type=: The technology type of KafkaSchemaRegistryConnection.
+                --kafka-schema-registry-connection-properties-trust-store-file=: The base64 encoded content of the TrustStore file.
+                --kafka-schema-registry-connection-properties-trust-store-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --kafka-schema-registry-connection-properties-trust-store-password=: The TrustStore password in plain text.
+                --kafka-schema-registry-connection-properties-url=: Kafka Schema Registry URL.
+                --kafka-schema-registry-connection-properties-username=: The username to access Schema Registry using basic authentication.
+                --labels=: Set labels to new value.
+                --location=: For resources [goldengate-connection-properties-deployment-id, goldengate_connection, odb-network, odb-subnet], provides fallback value for resource location attribute.
+                --microsoft-fabric-connection-properties-client-id=: Azure client ID of the application.
+                --microsoft-fabric-connection-properties-client-secret=: Client secret associated with the client id.
+                --microsoft-fabric-connection-properties-endpoint=: Optional Microsoft Fabric service endpoint.
+                --microsoft-fabric-connection-properties-technology-type=: The technology type of MicrosoftFabricConnection.
+                --microsoft-fabric-connection-properties-tenant-id=: Azure tenant ID of the application.
+                --microsoft-sqlserver-connection-properties-additional-attributes=: Set microsoft_sqlserver_connection_properties_additional_attributes to new value.
+                --microsoft-sqlserver-connection-properties-database=: The name of the database.
+                --microsoft-sqlserver-connection-properties-host=: The name or address of a host.
+                --microsoft-sqlserver-connection-properties-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --microsoft-sqlserver-connection-properties-password=: The password Oracle Goldengate uses for Microsoft SQL Server connection
+                --microsoft-sqlserver-connection-properties-port=: The port of an endpoint usually specified for a connection.
+                --microsoft-sqlserver-connection-properties-security-protocol=: Security Type for Microsoft SQL Server.
+                --microsoft-sqlserver-connection-properties-server-certificate-validation-required: If set to true, the driver validates the certificate that is sent by the
+                --microsoft-sqlserver-connection-properties-ssl-ca-file=: Database Certificate - The base64 encoded content of a .pem or .crt file
+                --microsoft-sqlserver-connection-properties-technology-type=: The technology type of MicrosoftSqlserverConnection.
+                --microsoft-sqlserver-connection-properties-username=: The username Oracle Goldengate uses to connect to the Microsoft SQL
+                --mongodb-connection-properties-database-id=: The OCID of the Oracle Autonomous Json Database.
+                --mongodb-connection-properties-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --mongodb-connection-properties-password=: The password Oracle Goldengate uses to connect the Mongodb connection in
+                --mongodb-connection-properties-security-protocol=: Security Type for MongoDB.
+                --mongodb-connection-properties-string=: MongoDB connection string.
+                --mongodb-connection-properties-technology-type=: The technology type of MongodbConnection.
+                --mongodb-connection-properties-tls-ca-file=: Database Certificate - The base64 encoded content of a .pem file,
+                --mongodb-connection-properties-tls-certificate-key-file-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --mongodb-connection-properties-tls-certificate-key-file-password=: The Client Certificate key file password in plain text.
+                --mongodb-connection-properties-tls-certificate-key-file=: Client Certificate - The base64 encoded content of a .pem file, containing
+                --mongodb-connection-properties-username=: The username Oracle Goldengate uses to connect to the database.
+                --mysql-connection-properties-additional-attributes=: Set mysql_connection_properties_additional_attributes to new value.
+                --mysql-connection-properties-database=: The name of the database.
+                --mysql-connection-properties-db-system-id=: The OCID of the database system being referenced.
+                --mysql-connection-properties-host=: The name or address of a host.
+                --mysql-connection-properties-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --mysql-connection-properties-password=: The password Oracle Goldengate uses to connect to MySQL in plain text.
+                --mysql-connection-properties-port=: The port of an endpoint usually specified for a connection.
+                --mysql-connection-properties-security-protocol=: Security Type for MySQL.
+                --mysql-connection-properties-ssl-ca-file=: Database Certificate - The base64 encoded content of a .pem or .crt file
+                --mysql-connection-properties-ssl-cert-file=: Client Certificate - The base64 encoded content of a .pem or .crt file
+                --mysql-connection-properties-ssl-crl-file=: The base64 encoded list of certificates revoked by the trusted
+                --mysql-connection-properties-ssl-key-file=: Client Key - The base64 encoded content of a .pem or .crt file containing
+                --mysql-connection-properties-ssl-mode=: SSL modes for MySQL.
+                --mysql-connection-properties-technology-type=: The technology type of MysqlConnection.
+                --mysql-connection-properties-username=: The username Oracle Goldengate uses to connect the associated system of
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-amazon-redshift-connection-properties-password-secret-version&: Clear amazon_redshift_connection_properties_password_secret_version value and set to null.
+                --no-clear-azure-synapse-analytics-connection-properties-password-secret-version&: Clear azure_synapse_analytics_connection_properties_password_secret_version value and set to null.
+                --no-clear-databricks-connection-properties-password-secret-version&: Clear databricks_connection_properties_password_secret_version value and set to null.
+                --no-clear-db2-connection-properties-additional-attributes&: Clear db2_connection_properties_additional_attributes value and set to empty list.
+                --no-clear-db2-connection-properties-password-secret-version&: Clear db2_connection_properties_password_secret_version value and set to null.
+                --no-clear-elasticsearch-connection-properties-password-secret-version&: Clear elasticsearch_connection_properties_password_secret_version value and set to null.
+                --no-clear-goldengate-connection-properties-deployment-id&: Clear goldengate_connection_properties_deployment_id value and set to null.
+                --no-clear-goldengate-connection-properties-password-secret-version&: Clear goldengate_connection_properties_password_secret_version value and set to null.
+                --no-clear-java-message-service-connection-properties-key-store-password-secret-version&: Clear java_message_service_connection_properties_key_store_password_secret_version value and set to null.
+                --no-clear-java-message-service-connection-properties-password-secret-version&: Clear java_message_service_connection_properties_password_secret_version value and set to null.
+                --no-clear-java-message-service-connection-properties-ssl-key-password-secret-version&: Clear java_message_service_connection_properties_ssl_key_password_secret_version value and set to null.
+                --no-clear-java-message-service-connection-properties-trust-store-password-secret-version&: Clear java_message_service_connection_properties_trust_store_password_secret_version value and set to null.
+                --no-clear-kafka-connection-properties-bootstrap-servers&: Clear kafka_connection_properties_bootstrap_servers value and set to empty list.
+                --no-clear-kafka-connection-properties-key-store-password-secret-version&: Clear kafka_connection_properties_key_store_password_secret_version value and set to null.
+                --no-clear-kafka-connection-properties-password-secret-version&: Clear kafka_connection_properties_password_secret_version value and set to null.
+                --no-clear-kafka-connection-properties-ssl-key-password-secret-version&: Clear kafka_connection_properties_ssl_key_password_secret_version value and set to null.
+                --no-clear-kafka-connection-properties-trust-store-password-secret-version&: Clear kafka_connection_properties_trust_store_password_secret_version value and set to null.
+                --no-clear-kafka-schema-registry-connection-properties-key-store-password-secret-version&: Clear kafka_schema_registry_connection_properties_key_store_password_secret_version value and set to null.
+                --no-clear-kafka-schema-registry-connection-properties-password-secret-version&: Clear kafka_schema_registry_connection_properties_password_secret_version value and set to null.
+                --no-clear-kafka-schema-registry-connection-properties-ssl-key-password-secret-version&: Clear kafka_schema_registry_connection_properties_ssl_key_password_secret_version value and set to null.
+                --no-clear-kafka-schema-registry-connection-properties-trust-store-password-secret-version&: Clear kafka_schema_registry_connection_properties_trust_store_password_secret_version value and set to null.
+                --no-clear-labels&: Clear labels value and set to empty map.
+                --no-clear-microsoft-sqlserver-connection-properties-additional-attributes&: Clear microsoft_sqlserver_connection_properties_additional_attributes value and set to empty list.
+                --no-clear-microsoft-sqlserver-connection-properties-password-secret-version&: Clear microsoft_sqlserver_connection_properties_password_secret_version value and set to null.
+                --no-clear-mongodb-connection-properties-password-secret-version&: Clear mongodb_connection_properties_password_secret_version value and set to null.
+                --no-clear-mongodb-connection-properties-tls-certificate-key-file-password-secret-version&: Clear mongodb_connection_properties_tls_certificate_key_file_password_secret_version value and set to null.
+                --no-clear-mysql-connection-properties-additional-attributes&: Clear mysql_connection_properties_additional_attributes value and set to empty list.
+                --no-clear-mysql-connection-properties-password-secret-version&: Clear mysql_connection_properties_password_secret_version value and set to null.
+                --no-clear-odb-network&: Clear odb_network value and set to null.
+                --no-clear-odb-subnet&: Clear odb_subnet value and set to null.
+                --no-clear-oracle-connection-properties-password-secret-version&: Clear oracle_connection_properties_password_secret_version value and set to null.
+                --no-clear-postgresql-connection-properties-additional-attributes&: Clear postgresql_connection_properties_additional_attributes value and set to empty list.
+                --no-clear-postgresql-connection-properties-password-secret-version&: Clear postgresql_connection_properties_password_secret_version value and set to null.
+                --no-clear-properties&: Set goldengateConnection.properties back to default value.
+                --no-clear-redis-connection-properties-key-store-password-secret-version&: Clear redis_connection_properties_key_store_password_secret_version value and set to null.
+                --no-clear-redis-connection-properties-password-secret-version&: Clear redis_connection_properties_password_secret_version value and set to null.
+                --no-clear-redis-connection-properties-trust-store-password-secret-version&: Clear redis_connection_properties_trust_store_password_secret_version value and set to null.
+                --no-clear-snowflake-connection-properties-password-secret-version&: Clear snowflake_connection_properties_password_secret_version value and set to null.
+                --no-java-message-service-connection-properties-use-jndi&: If set to true, Java Naming and Directory Interface (JNDI) properties
+                --no-kafka-connection-properties-use-resource-principal&: Specifies that the user intends to authenticate to the instance using a
+                --no-microsoft-sqlserver-connection-properties-server-certificate-validation-required&: If set to true, the driver validates the certificate that is sent by the
+                --no-oci-object-storage-connection-properties-use-resource-principal&: Specifies that the user intends to authenticate to the instance using a
+                --no-oracle-ai-data-platform-connection-properties-use-resource-principal&: Specifies that the user intends to authenticate to the instance using a
+                --no-oracle-nosql-connection-properties-use-resource-principal&: Specifies that the user intends to authenticate to the instance using a
+                --oci-object-storage-connection-properties-private-key-file=: The content of the private key file (PEM file)
+                --oci-object-storage-connection-properties-private-key-passphrase-secret=: The passphrase of the private key.
+                --oci-object-storage-connection-properties-public-key-fingerprint=: The fingerprint of the API Key of the user specified by the userId.
+                --oci-object-storage-connection-properties-region=: The name of the region of OCI Object Storage.
+                --oci-object-storage-connection-properties-technology-type=: The technology type of OciObjectStorageConnection.
+                --oci-object-storage-connection-properties-tenancy-id=: The OCID of the related OCI tenancy.
+                --oci-object-storage-connection-properties-use-resource-principal: Specifies that the user intends to authenticate to the instance using a
+                --oci-object-storage-connection-properties-user-id=: The OCID of the OCI user who will access the Object Storage.
+                --odb-network=: For resources [odb-network, odb-subnet], provides fallback value for resource odb-network attribute.
+                --odb-subnet=!: ID of the odbSubnet or fully qualified identifier for the odbSubnet.
+                --oracle-ai-data-platform-connection-properties-private-key-file=: The content of the private key file (PEM file)
+                --oracle-ai-data-platform-connection-properties-private-key-passphrase-secret=: The passphrase of the private key.
+                --oracle-ai-data-platform-connection-properties-public-key-fingerprint=: The fingerprint of the API Key of the user specified by the user_id.
+                --oracle-ai-data-platform-connection-properties-region=: The name of the region.
+                --oracle-ai-data-platform-connection-properties-technology-type=: The technology type of OracleAiDataPlatformConnection.
+                --oracle-ai-data-platform-connection-properties-tenancy-id=: The OCID of the related OCI tenancy.
+                --oracle-ai-data-platform-connection-properties-url=: Connection URL.
+                --oracle-ai-data-platform-connection-properties-use-resource-principal: Specifies that the user intends to authenticate to the instance using a
+                --oracle-ai-data-platform-connection-properties-user-id=: The OCID of the OCI user who will access.
+                --oracle-connection-properties-authentication-mode=: Authentication mode.
+                --oracle-connection-properties-gcp-database-id=: Autonomous AI Database instance id of database in Oracle Database @ Google
+                --oracle-connection-properties-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --oracle-connection-properties-password=: The password Oracle Goldengate uses in plain text.
+                --oracle-connection-properties-session-mode=: The mode of the database connection session to be established by the data
+                --oracle-connection-properties-string=: Connect descriptor or Easy Connect Naming method used to connect to a
+                --oracle-connection-properties-technology-type=: The technology type.
+                --oracle-connection-properties-username=: The username Oracle Goldengate uses to connect.
+                --oracle-connection-properties-wallet-file=: The wallet contents Oracle Goldengate uses to make connections to a
+                --oracle-nosql-connection-properties-private-key-file=: The content of the private key file (PEM file)
+                --oracle-nosql-connection-properties-private-key-passphrase-secret=: The passphrase of the private key.
+                --oracle-nosql-connection-properties-public-key-fingerprint=: The fingerprint of the API Key of the user specified by the userId.
+                --oracle-nosql-connection-properties-region=: The name of the region.
+                --oracle-nosql-connection-properties-technology-type=: The technology type of OracleNosqlConnection.
+                --oracle-nosql-connection-properties-tenancy-id=: The OCID of the OCI tenancy.
+                --oracle-nosql-connection-properties-use-resource-principal: Specifies that the user intends to authenticate to the instance using a
+                --oracle-nosql-connection-properties-user-id=: The OCID of the OCI user who will access the Oracle NoSQL database.
+                --postgresql-connection-properties-additional-attributes=: Set postgresql_connection_properties_additional_attributes to new value.
+                --postgresql-connection-properties-database=: The name of the database.
+                --postgresql-connection-properties-db-system-id=: The OCID of the database system being referenced.
+                --postgresql-connection-properties-host=: The name or address of a host.
+                --postgresql-connection-properties-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --postgresql-connection-properties-password=: The password Oracle Goldengate uses for PostgreSQL connection in plain
+                --postgresql-connection-properties-port=: The port of an endpoint usually specified for a connection.
+                --postgresql-connection-properties-security-protocol=: Security protocol for PostgreSQL.
+                --postgresql-connection-properties-ssl-ca-file=: The base64 encoded certificate of the trusted certificate authorities
+                --postgresql-connection-properties-ssl-cert-file=: The base64 encoded certificate of the PostgreSQL server.
+                --postgresql-connection-properties-ssl-crl-file=: The base64 encoded list of certificates revoked by the trusted
+                --postgresql-connection-properties-ssl-key-file=: The base64 encoded private key of the PostgreSQL server.
+                --postgresql-connection-properties-ssl-mode=: SSL modes for PostgreSQL.
+                --postgresql-connection-properties-technology-type=: The technology type of PostgresqlConnection.
+                --postgresql-connection-properties-username=: The username Oracle Goldengate uses to connect the associated system of
+                --properties-connection-type=: The connection type.
+                --properties-description=: Metadata about this specific object.
+                --properties-display-name=: An object's Display Name.
+                --properties-routing-method=: The routing method for the GoldengateConnection.
+                --redis-connection-properties-authentication-type=: Authentication type for Redis.
+                --redis-connection-properties-cluster-id=: The OCID of the Redis cluster.
+                --redis-connection-properties-key-store-file=: The base64 encoded content of the KeyStore file.
+                --redis-connection-properties-key-store-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --redis-connection-properties-key-store-password=: The KeyStore password in plain text.
+                --redis-connection-properties-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --redis-connection-properties-password=: The password Oracle Goldengate uses for Redis connection in plain text.
+                --redis-connection-properties-security-protocol=: Security protocol for Redis.
+                --redis-connection-properties-servers=: Comma separated list of Redis server addresses, specified as host:port
+                --redis-connection-properties-technology-type=: The technology type of RedisConnection.
+                --redis-connection-properties-trust-store-file=: The base64 encoded content of the TrustStore file.
+                --redis-connection-properties-trust-store-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --redis-connection-properties-trust-store-password=: The TrustStore password in plain text.
+                --redis-connection-properties-username=: The username Oracle Goldengate uses to connect the associated system of
+                --remove-db2-connection-properties-additional-attributes=: Remove existing value from db2_connection_properties_additional_attributes list.
+                --remove-kafka-connection-properties-bootstrap-servers=: Remove existing value from kafka_connection_properties_bootstrap_servers list.
+                --remove-labels=: Remove existing value from map labels.
+                --remove-microsoft-sqlserver-connection-properties-additional-attributes=: Remove existing value from microsoft_sqlserver_connection_properties_additional_attributes list.
+                --remove-mysql-connection-properties-additional-attributes=: Remove existing value from mysql_connection_properties_additional_attributes list.
+                --remove-postgresql-connection-properties-additional-attributes=: Remove existing value from postgresql_connection_properties_additional_attributes list.
+                --request-id=: An optional ID to identify the request.
+                --secret=: For resources [amazon-redshift-connection-properties-password-secret-version, azure-synapse-analytics-connection-properties-password-secret-version, databricks-connection-properties-password-secret-version, db2-connection-properties-password-secret-version, elasticsearch-connection-properties-password-secret-version, goldengate-connection-properties-password-secret-version, java-message-service-connection-properties-key-store-password-secret-version, java-message-service-connection-properties-password-secret-version, java-message-service-connection-properties-ssl-key-password-secret-version, java-message-service-connection-properties-trust-store-password-secret-version, kafka-connection-properties-key-store-password-secret-version, kafka-connection-properties-password-secret-version, kafka-connection-properties-ssl-key-password-secret-version, kafka-connection-properties-trust-store-password-secret-version, kafka-schema-registry-connection-properties-key-store-password-secret-version, kafka-schema-registry-connection-properties-password-secret-version, kafka-schema-registry-connection-properties-ssl-key-password-secret-version, kafka-schema-registry-connection-properties-trust-store-password-secret-version, microsoft-sqlserver-connection-properties-password-secret-version, mongodb-connection-properties-password-secret-version, mongodb-connection-properties-tls-certificate-key-file-password-secret-version, mysql-connection-properties-password-secret-version, oracle-connection-properties-password-secret-version, postgresql-connection-properties-password-secret-version, redis-connection-properties-key-store-password-secret-version, redis-connection-properties-password-secret-version, redis-connection-properties-trust-store-password-secret-version, snowflake-connection-properties-password-secret-version], provides fallback value for resource secret attribute.
+                --snowflake-connection-properties-authentication-type=: Used authentication mechanism to access Snowflake.
+                --snowflake-connection-properties-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --snowflake-connection-properties-password=: The password Oracle Goldengate uses to connect to Snowflake platform
+                --snowflake-connection-properties-private-key-file=: The content of private key file in PEM format.
+                --snowflake-connection-properties-private-key-passphrase-secret=: Password if the private key file is encrypted.
+                --snowflake-connection-properties-technology-type=: The technology type of SnowflakeConnection.
+                --snowflake-connection-properties-url=: JDBC connection URL.
+                --snowflake-connection-properties-username=: The username Oracle Goldengate uses to connect to Snowflake.
+                --update-labels=: Update labels value or add key value pair.
+              completion:
+                flag:
+                    azure-data-lake-storage-connection-properties-authentication-type:
+                        - azure-active-directory
+                        - shared-access-signature
+                        - shared-key
+                    databricks-connection-properties-authentication-type:
+                        - oauth-m2m
+                        - personal-access-token
+                    db2-connection-properties-security-protocol:
+                        - plain
+                        - tls
+                    elasticsearch-connection-properties-authentication-type:
+                        - basic
+                        - none
+                    elasticsearch-connection-properties-security-protocol:
+                        - plain
+                        - tls
+                    iceberg-connection-properties-amazon-s3-storage-scheme-type:
+                        - s3
+                        - s3a
+                    iceberg-connection-properties-catalog-type:
+                        - glue
+                        - hadoop
+                        - nessie
+                        - polaris
+                        - rest
+                    iceberg-connection-properties-storage-type:
+                        - amazon-s3
+                        - azure-data-lake-storage
+                        - google-cloud-storage
+                    java-message-service-connection-properties-authentication-type:
+                        - basic
+                        - none
+                    java-message-service-connection-properties-security-protocol:
+                        - mtls
+                        - plain
+                        - tls
+                    kafka-connection-properties-security-protocol:
+                        - plaintext
+                        - sasl-plaintext
+                        - sasl-ssl
+                        - ssl
+                    kafka-schema-registry-connection-properties-authentication-type:
+                        - basic
+                        - mutual
+                        - none
+                    microsoft-sqlserver-connection-properties-security-protocol:
+                        - plain
+                        - tls
+                    mongodb-connection-properties-security-protocol:
+                        - mtls
+                        - plain
+                        - tls
+                    mysql-connection-properties-security-protocol:
+                        - mtls
+                        - plain
+                        - tls
+                    mysql-connection-properties-ssl-mode:
+                        - disabled
+                        - preferred
+                        - required
+                        - verify-ca
+                        - verify-identity
+                    oracle-connection-properties-authentication-mode:
+                        - mtls
+                        - tls
+                    oracle-connection-properties-session-mode:
+                        - direct
+                        - redirect
+                    postgresql-connection-properties-security-protocol:
+                        - mtls
+                        - plain
+                        - tls
+                    postgresql-connection-properties-ssl-mode:
+                        - prefer
+                        - require
+                        - verify-ca
+                        - verify-full
+                    properties-connection-type:
+                        - amazon-kinesis
+                        - amazon-redshift
+                        - amazon-s3
+                        - azure-data-lake-storage
+                        - azure-synapse-analytics
+                        - databricks
+                        - db2
+                        - elasticsearch
+                        - generic
+                        - goldengate
+                        - google-bigquery
+                        - google-cloud-storage
+                        - google-pubsub
+                        - hdfs
+                        - iceberg
+                        - java-message-service
+                        - kafka
+                        - kafka-schema-registry
+                        - microsoft-fabric
+                        - microsoft-sqlserver
+                        - mongodb
+                        - mysql
+                        - oci-object-storage
+                        - oracle
+                        - oracle-ai-data-platform
+                        - oracle-nosql
+                        - postgresql
+                        - redis
+                        - snowflake
+                    properties-routing-method:
+                        - dedicated-endpoint
+                        - shared-deployment-endpoint
+                    redis-connection-properties-authentication-type:
+                        - basic
+                        - none
+                    redis-connection-properties-security-protocol:
+                        - mtls
+                        - plain
+                        - tls
+                    snowflake-connection-properties-authentication-type:
+                        - basic
+                        - key-pair
         - name: goldengate-deployment-environments
           description: '*(ALPHA)*  Manage Goldengate Deployment Environment resources.'
           hidden: true
@@ -62829,6 +64105,63 @@ commands:
                 --async: Return immediately, without waiting for the operation in progress to
                 --location=: The location id of the goldengateDeployment resource.
                 --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: update
+              description: '*(ALPHA)*  Update goldengateDeployments.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-labels: Clear labels value and set to empty map.
+                --clear-odb-network: Clear odb_network value and set to null.
+                --clear-ogg-data-admin-password-secret-version: Clear ogg_data_admin_password_secret_version value and set to null.
+                --clear-properties: Set goldengateDeployment.properties back to default value.
+                --display-name=: The display name for the GoldengateDeployment.
+                --gcp-oracle-zone=: The GCP Oracle zone where Oracle GoldengateDeployment is hosted.
+                --labels=: Set labels to new value.
+                --location=: For resources [goldengate_deployment, odb-network, odb-subnet], provides fallback value for resource location attribute.
+                --maintenance-config-bundle-release-upgrade-period-days=: Defines auto upgrade period for bundle releases.
+                --maintenance-config-interim-release-upgrade-period-days=: Defines auto upgrade period for interim releases.
+                --maintenance-config-is-interim-release-auto-upgrade-enabled: By default auto upgrade for interim releases are not enabled.
+                --maintenance-config-major-release-upgrade-period-days=: Defines auto upgrade period for major releases.
+                --maintenance-config-security-patch-upgrade-period-days=: Defines auto upgrade period for releases with security fix.
+                --maintenance-window-day=: Days of the week.
+                --maintenance-window-start-hour=: Start hour for maintenance period.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Clear labels value and set to empty map.
+                --no-clear-odb-network&: Clear odb_network value and set to null.
+                --no-clear-ogg-data-admin-password-secret-version&: Clear ogg_data_admin_password_secret_version value and set to null.
+                --no-clear-properties&: Set goldengateDeployment.properties back to default value.
+                --no-maintenance-config-is-interim-release-auto-upgrade-enabled&: By default auto upgrade for interim releases are not enabled.
+                --no-properties-is-auto-scaling-enabled&: Indicates if auto scaling is enabled for the Deployment's CPU core count.
+                --odb-network=: For resources [odb-network, odb-subnet], provides fallback value for resource odb-network attribute.
+                --odb-subnet=!: ID of the odbSubnet or fully qualified identifier for the odbSubnet.
+                --ogg-data-admin-password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+                --ogg-data-admin-password=: The Goldengate deployment console password in plain text.
+                --ogg-data-admin-username=: The Goldengate deployment console username.
+                --ogg-data-deployment=: The name given to the Goldengate service deployment.
+                --ogg-data-version=: Version of OGG
+                --properties-cpu-core-count=: The Minimum number of OCPUs to be made available for this Deployment.
+                --properties-deployment-type=: A valid Goldengate Deployment type.
+                --properties-description=: The description of the GoldengateDeployment.
+                --properties-environment-type=: The environment type of the GoldengateDeployment.
+                --properties-is-auto-scaling-enabled: Indicates if auto scaling is enabled for the Deployment's CPU core count.
+                --properties-license-model=: The Oracle license model that applies to a Deployment.
+                --remove-labels=: Remove existing value from map labels.
+                --request-id=: An optional ID to identify the request.
+                --secret=: The secret id of the secretVersion resource.
+                --update-labels=: Update labels value or add key value pair.
+              completion:
+                flag:
+                    maintenance-window-day:
+                        - friday
+                        - monday
+                        - saturday
+                        - sunday
+                        - thursday
+                        - tuesday
+                        - wednesday
+                    properties-license-model:
+                        - bring-your-own-license
+                        - license-included
         - name: odb-networks
           description: '*(ALPHA)*  Manage Odb Network resources.'
           hidden: true
@@ -62843,6 +64176,7 @@ commands:
                 --location=: The location id of the odbNetwork resource.
                 --network=!: ID of the network or fully qualified identifier for the network.
                 --no-async&: Return immediately, without waiting for the operation in progress to
+                --psc-interface-config-network-attachment=: The resource name of the Network Attachment that
                 --request-id=: An optional ID to identify the request.
             - name: delete
               description: '*(ALPHA)*  Delete an OdbNetwork.'
@@ -62958,6 +64292,45 @@ commands:
                     --page-size=: Some services group resource list output into pages.
                     --sort-by=: Comma-separated list of resource field key names to sort by.
                     --uri: Print a list of resource URIs instead of the default output, and change the
+                - name: update
+                  description: '*(ALPHA)*  Update odbSubnets.'
+                  hidden: true
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --cidr-range=: The CIDR range of the subnet.
+                    --clear-labels: Clear labels value and set to empty map.
+                    --labels=: Set labels to new value.
+                    --location=: The location id of the odbSubnet resource.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --no-clear-labels&: Clear labels value and set to empty map.
+                    --odb-network=: The odbNetwork id of the odbSubnet resource.
+                    --purpose=: Purpose of the subnet.
+                    --remove-labels=: Remove existing value from map labels.
+                    --request-id=: An optional ID to identify the request.
+                    --update-labels=: Update labels value or add key value pair.
+                  completion:
+                    flag:
+                        purpose:
+                            - backup-subnet
+                            - client-subnet
+            - name: update
+              description: '*(ALPHA)*  Update odbNetworks.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-labels: Clear labels value and set to empty map.
+                --clear-service-connection-config: Set odbNetwork.serviceConnectionConfig back to default value.
+                --gcp-oracle-zone=: The GCP Oracle zone where OdbNetwork is hosted.
+                --labels=: Set labels to new value.
+                --location=: The location id of the odbNetwork resource.
+                --network=!: ID of the network or fully qualified identifier for the network.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Clear labels value and set to empty map.
+                --no-clear-service-connection-config&: Set odbNetwork.serviceConnectionConfig back to default value.
+                --psc-interface-config-network-attachment=: The resource name of the Network Attachment that
+                --remove-labels=: Remove existing value from map labels.
+                --request-id=: An optional ID to identify the request.
+                --update-labels=: Update labels value or add key value pair.
         - name: operations
           description: '*(ALPHA)*  Manage Operation resources.'
           hidden: true
@@ -63007,6 +64380,52 @@ commands:
               hidden: true
               flags:
                 --filter=: 'Apply a filter in the format:'
+                --limit=: Maximum number of resources to list.
+                --location=!: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: service-integrations
+          description: '*(ALPHA)*  Manage Service Integration resources.'
+          hidden: true
+          commands:
+            - name: create
+              description: '*(ALPHA)*  Create serviceIntegrations.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --database-connection=!: ID of the databaseConnection or fully qualified identifier for the databaseConnection.
+                --display-name=: User-friendly display name for the service integration.
+                --knowledge-catalog-config-enabled!: Whether periodic knowledge catalog extraction is enabled.
+                --labels=: 'Optional: Labels as key-value pairs to organize the resource.'
+                --location=: For resources [database-connection, service_integration], provides fallback value for resource location attribute.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-knowledge-catalog-config-enabled!&: Whether periodic knowledge catalog extraction is enabled.
+                --request-id=: An optional ID to identify the request.
+                --service-integration-type=!: The type of the service integration.
+              completion:
+                flag:
+                    service-integration-type:
+                        - knowledge-catalog
+            - name: delete
+              description: '*(ALPHA)*  Delete serviceIntegrations.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location id of the serviceIntegration resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --request-id=: An optional ID to identify the request.
+            - name: describe
+              description: '*(ALPHA)*  Describe serviceIntegrations.'
+              hidden: true
+              flags:
+                --location=: The location id of the serviceIntegration resource.
+            - name: list
+              description: '*(ALPHA)*  List serviceIntegrations.'
+              hidden: true
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
                 --limit=: Maximum number of resources to list.
                 --location=!: ID of the location or fully qualified identifier for the location.
                 --no-uri&: Print a list of resource URIs instead of the default output, and change the
@@ -63970,8 +65389,10 @@ commands:
             - name: create
               description: '*(ALPHA)*  Create a Pub/Sub schema.'
               flags:
+                --definition-descriptor-file=!&: File containing the precompiled Protocol Buffer schema.
                 --definition-file=: File containing schema definition.
                 --definition=: Inline schema definition.
+                --root-message-name=!&: Name of the root message defined in the schema.
                 --tags=&: List of tag KEY=VALUE pairs to add.
                 --type=!: Type of the schema.
               completion:
@@ -64022,10 +65443,12 @@ commands:
             - name: validate-message
               description: '*(ALPHA)*  Validate a message against a Pub/Sub schema.'
               flags:
+                --definition-descriptor-file=!&: File containing the precompiled Protocol Buffer schema.
                 --definition-file=: File containing schema definition.
                 --definition=: Inline schema definition.
                 --message-encoding=!: The encoding of the message.
                 --message=!: The message to validate against the schema.
+                --root-message-name=!&: Name of the root message defined in the schema.
                 --schema-name=: Name or full path of an existing schema.
                 --type=!: Type of inline schema.
               completion:
@@ -64039,8 +65462,10 @@ commands:
             - name: validate-schema
               description: '*(ALPHA)*  Validate a Pub/Sub schema.'
               flags:
+                --definition-descriptor-file=!&: File containing the precompiled Protocol Buffer schema.
                 --definition-file=: File containing schema definition.
                 --definition=: Inline schema definition.
+                --root-message-name=!&: Name of the root message defined in the schema.
                 --type=!: Type of the schema.
               completion:
                 flag:
@@ -67284,10 +68709,9 @@ commands:
                 - name: tail
                   description: '*(ALPHA)*  Tail logs for a Cloud Run instance.'
                   flags:
-                    --log-filter=: Filter expression that specifies the log entries to return.
-                    --no-show-exec-error&: If true and command fails, print the underlying command that was executed and its exit status.
+                    --container=: Name of a specific container to SSH into.
+                    --iap-tunnel-url-override=&: Allows for overriding the connection endpoint for integration testing.
                     --region=: Region in which the resource can be found.
-                    --show-exec-error&: If true and command fails, print the underlying command that was executed and its exit status.
             - name: proxy
               description: '*(ALPHA)*  Proxy an instance to localhost authenticating as the active account or with the specified token.'
               flags:
@@ -72577,6 +74001,90 @@ commands:
     - name: service-extensions
       description: '*(ALPHA)*  Manage Service Extensions resources.'
       commands:
+        - name: extension-bindings
+          description: '*(ALPHA)*  Manage Extension Binding resources.'
+          hidden: true
+          commands:
+            - name: create
+              description: '*(ALPHA)*  Create extensionBindings.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --description=: A human-readable description of the resource.
+                --etag=: Etag of the resource.
+                --fail-open: Determines the behavior of the extension binding when the call to the
+                --labels=: Set of labels associated with the `ExtensionBinding` resource.
+                --location=: The location id of the extensionBinding resource.
+                --match-conditions=: A list of match conditions to match against the incoming
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-fail-open&: Determines the behavior of the extension binding when the call to the
+                --priority=: Priority of the extension binding.
+                --producer-extension=!: The name of the extension that this binding should attach to target
+                --producer-metadata=: Additional metadata that should be passed to the attached extension
+                --scope-parent=!: 'Parent resource name specification, in the format:'
+                --scope-resource-types=!: Type of the resource to which the binding should attach.
+                --target-resources=: The reference to the target resource, to which this binding should
+            - name: delete
+              description: '*(ALPHA)*  Delete extensionBindings.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --etag=: The etag of the ExtensionBinding to delete.
+                --location=: The location id of the extensionBinding resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: describe
+              description: '*(ALPHA)*  Describe extensionBindings.'
+              hidden: true
+              flags:
+                --location=: The location id of the extensionBinding resource.
+            - name: list
+              description: '*(ALPHA)*  List extensionBindings.'
+              hidden: true
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=!: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: '*(ALPHA)*  Update extensionBindings.'
+              hidden: true
+              flags:
+                --add-match-conditions=: Add new value to match_conditions list.
+                --add-target-resources=: Add new value to target_resources list.
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-labels: Clear labels value and set to empty map.
+                --clear-match-conditions: Clear match_conditions value and set to empty list.
+                --clear-producer-metadata: Clear producer_metadata value and set to empty map.
+                --clear-target: Set extensionBinding.target back to default value.
+                --clear-target-resources: Clear target_resources value and set to empty list.
+                --description=: A human-readable description of the resource.
+                --etag=: Etag of the resource.
+                --fail-open: Determines the behavior of the extension binding when the call to the
+                --labels=: Set labels to new value.
+                --location=: The location id of the extensionBinding resource.
+                --match-conditions=: Set match_conditions to new value.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Clear labels value and set to empty map.
+                --no-clear-match-conditions&: Clear match_conditions value and set to empty list.
+                --no-clear-producer-metadata&: Clear producer_metadata value and set to empty map.
+                --no-clear-target&: Set extensionBinding.target back to default value.
+                --no-clear-target-resources&: Clear target_resources value and set to empty list.
+                --no-fail-open&: Determines the behavior of the extension binding when the call to the
+                --priority=: Priority of the extension binding.
+                --producer-extension=: The name of the extension that this binding should attach to target
+                --producer-metadata=: Set producer_metadata to new value.
+                --remove-labels=: Remove existing value from map labels.
+                --remove-match-conditions=: Remove existing value from match_conditions list.
+                --remove-producer-metadata=: Remove existing value from map producer_metadata.
+                --remove-target-resources=: Remove existing value from target_resources list.
+                --scope-parent=: 'Parent resource name specification, in the format:'
+                --scope-resource-types=: Type of the resource to which the binding should attach.
+                --target-resources=: Set target_resources to new value.
+                --update-labels=: Update labels value or add key value pair.
+                --update-producer-metadata=: Update producer_metadata value or add key value pair.
         - name: lb-observability-extensions
           description: '*(ALPHA)*  Manage Service Extensions `LbObservabilityExtension` resources.'
           hidden: true
@@ -72664,6 +74172,55 @@ commands:
                 --source=: Path to a YAML file containing the configuration export data.
             - name: list
               description: '*(ALPHA)*  List `LbTrafficExtension` resources.'
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=!: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: producer-extensions
+          description: '*(ALPHA)*  Manage Producer Extension resources.'
+          hidden: true
+          commands:
+            - name: create
+              description: '*(ALPHA)*  Create producerExtensions.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --description=: A human-readable description of the resource.
+                --etag=: Etag of the resource.
+                --extension-settings-authority=: The `:authority` header in the request sent to the extension service.
+                --extension-settings-observability-mode: Whether the extension should function in observability mode.
+                --extension-settings-service=!: URI of the PSC attachment.
+                --extension-settings-supported-events=!: The event types supported by the extension.
+                --labels=: Set of labels associated with the `ProducerExtension` resource.
+                --location=: The location id of the producerExtension resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-extension-settings-observability-mode&: Whether the extension should function in observability mode.
+                --phase=!: The phase in which this `ProducerExtension` should execute.
+              completion:
+                flag:
+                    phase:
+                        - authz
+                        - traffic
+            - name: delete
+              description: '*(ALPHA)*  Delete producerExtensions.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --etag=: The etag of the ProducerExtension to delete.
+                --location=: The location id of the producerExtension resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: describe
+              description: '*(ALPHA)*  Describe producerExtensions.'
+              hidden: true
+              flags:
+                --location=: The location id of the producerExtension resource.
+            - name: list
+              description: '*(ALPHA)*  List producerExtensions.'
+              hidden: true
               flags:
                 --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
                 --limit=: Maximum number of resources to list.
@@ -73103,14 +74660,16 @@ commands:
                 - name: remove
                   description: '*(ALPHA)*  Remove MCP content security provider of a project.'
             - name: disable
-              description: '*(ALPHA)*  *(DEPRECATED)*  Disable a service for MCP on a project, folder or organization.'
+              description: '*(ALPHA)*  *(REMOVED)*  Disable a service for MCP on a project, folder or organization.'
+              hidden: true
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
                 --folder=: The Google Cloud Platform folder ID to use for this invocation.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --organization=: The Google Cloud Platform organization ID to use for this invocation.
             - name: enable
-              description: '*(ALPHA)*  *(DEPRECATED)*  Enable a service for MCP on a project, folder or organization.'
+              description: '*(ALPHA)*  *(REMOVED)*  Enable a service for MCP on a project, folder or organization.'
+              hidden: true
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
                 --folder=: The Google Cloud Platform folder ID to use for this invocation.
@@ -73119,7 +74678,8 @@ commands:
                 --organization=: The Google Cloud Platform organization ID to use for this invocation.
                 --skip-mcp-endpoint-check&: If true, the system will bypass the check for MCP endpoint while enabling a service.
             - name: list
-              description: '*(ALPHA)*  *(DEPRECATED)*  List MCP services for a project, folder or organization.'
+              description: '*(ALPHA)*  *(REMOVED)*  List MCP services for a project, folder or organization.'
+              hidden: true
               flags:
                 --available: Return the services available to the project, folder or organization to enable for MCP.
                 --enabled: (DEFAULT) Return the MCP services which the project, folder or organization has enabled.
@@ -75266,7 +76826,7 @@ commands:
                 --failover-replica-name=: Also create a failover replica with the specified name.
                 --final-backup: Enables the final backup to be taken at the time of instance deletion.
                 --final-backup-retention-days=: Specifies number of days to retain final backup.
-                --gce-instance=&: The full resource name of the GCE instance that is to be onboarded to Cloud SQL.`--gce-instance=projects/test-project/zones/us-central1/instances/my-gce-instance
+                --gce-instance=&: The list of full resource names of the GCE instances that are to be onboarded to Cloud SQL.`--gce-instance=projects/test-project/zones/us-central1/instances/my-gce-instance
                 --gce-zone=: (DEPRECATED) Preferred Compute Engine zone (e.g. us-central1-a, us-central1-b, etc.).
                 --insights-config-enhanced-query-insights-enabled: Enable enhanced query insights for Enterprise Plus edition to provide more detailed query
                 --insights-config-query-insights-enabled: Enable query insights feature to provide query and query plan
