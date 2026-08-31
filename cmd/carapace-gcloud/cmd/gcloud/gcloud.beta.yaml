@@ -1619,6 +1619,7 @@ commands:
             - name: create
               description: '*(BETA)*  Create a new semantic governance policy.'
               flags:
+                --agent-response-denial-message=&: 'Sets `agent_response_customization.denial_message` on the policy: a'
                 --agent=!: The name of the agent in Agent Registry that is affected by this policy.
                 --async: Return immediately, without waiting for the operation in progress to
                 --description=: The description of the semantic governance policy.
@@ -1649,6 +1650,7 @@ commands:
             - name: update
               description: '*(BETA)*  Update a semantic governance policy.'
               flags:
+                --agent-response-denial-message=&: 'Sets `agent_response_customization.denial_message` on the policy: a'
                 --agent=: The name of the agent in Agent Registry that is affected by this policy.
                 --async: Return immediately, without waiting for the operation in progress to
                 --description=: The description of the semantic governance policy.
@@ -3819,7 +3821,8 @@ commands:
               description: '*(BETA)*  *(DEPRECATED)*  Manage Cloud API Registry MCP servers.'
               commands:
                 - name: list
-                  description: '*(BETA)*  *(DEPRECATED)*  List MCP servers.'
+                  description: '*(BETA)*  *(DEPRECATED)*  *(REMOVED)*  List MCP servers.'
+                  hidden: true
                   flags:
                     --all: If provided, list all the available (both enabled and non-enabled) MCP servers for the project.
                     --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
@@ -3833,7 +3836,8 @@ commands:
               description: '*(BETA)*  *(DEPRECATED)*  Manage Cloud API Registry MCP tools.'
               commands:
                 - name: list
-                  description: '*(BETA)*  *(DEPRECATED)*  List MCP tools.'
+                  description: '*(BETA)*  *(DEPRECATED)*  *(REMOVED)*  List MCP tools.'
+                  hidden: true
                   flags:
                     --all: If provided, list all the available MCP tools for all (both enabled and non-enabled) the MCP Servers for the project.
                     --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
@@ -4669,10 +4673,12 @@ commands:
                   description: '*(BETA)*  Create Flag Release.'
                   flags:
                     --all-flags: All flags in the flag release's unit kind will be included to be rolled out.
+                    --allocations=: Flag allocations to be rolled out.
                     --annotations=: Unstructured key-value map stored with a resource that may be set by
                     --flag-sets=: Flag sets to be rolled out.
+                    --flags=!: IDs of the flags or fully qualified identifiers for the flags.
                     --labels=: Labels on the resource, which can be used for categorization.
-                    --location=: For resources [flag_release, obsolete-flags, revisions, unit-kind], provides fallback value for resource location attribute.
+                    --location=: For resources [flag_release, flags, obsolete-flags, revisions, unit-kind], provides fallback value for resource location attribute.
                     --no-all-flags&: All flags in the flag release's unit kind will be included to be rolled out.
                     --obsolete-flags=!: IDs of the flags or fully qualified identifiers for the flags.
                     --revisions=!: IDs of the flagRevisions or fully qualified identifiers for the flagRevisions.
@@ -6404,10 +6410,43 @@ commands:
     - name: backup-dr
       description: '*(BETA)*  Manage Backup and DR resources.'
       commands:
+        - name: applied-auto-protection-policies
+          description: '*(BETA)*  Manage Backup and DR AppliedAutoProtectionPolicies.'
+          hidden: true
+          commands:
+            - name: list
+              description: '*(BETA)*  List Backup and DR applied auto-protection policies.'
+              hidden: true
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
         - name: auto-protection-bindings
           description: '*(BETA)*  Manage Backup and DR auto protection bindings.'
           hidden: true
           commands:
+            - name: create
+              description: '*(BETA)*  Create a Backup and DR auto-protection binding.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --auto-protection-policy=: The ID of the AutoProtectionPolicy.
+                --description=: The description of the binding.
+                --location=: Location ID of the resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --scope=!: The scope of the binding (e.g. projects/foo).
+            - name: delete
+              description: '*(BETA)*  Delete a Backup and DR auto-protection binding.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --auto-protection-policy=: The ID of the AutoProtectionPolicy.
+                --location=: Location ID of the resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
             - name: describe
               description: '*(BETA)*  Describe a Backup and DR auto-protection binding.'
               hidden: true
@@ -6850,6 +6889,21 @@ commands:
                 --no-clear-labels&: ""
                 --remove-labels=: A list of label keys to remove from the backup.
                 --update-labels=: A list of labels to apply to the backup.
+        - name: binding-matching-resources
+          description: '*(BETA)*  Manage Backup and DR BindingMatchingResources.'
+          hidden: true
+          commands:
+            - name: list
+              description: '*(BETA)*  List Backup and DR binding matching resources.'
+              hidden: true
+              flags:
+                --auto-protection-policy-binding=!: ID of the auto_protection_policy_binding or fully qualified identifier for the auto_protection_policy_binding.
+                --auto-protection-policy=: The ID of the AutoProtectionPolicy.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: Location ID of the resource.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
         - name: data-source-references
           description: '*(BETA)*  Command group for Backup and DR Data Source References.'
           commands:
@@ -11722,6 +11776,7 @@ commands:
                 --connection-drain-on-failover: Applicable only for backend service-based external and internal
                 --connection-draining-timeout=: Connection draining timeout to be used during removal of VMs from
                 --connection-persistence-on-unhealthy-backends=: Specifies connection persistence when backends are unhealthy.
+                --consistent-hash-http-header-name=: The HTTP header name to use for the hash key when session affinity is set
                 --consistent-hash-minimum-ring-size=: The minimum number of virtual nodes to use for the hash ring when a
                 --custom-metrics-file=: File path to json file with custom metrics that are used for
                 --custom-metrics=: List of custom metrics that are used for
@@ -11785,6 +11840,12 @@ commands:
                 --region=: Region of the backend service to create.
                 --request-coalescing: Enables request coalescing to the backend (recommended).
                 --resource-manager-tags=: A comma-separated list of Resource Manager tags
+                --security-settings-aws-v4-access-key-id=: The identifier of an access key used for AWS Signature Version 4 s3
+                --security-settings-aws-v4-access-key-version=: The optional version identifier for the AWS Signature Version 4 access key.
+                --security-settings-aws-v4-access-key=: The access key used for AWS Signature Version 4 S3 bucket authentication.
+                --security-settings-aws-v4-origin-region=: The name of the cloud region of your origin for AWS Signature Version 4
+                --security-settings-client-tls-policy=: This URL refers to a network security.ClientTlsPolicy resource
+                --security-settings-subject-alt-names=: Comma-separated list of Subject Alternative Names (SANs) verified by the
                 --serve-while-stale=: Serve existing content from the cache (if available) when revalidating
                 --service-bindings=: List of service bindings to be attached to this backend service.
                 --service-lb-policy=: Service load balancing policy to be applied to this backend service.
@@ -12020,6 +12081,7 @@ commands:
                 --connection-drain-on-failover: Applicable only for backend service-based external and internal
                 --connection-draining-timeout=: Connection draining timeout to be used during removal of VMs from
                 --connection-persistence-on-unhealthy-backends=: Specifies connection persistence when backends are unhealthy.
+                --consistent-hash-http-header-name=: The HTTP header name to use for the hash key when session affinity is set
                 --consistent-hash-minimum-ring-size=: The minimum number of virtual nodes to use for the hash ring when a
                 --custom-metrics-file=: File path to json file with custom metrics that are used for
                 --custom-metrics=: List of custom metrics that are used for
@@ -12089,6 +12151,7 @@ commands:
                 --no-negative-caching&: Negative caching allows per-status code cache TTLs to be set, in order to
                 --no-negative-caching-policies: Remove all negative caching policies for the backend service.
                 --no-request-coalescing&: Enables request coalescing to the backend (recommended).
+                --no-security-settings: Clears the current set of backend service security settings.
                 --no-serve-while-stale: (DEPRECATED) Clears serve while stale value.
                 --no-service-bindings: No service bindings should be attached to the backend service.
                 --no-service-lb-policy: No service load balancing policies should be attached to the backend service.
@@ -12098,6 +12161,12 @@ commands:
                 --region=: Region of the backend service to update.
                 --request-coalescing: Enables request coalescing to the backend (recommended).
                 --security-policy=: The security policy that will be set for this backend service.
+                --security-settings-aws-v4-access-key-id=: The identifier of an access key used for AWS Signature Version 4 s3
+                --security-settings-aws-v4-access-key-version=: The optional version identifier for the AWS Signature Version 4 access key.
+                --security-settings-aws-v4-access-key=: The access key used for AWS Signature Version 4 S3 bucket authentication.
+                --security-settings-aws-v4-origin-region=: The name of the cloud region of your origin for AWS Signature Version 4
+                --security-settings-client-tls-policy=: This URL refers to a network security.ClientTlsPolicy resource
+                --security-settings-subject-alt-names=: Comma-separated list of Subject Alternative Names (SANs) verified by the
                 --serve-while-stale=: Serve existing content from the cache (if available) when revalidating
                 --service-bindings=: List of service bindings to be attached to this backend service.
                 --service-lb-policy=: Service load balancing policy to be applied to this backend service.
@@ -12411,6 +12480,11 @@ commands:
                 --regions=: If provided, only resources from the given regions are queried.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: test-iam-permissions
+              description: '*(BETA)*  Test IAM permissions for a Compute Engine composite health check.'
+              flags:
+                --permissions=!: Permissions to be tested.
+                --region=: The name of the Google Compute Engine region.
             - name: update
               description: '*(BETA)*  Update a composite health check.'
               flags:
@@ -15408,6 +15482,7 @@ commands:
               completion:
                 flag:
                     confidential-compute-type:
+                        - BMSAI
                         - CCA
                         - SEV
                         - SEV_SNP
@@ -15466,7 +15541,8 @@ commands:
                 --boot-disk-size=: The size of the boot disk.
                 --boot-disk-type=: The type of the boot disk.
                 --can-ip-forward: If provided, allows the instances to send and receive packets with non-matching destination or source IP addresses.
-                --confidential-compute: The instance boots with Confidential Computing enabled.
+                --confidential-compute: (DEPRECATED)       The instance boots with Confidential Computing enabled.
+                --confidential-compute-type=: The instance boots with Confidential Computing enabled.
                 --container-arg=: Argument to append to container entrypoint or to override container CMD.
                 --container-command=: Specifies what executable to run when the container starts (overrides
                 --container-env-file=: Declare environment variables in a file.
@@ -15509,7 +15585,7 @@ commands:
                 --no-address: If provided, the instances are not assigned external IP
                 --no-boot-disk-auto-delete&: Automatically delete boot disks when their instances are deleted.
                 --no-can-ip-forward&: If provided, allows the instances to send and receive packets with non-matching destination or source IP addresses.
-                --no-confidential-compute&: The instance boots with Confidential Computing enabled.
+                --no-confidential-compute&: (DEPRECATED)       The instance boots with Confidential Computing enabled.
                 --no-container-privileged&: Specify whether to run container in privileged mode.
                 --no-container-stdin&: Keep container STDIN open even if not attached.
                 --no-container-tty&: Allocate a pseudo-TTY for the container.
@@ -15543,6 +15619,12 @@ commands:
                 --tags=: Specifies a list of tags to apply to the instance.
               completion:
                 flag:
+                    confidential-compute-type:
+                        - BMSAI
+                        - CCA
+                        - SEV
+                        - SEV_SNP
+                        - TDX
                     container-restart-policy:
                         - never
                         - on-failure
@@ -15827,6 +15909,7 @@ commands:
                   completion:
                     flag:
                         confidential-compute-type:
+                            - BMSAI
                             - CCA
                             - SEV
                             - SEV_SNP
@@ -16009,6 +16092,7 @@ commands:
               completion:
                 flag:
                     confidential-compute-type:
+                        - BMSAI
                         - CCA
                         - SEV
                         - SEV_SNP
@@ -16169,6 +16253,7 @@ commands:
               completion:
                 flag:
                     confidential-compute-type:
+                        - BMSAI
                         - CCA
                         - SEV
                         - SEV_SNP
@@ -21398,6 +21483,7 @@ commands:
                             - tls-ja3-fingerprint
                             - user-ip
                             - tls-ja4-fingerprint
+                            - asn
                         exceed-action:
                             - deny-403
                             - deny-404
@@ -21496,6 +21582,7 @@ commands:
                             - tls-ja3-fingerprint
                             - user-ip
                             - tls-ja4-fingerprint
+                            - asn
                         exceed-action:
                             - deny-403
                             - deny-404
@@ -21618,6 +21705,11 @@ commands:
             - name: set-iam-policy
               description: '*(BETA)*  Set the IAM policy for a Compute Engine service attachment.'
               flags:
+                --region=: The name of the Google Compute Engine region.
+            - name: test-iam-permissions
+              description: '*(BETA)*  Test IAM permissions for a Compute Engine service attachment.'
+              flags:
+                --permissions=!: Permissions to be tested.
                 --region=: The name of the Google Compute Engine region.
             - name: update
               description: '*(BETA)*  Update a Google Compute Engine service attachment.'
@@ -33539,6 +33631,126 @@ commands:
     - name: developer-connect
       description: '*(BETA)*  Manage Developer Connect resources.'
       commands:
+        - name: account-connectors
+          description: '*(BETA)*  Manage Account Connector resources.'
+          commands:
+            - name: create
+              description: '*(BETA)*  Create accountConnectors.'
+              flags:
+                --annotations=: Allows users to store small amounts of arbitrary data.
+                --async: Return immediately, without waiting for the operation in progress to
+                --custom-oauth-config-auth-uri=!: OAuth2 authorization server URL.
+                --custom-oauth-config-client-id=!: Client ID of the OAuth application.
+                --custom-oauth-config-client-secret=!: Client secret of the OAuth application.
+                --custom-oauth-config-host-uri=!: Host URI of the OAuth application.
+                --custom-oauth-config-pkce-disabled: Disable PKCE for this OAuth config.
+                --custom-oauth-config-scm-provider=!: Type of the SCM provider.
+                --custom-oauth-config-scopes=!: Scopes to be requested during OAuth.
+                --custom-oauth-config-service-directory=!: ID of the service or fully qualified identifier for the service.
+                --custom-oauth-config-ssl-ca-certificate=: SSL certificate to use for requests to a private service.
+                --custom-oauth-config-token-uri=!: OAuth2 token request URL.
+                --etag=: This checksum is computed by the server based on the value of other
+                --labels=: Labels as key value pairs.
+                --location=: For resources [account_connector, custom-oauth-config-service-directory], provides fallback value for resource location attribute.
+                --namespace=: The namespace id of the service resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-custom-oauth-config-pkce-disabled&: Disable PKCE for this OAuth config.
+                --no-proxy-config-enabled&: Setting this to true allows the git and http proxies to perform actions on
+                --no-validate-only&: If set, validate the request, but do not actually post it.
+                --provider-oauth-config-scopes=!: User selected scopes to apply to the Oauth config
+                --provider-oauth-config-system-id=: Developer Connect provided OAuth.
+                --proxy-config-enabled: Setting this to true allows the git and http proxies to perform actions on
+                --request-id=: An optional request ID to identify requests.
+                --validate-only: If set, validate the request, but do not actually post it.
+              completion:
+                flag:
+                    custom-oauth-config-scm-provider:
+                        - bitbucket-data-center
+                        - github-enterprise
+                        - gitlab-enterprise
+                    provider-oauth-config-system-id:
+                        - bitbucket-cloud
+                        - datastax
+                        - dynatrace
+                        - github
+                        - gitlab
+                        - google
+                        - new-relic
+                        - rovo
+                        - sentry
+            - name: delete
+              description: '*(BETA)*  Delete accountConnectors.'
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --etag=: Current etag of the AccountConnectorn.
+                --force: If set to true, any Users from this AccountConnector will also
+                --location=: The location id of the accountConnector resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-force&: If set to true, any Users from this AccountConnector will also
+                --no-validate-only&: If set, validate the request, but do not actually post it.
+                --request-id=: An optional request ID to identify requests.
+                --validate-only: If set, validate the request, but do not actually post it.
+            - name: describe
+              description: '*(BETA)*  Describe accountConnectors.'
+              flags:
+                --location=: The location id of the accountConnector resource.
+            - name: list
+              description: '*(BETA)*  List accountConnectors.'
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=!: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: '*(BETA)*  Update accountConnectors.'
+              flags:
+                --allow-missing: If set to true, and the accountConnector is not found a new
+                --annotations=: Set annotations to new value.
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-annotations: Clear annotations value and set to empty map.
+                --clear-custom-oauth-config: Set accountConnector.customOauthConfig back to default value.
+                --clear-labels: Clear labels value and set to empty map.
+                --clear-provider-oauth-config: Set accountConnector.providerOauthConfig back to default value.
+                --clear-proxy-config: Set accountConnector.proxyConfig back to default value.
+                --custom-oauth-config-client-id=: Client ID of the OAuth application.
+                --custom-oauth-config-client-secret=: Client secret of the OAuth application.
+                --custom-oauth-config-host-uri=: Host URI of the OAuth application.
+                --custom-oauth-config-pkce-disabled: Disable PKCE for this OAuth config.
+                --custom-oauth-config-scm-provider=: Type of the SCM provider.
+                --custom-oauth-config-scopes=: Scopes to be requested during OAuth.
+                --custom-oauth-config-service-directory=!: ID of the service or fully qualified identifier for the service.
+                --custom-oauth-config-ssl-ca-certificate=: SSL certificate to use for requests to a private service.
+                --etag=: This checksum is computed by the server based on the value of other
+                --labels=: Set labels to new value.
+                --location=: For resources [account_connector, custom-oauth-config-service-directory], provides fallback value for resource location attribute.
+                --namespace=: The namespace id of the service resource.
+                --no-allow-missing&: If set to true, and the accountConnector is not found a new
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-annotations&: Clear annotations value and set to empty map.
+                --no-clear-custom-oauth-config&: Set accountConnector.customOauthConfig back to default value.
+                --no-clear-labels&: Clear labels value and set to empty map.
+                --no-clear-provider-oauth-config&: Set accountConnector.providerOauthConfig back to default value.
+                --no-clear-proxy-config&: Set accountConnector.proxyConfig back to default value.
+                --no-custom-oauth-config-pkce-disabled&: Disable PKCE for this OAuth config.
+                --no-proxy-config-enabled&: Setting this to true allows the git and http proxies to perform actions on
+                --no-validate-only&: If set, validate the request, but do not actually post it.
+                --provider-oauth-config-scopes=: User selected scopes to apply to the Oauth config
+                --proxy-config-enabled: Setting this to true allows the git and http proxies to perform actions on
+                --remove-annotations=: Remove existing value from map annotations.
+                --remove-labels=: Remove existing value from map labels.
+                --request-id=: An optional request ID to identify requests.
+                --update-annotations=: Update annotations value or add key value pair.
+                --update-labels=: Update labels value or add key value pair.
+                --validate-only: If set, validate the request, but do not actually post it.
+              completion:
+                flag:
+                    custom-oauth-config-scm-provider:
+                        - bitbucket-data-center
+                        - github-enterprise
+                        - gitlab-enterprise
         - name: connections
           description: '*(BETA)*  Manage connection resources.'
           commands:
@@ -34715,6 +34927,7 @@ commands:
               flags:
                 --enable-fault-injection=: If true, the emulator will randomly inject faults into transactions.
                 --host-port=: The host:port to which the emulator should be bound.
+                --remote-functions-host-port=: The host:port address of the Functions Framework instance hosting remote functions.
                 --rest-port=: The port at which REST requests are served.
                 --use-docker=: Use the Cloud Spanner emulator docker image even if the platform has a native binary available in the gcloud CLI.
     - name: endpoints
@@ -36332,6 +36545,7 @@ commands:
                             - collection
                             - collection-group
                             - collection-recursive
+                            - query-scope-unspecified
                 - name: delete
                   description: '*(BETA)*  Delete the given composite index.'
                   flags:
@@ -39593,7 +39807,7 @@ commands:
               description: '*(BETA)*  Create a new key.'
               flags:
                 --allowed-access-reasons=: The list of allowed Key Access Justifications access reasons on the key.
-                --crypto-key-backend=: The resource name of the backend environment where the key material for all CryptoKeyVersions associated with this CryptoKey reside and where all related cryptographic operations are performed.
+                --crypto-key-backend=: For keys with the `external-vpc` protection level, the name of the EkmConnection that is used to access the key material in your EKM.
                 --default-algorithm=: The default algorithm for the crypto key.
                 --destroy-scheduled-duration=: The amount of time that versions of the key should spend in the DESTROY_SCHEDULED state before transitioning to DESTROYED.
                 --hsm-trusted-wrapping: Enable HSM trusted wrapping capabilities for the key.
@@ -39810,8 +40024,8 @@ commands:
                 - name: create
                   description: '*(BETA)*  Create a new version.'
                   flags:
-                    --ekm-connection-key-path=: The path to the external key material on the EKM for keys with protection level "external-vpc".
-                    --external-key-uri=: The URI of the external key for keys with protection level "external".
+                    --ekm-connection-key-path=: The path to the external key material on the EKM for keys with protection level `external-vpc`.
+                    --external-key-uri=: The URI of the external key for keys with protection level `external`.
                     --key=: The containing key.
                     --keyring=: Key ring of the key.
                     --location=: Location of the keyring.
@@ -40021,12 +40235,19 @@ commands:
                 - name: update
                   description: '*(BETA)*  Update a key version.'
                   flags:
-                    --ekm-connection-key-path=: The path to the external key material on the EKM for keys with protection level "external-vpc".
-                    --external-key-uri=: The URI of the external key for keys with protection level "external".
+                    --crypto-key-backend=: For key versions in the `external-vpc` protection level only, the resource name of the EkmConnection to be used by this key version.
+                    --ekm-connection-key-path=: The path to the external key material on the EKM for keys with protection level `external-vpc`.
+                    --external-key-uri=: The URI of the external key for keys with protection level `external`.
                     --key=: The containing key.
                     --keyring=: Key ring of the key.
                     --location=: Location of the keyring.
+                    --protection-level=: Protection level of the key version.
                     --state=: State of the key version.
+                  completion:
+                    flag:
+                        protection-level:
+                            - external
+                            - external-vpc
         - name: locations
           description: '*(BETA)*  View locations available for a project.'
           commands:
@@ -40696,6 +40917,7 @@ commands:
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
                 --auto-rebalance: Whether the automatic rebalancing is enabled.
+                --broker-disk=: The amount of local disk to provision for each broker.
                 --cpu=!: The number of vCPUs to provision for the cluster.
                 --encryption-key=: 'The relative resource path of the Cloud KMS key to use for encryption in the form:'
                 --labels=: List of label KEY=VALUE pairs to add.
@@ -40732,6 +40954,7 @@ commands:
                 --allow-broker-downscale-on-cluster-upscale: If enabled, this setting allows an update operation that could significantly decrease the
                 --async: Return immediately, without waiting for the operation in progress to
                 --auto-rebalance: Whether the automatic rebalancing is enabled.
+                --broker-disk=: The amount of local disk to provision for each broker.
                 --clear-mtls-ca-pools: Remove all the CA pools from the cluster.
                 --cpu=: The number of vCPUs to provision for the cluster.
                 --labels=: List of label KEY=VALUE pairs to add.
@@ -45962,6 +46185,10 @@ commands:
                 --enable-jumbo-frames: Enable jumbo frames for the firewall endpoint.
                 --enable-wildfire: Enable WildFire functionality on the endpoint.
                 --enable-wildfire-analysis-logging: Enable WildFire inline cloud analysis submission timeout logging.
+                --kms-key=&: ID of the key or fully qualified identifier for the key.
+                --kms-keyring=&: The KMS keyring of the key.
+                --kms-location=&: The Google Cloud location for the key.
+                --kms-project=&: The Google Cloud project for the key.
                 --labels=: List of label KEY=VALUE pairs to add.
                 --location=: Location of the endpoint
                 --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
@@ -48858,11 +49085,9 @@ commands:
                 --resource-names=: Names of the projects that are included in this trace scope.
     - name: orchestration-pipelines
       description: '*(BETA)*  Manage Orchestration Pipelines resources.'
-      hidden: true
       commands:
         - name: delete
           description: '*(BETA)*  Delete a pipelines bundle from a runner.'
-          hidden: true
           flags:
             --bundle=!: The ID of the bundle to delete.
             --environment=: The target environment of the pipeline, as defined in deployment.yaml.
@@ -48871,7 +49096,6 @@ commands:
             --substitutions=: Variables to substitute in the pipeline configuration.
         - name: deploy
           description: '*(BETA)*  Deploy a pipelines bundle.'
-          hidden: true
           flags:
             --async: If set, deploys asynchronously without waiting for the information about all the pipelines in the bundle to become available.
             --environment=!: The target environment for the deployment.
@@ -48889,7 +49113,6 @@ commands:
             --validate: If set, performs full validation for resources and pipelines.
         - name: describe
           description: '*(BETA)*  Get details about an orchestration pipeline.'
-          hidden: true
           flags:
             --bundle=!: The ID of the bundle the pipeline belongs to.
             --environment=: The target environment of the pipeline, as defined in deployment.yaml.
@@ -48899,7 +49122,6 @@ commands:
             --substitutions=: Variables to substitute in the pipeline configuration.
         - name: init
           description: '*(BETA)*  Initialize an orchestration pipeline.'
-          hidden: true
           flags:
             --artifacts-bucket=: The Cloud Storage bucket for artifacts.
             --composer-environment=: The Cloud Composer environment.
@@ -48908,10 +49130,8 @@ commands:
             --service-account=: The service account to use for the Composer environment.
         - name: init-demo
           description: '*(BETA)*  Initialize a demo orchestration pipeline project.'
-          hidden: true
         - name: list
           description: '*(BETA)*  List orchestration pipelines in the environment.'
-          hidden: true
           flags:
             --bundle=: The ID of the bundle to filter by.
             --environment=: The target environment of the pipeline, as defined in deployment.yaml.
@@ -48921,7 +49141,6 @@ commands:
             --substitutions=: Variables to substitute in the pipeline configuration.
         - name: pause
           description: '*(BETA)*  Pause an orchestration pipeline.'
-          hidden: true
           flags:
             --async: If set, the command will return after updating the pipeline files and pause the pipeline asynchronously in the background.
             --bundle=!: The ID of the bundle the pipeline belongs to.
@@ -48933,11 +49152,9 @@ commands:
             --substitutions=: Variables to substitute in the pipeline configuration.
         - name: resource-types
           description: '*(BETA)*  Discover supported orchestration pipelines resource types.'
-          hidden: true
           commands:
             - name: list
               description: '*(BETA)*  List supported orchestration pipelines resource types.'
-              hidden: true
               flags:
                 --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
                 --limit=: Maximum number of resources to list.
@@ -48947,11 +49164,9 @@ commands:
                 --uri: Print a list of resource URIs instead of the default output, and change the
         - name: runs
           description: '*(BETA)*  Manage Orchestration Pipelines runs.'
-          hidden: true
           commands:
             - name: describe
               description: '*(BETA)*  Describe an orchestration pipeline run.'
-              hidden: true
               flags:
                 --bundle=!: The ID of the bundle the pipeline belongs to.
                 --environment=: The target environment of the pipeline, as defined in deployment.yaml.
@@ -48962,7 +49177,6 @@ commands:
                 --substitutions=: Variables to substitute in the pipeline configuration.
             - name: list
               description: '*(BETA)*  List orchestration pipeline run history.'
-              hidden: true
               flags:
                 --bundle=!: The ID of the bundle the pipeline runs belong to.
                 --environment=: The target environment of the pipeline, as defined in deployment.yaml.
@@ -48972,7 +49186,6 @@ commands:
                 --substitutions=: Variables to substitute in the pipeline configuration.
         - name: trigger
           description: '*(BETA)*  Trigger an orchestration pipeline.'
-          hidden: true
           flags:
             --async: Whether to trigger the pipeline run asynchronously.
             --bundle=!: The ID of the bundle the pipeline belongs to.
@@ -48984,7 +49197,6 @@ commands:
             --substitutions=: Variables to substitute in the pipeline configuration.
         - name: unpause
           description: '*(BETA)*  Unpause an orchestration pipeline.'
-          hidden: true
           flags:
             --async: If set, the command will return after updating the pipeline files and unpause the pipeline asynchronously in the background.
             --bundle=!: The ID of the bundle the pipeline belongs to.
@@ -48996,7 +49208,6 @@ commands:
             --substitutions=: Variables to substitute in the pipeline configuration.
         - name: validate
           description: '*(BETA)*  Validate orchestration pipeline configurations against schemas.'
-          hidden: true
           flags:
             --environment=: The target environment of the pipeline, as defined in deployment.yaml.
             --mode=: The validation mode to use.
@@ -50881,6 +51092,25 @@ commands:
                 --region=: ID of the region or fully qualified identifier for the region.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: revisions
+              description: '*(BETA)*  Manage ACL policies revisions of Memorystore for Redis Cluster instances.'
+              commands:
+                - name: describe
+                  description: '*(BETA)*  Show metadata for a Memorystore for Redis Cluster ACL policy revision.'
+                  flags:
+                    --acl-policy=: The ID of the ACL Policy.
+                    --region=: The name of the Redis region of the revision.
+                - name: list
+                  description: '*(BETA)*  List Redis ACL Policy Revisions.'
+                  flags:
+                    --acl-policy=!: ID of the acl policy or fully qualified identifier for the acl policy.
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                    --page-size=: Some services group resource list output into pages.
+                    --region=: The name of the Redis region of the acl policy.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --uri: Print a list of resource URIs instead of the default output, and change the
             - name: update
               description: '*(BETA)*  Update aclPolicies.'
               flags:
@@ -52043,6 +52273,7 @@ commands:
             --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
             --no-iap&: Whether to enable IAP for the Service.
             --no-invoker-iam-check&: Optionally disable invoker IAM checks.
+            --no-run-upload&: Specifies that the source should be uploaded via Cloud Run UploadSource API.
             --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
             --no-session-affinity&: Whether to enable session affinity for connections to the service.
             --no-ssh&: Whether to enable SSH access to the container for inspection and debugging.
@@ -52065,6 +52296,7 @@ commands:
             --remove-volume-mount=: Removes the volume mounted at the specified path from the current container.
             --remove-volume=: Removes volumes from the Cloud Run resource.
             --revision-suffix=: Specify the suffix of the revision name.
+            --run-upload: Specifies that the source should be uploaded via Cloud Run UploadSource API.
             --sandbox-launcher: Set the container as a sandbox supervisor to launch sandboxes.
             --scaling-concurrency-target=: This represents the concurrency utilization target threshold for scaling up new instances.
             --scaling-cpu-target=: This represents the CPU utilization target threshold for scaling up new instances.
@@ -52216,6 +52448,442 @@ commands:
                         - gke
                         - kubernetes
                         - managed
+        - name: instances
+          description: '*(BETA)*  View and manage your Cloud Run instances.'
+          flags:
+            --region=: Region in which the resource can be found.
+          commands:
+            - name: add-iam-policy-binding
+              description: '*(BETA)*  Add IAM policy binding to a Cloud Run instance.'
+              flags:
+                --member=!: The principal to add the binding for.
+                --region=: Region in which the resource can be found.
+                --role=!: Role name to assign to the principal.
+            - name: create
+              description: '*(BETA)*  Create a Cloud Run instance.'
+              flags:
+                --add-volume-mount=: Adds a mount to the current container.
+                --add-volume=: Adds a volume to the Cloud Run resource.
+                --args=: Comma-separated arguments passed to the command run by the container image.
+                --async: Return immediately, without waiting for the operation in progress to
+                --binary-authorization=: Binary Authorization policy to check against.
+                --breakglass=: Justification to bypass Binary Authorization policy constraints and allow the operation.
+                --clear-env-vars: Remove all environment variables.
+                --clear-secrets: Remove all secrets.
+                --clear-volume-mounts: Remove all existing mounts from the current container.
+                --clear-volumes: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
+                --client-name=&: Name of the client handling the deployment.
+                --client-version=&: Version of the client handling the deployment.
+                --command=: Entrypoint for the container image.
+                --container=: Specifies a container by name.
+                --cpu=: Set a CPU limit in Kubernetes cpu units.
+                --default-url: Toggles the default url for a run instance.
+                --depends-on=: List of container dependencies to add to the current container.
+                --endpoint-mode=: Specifies endpoint mode for a given command.
+                --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
+                --grace-period=: The duration between SIGTERM and SIGKILL when shutting down instances.
+                --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/hello:latest`).
+                --ingress=: Set the ingress traffic sources allowed to call the service.
+                --invoker-iam-check: Optionally disable invoker IAM checks.
+                --key=: CMEK key reference to encrypt the container with.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --memory=: Set a memory limit.
+                --network-tags=: Applies the given network tags (comma separated) to the Cloud Run instance.
+                --network=: The VPC network that the Cloud Run instance will be able to send traffic to.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-env-vars&: Remove all environment variables.
+                --no-clear-secrets&: Remove all secrets.
+                --no-clear-volume-mounts&: Remove all existing mounts from the current container.
+                --no-clear-volumes&: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
+                --no-default-url&: Toggles the default url for a run instance.
+                --no-invoker-iam-check&: Optionally disable invoker IAM checks.
+                --no-public&: Make the service public by disabling invoker IAM checks and IAP.
+                --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
+                --no-ssh&: Whether to enable SSH access to the container for inspection and debugging.
+                --no-use-http2&: Whether to use HTTP/2 for connections to the service.
+                --port=: Container port to receive requests at.
+                --public: Make the service public by disabling invoker IAM checks and IAP.
+                --region=: Region in which the resource can be found.
+                --remove-env-vars=: List of environment variables to be removed.
+                --remove-secrets=: List of secrets to be removed.
+                --remove-volume-mount=: Removes the volume mounted at the specified path from the current container.
+                --remove-volume=: Removes volumes from the Cloud Run resource.
+                --restart-policy=: Set the restart policy for the instance.
+                --sandbox-launcher: Set the container as a sandbox supervisor to launch sandboxes.
+                --service-account=: the email address of an IAM service account associated with the revision of the service.
+                --set-cloudsql-instances=: You can specify a name of a Cloud SQL instance if it's in the same
+                --set-env-vars=: List of key-value pairs to set as environment variables.
+                --set-secrets=: List of key-value pairs to set as secrets.
+                --ssh: Whether to enable SSH access to the container for inspection and debugging.
+                --startup-probe=: Comma separated settings for startup probe in the form KEY=VALUE.
+                --subnet=: The VPC subnetwork that the Cloud Run instance will get IPs from.
+                --update-annotations=&: List of annotation KEY=VALUE pairs to update.
+                --update-env-vars=: List of key-value pairs to set as environment variables.
+                --update-secrets=: List of key-value pairs to set as secrets.
+                --use-http2: Whether to use HTTP/2 for connections to the service.
+                --vpc-egress=: Specify which of the outbound traffic to send through Direct VPC egress or the VPC connector for this resource.
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
+                    ingress:
+                        - all
+                        - internal
+                        - internal-and-cloud-load-balancing
+                    restart-policy:
+                        - always
+                        - never
+                        - on-failure
+                    vpc-egress:
+                        - all
+                        - all-traffic
+                        - private-ranges-only
+            - name: delete
+              description: '*(BETA)*  Delete an instance.'
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --endpoint-mode=: Specifies endpoint mode for a given command.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --region=: Region in which the resource can be found.
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
+            - name: deploy
+              description: '*(BETA)*  Deploy a Cloud Run instance.'
+              flags:
+                --add-volume-mount=: Adds a mount to the current container.
+                --add-volume=: Adds a volume to the Cloud Run resource.
+                --args=: Comma-separated arguments passed to the command run by the container image.
+                --async: Return immediately, without waiting for the operation in progress to
+                --binary-authorization=: Binary Authorization policy to check against.
+                --breakglass=: Justification to bypass Binary Authorization policy constraints and allow the operation.
+                --clear-binary-authorization: Remove any previously set Binary Authorization policy.
+                --clear-env-vars: Remove all environment variables.
+                --clear-labels: Remove all labels.
+                --clear-network: Disconnect this Cloud Run instance from the VPC network it is connected to.
+                --clear-network-tags: Clears all existing network tags from the Cloud Run instance.
+                --clear-secrets: Remove all secrets.
+                --clear-volume-mounts: Remove all existing mounts from the current container.
+                --clear-volumes: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
+                --client-name=&: Name of the client handling the deployment.
+                --client-version=&: Version of the client handling the deployment.
+                --command=: Entrypoint for the container image.
+                --container=: Specifies a container by name.
+                --cpu=: Set a CPU limit in Kubernetes cpu units.
+                --default-url: Toggles the default url for a run instance.
+                --depends-on=: List of container dependencies to add to the current container.
+                --endpoint-mode=: Specifies endpoint mode for a given command.
+                --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
+                --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/hello:latest`).
+                --ingress=: Set the ingress traffic sources allowed to call the service.
+                --invoker-iam-check: Optionally disable invoker IAM checks.
+                --key=: CMEK key reference to encrypt the container with.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --memory=: Set a memory limit.
+                --network-tags=: Applies the given network tags (comma separated) to the Cloud Run instance.
+                --network=: The VPC network that the Cloud Run instance will be able to send traffic to.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-binary-authorization&: Remove any previously set Binary Authorization policy.
+                --no-clear-env-vars&: Remove all environment variables.
+                --no-clear-labels&: Remove all labels.
+                --no-clear-network&: Disconnect this Cloud Run instance from the VPC network it is connected to.
+                --no-clear-network-tags&: 'Clears all existing network tags from the Cloud Run instance. '
+                --no-clear-secrets&: Remove all secrets.
+                --no-clear-volume-mounts&: Remove all existing mounts from the current container.
+                --no-clear-volumes&: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
+                --no-default-url&: Toggles the default url for a run instance.
+                --no-invoker-iam-check&: Optionally disable invoker IAM checks.
+                --no-public&: Make the service public by disabling invoker IAM checks and IAP.
+                --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
+                --no-ssh&: Whether to enable SSH access to the container for inspection and debugging.
+                --port=: Container port to receive requests at.
+                --public: Make the service public by disabling invoker IAM checks and IAP.
+                --region=: Region in which the resource can be found.
+                --remove-containers=: List of containers to remove.
+                --remove-env-vars=: List of environment variables to be removed.
+                --remove-labels=: List of label keys to remove.
+                --remove-secrets=: List of secrets to be removed.
+                --remove-volume-mount=: Removes the volume mounted at the specified path from the current container.
+                --remove-volume=: Removes volumes from the Cloud Run resource.
+                --restart-policy=: Set the restart policy for the instance.
+                --sandbox-launcher: Set the container as a sandbox supervisor to launch sandboxes.
+                --service-account=: the email address of an IAM service account associated with the revision of the service.
+                --set-cloudsql-instances=: You can specify a name of a Cloud SQL instance if it's in the same
+                --set-env-vars=: List of key-value pairs to set as environment variables.
+                --set-secrets=: List of key-value pairs to set as secrets.
+                --ssh: Whether to enable SSH access to the container for inspection and debugging.
+                --startup-probe=: Comma separated settings for startup probe in the form KEY=VALUE.
+                --subnet=: The VPC subnetwork that the Cloud Run instance will get IPs from.
+                --update-annotations=&: List of annotation KEY=VALUE pairs to update.
+                --update-env-vars=: List of key-value pairs to set as environment variables.
+                --update-labels=: List of label KEY=VALUE pairs to update.
+                --update-secrets=: List of key-value pairs to set as secrets.
+                --vpc-egress=: Specify which of the outbound traffic to send through Direct VPC egress or the VPC connector for this resource.
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
+                    ingress:
+                        - all
+                        - internal
+                        - internal-and-cloud-load-balancing
+                    restart-policy:
+                        - always
+                        - never
+                        - on-failure
+                    vpc-egress:
+                        - all
+                        - all-traffic
+                        - private-ranges-only
+            - name: describe
+              description: '*(BETA)*  Obtain details about instances.'
+              flags:
+                --endpoint-mode=: Specifies endpoint mode for a given command.
+                --region=: Region in which the resource can be found.
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
+            - name: dev
+              description: '*(BETA)*  Commands for development on Cloud Run Instances.'
+              flags:
+                --region=: Region in which the resource can be found.
+            - name: get-iam-policy
+              description: '*(BETA)*  Get the IAM policy for a Cloud Run instance.'
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --page-size=: Some services group resource list output into pages.
+                --region=: Region in which the resource can be found.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+            - name: list
+              description: '*(BETA)*  List instances.'
+              flags:
+                --endpoint-mode=: Specifies endpoint mode for a given command.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --namespace=&: ID of the namespace or fully qualified identifier for the namespace.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --region=: Region in which the resource can be found.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
+            - name: logs
+              description: '*(BETA)*  Read logs for Cloud Run instances.'
+              flags:
+                --region=: Region in which the resource can be found.
+              commands:
+                - name: read
+                  description: '*(BETA)*  Read logs for a Cloud Run instance.'
+                  flags:
+                    --freshness=: Return entries that are not older than this value.
+                    --limit=: Maximum number of resources to list.
+                    --log-filter=: Filter expression that specifies the log entries to return.
+                    --order=: Ordering of returned log entries based on timestamp field.
+                    --region=: Region in which the resource can be found.
+                  completion:
+                    flag:
+                        order:
+                            - desc
+                            - asc
+            - name: proxy
+              description: '*(BETA)*  Proxy an instance to localhost authenticating as the active account or with the specified token.'
+              flags:
+                --no-show-exec-error&: If true and command fails, print the underlying command that was executed and its exit status.
+                --port=: Local port number to expose the proxied instance.
+                --region=: Region in which the resource can be found.
+                --show-exec-error&: If true and command fails, print the underlying command that was executed and its exit status.
+                --token=: The specific identity token to add to all requests of the proxied service.
+            - name: remove-iam-policy-binding
+              description: '*(BETA)*  Remove IAM policy binding of a Cloud Run instance.'
+              flags:
+                --member=!: The principal to remove the binding for.
+                --region=: Region in which the resource can be found.
+                --role=!: The role to remove the principal from.
+            - name: replace
+              description: '*(BETA)*  Create or replace an instance from a YAML instance specification.'
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --client-name=&: Name of the client handling the deployment.
+                --client-version=&: Version of the client handling the deployment.
+                --endpoint-mode=: Specifies endpoint mode for a given command.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --region=: Region in which the resource can be found.
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
+            - name: restart
+              description: '*(BETA)*  Restart an instance.'
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --endpoint-mode=: Specifies endpoint mode for a given command.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --region=: Region in which the resource can be found.
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
+            - name: scp
+              description: '*(BETA)*  A command to copy files to and from a Cloud Run instance.'
+              hidden: true
+              flags:
+                --compress: Enable compression.
+                --container=: Name of a specific container to SSH into.
+                --iap-tunnel-url-override=&: Allows for overriding the connection endpoint for integration testing.
+                --no-compress&: Enable compression.
+                --no-recurse&: Copy directories recursively.
+                --recurse: Copy directories recursively.
+                --region=: Region in which the resource can be found.
+                --scp-flag=: Extra flag to be sent to scp.
+            - name: set-iam-policy
+              description: '*(BETA)*  Set the IAM policy for a instance.'
+              flags:
+                --region=: Region in which the resource can be found.
+            - name: ssh
+              description: '*(BETA)*  SSH into an instance.'
+              hidden: true
+              flags:
+                --container=: Name of a specific container to SSH into.
+                --iap-tunnel-url-override=&: Allows for overriding the connection endpoint for integration testing.
+                --region=: Region in which the resource can be found.
+            - name: start
+              description: '*(BETA)*  Start a stopped instance.'
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --endpoint-mode=: Specifies endpoint mode for a given command.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --region=: Region in which the resource can be found.
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
+            - name: stop
+              description: '*(BETA)*  Stop a running instance.'
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --endpoint-mode=: Specifies endpoint mode for a given command.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --region=: Region in which the resource can be found.
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
+            - name: update
+              description: '*(BETA)*  Update a Cloud Run instance.'
+              flags:
+                --add-volume-mount=: Adds a mount to the current container.
+                --add-volume=: Adds a volume to the Cloud Run resource.
+                --args=: Comma-separated arguments passed to the command run by the container image.
+                --async: Return immediately, without waiting for the operation in progress to
+                --binary-authorization=: Binary Authorization policy to check against.
+                --breakglass=: Justification to bypass Binary Authorization policy constraints and allow the operation.
+                --clear-binary-authorization: Remove any previously set Binary Authorization policy.
+                --clear-env-vars: Remove all environment variables.
+                --clear-labels: Remove all labels.
+                --clear-network: Disconnect this Cloud Run instance from the VPC network it is connected to.
+                --clear-network-tags: Clears all existing network tags from the Cloud Run instance.
+                --clear-secrets: Remove all secrets.
+                --clear-volume-mounts: Remove all existing mounts from the current container.
+                --clear-volumes: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
+                --client-name=&: Name of the client handling the deployment.
+                --client-version=&: Version of the client handling the deployment.
+                --command=: Entrypoint for the container image.
+                --container=: Specifies a container by name.
+                --cpu=: Set a CPU limit in Kubernetes cpu units.
+                --default-url: Toggles the default url for a run instance.
+                --depends-on=: List of container dependencies to add to the current container.
+                --endpoint-mode=: Specifies endpoint mode for a given command.
+                --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
+                --grace-period=: The duration between SIGTERM and SIGKILL when shutting down instances.
+                --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/hello:latest`).
+                --ingress=: Set the ingress traffic sources allowed to call the service.
+                --invoker-iam-check: Optionally disable invoker IAM checks.
+                --key=: CMEK key reference to encrypt the container with.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --memory=: Set a memory limit.
+                --network-tags=: Applies the given network tags (comma separated) to the Cloud Run instance.
+                --network=: The VPC network that the Cloud Run instance will be able to send traffic to.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-binary-authorization&: Remove any previously set Binary Authorization policy.
+                --no-clear-env-vars&: Remove all environment variables.
+                --no-clear-labels&: Remove all labels.
+                --no-clear-network&: Disconnect this Cloud Run instance from the VPC network it is connected to.
+                --no-clear-network-tags&: 'Clears all existing network tags from the Cloud Run instance. '
+                --no-clear-secrets&: Remove all secrets.
+                --no-clear-volume-mounts&: Remove all existing mounts from the current container.
+                --no-clear-volumes&: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
+                --no-default-url&: Toggles the default url for a run instance.
+                --no-invoker-iam-check&: Optionally disable invoker IAM checks.
+                --no-public&: Make the service public by disabling invoker IAM checks and IAP.
+                --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
+                --no-ssh&: Whether to enable SSH access to the container for inspection and debugging.
+                --no-use-http2&: Whether to use HTTP/2 for connections to the service.
+                --port=: Container port to receive requests at.
+                --public: Make the service public by disabling invoker IAM checks and IAP.
+                --region=: Region in which the resource can be found.
+                --remove-containers=: List of containers to remove.
+                --remove-env-vars=: List of environment variables to be removed.
+                --remove-labels=: List of label keys to remove.
+                --remove-secrets=: List of secrets to be removed.
+                --remove-volume-mount=: Removes the volume mounted at the specified path from the current container.
+                --remove-volume=: Removes volumes from the Cloud Run resource.
+                --restart-policy=: Set the restart policy for the instance.
+                --sandbox-launcher: Set the container as a sandbox supervisor to launch sandboxes.
+                --service-account=: the email address of an IAM service account associated with the revision of the service.
+                --set-cloudsql-instances=: You can specify a name of a Cloud SQL instance if it's in the same
+                --set-env-vars=: List of key-value pairs to set as environment variables.
+                --set-secrets=: List of key-value pairs to set as secrets.
+                --ssh: Whether to enable SSH access to the container for inspection and debugging.
+                --startup-probe=: Comma separated settings for startup probe in the form KEY=VALUE.
+                --subnet=: The VPC subnetwork that the Cloud Run instance will get IPs from.
+                --update-annotations=&: List of annotation KEY=VALUE pairs to update.
+                --update-env-vars=: List of key-value pairs to set as environment variables.
+                --update-labels=: List of label KEY=VALUE pairs to update.
+                --update-secrets=: List of key-value pairs to set as secrets.
+                --use-http2: Whether to use HTTP/2 for connections to the service.
+                --vpc-egress=: Specify which of the outbound traffic to send through Direct VPC egress or the VPC connector for this resource.
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
+                    ingress:
+                        - all
+                        - internal
+                        - internal-and-cloud-load-balancing
+                    restart-policy:
+                        - always
+                        - never
+                        - on-failure
+                    vpc-egress:
+                        - all
+                        - all-traffic
+                        - private-ranges-only
         - name: jobs
           description: '*(BETA)*  View and manage your Cloud Run jobs.'
           flags:
@@ -52252,6 +52920,7 @@ commands:
                 --command=: Entrypoint for the container image.
                 --container=: Specifies a container by name.
                 --cpu=: Set a CPU limit in Kubernetes cpu units.
+                --delay-execution: True if the executions of the job can be delayed to start.
                 --depends-on=: List of container dependencies to add to the current container.
                 --endpoint-mode=: Specifies endpoint mode for a given command.
                 --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
@@ -52272,6 +52941,7 @@ commands:
                 --no-clear-secrets&: Remove all secrets.
                 --no-clear-volume-mounts&: Remove all existing mounts from the current container.
                 --no-clear-volumes&: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
+                --no-delay-execution&: True if the executions of the job can be delayed to start.
                 --no-execute-now&: Execute the job immediately after the creation or update  completes.
                 --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
                 --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
@@ -52344,6 +53014,7 @@ commands:
                 --command=: Entrypoint for the container image.
                 --container=: Specifies a container by name.
                 --cpu=: Set a CPU limit in Kubernetes cpu units.
+                --delay-execution: True if the executions of the job can be delayed to start.
                 --depends-on=: List of container dependencies to add to the current container.
                 --endpoint-mode=: Specifies endpoint mode for a given command.
                 --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
@@ -52366,6 +53037,7 @@ commands:
                 --no-clear-secrets&: Remove all secrets.
                 --no-clear-volume-mounts&: Remove all existing mounts from the current container.
                 --no-clear-volumes&: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
+                --no-delay-execution&: True if the executions of the job can be delayed to start.
                 --no-execute-now&: Execute the job immediately after the creation or update  completes.
                 --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
                 --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
@@ -52424,8 +53096,10 @@ commands:
                 --args=: Comma-separated arguments passed to the command run by the container image.
                 --async: Return immediately, without waiting for the operation in progress to
                 --container=: Specifies a container by name.
+                --delay-execution: True if the executions of the job can be delayed to start.
                 --endpoint-mode=: Specifies endpoint mode for a given command.
                 --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-delay-execution&: True if the executions of the job can be delayed to start.
                 --no-tail&: Tail logs after launching the execution.
                 --no-wait&: Wait until the execution has completed running before exiting.
                 --region=: Region in which the resource can be found.
@@ -52704,6 +53378,7 @@ commands:
                 --command=: Entrypoint for the container image.
                 --container=: Specifies a container by name.
                 --cpu=: Set a CPU limit in Kubernetes cpu units.
+                --delay-execution: True if the executions of the job can be delayed to start.
                 --depends-on=: List of container dependencies to add to the current container.
                 --endpoint-mode=: Specifies endpoint mode for a given command.
                 --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
@@ -52730,6 +53405,7 @@ commands:
                 --no-clear-volume-mounts&: Remove all existing mounts from the current container.
                 --no-clear-volumes&: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
                 --no-clear-vpc-connector&: Remove the VPC connector for this resource.
+                --no-delay-execution&: True if the executions of the job can be delayed to start.
                 --no-execute-now&: Execute the job immediately after the creation or update  completes.
                 --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
                 --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
@@ -54443,10 +55119,12 @@ commands:
                   description: '*(BETA)*  Create Flag Release.'
                   flags:
                     --all-flags: All flags in the flag release's unit kind will be included to be rolled out.
+                    --allocations=: Flag allocations to be rolled out.
                     --annotations=: Unstructured key-value map stored with a resource that may be set by
                     --flag-sets=: Flag sets to be rolled out.
+                    --flags=!: IDs of the flags or fully qualified identifiers for the flags.
                     --labels=: Labels on the resource, which can be used for categorization.
-                    --location=: For resources [flag_release, obsolete-flags, revisions, unit-kind], provides fallback value for resource location attribute.
+                    --location=: For resources [flag_release, flags, obsolete-flags, revisions, unit-kind], provides fallback value for resource location attribute.
                     --no-all-flags&: All flags in the flag release's unit kind will be included to be rolled out.
                     --obsolete-flags=!: IDs of the flags or fully qualified identifiers for the flags.
                     --revisions=!: IDs of the flagRevisions or fully qualified identifiers for the flagRevisions.
@@ -56479,7 +57157,7 @@ commands:
               hidden: true
               commands:
                 - name: get
-                  description: '*(BETA)*  *(DEPRECATED)*  Get MCP policy for a project, folder or organization.'
+                  description: '*(BETA)*  *(REMOVED)*  Get MCP policy for a project, folder or organization.'
                   hidden: true
                   flags:
                     --folder=: The Google Cloud Platform folder ID to use for this invocation.
@@ -56487,7 +57165,7 @@ commands:
                     --output-file=: Path to the file to write policy contents to.
                     --policy-name=: Name of the MCP policy.
                 - name: get-effective
-                  description: '*(BETA)*  *(DEPRECATED)*  Get effective MCP policy for a project, folder or organization.'
+                  description: '*(BETA)*  *(REMOVED)*  Get effective MCP policy for a project, folder or organization.'
                   hidden: true
                   flags:
                     --folder=: The Google Cloud Platform folder ID to use for this invocation.
@@ -56499,7 +57177,7 @@ commands:
                             - BASIC
                             - FULL
                 - name: test-enabled
-                  description: '*(BETA)*  *(DEPRECATED)*  Test a service against the result of merging MCP policies in the resource hierarchy.'
+                  description: '*(BETA)*  *(REMOVED)*  Test a service against the result of merging MCP policies in the resource hierarchy.'
                   hidden: true
                   flags:
                     --folder=: The Google Cloud Platform folder ID to use for this invocation.
