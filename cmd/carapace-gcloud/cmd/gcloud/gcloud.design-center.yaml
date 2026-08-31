@@ -272,6 +272,29 @@ commands:
               flags:
                 --location=: The location id of the applicationTemplate resource.
                 --space=: The space id of the applicationTemplate resource.
+            - name: export
+              description: Export IaC for an application template.
+              hidden: true
+              flags:
+                --artifact-location-gcs-uri=: The Cloud Storage URI for storing the generated IaC.
+                --async: Return immediately, without waiting for the operation in progress to
+                --connection=: The connection id of the gitRepositoryLink resource.
+                --developer-connect-export-config-branch=: The branch in repo to which the content such as Infrastructure as Code
+                --developer-connect-export-config-dir=!: Directory, relative to the source repo, where content such as
+                --developer-connect-export-config-repo-uri=!: ID of the gitRepositoryLink or fully qualified identifier for the gitRepositoryLink.
+                --export-iac-config-format=: IaC format of the export.
+                --location=: For resources [application_template, developer-connect-export-config-repo-uri], provides fallback value for resource location attribute.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-tf-config-module-git-proxy-enabled&: This is typically only valid for 3P components if ingested via devconnect
+                --no-tf-config-module-local-references-enabled&: If set, all the dependent modules will be downloaded from the target
+                --space=: The space id of the applicationTemplate resource.
+                --tf-config-module-git-proxy-enabled: This is typically only valid for 3P components if ingested via devconnect
+                --tf-config-module-local-references-enabled: If set, all the dependent modules will be downloaded from the target
+              completion:
+                flag:
+                    export-iac-config-format:
+                        - helm
+                        - terraform
             - name: generate
               description: Generate IaC for an application template.
               flags:
@@ -413,6 +436,30 @@ commands:
                     --application-template=: The applicationTemplate id of the revision resource.
                     --location=: The location id of the revision resource.
                     --space=: The space id of the revision resource.
+                - name: export
+                  description: Export IaC for an application template revision.
+                  hidden: true
+                  flags:
+                    --application-template=: The applicationTemplate id of the revision resource.
+                    --artifact-location-gcs-uri=: The Cloud Storage URI for storing the generated IaC.
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --connection=: The connection id of the gitRepositoryLink resource.
+                    --developer-connect-export-config-branch=: The branch in repo to which the content such as Infrastructure as Code
+                    --developer-connect-export-config-dir=!: Directory, relative to the source repo, where content such as
+                    --developer-connect-export-config-repo-uri=!: ID of the gitRepositoryLink or fully qualified identifier for the gitRepositoryLink.
+                    --export-iac-config-format=: IaC format of the export.
+                    --location=: For resources [revision, developer-connect-export-config-repo-uri], provides fallback value for resource location attribute.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --no-tf-config-module-git-proxy-enabled&: This is typically only valid for 3P components if ingested via devconnect
+                    --no-tf-config-module-local-references-enabled&: If set, all the dependent modules will be downloaded from the target
+                    --space=: The space id of the revision resource.
+                    --tf-config-module-git-proxy-enabled: This is typically only valid for 3P components if ingested via devconnect
+                    --tf-config-module-local-references-enabled: If set, all the dependent modules will be downloaded from the target
+                  completion:
+                    flag:
+                        export-iac-config-format:
+                            - helm
+                            - terraform
                 - name: generate
                   description: Generate IaC for an application template revision.
                   flags:

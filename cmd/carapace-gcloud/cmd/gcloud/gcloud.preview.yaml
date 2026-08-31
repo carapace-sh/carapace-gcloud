@@ -371,6 +371,7 @@ commands:
                 --connection-drain-on-failover: Applicable only for backend service-based external and internal
                 --connection-draining-timeout=: Connection draining timeout to be used during removal of VMs from
                 --connection-persistence-on-unhealthy-backends=: Specifies connection persistence when backends are unhealthy.
+                --consistent-hash-http-header-name=: The HTTP header name to use for the hash key when session affinity is set
                 --consistent-hash-minimum-ring-size=: The minimum number of virtual nodes to use for the hash ring when a
                 --custom-metrics-file=: File path to json file with custom metrics that are used for
                 --custom-metrics=: List of custom metrics that are used for
@@ -392,6 +393,7 @@ commands:
                 --http-health-checks=: Specifies a list of legacy HTTP health check objects for checking the
                 --https-health-checks=: Specifies a list of legacy HTTPS health check objects for checking the
                 --iap=: Configure Identity Aware Proxy (IAP) for external HTTP(S) load balancing.
+                --identity=: Assigns the Managed Identity for the BackendService Workload.
                 --idle-timeout-sec=: Specifies how long to keep a connection tracking table entry while there
                 --ip-address-selection-policy=: Specifies a preference for traffic sent from the proxy to the backend (or
                 --load-balancing-scheme=: Specifies the load balancer type.
@@ -427,6 +429,12 @@ commands:
                 --region=: Region of the backend service to create.
                 --request-coalescing: Enables request coalescing to the backend (recommended).
                 --resource-manager-tags=: A comma-separated list of Resource Manager tags
+                --security-settings-aws-v4-access-key-id=: The identifier of an access key used for AWS Signature Version 4 s3
+                --security-settings-aws-v4-access-key-version=: The optional version identifier for the AWS Signature Version 4 access key.
+                --security-settings-aws-v4-access-key=: The access key used for AWS Signature Version 4 S3 bucket authentication.
+                --security-settings-aws-v4-origin-region=: The name of the cloud region of your origin for AWS Signature Version 4
+                --security-settings-client-tls-policy=: This URL refers to a network security.ClientTlsPolicy resource
+                --security-settings-subject-alt-names=: Comma-separated list of Subject Alternative Names (SANs) verified by the
                 --serve-while-stale=: Serve existing content from the cache (if available) when revalidating
                 --service-bindings=: List of service bindings to be attached to this backend service.
                 --service-lb-policy=: Service load balancing policy to be applied to this backend service.
@@ -649,6 +657,7 @@ commands:
                 --connection-drain-on-failover: Applicable only for backend service-based external and internal
                 --connection-draining-timeout=: Connection draining timeout to be used during removal of VMs from
                 --connection-persistence-on-unhealthy-backends=: Specifies connection persistence when backends are unhealthy.
+                --consistent-hash-http-header-name=: The HTTP header name to use for the hash key when session affinity is set
                 --consistent-hash-minimum-ring-size=: The minimum number of virtual nodes to use for the hash ring when a
                 --custom-metrics-file=: File path to json file with custom metrics that are used for
                 --custom-metrics=: List of custom metrics that are used for
@@ -712,6 +721,7 @@ commands:
                 --no-negative-caching&: Negative caching allows per-status code cache TTLs to be set, in order to
                 --no-negative-caching-policies: Remove all negative caching policies for the backend service.
                 --no-request-coalescing&: Enables request coalescing to the backend (recommended).
+                --no-security-settings: Clears the current set of backend service security settings.
                 --no-serve-while-stale: (DEPRECATED) Clears serve while stale value.
                 --no-service-bindings: No service bindings should be attached to the backend service.
                 --no-service-lb-policy: No service load balancing policies should be attached to the backend service.
@@ -721,6 +731,12 @@ commands:
                 --region=: Region of the backend service to update.
                 --request-coalescing: Enables request coalescing to the backend (recommended).
                 --security-policy=: The security policy that will be set for this backend service.
+                --security-settings-aws-v4-access-key-id=: The identifier of an access key used for AWS Signature Version 4 s3
+                --security-settings-aws-v4-access-key-version=: The optional version identifier for the AWS Signature Version 4 access key.
+                --security-settings-aws-v4-access-key=: The access key used for AWS Signature Version 4 S3 bucket authentication.
+                --security-settings-aws-v4-origin-region=: The name of the cloud region of your origin for AWS Signature Version 4
+                --security-settings-client-tls-policy=: This URL refers to a network security.ClientTlsPolicy resource
+                --security-settings-subject-alt-names=: Comma-separated list of Subject Alternative Names (SANs) verified by the
                 --serve-while-stale=: Serve existing content from the cache (if available) when revalidating
                 --service-bindings=: List of service bindings to be attached to this backend service.
                 --service-lb-policy=: Service load balancing policy to be applied to this backend service.
@@ -3555,6 +3571,7 @@ commands:
               completion:
                 flag:
                     confidential-compute-type:
+                        - BMSAI
                         - CCA
                         - SEV
                         - SEV_SNP
@@ -3603,7 +3620,8 @@ commands:
                 --boot-disk-size=: The size of the boot disk.
                 --boot-disk-type=: The type of the boot disk.
                 --can-ip-forward: If provided, allows the instances to send and receive packets with non-matching destination or source IP addresses.
-                --confidential-compute: The instance boots with Confidential Computing enabled.
+                --confidential-compute: (DEPRECATED)       The instance boots with Confidential Computing enabled.
+                --confidential-compute-type=: The instance boots with Confidential Computing enabled.
                 --container-arg=: Argument to append to container entrypoint or to override container CMD.
                 --container-command=: Specifies what executable to run when the container starts (overrides
                 --container-env-file=: Declare environment variables in a file.
@@ -3645,7 +3663,7 @@ commands:
                 --no-address: If provided, the instances are not assigned external IP
                 --no-boot-disk-auto-delete&: Automatically delete boot disks when their instances are deleted.
                 --no-can-ip-forward&: If provided, allows the instances to send and receive packets with non-matching destination or source IP addresses.
-                --no-confidential-compute&: The instance boots with Confidential Computing enabled.
+                --no-confidential-compute&: (DEPRECATED)       The instance boots with Confidential Computing enabled.
                 --no-container-privileged&: Specify whether to run container in privileged mode.
                 --no-container-stdin&: Keep container STDIN open even if not attached.
                 --no-container-tty&: Allocate a pseudo-TTY for the container.
@@ -3679,6 +3697,12 @@ commands:
                 --tags=: Specifies a list of tags to apply to the instance.
               completion:
                 flag:
+                    confidential-compute-type:
+                        - BMSAI
+                        - CCA
+                        - SEV
+                        - SEV_SNP
+                        - TDX
                     container-restart-policy:
                         - never
                         - on-failure
@@ -3936,6 +3960,7 @@ commands:
                   completion:
                     flag:
                         confidential-compute-type:
+                            - BMSAI
                             - CCA
                             - SEV
                             - SEV_SNP
@@ -4107,6 +4132,7 @@ commands:
               completion:
                 flag:
                     confidential-compute-type:
+                        - BMSAI
                         - CCA
                         - SEV
                         - SEV_SNP
@@ -4259,6 +4285,7 @@ commands:
               completion:
                 flag:
                     confidential-compute-type:
+                        - BMSAI
                         - CCA
                         - SEV
                         - SEV_SNP
@@ -8625,6 +8652,7 @@ commands:
                             - tls-ja3-fingerprint
                             - user-ip
                             - tls-ja4-fingerprint
+                            - asn
                         exceed-action:
                             - deny-403
                             - deny-404
@@ -8721,6 +8749,7 @@ commands:
                             - tls-ja3-fingerprint
                             - user-ip
                             - tls-ja4-fingerprint
+                            - asn
                         exceed-action:
                             - deny-403
                             - deny-404
