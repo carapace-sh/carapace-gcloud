@@ -431,6 +431,17 @@ commands:
             --no-global-network-endpoint-group&: If set, the network endpoint group is global.
             --no-negative-caching&: Negative caching allows per-status code cache TTLs to be set, in order to
             --no-request-coalescing&: Enables request coalescing to the backend (recommended).
+            --outlier-detection-base-ejection-time=: The base time during which a backend endpoint is ejected.
+            --outlier-detection-consecutive-errors=: Number of consecutive errors before a backend endpoint is ejected from
+            --outlier-detection-consecutive-gateway-failure=: The number of consecutive gateway failures (502, 503, 504) before a
+            --outlier-detection-enforcing-consecutive-errors=: The percentage chance that a backend endpoint will be ejected when an
+            --outlier-detection-enforcing-consecutive-gateway-failure=: The percentage chance that a backend endpoint will be ejected when an
+            --outlier-detection-enforcing-success-rate=: The percentage chance that a backend endpoint will be ejected when an
+            --outlier-detection-interval=: Time interval between ejection analysis sweeps.
+            --outlier-detection-max-ejection-percent=: Maximum percentage of backend endpoints in the load balancing pool that
+            --outlier-detection-success-rate-minimum-hosts=: The number of backend endpoints in the load balancing pool that must have
+            --outlier-detection-success-rate-request-volume=: The minimum number of total requests that must be collected in one
+            --outlier-detection-success-rate-stdev-factor=: This factor is used to determine the ejection threshold for success rate
             --port-name=: Backend services for Application Load Balancers and proxy Network
             --protocol=: Protocol for incoming requests.
             --region=: Region of the backend service to create.
@@ -727,12 +738,24 @@ commands:
             --no-max-ttl: (DEPRECATED) Clears max TTL value.
             --no-negative-caching&: Negative caching allows per-status code cache TTLs to be set, in order to
             --no-negative-caching-policies: Remove all negative caching policies for the backend service.
+            --no-outlier-detection: Clears currently set backend service outlier detection settings.
             --no-request-coalescing&: Enables request coalescing to the backend (recommended).
             --no-security-settings: Clears the current set of backend service security settings.
             --no-serve-while-stale: (DEPRECATED) Clears serve while stale value.
             --no-service-bindings: No service bindings should be attached to the backend service.
             --no-service-lb-policy: No service load balancing policies should be attached to the backend service.
             --no-tls-settings: Clears currently set backend service TLS settings.
+            --outlier-detection-base-ejection-time=: The base time during which a backend endpoint is ejected.
+            --outlier-detection-consecutive-errors=: Number of consecutive errors before a backend endpoint is ejected from
+            --outlier-detection-consecutive-gateway-failure=: The number of consecutive gateway failures (502, 503, 504) before a
+            --outlier-detection-enforcing-consecutive-errors=: The percentage chance that a backend endpoint will be ejected when an
+            --outlier-detection-enforcing-consecutive-gateway-failure=: The percentage chance that a backend endpoint will be ejected when an
+            --outlier-detection-enforcing-success-rate=: The percentage chance that a backend endpoint will be ejected when an
+            --outlier-detection-interval=: Time interval between ejection analysis sweeps.
+            --outlier-detection-max-ejection-percent=: Maximum percentage of backend endpoints in the load balancing pool that
+            --outlier-detection-success-rate-minimum-hosts=: The number of backend endpoints in the load balancing pool that must have
+            --outlier-detection-success-rate-request-volume=: The minimum number of total requests that must be collected in one
+            --outlier-detection-success-rate-stdev-factor=: This factor is used to determine the ejection threshold for success rate
             --port-name=: Backend services for Application Load Balancers and proxy Network
             --protocol=: Protocol for incoming requests.
             --region=: Region of the backend service to update.
@@ -3131,12 +3154,14 @@ commands:
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
                 --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-graceful-shutdown: Delete the managed instance group without graceful shutdown.
                 --region=: Region of the managed instance groups to delete.
                 --zone=: Zone of the managed instance groups to delete.
             - name: delete-instances
               description: Delete instances that are managed by a managed instance group.
               flags:
                 --instances=!: Names of instances to delete.
+                --no-graceful-shutdown: End an ongoing graceful shutdown, or delete the specified instances without graceful shutdown.
                 --no-skip-instances-on-validation-error&: Specifies whether the request should proceed even if the
                 --region=: Region of the managed instance group to operate on.
                 --skip-instances-on-validation-error: Specifies whether the request should proceed even if the
@@ -3273,6 +3298,7 @@ commands:
               description: Recreate instances managed by a managed instance group.
               flags:
                 --instances=!: Names of instances to recreate.
+                --no-graceful-shutdown: End an ongoing graceful shutdown, or recreate the specified instances without graceful shutdown.
                 --region=: Region of the managed instance group to operate on.
                 --zone=: Zone of the managed instance group to operate on.
             - name: resize
@@ -3466,6 +3492,7 @@ commands:
                 --force: Immediately stop the specified instances, skipping the initial
                 --instances=!: Names of instances to stop.
                 --no-force&: ""
+                --no-graceful-shutdown: End an ongoing graceful shutdown, or stop the specified instances without graceful shutdown.
                 --region=: Region of the managed instance group to operate on.
                 --zone=: Zone of the managed instance group to operate on.
             - name: suspend-instances
@@ -5410,6 +5437,7 @@ commands:
                     --customer-router-ipv6-interface-id=: '`customer-router-ipv6-interface-id` field is not available.'
                     --description=: Human-readable plain-text description of attachment.
                     --enable-admin: Administrative status of the interconnect attachment.
+                    --interconnect=: The interconnect for the interconnect attachment
                     --mtu=: Maximum transmission unit (MTU) is the size of the largest IP packet
                     --no-admin-enabled&: (DEPRECATED) Use --enable-admin instead.
                     --no-enable-admin&: Administrative status of the interconnect attachment.
@@ -6437,6 +6465,7 @@ commands:
                     - gce-vm-ip
                     - private-service-connect
                     - gce-vm-ip-portmap
+                    - gce-vm-ip-dedicated-backend
         - name: delete
           description: Delete a Compute Engine network endpoint group.
           flags:
@@ -7014,6 +7043,8 @@ commands:
                         - REGIONAL_MANAGED_PROXY
                     resolve-subnet-mask:
                         - ARP_ALL_RANGES
+                        - ARP_BROADCAST_PRIMARY_RANGE
+                        - ARP_BROADCAST_PRIMARY_RANGE_WITH_LEARNING
                         - ARP_PRIMARY_RANGE
                     role:
                         - ACTIVE
@@ -7503,7 +7534,7 @@ commands:
             - name: describe
               description: Describe the inventory data for a Compute Engine VM instance.
               flags:
-                --location=: Location of the Compute Engine VM instance to describe.
+                --location=: Location of the Compute Engine VM instance.
                 --view=: Specifies what information should be included in the
               completion:
                 flag:
@@ -7515,7 +7546,7 @@ commands:
               flags:
                 --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
                 --limit=: Maximum number of resources to list.
-                --location=: Location of the Compute Engine VM instances to list.
+                --location=: ID of the location or fully qualified identifier for the location.
                 --no-uri&: Print a list of resource URIs instead of the default output, and change the
                 --page-size=: Some services group resource list output into pages.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
@@ -7542,7 +7573,7 @@ commands:
                 --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
                 --instance=: Either instance name or instance ID.
                 --limit=: Maximum number of resources to list.
-                --location=: Location of the OS policy assignment reports to list, will default to the user's compute/zone property if not specified.
+                --location=: ID of the location or fully qualified identifier for the location.
                 --page-size=: Some services group resource list output into pages.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
         - name: os-policy-assignments
@@ -7646,7 +7677,7 @@ commands:
               description: Execute an OS patch on the specified VM instances.
               flags:
                 --apt-dist: If specified, machines running Apt use the `apt-get dist-upgrade` command;
-                --apt-excludes=: List of packages to exclude from update.
+                --apt-excludes=: List of Apt packages to exclude from update.
                 --apt-exclusive-packages=: An exclusive list of packages to be updated.
                 --async: Return immediately, without waiting for the operation in progress to
                 --description=: Textual description of the patch job.
@@ -7825,13 +7856,13 @@ commands:
             - name: describe
               description: Describe the vulnerability report data for a Compute Engine VM instance.
               flags:
-                --location=: Location of the Compute Engine VM instance to describe.
+                --location=: Location of the Compute Engine VM instance.
             - name: list
               description: List vulnerability report data for all Compute Engine VM instances in a specified location.
               flags:
                 --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
                 --limit=: Maximum number of resources to list.
-                --location=: Location of the Compute Engine VM instances to list.
+                --location=: ID of the location or fully qualified identifier for the location.
                 --no-uri&: Print a list of resource URIs instead of the default output, and change the
                 --page-size=: Some services group resource list output into pages.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
@@ -8371,6 +8402,13 @@ commands:
                 --slot-name=!: The name of the reservation slot.
                 --sub-block-name=!: The name of the reservation sub block.
                 --zone=: Zone of the reservation to describe.
+            - name: get-health
+              description: Get the health of a reservation slot.
+              flags:
+                --block-name=!: Name of the reservation block.
+                --slot-name=!: Name of the reservation slot.
+                --sub-block-name=!: Name of the reservation sub block.
+                --zone=: Zone of the reservation to get-health.
             - name: get-version
               description: Get the version of a reservation slot.
               flags:
@@ -9388,7 +9426,7 @@ commands:
             --detection-load-threshold=: The threshold on backend's load, over which adaptive protection detects an attack.
             --detection-relative-to-baseline-qps=: The QPS of the incoming traffic relative to the average baseline QPS, over which adaptive protection detects an attack.
             --threshold-config-name=!: The name for the threshold config.
-            --traffic-granularity-configs=: Specify up to 2 configs matching a specifc type/value of traffic.
+            --traffic-granularity-configs=: Specify up to 2 configs matching a specific type/value of traffic.
         - name: add-user-defined-field
           description: Add a user defined field to a Compute Engine security policy.
           flags:

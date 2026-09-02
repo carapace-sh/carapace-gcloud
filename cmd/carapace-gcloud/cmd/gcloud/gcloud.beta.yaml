@@ -137,6 +137,10 @@ commands:
                     combine-function:
                         - and
                         - or
+        - name: lookup-configured-perimeter
+          description: '*(BETA)*  Look up the configured VPC Service Controls service perimeter for a resource.'
+          flags:
+            --resource=!: The resource to look up effective service perimeters for.
         - name: perimeters
           description: '*(BETA)*  Manage Access Context Manager service perimeters.'
           commands:
@@ -2716,6 +2720,7 @@ commands:
                         - POSTGRES_16
                         - POSTGRES_17
                         - POSTGRES_18
+                        - POSTGRES_19
                     maintenance-window-day:
                         - MONDAY
                         - TUESDAY
@@ -2881,6 +2886,7 @@ commands:
                         - POSTGRES_16
                         - POSTGRES_17
                         - POSTGRES_18
+                        - POSTGRES_19
                     maintenance-window-day:
                         - MONDAY
                         - TUESDAY
@@ -7780,6 +7786,10 @@ commands:
                     --glue-aws-region=: The AWS region of the Glue catalog to connect to.
                     --glue-aws-role-arn=: The AWS role ARN of the Glue catalog that the BigLake federated catalog will assume to access the catalog.
                     --glue-warehouse=: The warehouse to connect to in AWS Glue Iceberg REST Catalog.
+                    --kms-key=&: ID of the key or fully qualified identifier for the key.
+                    --kms-keyring=&: The KMS keyring of the key.
+                    --kms-location=&: The Google Cloud location for the key.
+                    --kms-project=&: The Google Cloud project for the key.
                     --namespace-filters=: Filters to determine which namespaces are included in the refresh process.
                     --primary-location=: Primary location for mirroring the remote catalog metadata.
                     --refresh-interval=: The interval for refreshing metadata from the remote catalog (e.g., "1hr5m30s").
@@ -7837,6 +7847,10 @@ commands:
                     --credential-mode=: Credential mode to create the catalog with.
                     --description=: Description of the resource.
                     --glue-aws-role-arn=: The AWS role ARN of the Glue catalog that the BigLake federated catalog will assume to access the catalog.
+                    --kms-key=&: ID of the key or fully qualified identifier for the key.
+                    --kms-keyring=&: The KMS keyring of the key.
+                    --kms-location=&: The Google Cloud location for the key.
+                    --kms-project=&: The Google Cloud project for the key.
                     --namespace-filters=: Filters to determine which namespaces are included in the refresh process.
                     --refresh-interval=: Interval for refreshing metadata from the remote catalog (e.g., "1hr5m30s").
                     --restricted-locations=: Additional Google Cloud Storage buckets and locations (e.g., `gs://my-other-bucket/...`) that are permitted for use by resources within a catalog.
@@ -10383,7 +10397,7 @@ commands:
                 --filestores=: Reference of existing filestore instance.
                 --flex-start-instances=: Parameters to define cluster Flex Start instances.
                 --labels=: Cluster labels as key value pairs.
-                --location=: The location id of the cluster resource.
+                --location=: Location ID of the cluster resource.
                 --lustres=: Reference of existing Lustre instance.
                 --network-project=: Project ID of the project containing the network and subnetwork
                 --network=!: Reference of existing network name.
@@ -10413,12 +10427,12 @@ commands:
               description: '*(BETA)*  Deletes a Cluster Director resource.'
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
-                --location=: The location id of the cluster resource.
+                --location=: Location ID of the cluster resource.
                 --no-async&: Return immediately, without waiting for the operation in progress to
             - name: describe
               description: '*(BETA)*  Gets details of a Cluster Director resource.'
               flags:
-                --location=: The location id of the cluster resource.
+                --location=: Location ID of the cluster resource.
             - name: list
               description: '*(BETA)*  List Cluster Director resources.'
               flags:
@@ -10450,7 +10464,7 @@ commands:
                 --async: Return immediately, without waiting for the operation in progress to
                 --config=!: Configuration of the cluster specs in the form of a JSON object.
                 --description=: Description of the cluster.
-                --location=: The location id of the cluster resource.
+                --location=: Location ID of the cluster resource.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --remove-filestore-instances=: Parameters to remove filestore instance config by filestore name.
                 --remove-flex-start-instances=: Parameters to remove Flex Start instance config by compute id.
@@ -10858,7 +10872,7 @@ commands:
                 --disable-private-environment: Enables internet connection for Composer components.
                 --disk-size=: The disk size for each VM node in the environment.
                 --enable-cloud-data-lineage-integration: Enable Cloud Data Lineage integration, supported for Composer 2 Environments.
-                --enable-development-mode&: Whether to build a development-mode environment.
+                --enable-development-mode: Whether to build a development-mode environment.
                 --enable-high-resilience: Enable high resilience, supported for Composer 2 Environments.
                 --enable-ip-alias: Enable use of link:https://cloud.google.com/compute/docs/alias-ip[alias IPs]
                 --enable-ip-masq-agent: When enabled, the
@@ -10977,7 +10991,6 @@ commands:
                 --location=: Region where Composer environment runs or in which to create the environment.
             - name: hibernate
               description: '*(BETA)*  Hibernate a Cloud Composer environment.'
-              hidden: true
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
                 --location=: Region where Composer environment runs or in which to create the environment.
@@ -11052,7 +11065,6 @@ commands:
                 --no-async&: Return immediately, without waiting for the operation in progress to
             - name: resume
               description: '*(BETA)*  Resume a Cloud Composer environment.'
-              hidden: true
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
                 --location=: Region where Composer environment runs or in which to create the environment.
@@ -11835,6 +11847,17 @@ commands:
                 --no-ip-port-dynamic-forwarding&: Enables Dynamic Forwarding in IpPort selection mode.
                 --no-negative-caching&: Negative caching allows per-status code cache TTLs to be set, in order to
                 --no-request-coalescing&: Enables request coalescing to the backend (recommended).
+                --outlier-detection-base-ejection-time=: The base time during which a backend endpoint is ejected.
+                --outlier-detection-consecutive-errors=: Number of consecutive errors before a backend endpoint is ejected from
+                --outlier-detection-consecutive-gateway-failure=: The number of consecutive gateway failures (502, 503, 504) before a
+                --outlier-detection-enforcing-consecutive-errors=: The percentage chance that a backend endpoint will be ejected when an
+                --outlier-detection-enforcing-consecutive-gateway-failure=: The percentage chance that a backend endpoint will be ejected when an
+                --outlier-detection-enforcing-success-rate=: The percentage chance that a backend endpoint will be ejected when an
+                --outlier-detection-interval=: Time interval between ejection analysis sweeps.
+                --outlier-detection-max-ejection-percent=: Maximum percentage of backend endpoints in the load balancing pool that
+                --outlier-detection-success-rate-minimum-hosts=: The number of backend endpoints in the load balancing pool that must have
+                --outlier-detection-success-rate-request-volume=: The minimum number of total requests that must be collected in one
+                --outlier-detection-success-rate-stdev-factor=: This factor is used to determine the ejection threshold for success rate
                 --port-name=: Backend services for Application Load Balancers and proxy Network
                 --protocol=: Protocol for incoming requests.
                 --region=: Region of the backend service to create.
@@ -12150,12 +12173,24 @@ commands:
                 --no-max-ttl: (DEPRECATED) Clears max TTL value.
                 --no-negative-caching&: Negative caching allows per-status code cache TTLs to be set, in order to
                 --no-negative-caching-policies: Remove all negative caching policies for the backend service.
+                --no-outlier-detection: Clears currently set backend service outlier detection settings.
                 --no-request-coalescing&: Enables request coalescing to the backend (recommended).
                 --no-security-settings: Clears the current set of backend service security settings.
                 --no-serve-while-stale: (DEPRECATED) Clears serve while stale value.
                 --no-service-bindings: No service bindings should be attached to the backend service.
                 --no-service-lb-policy: No service load balancing policies should be attached to the backend service.
                 --no-tls-settings: Clears currently set backend service TLS settings.
+                --outlier-detection-base-ejection-time=: The base time during which a backend endpoint is ejected.
+                --outlier-detection-consecutive-errors=: Number of consecutive errors before a backend endpoint is ejected from
+                --outlier-detection-consecutive-gateway-failure=: The number of consecutive gateway failures (502, 503, 504) before a
+                --outlier-detection-enforcing-consecutive-errors=: The percentage chance that a backend endpoint will be ejected when an
+                --outlier-detection-enforcing-consecutive-gateway-failure=: The percentage chance that a backend endpoint will be ejected when an
+                --outlier-detection-enforcing-success-rate=: The percentage chance that a backend endpoint will be ejected when an
+                --outlier-detection-interval=: Time interval between ejection analysis sweeps.
+                --outlier-detection-max-ejection-percent=: Maximum percentage of backend endpoints in the load balancing pool that
+                --outlier-detection-success-rate-minimum-hosts=: The number of backend endpoints in the load balancing pool that must have
+                --outlier-detection-success-rate-request-volume=: The minimum number of total requests that must be collected in one
+                --outlier-detection-success-rate-stdev-factor=: This factor is used to determine the ejection threshold for success rate
                 --port-name=: Backend services for Application Load Balancers and proxy Network
                 --protocol=: Protocol for incoming requests.
                 --region=: Region of the backend service to update.
@@ -14746,12 +14781,14 @@ commands:
                   flags:
                     --async: Return immediately, without waiting for the operation in progress to
                     --no-async&: Return immediately, without waiting for the operation in progress to
+                    --no-graceful-shutdown: Delete the managed instance group without graceful shutdown.
                     --region=: Region of the managed instance groups to delete.
                     --zone=: Zone of the managed instance groups to delete.
                 - name: delete-instances
                   description: '*(BETA)*  Delete instances that are managed by a managed instance group.'
                   flags:
                     --instances=!: Names of instances to delete.
+                    --no-graceful-shutdown: End an ongoing graceful shutdown, or delete the specified instances without graceful shutdown.
                     --no-skip-instances-on-validation-error&: Specifies whether the request should proceed even if the
                     --region=: Region of the managed instance group to operate on.
                     --skip-instances-on-validation-error: Specifies whether the request should proceed even if the
@@ -14894,6 +14931,7 @@ commands:
                   description: '*(BETA)*  Recreate instances managed by a managed instance group.'
                   flags:
                     --instances=!: Names of instances to recreate.
+                    --no-graceful-shutdown: End an ongoing graceful shutdown, or recreate the specified instances without graceful shutdown.
                     --region=: Region of the managed instance group to operate on.
                     --zone=: Zone of the managed instance group to operate on.
                 - name: resize
@@ -15102,6 +15140,7 @@ commands:
                     --force: Immediately stop the specified instances, skipping the initial
                     --instances=!: Names of instances to stop.
                     --no-force&: ""
+                    --no-graceful-shutdown: End an ongoing graceful shutdown, or stop the specified instances without graceful shutdown.
                     --region=: Region of the managed instance group to operate on.
                     --zone=: Zone of the managed instance group to operate on.
                 - name: suspend-instances
@@ -17179,6 +17218,7 @@ commands:
                         --customer-router-ipv6-interface-id=: '`customer-router-ipv6-interface-id` field is not available.'
                         --description=: Human-readable plain-text description of attachment.
                         --enable-admin: Administrative status of the interconnect attachment.
+                        --interconnect=: The interconnect for the interconnect attachment
                         --mtu=: Maximum transmission unit (MTU) is the size of the largest IP packet
                         --no-admin-enabled&: (DEPRECATED) Use --enable-admin instead.
                         --no-clear-labels&: Remove all labels.
@@ -18145,6 +18185,7 @@ commands:
                         - gce-vm-ip
                         - private-service-connect
                         - gce-vm-ip-portmap
+                        - gce-vm-ip-dedicated-backend
             - name: delete
               description: '*(BETA)*  Delete a Compute Engine network endpoint group.'
               flags:
@@ -18882,6 +18923,8 @@ commands:
                             - REGIONAL_MANAGED_PROXY
                         resolve-subnet-mask:
                             - ARP_ALL_RANGES
+                            - ARP_BROADCAST_PRIMARY_RANGE
+                            - ARP_BROADCAST_PRIMARY_RANGE_WITH_LEARNING
                             - ARP_PRIMARY_RANGE
                         role:
                             - ACTIVE
@@ -19523,7 +19566,7 @@ commands:
                   description: '*(BETA)*  Execute an OS patch on the specified VM instances.'
                   flags:
                     --apt-dist: If specified, machines running Apt use the `apt-get dist-upgrade` command;
-                    --apt-excludes=: List of packages to exclude from update.
+                    --apt-excludes=: List of Apt packages to exclude from update.
                     --apt-exclusive-packages=: An exclusive list of packages to be updated.
                     --async: Return immediately, without waiting for the operation in progress to
                     --description=: Textual description of the patch job.
@@ -20037,6 +20080,39 @@ commands:
                 --no-withdraw-prefix&: Specify if the prefix will be withdrawn.
                 --region=: Region of the public delegated prefix to operate on.
                 --withdraw-prefix: Specify if the prefix will be withdrawn.
+        - name: recoverable-snapshots
+          description: '*(BETA)*  Recover, list, describe and delete Compute Engine recoverable snapshots.'
+          hidden: true
+          commands:
+            - name: delete
+              description: '*(BETA)*  Delete Compute Engine recoverable snapshots.'
+              hidden: true
+            - name: describe
+              description: '*(BETA)*  Describe a Compute Engine recoverable snapshot.'
+              hidden: true
+            - name: list
+              description: '*(BETA)*  List Google Compute Engine recoverable snapshots.'
+              hidden: true
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: recover
+              description: '*(BETA)*  Recovers a Compute Engine recoverable snapshot.'
+              hidden: true
+              flags:
+                --snapshot-name=: Name of the snapshot after the recovery.
+            - name: set-iam-policy
+              description: '*(BETA)*  Set the IAM policy binding for a Compute Engine recoverable snapshot.'
+              hidden: true
+            - name: test-iam-permissions
+              description: '*(BETA)*  Test the IAM permissions for a Compute Engine recoverable snapshot.'
+              hidden: true
+              flags:
+                --permissions=!: The set of permissions to check for the resource.
         - name: regions
           description: '*(BETA)*  List Compute Engine regions.'
           commands:
@@ -20237,6 +20313,13 @@ commands:
                     --slot-name=!: The name of the reservation slot.
                     --sub-block-name=!: The name of the reservation sub block.
                     --zone=: Zone of the reservation to describe.
+                - name: get-health
+                  description: '*(BETA)*  Get the health of a reservation slot.'
+                  flags:
+                    --block-name=!: Name of the reservation block.
+                    --slot-name=!: Name of the reservation slot.
+                    --sub-block-name=!: Name of the reservation sub block.
+                    --zone=: Zone of the reservation to get-health.
                 - name: get-version
                   description: '*(BETA)*  Get the version of a reservation slot.'
                   flags:
@@ -21301,7 +21384,7 @@ commands:
                 --detection-load-threshold=: The threshold on backend's load, over which adaptive protection detects an attack.
                 --detection-relative-to-baseline-qps=: The QPS of the incoming traffic relative to the average baseline QPS, over which adaptive protection detects an attack.
                 --threshold-config-name=!: The name for the threshold config.
-                --traffic-granularity-configs=: Specify up to 2 configs matching a specifc type/value of traffic.
+                --traffic-granularity-configs=: Specify up to 2 configs matching a specific type/value of traffic.
             - name: add-user-defined-field
               description: '*(BETA)*  Add a user defined field to a Compute Engine security policy.'
               flags:
@@ -21834,6 +21917,20 @@ commands:
               hidden: true
               flags:
                 --permissions=!: The permissions to test.
+        - name: snapshot-recycle-bin-policy
+          description: '*(BETA)*  Update and describe Compute Engine snapshot recycle bin policy.'
+          commands:
+            - name: describe
+              description: '*(BETA)*  Describe the project''s or organization''s snapshot recycle bin policy.'
+              flags:
+                --organization=: Organization ID for the policy.
+            - name: update
+              description: '*(BETA)*  Update the project''s or organization''s snapshot recycle bin policy.'
+              flags:
+                --organization=: Organization ID to apply this policy to.
+                --remove-rule=: Key of the rule to remove.
+                --set-rule=: Key of the rule to set.
+                --standard-snapshots-retention-duration-days=!: Retention duration in days for standard snapshots.
         - name: snapshot-settings
           description: '*(BETA)*  Describe and update Compute Engine snapshot settings.'
           commands:
@@ -21918,6 +22015,8 @@ commands:
                 --global: If set, the snapshot is global.
                 --no-global&: If set, the snapshot is global.
                 --region=: Region of the snapshot to describe.
+            - name: get-effective-recycle-bin-rule
+              description: '*(BETA)*  Returns the effective recycle bin rule for a Compute Engine snapshot.'
             - name: get-iam-policy
               description: '*(BETA)*  Get the IAM policy for a Compute Engine snapshot.'
               flags:
@@ -24777,6 +24876,7 @@ commands:
                 --datapath-provider=&: ""
                 --dataplane-optimization-mode=: Select scalability mode for dataplane v2.
                 --dataplane-v2-observability-mode=: '(REMOVED) '
+                --default-compute-class=&: Sets the default compute class for the cluster.
                 --default-max-pods-per-node=: The default max number of pods per node for node pools in the cluster.
                 --disable-additive-vpc-scope: Disables Additive VPC Scope.
                 --disable-dataplane-v2-flow-observability: Disables Advanced Datapath Observability.
@@ -25585,6 +25685,7 @@ commands:
                 --convert-to-standard&: Convert the given Autopilot cluster to Standard.
                 --database-encryption-key=: Enable Database Encryption.
                 --dataplane-v2-observability-mode=: '(REMOVED) '
+                --default-compute-class=&: Sets the default compute class for the cluster.
                 --disable-additive-vpc-scope: Disables Additive VPC Scope.
                 --disable-auto-ipam: Disable the Auto IP Address Management (Auto IPAM) feature for the cluster.
                 --disable-autopilot&: Converts a cluster from Autopilot mode to Standard mode.
@@ -27037,9 +27138,17 @@ commands:
                     --async: Return immediately, without waiting for the operation in progress to
                     --control-plane-version=: The GKE cluster version to upgrade the control plane to.
                     --force: Force rollout creation even if an active rollout exists on the first stage of the sequence.
+                    --ignore-cluster-disruption-budgets: If set, the rollout will ignore the disruption budgets
+                    --ignore-maintenance-policies: If set, the rollout will ignore any maintenance policies
                     --no-async&: Return immediately, without waiting for the operation in progress to
                     --no-force&: Force rollout creation even if an active rollout exists on the first stage of the sequence.
+                    --no-ignore-cluster-disruption-budgets&: If set, the rollout will ignore the disruption budgets
+                    --no-ignore-maintenance-policies&: If set, the rollout will ignore any maintenance policies
+                    --no-patch-only&: If set, the rollout will only upgrade clusters that are already on
                     --node-version=: The GKE version to upgrade the nodes to.
+                    --patch-only: If set, the rollout will only upgrade clusters that are already on
+                    --soak-duration-override-all-stages=: Overrides the soak duration for all stages of the rollout.
+                    --soak-duration-overrides-per-stage=: Overrides the soak duration for specific stages of the rollout,
             - name: scopes
               description: '*(BETA)*  Manage scopes of all your GKE fleets.'
               commands:
@@ -28379,9 +28488,17 @@ commands:
                     --async: Return immediately, without waiting for the operation in progress to
                     --control-plane-version=: The GKE cluster version to upgrade the control plane to.
                     --force: Force rollout creation even if an active rollout exists on the first stage of the sequence.
+                    --ignore-cluster-disruption-budgets: If set, the rollout will ignore the disruption budgets
+                    --ignore-maintenance-policies: If set, the rollout will ignore any maintenance policies
                     --no-async&: Return immediately, without waiting for the operation in progress to
                     --no-force&: Force rollout creation even if an active rollout exists on the first stage of the sequence.
+                    --no-ignore-cluster-disruption-budgets&: If set, the rollout will ignore the disruption budgets
+                    --no-ignore-maintenance-policies&: If set, the rollout will ignore any maintenance policies
+                    --no-patch-only&: If set, the rollout will only upgrade clusters that are already on
                     --node-version=: The GKE version to upgrade the nodes to.
+                    --patch-only: If set, the rollout will only upgrade clusters that are already on
+                    --soak-duration-override-all-stages=: Overrides the soak duration for all stages of the rollout.
+                    --soak-duration-overrides-per-stage=: Overrides the soak duration for specific stages of the rollout,
             - name: scopes
               description: '*(BETA)*  Manage scopes of all your GKE fleets.'
               commands:
@@ -38306,6 +38423,16 @@ commands:
                             - one-login
                             - ping-federate
                             - vendor-type-unspecified
+                - name: create-workspace-link
+                  description: '*(BETA)*  Create a new Workspace Link workforce pool provider.'
+                  hidden: true
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --attribute-condition=: A [Common Expression Language](https://opensource.google/projects/cel) expression, in plain
+                    --attribute-mapping=!: Maps claims from the authentication credentials issued by the IdP into Google Cloud IAM attributes, for example subject, segment.
+                    --location=: The location for the workforce pool.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --workforce-pool=!: ID of the workforce pool or fully qualified identifier for the workforce pool.
                 - name: delete
                   description: '*(BETA)*  Delete a workforce pool provider.'
                   flags:
@@ -44894,6 +45021,30 @@ commands:
                 --no-export-psc-published-services-and-regional-google-apis&: Whether propagation for Private Service Connect for published services and regional Google APIs is enabled for the hub.
                 --remove-labels=: List of label keys to remove.
                 --update-labels=: List of label KEY=VALUE pairs to update.
+        - name: interconnects
+          description: '*(BETA)*  Manage Network Connectivity Interconnects resources.'
+          hidden: true
+          commands:
+            - name: macsec-key-groups
+              description: '*(BETA)*  Manage Network Connectivity Interconnect MACsec key groups.'
+              hidden: true
+              commands:
+                - name: create
+                  description: '*(BETA)*  Create a new MACsec key group.'
+                  hidden: true
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --description=: Description of the MACsec key group.
+                    --labels=: List of label KEY=VALUE pairs to add.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --region=: The location Id.
+                - name: delete
+                  description: '*(BETA)*  Delete a MACsec key group.'
+                  hidden: true
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --region=: The location Id.
         - name: locations
           description: '*(BETA)*  Get information about supported Network Connectivity Center locations.'
           commands:
@@ -48646,6 +48797,32 @@ commands:
                 --async: Return immediately, without waiting for the operation in progress to
                 --location=: The location Id.
                 --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: describe
+              description: '*(BETA)*  Describe a TelemetryPolicy.'
+              flags:
+                --location=: The location Id.
+            - name: export
+              description: '*(BETA)*  Export a TelemetryPolicy.'
+              flags:
+                --destination=: Path to a YAML file where the configuration will be exported.
+                --location=: The location Id.
+            - name: import
+              description: '*(BETA)*  Import a TelemetryPolicy.'
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location Id.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --source=: Path to a YAML file containing the configuration export data.
+            - name: list
+              description: '*(BETA)*  List TelemetryPolicies.'
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=!: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
     - name: notebooks
       description: '*(BETA)*  *(DEPRECATED)*  Notebooks Command Group.'
       commands:
@@ -52221,10 +52398,13 @@ commands:
             --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
             --execution-environment=: Selects the execution environment where the application will run.
             --function=: Specifies that the deployed object is a function.
+            --functional-type=: Specifies the function of the resource for automatic registration in Agent Registry.
             --gpu-type=: The GPU type to use.
             --gpu-zonal-redundancy: Set GPU zonal redundancy.
             --gpu=: Cloud Run supports values 0 or 1.  1 gpu also requires a minimum 4 `--cpu` value and  a minimum 16Gi `--memory` value.
             --iap: Whether to enable IAP for the Service.
+            --identity-certificate: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
+            --identity-type=: Configures the type of identity assigned to the resource.
             --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/hello:latest`).
             --ingress=: Set the ingress traffic sources allowed to call the service.
             --invoker-iam-check: Optionally disable invoker IAM checks.
@@ -52272,6 +52452,7 @@ commands:
             --no-dry-run&: If set to true, only validates the configuration.
             --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
             --no-iap&: Whether to enable IAP for the Service.
+            --no-identity-certificate&: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
             --no-invoker-iam-check&: Optionally disable invoker IAM checks.
             --no-run-upload&: Specifies that the source should be uploaded via Cloud Run UploadSource API.
             --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
@@ -52339,6 +52520,12 @@ commands:
                 execution-environment:
                     - gen1
                     - gen2
+                functional-type:
+                    - agent
+                    - mcp-server
+                identity-type:
+                    - agent-identity
+                    - service-account
                 ingress:
                     - all
                     - internal
@@ -52926,9 +53113,12 @@ commands:
                 --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
                 --execute-now: Execute the job immediately after the creation or update  completes.
                 --execution-environment=&: Selects the execution environment where the application will run.
+                --functional-type=: Specifies the function of the resource for automatic registration in Agent Registry.
                 --gpu-type=: The GPU type to use.
                 --gpu-zonal-redundancy: Set GPU zonal redundancy.
                 --gpu=: Cloud Run supports values 0 or 1.  1 gpu also requires a minimum 4 `--cpu` value and  a minimum 16Gi `--memory` value.
+                --identity-certificate: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
+                --identity-type=: Configures the type of identity assigned to the resource.
                 --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/job:latest`).
                 --key=: CMEK key reference to encrypt the container with.
                 --labels=: List of label KEY=VALUE pairs to add.
@@ -52944,6 +53134,7 @@ commands:
                 --no-delay-execution&: True if the executions of the job can be delayed to start.
                 --no-execute-now&: Execute the job immediately after the creation or update  completes.
                 --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
+                --no-identity-certificate&: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
                 --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --no-wait&: Wait until the execution has completed running before exiting.
                 --parallelism=: Number of tasks that may run concurrently.
@@ -52977,6 +53168,11 @@ commands:
                     execution-environment:
                         - gen1
                         - gen2
+                    functional-type:
+                        - agent
+                    identity-type:
+                        - agent-identity
+                        - service-account
                     vpc-egress:
                         - all
                         - all-traffic
@@ -53020,9 +53216,12 @@ commands:
                 --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
                 --execute-now: Execute the job immediately after the creation or update  completes.
                 --execution-environment=&: Selects the execution environment where the application will run.
+                --functional-type=: Specifies the function of the resource for automatic registration in Agent Registry.
                 --gpu-type=: The GPU type to use.
                 --gpu-zonal-redundancy: Set GPU zonal redundancy.
                 --gpu=: Cloud Run supports values 0 or 1.  1 gpu also requires a minimum 4 `--cpu` value and  a minimum 16Gi `--memory` value.
+                --identity-certificate: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
+                --identity-type=: Configures the type of identity assigned to the resource.
                 --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/job:latest`).
                 --key=: CMEK key reference to encrypt the container with.
                 --labels=: List of label KEY=VALUE pairs to add.
@@ -53040,6 +53239,7 @@ commands:
                 --no-delay-execution&: True if the executions of the job can be delayed to start.
                 --no-execute-now&: Execute the job immediately after the creation or update  completes.
                 --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
+                --no-identity-certificate&: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
                 --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --no-wait&: Wait until the execution has completed running before exiting.
                 --parallelism=: Number of tasks that may run concurrently.
@@ -53075,6 +53275,11 @@ commands:
                     execution-environment:
                         - gen1
                         - gen2
+                    functional-type:
+                        - agent
+                    identity-type:
+                        - agent-identity
+                        - service-account
                     vpc-egress:
                         - all
                         - all-traffic
@@ -53384,9 +53589,12 @@ commands:
                 --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
                 --execute-now: Execute the job immediately after the creation or update  completes.
                 --execution-environment=&: Selects the execution environment where the application will run.
+                --functional-type=: Specifies the function of the resource for automatic registration in Agent Registry.
                 --gpu-type=: The GPU type to use.
                 --gpu-zonal-redundancy: Set GPU zonal redundancy.
                 --gpu=: Cloud Run supports values 0 or 1.  1 gpu also requires a minimum 4 `--cpu` value and  a minimum 16Gi `--memory` value.
+                --identity-certificate: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
+                --identity-type=: Configures the type of identity assigned to the resource.
                 --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/job:latest`).
                 --key=: CMEK key reference to encrypt the container with.
                 --labels=: List of label KEY=VALUE pairs to add.
@@ -53408,6 +53616,7 @@ commands:
                 --no-delay-execution&: True if the executions of the job can be delayed to start.
                 --no-execute-now&: Execute the job immediately after the creation or update  completes.
                 --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
+                --no-identity-certificate&: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
                 --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --no-wait&: Wait until the execution has completed running before exiting.
                 --parallelism=: Number of tasks that may run concurrently.
@@ -53445,6 +53654,11 @@ commands:
                     execution-environment:
                         - gen1
                         - gen2
+                    functional-type:
+                        - agent
+                    identity-type:
+                        - agent-identity
+                        - service-account
                     vpc-egress:
                         - all
                         - all-traffic
@@ -53594,10 +53808,13 @@ commands:
                 --encryption-key-shutdown-hours=: The number of hours to wait before an automatic shutdown server after CMEK key revocation is detected.
                 --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
                 --execution-environment=: Selects the execution environment where the application will run.
+                --functional-type=: Specifies the function of the resource for automatic registration in Agent Registry.
                 --gpu-type=: The GPU type to use.
                 --gpu-zonal-redundancy: Set GPU zonal redundancy.
                 --gpu=: Cloud Run supports values 0 or 1.  1 gpu also requires a minimum 4 `--cpu` value and  a minimum 16Gi `--memory` value.
                 --iap: Whether to enable IAP for the Service.
+                --identity-certificate: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
+                --identity-type=: Configures the type of identity assigned to the resource.
                 --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/hello:latest`).
                 --ingress=: Set the ingress traffic sources allowed to call the service.
                 --invoker-iam-check: Optionally disable invoker IAM checks.
@@ -53637,6 +53854,7 @@ commands:
                 --no-dry-run&: If set to true, only validates the configuration.
                 --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
                 --no-iap&: Whether to enable IAP for the Service.
+                --no-identity-certificate&: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
                 --no-invoker-iam-check&: Optionally disable invoker IAM checks.
                 --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --no-session-affinity&: Whether to enable session affinity for connections to the service.
@@ -53694,6 +53912,12 @@ commands:
                     execution-environment:
                         - gen1
                         - gen2
+                    functional-type:
+                        - agent
+                        - mcp-server
+                    identity-type:
+                        - agent-identity
+                        - service-account
                     ingress:
                         - all
                         - internal
@@ -54320,10 +54544,13 @@ commands:
                 --endpoint-mode=: Specifies endpoint mode for a given command.
                 --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
                 --execution-environment=: Selects the execution environment where the application will run.
+                --functional-type=: Specifies the function of the resource for automatic registration in Agent Registry.
                 --gpu-type=: The GPU type to use.
                 --gpu-zonal-redundancy: Set GPU zonal redundancy.
                 --gpu=: Cloud Run supports values 0 or 1.  1 gpu also requires a minimum 4 `--cpu` value and  a minimum 16Gi `--memory` value.
                 --iap: Whether to enable IAP for the Service.
+                --identity-certificate: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
+                --identity-type=: Configures the type of identity assigned to the resource.
                 --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/hello:latest`).
                 --ingress=: Set the ingress traffic sources allowed to call the service.
                 --invoker-iam-check: Optionally disable invoker IAM checks.
@@ -54363,6 +54590,7 @@ commands:
                 --no-dry-run&: If set to true, only validates the configuration.
                 --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
                 --no-iap&: Whether to enable IAP for the Service.
+                --no-identity-certificate&: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
                 --no-invoker-iam-check&: Optionally disable invoker IAM checks.
                 --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --no-session-affinity&: Whether to enable session affinity for connections to the service.
@@ -54423,6 +54651,12 @@ commands:
                     execution-environment:
                         - gen1
                         - gen2
+                    functional-type:
+                        - agent
+                        - mcp-server
+                    identity-type:
+                        - agent-identity
+                        - service-account
                     ingress:
                         - all
                         - internal
@@ -58642,12 +58876,10 @@ commands:
                         - HDD
                         - HYPERDISK_BALANCED
         - name: blue-green-deployments
-          description: '*(BETA)*  Blue-green deployment is a strategy that minimizes database downtime when you make changes, like major version upgrades, by copying a production environment to a separate, synchronized staging environment.'
-          hidden: true
+          description: '*(BETA)*  Provide commands for managing Cloud SQL blue-green deployments.'
           commands:
             - name: create
               description: '*(BETA)*  Creates a Cloud SQL blue-green deployment.'
-              hidden: true
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
                 --description=: User-provided description for the blue-green deployment.
@@ -58657,7 +58889,6 @@ commands:
                 --target-database-version=: Database version for the target instance, for major version upgrade.
             - name: delete
               description: '*(BETA)*  Deletes a Cloud SQL blue-green deployment.'
-              hidden: true
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
                 --delete-old-source: Delete the old source instance.
@@ -58666,14 +58897,12 @@ commands:
                 --region=: Regional location (e.g. asia-east1, us-east1).
             - name: describe
               description: '*(BETA)*  Retrieves information about a Cloud SQL blue-green deployment.'
-              hidden: true
               flags:
                 --no-show-config-diff&: Show the configuration difference between source and target instances.
                 --region=: Regional location (e.g. asia-east1, us-east1).
                 --show-config-diff: Show the configuration difference between source and target instances.
             - name: list
               description: '*(BETA)*  Lists Cloud SQL blue-green deployments.'
-              hidden: true
               flags:
                 --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
                 --limit=: Maximum number of resources to list.
@@ -58684,7 +58913,6 @@ commands:
                 --uri: Print a list of resource URIs instead of the default output, and change the
             - name: switchover
               description: '*(BETA)*  Performs switchover for a Cloud SQL blue-green deployment.'
-              hidden: true
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
                 --no-async&: Return immediately, without waiting for the operation in progress to
@@ -59040,6 +59268,7 @@ commands:
                 --no-recreate-replicas-on-primary-crash&: Allow/Disallow replica recreation when a primary MySQL instance operating in reduced durability mode crashes.
                 --no-require-ssl&: Specified if users connecting over IP must use SSL.
                 --no-retain-backups-on-delete&: Retain automated/ondemand backups of the instance after the instance is deleted.
+                --no-sql-server-enable-password-policy&: Enables password policy on SQL Server local logins.
                 --no-storage-auto-increase&: Storage size can be increased, but it cannot be decreased; storage increases are permanent for the life of the instance.
                 --node-count=: The number of nodes in the pool.
                 --password-policy-complexity=: The complexity of the password.
@@ -59066,6 +59295,11 @@ commands:
                 --server-certificate-rotation-mode=: Set the server certificate rotation mode of the instance.
                 --source-ip-address=!: Public IP address used to connect to and replicate from the external data source.
                 --source-port=: Port number used to connect to and replicate from the external data source.
+                --sql-server-enable-password-policy&: Enables password policy on SQL Server local logins.
+                --sql-server-password-policy-history-length=&: Number of previous passwords that cannot be reused on SQL Server local logins.
+                --sql-server-password-policy-maximum-age=&: Maximum duration that a password remains valid before it expires on SQL Server local logins.
+                --sql-server-password-policy-min-length=&: Minimum number of characters required for passwords on SQL Server local logins.
+                --sql-server-password-policy-minimum-age=&: Minimum duration that must pass before a password can be changed on SQL Server local logins.
                 --ssl-mode=: Set the SSL mode of the instance.
                 --storage-auto-increase: Storage size can be increased, but it cannot be decreased; storage increases are permanent for the life of the instance.
                 --storage-auto-increase-limit=: Allows you to set a maximum storage capacity, in GB.
@@ -59250,6 +59484,7 @@ commands:
                 --clear-password-policy: Clear the existing password policy.
                 --clear-psc-auto-connections: This removes all automatically created connections.
                 --clear-psc-network-attachment-uri: Disable outbound connectivity from a Cloud SQL instance which uses Private Service Connect (PSC).
+                --clear-sql-server-password-policy&: Clears existing SQL Server password policy configurations from the instance.
                 --clear-unc-mappings&: Clear the UNC mappings for the SQL Server instance.
                 --connection-pool-flags=: Comma-separated list of connection pool flags to set on the instance connection pool.
                 --connector-enforcement=: Cloud SQL Connector enforcement mode.
@@ -59322,6 +59557,7 @@ commands:
                 --no-clear-password-policy&: Clear the existing password policy.
                 --no-clear-psc-auto-connections&: This removes all automatically created connections.
                 --no-clear-psc-network-attachment-uri&: Disable outbound connectivity from a Cloud SQL instance which uses Private Service Connect (PSC).
+                --no-clear-sql-server-password-policy&: Clears existing SQL Server password policy configurations from the instance.
                 --no-clear-unc-mappings&: Clear the UNC mappings for the SQL Server instance.
                 --no-database-center-integration-enabled&: Whether the instance is integrated with Database Center.
                 --no-deletion-protection&: Enable deletion protection on a Cloud SQL instance.
@@ -59356,6 +59592,7 @@ commands:
                 --no-require-ssl&: mysqld should default to 'REQUIRE X509' for users connecting over IP.
                 --no-retain-backups-on-delete&: Retain automated/ondemand backups of the instance after the instance is deleted.
                 --no-simulate-maintenance-event&: Simulate a maintenance event without changing the version.
+                --no-sql-server-enable-password-policy&: Enables password policy on SQL Server local logins.
                 --no-storage-auto-increase&: Storage size can be increased, but it cannot be decreased; storage increases are permanent for the life of the instance.
                 --no-switch-transaction-logs-to-cloud-storage&: Switches the location of the transaction logs used for PITR from disk to Cloud Storage.
                 --no-upgrade-sql-network-architecture&: Upgrade from old network architecture to new network architecture.
@@ -59384,6 +59621,11 @@ commands:
                 --server-ca-pool=: Set the server CA pool of the instance.
                 --server-certificate-rotation-mode=: Set the server certificate rotation mode of the instance.
                 --simulate-maintenance-event: Simulate a maintenance event without changing the version.
+                --sql-server-enable-password-policy&: Enables password policy on SQL Server local logins.
+                --sql-server-password-policy-history-length=&: Number of previous passwords that cannot be reused on SQL Server local logins.
+                --sql-server-password-policy-maximum-age=&: Maximum duration that a password remains valid before it expires on SQL Server local logins.
+                --sql-server-password-policy-min-length=&: Minimum number of characters required for passwords on SQL Server local logins.
+                --sql-server-password-policy-minimum-age=&: Minimum duration that must pass before a password can be changed on SQL Server local logins.
                 --ssl-mode=: Set the SSL mode of the instance.
                 --storage-auto-increase: Storage size can be increased, but it cannot be decreased; storage increases are permanent for the life of the instance.
                 --storage-auto-increase-limit=: Allows you to set a maximum storage capacity, in GB.
