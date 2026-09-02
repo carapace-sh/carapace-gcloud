@@ -2,6 +2,39 @@
 name: edge-cloud
 description: Manage edge-cloud resources.
 commands:
+    - name: api-keys
+      description: Read and manipulate API keys for Google Distributed Cloud.
+      commands:
+        - name: create
+          description: Create a Google Distributed Cloud API key.
+          flags:
+            --api-target=: API target restriction.
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location name.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --service-account=!: The ID of the service account to bind the API key to.
+            --validity=: The validity duration for the key (e.g., 3600s, 1h, 1d).
+            --zone=!: The Google Distributed Cloud zone ID where the API key will be created.
+        - name: delete
+          description: Delete a Google Distributed Cloud API key.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location name.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe a Google Distributed Cloud API key.
+          flags:
+            --location=: The location name.
+        - name: list
+          description: List Google Distributed Cloud API keys.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
     - name: container
       description: Manage Edge Container resources.
       commands:
@@ -20,6 +53,7 @@ commands:
                 --control-plane-node-count=: The number of local control plane nodes in a cluster.
                 --control-plane-node-location=: Google Edge Cloud zone where the local control plane nodes
                 --control-plane-node-storage-schema=: Name for the storage schema of control plane nodes.
+                --control-plane-node-system-partition-size-gib=: Specifies the system partition size in GiB for the control plane nodes.
                 --control-plane-shared-deployment-policy=: Policy configuration about how user application is deployed for
                 --default-max-pods-per-node=: The default maximum number of pods per node.
                 --enable-google-group-authentication: If set, the cluster will be configured to use Google Group authentication.
@@ -38,6 +72,11 @@ commands:
                 --services-ipv4-cidr=: All services in the cluster are assigned an RFC1918 IPv4 address from
                 --system-addons-config=: If specified as a YAML/JSON file, customized configuration in this file
                 --zone-storage-kms-key=: Google Cloud KMS key that will be used to encrypt and decrypt the root key
+              completion:
+                flag:
+                    control-plane-node-system-partition-size-gib:
+                        - "100"
+                        - "300"
             - name: delete
               description: Delete an Edge Container cluster.
               flags:
@@ -511,9 +550,137 @@ commands:
               description: Initialize a specified Distributed Cloud Edge Network zone.
               flags:
                 --location=: The Cloud location for the zone.
+    - name: projects
+      description: Google Distributed Cloud Connected Project gcloud commands.
+      commands:
+        - name: describe
+          description: Describe a Google Cloud Platform project enabled on Google Distributed Cloud zone.
+          flags:
+            --location=: The location name.
+            --organization=: The organization name.
+            --zone=: The name of the Google Distributed Cloud Edge zone.
+        - name: enable
+          description: Enables a Google Cloud Platform project on Google Distributed Cloud zone.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: For resources [location, zonal_project, zone], provides fallback value for resource location attribute.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: For resources [location, organization, zonal_project, zone], provides fallback value for resource organization attribute.
+            --zone=: For resources [zonal_project, zone], provides fallback value for resource zone attribute.
+        - name: list
+          description: List the Google Cloud Platform projects enabled on Google Distributed Cloud zone.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: The location name.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --organization=: The organization name.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+            --zone=!: ID of the zone or fully qualified identifier for the zone.
+    - name: service-accounts
+      description: Google Distributed Cloud Service Account gcloud commands.
+      commands:
+        - name: create
+          description: Creates a Service Account on a Google Distributed Cloud zone.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location name.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --zone=!: Google Distributed Cloud zone name.
+        - name: delete
+          description: Deletes a Service Account on a Google Distributed Cloud zone.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location name.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describes a Service Account on a Google Distributed Cloud zone.
+          flags:
+            --location=: The location name.
+        - name: keys
+          description: Google Distributed Cloud Service Account Keys gcloud commands.
+          commands:
+            - name: create
+              description: Create service account key for a service account on a Google Distributed Cloud zone.
+              flags:
+                --ca-cert-path=: File that contains the CA certificate of the Google Distributed Cloud zone.
+                --location=: The location name.
+                --service-account=!: ID of the Service Account or fully qualified identifier for the Service Account.
+                --validity=: Validity of the service account key.
+            - name: describe
+              description: Describe a service account key for a service account on a Google Distributed Cloud zone.
+              flags:
+                --location=: The location name.
+                --service-account=!: ID of the Service Account or fully qualified identifier for the Service Account.
+            - name: disable
+              description: Disable a service account key for a service account on a Google Distributed Cloud zone.
+              flags:
+                --location=: The location name.
+                --service-account=!: ID of the Service Account or fully qualified identifier for the Service Account.
+            - name: list
+              description: List service account keys for a service account on a Google Distributed Cloud zone.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location name.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --service-account=!: ID of the Service Account or fully qualified identifier for the Service Account.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: list
+          description: List Service Accounts in a given project and location on a Google Distributed Cloud zone.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: services
+      description: GDC Connected Service gcloud commands.
+      commands:
+        - name: describe
+          description: Describe a Google Cloud Platform service enabled on a Google Distributed Cloud zone.
+          flags:
+            --location=: The location name.
+        - name: enable
+          description: Enables a Google Cloud Platform service on a Google Distributed Cloud zone.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --id=: Service ID.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --zone=!: Google Distributed Cloud zone.
+        - name: list
+          description: List Google Cloud Platform services enabled on a Google Distributed Cloud zone.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
     - name: zones
       description: Manage zone operations for Google Distributed Cloud.
       commands:
+        - name: describe
+          description: Describe a Google Distributed Cloud zone.
+          flags:
+            --location=!: Google Cloud Platform location.
+            --organization=: Google Distributed Cloud organization number for the zone.
+        - name: get-iam-policy
+          description: Get IAM policy for a project on the Google Distributed Cloud zone.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: The global location name.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
         - name: list
           description: List Google Distributed Cloud zones.
           flags:
@@ -525,3 +692,22 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: roles
+          description: Manage roles for Google Distributed Cloud Zones.
+          commands:
+            - name: list
+              description: Lists the roles for a project on the Google Distributed Cloud zone.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The global location name.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+                --zone=!: ID of the zone or fully qualified identifier for the zone.
+        - name: set-iam-policy
+          description: Set IAM policy for a project on the Google Distributed Cloud zone.
+          flags:
+            --location=: The global location name.
+            --zone=!: ID of the zone or fully qualified identifier for the zone.

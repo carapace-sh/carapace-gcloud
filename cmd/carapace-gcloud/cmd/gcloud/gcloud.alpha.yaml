@@ -266,6 +266,10 @@ commands:
                     combine-function:
                         - and
                         - or
+        - name: lookup-configured-perimeter
+          description: '*(ALPHA)*  Look up the configured VPC Service Controls service perimeter for a resource.'
+          flags:
+            --resource=!: The resource to look up effective service perimeters for.
         - name: perimeters
           description: '*(ALPHA)*  Manage Access Context Manager service perimeters.'
           commands:
@@ -3573,6 +3577,7 @@ commands:
                         - POSTGRES_16
                         - POSTGRES_17
                         - POSTGRES_18
+                        - POSTGRES_19
                     maintenance-window-day:
                         - MONDAY
                         - TUESDAY
@@ -3738,6 +3743,7 @@ commands:
                         - POSTGRES_16
                         - POSTGRES_17
                         - POSTGRES_18
+                        - POSTGRES_19
                     maintenance-window-day:
                         - MONDAY
                         - TUESDAY
@@ -8553,6 +8559,7 @@ commands:
                 --folder=: Folder Id for which to generate audit report
                 --gcs-uri=: Destination Cloud storage bucket where report and evidence must be uploaded.
                 --location=!: The location where the report should be generated.
+                --organization=: Organization Id for which to generate audit report
                 --report-format=!: The format in which the audit report should be created.
               completion:
                 flag:
@@ -8567,6 +8574,7 @@ commands:
                 --compliance-framework=!: Compliance Framework against which the Report must be generated.
                 --folder=: Folder Id for which to generate audit scope
                 --location=!: The location where the scope should be generated.
+                --organization=: Organization Id for which to generate audit scope
                 --output-directory=: The directory path where the scope report should be created .
                 --output-file-name=!: The name by while scope report should be created .
                 --report-format=!: The format in which the audit scope report should be created.
@@ -8591,6 +8599,7 @@ commands:
               flags:
                 --folder=: The folder for the operation.
                 --location=: The location for the operation.
+                --organization=: The organization for the operation.
     - name: auth
       description: '*(ALPHA)*  Manage oauth2 credentials for the Google Cloud CLI.'
       commands:
@@ -9900,6 +9909,10 @@ commands:
                     --glue-aws-region=: The AWS region of the Glue catalog to connect to.
                     --glue-aws-role-arn=: The AWS role ARN of the Glue catalog that the BigLake federated catalog will assume to access the catalog.
                     --glue-warehouse=: The warehouse to connect to in AWS Glue Iceberg REST Catalog.
+                    --kms-key=&: ID of the key or fully qualified identifier for the key.
+                    --kms-keyring=&: The KMS keyring of the key.
+                    --kms-location=&: The Google Cloud location for the key.
+                    --kms-project=&: The Google Cloud project for the key.
                     --namespace-filters=: Filters to determine which namespaces are included in the refresh process.
                     --primary-location=: Primary location for mirroring the remote catalog metadata.
                     --refresh-interval=: The interval for refreshing metadata from the remote catalog (e.g., "1hr5m30s").
@@ -9965,6 +9978,10 @@ commands:
                     --credential-mode=: Credential mode to create the catalog with.
                     --description=: Description of the resource.
                     --glue-aws-role-arn=: The AWS role ARN of the Glue catalog that the BigLake federated catalog will assume to access the catalog.
+                    --kms-key=&: ID of the key or fully qualified identifier for the key.
+                    --kms-keyring=&: The KMS keyring of the key.
+                    --kms-location=&: The Google Cloud location for the key.
+                    --kms-project=&: The Google Cloud project for the key.
                     --namespace-filters=: Filters to determine which namespaces are included in the refresh process.
                     --refresh-interval=: Interval for refreshing metadata from the remote catalog (e.g., "1hr5m30s").
                     --restricted-locations=: Additional Google Cloud Storage buckets and locations (e.g., `gs://my-other-bucket/...`) that are permitted for use by resources within a catalog.
@@ -13505,7 +13522,7 @@ commands:
                 --filestores=: Reference of existing filestore instance.
                 --flex-start-instances=: Parameters to define cluster Flex Start instances.
                 --labels=: Cluster labels as key value pairs.
-                --location=: The location id of the cluster resource.
+                --location=: Location ID of the cluster resource.
                 --lustres=: Reference of existing Lustre instance.
                 --network-project=: Project ID of the project containing the network and subnetwork
                 --network=!: Reference of existing network name.
@@ -13540,12 +13557,12 @@ commands:
               description: '*(ALPHA)*  Deletes a Cluster Director resource.'
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
-                --location=: The location id of the cluster resource.
+                --location=: Location ID of the cluster resource.
                 --no-async&: Return immediately, without waiting for the operation in progress to
             - name: describe
               description: '*(ALPHA)*  Gets details of a Cluster Director resource.'
               flags:
-                --location=: The location id of the cluster resource.
+                --location=: Location ID of the cluster resource.
             - name: list
               description: '*(ALPHA)*  List Cluster Director resources.'
               flags:
@@ -13579,7 +13596,7 @@ commands:
                 --async: Return immediately, without waiting for the operation in progress to
                 --config=!: Configuration of the cluster specs in the form of a JSON object.
                 --description=: Description of the cluster.
-                --location=: The location id of the cluster resource.
+                --location=: Location ID of the cluster resource.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-update-slurm-disable-health-check-program&: ""
                 --remove-filestore-instances=: Parameters to remove filestore instance config by filestore name.
@@ -13839,7 +13856,7 @@ commands:
                 --disable-private-environment: Enables internet connection for Composer components.
                 --disk-size=: The disk size for each VM node in the environment.
                 --enable-cloud-data-lineage-integration: Enable Cloud Data Lineage integration, supported for Composer 2 Environments.
-                --enable-development-mode&: Whether to build a development-mode environment.
+                --enable-development-mode: Whether to build a development-mode environment.
                 --enable-high-resilience: Enable high resilience, supported for Composer 2 Environments.
                 --enable-ip-alias: Enable use of link:https://cloud.google.com/compute/docs/alias-ip[alias IPs]
                 --enable-ip-masq-agent: When enabled, the
@@ -13961,7 +13978,6 @@ commands:
                 --location=: Region where Composer environment runs or in which to create the environment.
             - name: hibernate
               description: '*(ALPHA)*  Hibernate a Cloud Composer environment.'
-              hidden: true
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
                 --location=: Region where Composer environment runs or in which to create the environment.
@@ -14036,7 +14052,6 @@ commands:
                 --no-async&: Return immediately, without waiting for the operation in progress to
             - name: resume
               description: '*(ALPHA)*  Resume a Cloud Composer environment.'
-              hidden: true
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
                 --location=: Region where Composer environment runs or in which to create the environment.
@@ -14392,12 +14407,14 @@ commands:
                 --ip-collection-region=&: 'Region of the ipCollection to operate on. '
                 --ip-collection=: If specified, the public delegated prefix (PDP) from which to allocate the BYOIP IP address.
                 --ip-version=: Version of the IP address to be allocated and reserved.
+                --network-attachment=!: Regional network attachment resource in which the address(es) should be
                 --network-tier=: The network tier to assign to the reserved IP addresses.
                 --network=: If specified, the network resource in which the address(es) should be
                 --no-global&: If set, the addresses are global.
                 --prefix-length=: The prefix length of the IP range.
                 --purpose=: The purpose of the address resource.
                 --region=: Region of the addresses to create.
+                --service-class-id=: Regional Service Class ID of the producer service associated with the
                 --subnet-region=&: 'Region of the subnet to operate on. '
                 --subnet=: If specified, the subnet name in which the address(es) should be reserved.
               completion:
@@ -14499,6 +14516,12 @@ commands:
                     workload-type:
                         - BATCH
                         - SERVING
+            - name: calendar-mode-extension
+              description: '*(ALPHA)*  Get advice on the optimal end time for extending a future reservation.'
+              hidden: true
+              flags:
+                --end-time=!: The new end time for the future reservation after the extension is applied.
+                --zone=: Zone of the future reservation to get extension advice for.
             - name: capacity
               description: '*(ALPHA)*  Get capacity advice for Compute Engine resources.'
               flags:
@@ -14861,6 +14884,17 @@ commands:
                 --no-ip-port-dynamic-forwarding&: Enables Dynamic Forwarding in IpPort selection mode.
                 --no-negative-caching&: Negative caching allows per-status code cache TTLs to be set, in order to
                 --no-request-coalescing&: Enables request coalescing to the backend (recommended).
+                --outlier-detection-base-ejection-time=: The base time during which a backend endpoint is ejected.
+                --outlier-detection-consecutive-errors=: Number of consecutive errors before a backend endpoint is ejected from
+                --outlier-detection-consecutive-gateway-failure=: The number of consecutive gateway failures (502, 503, 504) before a
+                --outlier-detection-enforcing-consecutive-errors=: The percentage chance that a backend endpoint will be ejected when an
+                --outlier-detection-enforcing-consecutive-gateway-failure=: The percentage chance that a backend endpoint will be ejected when an
+                --outlier-detection-enforcing-success-rate=: The percentage chance that a backend endpoint will be ejected when an
+                --outlier-detection-interval=: Time interval between ejection analysis sweeps.
+                --outlier-detection-max-ejection-percent=: Maximum percentage of backend endpoints in the load balancing pool that
+                --outlier-detection-success-rate-minimum-hosts=: The number of backend endpoints in the load balancing pool that must have
+                --outlier-detection-success-rate-request-volume=: The minimum number of total requests that must be collected in one
+                --outlier-detection-success-rate-stdev-factor=: This factor is used to determine the ejection threshold for success rate
                 --port-name=: Backend services for Application Load Balancers and proxy Network
                 --protocol=: Protocol for incoming requests.
                 --region=: Region of the backend service to create.
@@ -15185,12 +15219,24 @@ commands:
                 --no-max-ttl: (DEPRECATED) Clears max TTL value.
                 --no-negative-caching&: Negative caching allows per-status code cache TTLs to be set, in order to
                 --no-negative-caching-policies: Remove all negative caching policies for the backend service.
+                --no-outlier-detection: Clears currently set backend service outlier detection settings.
                 --no-request-coalescing&: Enables request coalescing to the backend (recommended).
                 --no-security-settings: Clears the current set of backend service security settings.
                 --no-serve-while-stale: (DEPRECATED) Clears serve while stale value.
                 --no-service-bindings: No service bindings should be attached to the backend service.
                 --no-service-lb-policy: No service load balancing policies should be attached to the backend service.
                 --no-tls-settings: Clears currently set backend service TLS settings.
+                --outlier-detection-base-ejection-time=: The base time during which a backend endpoint is ejected.
+                --outlier-detection-consecutive-errors=: Number of consecutive errors before a backend endpoint is ejected from
+                --outlier-detection-consecutive-gateway-failure=: The number of consecutive gateway failures (502, 503, 504) before a
+                --outlier-detection-enforcing-consecutive-errors=: The percentage chance that a backend endpoint will be ejected when an
+                --outlier-detection-enforcing-consecutive-gateway-failure=: The percentage chance that a backend endpoint will be ejected when an
+                --outlier-detection-enforcing-success-rate=: The percentage chance that a backend endpoint will be ejected when an
+                --outlier-detection-interval=: Time interval between ejection analysis sweeps.
+                --outlier-detection-max-ejection-percent=: Maximum percentage of backend endpoints in the load balancing pool that
+                --outlier-detection-success-rate-minimum-hosts=: The number of backend endpoints in the load balancing pool that must have
+                --outlier-detection-success-rate-request-volume=: The minimum number of total requests that must be collected in one
+                --outlier-detection-success-rate-stdev-factor=: This factor is used to determine the ejection threshold for success rate
                 --port-name=: Backend services for Application Load Balancers and proxy Network
                 --protocol=: Protocol for incoming requests.
                 --region=: Region of the backend service to update.
@@ -15595,6 +15641,44 @@ commands:
                     - "yes"
                     - "no"
                     - ask
+        - name: dhcp-options-configs
+          description: '*(ALPHA)*  Manage Compute Engine DHCP options configuration resources.'
+          commands:
+            - name: create
+              description: '*(ALPHA)*  Create a Google Compute Engine DHCP options configuration.'
+              flags:
+                --boot-file-name=: File path of the TFTP boot file (Option 67).
+                --boot-file-params=: Boot file parameter arguments for IPv6 (Option 60).
+                --boot-file-url=: URL of the IPv6 boot file (Option 59).
+                --description=: An optional, textual description for the DHCP options config.
+                --dns-search-paths=: List of domain search suffixes (Options 119 and 24).
+                --dns-server-ipv4-addresses=: List of IPv4 addresses of recursive DNS servers (Option 6).
+                --dns-server-ipv6-addresses=: List of IPv6 addresses of recursive DNS servers (Option 23).
+                --domain-name=: The primary DNS domain name suffix (Option 15).
+                --lease-time=: The duration of the IPv4 address lease offered by the DHCP server to
+                --ntp-server-ipv4-addresses=: List of IPv4 addresses of NTP servers (Option 42).
+                --ntp-server-ipv6-addresses=: List of IPv6 addresses of NTP servers (Option 56).
+                --region=: Region of the dhcp options config to create.
+                --tftp-server-ipv4-addresses=: List of IPv4 addresses of TFTP boot servers (Option 150).
+                --tftp-server-name=: Hostname of the TFTP boot server (Option 66).
+            - name: delete
+              description: '*(ALPHA)*  Delete Google Compute Engine DHCP options configurations.'
+              flags:
+                --region=: Region of the dhcp options configs to delete.
+            - name: describe
+              description: '*(ALPHA)*  Describe a Google Compute Engine DHCP options configuration.'
+              flags:
+                --region=: Region of the dhcp options config to describe.
+            - name: list
+              description: '*(ALPHA)*  List Google Compute Engine DHCP options configurations.'
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --regions=: If provided, only resources from the given regions are queried.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
         - name: diagnose
           description: '*(ALPHA)*  Debugging tools for Compute Engine virtual machine instances.'
           commands:
@@ -18127,12 +18211,14 @@ commands:
                   flags:
                     --async: Return immediately, without waiting for the operation in progress to
                     --no-async&: Return immediately, without waiting for the operation in progress to
+                    --no-graceful-shutdown: Delete the managed instance group without graceful shutdown.
                     --region=: Region of the managed instance groups to delete.
                     --zone=: Zone of the managed instance groups to delete.
                 - name: delete-instances
                   description: '*(ALPHA)*  Delete instances that are managed by a managed instance group.'
                   flags:
                     --instances=!: Names of instances to delete.
+                    --no-graceful-shutdown: End an ongoing graceful shutdown, or delete the specified instances without graceful shutdown.
                     --no-skip-instances-on-validation-error&: Specifies whether the request should proceed even if the
                     --region=: Region of the managed instance group to operate on.
                     --skip-instances-on-validation-error: Specifies whether the request should proceed even if the
@@ -18279,6 +18365,7 @@ commands:
                   description: '*(ALPHA)*  Recreate instances managed by a managed instance group.'
                   flags:
                     --instances=!: Names of instances to recreate.
+                    --no-graceful-shutdown: End an ongoing graceful shutdown, or recreate the specified instances without graceful shutdown.
                     --region=: Region of the managed instance group to operate on.
                     --zone=: Zone of the managed instance group to operate on.
                 - name: resize
@@ -18500,6 +18587,7 @@ commands:
                     --force: Immediately stop the specified instances, skipping the initial
                     --instances=!: Names of instances to stop.
                     --no-force&: ""
+                    --no-graceful-shutdown: End an ongoing graceful shutdown, or stop the specified instances without graceful shutdown.
                     --region=: Region of the managed instance group to operate on.
                     --zone=: Zone of the managed instance group to operate on.
                 - name: suspend-instances
@@ -19496,6 +19584,7 @@ commands:
                 --create-disk=: Creates and attaches persistent disks to the instances.
                 --csek-key-file=: (DEPRECATED)       Path to a Customer-Supplied Encryption Key (CSEK) key file that maps
                 --current-cpus=: Current number of vCPUs available for VM.
+                --current-memory=: Current amount of memory available for VM.
                 --custom-cpu=!: A whole number value specifying the number of cores that are needed in
                 --custom-extensions: Use the extended custom machine type.
                 --custom-memory=!: A whole number value indicating how much memory is desired in the custom
@@ -20850,6 +20939,7 @@ commands:
                         --customer-router-ipv6-interface-id=: '`customer-router-ipv6-interface-id` field is not available.'
                         --description=: Human-readable plain-text description of attachment.
                         --enable-admin: Administrative status of the interconnect attachment.
+                        --interconnect=: The interconnect for the interconnect attachment
                         --mtu=: Maximum transmission unit (MTU) is the size of the largest IP packet
                         --no-admin-enabled&: (DEPRECATED) Use --enable-admin instead.
                         --no-clear-labels&: Remove all labels.
@@ -23515,7 +23605,7 @@ commands:
                 - name: describe
                   description: '*(ALPHA)*  Describe the compliance states for OS policies that are applied to a VM.'
                   flags:
-                    --location=: Location of the VM instance to describe.
+                    --location=: Location of the Compute Engine VM instance.
                 - name: list
                   description: '*(ALPHA)*  List compliance states for OS policies that are applied to VMs.'
                   flags:
@@ -23532,7 +23622,7 @@ commands:
                 - name: describe
                   description: '*(ALPHA)*  Describe the inventory data for a Compute Engine VM instance.'
                   flags:
-                    --location=: Location of the Compute Engine VM instance to describe.
+                    --location=: Location of the Compute Engine VM instance.
                     --view=: Specifies what information should be included in the
                   completion:
                     flag:
@@ -23544,7 +23634,7 @@ commands:
                   flags:
                     --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
                     --limit=: Maximum number of resources to list.
-                    --location=: Location of the Compute Engine VM instances to list.
+                    --location=: ID of the location or fully qualified identifier for the location.
                     --no-uri&: Print a list of resource URIs instead of the default output, and change the
                     --page-size=: Some services group resource list output into pages.
                     --sort-by=: Comma-separated list of resource field key names to sort by.
@@ -23571,7 +23661,7 @@ commands:
                     --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
                     --instance=: Either instance name or instance ID.
                     --limit=: Maximum number of resources to list.
-                    --location=: Location of the OS policy assignment reports to list, will default to the user's compute/zone property if not specified.
+                    --location=: ID of the location or fully qualified identifier for the location.
                     --page-size=: Some services group resource list output into pages.
                     --sort-by=: Comma-separated list of resource field key names to sort by.
             - name: os-policy-assignments
@@ -23750,13 +23840,13 @@ commands:
                 - name: describe
                   description: '*(ALPHA)*  Describe the vulnerability report data for a Compute Engine VM instance.'
                   flags:
-                    --location=: Location of the Compute Engine VM instance to describe.
+                    --location=: Location of the Compute Engine VM instance.
                 - name: list
                   description: '*(ALPHA)*  List vulnerability report data for all Compute Engine VM instances in a specified location.'
                   flags:
                     --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
                     --limit=: Maximum number of resources to list.
-                    --location=: Location of the Compute Engine VM instances to list.
+                    --location=: ID of the location or fully qualified identifier for the location.
                     --no-uri&: Print a list of resource URIs instead of the default output, and change the
                     --page-size=: Some services group resource list output into pages.
                     --sort-by=: Comma-separated list of resource field key names to sort by.
@@ -25707,7 +25797,7 @@ commands:
                 --detection-load-threshold=: The threshold on backend's load, over which adaptive protection detects an attack.
                 --detection-relative-to-baseline-qps=: The QPS of the incoming traffic relative to the average baseline QPS, over which adaptive protection detects an attack.
                 --threshold-config-name=!: The name for the threshold config.
-                --traffic-granularity-configs=: Specify up to 2 configs matching a specifc type/value of traffic.
+                --traffic-granularity-configs=: Specify up to 2 configs matching a specific type/value of traffic.
             - name: add-user-defined-field
               description: '*(ALPHA)*  Add a user defined field to a Compute Engine security policy.'
               flags:
@@ -26246,16 +26336,13 @@ commands:
                 --permissions=!: The permissions to test.
         - name: snapshot-recycle-bin-policy
           description: '*(ALPHA)*  Update and describe Compute Engine snapshot recycle bin policy.'
-          hidden: true
           commands:
             - name: describe
               description: '*(ALPHA)*  Describe the project''s or organization''s snapshot recycle bin policy.'
-              hidden: true
               flags:
                 --organization=: Organization ID for the policy.
             - name: update
               description: '*(ALPHA)*  Update the project''s or organization''s snapshot recycle bin policy.'
-              hidden: true
               flags:
                 --organization=: Organization ID to apply this policy to.
                 --remove-rule=: Key of the rule to remove.
@@ -26348,7 +26435,6 @@ commands:
                 --region=: Region of the snapshot to describe.
             - name: get-effective-recycle-bin-rule
               description: '*(ALPHA)*  Returns the effective recycle bin rule for a Compute Engine snapshot.'
-              hidden: true
             - name: get-iam-policy
               description: '*(ALPHA)*  Get the IAM policy for a Compute Engine snapshot.'
               flags:
@@ -31130,6 +31216,7 @@ commands:
                 --datapath-provider=&: ""
                 --dataplane-optimization-mode=: Select scalability mode for dataplane v2.
                 --dataplane-v2-observability-mode=: '(REMOVED) '
+                --default-compute-class=&: Sets the default compute class for the cluster.
                 --default-max-pods-per-node=: The default max number of pods per node for node pools in the cluster.
                 --disable-additive-vpc-scope: Disables Additive VPC Scope.
                 --disable-dataplane-v2-flow-observability: Disables Advanced Datapath Observability.
@@ -31946,6 +32033,7 @@ commands:
                 --convert-to-standard&: Convert the given Autopilot cluster to Standard.
                 --database-encryption-key=: Enable Database Encryption.
                 --dataplane-v2-observability-mode=: '(REMOVED) '
+                --default-compute-class=&: Sets the default compute class for the cluster.
                 --disable-additive-vpc-scope: Disables Additive VPC Scope.
                 --disable-auto-ipam: Disable the Auto IP Address Management (Auto IPAM) feature for the cluster.
                 --disable-autopilot&: Converts a cluster from Autopilot mode to Standard mode.
@@ -33521,9 +33609,17 @@ commands:
                     --async: Return immediately, without waiting for the operation in progress to
                     --control-plane-version=: The GKE cluster version to upgrade the control plane to.
                     --force: Force rollout creation even if an active rollout exists on the first stage of the sequence.
+                    --ignore-cluster-disruption-budgets: If set, the rollout will ignore the disruption budgets
+                    --ignore-maintenance-policies: If set, the rollout will ignore any maintenance policies
                     --no-async&: Return immediately, without waiting for the operation in progress to
                     --no-force&: Force rollout creation even if an active rollout exists on the first stage of the sequence.
+                    --no-ignore-cluster-disruption-budgets&: If set, the rollout will ignore the disruption budgets
+                    --no-ignore-maintenance-policies&: If set, the rollout will ignore any maintenance policies
+                    --no-patch-only&: If set, the rollout will only upgrade clusters that are already on
                     --node-version=: The GKE version to upgrade the nodes to.
+                    --patch-only: If set, the rollout will only upgrade clusters that are already on
+                    --soak-duration-override-all-stages=: Overrides the soak duration for all stages of the rollout.
+                    --soak-duration-overrides-per-stage=: Overrides the soak duration for specific stages of the rollout,
             - name: scopes
               description: '*(ALPHA)*  Manage scopes of all your GKE fleets.'
               commands:
@@ -35009,9 +35105,17 @@ commands:
                     --async: Return immediately, without waiting for the operation in progress to
                     --control-plane-version=: The GKE cluster version to upgrade the control plane to.
                     --force: Force rollout creation even if an active rollout exists on the first stage of the sequence.
+                    --ignore-cluster-disruption-budgets: If set, the rollout will ignore the disruption budgets
+                    --ignore-maintenance-policies: If set, the rollout will ignore any maintenance policies
                     --no-async&: Return immediately, without waiting for the operation in progress to
                     --no-force&: Force rollout creation even if an active rollout exists on the first stage of the sequence.
+                    --no-ignore-cluster-disruption-budgets&: If set, the rollout will ignore the disruption budgets
+                    --no-ignore-maintenance-policies&: If set, the rollout will ignore any maintenance policies
+                    --no-patch-only&: If set, the rollout will only upgrade clusters that are already on
                     --node-version=: The GKE version to upgrade the nodes to.
+                    --patch-only: If set, the rollout will only upgrade clusters that are already on
+                    --soak-duration-override-all-stages=: Overrides the soak duration for all stages of the rollout.
+                    --soak-duration-overrides-per-stage=: Overrides the soak duration for specific stages of the rollout,
             - name: scopes
               description: '*(ALPHA)*  Manage scopes of all your GKE fleets.'
               commands:
@@ -36729,21 +36833,31 @@ commands:
                   flags:
                     --ca-certificate=: x509 PEM-encoded certificate of the CA that signed the database
                     --certificate=: x509 PEM-encoded certificate that will be used by the replica to
+                    --cloudsql-instance=: If the source or destination is a Cloud SQL database, then use this field
                     --display-name=: A user-friendly name for the connection profile.
                     --endpoint-mode=: Specifies endpoint mode for a given command.
-                    --host=!: IP or hostname of the database.
+                    --forward-ssh-hostname=!&: Hostname for the SSH tunnel.
+                    --forward-ssh-password=&: SSH password.
+                    --forward-ssh-port=&: Port for the SSH tunnel, default value is 22.
+                    --forward-ssh-private-key=&: SSH private key..
+                    --forward-ssh-username=!&: Username for the SSH tunnel.
+                    --host=: IP or hostname of the database.
                     --instance=: If the source is a Cloud SQL database, use this field to provide the Cloud
                     --labels=: List of label KEY=VALUE pairs to add.
                     --no-async: Waits for the operation in progress to complete before returning.
                     --no-prompt-for-password&: Prompt for the password used to connect to the database.
+                    --no-static-ip-connectivity&: use static ip connectivity
                     --password=: Password for the user that Database Migration Service uses to
-                    --port=!: Network port of the database.
+                    --port=: Network port of the database.
                     --private-connection=!: ID of the private_connection or fully qualified identifier for the private_connection.
                     --private-key=: Unencrypted PKCS#1 or PKCS#8 PEM-encoded private key associated with
                     --prompt-for-password: Prompt for the password used to connect to the database.
                     --provider=: Database provider, for managed databases.
+                    --psc-service-attachment=!: ID of the service_attachment or fully qualified identifier for the service_attachment.
                     --region=: The Cloud region for the connection_profile.
-                    --username=!: Username that Database Migration Service uses to connect to
+                    --role=: The role of the connection profile.
+                    --static-ip-connectivity: use static ip connectivity
+                    --username=: Username that Database Migration Service uses to connect to
                   completion:
                     flag:
                         endpoint-mode:
@@ -36753,6 +36867,9 @@ commands:
                         provider:
                             - RDS
                             - CLOUDSQL
+                        role:
+                            - SOURCE
+                            - DESTINATION
             - name: delete
               description: '*(ALPHA)*  Delete a Database Migration Service connection profile.'
               flags:
@@ -36819,12 +36936,16 @@ commands:
                 --instance=: If the source is a Cloud SQL database, use this field to provide the Cloud
                 --no-clear-labels&: Remove all labels.
                 --no-prompt-for-password&: Prompt for the password used to connect to the database.
+                --no-static-ip-connectivity&: use static ip connectivity
                 --password=: Password for the user that Database Migration Service uses to
                 --port=: Network port of the database.
+                --private-connection=!: ID of the private_connection or fully qualified identifier for the private_connection.
                 --private-key=: Unencrypted PKCS#1 or PKCS#8 PEM-encoded private key associated with
                 --prompt-for-password: Prompt for the password used to connect to the database.
+                --psc-service-attachment=!: ID of the service_attachment or fully qualified identifier for the service_attachment.
                 --region=: The Cloud region for the connection_profile.
                 --remove-labels=: List of label keys to remove.
+                --static-ip-connectivity: use static ip connectivity
                 --update-labels=: List of label KEY=VALUE pairs to update.
                 --username=: Username that Database Migration Service uses to connect to
               completion:
@@ -37558,9 +37679,7 @@ commands:
               flags:
                 --location=: ID of the location or fully qualified identifier for the location.
                 --max-results=: The maximum number of rows of data to return per page of results.
-                --page-token=: Page token received from a previous QueryCatalog call.
-                --query=: The SQL query string.
-                --reference-id=: The reference ID from a previous query to fetch results.
+                --query=!: The SQL query string.
                 --scopes=: One "organizations/<org>" or multiple "projects/<project>" (e.g., "projects/my-project1,projects/my-project2").
                 --timeout=: The timeout for query execution.
         - name: context
@@ -41631,7 +41750,9 @@ commands:
                     --composition-type=: 'The composition type of the applicationTemplate: STANDARD OR COMPOSITE.'
                     --description=: Application template description.
                     --display-name=: Application template display name.
+                    --inputs-as-root-module-variables: If true, exposes all inputs as root module variables.
                     --location=: The location id of the applicationTemplate resource.
+                    --no-inputs-as-root-module-variables&: If true, exposes all inputs as root module variables.
                     --root-input-variables=: Root level input variables of the application template.
                     --root-output-variables=: Root level output variables of the application template.
                     --saas-runtime-context-names=: The SaaS names.
@@ -41876,12 +41997,14 @@ commands:
                     --clear-saas-runtime-context-names: Clear saas_runtime_context_names value and set to empty list.
                     --description=: Application template description.
                     --display-name=: Application template display name.
+                    --inputs-as-root-module-variables: If true, exposes all inputs as root module variables.
                     --location=: The location id of the applicationTemplate resource.
                     --no-clear-application-parameters&: Clear application_parameters value and set to empty list.
                     --no-clear-root-input-variables&: Clear root_input_variables value and set to empty list.
                     --no-clear-root-output-variables&: Clear root_output_variables value and set to empty list.
                     --no-clear-saas-runtime-context&: Set applicationTemplate.saasRuntimeContext back to default value.
                     --no-clear-saas-runtime-context-names&: Clear saas_runtime_context_names value and set to empty list.
+                    --no-inputs-as-root-module-variables&: If true, exposes all inputs as root module variables.
                     --remove-application-parameters=: Remove existing value from application_parameters list.
                     --remove-root-input-variables=: Remove existing value from root_input_variables list.
                     --remove-root-output-variables=: Remove existing value from root_output_variables list.
@@ -44548,7 +44671,7 @@ commands:
                     --control-plane-node-count=: The number of local control plane nodes in a cluster.
                     --control-plane-node-location=: Google Edge Cloud zone where the local control plane nodes
                     --control-plane-node-storage-schema=: Name for the storage schema of control plane nodes.
-                    --control-plane-node-system-partition-size-gib=&: ""
+                    --control-plane-node-system-partition-size-gib=: Specifies the system partition size in GiB for the control plane nodes.
                     --control-plane-shared-deployment-policy=: Policy configuration about how user application is deployed for
                     --default-max-pods-per-node=: The default maximum number of pods per node.
                     --enable-cluster-isolation=: If set, the cluster will be created in a secure cluster isolation mode.
@@ -49198,6 +49321,16 @@ commands:
                             - one-login
                             - ping-federate
                             - vendor-type-unspecified
+                - name: create-workspace-link
+                  description: '*(ALPHA)*  Create a new Workspace Link workforce pool provider.'
+                  hidden: true
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --attribute-condition=: A [Common Expression Language](https://opensource.google/projects/cel) expression, in plain
+                    --attribute-mapping=!: Maps claims from the authentication credentials issued by the IdP into Google Cloud IAM attributes, for example subject, segment.
+                    --location=: The location for the workforce pool.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --workforce-pool=!: ID of the workforce pool or fully qualified identifier for the workforce pool.
                 - name: delete
                   description: '*(ALPHA)*  Delete a workforce pool provider.'
                   flags:
@@ -52103,15 +52236,26 @@ commands:
                     edition:
                         - core-embed-annual
                         - core-enterprise-annual
+                        - core-l-annual
+                        - core-m-annual
+                        - core-s-annual
                         - core-standard
                         - core-standard-annual
                         - core-trial
                         - core-trial-embed
                         - core-trial-enterprise
+                        - core-trial-l-annual
+                        - core-trial-m-annual
+                        - core-trial-s-annual
                         - core-trial-standard
+                        - core-trial-xl-annual
+                        - core-xl-annual
                         - nonprod-core-embed-annual
                         - nonprod-core-enterprise-annual
+                        - nonprod-core-l-annual
+                        - nonprod-core-m-annual
                         - nonprod-core-standard-annual
+                        - nonprod-core-xl-annual
                     maintenance-window-day:
                         - friday
                         - monday
@@ -58750,6 +58894,20 @@ commands:
               hidden: true
               flags:
                 --location=: The location id of the rateLimitPolicy resource.
+            - name: export
+              description: '*(ALPHA)*  Export a RateLimitPolicy resource.'
+              hidden: true
+              flags:
+                --destination=: Path to a YAML file where the configuration will be exported.
+                --location=: The location id of the rateLimitPolicy resource.
+            - name: import
+              description: '*(ALPHA)*  Import a RateLimitPolicy resource.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location id of the rateLimitPolicy resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --source=: Path to a YAML file containing the configuration export data.
             - name: list
               description: '*(ALPHA)*  List RateLimitPolicy resources.'
               hidden: true
@@ -60211,6 +60369,73 @@ commands:
                 --page-size=: Some services group resource list output into pages.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: mcp-transcoders
+          description: '*(ALPHA)*  Manage Mcp Transcoder resources.'
+          hidden: true
+          commands:
+            - name: create
+              description: '*(ALPHA)*  Create an MCP Transcoder.'
+              hidden: true
+              flags:
+                --agent-gateway=!: ID of the agentGateway or fully qualified identifier for the agentGateway.
+                --async: Return immediately, without waiting for the operation in progress to
+                --description=: An optional description of the McpTranscoder resource.
+                --endpoints=!: A list of resource names of Service resources (from Agent Registry) that
+                --etag=: Etag of the resource.
+                --labels=: Set of labels associated with the McpTranscoder resource.
+                --location=: For resources [agent-gateway, mcp_transcoder], provides fallback value for resource location attribute.
+                --mcp-server-url=!: Specifies the MCP server URL used for the MCP request calls.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: delete
+              description: '*(ALPHA)*  Delete an MCP Transcoder.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --etag=: The etag of the McpTranscoder to delete.
+                --location=: The location id of the mcpTranscoder resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: describe
+              description: '*(ALPHA)*  Get details of an MCP Transcoder.'
+              hidden: true
+              flags:
+                --location=: The location id of the mcpTranscoder resource.
+            - name: list
+              description: '*(ALPHA)*  List MCP Transcoders.'
+              hidden: true
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=!: ID of the location or fully qualified identifier for the location.
+                --no-return-partial-success&: If true, allow partial responses for multi-regional Aggregated List
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --return-partial-success: If true, allow partial responses for multi-regional Aggregated List
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: refresh
+              description: '*(ALPHA)*  Refresh an MCP Transcoder.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location id of the mcpTranscoder resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: update
+              description: '*(ALPHA)*  Update an MCP Transcoder.'
+              hidden: true
+              flags:
+                --agent-gateway=!: ID of the agentGateway or fully qualified identifier for the agentGateway.
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-labels: Clear labels value and set to empty map.
+                --description=: An optional description of the McpTranscoder resource.
+                --endpoints=: A list of resource names of Service resources (from Agent Registry) that
+                --etag=: Etag of the resource.
+                --labels=: Set labels to new value.
+                --location=: For resources [agent-gateway, mcp_transcoder], provides fallback value for resource location attribute.
+                --mcp-server-url=: Specifies the MCP server URL used for the MCP request calls.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Clear labels value and set to empty map.
+                --remove-labels=: Remove existing value from map labels.
+                --update-labels=: Update labels value or add key value pair.
         - name: meshes
           description: '*(ALPHA)*  Manage Network Services Meshes.'
           commands:
@@ -61831,6 +62056,44 @@ commands:
               description: '*(ALPHA)*  Wait operations.'
               flags:
                 --location=: The location id of the operation resource.
+        - name: org-number-registries
+          description: '*(ALPHA)*  Manage org number registry resources.'
+          commands:
+            - name: create
+              description: '*(ALPHA)*  Create an org number registry resource.'
+              flags:
+                --admin-project=!: The project that will act as the admin project for CNR resources
+                --async: Return immediately, without waiting for the operation in progress to
+                --labels=: User-defined labels.
+                --location=: The location id of the orgNumberRegistry resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --organization=: The organization id of the orgNumberRegistry resource.
+                --request-id=: An optional request ID to identify requests.
+                --target-scopes=!: The scopes within the organization that the project is able to manage.
+            - name: delete
+              description: '*(ALPHA)*  Delete a single org number registry resource.'
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location id of the orgNumberRegistry resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --organization=: The organization id of the orgNumberRegistry resource.
+                --request-id=: An optional request ID to identify requests.
+            - name: describe
+              description: '*(ALPHA)*  Gets details of a single org number registry resource.'
+              flags:
+                --location=: The location id of the orgNumberRegistry resource.
+                --organization=: The organization id of the orgNumberRegistry resource.
+            - name: list
+              description: '*(ALPHA)*  List org number registry resources.'
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=!: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --organization=: The organization id of the location resource.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
         - name: realms
           description: '*(ALPHA)*  Manage discovered and custom realm resources.'
           commands:
@@ -61841,7 +62104,7 @@ commands:
                 --ip-version=: IP version of the Realm.
                 --labels=: User-defined labels.
                 --location=: For resources [realm, registry-book], provides fallback value for resource location attribute.
-                --management-type=!: Management type of the Realm.
+                --management-type=: Management type of the Realm.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --registry-book=!: ID of the registryBook or fully qualified identifier for the registryBook.
                 --request-id=: An optional request ID to identify requests.
@@ -68370,14 +68633,14 @@ commands:
             --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
             --execution-environment=: Selects the execution environment where the application will run.
             --function=: Specifies that the deployed object is a function.
-            --functional-type=: Specifies the function of the workload for Agent Registry.
+            --functional-type=: Specifies the function of the resource for automatic registration in Agent Registry.
             --gpu-type=: The GPU type to use.
             --gpu-zonal-redundancy: Set GPU zonal redundancy.
             --gpu=: Cloud Run supports values 0 or 1.  1 gpu also requires a minimum 4 `--cpu` value and  a minimum 16Gi `--memory` value.
             --grace-period=: The duration between SIGTERM and SIGKILL when shutting down instances.
             --iap: Whether to enable IAP for the Service.
-            --identity-certificate: Enables workload certificates using managed workload identity.
-            --identity-type=: Configures the type of identity to be used by the resource.
+            --identity-certificate: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
+            --identity-type=: Configures the type of identity assigned to the resource.
             --identity=&: Configures a managed workload identity to be used by the service.
             --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/hello:latest`).
             --ingress=: Set the ingress traffic sources allowed to call the service.
@@ -68430,7 +68693,7 @@ commands:
             --no-dry-run&: If set to true, only validates the configuration.
             --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
             --no-iap&: Whether to enable IAP for the Service.
-            --no-identity-certificate&: Enables workload certificates using managed workload identity.
+            --no-identity-certificate&: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
             --no-invoker-iam-check&: Optionally disable invoker IAM checks.
             --no-local-build&: When set, the application dependencies are installed and runtime configurations (like base-image, cmd, args) are prepared locally on your machine using your local development environment, and the resulting packaged source archive is deployed directly to Cloud Run without building a container image.
             --no-overflow-scaling&: Whether to start instances for new requests when no capacity is available on existing instances.
@@ -68513,9 +68776,9 @@ commands:
                     - agent
                     - mcp-server
                 identity-type:
+                    - agent-identity
                     - service-account
                     - workload-identity
-                    - agent-identity
                 ingress:
                     - all
                     - internal
@@ -69206,13 +69469,13 @@ commands:
                 --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
                 --execute-now: Execute the job immediately after the creation or update  completes.
                 --execution-environment=&: Selects the execution environment where the application will run.
-                --functional-type=&: Specifies the function of the workload for Agent Registry.
+                --functional-type=: Specifies the function of the resource for automatic registration in Agent Registry.
                 --gpu-type=: The GPU type to use.
                 --gpu-zonal-redundancy: Set GPU zonal redundancy.
                 --gpu=: Cloud Run supports values 0 or 1.  1 gpu also requires a minimum 4 `--cpu` value and  a minimum 16Gi `--memory` value.
                 --grace-period=: The duration between SIGTERM and SIGKILL when shutting down tasks.
-                --identity-certificate&: Enables workload certificates using managed workload identity.
-                --identity-type=&: Configures the type of identity to be used by the resource.
+                --identity-certificate: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
+                --identity-type=: Configures the type of identity assigned to the resource.
                 --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/job:latest`).
                 --key=: CMEK key reference to encrypt the container with.
                 --labels=: List of label KEY=VALUE pairs to add.
@@ -69228,7 +69491,7 @@ commands:
                 --no-delay-execution&: True if the executions of the job can be delayed to start.
                 --no-execute-now&: Execute the job immediately after the creation or update  completes.
                 --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
-                --no-identity-certificate&: Enables workload certificates using managed workload identity.
+                --no-identity-certificate&: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
                 --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --no-wait&: Wait until the execution has completed running before exiting.
                 --parallelism=: Number of tasks that may run concurrently.
@@ -69265,11 +69528,10 @@ commands:
                         - gen2
                     functional-type:
                         - agent
-                        - mcp-server
                     identity-type:
+                        - agent-identity
                         - service-account
                         - workload-identity
-                        - agent-identity
                     vpc-egress:
                         - all
                         - all-traffic
@@ -69313,13 +69575,13 @@ commands:
                 --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
                 --execute-now: Execute the job immediately after the creation or update  completes.
                 --execution-environment=&: Selects the execution environment where the application will run.
-                --functional-type=&: Specifies the function of the workload for Agent Registry.
+                --functional-type=: Specifies the function of the resource for automatic registration in Agent Registry.
                 --gpu-type=: The GPU type to use.
                 --gpu-zonal-redundancy: Set GPU zonal redundancy.
                 --gpu=: Cloud Run supports values 0 or 1.  1 gpu also requires a minimum 4 `--cpu` value and  a minimum 16Gi `--memory` value.
                 --grace-period=: The duration between SIGTERM and SIGKILL when shutting down tasks.
-                --identity-certificate&: Enables workload certificates using managed workload identity.
-                --identity-type=&: Configures the type of identity to be used by the resource.
+                --identity-certificate: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
+                --identity-type=: Configures the type of identity assigned to the resource.
                 --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/job:latest`).
                 --key=: CMEK key reference to encrypt the container with.
                 --labels=: List of label KEY=VALUE pairs to add.
@@ -69337,7 +69599,7 @@ commands:
                 --no-delay-execution&: True if the executions of the job can be delayed to start.
                 --no-execute-now&: Execute the job immediately after the creation or update  completes.
                 --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
-                --no-identity-certificate&: Enables workload certificates using managed workload identity.
+                --no-identity-certificate&: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
                 --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --no-wait&: Wait until the execution has completed running before exiting.
                 --parallelism=: Number of tasks that may run concurrently.
@@ -69376,11 +69638,10 @@ commands:
                         - gen2
                     functional-type:
                         - agent
-                        - mcp-server
                     identity-type:
+                        - agent-identity
                         - service-account
                         - workload-identity
-                        - agent-identity
                     vpc-egress:
                         - all
                         - all-traffic
@@ -69705,13 +69966,13 @@ commands:
                 --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
                 --execute-now: Execute the job immediately after the creation or update  completes.
                 --execution-environment=&: Selects the execution environment where the application will run.
-                --functional-type=&: Specifies the function of the workload for Agent Registry.
+                --functional-type=: Specifies the function of the resource for automatic registration in Agent Registry.
                 --gpu-type=: The GPU type to use.
                 --gpu-zonal-redundancy: Set GPU zonal redundancy.
                 --gpu=: Cloud Run supports values 0 or 1.  1 gpu also requires a minimum 4 `--cpu` value and  a minimum 16Gi `--memory` value.
                 --grace-period=: The duration between SIGTERM and SIGKILL when shutting down tasks.
-                --identity-certificate&: Enables workload certificates using managed workload identity.
-                --identity-type=&: Configures the type of identity to be used by the resource.
+                --identity-certificate: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
+                --identity-type=: Configures the type of identity assigned to the resource.
                 --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/job:latest`).
                 --key=: CMEK key reference to encrypt the container with.
                 --labels=: List of label KEY=VALUE pairs to add.
@@ -69733,7 +69994,7 @@ commands:
                 --no-delay-execution&: True if the executions of the job can be delayed to start.
                 --no-execute-now&: Execute the job immediately after the creation or update  completes.
                 --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
-                --no-identity-certificate&: Enables workload certificates using managed workload identity.
+                --no-identity-certificate&: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
                 --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
                 --no-wait&: Wait until the execution has completed running before exiting.
                 --parallelism=: Number of tasks that may run concurrently.
@@ -69774,11 +70035,10 @@ commands:
                         - gen2
                     functional-type:
                         - agent
-                        - mcp-server
                     identity-type:
+                        - agent-identity
                         - service-account
                         - workload-identity
-                        - agent-identity
                     vpc-egress:
                         - all
                         - all-traffic
@@ -69931,14 +70191,14 @@ commands:
                 --encryption-key-shutdown-hours=: The number of hours to wait before an automatic shutdown server after CMEK key revocation is detected.
                 --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
                 --execution-environment=: Selects the execution environment where the application will run.
-                --functional-type=: Specifies the function of the workload for Agent Registry.
+                --functional-type=: Specifies the function of the resource for automatic registration in Agent Registry.
                 --gpu-type=: The GPU type to use.
                 --gpu-zonal-redundancy: Set GPU zonal redundancy.
                 --gpu=: Cloud Run supports values 0 or 1.  1 gpu also requires a minimum 4 `--cpu` value and  a minimum 16Gi `--memory` value.
                 --grace-period=: The duration between SIGTERM and SIGKILL when shutting down instances.
                 --iap: Whether to enable IAP for the Service.
-                --identity-certificate: Enables workload certificates using managed workload identity.
-                --identity-type=: Configures the type of identity to be used by the resource.
+                --identity-certificate: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
+                --identity-type=: Configures the type of identity assigned to the resource.
                 --identity=&: Configures a managed workload identity to be used by the service.
                 --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/hello:latest`).
                 --ingress=: Set the ingress traffic sources allowed to call the service.
@@ -69981,7 +70241,7 @@ commands:
                 --no-dry-run&: If set to true, only validates the configuration.
                 --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
                 --no-iap&: Whether to enable IAP for the Service.
-                --no-identity-certificate&: Enables workload certificates using managed workload identity.
+                --no-identity-certificate&: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
                 --no-invoker-iam-check&: Optionally disable invoker IAM checks.
                 --no-overflow-scaling&: Whether to start instances for new requests when no capacity is available on existing instances.
                 --no-public&: Make the service public by disabling invoker IAM checks and IAP.
@@ -70052,9 +70312,9 @@ commands:
                         - agent
                         - mcp-server
                     identity-type:
+                        - agent-identity
                         - service-account
                         - workload-identity
-                        - agent-identity
                     ingress:
                         - all
                         - internal
@@ -70964,14 +71224,14 @@ commands:
                 --endpoint-mode=: Specifies endpoint mode for a given command.
                 --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
                 --execution-environment=: Selects the execution environment where the application will run.
-                --functional-type=: Specifies the function of the workload for Agent Registry.
+                --functional-type=: Specifies the function of the resource for automatic registration in Agent Registry.
                 --gpu-type=: The GPU type to use.
                 --gpu-zonal-redundancy: Set GPU zonal redundancy.
                 --gpu=: Cloud Run supports values 0 or 1.  1 gpu also requires a minimum 4 `--cpu` value and  a minimum 16Gi `--memory` value.
                 --grace-period=: The duration between SIGTERM and SIGKILL when shutting down instances.
                 --iap: Whether to enable IAP for the Service.
-                --identity-certificate: Enables workload certificates using managed workload identity.
-                --identity-type=: Configures the type of identity to be used by the resource.
+                --identity-certificate: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
+                --identity-type=: Configures the type of identity assigned to the resource.
                 --identity=&: Configures a managed workload identity to be used by the service.
                 --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/hello:latest`).
                 --ingress=: Set the ingress traffic sources allowed to call the service.
@@ -71014,7 +71274,7 @@ commands:
                 --no-dry-run&: If set to true, only validates the configuration.
                 --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
                 --no-iap&: Whether to enable IAP for the Service.
-                --no-identity-certificate&: Enables workload certificates using managed workload identity.
+                --no-identity-certificate&: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
                 --no-invoker-iam-check&: Optionally disable invoker IAM checks.
                 --no-overflow-scaling&: Whether to start instances for new requests when no capacity is available on existing instances.
                 --no-public&: Make the service public by disabling invoker IAM checks and IAP.
@@ -71088,9 +71348,9 @@ commands:
                         - agent
                         - mcp-server
                     identity-type:
+                        - agent-identity
                         - service-account
                         - workload-identity
-                        - agent-identity
                     ingress:
                         - all
                         - internal
@@ -75169,6 +75429,180 @@ commands:
                 --no-force&: If specified, the update call will proceed even if the update can be destructive.
                 --ranges=: The names of IP CIDR ranges for service to use.
                 --service=: The service to connect to
+    - name: software-delivery-trust
+      description: '*(ALPHA)*  Manage Software Delivery Trust security policies and evidence.'
+      commands:
+        - name: attestations
+          description: '*(ALPHA)*  Inspect Software Delivery Trust cryptographic attestations.'
+          commands:
+            - name: describe
+              description: '*(ALPHA)*  Get details of a Software Delivery Trust attestation.'
+              flags:
+                --location=: The location id of the attestation resource.
+            - name: list
+              description: '*(ALPHA)*  List Software Delivery Trust attestations.'
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=!: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: operations
+          description: '*(ALPHA)*  Manage Operation resources.'
+        - name: policies
+          description: '*(ALPHA)*  Manage Software Delivery Trust policy resources.'
+          commands:
+            - name: create
+              description: '*(ALPHA)*  Create a Software Delivery Trust policy.'
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --cel-expression=!: The raw CEL expression to be evaluated.
+                --location=: The location id of the policy resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: delete
+              description: '*(ALPHA)*  Delete a Software Delivery Trust policy.'
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --force: If set to true, any child revisions or bindings will also be deleted.
+                --location=: The location id of the policy resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-force&: If set to true, any child revisions or bindings will also be deleted.
+            - name: describe
+              description: '*(ALPHA)*  Get details of a Software Delivery Trust policy.'
+              flags:
+                --location=: The location id of the policy resource.
+            - name: list
+              description: '*(ALPHA)*  List Software Delivery Trust policies.'
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=!: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: revisions
+              description: '*(ALPHA)*  Inspect immutable historical revisions of Software Delivery Trust policies.'
+              commands:
+                - name: describe
+                  description: '*(ALPHA)*  Get details of a specific policy revision.'
+                  flags:
+                    --location=: The location id of the revision resource.
+                    --policy=: The policy id of the revision resource.
+                - name: list
+                  description: '*(ALPHA)*  List revisions of a Software Delivery Trust policy.'
+                  flags:
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --location=: The location id of the policy resource.
+                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                    --page-size=: Some services group resource list output into pages.
+                    --policy=!: ID of the policy or fully qualified identifier for the policy.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: '*(ALPHA)*  Update a Software Delivery Trust policy.'
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --cel-expression=: The raw CEL expression to be evaluated.
+                --location=: The location id of the policy resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: policy-bindings
+          description: '*(ALPHA)*  Manage Software Delivery Trust policy binding resources.'
+          commands:
+            - name: create
+              description: '*(ALPHA)*  Create a Software Delivery Trust policy binding.'
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --enforcement-mode=!: How the policy is enforced.
+                --location=: For resources [policy, policy-revision, policy_binding], provides fallback value for resource location attribute.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --policy-revision=!: ID of the revision or fully qualified identifier for the revision.
+                --policy=: For resources [policy, policy-revision], provides fallback value for resource policy attribute.
+                --resource-selectors=!: Required, Target resources this binding applies to.
+              completion:
+                flag:
+                    enforcement-mode:
+                        - enforcement-mode-deny
+                        - enforcement-mode-dry-run
+            - name: delete
+              description: '*(ALPHA)*  Delete a Software Delivery Trust policy binding.'
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location id of the policyBinding resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: describe
+              description: '*(ALPHA)*  Get details of a Software Delivery Trust policy binding.'
+              flags:
+                --location=: The location id of the policyBinding resource.
+            - name: list
+              description: '*(ALPHA)*  List Software Delivery Trust policy bindings.'
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=!: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: signers
+          description: '*(ALPHA)*  Manage Signer resources.'
+          commands:
+            - name: create
+              description: '*(ALPHA)*  Create signers.'
+              flags:
+                --annotations=: Annotations as key value pairs.
+                --async: Return immediately, without waiting for the operation in progress to
+                --labels=: Labels as key value pairs.
+                --location=: The location id of the signer resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --request-id=: An optional request ID to identify requests.
+                --tags=: Tag bindings as key value pairs.
+            - name: delete
+              description: '*(ALPHA)*  Delete signers.'
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location id of the signer resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --request-id=: An optional request ID to identify requests.
+            - name: describe
+              description: '*(ALPHA)*  Describe signers.'
+              flags:
+                --location=: The location id of the signer resource.
+            - name: list
+              description: '*(ALPHA)*  List signers.'
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=!: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: '*(ALPHA)*  Update signers.'
+              flags:
+                --annotations=: Set annotations to new value.
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-annotations: Clear annotations value and set to empty map.
+                --clear-labels: Clear labels value and set to empty map.
+                --clear-tags: Clear tags value and set to empty map.
+                --labels=: Set labels to new value.
+                --location=: The location id of the signer resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-annotations&: Clear annotations value and set to empty map.
+                --no-clear-labels&: Clear labels value and set to empty map.
+                --no-clear-tags&: Clear tags value and set to empty map.
+                --remove-annotations=: Remove existing value from map annotations.
+                --remove-labels=: Remove existing value from map labels.
+                --remove-tags=: Remove existing value from map tags.
+                --request-id=: An optional request ID to identify requests.
+                --tags=: Set tags to new value.
+                --update-annotations=: Update annotations value or add key value pair.
+                --update-labels=: Update labels value or add key value pair.
+                --update-tags=: Update tags value or add key value pair.
     - name: source
       description: '*(ALPHA)*  Cloud git repository commands.'
       commands:
@@ -76773,12 +77207,10 @@ commands:
                         - HDD
                         - HYPERDISK_BALANCED
         - name: blue-green-deployments
-          description: '*(ALPHA)*  Blue-green deployment is a strategy that minimizes database downtime when you make changes, like major version upgrades, by copying a production environment to a separate, synchronized staging environment.'
-          hidden: true
+          description: '*(ALPHA)*  Provide commands for managing Cloud SQL blue-green deployments.'
           commands:
             - name: create
               description: '*(ALPHA)*  Creates a Cloud SQL blue-green deployment.'
-              hidden: true
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
                 --description=: User-provided description for the blue-green deployment.
@@ -76788,7 +77220,6 @@ commands:
                 --target-database-version=: Database version for the target instance, for major version upgrade.
             - name: delete
               description: '*(ALPHA)*  Deletes a Cloud SQL blue-green deployment.'
-              hidden: true
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
                 --delete-old-source: Delete the old source instance.
@@ -76797,14 +77228,12 @@ commands:
                 --region=: Regional location (e.g. asia-east1, us-east1).
             - name: describe
               description: '*(ALPHA)*  Retrieves information about a Cloud SQL blue-green deployment.'
-              hidden: true
               flags:
                 --no-show-config-diff&: Show the configuration difference between source and target instances.
                 --region=: Regional location (e.g. asia-east1, us-east1).
                 --show-config-diff: Show the configuration difference between source and target instances.
             - name: list
               description: '*(ALPHA)*  Lists Cloud SQL blue-green deployments.'
-              hidden: true
               flags:
                 --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
                 --limit=: Maximum number of resources to list.
@@ -76815,7 +77244,6 @@ commands:
                 --uri: Print a list of resource URIs instead of the default output, and change the
             - name: switchover
               description: '*(ALPHA)*  Performs switchover for a Cloud SQL blue-green deployment.'
-              hidden: true
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
                 --no-async&: Return immediately, without waiting for the operation in progress to
@@ -77144,7 +77572,6 @@ commands:
                 --enable-psc-auto-dns: Enable per instance DNS records for PSC auto-connections.
                 --enable-psc-write-endpoint-dns: Enable the global DNS record pointing to the primary, for Enterprise Plus edition only.
                 --enable-semi-managed-backup&: Enable backup configuration for semi-managed instance.
-                --enable-semi-managed-insights&: Enable Query Insights configuration for semi-managed instance.
                 --enable-semi-managed-replication&: Enable AlwaysOn Availability Group replication for semi-managed instance.
                 --enforce-cmek-log-encryption-at-source&: Enforce CMEK log encryption at source.
                 --enforce-new-sql-network-architecture: Force the instance to use the new network architecture.
@@ -77203,7 +77630,6 @@ commands:
                 --no-enable-psc-auto-dns&: Enable per instance DNS records for PSC auto-connections.
                 --no-enable-psc-write-endpoint-dns&: Enable the global DNS record pointing to the primary, for Enterprise Plus edition only.
                 --no-enable-semi-managed-backup&: Enable backup configuration for semi-managed instance.
-                --no-enable-semi-managed-insights&: Enable Query Insights configuration for semi-managed instance.
                 --no-enable-semi-managed-replication&: Enable AlwaysOn Availability Group replication for semi-managed instance.
                 --no-enforce-cmek-log-encryption-at-source&: Enforce CMEK log encryption at source.
                 --no-enforce-new-sql-network-architecture&: Force the instance to use the new network architecture.
@@ -77218,6 +77644,7 @@ commands:
                 --no-recreate-replicas-on-primary-crash&: Allow/Disallow replica recreation when a primary MySQL instance operating in reduced durability mode crashes.
                 --no-require-ssl&: Specified if users connecting over IP must use SSL.
                 --no-retain-backups-on-delete&: Retain automated/ondemand backups of the instance after the instance is deleted.
+                --no-sql-server-enable-password-policy&: Enables password policy on SQL Server local logins.
                 --no-storage-auto-increase&: Storage size can be increased, but it cannot be decreased; storage increases are permanent for the life of the instance.
                 --node-count=: The number of nodes in the pool.
                 --password-policy-complexity=: The complexity of the password.
@@ -77240,6 +77667,7 @@ commands:
                 --root-password=: Root Cloud SQL user's password.
                 --secondary-zone=: Preferred secondary Compute Engine zone (e.g. us-central1-a, us-central1-b, etc.).
                 --semi-managed-insights-gcs-uri=&: Cloud Storage GCS path to store Query Insights data for semi-managed instance.
+                --semi-managed-patch-database-gcs-uri=&: Cloud Storage GCS path to store database patch files for semi-managed instance.
                 --server-ca-mode=: Set the server CA mode of the instance.
                 --server-ca-pool=: Set the server CA pool of the instance.
                 --server-certificate-rotation-mode=: Set the server certificate rotation mode of the instance.
@@ -77247,6 +77675,11 @@ commands:
                 --source-port=: Port number used to connect to and replicate from the external data source.
                 --sql-account-secret-name=&: Secret Manager secret resource name containing the SQL account credentials for semi-managed instance.
                 --sql-account=&: SQL account name for semi-managed SQL Server instance.
+                --sql-server-enable-password-policy&: Enables password policy on SQL Server local logins.
+                --sql-server-password-policy-history-length=&: Number of previous passwords that cannot be reused on SQL Server local logins.
+                --sql-server-password-policy-maximum-age=&: Maximum duration that a password remains valid before it expires on SQL Server local logins.
+                --sql-server-password-policy-min-length=&: Minimum number of characters required for passwords on SQL Server local logins.
+                --sql-server-password-policy-minimum-age=&: Minimum duration that must pass before a password can be changed on SQL Server local logins.
                 --ssl-mode=: Set the SSL mode of the instance.
                 --storage-auto-increase: Storage size can be increased, but it cannot be decreased; storage increases are permanent for the life of the instance.
                 --storage-auto-increase-limit=: Allows you to set a maximum storage capacity, in GB.
@@ -77439,6 +77872,7 @@ commands:
                 --clear-password-policy: Clear the existing password policy.
                 --clear-psc-auto-connections: This removes all automatically created connections.
                 --clear-psc-network-attachment-uri: Disable outbound connectivity from a Cloud SQL instance which uses Private Service Connect (PSC).
+                --clear-sql-server-password-policy&: Clears existing SQL Server password policy configurations from the instance.
                 --clear-unc-mappings&: Clear the UNC mappings for the SQL Server instance.
                 --connection-pool-flags=: Comma-separated list of connection pool flags to set on the instance connection pool.
                 --connector-enforcement=: Cloud SQL Connector enforcement mode.
@@ -77469,6 +77903,8 @@ commands:
                 --enable-psc-auto-connection-policy: If set, service connection policy will be created by Cloud SQL when missing for PSC enabled instance.
                 --enable-psc-auto-dns: Enable per instance DNS records for PSC auto-connections.
                 --enable-psc-write-endpoint-dns: Enable the global DNS record pointing to the primary, for Enterprise Plus edition only.
+                --enable-semi-managed-backup&: Enable backup configuration for semi-managed instance.
+                --enable-semi-managed-replication&: Enable AlwaysOn Availability Group replication for semi-managed instance.
                 --enforce-cmek-log-encryption-at-source&: Enforce CMEK log encryption at source.
                 --enforce-new-sql-network-architecture: Force the instance to use the new network architecture.
                 --entra-id-application-id=!: Set the Entraid application ID.
@@ -77477,6 +77913,8 @@ commands:
                 --final-backup: Enables the final backup to be taken at the time of instance deletion.
                 --final-backup-retention-days=: Specifies number of days to retain final backup.
                 --follow-gae-app=: First Generation instances only.
+                --gce-instance=&: The list of full resource names of the GCE instances that are to be onboarded to Cloud SQL.
+                --gce-instances=&: The list of full resource names of the GCE instances that are to be onboarded to Cloud SQL.
                 --gce-zone=: (DEPRECATED) Preferred Compute Engine zone (e.g. us-central1-a, us-central1-b, etc.).
                 --include-replicas-for-major-version-upgrade: Enable the major version upgrade of replicas when the in-place major version upgrade of a primary instance is initated with `--database-version`.
                 --insights-config-enhanced-query-insights-enabled: Enable enhanced query insights for Enterprise Plus edition to provide more detailed query
@@ -77515,6 +77953,7 @@ commands:
                 --no-clear-password-policy&: Clear the existing password policy.
                 --no-clear-psc-auto-connections&: This removes all automatically created connections.
                 --no-clear-psc-network-attachment-uri&: Disable outbound connectivity from a Cloud SQL instance which uses Private Service Connect (PSC).
+                --no-clear-sql-server-password-policy&: Clears existing SQL Server password policy configurations from the instance.
                 --no-clear-unc-mappings&: Clear the UNC mappings for the SQL Server instance.
                 --no-database-center-integration-enabled&: Whether the instance is integrated with Database Center.
                 --no-deletion-protection&: Enable deletion protection on a Cloud SQL instance.
@@ -77534,6 +77973,8 @@ commands:
                 --no-enable-psc-auto-connection-policy&: If set, service connection policy will be created by Cloud SQL when missing for PSC enabled instance.
                 --no-enable-psc-auto-dns&: Enable per instance DNS records for PSC auto-connections.
                 --no-enable-psc-write-endpoint-dns&: Enable the global DNS record pointing to the primary, for Enterprise Plus edition only.
+                --no-enable-semi-managed-backup&: Enable backup configuration for semi-managed instance.
+                --no-enable-semi-managed-replication&: Enable AlwaysOn Availability Group replication for semi-managed instance.
                 --no-enforce-cmek-log-encryption-at-source&: Enforce CMEK log encryption at source.
                 --no-enforce-new-sql-network-architecture&: Force the instance to use the new network architecture.
                 --no-final-backup&: Enables the final backup to be taken at the time of instance deletion.
@@ -77551,6 +77992,7 @@ commands:
                 --no-require-ssl&: mysqld should default to 'REQUIRE X509' for users connecting over IP.
                 --no-retain-backups-on-delete&: Retain automated/ondemand backups of the instance after the instance is deleted.
                 --no-simulate-maintenance-event&: Simulate a maintenance event without changing the version.
+                --no-sql-server-enable-password-policy&: Enables password policy on SQL Server local logins.
                 --no-storage-auto-increase&: Storage size can be increased, but it cannot be decreased; storage increases are permanent for the life of the instance.
                 --no-switch-transaction-logs-to-cloud-storage&: Switches the location of the transaction logs used for PITR from disk to Cloud Storage.
                 --no-upgrade-sql-network-architecture&: Upgrade from old network architecture to new network architecture.
@@ -77575,10 +78017,19 @@ commands:
                 --retained-backups-count=: How many backups to keep.
                 --retained-transaction-log-days=: How many days of transaction logs to keep.
                 --secondary-zone=: Preferred secondary Compute Engine zone (e.g. us-central1-a, us-central1-b, etc.).
+                --semi-managed-insights-gcs-uri=&: Cloud Storage GCS path to store Query Insights data for semi-managed instance.
+                --semi-managed-patch-database-gcs-uri=&: Cloud Storage GCS path to store database patch files for semi-managed instance.
                 --server-ca-mode=: Set the server CA mode of the instance.
                 --server-ca-pool=: Set the server CA pool of the instance.
                 --server-certificate-rotation-mode=: Set the server certificate rotation mode of the instance.
                 --simulate-maintenance-event: Simulate a maintenance event without changing the version.
+                --sql-account-secret-name=&: Secret Manager secret resource name containing the SQL account credentials for semi-managed instance.
+                --sql-account=&: SQL account name for semi-managed SQL Server instance.
+                --sql-server-enable-password-policy&: Enables password policy on SQL Server local logins.
+                --sql-server-password-policy-history-length=&: Number of previous passwords that cannot be reused on SQL Server local logins.
+                --sql-server-password-policy-maximum-age=&: Maximum duration that a password remains valid before it expires on SQL Server local logins.
+                --sql-server-password-policy-min-length=&: Minimum number of characters required for passwords on SQL Server local logins.
+                --sql-server-password-policy-minimum-age=&: Minimum duration that must pass before a password can be changed on SQL Server local logins.
                 --ssl-mode=: Set the SSL mode of the instance.
                 --storage-auto-increase: Storage size can be increased, but it cannot be decreased; storage increases are permanent for the life of the instance.
                 --storage-auto-increase-limit=: Allows you to set a maximum storage capacity, in GB.
@@ -77593,6 +78044,8 @@ commands:
                 --unc-mappings=&: A comma-separated list of UNC mapping to add to the SQL Server instance.
                 --update-labels=: List of label KEY=VALUE pairs to update.
                 --upgrade-sql-network-architecture: Upgrade from old network architecture to new network architecture.
+                --windows-service-account-secret-name=&: Secret Manager secret resource name containing the Windows service account credentials for semi-managed instance.
+                --windows-service-account=&: Windows service account for semi-managed instance.
                 --zone=: Preferred Compute Engine zone (e.g. us-central1-a, us-central1-b, etc.).
               completion:
                 flag:
@@ -80314,6 +80767,7 @@ commands:
                 --log-action-states=: The states in which the actions specified in --log-actions are logged.
                 --log-actions=: Define the transfer operation actions to report in logs.
                 --manifest-file=: Path to a .csv file containing a list of files to transfer from your source.
+                --match-glob=: Include only objects that match the specified glob pattern.
                 --name=: A unique identifier for the job.
                 --no-async: For jobs set to run upon creation, this flag blocks other tasks in your terminal until the job's initial, immediate transfer operation has completed.
                 --no-do-not-run&: Disable default Transfer Service behavior of running job upon creation if no schedule is set.
@@ -80403,6 +80857,7 @@ commands:
                 --clear-intermediate-storage-path: Remove the intermediate storage path from the transfer job.
                 --clear-log-config: Remove the job's full logging config.
                 --clear-manifest-file: Remove the manifest file from the transfer job.
+                --clear-match-glob: Remove the glob pattern from the object conditions.
                 --clear-notification-config: Remove the job's full notification configuration to no longer receive notifications via Cloud Pub/Sub.
                 --clear-notification-event-types: Remove the event types from the notification config.
                 --clear-preserve-metadata: Skips preserving optional metadata fields of objects being transferred.
@@ -80435,6 +80890,7 @@ commands:
                 --log-action-states=: The states in which the actions specified in --log-actions are logged.
                 --log-actions=: Define the transfer operation actions to report in logs.
                 --manifest-file=: Path to a .csv file containing a list of files to transfer from your source.
+                --match-glob=: Include only objects that match the specified glob pattern.
                 --no-clear-custom-storage-class&: Reverts to using destination default storage class.
                 --no-clear-delete-from&: Remove a specified deletion option from the transfer job.
                 --no-clear-description&: Remove the description from the transfer job.
@@ -80449,6 +80905,7 @@ commands:
                 --no-clear-intermediate-storage-path&: Remove the intermediate storage path from the transfer job.
                 --no-clear-log-config&: Remove the job's full logging config.
                 --no-clear-manifest-file&: Remove the manifest file from the transfer job.
+                --no-clear-match-glob&: Remove the glob pattern from the object conditions.
                 --no-clear-notification-config&: Remove the job's full notification configuration to no longer receive notifications via Cloud Pub/Sub.
                 --no-clear-notification-event-types&: Remove the event types from the notification config.
                 --no-clear-preserve-metadata&: Skips preserving optional metadata fields of objects being transferred.
