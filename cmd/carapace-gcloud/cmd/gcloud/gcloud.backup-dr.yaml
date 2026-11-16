@@ -2,6 +2,98 @@
 name: backup-dr
 description: Manage Backup and DR resources.
 commands:
+    - name: applied-auto-protection-policies
+      description: Manage Backup and DR AppliedAutoProtectionPolicies.
+      commands:
+        - name: list
+          description: List Backup and DR applied auto-protection policies.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: auto-protection-bindings
+      description: Manage Backup and DR auto protection bindings.
+      commands:
+        - name: create
+          description: Create a Backup and DR auto-protection binding.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --auto-protection-policy=: The ID of the AutoProtectionPolicy.
+            --description=: The description of the binding.
+            --location=: Location ID of the resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --scope=!: The scope of the binding (e.g. projects/foo).
+        - name: delete
+          description: Delete a Backup and DR auto-protection policy binding.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --auto-protection-policy=: The ID of the AutoProtectionPolicy.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
+            --location=: Location ID of the resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
+        - name: describe
+          description: Describe a Backup and DR auto-protection binding.
+          flags:
+            --auto-protection-policy=: The ID of the AutoProtectionPolicy.
+            --location=: Location ID of the resource.
+        - name: list
+          description: List Backup and DR auto-protection bindings.
+          flags:
+            --auto-protection-policy=!: ID of the auto_protection_policy or fully qualified identifier for the auto_protection_policy.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Location ID of the resource.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+    - name: auto-protection-policies
+      description: Manage Backup and DR AutoProtectionPolicies.
+      commands:
+        - name: create
+          description: Create a Backup and DR AutoProtectionPolicy.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --backup-plan-details=!: Backup plan details in format resource-type=VALUE,backup-plan=VALUE.
+            --criteria=!: Criteria of the policy in format key=KEY,values=VALUE.
+            --description=: Description for the policy.
+            --location=: The location of the AutoProtectionPolicy.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: delete
+          description: Delete a Backup and DR AutoProtectionPolicy.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Location ID of the resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe a Backup and DR AutoProtectionPolicy.
+          flags:
+            --location=: Location ID of the resource.
+        - name: list
+          description: List Backup and DR AutoProtectionPolicies.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: update
+          description: Update a Backup and DR AutoProtectionPolicy.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --backup-plan-details=: Backup plan details in format resource-type=VALUE,backup-plan=VALUE.
+            --criteria=: Criteria of the policy in format key=KEY,values=VALUE.
+            --description=: Description for the policy.
+            --location=: The location of the AutoProtectionPolicy.
+            --no-async&: Return immediately, without waiting for the operation in progress to
     - name: backup-plan-associations
       description: Manage Backup and DR backup plan associations.
       commands:
@@ -383,6 +475,19 @@ commands:
             --no-clear-labels&: ""
             --remove-labels=: A list of label keys to remove from the backup.
             --update-labels=: A list of labels to apply to the backup.
+    - name: binding-matching-resources
+      description: Manage Backup and DR binding matching resources.
+      commands:
+        - name: list
+          description: List Backup and DR binding matching resources.
+          flags:
+            --auto-protection-policy-binding=!: ID of the auto_protection_policy_binding or fully qualified identifier for the auto_protection_policy_binding.
+            --auto-protection-policy=: The ID of the AutoProtectionPolicy.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Location ID of the resource.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
     - name: data-source-references
       description: Command group for Backup and DR Data Source References.
       commands:
@@ -497,6 +602,184 @@ commands:
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
             --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: restore-template-executions
+      description: Manage Cloud Backup and DR Restore Template Executions.
+      commands:
+        - name: describe
+          description: Show details of the restore template execution.
+          flags:
+            --location=: Location ID of the resource.
+            --restore-template=: The ID of the Restore Template.
+        - name: list
+          description: List Cloud Backup and DR restore template executions.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Location ID of the resource.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --restore-template=: ID of the restore_template or fully qualified identifier for the restore_template.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: trigger-restore-cleanup
+          description: Trigger restore cleanup for a restore template execution.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location of the Restore Template Execution.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --restore-template=: The ID of the Restore Template.
+    - name: restore-templates
+      description: Manage Cloud Backup and DR Restore Templates.
+      commands:
+        - name: create
+          description: Create a Restore Template.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --data-source=!: The full resource name of the DataSource from which backups will be
+            --description=: Description of the restore template.
+            --labels=: Optional resource labels to represent metadata provided by the user.
+            --location=: The location of the Restore Template.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --post-restore-cloud-run-job=: The Cloud Run job to execute after the restore operation.
+            --post-restore-timeout=: Timeout for the post-restore hook (e.g., 600s).
+            --pre-restore-cloud-run-job=: The Cloud Run job to execute before the restore operation.
+            --pre-restore-timeout=: Timeout for the pre-restore hook (e.g., 300s).
+            --resource-type=!: The type of the Google Cloud resource (e.g., compute.googleapis.com/Instance).
+            --restore-properties=!: Defines the target environment and configuration for restoring the
+            --verification-cloud-run-job=: The Cloud Run job to execute to verify the restored workload.
+            --verification-timeout=: Timeout for the verification hook (e.g., 300s).
+        - name: delete
+          description: Delete a Restore Template.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --force: If set, any child RestoreTemplateExecutions will also be deleted.
+            --location=: The location of the Restore Template.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-force&: If set, any child RestoreTemplateExecutions will also be deleted.
+        - name: describe
+          description: Show details of the restore template.
+          flags:
+            --location=: Location ID of the resource.
+        - name: list
+          description: List Cloud Backup and DR restore templates.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: run
+          description: Run a Restore Template.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --backup=: The resource name of a specific Backup to restore from.
+            --location=: The location of the Restore Template.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: update
+          description: Update a Restore Template.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Remove all labels.
+            --description=: Description of the restore template.
+            --location=: The location of the Restore Template.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --post-restore-cloud-run-job=: The Cloud Run job to execute after the restore operation.
+            --post-restore-timeout=: Timeout for the post-restore hook (e.g., 600s).
+            --pre-restore-cloud-run-job=: The Cloud Run job to execute before the restore operation.
+            --pre-restore-timeout=: Timeout for the pre-restore hook (e.g., 300s).
+            --remove-labels=: List of label keys to remove.
+            --restore-properties=: Defines the target environment and configuration for restoring the
+            --update-labels=: List of label KEY=VALUE pairs to update.
+            --verification-cloud-run-job=: The Cloud Run job to execute to verify the restored workload.
+            --verification-timeout=: Timeout for the verification hook (e.g., 300s).
+    - name: restore-verification-plan-associations
+      description: Manage Backup and DR Restore Verification Plan Associations.
+      commands:
+        - name: create
+          description: Create a new restore verification plan association.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: The description of the restore verification plan association.
+            --labels=: Optional resource labels to represent metadata provided by the user.
+            --location=: The location of the Restore Verification Plan Association.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --resource-type=!: Type of the Google Cloud resource to associate.
+            --restore-template=!: ID of the Restore Template or fully qualified identifier for the Restore Template.
+            --restore-verification-plan=: The ID of the Restore Verification Plan.
+        - name: delete
+          description: Delete the specified restore verification plan association.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location of the Restore Verification Plan Association.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --restore-verification-plan=: The ID of the Restore Verification Plan.
+        - name: describe
+          description: Show details of the restore verification plan association.
+          flags:
+            --location=: Location ID of the resource.
+            --restore-verification-plan=: The ID of the Restore Verification Plan.
+        - name: list
+          description: List Backup and DR restore verification plan associations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Location ID of the resource.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --restore-verification-plan=: ID of the restore_verification_plan or fully qualified identifier for the restore_verification_plan.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: trigger-restore-verification
+          description: Trigger a restore verification for an association.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location of the Restore Verification Plan Association.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --restore-verification-plan=: The ID of the Restore Verification Plan.
+    - name: restore-verification-plans
+      description: Manage Backup and DR Restore Verification Plans.
+      commands:
+        - name: create
+          description: Create a Restore Verification Plan.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: Description of the restore verification plan.
+            --failure-cleanup-delay=: Delay before cleaning up restored resources upon failed verification (e.g., 24h, 0s).
+            --labels=: Optional resource labels to represent metadata provided by the user.
+            --location=: The location of the Restore Verification Plan.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-skip-failure-cleanup&: If set, restored resources will not be cleaned up upon failed verification.
+            --no-skip-success-cleanup&: If set, restored resources will not be cleaned up upon successful verification.
+            --schedule=!: Cron schedule for the restore verification plan.
+            --skip-failure-cleanup: If set, restored resources will not be cleaned up upon failed verification.
+            --skip-success-cleanup: If set, restored resources will not be cleaned up upon successful verification.
+            --success-cleanup-delay=: Delay before cleaning up restored resources upon successful verification (e.g., 1h, 0s).
+            --time-zone=: Time zone for the schedule (e.g., America/New_York).
+        - name: delete
+          description: Delete a Restore Verification Plan.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --force: If set, all associations under this plan will also be deleted.
+            --location=: The location of the Restore Verification Plan.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-force&: If set, all associations under this plan will also be deleted.
+        - name: describe
+          description: Describe a restore verification plan.
+          flags:
+            --location=: Location ID of the resource.
+        - name: list
+          description: List restore verification plans in a project.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
             --no-uri&: Print a list of resource URIs instead of the default output, and change the
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.

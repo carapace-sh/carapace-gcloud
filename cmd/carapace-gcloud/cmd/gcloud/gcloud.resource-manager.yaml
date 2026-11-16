@@ -2,6 +2,71 @@
 name: resource-manager
 description: Manage Cloud Resources.
 commands:
+    - name: boundaries
+      description: Manage Resource Manager boundaries.
+      commands:
+        - name: create
+          description: Create a new boundary.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --display-name=: Friendly display name to use for the boundary.
+            --folder=: Folder ID or full resource name of the boundary.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: Organization ID or full resource name of the boundary.
+            --tag-key=: The namespaced name of the tag key (e.g. 123456789012/env).
+            --tag-value=: The short name of the tag value (e.g. production).
+        - name: delete
+          description: Delete a boundary.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --folder=: Folder ID or full resource name of the boundary.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: Organization ID or full resource name of the boundary.
+        - name: describe
+          description: Describe a boundary.
+          flags:
+            --folder=: Folder ID or full resource name of the boundary.
+            --organization=: Organization ID or full resource name of the boundary.
+        - name: list
+          description: List boundaries.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --folder=: Folder ID.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --organization=: Organization ID.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a boundary.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --display-name=: Friendly display name to use for the boundary.
+            --etag=: The etag of the boundary.
+            --folder=: Folder ID or full resource name of the boundary.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: Organization ID or full resource name of the boundary.
+            --tag-value=: The short name of the tag value (e.g. production).
+    - name: boundary-configs
+      description: Manage Resource Manager boundary configurations.
+      commands:
+        - name: describe
+          description: Describe a boundary configuration.
+          flags:
+            --folder=: Folder ID.
+            --organization=: Organization ID.
+        - name: update
+          description: Update a boundary configuration.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-tag-key: Clear the tag key from the boundary config.
+            --etag=: The etag of the boundary config.
+            --folder=: Folder ID.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-tag-key&: Clear the tag key from the boundary config.
+            --organization=: Organization ID.
+            --tag-key=: The namespaced name of the tag key (e.g. 123456789012/env).
     - name: capabilities
       description: Manage Cloud Folder Capabilities.
       commands:
@@ -13,6 +78,56 @@ commands:
             --enable!: Enable the Capability.
             --no-enable!&: Enable the Capability
             --update-mask=: Update Mask.
+    - name: capability-configs
+      description: Manage Cloud Resource Manager CapabilityConfigs.
+      commands:
+        - name: create
+          description: Create a CapabilityConfig under a parent Organization, Folder, or Project.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --boundaries=: List of Boundaries associated with this CapabilityConfig.
+            --display-name=: Human-readable display name of the CapabilityConfig (4 to 30 characters).
+            --folder=: Folder ID or full resource name of the capability_config.
+            --management-project=: Management Project associated with this CapabilityConfig (e.g. projects/123456789012).
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: Organization ID or full resource name of the capability_config.
+            --types=!: Comma-separated list of CapabilityConfig types (e.g. app-management, agent-management).
+        - name: delete
+          description: Delete a CapabilityConfig.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --folder=: Folder ID or full resource name of the capability_config.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: Organization ID or full resource name of the capability_config.
+        - name: describe
+          description: Describe a CapabilityConfig.
+          flags:
+            --folder=: Folder ID or full resource name of the capability_config.
+            --organization=: Organization ID or full resource name of the capability_config.
+        - name: list
+          description: List CapabilityConfigs that are direct children of a parent resource.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --folder=: Folder ID or full resource name.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --organization=: Organization ID or full resource name.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a CapabilityConfig.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --boundaries=: List of Boundaries associated with this CapabilityConfig.
+            --clear-boundaries: Clear all Boundaries associated with this CapabilityConfig.
+            --display-name=: Human-readable display name of the CapabilityConfig (4 to 30 characters).
+            --etag=: Etag string for optimistic concurrency control.
+            --folder=: Folder ID or full resource name of the capability_config.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-boundaries&: Clear all Boundaries associated with this CapabilityConfig.
+            --organization=: Organization ID or full resource name of the capability_config.
+            --types=: Comma-separated list of CapabilityConfig types (e.g. app-management, agent-management).
     - name: folders
       description: Manage Cloud Folders.
       commands:

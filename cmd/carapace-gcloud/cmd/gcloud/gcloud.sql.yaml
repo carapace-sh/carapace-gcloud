@@ -349,6 +349,7 @@ commands:
                     - POSTGRES_16
                     - POSTGRES_17
                     - POSTGRES_18
+                    - POSTGRES_19
                     - SQLSERVER_2017_EXPRESS
                     - SQLSERVER_2017_WEB
                     - SQLSERVER_2017_STANDARD
@@ -498,6 +499,7 @@ commands:
             --custom-subject-alternative-names=: A comma-separated list of DNS names to add to the instance's SSL certificate.
             --data-api-access=: Controls connectivity to the instance using ExecuteSql API.
             --database-center-integration-enabled&: Whether the instance is integrated with Database Center.
+            --database-center-integration=&: State of the Database Center integration for this instance.
             --database-flags=: Comma-separated list of database flags to set on the instance.
             --database-version=: The database engine type and versions.
             --deletion-protection: Enable deletion protection on a Cloud SQL instance.
@@ -522,7 +524,9 @@ commands:
             --enable-private-service-connect: Enable connecting to the Cloud SQL instance with Private Service Connect.
             --enable-psc-auto-connection-policy: If set, service connection policy will be created by Cloud SQL when missing for PSC enabled instance.
             --enable-psc-auto-dns: Enable per instance DNS records for PSC auto-connections.
+            --enable-psc-endpoint-allowlisting&: Enable multi-tenant Private Service Connect endpoint allowlisting for the Cloud SQL instance.
             --enable-psc-write-endpoint-dns: Enable the global DNS record pointing to the primary, for Enterprise Plus edition only.
+            --enable-sql-server-password-policy&: Enables password policy on SQL Server local logins.
             --enforce-new-sql-network-architecture: Force the instance to use the new network architecture.
             --entra-id-application-id=!: Set the Entraid application ID.
             --entra-id-tenant-id=!: Set the Entraid tenant ID.
@@ -565,7 +569,9 @@ commands:
             --no-enable-private-service-connect&: Enable connecting to the Cloud SQL instance with Private Service Connect.
             --no-enable-psc-auto-connection-policy&: If set, service connection policy will be created by Cloud SQL when missing for PSC enabled instance.
             --no-enable-psc-auto-dns&: Enable per instance DNS records for PSC auto-connections.
+            --no-enable-psc-endpoint-allowlisting&: Enable multi-tenant Private Service Connect endpoint allowlisting for the Cloud SQL instance.
             --no-enable-psc-write-endpoint-dns&: Enable the global DNS record pointing to the primary, for Enterprise Plus edition only.
+            --no-enable-sql-server-password-policy&: Enables password policy on SQL Server local logins.
             --no-enforce-new-sql-network-architecture&: Force the instance to use the new network architecture.
             --no-final-backup&: Enables the final backup to be taken at the time of instance deletion.
             --no-insights-config-enhanced-query-insights-enabled&: Enable enhanced query insights for Enterprise Plus edition to provide more detailed query
@@ -576,7 +582,6 @@ commands:
             --no-recreate-replicas-on-primary-crash&: Allow/Disallow replica recreation when a primary MySQL instance operating in reduced durability mode crashes.
             --no-require-ssl&: Specified if users connecting over IP must use SSL.
             --no-retain-backups-on-delete&: Retain automated/ondemand backups of the instance after the instance is deleted.
-            --no-sql-server-enable-password-policy&: Enables password policy on SQL Server local logins.
             --no-storage-auto-increase&: Storage size can be increased, but it cannot be decreased; storage increases are permanent for the life of the instance.
             --node-count=: The number of nodes in the pool.
             --password-policy-complexity=: The complexity of the password.
@@ -636,6 +641,9 @@ commands:
                     - ALLOW_DATA_API
                     - DATA_API_ACCESS_UNSPECIFIED
                     - DISALLOW_DATA_API
+                database-center-integration:
+                    - disabled
+                    - enabled
                 database-version:
                     - MYSQL_5_6
                     - MYSQL_5_7
@@ -652,6 +660,7 @@ commands:
                     - POSTGRES_16
                     - POSTGRES_17
                     - POSTGRES_18
+                    - POSTGRES_19
                     - SQLSERVER_2017_EXPRESS
                     - SQLSERVER_2017_WEB
                     - SQLSERVER_2017_STANDARD
@@ -737,6 +746,22 @@ commands:
                     - ALLOW_PARTIAL_RESULT
                     - FAIL_PARTIAL_RESULT
                     - PARTIAL_RESULT_MODE_UNSPECIFIED
+        - name: execute-sql-read-only
+          description: Executes a read-only statement on a Cloud SQL instance.
+          hidden: true
+          flags:
+            --database=: Database on which the statement is executed.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
+            --password-secret-version=: The resource name of the Secret Manager secret holding the password for the database user.
+            --row-limit=: Maximum number of rows to return.
+            --sql=!: Read-only SQL statement(s) to execute.
+            --user=: The database user to authenticate as.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: export
           description: '*(DEPRECATED)*  Exports data from a Cloud SQL instance.'
           flags:
@@ -785,6 +810,7 @@ commands:
             --active-directory-mode=: Defines the Active Directory mode.
             --active-directory-organizational-unit=: Defines the organizational unit to be used for Active Directory.
             --active-directory-secret-manager-key=: The secret manager key storing administrator credentials.
+            --allowed-consumer-endpoints=&: A comma-separated list of consumer Private Service Connect forwarding rule URIs allowlisted for the connection.
             --allowed-psc-projects=: A comma-separated list of projects.
             --assign-ip: Assign a public IP address to the instance.
             --async: Return immediately, without waiting for the operation in progress to
@@ -805,10 +831,12 @@ commands:
             --backup-start-time=: Start time of daily backups, specified in the HH:MM format, in the UTC timezone.
             --clear-active-directory: Clears the Active Directory configuration.
             --clear-active-directory-dns-servers: Removes the list of DNS Servers from the Active Directory Config.
+            --clear-allowed-consumer-endpoints&: Clear the allowed consumer endpoints list of Private Service Connect, disallowing all explicitly specified consumer endpoints from connecting to the instance.
             --clear-allowed-psc-projects: This will clear the project allowlist of Private Service Connect, disallowing all projects from creating new Private Service Connect bindings to the instance.
             --clear-authorized-networks: Clear the list of external networks that are allowed to connect to the instance.
             --clear-connection-pool-flags: This will clear the connection pool flags set on the instance.
             --clear-custom-subject-alternative-names: This clears the customer specified DNS names.
+            --clear-database-center-integration&: Clear the Database Center integration setting of the instance, so that the instance uses the default Database Center integration behavior.
             --clear-database-flags: Clear the database flags set on the instance.
             --clear-entra-id-config: Clears the Entra ID config for the SQL Server instance.
             --clear-failover-dr-replica-name: Clear the DR replica setting for the primary instance.
@@ -817,12 +845,17 @@ commands:
             --clear-psc-auto-connections: This removes all automatically created connections.
             --clear-psc-network-attachment-uri: Disable outbound connectivity from a Cloud SQL instance which uses Private Service Connect (PSC).
             --clear-sql-server-password-policy&: Clears existing SQL Server password policy configurations from the instance.
+            --clear-sql-server-password-policy-history-length&: Clears existing SQL Server password policy history length configuration from the instance.
+            --clear-sql-server-password-policy-maximum-age&: Clears existing SQL Server password policy maximum age configuration from the instance and resets to the default (90 days).
+            --clear-sql-server-password-policy-min-length&: Clears existing SQL Server password policy min length configuration from the instance and resets to the default (8).
+            --clear-sql-server-password-policy-minimum-age&: Clears existing SQL Server password policy minimum age configuration from the instance.
             --connection-pool-flags=: Comma-separated list of connection pool flags to set on the instance connection pool.
             --connector-enforcement=: Cloud SQL Connector enforcement mode.
             --cpu=: Whole number value indicating how many cores are desired in the machine.
             --custom-subject-alternative-names=: A comma-separated list of DNS names to add to the instance's SSL certificate.
             --data-api-access=: Controls connectivity to the instance using ExecuteSql API.
             --database-center-integration-enabled&: Whether the instance is integrated with Database Center.
+            --database-center-integration=&: State of the Database Center integration for this instance.
             --database-flags=: Comma-separated list of database flags to set on the instance.
             --database-version=: The database engine type and versions.
             --deletion-protection: Enable deletion protection on a Cloud SQL instance.
@@ -845,6 +878,7 @@ commands:
             --enable-psc-auto-connection-policy: If set, service connection policy will be created by Cloud SQL when missing for PSC enabled instance.
             --enable-psc-auto-dns: Enable per instance DNS records for PSC auto-connections.
             --enable-psc-write-endpoint-dns: Enable the global DNS record pointing to the primary, for Enterprise Plus edition only.
+            --enable-sql-server-password-policy&: Enables password policy on SQL Server local logins.
             --enforce-new-sql-network-architecture: Force the instance to use the new network architecture.
             --entra-id-application-id=!: Set the Entraid application ID.
             --entra-id-tenant-id=!: Set the Entraid tenant ID.
@@ -875,10 +909,12 @@ commands:
             --no-backup: Specified if daily backup should be disabled.
             --no-clear-active-directory&: Clears the Active Directory configuration.
             --no-clear-active-directory-dns-servers&: Removes the list of DNS Servers from the Active Directory Config.
+            --no-clear-allowed-consumer-endpoints&: Clear the allowed consumer endpoints list of Private Service Connect, disallowing all explicitly specified consumer endpoints from connecting to the instance.
             --no-clear-allowed-psc-projects&: This will clear the project allowlist of Private Service Connect, disallowing all projects from creating new Private Service Connect bindings to the instance.
             --no-clear-authorized-networks&: Clear the list of external networks that are allowed to connect to the instance.
             --no-clear-connection-pool-flags&: This will clear the connection pool flags set on the instance.
             --no-clear-custom-subject-alternative-names&: This clears the customer specified DNS names.
+            --no-clear-database-center-integration&: Clear the Database Center integration setting of the instance, so that the instance uses the default Database Center integration behavior.
             --no-clear-database-flags&: Clear the database flags set on the instance.
             --no-clear-entra-id-config&: Clears the Entra ID config for the SQL Server instance.
             --no-clear-failover-dr-replica-name&: Clear the DR replica setting for the primary instance.
@@ -887,6 +923,10 @@ commands:
             --no-clear-psc-auto-connections&: This removes all automatically created connections.
             --no-clear-psc-network-attachment-uri&: Disable outbound connectivity from a Cloud SQL instance which uses Private Service Connect (PSC).
             --no-clear-sql-server-password-policy&: Clears existing SQL Server password policy configurations from the instance.
+            --no-clear-sql-server-password-policy-history-length&: Clears existing SQL Server password policy history length configuration from the instance.
+            --no-clear-sql-server-password-policy-maximum-age&: Clears existing SQL Server password policy maximum age configuration from the instance and resets to the default (90 days).
+            --no-clear-sql-server-password-policy-min-length&: Clears existing SQL Server password policy min length configuration from the instance and resets to the default (8).
+            --no-clear-sql-server-password-policy-minimum-age&: Clears existing SQL Server password policy minimum age configuration from the instance.
             --no-database-center-integration-enabled&: Whether the instance is integrated with Database Center.
             --no-deletion-protection&: Enable deletion protection on a Cloud SQL instance.
             --no-diff&: Show what changed as a result of the update.
@@ -904,6 +944,7 @@ commands:
             --no-enable-psc-auto-connection-policy&: If set, service connection policy will be created by Cloud SQL when missing for PSC enabled instance.
             --no-enable-psc-auto-dns&: Enable per instance DNS records for PSC auto-connections.
             --no-enable-psc-write-endpoint-dns&: Enable the global DNS record pointing to the primary, for Enterprise Plus edition only.
+            --no-enable-sql-server-password-policy&: Enables password policy on SQL Server local logins.
             --no-enforce-new-sql-network-architecture&: Force the instance to use the new network architecture.
             --no-final-backup&: Enables the final backup to be taken at the time of instance deletion.
             --no-include-replicas-for-major-version-upgrade&: Enable the major version upgrade of replicas when the in-place major version upgrade of a primary instance is initated with `--database-version`.
@@ -919,7 +960,7 @@ commands:
             --no-require-ssl&: mysqld should default to 'REQUIRE X509' for users connecting over IP.
             --no-retain-backups-on-delete&: Retain automated/ondemand backups of the instance after the instance is deleted.
             --no-simulate-maintenance-event&: Simulate a maintenance event without changing the version.
-            --no-sql-server-enable-password-policy&: Enables password policy on SQL Server local logins.
+            --no-skip-precheck&: Skip the automated compatibility check step during an in-place major version upgrade of a Cloud SQL for MySQL instance initiated with `--database-version`.
             --no-storage-auto-increase&: Storage size can be increased, but it cannot be decreased; storage increases are permanent for the life of the instance.
             --no-switch-transaction-logs-to-cloud-storage&: Switches the location of the transaction logs used for PITR from disk to Cloud Storage.
             --no-upgrade-sql-network-architecture&: Upgrade from old network architecture to new network architecture.
@@ -946,6 +987,7 @@ commands:
             --server-ca-pool=: Set the server CA pool of the instance.
             --server-certificate-rotation-mode=: Set the server certificate rotation mode of the instance.
             --simulate-maintenance-event: Simulate a maintenance event without changing the version.
+            --skip-precheck: Skip the automated compatibility check step during an in-place major version upgrade of a Cloud SQL for MySQL instance initiated with `--database-version`.
             --sql-server-enable-password-policy&: Enables password policy on SQL Server local logins.
             --sql-server-password-policy-history-length=&: Number of previous passwords that cannot be reused on SQL Server local logins.
             --sql-server-password-policy-maximum-age=&: Maximum duration that a password remains valid before it expires on SQL Server local logins.
@@ -983,6 +1025,9 @@ commands:
                     - ALLOW_DATA_API
                     - DATA_API_ACCESS_UNSPECIFIED
                     - DISALLOW_DATA_API
+                database-center-integration:
+                    - disabled
+                    - enabled
                 database-version:
                     - MYSQL_5_6
                     - MYSQL_5_7
@@ -999,6 +1044,7 @@ commands:
                     - POSTGRES_16
                     - POSTGRES_17
                     - POSTGRES_18
+                    - POSTGRES_19
                     - SQLSERVER_2017_EXPRESS
                     - SQLSERVER_2017_WEB
                     - SQLSERVER_2017_STANDARD
@@ -1226,6 +1272,7 @@ commands:
           description: Performs pre-checks for a major version upgrade of a Cloud SQL instance.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
+            --max-runtime=: Maximum runtime for the pre-check, for example, 10m or 2h.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --target-database-version=!: Target database version for the upgrade.
         - name: promote-replica
@@ -1235,6 +1282,16 @@ commands:
             --failover: Whether the promote operation is a failover.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-failover&: Whether the promote operation is a failover.
+        - name: reconcile-networking
+          description: Reconciles network infrastructure for a Cloud SQL instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --force: Forces service connection mapping disablement and enablement during PSC networking reconciliation.
+            --networks=: List of specific consumer VPC networks to reconcile, specified as full resource paths (e.g. `projects/my-consumer-project/global/networks/prod-vpc`).
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-force&: Forces service connection mapping disablement and enablement during PSC networking reconciliation.
+            --no-psc-dns&: Reconciles the instance's Private Service Connect (PSC) DNS records.
+            --psc-dns: Reconciles the instance's Private Service Connect (PSC) DNS records.
         - name: reencrypt
           description: Reencrypts a Cloud SQL CMEK instance.
           flags:
@@ -1333,6 +1390,63 @@ commands:
                 --page-size=: Some services group resource list output into pages.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: customer-managed-certs
+          description: Provide commands for managing customer managed certificates of Cloud SQL instances.
+          commands:
+            - name: delete
+              description: Delete a customer managed certificate bundle for a Cloud SQL instance.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --endpoint-mode=: Specifies endpoint mode for a given command.
+                --instance=!: Cloud SQL instance ID.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
+            - name: list
+              description: List all customer managed certificate bundles for a Cloud SQL instance.
+              flags:
+                --endpoint-mode=: Specifies endpoint mode for a given command.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --instance=!: Cloud SQL instance ID.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
+            - name: update
+              description: Create or update a customer managed certificate bundle for a Cloud SQL instance.
+              flags:
+                --allow-missing: If set, and the customer managed certificate bundle configuration is not found, a new customer managed certificate bundle configuration will be created.
+                --async: Return immediately, without waiting for the operation in progress to
+                --client-cert-file=: Path to a PEM-encoded file containing the peer client certificate.
+                --client-key-file=: Path to a PEM-encoded file containing the peer client private key.
+                --endpoint-mode=: Specifies endpoint mode for a given command.
+                --instance=!: Cloud SQL instance ID.
+                --intent=: Intent for the customer managed certificate bundle configuration.
+                --no-allow-missing&: If set, and the customer managed certificate bundle configuration is not found, a new customer managed certificate bundle configuration will be created.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --primary-dns=: DNS name associated with the primary instance in a replication topology.
+                --primary-ipv4-address=: IPv4 address for the primary DNS name.
+                --server-ca-file=: Path to a PEM-encoded file containing the peer server CA certificate.
+                --update-mask=: Comma-separated list of fields to be updated.
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
+                    intent:
+                        - PG_LOGICAL
         - name: entraid-certs
           description: Provide commands for managing Entra ID certificates of Cloud SQL instances.
           commands:
@@ -1513,6 +1627,12 @@ commands:
           flags:
             --host=: Cloud SQL user's hostname expressed as a specific IP address or address range.
             --instance=!: Cloud SQL instance ID.
+            --view=&: Specifies which user fields to return.
+          completion:
+            flag:
+                view:
+                    - basic
+                    - full
         - name: list
           description: Lists Cloud SQL users in a given instance.
           flags:
@@ -1523,6 +1643,12 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+            --view=&: Specifies which user fields to return.
+          completion:
+            flag:
+                view:
+                    - basic
+                    - full
         - name: set-password
           description: Changes a user's password in a given instance.
           flags:

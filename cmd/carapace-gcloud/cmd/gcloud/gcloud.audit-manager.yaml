@@ -13,11 +13,73 @@ commands:
             --gcs-uri=: Destination Cloud storage bucket where report and evidence must be uploaded.
             --location=!: The location where the report should be generated.
             --organization=: Organization Id for which to generate audit report
+            --parameter-overrides=: Overrides for the parameters of parameterized cloud controls, applied when the audit runs.
             --report-format=!: The format in which the audit report should be created.
           completion:
             flag:
                 report-format:
                     - odf
+    - name: audit-schedules
+      description: Command group for Audit Manager Audit Schedules.
+      commands:
+        - name: create
+          description: Create Audit Schedule.
+          flags:
+            --audit-schedule-id=!: ID to use for the audit schedule.
+            --compliance-framework=!: Compliance Framework against which the Report must be generated.
+            --display-name=: Display name for the audit schedule.
+            --end-time=: Date and time that the schedule stops in RFC 3339 format.
+            --folder=: Folder Id for which to create audit schedule
+            --frequency=!: Frequency of audit runs.
+            --gcs-uri=: Destination Cloud storage bucket where report and evidence must be uploaded.
+            --location=!: The location where the audit schedule should be created.
+            --organization=: Organization Id for which to create audit schedule
+            --parameter-overrides=: Overrides for the parameters of parameterized cloud controls, applied when the audit runs.
+            --report-format=!: The format in which the audit report should be created.
+            --start-time=!: Date and time when the first audit run is triggered in RFC 3339 format.
+            --time-zone=: Time zone for the audit schedule in IANA format (e.g. America/New_York).
+          completion:
+            flag:
+                frequency:
+                    - daily
+                    - weekly
+                    - monthly
+                    - quarterly
+                    - annually
+                report-format:
+                    - odf
+        - name: describe
+          description: Describe Audit Schedule.
+          flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
+        - name: list
+          description: List Audit Schedules.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --folder=: Folder Id for which to list audit schedules
+            --limit=: Maximum number of resources to list.
+            --location=!: The location where audit schedules should be listed.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --organization=: Organization Id for which to list audit schedules
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update Audit Schedule.
+          flags:
+            --state=!: State to update the audit schedule to.
+          completion:
+            flag:
+                state:
+                    - active
+                    - paused
+                    - deleted
     - name: audit-scopes
       description: Command group for Audit Manager Audit Scopes.
       commands:
@@ -30,6 +92,7 @@ commands:
             --organization=: Organization Id for which to generate audit scope
             --output-directory=: The directory path where the scope report should be created .
             --output-file-name=!: The name by while scope report should be created .
+            --parameter-overrides=: Overrides for the parameters of parameterized cloud controls, applied when the audit runs.
             --report-format=!: The format in which the audit scope report should be created.
           completion:
             flag:

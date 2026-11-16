@@ -218,7 +218,6 @@ commands:
             --repository=: The repository associated with the file.
         - name: upload
           description: Uploads files to Artifact Registry.
-          hidden: true
           flags:
             --async: Return immediately, without waiting for the operation in progress to
             --file-type=: The type of the file to upload.
@@ -454,12 +453,14 @@ commands:
             --exclude-all-tags: Exclude all tags for each artifact version copied.
             --include-all-attachments: Include all attachments for each artifact version copied.
             --location=: Location of the repository.
-            --max-version-age-days=: If set, only versions updated within the specified number of days (24-hour periods) up to the operation's start time will be copied.
+            --max-version-age-days=: (DEPRECATED) Only copy versions updated within the specified number of days.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-continue-on-skipped-version&: If true, the repo copy operation will continue when a non-transient version copy error occurs, rather than failing the entire copy operation.
             --no-exclude-all-tags&: Exclude all tags for each artifact version copied.
             --no-include-all-attachments&: Include all attachments for each artifact version copied.
             --source-repo=!: The source repository path to copy artifacts from.
+            --version-created-within-days=: Only copy package versions created within the specified number of days.
+            --version-updated-within-days=: Only copy package versions updated or refreshed within the specified number of days.
         - name: create
           description: Create an Artifact Registry repository.
           flags:
@@ -566,6 +567,13 @@ commands:
           description: List cleanup policies of an Artifact Registry repository.
           flags:
             --location=: Location of the repository.
+        - name: reconcile
+          description: Reconcile an Artifact Registry repository.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: Location of the repository.
+            --no-async&: Return immediately, without waiting for the operation in progress to
         - name: remove-iam-policy-binding
           description: Remove an IAM policy binding from the IAM policy of an Artifact Registry repository.
           flags:

@@ -349,15 +349,35 @@ commands:
           description: Create a Firewall Plus endpoint.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
+            --block-partial-http: Block HTTP partial responses.
+            --content-cloud-region=: The content cloud region the endpoint will use.
             --description=: Description of the endpoint
             --enable-jumbo-frames: Enable jumbo frames for the firewall endpoint.
+            --enable-wildfire: Enable WildFire functionality on the endpoint.
+            --enable-wildfire-analysis-logging: Enable WildFire inline cloud analysis submission timeout logging.
             --labels=: List of label KEY=VALUE pairs to add.
             --location=: Location of the endpoint
             --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
             --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-block-partial-http&: Block HTTP partial responses.
             --no-enable-jumbo-frames&: Enable jumbo frames for the firewall endpoint.
+            --no-enable-wildfire&: Enable WildFire functionality on the endpoint.
+            --no-enable-wildfire-analysis-logging&: Enable WildFire inline cloud analysis submission timeout logging.
             --organization=: Organization ID of the firewall endpoint.
+            --wildfire-analysis-action=: The action to take on WildFire inline cloud analysis timeout.
+            --wildfire-analysis-timeout=: The timeout (in milliseconds) on a file being held while WildFire inline cloud analysis is performed.
+            --wildfire-lookup-action=: The action to take on WildFire real time signature lookup timeout.
+            --wildfire-lookup-timeout=: The timeout (in milliseconds) to hold a file while the WildFire real time signature cloud performs a signature lookup.
+            --wildfire-region=: The region WildFire submissions from this endpoint will be sent to for analysis by WildFire.
             --zone=: Zone of the firewall endpoint.
+          completion:
+            flag:
+                wildfire-analysis-action:
+                    - ALLOW
+                    - DENY
+                wildfire-lookup-action:
+                    - ALLOW
+                    - DENY
         - name: delete
           description: Delete a Firewall Plus endpoint.
           flags:
@@ -389,17 +409,70 @@ commands:
           description: Update a Firewall Plus endpoint.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
+            --block-partial-http: Block HTTP partial responses.
             --clear-labels: Remove all labels.
+            --content-cloud-region=: The content cloud region the endpoint will use.
             --description=: Description of the endpoint
+            --enable-wildfire: Enable WildFire functionality on the endpoint.
+            --enable-wildfire-analysis-logging: Enable WildFire inline cloud analysis submission timeout logging.
             --location=: Location of the endpoint
             --max-wait=: Time to synchronously wait for the operation to complete, after which the operation continues asynchronously.
             --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-block-partial-http&: Block HTTP partial responses.
             --no-clear-labels&: Remove all labels.
+            --no-enable-wildfire&: Enable WildFire functionality on the endpoint.
+            --no-enable-wildfire-analysis-logging&: Enable WildFire inline cloud analysis submission timeout logging.
             --organization=: Organization ID of the firewall endpoint.
             --remove-labels=: List of label keys to remove.
             --update-billing-project=: The Google Cloud project ID to use for API enablement check, quota, and endpoint uptime billing.
             --update-labels=: List of label KEY=VALUE pairs to update.
+            --wildfire-analysis-action=: The action to take on WildFire inline cloud analysis timeout.
+            --wildfire-analysis-timeout=: The timeout (in milliseconds) on a file being held while WildFire inline cloud analysis is performed.
+            --wildfire-lookup-action=: The action to take on WildFire real time signature lookup timeout.
+            --wildfire-lookup-timeout=: The timeout (in milliseconds) to hold a file while the WildFire real time signature cloud performs a signature lookup.
+            --wildfire-region=: The region WildFire submissions from this endpoint will be sent to for analysis by WildFire.
             --zone=: Zone of the firewall endpoint.
+          completion:
+            flag:
+                wildfire-analysis-action:
+                    - ALLOW
+                    - DENY
+                wildfire-lookup-action:
+                    - ALLOW
+                    - DENY
+        - name: wildfire-verdict-change-requests
+          description: Manage WildFire Verdict Change Requests.
+          commands:
+            - name: create
+              description: Create a WildFire Verdict Change Request.
+              flags:
+                --comment=!: The comment to be added to the verdict change request.
+                --endpoint=!: ID of the endpoint or fully qualified identifier for the endpoint.
+                --hash=!: The hash of the file to submit a verdict change request for.
+                --location=: Location of the endpoint
+                --organization=: Organization ID of the endpoint.
+                --verdict=!: The verdict being requested for the file.
+                --zone=: Zone of the endpoint.
+            - name: get
+              description: Get a WildFire Verdict Change Request.
+              flags:
+                --endpoint=!: ID of the endpoint or fully qualified identifier for the endpoint.
+                --location=: Location of the endpoint
+                --organization=: Organization ID of the endpoint.
+                --zone=: Zone of the endpoint.
+            - name: list
+              description: List WildFire Verdict Change Requests.
+              flags:
+                --endpoint=!: ID of the endpoint or fully qualified identifier for the endpoint.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: Location of the endpoint
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --organization=: Organization ID of the endpoint.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+                --zone=: Zone of the endpoint.
     - name: gateway-security-policies
       description: Manage Network Security Gateway Security Policies.
       commands:
@@ -1108,6 +1181,10 @@ commands:
             --url-filtering-profile-organization=: Organization ID of the Security Profile.
             --url-filtering-profile-project=: Project ID of the url_filtering_profile.
             --url-filtering-profile=!: ID of the url_filtering_profile or fully qualified identifier for the url_filtering_profile.
+            --wildfire-analysis-profile-location=: Location of the wildfire_analysis_profile.
+            --wildfire-analysis-profile-organization=: Organization ID of the Security Profile.
+            --wildfire-analysis-profile-project=: Project ID of the wildfire_analysis_profile.
+            --wildfire-analysis-profile=!: ID of the wildfire_analysis_profile or fully qualified identifier for the wildfire_analysis_profile.
         - name: delete
           description: Delete a Security Profile Group.
           flags:
@@ -1138,12 +1215,14 @@ commands:
             --clear-labels: Remove all labels.
             --clear-threat-prevention-profile: Clear the threat-prevention-profile field.
             --clear-url-filtering-profile: Clear the url-filtering-profile field.
+            --clear-wildfire-analysis-profile: Clear the wildfire-analysis-profile field.
             --description=: Brief description of the security profile group
             --location=: location of the security_profile_group - Global.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-clear-labels&: Remove all labels.
             --no-clear-threat-prevention-profile&: Clear the threat-prevention-profile field.
             --no-clear-url-filtering-profile&: Clear the url-filtering-profile field.
+            --no-clear-wildfire-analysis-profile&: Clear the wildfire-analysis-profile field.
             --organization=: Organization ID of Security Profile Group
             --remove-labels=: List of label keys to remove.
             --security-profile-location=&: Flag to preserve backward compatibility.
@@ -1157,6 +1236,10 @@ commands:
             --url-filtering-profile-organization=: Organization ID of the Security Profile.
             --url-filtering-profile-project=: Project ID of the url_filtering_profile.
             --url-filtering-profile=!: ID of the url_filtering_profile or fully qualified identifier for the url_filtering_profile.
+            --wildfire-analysis-profile-location=: Location of the wildfire_analysis_profile.
+            --wildfire-analysis-profile-organization=: Organization ID of the Security Profile.
+            --wildfire-analysis-profile-project=: Project ID of the wildfire_analysis_profile.
+            --wildfire-analysis-profile=!: ID of the wildfire_analysis_profile or fully qualified identifier for the wildfire_analysis_profile.
     - name: security-profiles
       description: Manage Network Security - Security Profiles.
       commands:
@@ -1430,9 +1513,231 @@ commands:
                 --page-size=: Some services group resource list output into pages.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: wildfire-analysis
+          description: Manage Security Profiles - WildFire Analysis Profile.
+          commands:
+            - name: add-inline-cloud-analysis-rule
+              description: Add a WildFire inline cloud analysis rule to a WildFire Analysis Profile.
+              flags:
+                --action=!: Action to take when Inline Cloud Analysis detects a threat.
+                --async: Return immediately, without waiting for the operation in progress to
+                --direction=!: Direction of traffic that will be checked for files to submit to WildFire.
+                --file-types=!: Types of files that will be submitted to WildFire for analysis.
+                --location=: Location of the security profile.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --organization=: Organization ID to which the changes should apply.
+              completion:
+                flag:
+                    action:
+                        - ALLOW
+                        - DENY
+                        - ALERT
+                    direction:
+                        - UPLOAD
+                        - DOWNLOAD
+                        - BOTH
+            - name: add-inline-ml-exception
+              description: Add a WildFire inline machine learning exception to a WildFire Analysis Profile.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --filename=: Name of the file.
+                --location=: Location of the security profile.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --organization=: Organization ID to which the changes should apply.
+                --partial-hash=!: Machine learning partial hash of the file.
+            - name: add-override
+              description: Add an override to a WildFire Analysis Profile.
+              flags:
+                --action=!: The action to take for this override.
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: Location of the security profile.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --organization=: Organization ID to which the changes should apply.
+                --threat-ids=: Comma-separated list of WildFire Signature IDs to override the action for.
+                --wildfire-inline-ml=: Comma-separated list of protocols to override the action for WildFire Inline ML threats.
+                --wildfire=: Comma-separated list of protocols to override the action for WildFire threats.
+              completion:
+                flag:
+                    action:
+                        - DEFAULT
+                        - ALLOW
+                        - DENY
+                        - ALERT
+            - name: add-submission-rule
+              description: Add a WildFire submission rule to a WildFire Analysis Profile.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --direction=!: Direction of traffic that will be checked for files to submit to WildFire.
+                --file-types=!: Types of files that will be submitted to WildFire for analysis.
+                --location=: Location of the security profile.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --organization=: Organization ID to which the changes should apply.
+              completion:
+                flag:
+                    direction:
+                        - UPLOAD
+                        - DOWNLOAD
+                        - BOTH
+            - name: create
+              description: Create a new WildFire Analysis Profile.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --description=: Brief description of the security profile
+                --labels=: List of label KEY=VALUE pairs to add.
+                --location=: Location of the security profile.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --organization=: Organization ID to which the changes should apply.
+            - name: delete
+              description: Delete a WildFire Analysis Profile.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: Location of the security profile.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --organization=: Organization ID to which the changes should apply.
+            - name: delete-inline-cloud-analysis-rule
+              description: Delete a WildFire inline cloud analysis rule from a WildFire Analysis Profile.
+              flags:
+                --action=!: Action to take when Inline Cloud Analysis detects a threat.
+                --async: Return immediately, without waiting for the operation in progress to
+                --direction=!: Direction of traffic that will be checked for files to submit to WildFire.
+                --file-types=!: Types of files that will be submitted to WildFire for analysis.
+                --location=: Location of the security profile.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --organization=: Organization ID to which the changes should apply.
+              completion:
+                flag:
+                    action:
+                        - ALLOW
+                        - DENY
+                        - ALERT
+                    direction:
+                        - UPLOAD
+                        - DOWNLOAD
+                        - BOTH
+            - name: delete-inline-ml-exception
+              description: Delete a WildFire inline machine learning exception from a WildFire Analysis Profile.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --filename=: Name of the file.
+                --location=: Location of the security profile.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --organization=: Organization ID to which the changes should apply.
+                --partial-hash=!: Machine learning partial hash of the file.
+            - name: delete-override
+              description: Delete an override from a WildFire Analysis Profile.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: Location of the security profile.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --organization=: Organization ID to which the changes should apply.
+                --threat-ids=: Comma-separated list of WildFire Signature IDs to delete the override for.
+                --wildfire-inline-ml=: Comma-separated list of protocols to delete the override for WildFire Inline ML threats.
+                --wildfire=: Comma-separated list of protocols to delete the override for WildFire threats.
+            - name: delete-submission-rule
+              description: Delete a WildFire submission rule from a WildFire Analysis Profile.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --direction=!: Direction of traffic that will be checked for files to submit to WildFire.
+                --file-types=!: Types of files that will be submitted to WildFire for analysis.
+                --location=: Location of the security profile.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --organization=: Organization ID to which the changes should apply.
+              completion:
+                flag:
+                    direction:
+                        - UPLOAD
+                        - DOWNLOAD
+                        - BOTH
+            - name: describe
+              description: Describe a WildFire Analysis Security Profile.
+              flags:
+                --location=: Location of the security profile.
+                --organization=: Organization ID to which the changes should apply.
+            - name: list
+              description: List WildFire Analysis Security Profiles.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=!: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --organization=: Organization ID of the location.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Update a WildFire Analysis Security Profile.
+              flags:
+                --analyze-elf: Enable machine learning engine to dynamically detect malicious ELF files.
+                --analyze-macho: Enable machine learning engine to dynamically detect malicious Mach-O files.
+                --analyze-ms-office: Enable machine learning engine to dynamically detect malicious MSOffice (97-03) files.
+                --analyze-ooxml: Enable machine learning engine to dynamically detect malicious OOXML files.
+                --analyze-powershell-script-1: Enable machine learning engine to dynamically identify malicious PowerShell scripts with known length.
+                --analyze-powershell-script-2: Enable machine learning engine to dynamically identify malicious PowerShell script without known length.
+                --analyze-shell: Enable machine learning engine to dynamically detect malicious Shell files.
+                --analyze-windows-executables: Enable machine learning engine to dynamically detect malicious PE files.
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-labels: Remove all labels.
+                --description=: Brief description of the security profile
+                --location=: Location of the security profile.
+                --no-analyze-elf&: Enable machine learning engine to dynamically detect malicious ELF files.
+                --no-analyze-macho&: Enable machine learning engine to dynamically detect malicious Mach-O files.
+                --no-analyze-ms-office&: Enable machine learning engine to dynamically detect malicious MSOffice (97-03) files.
+                --no-analyze-ooxml&: Enable machine learning engine to dynamically detect malicious OOXML files.
+                --no-analyze-powershell-script-1&: Enable machine learning engine to dynamically identify malicious PowerShell scripts with known length.
+                --no-analyze-powershell-script-2&: Enable machine learning engine to dynamically identify malicious PowerShell script without known length.
+                --no-analyze-shell&: Enable machine learning engine to dynamically detect malicious Shell files.
+                --no-analyze-windows-executables&: Enable machine learning engine to dynamically detect malicious PE files.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Remove all labels.
+                --no-wildfire-realtime-lookup&: Hold the transfer of a file while the WildFire real-time signature cloud performs a signature lookup.
+                --organization=: Organization ID to which the changes should apply.
+                --remove-labels=: List of label keys to remove.
+                --update-labels=: List of label KEY=VALUE pairs to update.
+                --wildfire-realtime-lookup: Hold the transfer of a file while the WildFire real-time signature cloud performs a signature lookup.
+            - name: update-override
+              description: Update an override in a WildFire Analysis Profile.
+              flags:
+                --action=!: The action to take for this override.
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: Location of the security profile.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --organization=: Organization ID to which the changes should apply.
+                --threat-ids=: Comma-separated list of WildFire Signature IDs to override the action for.
+                --wildfire-inline-ml=: Comma-separated list of protocols to override the action for WildFire Inline ML threats.
+                --wildfire=: Comma-separated list of protocols to override the action for WildFire threats.
+              completion:
+                flag:
+                    action:
+                        - DEFAULT
+                        - ALLOW
+                        - DENY
+                        - ALERT
     - name: server-tls-policies
       description: Manage Network Security ServerTlsPolicies.
       commands:
+        - name: create
+          description: Create a ServerTlsPolicy.
+          flags:
+            --allow-open: Determines if the server allows plaintext connections when configured for Traffic Director.
+            --async: Return immediately, without waiting for the operation in progress to
+            --client-validation-ca-grpc-endpoint=: List of gRPC endpoint target URIs used to obtain the Certificate Authority certificates to validate peer certificates for Traffic Director.
+            --client-validation-ca-plugin-instance=: List of certificate provider plugin instance names used to obtain the Certificate Authority certificates to validate peer certificates for Traffic Director.
+            --client-validation-mode=!: Specifies how the client connection is handled when the client presents an invalid certificate or no certificate to the load balancer.
+            --client-validation-relaxations=: List of validation relaxations to apply when `--client-validation-mode` is set to `allow-validation-relaxations`.
+            --client-validation-trust-config=: Reference to the Certificate Manager TrustConfig resource (`projects/*/locations/*/trustConfigs/*` or TrustConfig ID in the same project and location) used to validate client certificates.
+            --description=: Free-text description of the resource.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: The location Id.
+            --no-allow-open&: Determines if the server allows plaintext connections when configured for Traffic Director.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --server-certificate-grpc-endpoint=: Target URI of the gRPC endpoint that provides the server certificate and private key (must start with `unix:`).
+            --server-certificate-plugin-instance=: Plugin instance name that will be passed to the data plane to load server identity credentials.
+          completion:
+            flag:
+                client-validation-mode:
+                    - allow-invalid-or-missing-client-cert
+                    - allow-validation-relaxations
+                    - reject-invalid
         - name: delete
           description: Delete ServerTlsPolicy.
           flags:
@@ -1465,6 +1770,33 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a ServerTlsPolicy.
+          flags:
+            --allow-open: Determines if server allows plaintext connections.
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-client-validation-relaxations: Clear all configured client validation relaxations.
+            --clear-labels: Remove all labels.
+            --client-validation-ca-grpc-endpoint=: List of gRPC endpoint target URIs used to obtain the Certificate
+            --client-validation-ca-plugin-instance=: List of certificate provider plugin instance names used to obtain the
+            --client-validation-mode=: Determines how the server handles connections when the client presents
+            --client-validation-relaxations=: List of X.509 certificate validation relaxations to apply when
+            --description=: Free-text description of the resource.
+            --location=: The location Id.
+            --no-allow-open&: Determines if server allows plaintext connections.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-client-validation-relaxations&: Clear all configured client validation relaxations.
+            --no-clear-labels&: Remove all labels.
+            --remove-labels=: List of label keys to remove.
+            --server-certificate-grpc-endpoint=: Target URI of the gRPC endpoint that provides the server certificate and
+            --server-certificate-plugin-instance=: Plugin instance name, used to locate and load CertificateProvider
+            --update-labels=: List of label KEY=VALUE pairs to update.
+          completion:
+            flag:
+                client-validation-mode:
+                    - allow-invalid-or-missing-client-cert
+                    - allow-validation-relaxations
+                    - reject-invalid
     - name: tls-inspection-policies
       description: Manage Network Security TLS Inspection Policies.
       commands:
@@ -1563,6 +1895,7 @@ commands:
                 --match-direction=: Direction of traffic to match.
                 --match-dst-ip-ranges=: Destination IP ranges to match.
                 --match-ip-protocols=: IP protocols to match.
+                --match-primary-ip-ranges=: Primary IP ranges to match (for the capture point).
                 --match-src-ip-ranges=: Source IP ranges to match.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --request-id=: An optional request ID to identify requests.
@@ -1605,28 +1938,33 @@ commands:
               flags:
                 --add-match-dst-ip-ranges=: Add new value to match_dst_ip_ranges list.
                 --add-match-ip-protocols=: Add new value to match_ip_protocols list.
+                --add-match-primary-ip-ranges=: Add new value to match_primary_ip_ranges list.
                 --add-match-src-ip-ranges=: Add new value to match_src_ip_ranges list.
                 --async: Return immediately, without waiting for the operation in progress to
                 --clear-labels: Clear labels value and set to empty map.
                 --clear-match: Set ullMirroringCollectorRule.match back to default value.
                 --clear-match-dst-ip-ranges: Clear match_dst_ip_ranges value and set to empty list.
                 --clear-match-ip-protocols: Clear match_ip_protocols value and set to empty list.
+                --clear-match-primary-ip-ranges: Clear match_primary_ip_ranges value and set to empty list.
                 --clear-match-src-ip-ranges: Clear match_src_ip_ranges value and set to empty list.
                 --labels=: Set labels to new value.
                 --location=: The location id of the ullMirroringCollectorRule resource.
                 --match-direction=: Direction of traffic to match.
                 --match-dst-ip-ranges=: Set match_dst_ip_ranges to new value.
                 --match-ip-protocols=: Set match_ip_protocols to new value.
+                --match-primary-ip-ranges=: Set match_primary_ip_ranges to new value.
                 --match-src-ip-ranges=: Set match_src_ip_ranges to new value.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-clear-labels&: Clear labels value and set to empty map.
                 --no-clear-match&: Set ullMirroringCollectorRule.match back to default value.
                 --no-clear-match-dst-ip-ranges&: Clear match_dst_ip_ranges value and set to empty list.
                 --no-clear-match-ip-protocols&: Clear match_ip_protocols value and set to empty list.
+                --no-clear-match-primary-ip-ranges&: Clear match_primary_ip_ranges value and set to empty list.
                 --no-clear-match-src-ip-ranges&: Clear match_src_ip_ranges value and set to empty list.
                 --remove-labels=: Remove existing value from map labels.
                 --remove-match-dst-ip-ranges=: Remove existing value from match_dst_ip_ranges list.
                 --remove-match-ip-protocols=: Remove existing value from match_ip_protocols list.
+                --remove-match-primary-ip-ranges=: Remove existing value from match_primary_ip_ranges list.
                 --remove-match-src-ip-ranges=: Remove existing value from match_src_ip_ranges list.
                 --ull-mirroring-collector=: The ullMirroringCollector id of the ullMirroringCollectorRule resource.
                 --update-labels=: Update labels value or add key value pair.

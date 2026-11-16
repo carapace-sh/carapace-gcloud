@@ -12,6 +12,7 @@ commands:
             --domain=: Domain used by Workstations for HTTP ingress.
             --enable-http2: Whether HTTP/2 is enabled for the workstation cluster.
             --enable-private-endpoint: Default is false.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --labels=: Labels that are applied to the cluster and propagated to the underlying Compute Engine
             --network=: Fully specified network path for instances created in this cluster.
             --no-async&: Return immediately, without waiting for the operation in progress to
@@ -22,24 +23,51 @@ commands:
             --tags=: Resource manager tags to be bound to this cluster.
             --workstation-authorization-url=: The redirect URL for unauthorized requests.
             --workstation-launch-url=: The launch URL for workstations.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: delete
           description: Delete a workstation cluster.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --region=: The name of the region of the cluster.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: describe
           description: Describe a cluster.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --region=: The name of the region of the cluster.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: list
           description: List workstation clusters.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
             --page-size=: Some services group resource list output into pages.
             --region=: ID of the region or fully qualified identifier for the region.
             --sort-by=: Comma-separated list of resource field key names to sort by.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: update
           description: Update a workstation cluster.
           flags:
@@ -47,6 +75,7 @@ commands:
             --clear-labels: Remove all labels.
             --display-name=: Human-readable name for this workstation cluster.
             --enable-http2: Enable or disable HTTP/2 for the workstation cluster.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-clear-labels&: Remove all labels.
             --no-enable-http2&: Enable or disable HTTP/2 for the workstation cluster.
@@ -55,6 +84,12 @@ commands:
             --update-labels=: List of label KEY=VALUE pairs to update.
             --workstation-authorization-url=: The redirect URL for unauthorized requests.
             --workstation-launch-url=: The launch URL for workstations.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
     - name: configs
       description: Manage Cloud Workstations configuration resources.
       commands:
@@ -78,6 +113,8 @@ commands:
             --disable-ssh-to-vm: (DEPRECATED)   Default value is False.
             --disable-tcp-connections: Default value is false.
             --disk-archive-timeout=: Number of seconds to wait after initially creating or subsequently
+            --disk-provisioned-iops=: Number of I/O operations per second that the disk can handle.
+            --disk-provisioned-throughput=: Throughput in MB per second that the disk can handle.
             --disk-reclaim-policy=: What should happen to the disk after the Workstation is deleted.
             --disk-size=: Size of the persistent directory in GB.
             --disk-source-snapshot=: Name of the snapshot to use as the source for the home disk.
@@ -86,6 +123,7 @@ commands:
             --enable-confidential-compute: Default value is false.
             --enable-nested-virtualization: Default value is false.
             --enable-ssh-to-vm: Default value is False.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --ephemeral-directory=: Ephemeral directory which won't persist across workstation sessions.
             --grant-workstation-admin-role-on-create: Default value is false.
             --idle-timeout=: How long (in seconds) to wait before automatically stopping an instance that
@@ -153,6 +191,10 @@ commands:
                     - pd-balanced
                     - pd-ssd
                     - hyperdisk-balanced-ha
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
                 pd-disk-size:
                     - "10"
                     - "50"
@@ -172,36 +214,71 @@ commands:
           flags:
             --async: Return immediately, without waiting for the operation in progress to
             --cluster=: The name of the cluster containing the config.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --region=: The name of the region of the config.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: describe
           description: Describe a config.
           flags:
             --cluster=: The name of the cluster containing the config.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --region=: The name of the region of the config.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: get-iam-policy
           description: Get the IAM policy for a configuration..
           flags:
             --cluster=: The name of the cluster containing the config.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
             --page-size=: Some services group resource list output into pages.
             --region=: The name of the region of the config.
             --sort-by=: Comma-separated list of resource field key names to sort by.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: list
           description: List workstation configurations.
           flags:
             --cluster=: ID of the cluster or fully qualified identifier for the cluster.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
             --page-size=: Some services group resource list output into pages.
             --region=: The name of the region of the cluster.
             --sort-by=: Comma-separated list of resource field key names to sort by.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: set-iam-policy
           description: Set the IAM policy for a configuration.
           flags:
             --cluster=: The name of the cluster containing the config.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --region=: The name of the region of the config.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: update
           description: Updates a workstation configuration.
           flags:
@@ -222,6 +299,8 @@ commands:
             --disable-ssh-to-vm: If set, workstations disable SSH connections to the root VM.
             --disable-tcp-connections: If set, workstations don't allow plain TCP connections.
             --disk-archive-timeout=: Number of seconds to wait after initially creating or subsequently
+            --disk-provisioned-iops=: Number of I/O operations per second that the disk can handle.
+            --disk-provisioned-throughput=: Throughput in MB per second that the disk can handle.
             --disk-size=: Size of the persistent directory in GB.
             --disk-source-snapshot=: Name of the snapshot to use as the source for the home disk.
             --disk-type=: Type of the persistent directory.
@@ -230,6 +309,7 @@ commands:
             --enable-nested-virtualization: Default value is false.
             --enable-ssh-to-vm: If set, workstations enable SSH connections to the root VM.
             --enable-tcp-connections: If set, workstations allow plain TCP connections.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --grant-workstation-admin-role-on-create: Default value is false.
             --idle-timeout=: How long (in seconds) to wait before automatically stopping an instance that
             --instance-metadata=: Custom metadata to apply to Compute Engine instances.
@@ -289,6 +369,10 @@ commands:
                     - pd-balanced
                     - pd-ssd
                     - hyperdisk-balanced-ha
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
                 pd-disk-size:
                     - "10"
                     - "50"
@@ -306,67 +390,117 @@ commands:
         --async: Return immediately, without waiting for the operation in progress to
         --cluster=: The name of the cluster containing the workstation.
         --config=: The name of the config containing the workstation.
+        --endpoint-mode=: Specifies endpoint mode for a given command.
         --env=: Environment variables passed to the Workstation.
         --labels=: Labels that are applied to the workstation and propagated to the underlying Compute Engine
         --no-async&: Return immediately, without waiting for the operation in progress to
         --region=: The name of the region of the workstation.
         --source-workstation=: Source workstation from which this workstations persistent directories are cloned on
+      completion:
+        flag:
+            endpoint-mode:
+                - global
+                - regional
+                - regional-preferred
     - name: delete
       description: Delete a workstation.
       flags:
         --async: Return immediately, without waiting for the operation in progress to
         --cluster=: The name of the cluster containing the workstation.
         --config=: The name of the config containing the workstation.
+        --endpoint-mode=: Specifies endpoint mode for a given command.
         --no-async&: Return immediately, without waiting for the operation in progress to
         --region=: The name of the region of the workstation.
+      completion:
+        flag:
+            endpoint-mode:
+                - global
+                - regional
+                - regional-preferred
     - name: describe
       description: Describe a workstation.
       flags:
         --cluster=: The name of the cluster containing the workstation.
         --config=: The name of the config containing the workstation.
+        --endpoint-mode=: Specifies endpoint mode for a given command.
         --region=: The name of the region of the workstation.
+      completion:
+        flag:
+            endpoint-mode:
+                - global
+                - regional
+                - regional-preferred
     - name: get-iam-policy
       description: Get the IAM policy for a workstation.
       flags:
         --cluster=: The name of the cluster containing the workstation.
         --config=: The name of the config containing the workstation.
+        --endpoint-mode=: Specifies endpoint mode for a given command.
         --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
         --limit=: Maximum number of resources to list.
         --page-size=: Some services group resource list output into pages.
         --region=: The name of the region of the workstation.
         --sort-by=: Comma-separated list of resource field key names to sort by.
+      completion:
+        flag:
+            endpoint-mode:
+                - global
+                - regional
+                - regional-preferred
     - name: list
       description: List workstations.
       flags:
         --cluster=: The name of the cluster containing the config.
         --config=: ID of the config or fully qualified identifier for the config.
+        --endpoint-mode=: Specifies endpoint mode for a given command.
         --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
         --limit=: Maximum number of resources to list.
         --page-size=: Some services group resource list output into pages.
         --region=: The name of the region of the config.
         --sort-by=: Comma-separated list of resource field key names to sort by.
+      completion:
+        flag:
+            endpoint-mode:
+                - global
+                - regional
+                - regional-preferred
     - name: list-usable
       description: List usable workstations.
       flags:
         --cluster=: The cluster for the config.
         --config=: ID of the config or fully qualified identifier for the config.
+        --endpoint-mode=: Specifies endpoint mode for a given command.
         --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
         --limit=: Maximum number of resources to list.
         --page-size=: Some services group resource list output into pages.
         --region=: The region for the config.
         --sort-by=: Comma-separated list of resource field key names to sort by.
+      completion:
+        flag:
+            endpoint-mode:
+                - global
+                - regional
+                - regional-preferred
     - name: set-iam-policy
       description: Set the IAM policy for a workstation.
       flags:
         --cluster=: The name of the cluster containing the workstation.
         --config=: The name of the config containing the workstation.
+        --endpoint-mode=: Specifies endpoint mode for a given command.
         --region=: The name of the region of the workstation.
+      completion:
+        flag:
+            endpoint-mode:
+                - global
+                - regional
+                - regional-preferred
     - name: ssh
       description: SSH into a running workstation.
       flags:
         --cluster=: The cluster for the workstation.
         --command=: A command to run on the workstation.
         --config=: The config for the workstation.
+        --endpoint-mode=: Specifies endpoint mode for a given command.
         --local-host-port=: '`LOCAL_HOST:LOCAL_PORT` on which gcloud should bind and listen for connections'
         --no-start-workstation&: If set, automatically starts the workstation if it is currently stopped.
         --port=: The port on the workstation to which traffic should be sent.
@@ -374,37 +508,71 @@ commands:
         --ssh-flag=: Additional flags to be passed to *ssh(1)*.
         --start-workstation: If set, automatically starts the workstation if it is currently stopped.
         --user=: The username with which to SSH.
+      completion:
+        flag:
+            endpoint-mode:
+                - global
+                - regional
+                - regional-preferred
     - name: start
       description: Start a workstation.
       flags:
         --async: Return immediately, without waiting for the operation in progress to
         --cluster=: The cluster for the workstation.
         --config=: The config for the workstation.
+        --endpoint-mode=: Specifies endpoint mode for a given command.
         --no-async&: Return immediately, without waiting for the operation in progress to
         --region=: The region for the workstation.
+      completion:
+        flag:
+            endpoint-mode:
+                - global
+                - regional
+                - regional-preferred
     - name: start-tcp-tunnel
       description: Start a tunnel through which a local process can forward TCP traffic to the workstation.
       flags:
         --cluster=: The cluster for the workstation.
         --config=: The config for the workstation.
+        --endpoint-mode=: Specifies endpoint mode for a given command.
         --local-host-port=: '`LOCAL_HOST:LOCAL_PORT` on which gcloud should bind and listen for connections'
         --no-start-workstation&: If set, automatically starts the workstation if it is currently stopped.
         --region=: The region for the workstation.
         --start-workstation: If set, automatically starts the workstation if it is currently stopped.
+      completion:
+        flag:
+            endpoint-mode:
+                - global
+                - regional
+                - regional-preferred
     - name: stop
       description: Stop a workstation.
       flags:
         --async: Return immediately, without waiting for the operation in progress to
         --cluster=: The cluster for the workstation.
         --config=: The config for the workstation.
+        --endpoint-mode=: Specifies endpoint mode for a given command.
         --no-async&: Return immediately, without waiting for the operation in progress to
         --region=: The region for the workstation.
+      completion:
+        flag:
+            endpoint-mode:
+                - global
+                - regional
+                - regional-preferred
     - name: update
       description: Update a workstation.
       flags:
         --async: Return immediately, without waiting for the operation in progress to
         --cluster=: The cluster for the workstation.
         --config=: The config for the workstation.
+        --endpoint-mode=: Specifies endpoint mode for a given command.
         --no-async&: Return immediately, without waiting for the operation in progress to
         --pd-disk-size=: Specifies the desired size in GB of the persistent directory mounted at /home.
         --region=: The region for the workstation.
+      completion:
+        flag:
+            endpoint-mode:
+                - global
+                - regional
+                - regional-preferred

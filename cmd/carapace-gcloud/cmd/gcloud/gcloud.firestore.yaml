@@ -79,6 +79,36 @@ commands:
         --database=: The database to operate on.
         --namespace-ids=: List specifying which namespaces will be included in the operation.
         --no-async&: Return immediately, without waiting for the operation in progress to
+    - name: change-streams
+      description: Manage Cloud Firestore ChangeStreams.
+      commands:
+        - name: create
+          description: Create a Cloud Firestore change stream.
+          flags:
+            --collection-group-scope=: Create a collection-group-scoped change stream for the specified collection group (e.g., --collection-group-scope=my-collection-group).
+            --database-scope: Create a database-scoped change stream.
+            --database=: The database to operate on.
+            --no-database-scope&: Create a database-scoped change stream.
+            --retention=: The retention period of the change stream (e.g. 1d, 7d).
+        - name: delete
+          description: Delete a Cloud Firestore change stream.
+          flags:
+            --database=!: The database to operate on.
+            --etag=: The current etag of the change stream.
+        - name: describe
+          description: Describe a Cloud Firestore change stream.
+          flags:
+            --database=!: The database to operate on.
+        - name: list
+          description: List change streams under a Firestore database.
+          flags:
+            --database=!: The database to operate on.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
     - name: databases
       description: Manage Creation of Cloud Firestore in Native mode Database.
       commands:
@@ -267,6 +297,7 @@ commands:
                 --no-multikey&: Optional.
                 --no-unique&: Optional.
                 --query-scope=: Query scope the index applies to.
+                --search-index-options=: Optional.
                 --unique: Optional.
               completion:
                 flag:
@@ -283,6 +314,7 @@ commands:
                         - collection
                         - collection-group
                         - collection-recursive
+                        - query-scope-unspecified
             - name: delete
               description: Delete the given composite index.
               flags:

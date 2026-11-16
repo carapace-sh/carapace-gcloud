@@ -138,6 +138,7 @@ commands:
                     --display-name=: The component display name.
                     --environment-type=!: Environment Type.
                     --environment=: Environment name.
+                    --input-variable-aliases=: Input variable aliases defined on this live component.
                     --location=: The location id of the component resource.
                     --no-criticality-mission-critical&: Indicates mission-critical Application, Service, or Workload.
                     --no-use-as-root-module&: Whether the component is exported as a separate terraform root module in
@@ -193,6 +194,7 @@ commands:
                     --add-attributes-business-owners=: Add new value to attributes_business_owners list.
                     --add-attributes-developer-owners=: Add new value to attributes_developer_owners list.
                     --add-attributes-operator-owners=: Add new value to attributes_operator_owners list.
+                    --add-input-variable-aliases=: Add new value to input_variable_aliases list.
                     --add-parameters=: Add new value to parameters list.
                     --application-info-apphub-id=: The application ID of the apphub application.
                     --application-info-deployment-region=: Deployment region for the component.
@@ -205,6 +207,7 @@ commands:
                     --clear-attributes-business-owners: Clear attributes_business_owners value and set to empty list.
                     --clear-attributes-developer-owners: Clear attributes_developer_owners value and set to empty list.
                     --clear-attributes-operator-owners: Clear attributes_operator_owners value and set to empty list.
+                    --clear-input-variable-aliases: Clear input_variable_aliases value and set to empty list.
                     --clear-parameters: Clear parameters value and set to empty list.
                     --criticality-level=: Criticality level.
                     --criticality-mission-critical: Indicates mission-critical Application, Service, or Workload.
@@ -212,11 +215,13 @@ commands:
                     --display-name=: The component display name.
                     --environment-type=: Environment Type.
                     --environment=: Environment name.
+                    --input-variable-aliases=: Set input_variable_aliases to new value.
                     --location=: The location id of the component resource.
                     --no-clear-application-info&: Set component.applicationInfo back to default value.
                     --no-clear-attributes-business-owners&: Clear attributes_business_owners value and set to empty list.
                     --no-clear-attributes-developer-owners&: Clear attributes_developer_owners value and set to empty list.
                     --no-clear-attributes-operator-owners&: Clear attributes_operator_owners value and set to empty list.
+                    --no-clear-input-variable-aliases&: Clear input_variable_aliases value and set to empty list.
                     --no-clear-parameters&: Clear parameters value and set to empty list.
                     --no-criticality-mission-critical&: Indicates mission-critical Application, Service, or Workload.
                     --no-use-as-root-module&: Whether the component is exported as a separate terraform root module in
@@ -224,6 +229,7 @@ commands:
                     --remove-attributes-business-owners=: Remove existing value from attributes_business_owners list.
                     --remove-attributes-developer-owners=: Remove existing value from attributes_developer_owners list.
                     --remove-attributes-operator-owners=: Remove existing value from attributes_operator_owners list.
+                    --remove-input-variable-aliases=: Remove existing value from input_variable_aliases list.
                     --remove-parameters=: Remove existing value from parameters list.
                     --scope-type=: Scope Type.
                     --space=: The space id of the component resource.
@@ -343,6 +349,28 @@ commands:
                 --no-validate-iac&: Validate the IaC without performing the import.
                 --space=: The ID of the space.
                 --validate-iac: Validate the IaC without performing the import.
+            - name: ingest-iac
+              description: Ingest Infrastructure as Code (IaC) for an application template.
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --developer-connect-branch=: The branch to read the IaC from (e.g., `main`).
+                --developer-connect-commit-sha=: The full SHA of the commit to read the IaC from.
+                --developer-connect-dir=!: The directory, relative to the repository root, to read the IaC from (e.g., `dir1/dir2`).
+                --developer-connect-ref-tag=: The tag to read the IaC from (e.g., `v1.2.3`).
+                --developer-connect-repo-uri=!: The Developer Connect Git repository link, formatted as `projects/{project}/locations/{location}/connections/{connection}/gitRepositoryLinks/{gitRepositoryLink}`.
+                --gcs-uri=: The Cloud Storage URI of the Terraform code (e.g., gs://my-bucket/iac).
+                --git-source-dir=: The directory, relative to the repository root, to read from.
+                --git-source-ref-tag=!: The Git reference tag to read the IaC from.
+                --git-source-repo=!: The HTTPS URL of the public Git repository (e.g., `https://github.com/my-org/my-repo`).
+                --iac-module-from-file=: Path to a local YAML or JSON file containing the IaC module definition.
+                --location=: The Cloud location for the application_template.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-raw-terraform-import-enabled&: If set, ingest the IaC as raw Terraform without converting it to application template components.
+                --no-validate-catalog-compatibility&: If set, validate that the IaC is compatible with the catalog.
+                --raw-terraform-import-enabled: If set, ingest the IaC as raw Terraform without converting it to application template components.
+                --space=: The ID of the space.
+                --validate-catalog-compatibility: If set, validate that the IaC is compatible with the catalog.
             - name: list
               description: List application templates.
               flags:
@@ -364,6 +392,7 @@ commands:
                   flags:
                     --application-template=: The applicationTemplate id of the policy resource.
                     --apply-conditions=: Conditions for applying the policy.
+                    --cloud-control-configs=&: Parameter values for the cloud controls of the policy's framework, grouped
                     --description=: The policy description.
                     --display-name=: The policy display name.
                     --location=: The location id of the policy resource.
@@ -407,17 +436,22 @@ commands:
                   hidden: true
                   flags:
                     --add-apply-conditions=: Add new value to apply_conditions list.
+                    --add-cloud-control-configs=&: Add new value to cloud_control_configs list.
                     --application-template=: The applicationTemplate id of the policy resource.
                     --apply-conditions=: Set apply_conditions to new value.
                     --clear-apply-conditions: Clear apply_conditions value and set to empty list.
+                    --clear-cloud-control-configs&: Clear cloud_control_configs value and set to empty list.
+                    --cloud-control-configs=&: Set cloud_control_configs to new value.
                     --description=: The policy description.
                     --display-name=: The policy display name.
                     --location=: The location id of the policy resource.
                     --no-clear-apply-conditions&: Clear apply_conditions value and set to empty list.
+                    --no-clear-cloud-control-configs&: Clear cloud_control_configs value and set to empty list.
                     --policy-revision-uri=: URI of the policy revision.
                     --policy-type=: The policy type.
                     --policy-uri=: URI of the policy.
                     --remove-apply-conditions=: Remove existing value from apply_conditions list.
+                    --remove-cloud-control-configs=&: Remove existing value from cloud_control_configs list.
                     --space=: The space id of the policy resource.
                   completion:
                     flag:
@@ -491,6 +525,14 @@ commands:
                     --sort-by=: Comma-separated list of resource field key names to sort by.
                     --space=: The space id of the applicationTemplate resource.
                     --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: snapshot
+              description: Snapshot an application template.
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location id of the applicationTemplate resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --space=: The space id of the applicationTemplate resource.
             - name: update
               description: Update an application template.
               flags:
@@ -607,6 +649,33 @@ commands:
               flags:
                 --location=: The location id of the application resource.
                 --space=: The space id of the application resource.
+            - name: export
+              description: Export IaC for an application.
+              hidden: true
+              flags:
+                --artifact-location-gcs-uri=: The Cloud Storage URI for storing the generated IaC.
+                --async: Return immediately, without waiting for the operation in progress to
+                --connection=: The connection id of the gitRepositoryLink resource.
+                --developer-connect-export-config-branch=: The branch in repo to which the content such as Infrastructure as Code
+                --developer-connect-export-config-dir=!: Directory, relative to the source repo, where content such as
+                --developer-connect-export-config-repo-uri=!: ID of the gitRepositoryLink or fully qualified identifier for the gitRepositoryLink.
+                --export-iac-config-format=: IaC format of the export.
+                --iac-format=: The IaC format to generate.
+                --location=: For resources [application, developer-connect-export-config-repo-uri], provides fallback value for resource location attribute.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-tf-config-module-git-proxy-enabled&: This is typically only valid for 3P components if ingested via devconnect
+                --no-tf-config-module-local-references-enabled&: If set, all the dependent modules will be downloaded from the target
+                --space=: The space id of the application resource.
+                --tf-config-module-git-proxy-enabled: This is typically only valid for 3P components if ingested via devconnect
+                --tf-config-module-local-references-enabled: If set, all the dependent modules will be downloaded from the target
+              completion:
+                flag:
+                    export-iac-config-format:
+                        - helm
+                        - terraform
+                    iac-format:
+                        - helm
+                        - terraform
             - name: generate
               description: Generate IaC for an application.
               flags:
@@ -665,6 +734,13 @@ commands:
                 --service-account=: The service account to use for this preview.
                 --space=: The ID of the space.
                 --worker-pool=: The user-specified Worker Pool resource in which the Cloud Build job
+            - name: recommend-iam-roles
+              description: Get recommended IAM roles for a Design Center application.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The Cloud location for the application.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --space=: The ID of the space.
             - name: update
               description: Update an application.
               flags:

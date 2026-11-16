@@ -1,0 +1,52 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: app-topology
+description: Manage App Topology resources and query topology graphs.
+commands:
+    - name: domains
+      description: View App Topology domains.
+      commands:
+        - name: describe
+          description: Describe an App Topology domain.
+          flags:
+            --location=: Location for the domain.
+        - name: list
+          description: List App Topology domains.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: schema
+          description: View App Topology domain schemas.
+          commands:
+            - name: describe
+              description: Describe the schema for an App Topology domain.
+              flags:
+                --location=: Location for the domain.
+    - name: locations
+      description: View App Topology locations.
+      commands:
+        - name: describe
+          description: Describe an App Topology location.
+        - name: list
+          description: List App Topology locations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: resources-graph
+      description: Query and generate resource topology graphs.
+      commands:
+        - name: generate
+          description: Generate a resource topology graph.
+          flags:
+            --domains=!: List of App Topology domains to include in the topology query (e.g., SRE, DEVOPS, SECURITY).
+            --location=: ID of the location or fully qualified identifier for the location.
+            --pattern-file=: Path to a YAML or JSON file (or "-" for standard input) containing the GraphPattern query filter definition.
+            --pattern=: A GraphPattern query filter definition in proto3 YAML/JSON string format.

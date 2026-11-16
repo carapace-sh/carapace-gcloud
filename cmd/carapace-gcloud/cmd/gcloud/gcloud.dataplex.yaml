@@ -244,6 +244,126 @@ commands:
                     - json
                     - xml
                     - yaml
+    - name: data-products
+      description: Manage Dataplex Data Product resources.
+      commands:
+        - name: add-iam-policy-binding
+          description: Add IAM policy binding to a Dataplex data product resource.
+          flags:
+            --location=: The location of the Dataplex resource.
+            --member=!: The principal to add the binding for.
+            --role=!: Role name to assign to the principal.
+        - name: create
+          description: Create a Dataplex data product resource.
+          flags:
+            --access-groups=: List of custom user-defined access groups at the data product level.
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: Description of the Dataplex data product.
+            --display-name=!: Display name of the Dataplex data product.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: Location of the Dataplex resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --owner-emails=!: Emails of the data product owners.
+        - name: data-assets
+          description: Manage Dataplex Data Asset resources.
+          commands:
+            - name: create
+              description: Create a Dataplex data asset resource.
+              flags:
+                --access-groups=: Access groups configurations for this data asset.
+                --async: Return immediately, without waiting for the operation in progress to
+                --data-product=: Identifier of the Dataplex Data Product resource.
+                --labels=: List of label KEY=VALUE pairs to add.
+                --location=: Location of the Dataplex resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --resource=!: Full resource name of the cloud resource represented by the data asset.
+            - name: delete
+              description: Delete a Dataplex data asset resource.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --data-product=: Identifier of the Dataplex Data Product resource.
+                --etag=: Etag of the data asset to delete.
+                --location=: Location of the Dataplex resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: describe
+              description: Describe a Dataplex data asset resource.
+              flags:
+                --data-product=: Identifier of the Dataplex Data Product resource.
+                --location=: Location of the Dataplex resource.
+            - name: list
+              description: List Dataplex data asset resources.
+              flags:
+                --data-product=!: ID of the data product or fully qualified identifier for the data product.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: Location of the Dataplex resource.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Update a Dataplex data asset resource.
+              flags:
+                --access-groups=: New access groups configurations for this data asset.
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-labels: Remove all labels.
+                --data-product=: Identifier of the Dataplex Data Product resource.
+                --location=: Location of the Dataplex resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Remove all labels.
+                --remove-labels=: List of label keys to remove.
+                --update-labels=: List of label KEY=VALUE pairs to update.
+        - name: delete
+          description: Delete a Dataplex Data Product resource.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --etag=: Etag of the data product.
+            --location=: Location of the Dataplex resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: describe
+          description: Describe a Dataplex Data Product resource.
+          flags:
+            --location=: Location of the Dataplex resource.
+        - name: get-iam-policy
+          description: Get the IAM policy for a Dataplex data product.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: Location of the Dataplex resource.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list
+          description: List Dataplex Data Product resources.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: remove-iam-policy-binding
+          description: Remove IAM policy binding from a Dataplex data product resource.
+          flags:
+            --location=: The location of the Dataplex resource.
+            --member=!: The principal to remove the binding for.
+            --role=!: The role to remove the principal from.
+        - name: set-iam-policy
+          description: Set the IAM policy to a Dataplex data product as defined in a JSON or YAML file.
+          flags:
+            --location=: The location of the Dataplex resource.
+        - name: update
+          description: Update a Dataplex data product resource.
+          flags:
+            --access-groups=: New access groups to associate with the Dataplex data product.
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Remove all labels.
+            --description=: New description of the Dataplex data product.
+            --display-name=: New display name of the Dataplex data product.
+            --location=: Location of the Dataplex resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --owner-emails=: New emails of the data product owners.
+            --remove-labels=: List of label keys to remove.
+            --update-labels=: List of label KEY=VALUE pairs to update.
     - name: datascans
       description: Manage Dataplex Datascan.
       commands:
@@ -289,6 +409,7 @@ commands:
               description: Create a Dataplex data documentation scan job.
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
+                --custom-instructions=: Custom instructions to guide the data documentation generation.
                 --data-source-entity=: 'The Dataplex entity that contains the data for the data documentation scan, of the form: projects/{project_id_or_number}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}/entities/{entity_id}.'
                 --data-source-resource=: 'Fully-qualified service resource name of the cloud resource that contains the data for the data documentation scan, of the form: //bigquery.{universe_domain}/projects/{project_id_or_number}/datasets/{dataset_id}/tables/{table_id}.'
                 --description=: Description of the data documentation scan.
@@ -303,8 +424,14 @@ commands:
                 --on-demand=: If set, the scan runs one-time shortly after data documentation scan creation.
                 --one-time: If set, the data documentation scan runs once, and is auto-deleted once the ttl_after_scan_completion expires.
                 --schedule=: Cron schedule (https://en.wikipedia.org/wiki/Cron) for running scans periodically.
+                --sql-dialect=: SQL dialect to use in the generated SQL queries.
                 --ttl-after-scan-completion=: The time to live for one-time scans.
                 --validate-only: Validate the create action, but don't actually perform it.
+              completion:
+                flag:
+                    sql-dialect:
+                        - GOOGLE_SQL
+                        - SPARK_SQL
             - name: data-profile
               description: Create a Dataplex data profile scan job.
               flags:
@@ -464,20 +591,29 @@ commands:
               description: Update a Dataplex data documentation scan job.
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
+                --clear-custom-instructions: Clear any existing custom instructions from the data documentation scan.
+                --custom-instructions=: Custom instructions to guide the data documentation generation.
                 --description=: Description of the data documentation scan.
                 --display-name=: Display name of the data documentation scan.
                 --enable-catalog-publishing: Publish data documentation results to Knowledge Catalog.
                 --labels=: List of label KEY=VALUE pairs to add.
                 --location=: The location of the Dataplex resource.
                 --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-custom-instructions&: Clear any existing custom instructions from the data documentation scan.
                 --no-enable-catalog-publishing&: Publish data documentation results to Knowledge Catalog.
                 --no-one-time&: If set, the data documentation scan runs once, and auto deleted once the ttl_after_scan_completion expires.
                 --no-validate-only&: Validate the update action, but don't actually perform it.
                 --on-demand=: If set, the scan runs one-time shortly after data documentation scan creation.
                 --one-time: If set, the data documentation scan runs once, and auto deleted once the ttl_after_scan_completion expires.
                 --schedule=: Cron schedule (https://en.wikipedia.org/wiki/Cron) for running scans periodically.
+                --sql-dialect=: SQL dialect to use in the generated SQL queries.
                 --ttl-after-scan-completion=: The time to live for one-time scans.
                 --validate-only: Validate the update action, but don't actually perform it.
+              completion:
+                flag:
+                    sql-dialect:
+                        - GOOGLE_SQL
+                        - SPARK_SQL
             - name: data-profile
               description: Update a Dataplex data profile scan job.
               flags:
@@ -518,6 +654,31 @@ commands:
                 --on-demand=: If set, the scan runs one-time shortly after data quality scan updation.
                 --schedule=: Cron schedule (https://en.wikipedia.org/wiki/Cron) for running scans periodically.
                 --validate-only: Validate the update action, but don't actually perform it.
+    - name: dbt
+      description: Ingest dbt-core metadata into Dataplex Knowledge Catalog.
+      commands:
+        - name: metadata-jobs
+          description: Manage Dataplex metadata jobs that ingest dbt-core metadata.
+          commands:
+            - name: create
+              description: Transform dbt-core artifacts and import them into Dataplex Catalog.
+              flags:
+                --artifacts-path=: 'Path to the dbt-core artifacts: a local directory, or a Cloud'
+                --aspects-only: Update only the metadata this dbt run observed, and leave the rest
+                --async: Return immediately, without waiting for the operation in progress to
+                --connector-types-project=&: Overrides the project that owns the 1P dbt aspect/entry types.
+                --entry-group=: Short ID of the entry group that receives the dbt entries.
+                --include-entry-links: 'Also emit EntryLink records capturing dbt relationships:'
+                --location=: The location of the Dataplex resource.
+                --no-aspects-only&: Update only the metadata this dbt run observed, and leave the rest
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-include-entry-links&: 'Also emit EntryLink records capturing dbt relationships:'
+                --no-skip-bigquery-link&: Skip physical `reference` links (dbt node -> physical BigQuery
+                --no-validate-only&: Build and upload the JSONL and validate the metadata job, but
+                --skip-bigquery-link: Skip physical `reference` links (dbt node -> physical BigQuery
+                --storage-uri=!: Cloud Storage URI prefix (gs://bucket/path/) the transformed
+                --system-types-project=&: Overrides the project that owns the core 1P types the dbt types
+                --validate-only: Build and upload the JSONL and validate the metadata job, but
     - name: encryption-config
       description: Manage Dataplex encryption configs.
       commands:

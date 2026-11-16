@@ -155,6 +155,7 @@ commands:
             --server-ca-mode=: Server CA mode for the cluster.
             --server-ca-pool=: The customer-managed Certificate Authority Service CA Pool resource name to use for issuing server certificates.
             --shard-count=: The shard count of the cluster.
+            --tags=&: List of tag KEY=VALUE pairs to add.
             --transit-encryption-mode=: Transit encryption mode used for the Redis cluster.
             --zone-distribution-mode=: Determines how the cluster nodes are distributed across zones.
             --zone=: The zone used to allocate the cluster nodes.
@@ -216,6 +217,13 @@ commands:
             --no-async&: Return immediately, without waiting for the operation in progress to
             --region=: The name of the Redis region of the cluster.
             --ttl=: The time to live for the backup.
+        - name: create-token-auth-user
+          description: Create a token auth user for a Redis cluster.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: The name of the Redis region of the cluster.
+            --token-auth-user=: The name of the token auth user to be created.
         - name: delete
           description: Delete a Memorystore for Redis Cluster instance.
           flags:
@@ -283,12 +291,77 @@ commands:
             --async: Return immediately, without waiting for the operation in progress to
             --no-async&: Return immediately, without waiting for the operation in progress to
             --region=: The name of the Redis region of the cluster.
+        - name: token-auth-users
+          description: Manage token auth users of Memorystore for Redis Cluster instances.
+          commands:
+            - name: auth-tokens
+              description: Manage auth tokens of Memorystore for Redis Cluster instances.
+              commands:
+                - name: delete
+                  description: Delete a Memorystore for Redis Cluster auth token.
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --cluster=: The name of the Redis cluster.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --region=: The name of the Redis region of the auth token.
+                    --token-auth-user=: The name of the Redis cluster token auth user.
+                - name: describe
+                  description: Show metadata for a Memorystore for Redis Cluster auth token.
+                  flags:
+                    --cluster=: The name of the Redis cluster.
+                    --region=: The name of the Redis region of the auth token.
+                    --token-auth-user=: The name of the Redis cluster token auth user.
+                - name: list
+                  description: List auth tokens for a token auth user.
+                  flags:
+                    --cluster=: The name of the Redis cluster.
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                    --page-size=: Some services group resource list output into pages.
+                    --region=: The name of the Redis region of the token auth user.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --token-auth-user=!: ID of the token auth user or fully qualified identifier for the token auth user.
+                    --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: create-auth-token
+              description: Create an auth token for a token auth user of a Redis cluster.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --cluster=: The name of the Redis cluster.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --region=: The name of the Redis region of the token auth user.
+            - name: delete
+              description: Delete a Memorystore for Redis Cluster token auth user.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --cluster=: The name of the Redis cluster.
+                --force: If set to true, the token auth user and its nested resources will be deleted.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-force&: If set to true, the token auth user and its nested resources will be deleted.
+                --region=: The name of the Redis region of the token auth user.
+            - name: describe
+              description: Show metadata for a Memorystore for Redis Cluster token auth user.
+              flags:
+                --cluster=: The name of the Redis cluster.
+                --region=: The name of the Redis region of the token auth user.
+            - name: list
+              description: List token auth users of a Redis cluster in a region.
+              flags:
+                --cluster=!: ID of the cluster or fully qualified identifier for the cluster.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --region=: The name of the Redis region of the cluster.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
         - name: update
           description: Update Memorystore Cluster for Redis instance.
           flags:
             --acl-policy=: The ACL policy to use for the cluster.
             --aof-append-fsync=: Fsync configuration.
             --async: Return immediately, without waiting for the operation in progress to
+            --auth-mode=: Available authorization mode of a Redis cluster.
             --automated-backup-mode=: Automated backup mode.
             --automated-backup-start-time=: One-hour window when you want automated-backup operations to start.
             --automated-backup-ttl=: Time to live for automated backups.
@@ -323,6 +396,9 @@ commands:
                     - always
                     - everysec
                     - "no"
+                auth-mode:
+                    - disabled
+                    - token-auth
                 automated-backup-mode:
                     - disabled
                     - enabled
@@ -379,7 +455,7 @@ commands:
             --replica-count=: The replica count of the instance.
             --reserved-ip-range=: For DIRECT_PEERING mode, the CIDR range of internal addresses that are reserved for this
             --size=: The memory size of the instance in GiB.
-            --tags=&: List of tag KEY=VALUE pairs to add.
+            --tags=: List of tag KEY=VALUE pairs to add.
             --tier=: The service tier of the instance.
             --transit-encryption-mode=: Transit encryption mode used by the instance.
             --zone=: The zone of the Redis instance.

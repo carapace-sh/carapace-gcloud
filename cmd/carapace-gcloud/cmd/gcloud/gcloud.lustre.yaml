@@ -3,7 +3,7 @@ name: lustre
 description: Manage Lustre resources.
 commands:
     - name: instances
-      description: Manage Instance resources.
+      description: Manage Lustre instance resources.
       commands:
         - name: create
           description: Creates a Managed Lustre instance.
@@ -18,17 +18,20 @@ commands:
             --dynamic-tier-options-mode=!: The dynamic tier mode of the instance.
             --filesystem=!: The filesystem name for this instance.
             --gke-support-enabled: 'Deprecated: No longer required for GKE instance creation.'
-            --kms-key=: The Cloud KMS key name to use for data encryption.
+            --key-ring=: The keyRing id of the cryptoKey resource.
+            --kms-key=!: ID of the cryptoKey or fully qualified identifier for the cryptoKey.
             --labels=: Labels as key value pairs.
-            --location=: The location id of the instance resource.
+            --location=: For resources [instance, kms-key, placement-policy], provides fallback value for resource location attribute.
             --maintenance-policy-exclusion-window=: The exclusion windows for the instance.
             --maintenance-policy-weekly-windows=!: Required, The weekly maintenance windows for the instance.
             --network=!: ID of the network or fully qualified identifier for the network.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-gke-support-enabled&: 'Deprecated: No longer required for GKE instance creation.'
             --per-unit-storage-throughput=: The throughput of the instance in MBps per TiB.
-            --placement-policy=: The placement policy name for the instance in the format of
+            --placement-policy=!: ID of the resourcePolicy or fully qualified identifier for the resourcePolicy.
+            --region=: The region id of the resourcePolicy resource.
             --request-id=: An optional request ID to identify requests.
+            --target-version=: The target version for the instance.
           completion:
             flag:
                 default-squash-mode:
@@ -50,8 +53,42 @@ commands:
           description: Gets details of a single Managed Lustre instance.
           flags:
             --location=: The location id of the instance resource.
+        - name: directory-policies
+          description: Manage Directory Policy resources.
+          commands:
+            - name: create
+              description: Create directoryPolicies.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --directory-path=!: The lustre instance filesystem full path of the directory.
+                --instance=: The instance id of the directoryPolicy resource.
+                --location=: The location id of the directoryPolicy resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: delete
+              description: Delete directoryPolicies.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --instance=: The instance id of the directoryPolicy resource.
+                --location=: The location id of the directoryPolicy resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: describe
+              description: Describe directoryPolicies.
+              flags:
+                --instance=: The instance id of the directoryPolicy resource.
+                --location=: The location id of the directoryPolicy resource.
+            - name: list
+              description: List directoryPolicies.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --instance=!: ID of the instance or fully qualified identifier for the instance.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the instance resource.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
         - name: export-data
-          description: Exports data from Managed Lustre instance to Cloud Storage.
+          description: Exports data from a Managed Lustre instance to Cloud Storage.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
             --gcs-path-uri=!: The URI to a Cloud Storage bucket, or a path within a bucket, using the
@@ -61,7 +98,7 @@ commands:
             --request-id=: UUID to identify requests.
             --service-account=!: ID of the serviceAccount or fully qualified identifier for the serviceAccount.
         - name: import-data
-          description: Imports data from Cloud Storage to Managed Lustre instance.
+          description: Imports data from Cloud Storage to a Managed Lustre instance.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
             --gcs-path-uri=!: The URI to a Cloud Storage bucket, or a path within a bucket, using the
@@ -71,7 +108,7 @@ commands:
             --request-id=: UUID to identify requests.
             --service-account=!: ID of the serviceAccount or fully qualified identifier for the serviceAccount.
         - name: list
-          description: List Lustre instances.
+          description: Lists Managed Lustre instances.
           flags:
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
@@ -80,14 +117,82 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: mirrors
+          description: Manage Lustre mirror resources.
+          hidden: true
+          commands:
+            - name: create
+              description: Creates a Managed Lustre mirror.
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --deleted-files-retained: If `true`, files are not deleted from Managed Lustre when the source
+                --description=: Description of the mirror.
+                --direction=!: Represents the direction of the mirror.
+                --gcs-path-uri=!: The URI to a Cloud Storage bucket, or a path within a bucket, using the
+                --instance=: The instance id of the mirror resource.
+                --labels=: Labels to apply to the mirror.
+                --location=: The location id of the mirror resource.
+                --lustre-path=: The root directory path to the Managed Lustre file system.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-deleted-files-retained&: If `true`, files are not deleted from Managed Lustre when the source
+                --request-id=: The unique ID to identify requests.
+              completion:
+                flag:
+                    direction:
+                        - from-cloud-storage
+            - name: delete
+              description: Deletes a Managed Lustre mirror.
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --instance=: The instance id of the mirror resource.
+                --location=: The location id of the mirror resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --request-id=: The unique ID to identify requests.
+            - name: describe
+              description: Gets details of a single Managed Lustre mirror.
+              hidden: true
+              flags:
+                --instance=: The instance id of the mirror resource.
+                --location=: The location id of the mirror resource.
+            - name: list
+              description: List Lustre mirrors.
+              hidden: true
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --instance=!: ID of the instance or fully qualified identifier for the instance.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the instance resource.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Updates the parameters of a single Managed Lustre mirror.
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-labels: Clear labels value and set to empty map.
+                --deleted-files-retained: If `true`, files are not deleted from Managed Lustre when the source
+                --description=: Description of the mirror.
+                --instance=: The instance id of the mirror resource.
+                --labels=: Set labels to new value.
+                --location=: The location id of the mirror resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Clear labels value and set to empty map.
+                --no-deleted-files-retained&: If `true`, files are not deleted from Managed Lustre when the source
+                --remove-labels=: Remove existing value from map labels.
+                --request-id=: The unique ID to identify requests.
+                --update-labels=: Update labels value or add key value pair.
         - name: reschedule-maintenance
-          description: reschedule instances.
+          description: Reschedules a planned maintenance window for a Managed Lustre instance.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
             --location=: The location id of the instance resource.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --request-id=: A unique identifier for this request.
-            --reschedule-schedule-time=: Required if reschedule_type is BY_TIME.
+            --reschedule-schedule-time=: Required if `reschedule_type` is `BY_TIME`.
             --reschedule-type=!: The type of rescheduling.
           completion:
             flag:
@@ -110,13 +215,14 @@ commands:
             --clear-maintenance-policy: Set instance.maintenancePolicy back to default value.
             --clear-maintenance-policy-exclusion-window: Clear maintenance_policy_exclusion_window value and set to empty list.
             --clear-maintenance-policy-weekly-windows: Clear maintenance_policy_weekly_windows value and set to empty list.
+            --clear-placement-policy: Clear placement_policy value and set to null.
             --default-squash-gid=: The user squash GID for the default access rule.
             --default-squash-mode=: The squash mode for the default access rule.
             --default-squash-uid=: The user squash UID for the default access rule.
             --description=: A user-readable description of the instance.
             --gke-support-enabled: 'Deprecated: No longer required for GKE instance creation.'
             --labels=: Set labels to new value.
-            --location=: The location id of the instance resource.
+            --location=: For resources [instance, placement-policy], provides fallback value for resource location attribute.
             --maintenance-policy-exclusion-window=: Set maintenance_policy_exclusion_window to new value.
             --maintenance-policy-weekly-windows=: Set maintenance_policy_weekly_windows to new value.
             --no-async&: Return immediately, without waiting for the operation in progress to
@@ -126,14 +232,17 @@ commands:
             --no-clear-maintenance-policy&: Set instance.maintenancePolicy back to default value.
             --no-clear-maintenance-policy-exclusion-window&: Clear maintenance_policy_exclusion_window value and set to empty list.
             --no-clear-maintenance-policy-weekly-windows&: Clear maintenance_policy_weekly_windows value and set to empty list.
+            --no-clear-placement-policy&: Clear placement_policy value and set to null.
             --no-gke-support-enabled&: 'Deprecated: No longer required for GKE instance creation.'
             --per-unit-storage-throughput=: The throughput of the instance in MBps per TiB.
-            --placement-policy=: The placement policy name for the instance in the format of
+            --placement-policy=!: ID of the resourcePolicy or fully qualified identifier for the resourcePolicy.
+            --region=: The region id of the resourcePolicy resource.
             --remove-access-rules=: Remove existing value from access_rules list.
             --remove-labels=: Remove existing value from map labels.
             --remove-maintenance-policy-exclusion-window=: Remove existing value from maintenance_policy_exclusion_window list.
             --remove-maintenance-policy-weekly-windows=: Remove existing value from maintenance_policy_weekly_windows list.
             --request-id=: An optional request ID to identify requests.
+            --target-version=: The target version for the instance.
             --update-labels=: Update labels value or add key value pair.
           completion:
             flag:

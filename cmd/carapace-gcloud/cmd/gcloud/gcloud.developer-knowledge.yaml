@@ -1,0 +1,31 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: developer-knowledge
+description: Manage Developer Knowledge resources and query knowledge base.
+commands:
+    - name: answer-query
+      description: Answer a natural language query using grounded generation.
+      flags:
+        --query-filter=: Apply a strict filter to the search results used to ground the answer.
+        --query=!: The query to answer.
+    - name: documents
+      description: Explore and search Developer Knowledge documents.
+      commands:
+        - name: describe
+          description: Retrieve a single document with its full Markdown content.
+          flags:
+            --view=: Specify which fields of the document are included in the response.
+          completion:
+            flag:
+                view:
+                    - basic
+                    - content
+                    - full
+        - name: search-chunks
+          description: Search for developer knowledge across Google's developer documentation.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
+            --query-filter=: Apply a strict filter to the search results.
+            --query=!: Raw query string provided by the user, such as "How to create a Cloud Storage bucket?".
+            --sort-by=: Comma-separated list of resource field key names to sort by.

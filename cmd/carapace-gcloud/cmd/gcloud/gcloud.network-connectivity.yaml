@@ -29,9 +29,13 @@ commands:
             --async: Return immediately, without waiting for the operation in progress to
             --description=: Description of the hub.
             --export-psc: This boolean controls whether Private Service Connect transitivity is enabled for the hub.
+            --export-psc-global-google-apis: This boolean controls whether Private Service Connect endpoints for global Google APIs should be propagated.
+            --export-psc-published-services-and-regional-google-apis: This boolean controls whether Private Service Connect endpoints for regional ILBs and regional Google APIs should be propagated.
             --labels=: List of label KEY=VALUE pairs to add.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-export-psc&: This boolean controls whether Private Service Connect transitivity is enabled for the hub.
+            --no-export-psc-global-google-apis&: This boolean controls whether Private Service Connect endpoints for global Google APIs should be propagated.
+            --no-export-psc-published-services-and-regional-google-apis&: This boolean controls whether Private Service Connect endpoints for regional ILBs and regional Google APIs should be propagated.
             --policy-mode=: Policy mode of the hub.
             --preset-topology=: Topology of the hub.
           completion:
@@ -126,7 +130,7 @@ commands:
             --limit=: Maximum number of resources to list.
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
-            --spoke-locations=: A comma separated list of locations.
+            --spoke-locations=: Comma-separated list of locations.
             --view=: Enumeration to control which spoke fields are included in the response.
           completion:
             flag:
@@ -202,10 +206,14 @@ commands:
             --async: Return immediately, without waiting for the operation in progress to
             --clear-labels: Remove all labels.
             --description=: New description of the hub.
-            --export-psc: Whether Private Service Connect transitivity is enabled for the hub.
+            --export-psc: Whether Private Service Connect propagation is enabled for the hub.
+            --export-psc-global-google-apis: Whether propagation for Private Service Connect for global Google APIs is enabled for the hub.
+            --export-psc-published-services-and-regional-google-apis: Whether propagation for Private Service Connect for published services and regional Google APIs is enabled for the hub.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-clear-labels&: Remove all labels.
-            --no-export-psc&: Whether Private Service Connect transitivity is enabled for the hub.
+            --no-export-psc&: Whether Private Service Connect propagation is enabled for the hub.
+            --no-export-psc-global-google-apis&: Whether propagation for Private Service Connect for global Google APIs is enabled for the hub.
+            --no-export-psc-published-services-and-regional-google-apis&: Whether propagation for Private Service Connect for published services and regional Google APIs is enabled for the hub.
             --remove-labels=: List of label keys to remove.
             --update-labels=: List of label KEY=VALUE pairs to update.
     - name: internal-ranges
@@ -230,6 +238,7 @@ commands:
             --overlaps=: Overlap specifications for the range being created.
             --peering=: The type of peering set for the internal range.
             --prefix-length=!: An alternative to ip-cidr-range.
+            --purpose=: Purpose of the internal range.
             --region=: The location ID.
             --target-cidr-range=: Can be set to narrow down or pick a different address space while searching for
             --usage=: The type of usage set for the internal range.
@@ -244,6 +253,9 @@ commands:
                     - for-peer
                     - for-self
                     - not-shared
+                purpose:
+                    - internal-address
+                    - vpc-subnet
                 usage:
                     - external-to-vpc
                     - for-migration
@@ -872,11 +884,16 @@ commands:
             --activation-key=: Key from the remote provider to establish a connection over the Transport.
             --advertised-routes=: List of routes to advertise from the VPC `network` toward the provider.
             --async: Return immediately, without waiting for the operation in progress to
+            --auto-accept: Whether to auto-accept spoke proposals for this transport.
             --bandwidth=!: Bandwidth of the transport to create.
             --description=: Description of the transport.
+            --hub=!: ID of the hub or fully qualified identifier for the hub.
             --labels=: List of label KEY=VALUE pairs to add.
             --network=!: ID of the network or fully qualified identifier for the network.
             --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-auto-accept&: Whether to auto-accept spoke proposals for this transport.
+            --no-psc-routing-enabled&: Whether a VPC spoke is created for PSC routing over the transport.
+            --psc-routing-enabled: Whether a VPC spoke is created for PSC routing over the transport.
             --region=: Google Cloud region for the transport.
             --remote-account-id=!: Account ID in the remote provider to associate with the generated key.
             --remote-profile=!: ID of the remoteTransportProfile or fully qualified identifier for the remoteTransportProfile.

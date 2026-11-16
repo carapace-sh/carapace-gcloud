@@ -88,7 +88,7 @@ commands:
             - name: create
               description: Create Anywhere Cache instances for a bucket.
               flags:
-                --admission-policy=: The cache admission policy decides for each cache miss, whether to insert the missed block or not.
+                --admission-policy=&: (DEPRECATED) The cache admission policy decides for each cache miss, whether to insert the missed block or not.
                 --enable-ingest-on-write: Enables the Ingest-on-Write feature on the bucket.
                 --no-enable-ingest-on-write&: Enables the Ingest-on-Write feature on the bucket.
                 --ttl=: Cache entry time-to-live.
@@ -116,13 +116,14 @@ commands:
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
             - name: pause
-              description: Pause Anywhere Cache instances.
+              description: '*(REMOVED)*  Pause Anywhere Cache instances.'
+              hidden: true
             - name: resume
               description: Resume Anywhere Cache instances.
             - name: update
               description: Update Anywhere Cache instances.
               flags:
-                --admission-policy=: The cache admission policy decides for each cache miss, whether to insert the missed block or not.
+                --admission-policy=&: (DEPRECATED) The cache admission policy decides for each cache miss, whether to insert the missed block or not.
                 --enable-ingest-on-write: Enables the Ingest-on-Write feature on the bucket.
                 --no-enable-ingest-on-write&: Enables the Ingest-on-Write feature on the bucket.
                 --ttl=: Cache entry time-to-live.
@@ -143,6 +144,8 @@ commands:
             --enable-per-object-retention: Enables each object in the bucket to have its own retention settings, which prevents deletion until stored for a specific length of time.
             --encryption-enforcement-file=: Sets the encryption enforcement configuration for the bucket from a JSON file.
             --ip-filter-file=: Sets the IP filter for the bucket.
+            --labels-file=: Sets the label configuration for the bucket.
+            --labels=: Sets the label configuration for the bucket.
             --lifecycle-file=: Sets the lifecycle management configuration on a bucket.
             --location=: '[Location](https://cloud.google.com/storage/docs/locations) for the bucket.'
             --no-enable-autoclass&: The Autoclass feature automatically selects the best storage class for objects based on access patterns.
@@ -1083,6 +1086,7 @@ commands:
           flags:
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
+            --page-size=: Some services group resource list output into pages.
             --server-filter=: Server-side filter string used to determine what operations to return.
             --sort-by=: Comma-separated list of resource field key names to sort by.
     - name: restore

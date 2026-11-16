@@ -91,12 +91,12 @@ commands:
         --breakglass=: Justification to bypass Binary Authorization policy constraints and allow the operation.
         --build-env-vars-file=: Path to a local YAML file with definitions for all build
         --build-service-account=: Specifies the service account to use to execute the build.
-        --build-worker-pool=: Name of the Cloud Build Custom Worker Pool that should be used to build
+        --build-worker-pool=: Name of the Cloud Build private pool that should be used to build
         --clear-base-image: Opts out of automatic base image updates.
         --clear-binary-authorization: Remove any previously set Binary Authorization policy.
         --clear-build-env-vars: Remove all build environment variables.
         --clear-build-service-account: Clears the Cloud Build service account field.
-        --clear-build-worker-pool: Clears the Cloud Build Custom Worker Pool field.
+        --clear-build-worker-pool: Clears the Cloud Build private pool field.
         --clear-cloudsql-instances: Empty the current Cloud SQL instances.
         --clear-config-maps&: Remove all config-maps.
         --clear-custom-audiences: Empty the current custom audiences.
@@ -200,6 +200,8 @@ commands:
         --remove-volume-mount=: Removes the volume mounted at the specified path from the current container.
         --remove-volume=: Removes volumes from the Cloud Run resource.
         --revision-suffix=: Specify the suffix of the revision name.
+        --scaling-concurrency-target=: This represents the concurrency utilization target threshold for scaling up new instances.
+        --scaling-cpu-target=: This represents the CPU utilization target threshold for scaling up new instances.
         --scaling=: The scaling mode to use for this service.
         --service-account=: the email address of an IAM service account associated with the revision of the service.
         --service-max-instances=&: The maximum number of container instances for this Service to run.
@@ -931,6 +933,8 @@ commands:
             --remove-volume-mount=: Removes the volume mounted at the specified path from the current container.
             --remove-volume=: Removes volumes from the Cloud Run resource.
             --revision-suffix=: Specify the suffix of the revision name.
+            --scaling-concurrency-target=: This represents the concurrency utilization target threshold for scaling up new instances.
+            --scaling-cpu-target=: This represents the CPU utilization target threshold for scaling up new instances.
             --scaling=: The scaling mode to use for this service.
             --service-account=: the email address of an IAM service account associated with the revision of the service.
             --service-max-instances=&: The maximum number of container instances for this Service to run.
@@ -1465,6 +1469,8 @@ commands:
             --remove-volume-mount=: Removes the volume mounted at the specified path from the current container.
             --remove-volume=: Removes volumes from the Cloud Run resource.
             --revision-suffix=: Specify the suffix of the revision name.
+            --scaling-concurrency-target=: This represents the concurrency utilization target threshold for scaling up new instances.
+            --scaling-cpu-target=: This represents the CPU utilization target threshold for scaling up new instances.
             --scaling=: The scaling mode to use for this service.
             --service-account=: the email address of an IAM service account associated with the revision of the service.
             --service-max-instances=&: The maximum number of container instances for this Service to run.
@@ -1577,6 +1583,7 @@ commands:
             --clear-secrets: Remove all secrets.
             --clear-volume-mounts: Remove all existing mounts from the current container.
             --clear-volumes: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
+            --clear-vpc-connector: Remove the VPC connector for this resource.
             --client-name=&: Name of the client handling the deployment.
             --client-version=&: Version of the client handling the deployment.
             --command=: Entrypoint for the container image.
@@ -1609,6 +1616,7 @@ commands:
             --no-clear-secrets&: Remove all secrets.
             --no-clear-volume-mounts&: Remove all existing mounts from the current container.
             --no-clear-volumes&: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
+            --no-clear-vpc-connector&: Remove the VPC connector for this resource.
             --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
             --no-promote: True to avoid assign instances to the worker revision being deployed.
             --post-key-revocation-action-type=: Action type after CMEK key revocation.
@@ -1622,7 +1630,7 @@ commands:
             --remove-volume=: Removes volumes from the Cloud Run resource.
             --revision-suffix=: Specify the suffix of the revision name.
             --runtime=&: The runtime to use.
-            --scaling=&: The scaling mode to use for this service.
+            --scaling=&: The scaling mode to use for this WorkerPool.
             --service-account=: the email address of an IAM service account associated with the revision of the service.
             --set-cloudsql-instances=: Completely replace the current Cloud SQL instances with the given values.
             --set-env-vars=: List of key-value pairs to set as environment variables.
@@ -1633,6 +1641,7 @@ commands:
             --update-env-vars=: List of key-value pairs to set as environment variables.
             --update-labels=: List of label KEY=VALUE pairs to update.
             --update-secrets=: List of key-value pairs to set as secrets.
+            --vpc-connector=: Set a VPC connector for this resource.
             --vpc-egress=: Specify which of the outbound traffic to send through Direct VPC egress or the VPC connector for this resource.
             --workdir=: Working directory of the container process.
           completion:
@@ -1762,6 +1771,7 @@ commands:
             --clear-secrets: Remove all secrets.
             --clear-volume-mounts: Remove all existing mounts from the current container.
             --clear-volumes: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
+            --clear-vpc-connector: Remove the VPC connector for this resource.
             --client-name=&: Name of the client handling the deployment.
             --client-version=&: Version of the client handling the deployment.
             --command=: Entrypoint for the container image.
@@ -1794,6 +1804,7 @@ commands:
             --no-clear-secrets&: Remove all secrets.
             --no-clear-volume-mounts&: Remove all existing mounts from the current container.
             --no-clear-volumes&: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
+            --no-clear-vpc-connector&: Remove the VPC connector for this resource.
             --no-gpu-zonal-redundancy&: Set GPU zonal redundancy.
             --no-promote: True to avoid assign instances to the worker revision being deployed.
             --post-key-revocation-action-type=: Action type after CMEK key revocation.
@@ -1807,7 +1818,7 @@ commands:
             --remove-volume=: Removes volumes from the Cloud Run resource.
             --revision-suffix=: Specify the suffix of the revision name.
             --runtime=&: The runtime to use.
-            --scaling=&: The scaling mode to use for this service.
+            --scaling=&: The scaling mode to use for this WorkerPool.
             --service-account=: the email address of an IAM service account associated with the revision of the service.
             --set-cloudsql-instances=: Completely replace the current Cloud SQL instances with the given values.
             --set-env-vars=: List of key-value pairs to set as environment variables.
@@ -1817,6 +1828,7 @@ commands:
             --update-env-vars=: List of key-value pairs to set as environment variables.
             --update-labels=: List of label KEY=VALUE pairs to update.
             --update-secrets=: List of key-value pairs to set as secrets.
+            --vpc-connector=: Set a VPC connector for this resource.
             --vpc-egress=: Specify which of the outbound traffic to send through Direct VPC egress or the VPC connector for this resource.
             --workdir=: Working directory of the container process.
           completion:

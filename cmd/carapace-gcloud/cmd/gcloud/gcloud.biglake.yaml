@@ -25,9 +25,16 @@ commands:
             - name: create
               description: Create a BigLake Delta Sharing catalog.
               flags:
+                --cross-cloud-cache=: Whether to enable caching of remote data on Google Cloud.
+                --kms-key=: Cloud KMS key name for encryption of resources in the catalog.
                 --location=!: The location of the catalog.
                 --refresh-interval=: The interval for refreshing metadata from the remote catalog (e.g. 300s or 5m).
                 --service-directory-name=: The service directory resource name for private networking.
+              completion:
+                flag:
+                    cross-cloud-cache:
+                        - disabled
+                        - enabled
             - name: delete
               description: Delete a BigLake Delta Sharing catalog.
             - name: describe
@@ -42,10 +49,20 @@ commands:
             - name: update
               description: Update a BigLake Delta Sharing catalog.
               flags:
+                --clear-kms-key: Clear the Cloud KMS key for the catalog and revert to Google-managed encryption.
                 --connector-endpoint=: The SAP BDC Connector Endpoint.
+                --cross-cloud-cache=: Whether to enable caching of remote data on Google Cloud.
                 --invitation-code=: The SAP BDC Invitation Code.
                 --invitation-url=: The combined invitation URL containing both endpoint and code.
+                --kms-key=: Cloud KMS key name for encryption of resources in the catalog.
+                --no-clear-kms-key&: Clear the Cloud KMS key for the catalog and revert to Google-managed encryption.
                 --refresh-interval=: The interval for refreshing metadata from the remote catalog (e.g. 300s or 5m).
+                --service-directory-name=: The service directory resource name for private networking.
+              completion:
+                flag:
+                    cross-cloud-cache:
+                        - disabled
+                        - enabled
         - name: schemas
           description: Biglake Delta Sharing Schemas.
           commands:
@@ -82,6 +99,144 @@ commands:
                 --schema=!: ID of the schema or fully qualified identifier for the schema.
                 --share=: The share ID.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
+    - name: hive
+      description: Biglake Hive Catalogs.
+      commands:
+        - name: catalogs
+          description: Manage BigLake Hive catalogs.
+          commands:
+            - name: create
+              description: Create a BigLake Hive catalog.
+              flags:
+                --description=: Description of the Hive catalog.
+                --location-uri=!: The Cloud Storage location path where the catalog data will be stored.
+                --primary-location=!: Google Cloud region that specifies where the catalog metadata is stored, e.g. us-central1.
+            - name: delete
+              description: Delete a BigLake Hive catalog.
+            - name: describe
+              description: Describe a BigLake Hive catalog.
+            - name: get-iam-policy
+              description: Get the IAM policy for a BigLake Hive catalog.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+            - name: list
+              description: List BigLake Hive catalogs.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: set-iam-policy
+              description: Set the IAM policy for a BigLake Hive catalog.
+            - name: update
+              description: Update a BigLake Hive catalog.
+              flags:
+                --description=: Description of the Hive catalog.
+        - name: databases
+          description: Manage BigLake Hive databases.
+          commands:
+            - name: create
+              description: Creates a BigLake Hive database.
+              flags:
+                --catalog=: Name of the Hive catalog to use.
+                --description=: Description of the Hive database.
+                --location-uri=: The Cloud Storage location path where the database data will be stored.
+                --parameters=: Additional parameters associated with the database.
+            - name: delete
+              description: Deletes a BigLake Hive database.
+              flags:
+                --catalog=: Name of the Hive catalog to use.
+            - name: describe
+              description: Describes a BigLake Hive database.
+              flags:
+                --catalog=: Name of the Hive catalog to use.
+            - name: get-iam-policy
+              description: Get the IAM policy for a BigLake Hive catalog database.
+              flags:
+                --catalog=: The Hive Catalog for the resource.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+            - name: list
+              description: List BigLake Hive databases in a catalog.
+              flags:
+                --catalog=!: ID of the hive_catalog or fully qualified identifier for the hive_catalog.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: set-iam-policy
+              description: Set the IAM policy for a BigLake Hive catalog database.
+              flags:
+                --catalog=: The Hive Catalog for the resource.
+            - name: update
+              description: Updates a BigLake Hive database.
+              flags:
+                --catalog=: Name of the Hive catalog to use.
+                --description=: The description of the Hive database.
+                --location-uri=: The Cloud Storage location path where the database exists.
+                --parameters=: Additional parameters associated with the Hive database.
+        - name: tables
+          description: Manage BigLake Hive catalog tables.
+          commands:
+            - name: create
+              description: Create a BigLake Hive table.
+              flags:
+                --catalog=: The Hive Catalog for the resource.
+                --database=: The Hive Database for the resource.
+                --file=!: Path to a JSON or YAML file containing the Hive table definition.
+            - name: delete
+              description: Deletes a BigLake Hive table.
+              flags:
+                --catalog=: Name of the Hive catalog to use.
+                --database=: Name of the Hive database to use.
+            - name: describe
+              description: Describes a BigLake Hive table.
+              flags:
+                --catalog=: Name of the Hive catalog to use.
+                --database=: Name of the Hive database to use.
+            - name: get-iam-policy
+              description: Get the IAM policy for a BigLake Hive catalog table.
+              flags:
+                --catalog=: The Hive Catalog for the resource.
+                --database=: The Hive Database for the resource.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+            - name: list
+              description: List BigLake Hive tables in a database.
+              flags:
+                --catalog=: Name of the Hive catalog to use.
+                --database=!: ID of the hive_database or fully qualified identifier for the hive_database.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: set-iam-policy
+              description: Set the IAM policy for a BigLake Hive catalog table.
+              flags:
+                --catalog=: The Hive Catalog for the resource.
+                --database=: The Hive Database for the resource.
+            - name: update
+              description: Update a BigLake Hive table.
+              flags:
+                --catalog=: The Hive Catalog for the resource.
+                --columns-from-file=: Path to a JSON or YAML file containing the new columns list.
+                --database=: The Hive Database for the resource.
+                --description=: Description of the Hive table.
+                --location-uri=: The Cloud Storage location path where the table's data will be stored.
+                --parameters=: Additional parameters associated with the table.
     - name: iceberg
       description: Biglake Iceberg REST Catalogs.
       commands:
@@ -93,14 +248,33 @@ commands:
               flags:
                 --catalog-type=!: Catalog type to create the catalog with.
                 --credential-mode=: Credential mode to create the catalog with.
+                --cross-cloud-cache=: Whether to enable caching of remote data on Google Cloud.
                 --default-location=: Can only be used with BigLake catalogs.
                 --description=: Description of the resource.
-                --kms-key=&: ID of the key or fully qualified identifier for the key.
-                --kms-keyring=&: The KMS keyring of the key.
-                --kms-location=&: The Google Cloud location for the key.
-                --kms-project=&: The Google Cloud project for the key.
+                --federated-catalog-identity-mode=: The identity mode for the federated catalog.
+                --federated-catalog-type=: Type of the federated catalog.
+                --glue-aws-region=: The AWS region of the Glue catalog to connect to.
+                --glue-aws-role-arn=: The AWS role ARN of the Glue catalog that the BigLake federated catalog will assume to access the catalog.
+                --glue-warehouse=: The warehouse to connect to in AWS Glue Iceberg REST Catalog.
+                --kms-key=!: ID of the key or fully qualified identifier for the key.
+                --kms-keyring=: The KMS keyring of the key.
+                --kms-location=: The Google Cloud location for the key.
+                --kms-project=: The Google Cloud project for the key.
+                --metadata-service-directory-name=: The service directory resource name used to route metadata layer traffic with the remote catalog over a private network connection, in the format `projects/{project_id}/locations/{location}/namespaces/{namespace}/services/{service_name}`.
+                --namespace-filters=: Filters to determine which namespaces are included in the refresh process.
                 --primary-location=: Primary location for mirroring the remote catalog metadata.
+                --refresh-interval=: The interval for refreshing metadata from the remote catalog (e.g., "1hr5m30s").
                 --restricted-locations=: Additional Google Cloud Storage buckets and locations (e.g., `gs://my-other-bucket/...`) that are permitted for use by resources within a catalog.
+                --secret-name=: The secret resource name in Secret Manager, in the format `projects/{project_id}/locations/{location}/secrets/{secret_id}` or `projects/{project_id}/locations/{location}/secrets/{secret_id}/versions/{version_id}`.
+                --service-directory-name=: The service directory resource name for request routing, in the format `projects/{project_id}/locations/{location}/namespaces/{namespace}/services/{service_name}`.
+                --snowflake-account-identifier=: The account identifier of the Snowflake catalog to connect to.
+                --snowflake-role=: The specific role to request for the Snowflake catalog.
+                --snowflake-warehouse=: The warehouse to connect to in Snowflake.
+                --unity-catalog-name=: Name of the catalog in Unity Catalog.
+                --unity-instance-name=: The instance name is the first part of the URL when you log into your Databricks deployment.
+                --unity-service-principal-application-id=: Optional.
+                --workday-base-url=: The base URL of the Workday instance.
+                --workday-tenant=: The Workday tenant name.
               completion:
                 flag:
                     catalog-type:
@@ -111,6 +285,17 @@ commands:
                     credential-mode:
                         - end-user
                         - vended-credentials
+                    cross-cloud-cache:
+                        - enabled
+                        - disabled
+                    federated-catalog-identity-mode:
+                        - service-identity
+                        - user-identity-federation
+                    federated-catalog-type:
+                        - unity
+                        - glue
+                        - snowflake
+                        - workday
             - name: delete
               description: Delete a BigLake Iceberg REST catalog.
             - name: describe
@@ -144,13 +329,25 @@ commands:
               description: Update a BigLake Iceberg REST catalog.
               flags:
                 --catalog-type=: Catalog type to update the catalog with.
+                --clear-kms-key: Clear the Cloud KMS key for the catalog and revert to Google-managed encryption.
                 --credential-mode=: Credential mode to create the catalog with.
+                --cross-cloud-cache=: Whether to enable caching of remote data on Google Cloud.
                 --description=: Description of the resource.
-                --kms-key=&: ID of the key or fully qualified identifier for the key.
-                --kms-keyring=&: The KMS keyring of the key.
-                --kms-location=&: The Google Cloud location for the key.
-                --kms-project=&: The Google Cloud project for the key.
+                --federated-catalog-identity-mode=: The identity mode for the federated catalog.
+                --glue-aws-role-arn=: The AWS role ARN of the Glue catalog that the BigLake federated catalog will assume to access the catalog.
+                --kms-key=!: ID of the key or fully qualified identifier for the key.
+                --kms-keyring=: The KMS keyring of the key.
+                --kms-location=: The Google Cloud location for the key.
+                --kms-project=: The Google Cloud project for the key.
+                --metadata-service-directory-name=: The service directory resource name used to route metadata layer traffic with the remote catalog over a private network connection, in the format `projects/{project_id}/locations/{location}/namespaces/{namespace}/services/{service_name}`.
+                --namespace-filters=: Filters to determine which namespaces are included in the refresh process.
+                --no-clear-kms-key&: Clear the Cloud KMS key for the catalog and revert to Google-managed encryption.
+                --refresh-interval=: Interval for refreshing metadata from the remote catalog (e.g., "1hr5m30s").
                 --restricted-locations=: Additional Google Cloud Storage buckets and locations (e.g., `gs://my-other-bucket/...`) that are permitted for use by resources within a catalog.
+                --secret-name=: Resource name of the Secret Manager secret, in the format `projects/{project_id}/locations/{location}/secrets/{secret_id}` or `projects/{project_id}/locations/{location}/secrets/{secret_id}/versions/{version_id}`.
+                --service-directory-name=: The service directory resource name for request routing, in the format `projects/{project_id}/locations/{location}/namespaces/{namespace}/services/{service_name}`.
+                --snowflake-role=: The specific role to request for the Snowflake catalog.
+                --unity-service-principal-application-id=: Optional.
               completion:
                 flag:
                     catalog-type:
@@ -159,6 +356,12 @@ commands:
                     credential-mode:
                         - end-user
                         - vended-credentials
+                    cross-cloud-cache:
+                        - enabled
+                        - disabled
+                    federated-catalog-identity-mode:
+                        - service-identity
+                        - user-identity-federation
         - name: namespaces
           description: Manage BigLake Iceberg REST catalog namespaces.
           commands:

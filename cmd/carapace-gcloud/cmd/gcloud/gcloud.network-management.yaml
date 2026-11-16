@@ -35,6 +35,7 @@ commands:
             --source-cloud-run-job=: Cloud Run job URI as the source endpoint.
             --source-cloud-run-revision=: Cloud Run revision URI as the source endpoint.
             --source-cloud-sql-instance=: A Cloud SQL instance URI as the source endpoint.
+            --source-datastream-private-connection=: Datastream private connection URI as the source endpoint.
             --source-dms-private-connection=: DMS private connection URI as the source endpoint.
             --source-gke-master-cluster=: A cluster URI for Google Kubernetes Engine master as the source endpoint.
             --source-gke-pod=: A GKE Pod URI as the source endpoint.
@@ -87,6 +88,7 @@ commands:
             --clear-source-cloud-run-job: Clear existing source Cloud Run job.
             --clear-source-cloud-run-revision: Clear existing source Cloud Run revision.
             --clear-source-cloud-sql-instance: Clear existing source Cloud SQL instance.
+            --clear-source-datastream-private-connection: Clear existing source Datastream private connection.
             --clear-source-dms-private-connection: Clear existing source DMS private connection.
             --clear-source-gke-master-cluster: Clear existing source cluster for Google Kubernetes Engine master.
             --clear-source-gke-pod: Clear existing source GKE Pod.
@@ -121,6 +123,7 @@ commands:
             --no-clear-source-cloud-run-job&: Clear existing source Cloud Run job.
             --no-clear-source-cloud-run-revision&: Clear existing source Cloud Run revision.
             --no-clear-source-cloud-sql-instance&: Clear existing source Cloud SQL instance.
+            --no-clear-source-datastream-private-connection&: Clear existing source Datastream private connection.
             --no-clear-source-dms-private-connection&: Clear existing source DMS private connection.
             --no-clear-source-gke-master-cluster&: Clear existing source cluster for Google Kubernetes Engine master.
             --no-clear-source-gke-pod&: Clear existing source GKE Pod.
@@ -135,6 +138,7 @@ commands:
             --source-cloud-run-job=: Cloud Run job URI as the source endpoint.
             --source-cloud-run-revision=: Cloud Run revision URI as the source endpoint.
             --source-cloud-sql-instance=: A Cloud SQL instance URI as the source endpoint.
+            --source-datastream-private-connection=: Datastream private connection URI as the source endpoint.
             --source-dms-private-connection=: DMS private connection URI as the source endpoint.
             --source-gke-master-cluster=: A cluster URI for Google Kubernetes Engine master as the source endpoint.
             --source-gke-pod=: A GKE Pod URI as the source endpoint.
@@ -226,6 +230,8 @@ commands:
               completion:
                 flag:
                     monitoring-point-type:
+                        - aws-ec2
+                        - azure-vm
                         - container
                         - gce-vm
                         - helm
@@ -314,6 +320,7 @@ commands:
           flags:
             --aggregation-interval=: The aggregation interval for the logs.
             --async: Return immediately, without waiting for the operation in progress to
+            --connection-logging=: Whether to enable connection logging.
             --cross-project-metadata=: Determines whether to include cross project annotations in the logs.
             --description=: The user-supplied description of the VPC Flow Logs configuration.
             --filter-expr=: Export filter used to define which VPC Flow Logs should be logged.
@@ -338,6 +345,11 @@ commands:
                     - interval-30-sec
                     - interval-5-min
                     - interval-5-sec
+                connection-logging:
+                    - connection-logging-disabled
+                    - connection-logging-enabled
+                    - disabled
+                    - enabled
                 cross-project-metadata:
                     - cross-project-metadata-disabled
                     - cross-project-metadata-enabled
@@ -396,6 +408,7 @@ commands:
             --async: Return immediately, without waiting for the operation in progress to
             --clear-labels: Clear labels value and set to empty map.
             --clear-metadata-fields: Clear metadata_fields value and set to empty list.
+            --connection-logging=: Whether to enable connection logging.
             --cross-project-metadata=: Determines whether to include cross project annotations in the logs.
             --description=: The user-supplied description of the VPC Flow Logs configuration.
             --filter-expr=: Export filter used to define which VPC Flow Logs should be logged.
@@ -425,6 +438,11 @@ commands:
                     - interval-30-sec
                     - interval-5-min
                     - interval-5-sec
+                connection-logging:
+                    - connection-logging-disabled
+                    - connection-logging-enabled
+                    - disabled
+                    - enabled
                 cross-project-metadata:
                     - cross-project-metadata-disabled
                     - cross-project-metadata-enabled

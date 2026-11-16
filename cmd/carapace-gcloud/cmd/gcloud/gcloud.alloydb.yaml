@@ -369,6 +369,16 @@ commands:
             --assign-inbound-public-ip=: Specify to enable or disable public IP on an instance.
             --async: Return immediately, without waiting for the operation in progress to
             --authorized-external-networks=: Comma-separated list of authorized external networks to set on the instance.
+            --autoscaler-cool-down-period-seconds=: Cool down period in seconds for the autoscaler.
+            --autoscaler-max-node-count=: Maximum node count for the autoscaler.
+            --autoscaler-schedule-cron-exp=: Cron expression for the autoscaler schedule.
+            --autoscaler-schedule-description=: Description for the autoscaler schedule.
+            --autoscaler-schedule-duration-seconds=: Duration for which the autoscaler schedule is active in seconds.
+            --autoscaler-schedule-min-node-count=: Minimum node count for the autoscaler schedule.
+            --autoscaler-schedule-time-zone=: Time zone for the autoscaler schedule.
+            --autoscaler-set-schedule=: The name of the schedule to create for the autoscaler.
+            --autoscaler-target-connections-count=: Target connections count for the autoscaler.
+            --autoscaler-target-cpu-usage=: Target CPU usage for the autoscaler.
             --availability-type=: Specifies level of availability.
             --cluster=!: AlloyDB cluster ID
             --connection-pooling-client-connection-idle-timeout=: The maximum number of seconds a client is allowed to be idle before it is disconnected.
@@ -384,7 +394,10 @@ commands:
             --connection-pooling-stats-users=: Comma-separated list of database users to access connection pooling stats.
             --cpu-count=: Whole number value indicating how many vCPUs the machine should contain.
             --database-flags=: Comma-separated list of database flags to set on the instance.
+            --enable-autoscaler: Enable autoscaler for the instance.
             --enable-connection-pooling: Enable connection pooling for the instance.
+            --enable-psc-auto-connection-policy: Enable automatic creation of service connection policies (PSC auto connection policy) for the Private Service Connect (PSC) auto connections of the instance, which are configured with `--psc-auto-connections`.
+            --enable-psc-auto-dns: Enable automatic creation of DNS records (PSC auto DNS) for the Private Service Connect (PSC) auto connections of the instance, which are configured with `--psc-auto-connections`.
             --insights-config-query-plans-per-minute=: Number of query plans to sample every minute.
             --insights-config-query-string-length=: Query string length in bytes to be stored by the query insights
             --insights-config-record-application-tags: Allow application tags to be recorded by the query insights
@@ -393,7 +406,10 @@ commands:
             --labels=: List of label KEY=VALUE pairs to add.
             --machine-type=: Specifies machine type for the instance.
             --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-enable-autoscaler&: Enable autoscaler for the instance.
             --no-enable-connection-pooling&: Enable connection pooling for the instance.
+            --no-enable-psc-auto-connection-policy&: Enable automatic creation of service connection policies (PSC auto connection policy) for the Private Service Connect (PSC) auto connections of the instance, which are configured with `--psc-auto-connections`.
+            --no-enable-psc-auto-dns&: Enable automatic creation of DNS records (PSC auto DNS) for the Private Service Connect (PSC) auto connections of the instance, which are configured with `--psc-auto-connections`.
             --no-insights-config-record-application-tags&: Allow application tags to be recorded by the query insights
             --no-insights-config-record-client-address&: Allow the client address to be recorded by the query insights
             --no-observability-config-enabled&: Enable enhanced query insights feature.
@@ -510,9 +526,13 @@ commands:
             --connection-pooling-stats-users=: Comma-separated list of database users to access connection pooling stats.
             --database-flags=: Comma-separated list of database flags to set on the instance.
             --enable-connection-pooling: Enable connection pooling for the instance.
+            --enable-psc-auto-connection-policy: Enable automatic creation of service connection policies (PSC auto connection policy) for the Private Service Connect (PSC) auto connections of the instance, which are configured with `--psc-auto-connections`.
+            --enable-psc-auto-dns: Enable automatic creation of DNS records (PSC auto DNS) for the Private Service Connect (PSC) auto connections of the instance, which are configured with `--psc-auto-connections`.
             --labels=: List of label KEY=VALUE pairs to add.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-enable-connection-pooling&: Enable connection pooling for the instance.
+            --no-enable-psc-auto-connection-policy&: Enable automatic creation of service connection policies (PSC auto connection policy) for the Private Service Connect (PSC) auto connections of the instance, which are configured with `--psc-auto-connections`.
+            --no-enable-psc-auto-dns&: Enable automatic creation of DNS records (PSC auto DNS) for the Private Service Connect (PSC) auto connections of the instance, which are configured with `--psc-auto-connections`.
             --no-outbound-public-ip&: Add outbound Public IP connectivity to an AlloyDB instance.
             --no-require-connectors&: 'Enable or disable enforcing connectors only (ex: AuthProxy) connections to the database.'
             --outbound-public-ip: Add outbound Public IP connectivity to an AlloyDB instance.
@@ -596,6 +616,19 @@ commands:
             --assign-inbound-public-ip=: Specify to enable or disable public IP on an instance.
             --async: Return immediately, without waiting for the operation in progress to
             --authorized-external-networks=: Comma-separated list of authorized external networks to set on the instance.
+            --autoscaler-cool-down-period-seconds=: Cool down period in seconds for the autoscaler.
+            --autoscaler-delete-schedule=: The name of the schedule to delete for the autoscaler.
+            --autoscaler-disable-schedule=: The name of the schedule to disable for the autoscaler.
+            --autoscaler-enable-schedule=: The name of the schedule to enable for the autoscaler.
+            --autoscaler-max-node-count=: Maximum node count for the autoscaler.
+            --autoscaler-schedule-cron-exp=: Cron expression for the autoscaler schedule.
+            --autoscaler-schedule-description=: Description for the autoscaler schedule.
+            --autoscaler-schedule-duration-seconds=: Duration for which the autoscaler schedule is active in seconds.
+            --autoscaler-schedule-min-node-count=: Minimum node count for the autoscaler schedule.
+            --autoscaler-schedule-time-zone=: Time zone for the autoscaler schedule.
+            --autoscaler-set-schedule=: The name of the schedule to create or update for the autoscaler.
+            --autoscaler-target-connections-count=: Target connections count for the autoscaler.
+            --autoscaler-target-cpu-usage=: Target CPU usage for the autoscaler.
             --availability-type=: Specifies level of availability.
             --clear-labels: Remove all labels.
             --clear-psc-auto-connections: Remove all PSC auto connections for an AlloyDB instance.
@@ -614,7 +647,10 @@ commands:
             --connection-pooling-stats-users=: Comma-separated list of database users to access connection pooling stats.
             --cpu-count=: Whole number value indicating how many vCPUs the machine should contain.
             --database-flags=: Comma-separated list of database flags to set on the instance.
+            --enable-autoscaler: Enable autoscaler for the instance.
             --enable-connection-pooling: Enable connection pooling for the instance.
+            --enable-psc-auto-connection-policy: Enable automatic creation of service connection policies (PSC auto connection policy) for the Private Service Connect (PSC) auto connections of the instance, which are configured with `--psc-auto-connections`.
+            --enable-psc-auto-dns: Enable automatic creation of DNS records (PSC auto DNS) for the Private Service Connect (PSC) auto connections of the instance, which are configured with `--psc-auto-connections`.
             --insights-config-query-plans-per-minute=: Number of query plans to sample every minute.
             --insights-config-query-string-length=: Query string length in bytes to be stored by the query insights
             --insights-config-record-application-tags: Allow application tags to be recorded by the query insights
@@ -624,7 +660,10 @@ commands:
             --no-clear-labels&: Remove all labels.
             --no-clear-psc-auto-connections&: Remove all PSC auto connections for an AlloyDB instance.
             --no-clear-psc-network-attachment-uri&: Disable outbound connectivity from an AlloyDB instance which uses Private Service Connect (PSC).
+            --no-enable-autoscaler&: Enable autoscaler for the instance.
             --no-enable-connection-pooling&: Enable connection pooling for the instance.
+            --no-enable-psc-auto-connection-policy&: Enable automatic creation of service connection policies (PSC auto connection policy) for the Private Service Connect (PSC) auto connections of the instance, which are configured with `--psc-auto-connections`.
+            --no-enable-psc-auto-dns&: Enable automatic creation of DNS records (PSC auto DNS) for the Private Service Connect (PSC) auto connections of the instance, which are configured with `--psc-auto-connections`.
             --no-insights-config-record-application-tags&: Allow application tags to be recorded by the query insights
             --no-insights-config-record-client-address&: Allow the client address to be recorded by the query insights
             --no-observability-config-enabled&: Enable enhanced query insights feature.

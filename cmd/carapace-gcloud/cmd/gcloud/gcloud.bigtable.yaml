@@ -417,7 +417,8 @@ commands:
             - name: create
               description: Create a new Cloud Bigtable table.
               flags:
-                --automated-backup-locations=: List of Cloud Bigtable zones where automated backups are allowed to be created.
+                --automated-backup-keep-hot-duration=: The amount of time that automated backups remain hot, in the format of `24h` for 24 hours.
+                --automated-backup-locations=: List of Cloud Bigtable zones where you can create automated backups.
                 --automated-backup-retention-period=: The retention period of automated backup in the format of `30d` for 30 days.
                 --change-stream-retention-period=: The length of time to retain change stream data for the table, in the range of
                 --column-families=!: A double-quote (`"`) wrapped list of family name and corresponding garbage collection rules
@@ -429,6 +430,12 @@ commands:
                 --row-key-schema-definition-file=: The row key schema for the table.
                 --row-key-schema-pre-encoded-bytes: By default, Base64 encoding is applied to all binary fields in the YAML/JSON file (for
                 --splits=: Row keys where the table should initially be split.
+                --timestamp-granularity=: The granularity at which timestamps are stored in this table.
+              completion:
+                flag:
+                    timestamp-granularity:
+                        - micros
+                        - millis
             - name: delete
               description: Delete a Cloud Bigtable table.
               flags:
@@ -499,9 +506,11 @@ commands:
               description: Update an existing Cloud Bigtable table.
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
+                --automated-backup-keep-hot-duration=: The amount of time that automated backups remain hot, in the format of `24h` for 24 hours.
                 --automated-backup-locations=: List of Cloud Bigtable zones where automated backups are allowed to be created.
                 --automated-backup-retention-period=: The retention period of automated backup in the format of `30d` for 30 days.
                 --change-stream-retention-period=: The length of time to retain change stream data for the table, in the range of [1 day, 7 days].
+                --clear-automated-backup-keep-hot-duration: Stops keeping automated backups hot.
                 --clear-automated-backup-locations: Empty the automated backup locations list if populated.
                 --clear-change-stream-retention-period: This disables the change stream and eventually removes the change stream data.
                 --clear-row-key-schema: Whether to clear the row key schema in the updated table.
@@ -653,9 +662,10 @@ commands:
           description: Create a new Bigtable schema bundle.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
+            --avro-schema-path=: Path to a JSON-formatted Avro schema file (`.avsc` or `.json`), or to a directory that contains one or more of these files.
             --instance=: Name of the Bigtable instance.
             --no-async&: Return immediately, without waiting for the operation in progress to
-            --proto-descriptors-file=!: Path of a file that contains a protobuf-serialized `google.protobuf.FileDescriptorSet` message.
+            --proto-descriptors-file=: Path of a file that contains a protobuf-serialized `google.protobuf.FileDescriptorSet` message.
             --table=: Name of the Bigtable table.
         - name: delete
           description: Delete a Bigtable schema bundle.
@@ -707,11 +717,12 @@ commands:
           description: Update an existing Bigtable schema bundle.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
+            --avro-schema-path=: Path to a JSON-formatted Avro schema file (`.avsc` or `.json`), or to a directory that contains one or more of these files.
             --ignore-warnings: If true, backwards incompatible changes will be allowed.
             --instance=: Name of the Bigtable instance.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-ignore-warnings&: If true, backwards incompatible changes will be allowed.
-            --proto-descriptors-file=!: Path of a file that contains a protobuf-serialized `google.protobuf.FileDescriptorSet` message.
+            --proto-descriptors-file=: Path of a file that contains a protobuf-serialized `google.protobuf.FileDescriptorSet` message.
             --table=: Name of the Bigtable table.
     - name: tables
       description: Query Cloud Bigtable tables.
@@ -727,7 +738,8 @@ commands:
         - name: create
           description: Create a new Cloud Bigtable table.
           flags:
-            --automated-backup-locations=: List of Cloud Bigtable zones where automated backups are allowed to be created.
+            --automated-backup-keep-hot-duration=: The amount of time that automated backups remain hot, in the format of `24h` for 24 hours.
+            --automated-backup-locations=: List of Cloud Bigtable zones where you can create automated backups.
             --automated-backup-retention-period=: The retention period of automated backup in the format of `30d` for 30 days.
             --change-stream-retention-period=: The length of time to retain change stream data for the table, in the range of
             --column-families=!: A double-quote (`"`) wrapped list of family name and corresponding garbage collection rules
@@ -739,6 +751,12 @@ commands:
             --row-key-schema-definition-file=: The row key schema for the table.
             --row-key-schema-pre-encoded-bytes: By default, Base64 encoding is applied to all binary fields in the YAML/JSON file (for
             --splits=: Row keys where the table should initially be split.
+            --timestamp-granularity=: The granularity at which timestamps are stored in this table.
+          completion:
+            flag:
+                timestamp-granularity:
+                    - micros
+                    - millis
         - name: delete
           description: Delete a Cloud Bigtable table.
           flags:
@@ -809,9 +827,11 @@ commands:
           description: Update an existing Cloud Bigtable table.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
+            --automated-backup-keep-hot-duration=: The amount of time that automated backups remain hot, in the format of `24h` for 24 hours.
             --automated-backup-locations=: List of Cloud Bigtable zones where automated backups are allowed to be created.
             --automated-backup-retention-period=: The retention period of automated backup in the format of `30d` for 30 days.
             --change-stream-retention-period=: The length of time to retain change stream data for the table, in the range of [1 day, 7 days].
+            --clear-automated-backup-keep-hot-duration: Stops keeping automated backups hot.
             --clear-automated-backup-locations: Empty the automated backup locations list if populated.
             --clear-change-stream-retention-period: This disables the change stream and eventually removes the change stream data.
             --clear-row-key-schema: Whether to clear the row key schema in the updated table.

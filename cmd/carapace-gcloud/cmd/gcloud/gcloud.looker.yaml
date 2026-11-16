@@ -8,23 +8,45 @@ commands:
         - name: create
           description: Create a backup of a Looker instance.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --instance=!: ID of the instance or fully qualified identifier for the instance.
             --region=!: The name of the Looker region of the instance.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: delete
           description: Delete a backup of a Looker instance.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --instance=: The name of the Looker instance.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --region=: The name of the Looker region of the backup.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: describe
           description: Show metadata of a backup for a Looker instance.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --instance=: The name of the Looker instance.
             --region=: The name of the Looker region of the backup.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: list
           description: List backups of a Looker instance.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --instance=!: ID of the instance or fully qualified identifier for the instance.
             --limit=: Maximum number of resources to list.
@@ -33,6 +55,12 @@ commands:
             --region=: The name of the Looker region of the instance.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
     - name: instances
       description: Manage Looker instances.
       commands:
@@ -48,7 +76,9 @@ commands:
             --deny-maintenance-period-start-date=!: 'Start date of the deny maintenance period in format: YYYY-MM-DD'
             --deny-maintenance-period-time=!: Time in UTC when the period starts and ends.
             --edition=!: The edition of the Looker instance.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --fips-enabled: This specifies whether FIPS is enabled on the Looker instance.
+            --google-auth-enabled: This specifies whether Google auth is enabled on the Looker instance.
             --kms-key=: ID of the key or fully qualified identifier for the key.
             --maintenance-window-day=!: Day of week for maintenance window, in UTC time zone.
             --maintenance-window-time=!: Hour of day for maintenance window, in UTC time zone.
@@ -56,9 +86,11 @@ commands:
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-catalog-integration-opt-out&: If specified, catalog integration will be disabled, otherwise it will be enabled by default.
             --no-fips-enabled&: This specifies whether FIPS is enabled on the Looker instance.
+            --no-google-auth-enabled&: This specifies whether Google auth is enabled on the Looker instance.
             --no-private-ip-enabled!&: This specifies whether private IP (PSA) is enabled on the Looker instance.
             --no-psc-enabled!&: This specifies whether Private Service Connect (PSC) is enabled on the Looker instance.
             --no-public-ip-enabled&: This specifies whether public IP is enabled on the Looker instance.
+            --no-workforce-auth-enabled&: This specifies whether Workforce auth is enabled on the Looker instance.
             --oauth-client-id=!: The client ID from an external OAuth application.
             --oauth-client-secret=!: The client secret from an external OAuth application.
             --private-ip-enabled!: This specifies whether private IP (PSA) is enabled on the Looker instance.
@@ -68,6 +100,7 @@ commands:
             --region=: The name of the Looker region of the instance.
             --release-channel=: The selected release channel for the instance.
             --reserved-range=: The name of a reserved IP address range within the consumer network to be used for private
+            --workforce-auth-enabled: This specifies whether Workforce auth is enabled on the Looker instance.
           completion:
             flag:
                 class-type:
@@ -96,6 +129,10 @@ commands:
                     - nonprod-core-m-annual
                     - nonprod-core-standard-annual
                     - nonprod-core-xl-annual
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
                 maintenance-window-day:
                     - friday
                     - monday
@@ -113,28 +150,57 @@ commands:
           description: Delete a Looker instance.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --force: Force delete an instance.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-force&: Force delete an instance.
             --region=: The name of the Looker region of the instance.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: describe
           description: Show metadata for a Looker instance.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --region=: The name of the Looker region of the instance.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: export
           description: Export a Looker instance.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --kms-key=!: Fully qualified identifier (name) for the key.
             --region=: The region of the instance.
             --target-gcs-uri=: The path to the folder in Google Cloud Storage where the export will be stored.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: import
           description: Import a Looker instance.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --region=: The region of the instance.
             --source-gcs-uri=: The path to the folder in Google Cloud Storage where the import will be retrieved from.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: list
           description: List Looker instances.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
             --no-uri&: Print a list of resource URIs instead of the default output, and change the
@@ -142,19 +208,39 @@ commands:
             --region=: ID of the region or fully qualified identifier for the region.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: restart
           description: Restart a Looker instance.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --region=: The name of the Looker region of the instance.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: restore
           description: Restore a Looker instance from a backup.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
             --backup=!: The ID of the backup instance in the format
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --region=: The name of the Looker region of the instance.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: update
           description: Update a Looker instance.
           flags:
@@ -175,6 +261,8 @@ commands:
             --deny-maintenance-period-time=!: Time in UTC when the period starts and ends.
             --egress-enabled: This specifies whether controlled egress is enabled on the Looker instance.
             --egress-fqdns=: List of FQDNs that are allowed to egress from the Looker instance.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
+            --google-auth-enabled: This specifies whether Google auth is enabled on the Looker instance.
             --linked-lsp-project-number=: The Looker Studio Pro project number to be linked.
             --maintenance-window-day=!: Day of the week for the maintenance window, in UTC time zone.
             --maintenance-window-time=!: Hour of day for maintenance window, in UTC time zone.
@@ -186,8 +274,10 @@ commands:
             --no-clear-psc-allowed-vpcs&: Remove all service attachments from the PSC config of the instance.
             --no-clear-psc-service-attachments&: Remove all allowed VPCs from the PSC config of the instance.
             --no-egress-enabled&: This specifies whether controlled egress is enabled on the Looker instance.
+            --no-google-auth-enabled&: This specifies whether Google auth is enabled on the Looker instance.
             --no-marketplace-enabled&: This specifies whether marketplace is enabled for controlled egress on the Looker instance.
             --no-public-ip-enabled&: This specifies whether public IP is enabled on the Looker instance.
+            --no-workforce-auth-enabled&: This specifies whether Workforce auth is enabled on the Looker instance.
             --oauth-client-id=!: The client ID from an external OAuth application.
             --oauth-client-secret=!: The client secret from an external OAuth application.
             --periodic-export-gcs-uri=: Cloud Storage bucket URI for periodic export.
@@ -198,11 +288,16 @@ commands:
             --public-ip-enabled: This specifies whether public IP is enabled on the Looker instance.
             --region=: The name of the Looker region of the instance.
             --release-channel=: The selected release channel for the instance.
+            --workforce-auth-enabled: This specifies whether Workforce auth is enabled on the Looker instance.
           completion:
             flag:
                 class-type:
                     - p1
                     - r1
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
                 maintenance-window-day:
                     - friday
                     - monday
@@ -222,14 +317,29 @@ commands:
         - name: cancel
           description: Cancel a Looker import or export operation.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --region=: The name of the Looker region of the operation.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: describe
           description: Show metadata for a Looker operation.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --region=: The name of the Looker region of the operation.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: list
           description: List Looker operations.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
             --no-uri&: Print a list of resource URIs instead of the default output, and change the
@@ -237,6 +347,12 @@ commands:
             --region=: ID of the region or fully qualified identifier for the region.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
     - name: regions
       description: Manage Looker regions.
       commands:

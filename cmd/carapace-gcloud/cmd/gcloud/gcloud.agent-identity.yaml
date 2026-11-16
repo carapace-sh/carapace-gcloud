@@ -31,6 +31,20 @@ commands:
         - name: authorizations
           description: Manage Authorization resources.
           commands:
+            - name: add-iam-policy-binding
+              description: Add IAM policy binding to an Agent Identity authorization.
+              flags:
+                --auth-provider=: The authProvider id of the authorization resource.
+                --endpoint-mode=: Specifies endpoint mode for a given command.
+                --location=: The location id of the authorization resource.
+                --member=!: The principal to add the binding for.
+                --role=!: Role name to assign to the principal.
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
             - name: delete
               description: Delete an authorization.
               flags:
@@ -42,6 +56,22 @@ commands:
               flags:
                 --auth-provider=: The authProvider id of the authorization resource.
                 --location=: The location id of the authorization resource.
+            - name: get-iam-policy
+              description: Get the IAM policy for an Agent Identity authorization.
+              flags:
+                --auth-provider=: The authProvider id of the authorization resource.
+                --endpoint-mode=: Specifies endpoint mode for a given command.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the authorization resource.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
             - name: list
               description: List authorizations.
               flags:
@@ -53,28 +83,81 @@ commands:
                 --page-size=: Some services group resource list output into pages.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: remove-iam-policy-binding
+              description: Remove IAM policy binding from an Agent Identity authorization.
+              flags:
+                --auth-provider=: The authProvider id of the authorization resource.
+                --endpoint-mode=: Specifies endpoint mode for a given command.
+                --location=: The location id of the authorization resource.
+                --member=!: The principal to remove the binding for.
+                --role=!: The role to remove the principal from.
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
+            - name: set-iam-policy
+              description: Set the IAM policy for an Agent Identity authorization.
+              flags:
+                --auth-provider=: The authProvider id of the authorization resource.
+                --endpoint-mode=: Specifies endpoint mode for a given command.
+                --location=: The location id of the authorization resource.
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
+            - name: test-iam-permissions
+              description: Test IAM permissions for an Agent Identity authorization.
+              flags:
+                --auth-provider=: The authProvider id of the authorization resource.
+                --endpoint-mode=: Specifies endpoint mode for a given command.
+                --location=: The location id of the authorization resource.
+                --permissions=!: The permissions to test.
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
         - name: create
           description: Create an auth provider.
           flags:
-            --allowed-scopes=: List of scopes that are allowed to be requested for this auth_provider.
-            --api-key=: The API key for this auth_provider.
-            --auth-provider-type-params-ge=&: Message describing GeminiEnterpriseAuthProviderParams object.
+            --allowed-scopes=: List of scopes that are allowed to be requested for this auth
+            --api-key=: The API key for this auth provider.
+            --auth-provider-type-params-ge=&: Configuration for Gemini Enterprise authentication.
             --blocked-scopes=: List of scopes that are blocked from being requested for this
+            --connector-reference-auth-provider-authorization-details=: Rich Authorization Requests (RFC 9396) detailing targeted OAuth
+            --connector-reference-auth-provider=!: The name of the referenced connector.
             --description=: Description of the resource.
-            --labels=: Labels as key value pairs.
-            --location=: The location id of the authProvider resource.
-            --no-three-legged-oauth-enable-pkce&: Enables Proof Key for Code Exchange (PKCE) for the OAuth flow to prevent
+            --labels=: Labels as key-value pairs.
+            --location=: For resources [auth_provider, xaa-auth-provider-id-token-input-jag], provides fallback value for resource location attribute.
+            --no-three-legged-oauth-enable-pkce&: Enables Proof Key for Code Exchange (PKCE) for the OAuth flow to
             --request-id=: An optional request ID to identify requests.
-            --three-legged-oauth-authorization-url=: The authorization endpoint to send users to for consenting to delegate
+            --three-legged-oauth-authorization-url=: The authorization endpoint to send users to for consenting to
             --three-legged-oauth-client-id=: The client ID of the OAuth client.
             --three-legged-oauth-client-secret=: The client secret of the OAuth client.
-            --three-legged-oauth-default-continue-uri=: The default continue URI for 3LO flow to redirect end users after consent.
-            --three-legged-oauth-enable-pkce: Enables Proof Key for Code Exchange (PKCE) for the OAuth flow to prevent
-            --three-legged-oauth-token-url=: The token endpoint for requesting tokens on behalf of an end user.
+            --three-legged-oauth-default-continue-uri=: The default continue URI for the 3LO flow, used when no continue
+            --three-legged-oauth-enable-pkce: Enables Proof Key for Code Exchange (PKCE) for the OAuth flow to
+            --three-legged-oauth-token-url=: The token endpoint for requesting tokens on behalf of an end
             --two-legged-oauth-client-id=: The client ID of the OAuth client.
             --two-legged-oauth-client-secret=: The client secret of the OAuth client.
             --two-legged-oauth-token-url=: The token endpoint of the OAuth client.
-            --workload-ids=: Represents the workload identity in IAM `principal://` format of the
+            --workload-ids=: Identifiers for the agents that will use this auth provider,
+            --xaa-auth-provider-additional-parameters=: Additional parameters to be passed to the token endpoint.
+            --xaa-auth-provider-client-assertion-jwt-id=!: The client identifier.
+            --xaa-auth-provider-client-secret-id=!: The client identifier.
+            --xaa-auth-provider-client-secret=!: The client secret.
+            --xaa-auth-provider-custom-issuer-token-url=!: The token endpoint of the target OAuth authorization server to
+            --xaa-auth-provider-custom-issuer=: The issuer identifier of the target Authorization Server.
+            --xaa-auth-provider-google-account=&: Configuration for Google Account usage as the issuer.
+            --xaa-auth-provider-id-jag-input=&: Marker message indicating the input is already an ID-JAG, so no fetching is
+            --xaa-auth-provider-id-token-input-agent-identity-pool=&: Marker message to indicate the managed Agent Identity Pool is used.
+            --xaa-auth-provider-id-token-input-jag-additional-claims=: Optional additional claims to include when fetching an ID-JAG.
+            --xaa-auth-provider-id-token-input-jag=!: ID of the authProvider or fully qualified identifier for the authProvider.
+            --xaa-auth-provider-workforce-identity-federation=&: Configuration for Workforce Identity Federation usage as the issuer.
         - name: delete
           description: Delete an auth provider.
           flags:
@@ -108,10 +191,10 @@ commands:
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
             --location=!: ID of the location or fully qualified identifier for the location.
-            --no-show-deleted&: Deleted auth_providers will be kept with a soft-delete for 30 days before
+            --no-show-deleted&: Deleted auth providers will be kept with a soft-delete for 30
             --no-uri&: Print a list of resource URIs instead of the default output, and change the
             --page-size=: Some services group resource list output into pages.
-            --show-deleted: Deleted auth_providers will be kept with a soft-delete for 30 days before
+            --show-deleted: Deleted auth providers will be kept with a soft-delete for 30
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
         - name: query
@@ -155,36 +238,56 @@ commands:
             --add-blocked-scopes=: Add new value to blocked_scopes list.
             --add-workload-ids=: Add new value to workload_ids list.
             --allowed-scopes=: Set allowed_scopes to new value.
-            --api-key=: The API key for this auth_provider.
-            --auth-provider-type-params-ge=&: Message describing GeminiEnterpriseAuthProviderParams object.
+            --api-key=: The API key for this auth provider.
+            --auth-provider-type-params-ge=&: Configuration for Gemini Enterprise authentication.
             --blocked-scopes=: Set blocked_scopes to new value.
             --clear-allowed-scopes: Clear allowed_scopes value and set to empty list.
             --clear-auth-provider-type-params: Set authProvider.authProviderTypeParams back to default value.
             --clear-blocked-scopes: Clear blocked_scopes value and set to empty list.
             --clear-labels: Clear labels value and set to empty map.
             --clear-workload-ids: Clear workload_ids value and set to empty list.
+            --clear-xaa-auth-provider-additional-parameters: Clear xaa_auth_provider_additional_parameters value and set to empty map.
+            --clear-xaa-auth-provider-id-token-input-jag: Clear xaa_auth_provider_id_token_input_jag value and set to null.
+            --connector-reference-auth-provider-authorization-details=: Rich Authorization Requests (RFC 9396) detailing targeted OAuth
+            --connector-reference-auth-provider=: The name of the referenced connector.
             --description=: Description of the resource.
             --labels=: Set labels to new value.
-            --location=: The location id of the authProvider resource.
+            --location=: For resources [auth_provider, xaa-auth-provider-id-token-input-jag], provides fallback value for resource location attribute.
             --no-clear-allowed-scopes&: Clear allowed_scopes value and set to empty list.
             --no-clear-auth-provider-type-params&: Set authProvider.authProviderTypeParams back to default value.
             --no-clear-blocked-scopes&: Clear blocked_scopes value and set to empty list.
             --no-clear-labels&: Clear labels value and set to empty map.
             --no-clear-workload-ids&: Clear workload_ids value and set to empty list.
-            --no-three-legged-oauth-enable-pkce&: Enables Proof Key for Code Exchange (PKCE) for the OAuth flow to prevent
+            --no-clear-xaa-auth-provider-additional-parameters&: Clear xaa_auth_provider_additional_parameters value and set to empty map.
+            --no-clear-xaa-auth-provider-id-token-input-jag&: Clear xaa_auth_provider_id_token_input_jag value and set to null.
+            --no-three-legged-oauth-enable-pkce&: Enables Proof Key for Code Exchange (PKCE) for the OAuth flow to
             --remove-allowed-scopes=: Remove existing value from allowed_scopes list.
             --remove-blocked-scopes=: Remove existing value from blocked_scopes list.
             --remove-labels=: Remove existing value from map labels.
             --remove-workload-ids=: Remove existing value from workload_ids list.
+            --remove-xaa-auth-provider-additional-parameters=: Remove existing value from map xaa_auth_provider_additional_parameters.
             --request-id=: An optional request ID to identify requests.
-            --three-legged-oauth-authorization-url=: The authorization endpoint to send users to for consenting to delegate
+            --three-legged-oauth-authorization-url=: The authorization endpoint to send users to for consenting to
             --three-legged-oauth-client-id=: The client ID of the OAuth client.
             --three-legged-oauth-client-secret=: The client secret of the OAuth client.
-            --three-legged-oauth-default-continue-uri=: The default continue URI for 3LO flow to redirect end users after consent.
-            --three-legged-oauth-enable-pkce: Enables Proof Key for Code Exchange (PKCE) for the OAuth flow to prevent
-            --three-legged-oauth-token-url=: The token endpoint for requesting tokens on behalf of an end user.
+            --three-legged-oauth-default-continue-uri=: The default continue URI for the 3LO flow, used when no continue
+            --three-legged-oauth-enable-pkce: Enables Proof Key for Code Exchange (PKCE) for the OAuth flow to
+            --three-legged-oauth-token-url=: The token endpoint for requesting tokens on behalf of an end
             --two-legged-oauth-client-id=: The client ID of the OAuth client.
             --two-legged-oauth-client-secret=: The client secret of the OAuth client.
             --two-legged-oauth-token-url=: The token endpoint of the OAuth client.
             --update-labels=: Update labels value or add key value pair.
+            --update-xaa-auth-provider-additional-parameters=: Update xaa_auth_provider_additional_parameters value or add key value pair.
             --workload-ids=: Set workload_ids to new value.
+            --xaa-auth-provider-additional-parameters=: Set xaa_auth_provider_additional_parameters to new value.
+            --xaa-auth-provider-client-assertion-jwt-id=: The client identifier.
+            --xaa-auth-provider-client-secret-id=: The client identifier.
+            --xaa-auth-provider-client-secret=: The client secret.
+            --xaa-auth-provider-custom-issuer-token-url=: The token endpoint of the target OAuth authorization server to
+            --xaa-auth-provider-custom-issuer=: The issuer identifier of the target Authorization Server.
+            --xaa-auth-provider-google-account=&: Configuration for Google Account usage as the issuer.
+            --xaa-auth-provider-id-jag-input=&: Marker message indicating the input is already an ID-JAG, so no fetching is
+            --xaa-auth-provider-id-token-input-agent-identity-pool=&: Marker message to indicate the managed Agent Identity Pool is used.
+            --xaa-auth-provider-id-token-input-jag-additional-claims=: Optional additional claims to include when fetching an ID-JAG.
+            --xaa-auth-provider-id-token-input-jag=!: ID of the authProvider or fully qualified identifier for the authProvider.
+            --xaa-auth-provider-workforce-identity-federation=&: Configuration for Workforce Identity Federation usage as the issuer.
