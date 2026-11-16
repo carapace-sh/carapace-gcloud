@@ -2,6 +2,136 @@
 name: observability
 description: Manage Observability resources.
 commands:
+    - name: buckets
+      description: Commands to create, read, update, and delete Observability Buckets.
+      commands:
+        - name: create
+          description: Create a bucket.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --cmek-settings-kms-key=: The resource name for the configured Cloud KMS key.
+            --description=: Description of the bucket.
+            --display-name=: User friendly display name.
+            --location=: The location id of the bucket resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: datasets
+          description: Commands to create, read, update, and delete Datasets within Observability Buckets.
+          commands:
+            - name: describe
+              description: Describe datasets.
+              flags:
+                --bucket=: The bucket id of the dataset resource.
+                --location=: The location id of the dataset resource.
+            - name: links
+              description: Commands to create, read, update, and delete Links within Datasets.
+              commands:
+                - name: create
+                  description: Create links.
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --bucket=: The bucket id of the link resource.
+                    --dataset=: The dataset id of the link resource.
+                    --description=: Description of the link.
+                    --display-name=: A user friendly display name.
+                    --location=: The location id of the link resource.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                - name: delete
+                  description: Delete links.
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --bucket=: The bucket id of the link resource.
+                    --dataset=: The dataset id of the link resource.
+                    --location=: The location id of the link resource.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                - name: describe
+                  description: Describe links.
+                  flags:
+                    --bucket=: The bucket id of the link resource.
+                    --dataset=: The dataset id of the link resource.
+                    --location=: The location id of the link resource.
+                - name: list
+                  description: List links.
+                  flags:
+                    --bucket=: The bucket id of the dataset resource.
+                    --dataset=!: ID of the dataset or fully qualified identifier for the dataset.
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --location=: The location id of the dataset resource.
+                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                    --page-size=: Some services group resource list output into pages.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --uri: Print a list of resource URIs instead of the default output, and change the
+                - name: update
+                  description: Update links.
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --bucket=: The bucket id of the link resource.
+                    --dataset=: The dataset id of the link resource.
+                    --description=: Description of the link.
+                    --display-name=: A user friendly display name.
+                    --location=: The location id of the link resource.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: list
+              description: List datasets.
+              flags:
+                --bucket=!: ID of the bucket or fully qualified identifier for the bucket.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the bucket resource.
+                --no-show-deleted&: If true, then the response will include deleted datasets.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --show-deleted: If true, then the response will include deleted datasets.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: views
+              description: Commands to read Views within Datasets.
+              commands:
+                - name: describe
+                  description: Describe views.
+                  flags:
+                    --bucket=: The bucket id of the view resource.
+                    --dataset=: The dataset id of the view resource.
+                    --location=: The location id of the view resource.
+                - name: list
+                  description: List views.
+                  flags:
+                    --bucket=: The bucket id of the dataset resource.
+                    --dataset=!: ID of the dataset or fully qualified identifier for the dataset.
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --location=: The location id of the dataset resource.
+                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                    --page-size=: Some services group resource list output into pages.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: describe
+          description: Describe buckets.
+          flags:
+            --location=: The location id of the bucket resource.
+        - name: list
+          description: List buckets.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-show-deleted&: If true, then the response will include deleted buckets.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --show-deleted: If true, then the response will include deleted buckets.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a bucket.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-cmek-settings: Set bucket.cmekSettings back to default value.
+            --cmek-settings-kms-key=: The resource name for the configured Cloud KMS key.
+            --description=: Description of the bucket.
+            --display-name=: User friendly display name.
+            --location=: The location id of the bucket resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-cmek-settings&: Set bucket.cmekSettings back to default value.
     - name: scopes
       description: Manage Scope resources.
       commands:
@@ -15,8 +145,28 @@ commands:
             --location=: The location id of the scope resource.
             --log-scope=: The full resource name of the `LogScope`.
             --trace-scope=: The resource name of the `TraceScope`.
+    - name: settings
+      description: Manage Observability settings.
+      commands:
+        - name: describe
+          description: Show details of Observability settings on a resource.
+          flags:
+            --folder=: The id of the folder
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --organization=: The id of the organization
+        - name: update
+          description: Update Observability settings configured on a project, folder, or organization.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --default-storage-location=: Updated default storage location.
+            --folder=: The id of the folder
+            --kms-key-name=: Updated kms key name.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=: The id of the organization
+            --update-mask=: Comma-separated string containing list of fields to be updated.
     - name: trace-scopes
-      description: Manage Trace Scope resources.
+      description: Commands to create, read, update, and delete TraceScopes.
       commands:
         - name: create
           description: Create traceScopes.

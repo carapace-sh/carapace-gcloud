@@ -140,6 +140,7 @@ commands:
             --add-api-technical-requirements-enum-values=: Add new value to api_technical_requirements_enum_values list.
             --add-business-unit-enum-values=: Add new value to business_unit_enum_values list.
             --add-maturity-level-enum-values=: Add new value to maturity_level_enum_values list.
+            --add-service-type-enum-values=: Add new value to service_type_enum_values list.
             --add-target-user-enum-values=: Add new value to target_user_enum_values list.
             --add-team-enum-values=: Add new value to team_enum_values list.
             --api-functional-requirements-enum-values=: Set api_functional_requirements_enum_values to new value.
@@ -180,6 +181,8 @@ commands:
             --clear-maturity-level-enum-values: Clear maturity_level_enum_values value and set to empty list.
             --clear-owner: Set googleCloudApihubV1Api.owner back to default value.
             --clear-selected-version: Clear selected_version value and set to null.
+            --clear-service-type: Set googleCloudApihubV1Api.serviceType back to default value.
+            --clear-service-type-enum-values: Clear service_type_enum_values value and set to empty list.
             --clear-target-user: Set googleCloudApihubV1Api.targetUser back to default value.
             --clear-target-user-enum-values: Clear target_user_enum_values value and set to empty list.
             --clear-team: Set googleCloudApihubV1Api.team back to default value.
@@ -209,6 +212,8 @@ commands:
             --no-clear-maturity-level-enum-values&: Clear maturity_level_enum_values value and set to empty list.
             --no-clear-owner&: Set googleCloudApihubV1Api.owner back to default value.
             --no-clear-selected-version&: Clear selected_version value and set to null.
+            --no-clear-service-type&: Set googleCloudApihubV1Api.serviceType back to default value.
+            --no-clear-service-type-enum-values&: Clear service_type_enum_values value and set to empty list.
             --no-clear-target-user&: Set googleCloudApihubV1Api.targetUser back to default value.
             --no-clear-target-user-enum-values&: Clear target_user_enum_values value and set to empty list.
             --no-clear-team&: Set googleCloudApihubV1Api.team back to default value.
@@ -222,9 +227,11 @@ commands:
             --remove-attributes=: Remove existing value from map attributes.
             --remove-business-unit-enum-values=: Remove existing value from business_unit_enum_values list.
             --remove-maturity-level-enum-values=: Remove existing value from maturity_level_enum_values list.
+            --remove-service-type-enum-values=: Remove existing value from service_type_enum_values list.
             --remove-target-user-enum-values=: Remove existing value from target_user_enum_values list.
             --remove-team-enum-values=: Remove existing value from team_enum_values list.
             --selected-version=!: ID of the version or fully qualified identifier for the version.
+            --service-type-enum-values=: Set service_type_enum_values to new value.
             --target-user-enum-values=: Set target_user_enum_values to new value.
             --target-user-json-values=: The attribute values in case attribute data type is string or JSON.
             --target-user-string-values=: The attribute values in case attribute data type is string or JSON.
@@ -291,13 +298,14 @@ commands:
                   flags:
                     --api=: The api id of the operation resource.
                     --attributes=: The list of user defined attributes associated with the API operation
+                    --deployments=!: IDs of the deployments or fully qualified identifiers for the deployments.
                     --details-deprecated: For OpenAPI spec, this will be set if `operation.deprecated`is marked as
                     --details-description=: Description of the operation behavior.
                     --documentation-external-uri=: The uri of the externally hosted documentation.
                     --http-operation-method=: Operation method
                     --http-operation-path-description=: A short description for the path applicable to all operations.
                     --http-operation-path=: Complete path relative to server endpoint.
-                    --location=: The location id of the operation resource.
+                    --location=: For resources [operation, deployments], provides fallback value for resource location attribute.
                     --mcp-tool-annotations-additional-hints=: Additional hints which may help tools and not covered in defaults.
                     --mcp-tool-annotations-destructive-hint: Hint indicating if the tool may have destructive side effects.
                     --mcp-tool-annotations-idempotent-hint: Hint indicating if the tool is idempotent.
@@ -349,18 +357,21 @@ commands:
                 - name: update
                   description: Update apiOperations.
                   flags:
+                    --add-deployments=!: IDs of the deployments or fully qualified identifiers for the deployments.
                     --api=: The api id of the operation resource.
                     --attributes=: Set attributes to new value.
                     --clear-attributes: Clear attributes value and set to empty map.
+                    --clear-deployments: Clear deployments value and set to empty list.
                     --clear-details: Set googleCloudApihubV1ApiOperation.details back to default value.
                     --clear-mcp-tool-annotations-additional-hints: Clear mcp_tool_annotations_additional_hints value and set to empty map.
+                    --deployments=!: IDs of the deployments or fully qualified identifiers for the deployments.
                     --details-deprecated: For OpenAPI spec, this will be set if `operation.deprecated`is marked as
                     --details-description=: Description of the operation behavior.
                     --documentation-external-uri=: The uri of the externally hosted documentation.
                     --http-operation-method=: Operation method
                     --http-operation-path-description=: A short description for the path applicable to all operations.
                     --http-operation-path=: Complete path relative to server endpoint.
-                    --location=: The location id of the operation resource.
+                    --location=: For resources [operation, deployments], provides fallback value for resource location attribute.
                     --mcp-tool-annotations-additional-hints=: Set mcp_tool_annotations_additional_hints to new value.
                     --mcp-tool-annotations-destructive-hint: Hint indicating if the tool may have destructive side effects.
                     --mcp-tool-annotations-idempotent-hint: Hint indicating if the tool is idempotent.
@@ -373,6 +384,7 @@ commands:
                     --mcp-tool-output-schema-json=: The JSON schema.
                     --mcp-tool-title=: Optional title for the tool.
                     --no-clear-attributes&: Clear attributes value and set to empty map.
+                    --no-clear-deployments&: Clear deployments value and set to empty list.
                     --no-clear-details&: Set googleCloudApihubV1ApiOperation.details back to default value.
                     --no-clear-mcp-tool-annotations-additional-hints&: Clear mcp_tool_annotations_additional_hints value and set to empty map.
                     --no-details-deprecated&: For OpenAPI spec, this will be set if `operation.deprecated`is marked as
@@ -381,6 +393,7 @@ commands:
                     --no-mcp-tool-annotations-open-world-hint&: Hint indicating if the tool interacts with the open world (e.g., internet).
                     --no-mcp-tool-annotations-read-only-hint&: Hint indicating if the tool is read-only.
                     --remove-attributes=: Remove existing value from map attributes.
+                    --remove-deployments=!: IDs of the deployments or fully qualified identifiers for the deployments.
                     --remove-mcp-tool-annotations-additional-hints=: Remove existing value from map mcp_tool_annotations_additional_hints.
                     --update-attributes=: Update attributes value or add key value pair.
                     --update-mcp-tool-annotations-additional-hints=: Update mcp_tool_annotations_additional_hints value or add key value pair.
@@ -405,6 +418,7 @@ commands:
                     --attributes=: The list of user defined attributes associated with the spec.
                     --contents-mime-type=!: The mime type of the content for example application/json,
                     --contents=!: The contents of the spec.
+                    --deployments=!: IDs of the deployments or fully qualified identifiers for the deployments.
                     --display-name=!: The display name of the spec.
                     --documentation-external-uri=: The uri of the externally hosted documentation.
                     --lint-response-create-time=!: Timestamp when the linting response was generated.
@@ -413,7 +427,7 @@ commands:
                     --lint-response-source=!: Name of the linting application.
                     --lint-response-state=!: Lint state represents success or failure for linting.
                     --lint-response-summary=: Summary of all issue types and counts for each severity level.
-                    --location=: The location id of the spec resource.
+                    --location=: For resources [spec, deployments], provides fallback value for resource location attribute.
                     --parsing-mode=: Enum specifying the parsing mode for OpenAPI Specification (OAS) parsing.
                     --source-uri=: The URI of the spec source in case file is uploaded
                     --spec-type-enum-values=!: Required, The attribute values in case attribute data type is enum.
@@ -465,6 +479,7 @@ commands:
                 - name: update
                   description: Update specs.
                   flags:
+                    --add-deployments=!: IDs of the deployments or fully qualified identifiers for the deployments.
                     --add-lint-response-issues=: Add new value to lint_response_issues list.
                     --add-lint-response-summary=: Add new value to lint_response_summary list.
                     --add-spec-type-enum-values=: Add new value to spec_type_enum_values list.
@@ -472,6 +487,7 @@ commands:
                     --attributes=: Set attributes to new value.
                     --clear-attributes: Clear attributes value and set to empty map.
                     --clear-contents: Set googleCloudApihubV1Spec.contents back to default value.
+                    --clear-deployments: Clear deployments value and set to empty list.
                     --clear-documentation: Set googleCloudApihubV1Spec.documentation back to default value.
                     --clear-lint-response: Set googleCloudApihubV1Spec.lintResponse back to default value.
                     --clear-lint-response-issues: Clear lint_response_issues value and set to empty list.
@@ -480,6 +496,7 @@ commands:
                     --clear-spec-type-enum-values: Clear spec_type_enum_values value and set to empty list.
                     --contents-mime-type=: The mime type of the content for example application/json,
                     --contents=: The contents of the spec.
+                    --deployments=!: IDs of the deployments or fully qualified identifiers for the deployments.
                     --display-name=: The display name of the spec.
                     --documentation-external-uri=: The uri of the externally hosted documentation.
                     --lint-response-create-time=: Timestamp when the linting response was generated.
@@ -488,9 +505,10 @@ commands:
                     --lint-response-source=: Name of the linting application.
                     --lint-response-state=: Lint state represents success or failure for linting.
                     --lint-response-summary=: Set lint_response_summary to new value.
-                    --location=: The location id of the spec resource.
+                    --location=: For resources [spec, deployments], provides fallback value for resource location attribute.
                     --no-clear-attributes&: Clear attributes value and set to empty map.
                     --no-clear-contents&: Set googleCloudApihubV1Spec.contents back to default value.
+                    --no-clear-deployments&: Clear deployments value and set to empty list.
                     --no-clear-documentation&: Set googleCloudApihubV1Spec.documentation back to default value.
                     --no-clear-lint-response&: Set googleCloudApihubV1Spec.lintResponse back to default value.
                     --no-clear-lint-response-issues&: Clear lint_response_issues value and set to empty list.
@@ -499,6 +517,7 @@ commands:
                     --no-clear-spec-type-enum-values&: Clear spec_type_enum_values value and set to empty list.
                     --parsing-mode=: Enum specifying the parsing mode for OpenAPI Specification (OAS) parsing.
                     --remove-attributes=: Remove existing value from map attributes.
+                    --remove-deployments=!: IDs of the deployments or fully qualified identifiers for the deployments.
                     --remove-lint-response-issues=: Remove existing value from lint_response_issues list.
                     --remove-lint-response-summary=: Remove existing value from lint_response_summary list.
                     --remove-spec-type-enum-values=: Remove existing value from spec_type_enum_values list.
@@ -762,6 +781,7 @@ commands:
             --slo-uri-values=!: The attribute values in case attribute data type is string or JSON.
             --source-environment=: The environment at source for the deployment.
             --source-project=: The project to which the deployment belongs.
+            --source-revision=: A revision identifier for the underlying gateway configuration that this
             --source-uri-enum-values=!: Required, The attribute values in case attribute data type is enum.
             --source-uri-json-values=!: The attribute values in case attribute data type is string or JSON.
             --source-uri-string-values=!: The attribute values in case attribute data type is string or JSON.
@@ -847,6 +867,7 @@ commands:
             --slo-uri-values=: The attribute values in case attribute data type is string or JSON.
             --source-environment=: The environment at source for the deployment.
             --source-project=: The project to which the deployment belongs.
+            --source-revision=: A revision identifier for the underlying gateway configuration that this
             --source-uri-enum-values=: Set source_uri_enum_values to new value.
             --source-uri-json-values=: The attribute values in case attribute data type is string or JSON.
             --source-uri-string-values=: The attribute values in case attribute data type is string or JSON.

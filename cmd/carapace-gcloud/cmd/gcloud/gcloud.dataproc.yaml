@@ -101,11 +101,13 @@ commands:
                 --async: Return immediately without waiting for the operation in progress to complete.
                 --autotuning-cohort=&: Autotuning cohort identifier.
                 --autotuning-scenarios=&: Scenarios for which tunings are applied.
+                --base-environment-version=&: Optional predefined base environment version to execute the workload with (for example, `1.0`).
                 --batch=: The ID of the batch job to submit.
                 --cohort=&: Cohort identifier.
                 --container-image=: Optional custom container image to use for the batch/session runtime environment.
                 --deps-bucket=: A Cloud Storage bucket to upload workload dependencies.
                 --enable-autotuning&: Enable autotuning got the workload.
+                --environment=&: Optional Managed Service for Apache Spark environment ID or full resource name (`projects/PROJECT/locations/LOCATION/environments/ENVIRONMENT`) to execute the workload with.
                 --files=: Files to be placed in the working directory.
                 --history-server-cluster=: Spark History Server configuration for the batch/session job.
                 --jars=: Comma-separated list of jar files to be provided to the classpaths.
@@ -134,11 +136,13 @@ commands:
                 --async: Return immediately without waiting for the operation in progress to complete.
                 --autotuning-cohort=&: Autotuning cohort identifier.
                 --autotuning-scenarios=&: Scenarios for which tunings are applied.
+                --base-environment-version=&: Optional predefined base environment version to execute the workload with (for example, `1.0`).
                 --batch=: The ID of the batch job to submit.
                 --cohort=&: Cohort identifier.
                 --container-image=: Optional custom container image to use for the batch/session runtime environment.
                 --deps-bucket=: A Cloud Storage bucket to upload workload dependencies.
                 --enable-autotuning&: Enable autotuning got the workload.
+                --environment=&: Optional Managed Service for Apache Spark environment ID or full resource name (`projects/PROJECT/locations/LOCATION/environments/ENVIRONMENT`) to execute the workload with.
                 --files=: Files to be placed in the working directory.
                 --history-server-cluster=: Spark History Server configuration for the batch/session job.
                 --jars=: Comma-separated list of jar files to be provided to the classpaths.
@@ -351,6 +355,7 @@ commands:
             --master-boot-disk-size-gb=&: (DEPRECATED) Use `--master-boot-disk-size` flag with "GB" after value.
             --master-boot-disk-size=: The size of the boot disk.
             --master-boot-disk-type=: The type of the boot disk.
+            --master-flexible-config=: Configuration for master instances in High Obtainability (HO) mode.
             --master-instance-flexibility-policy-file=: Path to a YAML or JSON file containing the instance flexibility policy
             --master-instance-selection=: Instance selection configurations for the master node group.
             --master-local-ssd-interface=: Interface to use to attach local SSDs to master node(s) in a cluster.
@@ -366,6 +371,7 @@ commands:
             --min-num-workers=: Minimum number of primary worker nodes to provision for cluster creation to succeed.
             --min-secondary-worker-fraction=: Minimum fraction of secondary worker nodes required to create the cluster.
             --min-worker-fraction=&: Minimum fraction of worker nodes required to create the cluster.
+            --multizone: Create a multi-zonal cluster where instances can be created across
             --network=: The Compute Engine network that the VM instances of the cluster will be
             --no-address: If provided, the instances in the cluster will not be assigned external
             --no-async&: Return immediately, without waiting for the operation in progress to
@@ -374,6 +380,7 @@ commands:
             --no-enable-kerberos&: Enable Kerberos on the cluster.
             --no-enable-node-groups&: Create cluster nodes using Dataproc NodeGroups.
             --no-enable-ssh&: Enable SSH access for the cluster.
+            --no-multizone&: Create a multi-zonal cluster where instances can be created across
             --no-public-ip-address&: If provided, cluster instances are assigned external IP addresses.
             --no-shielded-integrity-monitoring&: Enables monitoring and attestation of the boot integrity of the
             --no-shielded-secure-boot&: The cluster's VMs will boot with secure boot enabled.
@@ -397,9 +404,11 @@ commands:
             --properties=: Specifies configuration properties for installed packages, such as Hadoop
             --public-ip-address: If provided, cluster instances are assigned external IP addresses.
             --region=: Dataproc region for the cluster.
+            --requested-run-duration=: How long the cluster can run after it starts running, such as "8h" or
             --reservation-affinity=: The type of reservation for the instance.
             --reservation=: The name of the reservation, required when `--reservation-affinity=specific`.
             --resource-manager-tags=: Specifies a list of resource manager tags to apply to each cluster node (master and worker nodes).
+            --scheduling-timeout=: How long to wait for the requested Compute Engine resources to become
             --scopes=: Specifies scopes for the node instances.
             --secondary-worker-accelerator=: Attaches accelerators, such as GPUs, to the secondary-worker
             --secondary-worker-attached-disks=: A list of disk configurations to attach to each instance in this group.
@@ -407,6 +416,7 @@ commands:
             --secondary-worker-boot-disk-provisioned-throughput=&: Indicates the [throughput](https://cloud.google.com/compute/docs/disks/hyperdisks#throughput)
             --secondary-worker-boot-disk-size=: The size of the boot disk.
             --secondary-worker-boot-disk-type=: The type of the boot disk.
+            --secondary-worker-flexible-config=: Configuration for secondary worker instances in High Obtainability (HO) mode.
             --secondary-worker-instance-flexibility-policy-file=: Path to a YAML or JSON file containing the instance flexibility policy
             --secondary-worker-instance-selection=: Instance selection configurations for the secondary worker node group.
             --secondary-worker-local-ssd-interface=: Interface to use to attach local SSDs to each secondary worker
@@ -435,6 +445,7 @@ commands:
             --worker-boot-disk-size-gb=&: (DEPRECATED) Use `--worker-boot-disk-size` flag with "GB" after value.
             --worker-boot-disk-size=: The size of the boot disk.
             --worker-boot-disk-type=: The type of the boot disk.
+            --worker-flexible-config=: Configuration for primary worker instances in High Obtainability (HO) mode.
             --worker-instance-flexibility-policy-file=: Path to a YAML or JSON file containing the instance flexibility policy
             --worker-instance-selection=: Instance selection configurations for the primary worker node group.
             --worker-local-ssd-interface=: Interface to use to attach local SSDs to each worker in a cluster.
@@ -627,11 +638,188 @@ commands:
             --region=: Dataproc region for the cluster.
             --remove-labels=: List of label keys to remove.
             --remove-user-mappings=: List of user-to-service-account mappings to remove from the
+            --secondary-worker-flexible-config=: The flexible instance group configuration for secondary workers in High Obtainability (HO) clusters.
             --stop-expiration-time=: The time when the cluster will be auto-stopped, such as
             --stop-max-age=: The lifespan of the cluster, with auto-stop upon completion,
             --stop-max-idle=: The duration after the last job completes to auto-stop the cluster,
             --timeout=&: Client side timeout on how long to wait for Dataproc operations.
             --update-labels=: List of label KEY=VALUE pairs to update.
+            --worker-flexible-config=: The flexible instance group configuration for primary workers in High Obtainability (HO) clusters.
+    - name: environments
+      description: Create and manage Managed Service for Apache Spark environments.
+      hidden: true
+      commands:
+        - name: create
+          description: Create a Managed Service for Apache Spark environment.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --base-environment=: ID or full resource name of an existing environment to build upon (`projects/PROJECT/locations/LOCATION/environments/ENVIRONMENT`).
+            --base-version=: Predefined base environment version to build upon (for example, `1.0`).
+            --description=: Human-readable description of the environment.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
+            --labels=: List of label KEY=VALUE pairs to add.
+            --location=: Google Cloud location for the environment.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --python-package=: Python package to install, specified as a PEP 508 requirement string (for example, `pandas>=2.0,<3`).
+            --python-packages-repository=: URI of a custom package repository to download the Python packages from (for example, `https://us-python.pkg.dev/my-project/my-repo/simple/`).
+            --timeout=&: Client side timeout on how long to wait for Dataproc operations.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
+        - name: delete
+          description: Delete a Managed Service for Apache Spark environment.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --endpoint-mode=: Specifies endpoint mode for a given command.
+            --location=: Google Cloud location for the environment.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --timeout=&: Client side timeout on how long to wait for Dataproc operations.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
+        - name: describe
+          description: Describe a Managed Service for Apache Spark environment.
+          hidden: true
+          flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
+            --location=: Google Cloud location for the environment.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
+        - name: export
+          description: Export a Managed Service for Apache Spark environment.
+          hidden: true
+          flags:
+            --destination=: Path to a YAML file where the configuration will be exported.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
+            --location=: Google Cloud location for the environment.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
+        - name: import
+          description: Import a Managed Service for Apache Spark environment.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --endpoint-mode=: Specifies endpoint mode for a given command.
+            --location=: Google Cloud location for the environment.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --source=: Path to a YAML file containing configuration export data.
+            --timeout=&: Client side timeout on how long to wait for Dataproc operations.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
+        - name: list
+          description: List Managed Service for Apache Spark environments.
+          hidden: true
+          flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
+        - name: revisions
+          description: Manage the revisions of a Managed Service for Apache Spark environment.
+          hidden: true
+          commands:
+            - name: delete
+              description: Delete a revision of a Managed Service for Apache Spark environment.
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --endpoint-mode=: Specifies endpoint mode for a given command.
+                --environment=: Environment ID.
+                --location=: Google Cloud location for the revision.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --timeout=&: Client side timeout on how long to wait for Dataproc operations.
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
+            - name: describe
+              description: Describe a revision of a Managed Service for Apache Spark environment.
+              hidden: true
+              flags:
+                --endpoint-mode=: Specifies endpoint mode for a given command.
+                --environment=: Environment ID.
+                --location=: Google Cloud location for the revision.
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
+            - name: list
+              description: List the revisions of a Managed Service for Apache Spark environment.
+              hidden: true
+              flags:
+                --endpoint-mode=: Specifies endpoint mode for a given command.
+                --environment=!: ID of the environment or fully qualified identifier for the environment.
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: Google Cloud location for the environment.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
+        - name: update
+          description: Update a Managed Service for Apache Spark environment.
+          hidden: true
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --base-environment=: ID or full resource name of an existing environment to build upon (`projects/PROJECT/locations/LOCATION/environments/ENVIRONMENT`).
+            --base-version=: Predefined base environment version to build upon (for example, `1.0`).
+            --clear-labels: Remove all labels.
+            --clear-python-packages: Clear all Python packages from the environment.
+            --clear-python-packages-repository: Remove the custom package repository from the environment, so that the Python packages are downloaded from the public PyPI index.
+            --description=: Human-readable description of the environment.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
+            --location=: Google Cloud location for the environment.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Remove all labels.
+            --no-clear-python-packages&: Clear all Python packages from the environment.
+            --no-clear-python-packages-repository&: Remove the custom package repository from the environment, so that the Python packages are downloaded from the public PyPI index.
+            --python-package=: Python package to install, specified as a PEP 508 requirement string (for example, `pandas>=2.0,<3`).
+            --python-packages-repository=: URI of a custom package repository to download the Python packages from (for example, `https://us-python.pkg.dev/my-project/my-repo/simple/`).
+            --remove-labels=: List of label keys to remove.
+            --timeout=&: Client side timeout on how long to wait for Dataproc operations.
+            --update-labels=: List of label KEY=VALUE pairs to update.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
     - name: jobs
       description: Submit and manage Dataproc jobs.
       commands:
@@ -1279,6 +1467,7 @@ commands:
             --master-boot-disk-provisioned-throughput=: Indicates the [throughput](https://cloud.google.com/compute/docs/disks/hyperdisks#throughput)
             --master-boot-disk-size=: The size of the boot disk.
             --master-boot-disk-type=: The type of the boot disk.
+            --master-flexible-config=: Configuration for master instances in High Obtainability (HO) mode.
             --master-instance-flexibility-policy-file=: Path to a YAML or JSON file containing the instance flexibility policy
             --master-instance-selection=: Instance selection configurations for the master node group.
             --master-local-ssd-interface=: Interface to use to attach local SSDs to master node(s) in a cluster.
@@ -1292,6 +1481,7 @@ commands:
             --min-num-workers=: Minimum number of primary worker nodes to provision for cluster creation to succeed.
             --min-secondary-worker-fraction=: Minimum fraction of secondary worker nodes required to create the cluster.
             --min-worker-fraction=&: Minimum fraction of worker nodes required to create the cluster.
+            --multizone: Create a multi-zonal cluster where instances can be created across
             --network=: The Compute Engine network that the VM instances of the cluster will be
             --no-address: If provided, the instances in the cluster will not be assigned external
             --no-confidential-compute&: (DEPRECATED)         Enables Confidential VM.
@@ -1299,6 +1489,7 @@ commands:
             --no-enable-kerberos&: Enable Kerberos on the cluster.
             --no-enable-node-groups&: Create cluster nodes using Dataproc NodeGroups.
             --no-enable-ssh&: Enable SSH access for the cluster.
+            --no-multizone&: Create a multi-zonal cluster where instances can be created across
             --no-public-ip-address&: If provided, cluster instances are assigned external IP addresses.
             --no-shielded-integrity-monitoring&: Enables monitoring and attestation of the boot integrity of the
             --no-shielded-secure-boot&: The cluster's VMs will boot with secure boot enabled.
@@ -1331,6 +1522,7 @@ commands:
             --secondary-worker-boot-disk-provisioned-throughput=&: Indicates the [throughput](https://cloud.google.com/compute/docs/disks/hyperdisks#throughput)
             --secondary-worker-boot-disk-size=: The size of the boot disk.
             --secondary-worker-boot-disk-type=: The type of the boot disk.
+            --secondary-worker-flexible-config=: Configuration for secondary worker instances in High Obtainability (HO) mode.
             --secondary-worker-instance-flexibility-policy-file=: Path to a YAML or JSON file containing the instance flexibility policy
             --secondary-worker-instance-selection=: Instance selection configurations for the secondary worker node group.
             --secondary-worker-local-ssd-interface=: Interface to use to attach local SSDs to each secondary worker
@@ -1355,6 +1547,7 @@ commands:
             --worker-boot-disk-provisioned-throughput=: Indicates the [throughput](https://cloud.google.com/compute/docs/disks/hyperdisks#throughput)
             --worker-boot-disk-size=: The size of the boot disk.
             --worker-boot-disk-type=: The type of the boot disk.
+            --worker-flexible-config=: Configuration for primary worker instances in High Obtainability (HO) mode.
             --worker-instance-flexibility-policy-file=: Path to a YAML or JSON file containing the instance flexibility policy
             --worker-instance-selection=: Instance selection configurations for the primary worker node group.
             --worker-local-ssd-interface=: Interface to use to attach local SSDs to each worker in a cluster.

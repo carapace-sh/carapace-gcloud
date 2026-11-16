@@ -14,11 +14,12 @@ commands:
             --dns-san=: One or more comma-separated DNS Subject Alternative Names.
             --email-san=: One or more comma-separated email Subject Alternative Names.
             --extended-key-usages=: The list of extended key usages for this certificate.
-            --generate-key!: Use this flag to have a new RSA-2048 private key securely generated on your machine.
+            --generate-key!: Use this flag to have a new private key securely generated on your machine.
             --ip-san=: One or more comma-separated IP Subject Alternative Names.
             --is-ca-cert: Whether this certificate is for a CertificateAuthority or not.
             --issuer-location=: The location of the CERTIFICATE.
             --issuer-pool=: The parent CA Pool of the CERTIFICATE.
+            --key-algorithm=: The crypto algorithm to use for generating the client-side private key.
             --key-output-file=!: The path where the generated private key file should be written (in PEM format).
             --key-usages=: The list of key usages for this certificate.
             --kms-key-version=!: ID of the key version or fully qualified identifier for the key version.
@@ -54,6 +55,14 @@ commands:
             --use-preset-profile=: The name of an existing preset profile used to encapsulate X.509 parameter values.
             --validate-only: If this flag is set, the certificate resource will not be persisted and the returned certificate will not contain the pem_certificate field.
             --validity=: The validity of this certificate, as an ISO8601 duration.
+          completion:
+            flag:
+                key-algorithm:
+                    - rsa-2048
+                    - rsa-3072
+                    - rsa-4096
+                    - ec-p256
+                    - ec-p384
         - name: describe
           description: Get metadata for a certificate.
           flags:
@@ -285,6 +294,9 @@ commands:
                 key-algorithm:
                     - ec-p256-sha256
                     - ec-p384-sha384
+                    - pq-ml-dsa-44
+                    - pq-ml-dsa-65
+                    - pq-ml-dsa-87
                     - rsa-pkcs1-2048-sha256
                     - rsa-pkcs1-3072-sha256
                     - rsa-pkcs1-4096-sha256
@@ -410,6 +422,9 @@ commands:
                 key-algorithm:
                     - ec-p256-sha256
                     - ec-p384-sha384
+                    - pq-ml-dsa-44
+                    - pq-ml-dsa-65
+                    - pq-ml-dsa-87
                     - rsa-pkcs1-2048-sha256
                     - rsa-pkcs1-3072-sha256
                     - rsa-pkcs1-4096-sha256
@@ -452,6 +467,7 @@ commands:
         - name: list
           description: List subordinate certificate authorities.
           flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
             --location=: Location of the certificate authorities.
             --no-uri&: Print a list of resource URIs instead of the default output, and change the

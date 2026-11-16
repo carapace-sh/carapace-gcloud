@@ -341,6 +341,55 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: migrations
+          description: Manage the migration to a Dataproc Metastore service.
+          commands:
+            - name: delete
+              description: Delete a migration.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location of the Dataproc Metastore service.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --service=: The identifier of the Dataproc Metastore service
+            - name: describe
+              description: Describe a migration.
+              flags:
+                --location=: The location of the Dataproc Metastore service.
+                --service=: The identifier of the Dataproc Metastore service
+            - name: list
+              description: List migrations for a Dataproc Metastore service.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location of the Dataproc Metastore service.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --service=!: ID of the service or fully qualified identifier for the service.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: start
+              description: Start the migration from a Dataproc Metastore service to Lakehouse runtime catalog(s).
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --conflict-policy=: Policy to handle conflicts when migrating resources, defaults to SKIP
+                --dry-run: If true, performs discovery of requested resources and analysis against
+                --hive-catalog=!: Target catalog for migrated databases and tables.
+                --hive-databases=: Comma-separated list of databases to migrate to the Hive catalog.
+                --iceberg-catalog=!: Target catalog for migrated Iceberg metadata.
+                --iceberg-namespaces=: Comma-separated list of namespaces to migrate to the Iceberg REST
+                --location=: The location of the Dataproc Metastore service.
+                --migration-execution-id=: ID to use for the migration execution, which will become the
+                --mode=: Execution mode of the migration.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-dry-run&: If true, performs discovery of requested resources and analysis against
+                --report-path=: Cloud Storage path where the backfill / dry run
+              completion:
+                flag:
+                    conflict-policy:
+                        - overwrite
+                        - skip
+                    mode:
+                        - backfill
         - name: move-table-to-database
           description: Move table to another database.
           flags:

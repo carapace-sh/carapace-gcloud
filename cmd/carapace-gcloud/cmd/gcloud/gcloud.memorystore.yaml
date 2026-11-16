@@ -190,6 +190,7 @@ commands:
                 authorization-mode:
                     - auth-disabled
                     - iam-auth
+                    - token-auth
                 automated-backup-config-mode:
                     - disabled
                     - enabled
@@ -234,6 +235,13 @@ commands:
                 zone-distribution-config-mode:
                     - multi-zone
                     - single-zone
+        - name: create-token-auth-user
+          description: create token auth user for a Memorystore instance.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the instance resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --token-auth-user=!: The name of the token auth user to create.
         - name: delete
           description: Delete a Memorystore instance.
           flags:
@@ -293,6 +301,71 @@ commands:
             --self-managed-source-ip-address=!: The IP address of the source instance.
             --self-managed-source-network-attachment=!: The resource name of the Private Service Connect Network Attachment used to
             --self-managed-source-port=!: The port of the source instance.
+        - name: token-auth-users
+          description: Manage Token Auth User resources.
+          commands:
+            - name: auth-tokens
+              description: Manage Auth Token resources.
+              commands:
+                - name: delete
+                  description: Delete authTokens.
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --instance=: The instance id of the authToken resource.
+                    --location=: The location id of the authToken resource.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --token-auth-user=: The tokenAuthUser id of the authToken resource.
+                - name: describe
+                  description: Describe authTokens.
+                  flags:
+                    --instance=: The instance id of the authToken resource.
+                    --location=: The location id of the authToken resource.
+                    --token-auth-user=: The tokenAuthUser id of the authToken resource.
+                - name: list
+                  description: List authTokens.
+                  flags:
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --instance=: The instance id of the tokenAuthUser resource.
+                    --limit=: Maximum number of resources to list.
+                    --location=: The location id of the tokenAuthUser resource.
+                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                    --page-size=: Some services group resource list output into pages.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --token-auth-user=!: ID of the tokenAuthUser or fully qualified identifier for the tokenAuthUser.
+                    --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: create-auth-token
+              description: create an auth token for a token auth user.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --instance=: The instance id of the tokenAuthUser resource.
+                --location=: The location id of the tokenAuthUser resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+            - name: delete
+              description: Delete tokenAuthUsers.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --force: If set to true, any auth tokens from this user will also be deleted.
+                --instance=: The instance id of the tokenAuthUser resource.
+                --location=: The location id of the tokenAuthUser resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-force&: If set to true, any auth tokens from this user will also be deleted.
+                --request-id=: An optional request ID to identify requests.
+            - name: describe
+              description: Describe tokenAuthUsers.
+              flags:
+                --instance=: The instance id of the tokenAuthUser resource.
+                --location=: The location id of the tokenAuthUser resource.
+            - name: list
+              description: List tokenAuthUsers.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --instance=!: ID of the instance or fully qualified identifier for the instance.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the instance resource.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
         - name: update
           description: Update the configuration of a Memorystore instance.
           flags:
@@ -303,6 +376,7 @@ commands:
             --aof-config-append-fsync=: The fsync mode.
             --async: Return immediately, without waiting for the operation in progress to
             --async-instance-endpoints-deletion-enabled: If true, instance endpoints that are created and registered by customers
+            --authorization-mode=: Authorization mode of the instance.
             --automated-backup-config-mode=: The automated backup mode.
             --automated-backup-config-retention=: How long to keep automated backups before the backups are deleted.
             --clear-acl-policy: Clear acl_policy value and set to null.
@@ -376,6 +450,9 @@ commands:
                     - always
                     - every-sec
                     - never
+                authorization-mode:
+                    - auth-disabled
+                    - token-auth
                 automated-backup-config-mode:
                     - disabled
                     - enabled

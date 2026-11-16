@@ -227,7 +227,6 @@ commands:
         --hidden: Include documents for hidden commands and groups.
         --html-dir=: The directory where the standalone manpage HTML files will be generated.
         --linter-dir=: The directory where the generated documentation linter errors for the help text reference document subtree will be written.
-        --manpage-dir=: The directory where the generated manpage document subtree will be written.
         --no-hidden&: Include documents for hidden commands and groups.
         --no-test&: Show but do not apply --update actions.
         --no-update&: Update destination directories to match the current CLI.
@@ -278,6 +277,19 @@ commands:
         --branch=: The branch of the CLI subtree to generate as a dotted command path.
         --completions: List the static completion CLI tree.
         --no-completions&: List the static completion CLI tree.
+    - name: list-readonly-commands
+      description: (EXPERIMENTAL) List gcloud CLI commands filtered by their read_only metadata state (not for production use).
+      hidden: true
+      flags:
+        --hidden: If set, include hidden commands and groups in the scan.
+        --no-hidden&: If set, include hidden commands and groups in the scan.
+        --state=: Filter commands by their `read_only` metadata state.
+      completion:
+        flag:
+            state:
+                - readonly
+                - mutating
+                - unannotated
     - name: render-markdown
       description: Uses gcloud's markdown renderer to render the given markdown file.
       hidden: true
@@ -338,6 +350,7 @@ commands:
       flags:
         --arg-dict=: ArgDict flag value test.
         --arg-list=: ArgList flag value test.
+        --arg-object=: ArgObject flag value test.
         --argumenterror-outside-argparse: Trigger a calliope.parser_errors.ArgumentError exception outside of argparse.
         --broken-pipe-test: Handshake test for broken pipe handling.
         --check-from-gocloud: Print the value of the CLOUDSDK_FROM_GOCLOUD environment variable.
@@ -363,9 +376,11 @@ commands:
         --no-interrupt&: Kill the command with SIGINT.
         --no-is-interactive&: Call console_io.IsInteractive(heuristic=True) and exit 0 if the return value is True, 1 if False.
         --no-multiprocessing-spawn&: Run a basic multiprocessing.Pool.map using spawn start method.
+        --no-prompt-choice&: Present a PromptChoice menu with fixed options and print the selected choice to stdout.
         --no-staged-progress-tracker&: Run example staged progress tracker.
         --no-uncaught-exception&: Trigger an exception that is not caught.
         --progress-tracker=: Run the progress tracker for SECONDS seconds and exit.
+        --prompt-choice: Present a PromptChoice menu with fixed options and print the selected choice to stdout.
         --prompt-completer=: Call console_io.PromptResponse() with a MODULE_PATH completer and print the response on the standard output.
         --sleep=: Sleep for SECONDS seconds and exit.
         --staged-progress-tracker: Run example staged progress tracker.

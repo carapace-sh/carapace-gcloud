@@ -27,21 +27,35 @@ commands:
         - name: create
           description: Create a new Assured Workloads environment.
           flags:
-            --billing-account=!: The billing account of the new Assured Workloads environment, for example, billingAccounts/0000AA-AAA00A-A0A0A0
-            --compliance-regime=!: The compliance regime of the new Assured Workloads environment.
-            --display-name=!: The display name of the new Assured Workloads environment
+            --async: Return immediately, without waiting for the operation in progress to
+            --billing-account=: The billing account of the new Assured Workloads environment, for example, billingAccounts/0000AA-AAA00A-A0A0A0 (V1).
+            --cloud-control-config=: Repeated inline control configuration (V2).
+            --cloud-control-configs-from-file=: Path to JSON/YAML file specifying multiple control configurations (V2).
+            --cmek-dedicated-project-config=: Dedicated KMS project configuration (valid only with folder targets).
+            --cmek-key-ring=: KMS Key Ring resource path for Customer-Managed Encryption Keys (V2).
+            --compliance-regime=: The compliance regime of the new Assured Workloads environment (V1).
+            --description=: User-friendly description for the workload (V2).
+            --display-name=: The display name of the new Assured Workloads environment (V1).
             --enable-sovereign-controls=: If true, enable sovereign controls for the new Assured Workloads environment, currently only supported by EU_REGIONS_AND_SUPPORT
-            --external-identifier=: The external identifier of the new Assured Workloads environment
+            --external-identifier=: The external identifier of the Assured Workloads environment.
+            --framework-major-revision=: Major revision ID of the compliance framework (V2).
+            --framework=: Compliance framework resource name or ID, for example, fedramp-moderate (V2).
             --labels=: The labels of the new Assured Workloads environment, for example, LabelKey1=LabelValue1,LabelKey2=LabelValue2
-            --location=!: The location of the new Assured Workloads environment.
+            --location=!: The location of the Assured Workloads environment.
+            --new-folder-config=: JSON/YAML specification for provisioning a new folder (V2).
+            --new-project-config=: JSON/YAML specification for provisioning a new project (V2).
             --next-rotation-time=: The next rotation time of the KMS settings of new Assured Workloads environment, for example, 2020-12-30T10:15:30.00Z
-            --organization=!: The parent organization of the new Assured Workloads environment, provided as an organization ID
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --organization=!: The parent organization of the Assured Workloads environment, provided as an organization ID.
             --partner-permissions=: The partner permissions for the partner regime, for example, data-logs-viewer=true/false
             --partner-services-billing-account=: Billing account necessary for purchasing services from Sovereign Partners.
             --partner=: The partner choice when creating a workload managed by local trusted partners.
             --provisioned-resources-parent=: The parent of the provisioned projects, for example, folders/{FOLDER_ID}
             --resource-settings=: 'A comma-separated, key=value map of custom resource settings such as custom project ids, for example: consumer-project-id={CONSUMER_PROJECT_ID} Note: Currently only consumer-project-id, consumer-project-name, encryption-keys-project-id, encryption-keys-project-name and keyring-id are supported.'
             --rotation-period=: The rotation period of the KMS settings of the new Assured Workloads environment, for example, 172800s
+            --target-folder=: Existing Folder ID to onboard into Assured Workloads (V2).
+            --target-project=: Existing Project ID or project number to onboard into Assured Workloads (V2).
+            --workload-id=: User-assigned unique identifier for the workload.
           completion:
             flag:
                 compliance-regime:
@@ -101,8 +115,10 @@ commands:
         - name: delete
           description: Delete Assured Workloads environment.
           flags:
-            --etag=: The etag acquired by reading the Assured Workloads environment or AW "resource".
+            --async: Return immediately, without waiting for the operation in progress to
+            --etag=: The etag acquired by reading the Assured Workloads environment.
             --location=: The location for the workload.
+            --no-async&: Return immediately, without waiting for the operation in progress to
             --organization=: The parent organization for the workload.
         - name: describe
           description: Describe Assured Workloads environment.
@@ -128,12 +144,17 @@ commands:
         - name: update
           description: Update Assured Workloads environments.
           flags:
-            --display-name=: The new display name of the Assured Workloads environment.
+            --async: Return immediately, without waiting for the operation in progress to
+            --cloud-control-config=: Updated repeated inline control configuration (V2).
+            --cloud-control-configs-from-file=: Path to JSON/YAML file specifying updated control configurations (V2).
+            --display-name=: The new display name of the Assured Workloads environment (V1).
             --etag=: The etag acquired by reading the Assured Workloads environment before updating.
-            --labels=: The new labels of the Assured Workloads environment, for example, LabelKey1=LabelValue1,LabelKey2=LabelValue2
+            --framework-major-revision=: Updated major revision ID for the workload (V2).
+            --labels=: The new labels of the Assured Workloads environment, for example, LabelKey1=LabelValue1,LabelKey2=LabelValue2 (V1).
             --location=: The location for the workload.
+            --no-async&: Return immediately, without waiting for the operation in progress to
             --organization=: The parent organization for the workload.
-            --violation-notifications-enabled=: The notification setting of the Assured Workloads environment.
+            --violation-notifications-enabled=: The notification setting of the Assured Workloads environment (V1).
         - name: violations
           description: Read and list Assured Workloads Violations.
           commands:
@@ -144,13 +165,25 @@ commands:
                 --comment=!: Business justification used added to acknowledge a violation.
                 --location=: The location for the violation.
                 --organization=: The parent organization for the violation.
+                --view=&: The violation view for fetching or acknowledging Assured Workloads violations.
                 --workload=: The workload for the violation.
+              completion:
+                flag:
+                    view:
+                        - assured-workloads
+                        - data-boundary
             - name: describe
               description: Describe an Assured Workloads compliance violation.
               flags:
                 --location=: The location for the violation.
                 --organization=: The parent organization for the violation.
+                --view=&: The violation view for fetching or acknowledging Assured Workloads violations.
                 --workload=: The workload for the violation.
+              completion:
+                flag:
+                    view:
+                        - assured-workloads
+                        - data-boundary
             - name: list
               description: List all Assured Workloads violations that belong to a assured workloads environment.
               flags:
@@ -162,4 +195,10 @@ commands:
                 --page-size=: Some services group resource list output into pages.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+                --view=&: The violation view for fetching or acknowledging Assured Workloads violations.
                 --workload=!: The parent workload of the Assured Workloads violations, provided as workload ID.
+              completion:
+                flag:
+                    view:
+                        - assured-workloads
+                        - data-boundary

@@ -24,6 +24,7 @@ commands:
                 --kms-keyring=: The CMEK keyring id of the kms-key.
                 --kms-project=: The Cloud project id for the kms-key.
                 --labels=: List of label KEY=VALUE pairs to add.
+                --machine-type=: Machine type of the VM instance.
                 --network=: The VPC network from which the AlloyDB instance is accessible via private
                 --no-async: Waits for the operation in progress to complete before returning.
                 --no-enable-outbound-public-ip&: If true, Enables an outbound public IP address to support a database
@@ -150,11 +151,6 @@ commands:
                 --cloudsql-instance=: If the source or destination is a Cloud SQL database, then use this field
                 --display-name=: A user-friendly name for the connection profile.
                 --endpoint-mode=: Specifies endpoint mode for a given command.
-                --forward-ssh-hostname=!&: Hostname for the SSH tunnel.
-                --forward-ssh-password=&: SSH password.
-                --forward-ssh-port=&: Port for the SSH tunnel, default value is 22.
-                --forward-ssh-private-key=&: SSH private key..
-                --forward-ssh-username=!&: Username for the SSH tunnel.
                 --host=: IP or hostname of the database.
                 --labels=: List of label KEY=VALUE pairs to add.
                 --no-async: Waits for the operation in progress to complete before returning.
@@ -192,6 +188,11 @@ commands:
             - name: oracle
               description: Create a Database Migration Service connection profile for Oracle.
               flags:
+                --asm-host=!: Hostname for the Oracle ASM connection.
+                --asm-password=!: Password for the Oracle ASM connection.
+                --asm-port=!: Port for the Oracle ASM connection.
+                --asm-service-name=!: ASM service name for the Oracle ASM connection.
+                --asm-user=!: Username for the Oracle ASM connection.
                 --ca-certificate=!: x509 PEM-encoded certificate of the CA that signed the database
                 --database-service=!: database service for the oracle connection profile.
                 --display-name=: A user-friendly name for the connection profile.
@@ -252,6 +253,7 @@ commands:
                 --psc-service-attachment=!: ID of the service_attachment or fully qualified identifier for the service_attachment.
                 --region=: The Cloud region for the connection_profile.
                 --role=: The role of the connection profile.
+                --ssl-flags=: List of SSL flags used for establishing SSL connection to the database.
                 --ssl-type=: The type of SSL configuration.
                 --static-ip-connectivity: use static ip connectivity
                 --username=!: Username that Database Migration Service uses to connect to
@@ -276,7 +278,7 @@ commands:
                 --cloudsql-instance=: If the source or destination is a Cloud SQL database, then use this field
                 --cloudsql-project-id=: The project id of the Cloud SQL instance.
                 --database=: The name of the specific database within the host.
-                --dbm-port=&: The Database Mirroring (DBM) port.
+                --dbm-port=: The Database Mirroring (DBM) port.
                 --display-name=: A user-friendly name for the connection profile.
                 --endpoint-mode=: Specifies endpoint mode for a given command.
                 --forward-ssh-hostname=!: Hostname for the SSH tunnel.
@@ -299,7 +301,7 @@ commands:
                 --psc-service-attachment=!: ID of the service_attachment or fully qualified identifier for the service_attachment.
                 --region=: The Cloud region for the connection_profile.
                 --role=: The role of the connection profile.
-                --ssl-flags=: Comma-separated list of SSL flags used for establishing SSL connection to
+                --ssl-flags=: List of SSL flags used for establishing SSL connection to the database.
                 --ssl-type=: The type of SSL configuration.
                 --static-ip-connectivity: use static ip connectivity
                 --username=!: Username that Database Migration Service uses to connect to the
@@ -395,11 +397,16 @@ commands:
             --cloudsql-project-id=: The project id of the Cloud SQL instance.
             --database-service=: database service for the oracle connection profile.
             --database=: The name of the specific database within the host.
-            --dbm-port=&: The Database Mirroring (DBM) port.
+            --dbm-port=: The Database Mirroring (DBM) port.
             --disable-iam-authentication: Use IAM database authentication to connect to the database.
             --display-name=: A user-friendly name for the connection profile.
             --enable-iam-authentication: Use IAM database authentication to connect to the database.
             --endpoint-mode=: Specifies endpoint mode for a given command.
+            --forward-ssh-hostname=!: Hostname for the SSH tunnel.
+            --forward-ssh-password=: SSH password.
+            --forward-ssh-port=: Port for the SSH tunnel, default value is 22.
+            --forward-ssh-private-key=: SSH private key..
+            --forward-ssh-username=!: Username for the SSH tunnel.
             --gcs-bucket=!: Cloud Storage bucket for the source SQL Server connection profile where the backups are stored.
             --gcs-prefix=: Cloud Storage prefix path within the bucket for the source SQL Server connection profile where the backups are stored.
             --host=: IP or hostname of the database.
@@ -414,6 +421,7 @@ commands:
             --psc-service-attachment=!: ID of the service_attachment or fully qualified identifier for the service_attachment.
             --region=: The Cloud region for the connection_profile.
             --remove-labels=: List of label keys to remove.
+            --ssl-flags=: List of SSL flags used for establishing SSL connection to the database.
             --ssl-type=: The type of SSL configuration.
             --static-ip-connectivity: use static ip connectivity
             --update-labels=: List of label KEY=VALUE pairs to update.
@@ -479,6 +487,7 @@ commands:
         - name: create
           description: Create a Database Migration Service conversion workspace.
           flags:
+            --ai-processing-location=: The location where Gemini features process the conversion workspace
             --auto-conversion: Whether to enable Gemini auto-conversion.
             --conversion-assistance: Whether to enable Gemini conversion assistance.
             --destination-database-engine=!: Destination database engine type.
@@ -758,6 +767,7 @@ commands:
         - name: update
           description: Update a Database Migration Service conversion workspace.
           flags:
+            --ai-processing-location=: The location where Gemini features process the conversion workspace
             --auto-conversion: Whether to enable Gemini auto-conversion.
             --conversion-assistance: Whether to enable Gemini conversion assistance.
             --display-name=: A user-friendly name for the conversion workspace.
@@ -798,12 +808,15 @@ commands:
             --dump-path=: 'Path to the dump file in Google Cloud Storage, in the format:'
             --dump-type=: The type of the data dump.
             --endpoint-mode=: Specifies endpoint mode for a given command.
+            --excluded-schemas-filter=: A list of schemas to be excluded from migration to the destination instance.
+            --excluded-tables-filter=: A list of tables to be excluded from migration to the destination instance.
             --filter=: Filter the entities based on [AIP-160](https://google.aip.dev/160) standard.
             --labels=: List of label KEY=VALUE pairs to add.
+            --load-parallel-level=: Parallelization level during initial load of the migration job.
             --max-concurrent-cdc-connections=: Maximum number of connections Database Migration Service will open to
             --max-concurrent-destination-connections=: Maximum number of concurrent connections Database Migration Service will
             --max-concurrent-full-dump-connections=: Maximum number of connections Database Migration Service will open to
-            --mysql-is-primary-destination&: Whether the destination for the migration job is a primary instance.
+            --mysql-is-primary-destination: Whether the destination for the migration job is a primary instance.
             --no-all-databases&: Migrate all databases for the migration job.
             --no-async: Waits for the operation in progress to complete before returning.
             --no-mysql-is-primary-destination&: Whether the destination for the migration job is a primary instance.
@@ -817,17 +830,19 @@ commands:
             --peer-vpc=: Name of the VPC network to peer with the Cloud SQL private network.
             --postgres-max-additional-subscriptions=: Maximum number of additional subscriptions to use for the PostgreSQL migration job.
             --region=: The Cloud region for the migration_job.
+            --schemas-filter=: A list of schemas to be migrated to the destination instance.
             --skip-full-dump: Whether to skip full dump or not.
             --source=!: ID of the connection_profile or fully qualified identifier for the connection_profile.
             --sqlserver-backup-file-pattern=&: Pattern that describes the default backup naming strategy.
             --sqlserver-cdc-start-position=: Sqlserver log squence number (LSN) to start CDC data migration from.
-            --sqlserver-dag-linked-server=!&: The name of the linked server that points to the source SQL Server instance.
-            --sqlserver-dag-source-ag=!&: The name of the source availability group.
+            --sqlserver-dag-linked-server=!: The name of the linked server that points to the source SQL Server instance.
+            --sqlserver-dag-source-ag=!: The name of the source availability group.
             --sqlserver-databases=!: A list of databases to be migrated to the destination Cloud SQL instance.
             --sqlserver-diff-backup: Enable differential backups.
             --sqlserver-encrypted-databases=: A JSON/YAML file describing the encryption settings per database for all encrytped databases.
             --sqlserver-promote-when-ready: Promote the database when it is ready.
             --static-ip: Use the default IP allowlist method.
+            --tables-filter=: A list of tables to be migrated to the destination instance.
             --transaction-timeout=: Timeout for data migration transactions.
             --type=!: Type of the migration job.
             --use-postgres-native: Use native logical replication for PostgreSQL migration.
@@ -848,6 +863,10 @@ commands:
                     - global
                     - regional
                     - regional-preferred
+                load-parallel-level:
+                    - MIN
+                    - OPTIMAL
+                    - MAX
                 type:
                     - ONE_TIME
                     - CONTINUOUS
@@ -936,6 +955,8 @@ commands:
           flags:
             --databases-filter=: A list of databases to be migrated to the destination instance.
             --endpoint-mode=: Specifies endpoint mode for a given command.
+            --failback: If set, promotes the migration job from destination back to source during the FAILBACK phase.
+            --no-failback&: If set, promotes the migration job from destination back to source during the FAILBACK phase.
             --region=: The Cloud region for the migration_job.
           completion:
             flag:
@@ -1011,7 +1032,10 @@ commands:
             --dump-path=: 'Path to the dump file in Google Cloud Storage, in the format:'
             --dump-type=: The type of the data dump.
             --endpoint-mode=: Specifies endpoint mode for a given command.
+            --excluded-schemas-filter=: A list of schemas to be excluded from migration to the destination instance.
+            --excluded-tables-filter=: A list of tables to be excluded from migration to the destination instance.
             --filter=: Filter the entities based on [AIP-160](https://google.aip.dev/160) standard.
+            --load-parallel-level=: Parallelization level during initial load of the migration job.
             --max-concurrent-cdc-connections=: Maximum number of connections Database Migration Service will open to
             --max-concurrent-destination-connections=: Maximum number of concurrent connections Database Migration Service will
             --max-concurrent-full-dump-connections=: Maximum number of connections Database Migration Service will open to
@@ -1025,15 +1049,17 @@ commands:
             --postgres-max-additional-subscriptions=: Maximum number of additional subscriptions to use for the PostgreSQL migration job.
             --region=: The Cloud region for the migration_job.
             --remove-labels=: List of label keys to remove.
+            --schemas-filter=: A list of schemas to be migrated to the destination instance.
             --source=!: ID of the connection_profile or fully qualified identifier for the connection_profile.
             --sqlserver-backup-file-pattern=&: Pattern that describes the default backup naming strategy.
-            --sqlserver-dag-linked-server=&: The name of the linked server that points to the source SQL Server instance.
-            --sqlserver-dag-source-ag=&: The name of the source availability group.
+            --sqlserver-dag-linked-server=: The name of the linked server that points to the source SQL Server instance.
+            --sqlserver-dag-source-ag=: The name of the source availability group.
             --sqlserver-databases=: A list of databases to be migrated to the destination Cloud SQL instance.
             --sqlserver-diff-backup: Enable differential backups.
             --sqlserver-encrypted-databases=: A JSON/YAML file describing the encryption settings per database for all encrytped databases.
             --sqlserver-promote-when-ready: Promote the database when it is ready.
             --static-ip: Use the default IP allowlist method.
+            --tables-filter=: A list of tables to be migrated to the destination instance.
             --transaction-timeout=: Timeout for data migration transactions.
             --type=: Type of the migration job.
             --update-labels=: List of label KEY=VALUE pairs to update.
@@ -1054,6 +1080,10 @@ commands:
                     - global
                     - regional
                     - regional-preferred
+                load-parallel-level:
+                    - MIN
+                    - OPTIMAL
+                    - MAX
                 type:
                     - ONE_TIME
                     - CONTINUOUS

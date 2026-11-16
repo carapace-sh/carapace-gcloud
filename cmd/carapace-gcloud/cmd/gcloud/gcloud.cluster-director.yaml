@@ -10,7 +10,6 @@ commands:
           flags:
             --async: Return immediately, without waiting for the operation in progress to
             --buckets=: Reference of existing Google Cloud Storage bucket.
-            --config=: Configuration of the cluster specs in the form of a JSON object.
             --create-buckets=: Parameters to create a Google Cloud Storage bucket.
             --create-filestores=: Parameters to create a filestore instance.
             --create-lustres=: Parameters to create a Lustre instance.
@@ -24,9 +23,7 @@ commands:
             --network-project=: Project ID of the project containing the network and subnetwork
             --network=!: Reference of existing network name.
             --no-async&: Return immediately, without waiting for the operation in progress to
-            --no-quickstart-cluster&: ""
             --on-demand-instances=: Parameters to define cluster on demand instances.
-            --quickstart-cluster: 'If specified, creates a cluster with sensible defaults:'
             --reference-architecture=: Reference a pre-defined architecture.
             --reserved-instances=: Parameters to define cluster reserved instances.
             --slurm-default-partition=: Parameters to define slurm cluster default partition.
@@ -45,6 +42,7 @@ commands:
                     - a4x-high
                     - g4-flex-start
                     - h4d-highmem-flex-start
+                    - quickstart
         - name: delete
           description: Deletes a Cluster Director resource.
           flags:
@@ -55,6 +53,32 @@ commands:
           description: Gets details of a Cluster Director resource.
           flags:
             --location=: Location ID of the cluster resource.
+        - name: export
+          description: Exports a Cluster Director resource.
+          flags:
+            --destination=: Path to a YAML file where the configuration will be exported.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
+            --location=: Location ID of the cluster resource.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
+        - name: import
+          description: Imports a Cluster Director resource.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --endpoint-mode=: Specifies endpoint mode for a given command.
+            --location=: Location ID of the cluster resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --source=: Path to a YAML file containing the configuration export data.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: list
           description: List Cluster Director resources.
           flags:
@@ -84,7 +108,6 @@ commands:
             --add-spot-instances=: Parameters to define cluster spot instances.
             --add-storage-buckets=: Reference of existing Google Cloud Storage bucket.
             --async: Return immediately, without waiting for the operation in progress to
-            --config=!: Configuration of the cluster specs in the form of a JSON object.
             --description=: Description of the cluster.
             --location=: Location ID of the cluster resource.
             --no-async&: Return immediately, without waiting for the operation in progress to
@@ -101,7 +124,6 @@ commands:
             --remove-spot-instances=: Parameters to remove spot instance config by compute id.
             --remove-storage-buckets=: Parameters to remove Google Cloud Storage bucket by bucket name.
             --slurm-default-partition=: Parameters to define slurm cluster default partition.
-            --update-mask=!: Update mask to specify the fields to update.
             --update-slurm-login-node=: Parameters to update slurm cluster login node.
             --update-slurm-node-sets=: Parameters to define and update slurm cluster nodeset config.
             --update-slurm-partitions=: Parameters to define and update slurm cluster partition config.

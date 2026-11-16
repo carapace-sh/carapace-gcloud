@@ -2,6 +2,41 @@
 name: dataflow
 description: Manage Google Cloud Dataflow resources.
 commands:
+    - name: config-store-settings
+      description: Manage Dataflow ConfigStore settings.
+      commands:
+        - name: create
+          description: Create a new Dataflow ConfigStore setting.
+          flags:
+            --folder=: The Google Cloud folder ID.
+            --location=: The location of the ConfigStore setting (e.g. us-central1).
+            --organization=: The Google Cloud organization ID.
+            --value=!: The string value of the configuration setting.
+        - name: delete
+          description: Delete a Dataflow ConfigStore setting.
+          flags:
+            --folder=: The Google Cloud folder ID.
+            --location=: The location of the ConfigStore setting (e.g. us-central1).
+            --organization=: The Google Cloud organization ID.
+        - name: describe
+          description: Describe a Dataflow ConfigStore setting.
+          flags:
+            --folder=: The Google Cloud folder ID.
+            --location=: The location of the ConfigStore setting (e.g. us-central1).
+            --organization=: The Google Cloud organization ID.
+        - name: list
+          description: List Dataflow ConfigStore settings.
+          flags:
+            --folder=: The Google Cloud folder ID.
+            --location=: The location of the ConfigStore setting (e.g. us-central1).
+            --organization=: The Google Cloud organization ID.
+            --page-size=: Some services group resource list output into pages.
+        - name: resolve
+          description: Resolve the effective value of a Dataflow ConfigStore setting.
+          flags:
+            --folder=: The Google Cloud folder ID.
+            --location=: The location of the ConfigStore setting (e.g. us-central1).
+            --organization=: The Google Cloud organization ID.
     - name: flex-template
       description: A group of subcommands for working with Dataflow flex template.
       commands:
@@ -140,6 +175,7 @@ commands:
           description: Runs a job from the specified path.
           flags:
             --additional-experiments=: Additional experiments to pass to the job.
+            --additional-pipeline-options=: Additional pipeline options to pass to the job for launching a Dataflow template.
             --additional-user-labels=: Additional user labels to pass to the job.
             --dataflow-kms-key=: The Cloud KMS key to protect the job resources.
             --disable-public-ips: The Cloud Dataflow workers must not use public IP addresses.
@@ -175,17 +211,35 @@ commands:
         - name: update-options
           description: Update pipeline options on-the-fly for running Dataflow jobs.
           flags:
+            --autoscaling-latency-tier=&: Latency tier when schedule is active.
+            --autoscaling-max-num-workers=: Maximum worker count when schedule is active.
+            --autoscaling-max-workers=: Maximum worker count when schedule is active.
+            --autoscaling-min-num-workers=: Minimum worker count when schedule is active.
+            --autoscaling-min-workers=: Minimum worker count when schedule is active.
+            --autoscaling-schedule-duration-seconds=: Duration in seconds for which the schedule will be active.
+            --autoscaling-schedule-priority=: Priority of the schedule.
+            --autoscaling-schedule-timezone=: Time zone for the schedule from tz database (e.g., America/Los_Angeles).
+            --autoscaling-schedule=: Crontab expression specifying when the schedule starts.
+            --autoscaling-worker-utilization-hint=: Target worker utilization hint when schedule is active.
             --latency-tier=&: Latency tier for the job.
             --max-num-workers=: Upper-bound for autoscaling, between 1-1000.
             --min-num-workers=: Lower-bound for autoscaling, between 1-1000.
             --no-unset-latency-tier&: Unset --latency-tier.
+            --no-unset-schedules&: Remove all autoscaling schedules from the job.
             --no-unset-worker-utilization-hint&: Unset --worker-utilization-hint.
             --region=: Region ID of the job's regional endpoint.
+            --set-schedule=: Unique identifier for the autoscaling schedule to create or update.
             --unset-latency-tier&: Unset --latency-tier.
+            --unset-schedule=: Unique identifier of the autoscaling schedule to remove.
+            --unset-schedules: Remove all autoscaling schedules from the job.
             --unset-worker-utilization-hint: Unset --worker-utilization-hint.
             --worker-utilization-hint=: Target CPU utilization for autoscaling, ranging from 0.1 to 0.9. Only supported for streaming-engine jobs with autoscaling enabled.
           completion:
             flag:
+                autoscaling-latency-tier:
+                    - low_latency
+                    - medium_latency
+                    - high_latency
                 latency-tier:
                     - low_latency
                     - medium_latency

@@ -23,8 +23,10 @@ commands:
           description: Delete an API key.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
+            --check-existing-usage: If true, existing usage will be checked before the key is deleted.
             --location=: Location of the key.
             --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-check-existing-usage&: If true, existing usage will be checked before the key is deleted.
         - name: describe
           description: Describe an API key's metadata.
           flags:
@@ -64,14 +66,36 @@ commands:
             --api-target=: Repeatable.
             --append: If specified, merge the new restrictions with the current restrictions of the key instead of replacing them.
             --async: Return immediately, without waiting for the operation in progress to
+            --check-existing-usage: If true, existing usage will be checked before the key is updated.
             --clear-annotations: If set, clear all annotations on the key.
-            --clear-restrictions: If set, clear all restrictions on the key.
             --display-name=: Display name of the key to update.
             --location=: Location of the key.
             --no-append&: If specified, merge the new restrictions with the current restrictions of the key instead of replacing them.
             --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-check-existing-usage&: If true, existing usage will be checked before the key is updated.
             --no-clear-annotations&: If set, clear all annotations on the key.
-            --no-clear-restrictions&: If set, clear all restrictions on the key.
+    - name: catalogs
+      description: Manage service catalogs.
+      hidden: true
+      commands:
+        - name: list-members
+          description: List members of a specific catalog.
+          hidden: true
+          flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --folder=: The Google Cloud Platform folder ID to use for this invocation.
+            --limit=: Maximum number of resources to list.
+            --name=!: Name of the catalog.
+            --organization=: The Google Cloud Platform organization ID to use for this invocation.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
     - name: disable
       description: Disable a service for consumption for a project.
       flags:
@@ -84,6 +108,30 @@ commands:
       flags:
         --async: Return immediately, without waiting for the operation in progress to
         --no-async&: Return immediately, without waiting for the operation in progress to
+    - name: groups
+      description: View service group information.
+      hidden: true
+      commands:
+        - name: list-expanded-members
+          description: List expanded members of a specific service and group.
+          hidden: true
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --folder=: The Google Cloud Platform folder ID to use for this invocation.
+            --limit=: Maximum number of resources to list.
+            --organization=: The Google Cloud Platform organization ID to use for this invocation.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+        - name: list-members
+          description: List members of a specific service group.
+          hidden: true
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --folder=: The Google Cloud Platform folder ID to use for this invocation.
+            --limit=: Maximum number of resources to list.
+            --organization=: The Google Cloud Platform organization ID to use for this invocation.
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
     - name: list
       description: List services for a project.
       flags:
@@ -95,6 +143,23 @@ commands:
         --no-enabled&: (DEFAULT) Return the services which the project has enabled.
         --page-size=: Some services group resource list output into pages.
         --sort-by=: Comma-separated list of resource field key names to sort by.
+    - name: list-dependents
+      description: List services that depend on a specific service.
+      hidden: true
+      flags:
+        --endpoint-mode=: Specifies endpoint mode for a given command.
+        --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+        --folder=: The Google Cloud Platform folder ID to use for this invocation.
+        --limit=: Maximum number of resources to list.
+        --organization=: The Google Cloud Platform organization ID to use for this invocation.
+        --page-size=: Some services group resource list output into pages.
+        --sort-by=: Comma-separated list of resource field key names to sort by.
+      completion:
+        flag:
+            endpoint-mode:
+                - global
+                - regional
+                - regional-preferred
     - name: operations
       description: Manage Operation for various services.
       commands:
@@ -127,6 +192,45 @@ commands:
           flags:
             --network=!: Network in the consumer project peered with the service.
             --service=: Name of the service to list the peered DNS domains for.
+    - name: policies
+      description: Get/update consumer policies and get the effective policy.
+      hidden: true
+      commands:
+        - name: get
+          description: Get the consumer policy for a project, folder or organization.
+          hidden: true
+          flags:
+            --folder=: The Google Cloud Platform folder ID to use for this invocation.
+            --organization=: The Google Cloud Platform organization ID to use for this invocation.
+            --output-file=: Path to the file to write policy contents to.
+            --policy-name=: Name of the consumer policy.
+        - name: get-effective
+          description: Get the effective policy for a project, folder or organization.
+          hidden: true
+          flags:
+            --folder=: The Google Cloud Platform folder ID to use for this invocation.
+            --organization=: The Google Cloud Platform organization ID to use for this invocation.
+            --view=: The view of the effective policy.
+          completion:
+            flag:
+                view:
+                    - BASIC
+                    - FULL
+        - name: test-enabled
+          description: Test a value against the result of merging consumer policies in the resource hierarchy.
+          hidden: true
+          flags:
+            --folder=: The Google Cloud Platform folder ID to use for this invocation.
+            --organization=: The Google Cloud Platform organization ID to use for this invocation.
+        - name: update
+          description: Update the consumer policy for a project, folder or organization.
+          hidden: true
+          flags:
+            --bypass-dependency-check: This flag controls dependency management within the consumer policy.
+            --consumer-policy-file=!: Path to the file that contains the consumer policy in the YAML format.
+            --no-bypass-dependency-check&: This flag controls dependency management within the consumer policy.
+            --no-validate-only&: Validate the to update action, but don't actually perform it
+            --validate-only: Validate the to update action, but don't actually perform it
     - name: vpc-peerings
       description: VPC Peerings to various services.
       commands:

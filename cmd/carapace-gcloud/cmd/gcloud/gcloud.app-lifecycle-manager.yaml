@@ -1,0 +1,478 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: app-lifecycle-manager
+description: Commands for App Lifecycle Manager.
+commands:
+    - name: releases
+      description: Manage App Lifecycle Manager releases.
+      commands:
+        - name: create
+          description: Create a release.
+          flags:
+            --blueprint-package=!: URI of the blueprint used by the unit.
+            --input-variable-defaults=: Mapping of input variables to default values.
+            --labels=: Labels on the resource, which can be used for categorization, similar
+            --location=: For resources [release, unit-kind], provides fallback value for resource location attribute.
+            --unit-kind=!: ID of the unitKind or fully qualified identifier for the unitKind.
+            --upgradeable-from-releases=: Releases from which a unit can be upgraded to this release.
+        - name: delete
+          description: Delete a release.
+          flags:
+            --location=: Location ID
+        - name: describe
+          description: Describe a release.
+          flags:
+            --location=: Location ID
+        - name: list
+          description: List releases.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a release.
+          flags:
+            --add-input-variable-defaults=: Add new value to input_variable_defaults list.
+            --add-upgradeable-from-releases=: Add new value to upgradeable_from_releases list.
+            --clear-input-variable-defaults: Clear input_variable_defaults value and set to empty list.
+            --clear-labels: Clear labels value and set to empty map.
+            --clear-upgradeable-from-releases: Clear upgradeable_from_releases value and set to empty list.
+            --input-variable-defaults=: Set input_variable_defaults to new value.
+            --labels=: Set labels to new value.
+            --location=: Location ID
+            --no-clear-input-variable-defaults&: Clear input_variable_defaults value and set to empty list.
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --no-clear-upgradeable-from-releases&: Clear upgradeable_from_releases value and set to empty list.
+            --remove-input-variable-defaults=: Remove existing value from input_variable_defaults list.
+            --remove-labels=: Remove existing value from map labels.
+            --remove-upgradeable-from-releases=: Remove existing value from upgradeable_from_releases list.
+            --update-labels=: Update labels value or add key value pair.
+            --upgradeable-from-releases=: Set upgradeable_from_releases to new value.
+    - name: rollout-kinds
+      description: Manage App Lifecycle Manager rollout kinds.
+      commands:
+        - name: create
+          description: Create a rollout kind.
+          flags:
+            --error-budget-allowed-count=: Maximum number of failed units allowed in a location without
+            --error-budget-allowed-percentage=: Maximum percentage of units allowed to fail in a location
+            --labels=: Labels on the resource, which can be used for categorization, similar
+            --location=: For resources [rollout_kind, unit-kind], provides fallback value for resource location attribute.
+            --rollout-orchestration-strategy=: Strategy to use for executing rollouts.
+            --unit-filter=: Filter, in Common Expression Language (CEL) format, that selects the
+            --unit-kind=!: ID of the unitKind or fully qualified identifier for the unitKind.
+            --update-unit-kind-strategy=: Strategy for updating the unit kind.
+          completion:
+            flag:
+                update-unit-kind-strategy:
+                    - never
+                    - on-start
+        - name: delete
+          description: Delete a rollout kind.
+          flags:
+            --location=: Location ID
+        - name: describe
+          description: Describe a rollout kind.
+          flags:
+            --location=: Location ID
+        - name: list
+          description: List rollout kinds.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a rollout kind.
+          flags:
+            --clear-error-budget: Set rolloutKind.errorBudget back to default value.
+            --clear-labels: Clear labels value and set to empty map.
+            --error-budget-allowed-count=: Maximum number of failed units allowed in a location without
+            --error-budget-allowed-percentage=: Maximum percentage of units allowed to fail in a location
+            --labels=: Set labels to new value.
+            --location=: Location ID
+            --no-clear-error-budget&: Set rolloutKind.errorBudget back to default value.
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --remove-labels=: Remove existing value from map labels.
+            --rollout-orchestration-strategy=: Strategy to use for executing rollouts.
+            --unit-filter=: Filter, in Common Expression Language (CEL) format, that selects the
+            --update-labels=: Update labels value or add key value pair.
+            --update-unit-kind-strategy=: Strategy for updating the unit kind.
+          completion:
+            flag:
+                update-unit-kind-strategy:
+                    - never
+                    - on-start
+    - name: rollouts
+      description: Manage App Lifecycle Manager rollouts.
+      commands:
+        - name: create
+          description: Create a rollout.
+          flags:
+            --control-action=!: Action to perform on the rollout.
+            --labels=: Labels on the resource, which can be used for categorization, similar
+            --location=: For resources [release, rollout, rollout-kind], provides fallback value for resource location attribute.
+            --no-retry-failed-operations!&: Retry failed operations when the rollout is resumed.
+            --release=!: ID of the release or fully qualified identifier for the release.
+            --retry-failed-operations!: Retry failed operations when the rollout is resumed.
+            --rollout-kind=!: ID of the rolloutKindId or fully qualified identifier for the rolloutKindId.
+            --rollout-orchestration-strategy=: Strategy to use for executing this rollout.
+            --unit-filter=: Filter, in Common Expression Language (CEL) format, that selects the
+          completion:
+            flag:
+                control-action:
+                    - cancel
+                    - pause
+                    - run
+        - name: delete
+          description: Delete a rollout.
+          flags:
+            --location=: Location ID
+        - name: describe
+          description: Describe a rollout.
+          flags:
+            --location=: Location ID
+        - name: list
+          description: List rollouts.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a rollout.
+          flags:
+            --clear-control: Set rollout.control back to default value.
+            --clear-labels: Clear labels value and set to empty map.
+            --control-action=: Action to perform on the rollout.
+            --labels=: Set labels to new value.
+            --location=: Location ID
+            --no-clear-control&: Set rollout.control back to default value.
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --no-retry-failed-operations&: Retry failed operations when the rollout is resumed.
+            --remove-labels=: Remove existing value from map labels.
+            --retry-failed-operations: Retry failed operations when the rollout is resumed.
+            --rollout-orchestration-strategy=: Strategy to use for executing this rollout.
+            --unit-filter=: Filter, in Common Expression Language (CEL) format, that selects the
+            --update-labels=: Update labels value or add key value pair.
+          completion:
+            flag:
+                control-action:
+                    - cancel
+                    - pause
+                    - run
+    - name: saas
+      description: Manage App Lifecycle Manager SaaS offerings.
+      commands:
+        - name: create
+          description: Create a SaaS offering.
+          flags:
+            --application-template-revision=: Revision of the application template to use.
+            --application-template=!: Full resource name of the Application Design Center composite
+            --labels=: Labels on the resource, which can be used for categorization, similar
+            --location=: Location ID
+            --locations=!: Required, Locations in which the SaaS offering is available.
+        - name: delete
+          description: Delete a SaaS offering.
+          flags:
+            --location=: Location ID
+        - name: describe
+          description: Describe a SaaS offering.
+          flags:
+            --location=: Location ID
+        - name: list
+          description: List SaaS offerings.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a SaaS offering.
+          flags:
+            --add-locations=: Add new value to locations list.
+            --application-template-revision=: Revision of the application template to use.
+            --application-template=: Full resource name of the Application Design Center composite
+            --clear-application-template: Set saas.applicationTemplate back to default value.
+            --clear-labels: Clear labels value and set to empty map.
+            --clear-locations: Clear locations value and set to empty list.
+            --labels=: Set labels to new value.
+            --location=: Location ID
+            --locations=: Set locations to new value.
+            --no-clear-application-template&: Set saas.applicationTemplate back to default value.
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --no-clear-locations&: Clear locations value and set to empty list.
+            --remove-labels=: Remove existing value from map labels.
+            --remove-locations=: Remove existing value from locations list.
+            --update-labels=: Update labels value or add key value pair.
+    - name: tenants
+      description: Manage App Lifecycle Manager tenants.
+      commands:
+        - name: create
+          description: Create a tenant.
+          flags:
+            --consumer-resource=: Consumer resource that this tenant represents.
+            --labels=: Labels on the resource, which can be used for categorization, similar
+            --location=: For resources [tenant, saas], provides fallback value for resource location attribute.
+            --saas=!: ID of the saas or fully qualified identifier for the saas.
+        - name: delete
+          description: Delete a tenant.
+          flags:
+            --location=: Location ID
+        - name: describe
+          description: Describe a tenant.
+          flags:
+            --location=: Location ID
+        - name: list
+          description: List tenants.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a tenant.
+          flags:
+            --clear-labels: Clear labels value and set to empty map.
+            --labels=: Set labels to new value.
+            --location=: Location ID
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --remove-labels=: Remove existing value from map labels.
+            --update-labels=: Update labels value or add key value pair.
+    - name: unit-kinds
+      description: Manage App Lifecycle Manager unit kinds.
+      commands:
+        - name: create
+          description: Create a unit kind.
+          flags:
+            --app-params-group=: Grouping used to construct the name of the App Hub application.
+            --application-template-component-revision=: Revision of the component.
+            --application-template-component=: Name of the component in the Application Design Center composite
+            --composite-ref-application-template=!: Full resource name of the Application Design Center composite
+            --composite-ref-revision=: Revision of the composite application template to use.
+            --default-release=!: ID of the release or fully qualified identifier for the release.
+            --dependencies=: Other unit kinds that this unit kind depends on.
+            --input-variable-mappings=: Input variables of this unit kind that are either retrieved from the
+            --labels=: Labels on the resource, which can be used for categorization, similar
+            --location=: For resources [default-release, saas, unit_kind], provides fallback value for resource location attribute.
+            --output-variable-mappings=: Output variables of this unit kind that are passed to the output
+            --saas=!: ID of the saas or fully qualified identifier for the saas.
+            --scope-type=!: Scope type of the application.
+          completion:
+            flag:
+                scope-type:
+                    - type-global
+                    - type-regional
+        - name: delete
+          description: Delete a unit kind.
+          flags:
+            --location=: Location ID
+        - name: describe
+          description: Describe a unit kind.
+          flags:
+            --location=: Location ID
+        - name: list
+          description: List unit kinds.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a unit kind.
+          flags:
+            --add-dependencies=: Add new value to dependencies list.
+            --add-input-variable-mappings=: Add new value to input_variable_mappings list.
+            --add-output-variable-mappings=: Add new value to output_variable_mappings list.
+            --app-params-group=: Grouping used to construct the name of the App Hub application.
+            --application-template-component-revision=: Revision of the component.
+            --application-template-component=: Name of the component in the Application Design Center composite
+            --clear-app-params: Set unitKind.appParams back to default value.
+            --clear-application-template-component: Set unitKind.applicationTemplateComponent back to default value.
+            --clear-default-release: Clear default_release value and set to null.
+            --clear-dependencies: Clear dependencies value and set to empty list.
+            --clear-input-variable-mappings: Clear input_variable_mappings value and set to empty list.
+            --clear-labels: Clear labels value and set to empty map.
+            --clear-output-variable-mappings: Clear output_variable_mappings value and set to empty list.
+            --composite-ref-application-template=: Full resource name of the Application Design Center composite
+            --composite-ref-revision=: Revision of the composite application template to use.
+            --default-release=!: ID of the release or fully qualified identifier for the release.
+            --dependencies=: Set dependencies to new value.
+            --input-variable-mappings=: Set input_variable_mappings to new value.
+            --labels=: Set labels to new value.
+            --location=: For resources [default-release, saas, unit_kind], provides fallback value for resource location attribute.
+            --no-clear-app-params&: Set unitKind.appParams back to default value.
+            --no-clear-application-template-component&: Set unitKind.applicationTemplateComponent back to default value.
+            --no-clear-default-release&: Clear default_release value and set to null.
+            --no-clear-dependencies&: Clear dependencies value and set to empty list.
+            --no-clear-input-variable-mappings&: Clear input_variable_mappings value and set to empty list.
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --no-clear-output-variable-mappings&: Clear output_variable_mappings value and set to empty list.
+            --output-variable-mappings=: Set output_variable_mappings to new value.
+            --remove-dependencies=: Remove existing value from dependencies list.
+            --remove-input-variable-mappings=: Remove existing value from input_variable_mappings list.
+            --remove-labels=: Remove existing value from map labels.
+            --remove-output-variable-mappings=: Remove existing value from output_variable_mappings list.
+            --saas=!: ID of the saas or fully qualified identifier for the saas.
+            --scope-type=: Scope type of the application.
+            --update-labels=: Update labels value or add key value pair.
+          completion:
+            flag:
+                scope-type:
+                    - type-global
+                    - type-regional
+    - name: unit-operations
+      description: Manage App Lifecycle Manager unit operations.
+      commands:
+        - name: create
+          description: Create a unit operation.
+          flags:
+            --cancel: Attempt to cancel the operation.
+            --deprovision: Deprovision the unit.
+            --labels=: Labels on the resource, which can be used for categorization, similar
+            --location=: For resources [parent-unit-operation, provision-release, rollout, unit, unit_operation, upgrade-release], provides fallback value for resource location attribute.
+            --no-cancel&: Attempt to cancel the operation.
+            --no-deprovision&: Deprovision the unit.
+            --no-provision&: Provision the unit.
+            --no-upgrade&: Upgrade the unit.
+            --parent-unit-operation=!: ID of the parentUnitOperation or fully qualified identifier for the parentUnitOperation.
+            --provision: Provision the unit.
+            --provision-input-variables=: Input variables for the provision operation.
+            --provision-release=!: ID of the release or fully qualified identifier for the release.
+            --rollout=!: ID of the rolloutId or fully qualified identifier for the rolloutId.
+            --schedule-start-time=: Start time of the operation.
+            --unit=!: ID of the unit or fully qualified identifier for the unit.
+            --upgrade: Upgrade the unit.
+            --upgrade-input-variables=: Input variables for the upgrade operation.
+            --upgrade-release=!: ID of the release or fully qualified identifier for the release.
+        - name: delete
+          description: Delete a unit operation.
+          flags:
+            --location=: Location ID
+        - name: describe
+          description: Describe a unit operation.
+          flags:
+            --location=: Location ID
+        - name: list
+          description: List unit operations.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a unit operation.
+          flags:
+            --add-provision-input-variables=: Add new value to provision_input_variables list.
+            --add-upgrade-input-variables=: Add new value to upgrade_input_variables list.
+            --cancel: Attempt to cancel the operation.
+            --clear-labels: Clear labels value and set to empty map.
+            --clear-parent-unit-operation: Clear parent_unit_operation value and set to null.
+            --clear-provision-input-variables: Clear provision_input_variables value and set to empty list.
+            --clear-provision-release: Clear provision_release value and set to null.
+            --clear-rollout: Clear rollout value and set to null.
+            --clear-upgrade-input-variables: Clear upgrade_input_variables value and set to empty list.
+            --clear-upgrade-release: Clear upgrade_release value and set to null.
+            --deprovision: Deprovision the unit.
+            --labels=: Set labels to new value.
+            --location=: For resources [parent-unit-operation, provision-release, rollout, unit_operation, upgrade-release], provides fallback value for resource location attribute.
+            --no-cancel&: Attempt to cancel the operation.
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --no-clear-parent-unit-operation&: Clear parent_unit_operation value and set to null.
+            --no-clear-provision-input-variables&: Clear provision_input_variables value and set to empty list.
+            --no-clear-provision-release&: Clear provision_release value and set to null.
+            --no-clear-rollout&: Clear rollout value and set to null.
+            --no-clear-upgrade-input-variables&: Clear upgrade_input_variables value and set to empty list.
+            --no-clear-upgrade-release&: Clear upgrade_release value and set to null.
+            --no-deprovision&: Deprovision the unit.
+            --no-provision&: Provision the unit.
+            --no-upgrade&: Upgrade the unit.
+            --parent-unit-operation=!: ID of the parentUnitOperation or fully qualified identifier for the parentUnitOperation.
+            --provision: Provision the unit.
+            --provision-input-variables=: Set provision_input_variables to new value.
+            --provision-release=!: ID of the release or fully qualified identifier for the release.
+            --remove-labels=: Remove existing value from map labels.
+            --remove-provision-input-variables=: Remove existing value from provision_input_variables list.
+            --remove-upgrade-input-variables=: Remove existing value from upgrade_input_variables list.
+            --rollout=!: ID of the rolloutId or fully qualified identifier for the rolloutId.
+            --schedule-start-time=: Start time of the operation.
+            --update-labels=: Update labels value or add key value pair.
+            --upgrade: Upgrade the unit.
+            --upgrade-input-variables=: Set upgrade_input_variables to new value.
+            --upgrade-release=!: ID of the release or fully qualified identifier for the release.
+    - name: units
+      description: Manage App Lifecycle Manager units.
+      commands:
+        - name: create
+          description: Create a unit.
+          flags:
+            --application=: App Hub application that this unit belongs to.
+            --labels=: Labels on the resource, which can be used for categorization, similar
+            --location=: For resources [unit, tenant, unit-kind], provides fallback value for resource location attribute.
+            --maintenance-pinned-until-time=: Time until which the release of the unit is pinned.
+            --management-mode=: Management mode of the unit, which indicates whether the lifecycle of
+            --tenant=!: ID of the tenant or fully qualified identifier for the tenant.
+            --unit-kind=!: ID of the unitKind or fully qualified identifier for the unitKind.
+          completion:
+            flag:
+                management-mode:
+                    - system
+                    - user
+        - name: delete
+          description: Delete a unit.
+          flags:
+            --location=: Location ID
+        - name: describe
+          description: Describe a unit.
+          flags:
+            --location=: Location ID
+        - name: list
+          description: List units.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update a unit.
+          flags:
+            --application=: Set application to new value.
+            --clear-application: Clear application value and set to null.
+            --clear-labels: Clear labels value and set to empty map.
+            --clear-tenant: Clear tenant value and set to null.
+            --clear-unit-kind: Clear unit_kind value and set to null.
+            --labels=: Set labels to new value.
+            --location=: For resources [unit, tenant, unit-kind], provides fallback value for resource location attribute.
+            --maintenance-pinned-until-time=: Time until which the release of the unit is pinned.
+            --no-clear-application&: Clear application value and set to null.
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --no-clear-tenant&: Clear tenant value and set to null.
+            --no-clear-unit-kind&: Clear unit_kind value and set to null.
+            --remove-labels=: Remove existing value from map labels.
+            --tenant=!: ID of the tenant or fully qualified identifier for the tenant.
+            --unit-kind=!: ID of the unitKind or fully qualified identifier for the unitKind.
+            --update-labels=: Update labels value or add key value pair.

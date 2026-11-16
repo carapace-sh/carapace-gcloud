@@ -29,6 +29,7 @@ commands:
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-auto-config-host-nic-in-same-vpc&: If specified, all host Network Interface Cards (Diorite NICs) will be placed within
             --no-auto-create-local-mrdma-vpc&: If specified, the AcceleratorNetworkProfile automatically creates
+            --rdma-locations=&: Compute Engine zone in which the AcceleratorNetworkProfile's RDMA network fabric resources are provisioned (e.g. `us-central1-a`).
             --region=: Compute region (e.g. us-central1) for a regional cluster.
             --tags=&: A list of comma-separated key-value pairs to bind as Cloud Tags to the
             --timeout=: Timeout (in seconds) for waiting on the operation to complete.
@@ -1586,6 +1587,7 @@ commands:
           description: Create a cluster for running containers.
           flags:
             --accelerator=: Attaches accelerators (e.g. GPUs) to all nodes.
+            --adaptive-pod-allocation-mode=&: Set the Pod IP allocation mode of the cluster (GKE Adaptive Cluster IPAM).
             --additional-zones=: (DEPRECATED) The set of additional zones in which the specified node footprint should be
             --additive-vpc-scope-dns-domain=: The domain used in Additive VPC scope.
             --addons=: Addons
@@ -1622,6 +1624,7 @@ commands:
             --cluster-dns-scope=: DNS scope for the Cloud DNS zone created - valid only with
             --cluster-dns=: DNS provider to use for this cluster.
             --cluster-ipv4-cidr=: The IP address range for the pods in this cluster in CIDR notation (e.g.
+            --cluster-scale-to-zero-delay=&: Additional delay before the cluster is scaled to 0 nodes when there are no
             --cluster-secondary-range-name=: Set the secondary range to be used as the source for pod IPs.
             --cluster-version=: The Kubernetes version to use for the master and nodes.
             --compliance-standards=&: Comma-delimited list of standards to be enabled.
@@ -1636,19 +1639,21 @@ commands:
             --database-encryption-key=: Enable Database Encryption.
             --dataplane-optimization-mode=: Select scalability mode for dataplane v2.
             --dataplane-v2-observability-mode=: '(REMOVED) '
-            --default-compute-class=&: Sets the default compute class for the cluster.
+            --default-compute-class=: Sets the default compute class for the cluster.
             --default-max-pods-per-node=: The default max number of pods per node for node pools in the cluster.
             --disable-additive-vpc-scope: Disables Additive VPC Scope.
             --disable-dataplane-v2-flow-observability: Disables Advanced Datapath Observability.
             --disable-dataplane-v2-metrics: Stops exposing advanced datapath flow metrics on node port.
             --disable-default-snat: Disable default source NAT rules applied in cluster nodes.
             --disable-l4-lb-firewall-reconciliation: Disable reconciliation on the cluster for L4 Load Balancer VPC
+            --disable-managed-autoscaling&: Disable GKE managed autoscaling in the cluster.
             --disable-multi-nic-lustre: Disable the Lustre CSI driver to automatically detect
             --disable-pod-cidr-overprovision&: Disables pod cidr overprovision on nodes.
             --disable-pod-snapshots: Disable the Pod Snapshot feature on the cluster.
             --disk-size=: Size for node VM boot disks in GB.
             --disk-type=: Type of the node VM boot disk.
             --enable-agent-sandbox: Enable the Agent Sandbox feature on the cluster.
+            --enable-ambient-networking: Enable ambient networking on the cluster.
             --enable-authorized-networks-on-private-endpoint: Enable enforcement of --master-authorized-networks CIDR ranges for
             --enable-auto-ipam: Enable the Auto IP Address Management (Auto IPAM) feature for the cluster.
             --enable-autoprovisioning: Enables  node autoprovisioning for a cluster.
@@ -1661,13 +1666,16 @@ commands:
             --enable-autoupgrade: Sets autoupgrade feature for a cluster's default node pool(s).
             --enable-basic-auth: Enable basic (username/password) auth for the cluster.
             --enable-binauthz: (DEPRECATED) Enable Binary Authorization for this cluster.
+            --enable-cdpf&: Enable Custom Dataplane Functions (CDPF) on the cluster.
             --enable-cilium-clusterwide-network-policy: Enable Cilium Clusterwide Network Policies on the cluster.
             --enable-cloud-logging: (DEPRECATED) Automatically send logs from the cluster to the Google Cloud Logging API.
             --enable-cloud-monitoring: (DEPRECATED) Automatically send metrics from pods in the cluster to the Google Cloud Monitoring API.
             --enable-cloud-run-alpha: Enable Cloud Run alpha features on this cluster.
+            --enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Autopilot and standard clusters.
             --enable-confidential-nodes: Enable confidential nodes for the cluster.
             --enable-confidential-storage: Enable confidential storage for the cluster.
-            --enable-cost-allocation: Enable the cost management feature.
+            --enable-cost-allocation: Enable the cost allocation feature.
+            --enable-dataplane-ebpf-host-routing&: Enable Dataplane V2 eBPF host routing for the cluster.
             --enable-dataplane-v2: Enables the new eBPF dataplane for GKE clusters that is required for
             --enable-dataplane-v2-flow-observability: Enables Advanced Datapath Observability which allows for a real-time view into pod-to-pod traffic within your cluster.
             --enable-dataplane-v2-metrics: Exposes advanced datapath flow metrics on node port.
@@ -1676,6 +1684,7 @@ commands:
             --enable-fleet: Set cluster project as the fleet host project.
             --enable-fqdn-network-policy: Enable FQDN Network Policies on the cluster.
             --enable-google-cloud-access: When you enable Google Cloud Access, any public IP addresses owned by Google
+            --enable-granular-nat&: Enables Granular NAT for the cluster.
             --enable-gvnic: Enable the use of GVNIC for this cluster.
             --enable-identity-service: Enable Identity Service component on the cluster.
             --enable-image-streaming: Enable Image Streaming for the cluster, allowing nodes to stream container
@@ -1696,12 +1705,14 @@ commands:
             --enable-legacy-authorization: Enables the legacy ABAC authentication for the cluster.
             --enable-legacy-lustre-port: Allow the Lustre CSI driver to initialize LNet (the virtual network layer for Lustre kernel module) using port 6988.
             --enable-lustre-multi-nic&: Enable Lustre multi-NIC configuration for all new nodes in the cluster unless
+            --enable-managed-autoscaling&: Enable GKE managed autoscaling in the cluster.
             --enable-managed-prometheus: Enables managed collection for Managed Service for Prometheus in the cluster.
             --enable-master-authorized-networks: Allow only specified set of CIDR blocks (specified by the
             --enable-master-global-access: Use with private clusters to allow access to the master's private endpoint from any Google Cloud region or on-premises environment regardless of the
             --enable-mesh-certificates&: Enable Mesh Certificates.
             --enable-multi-networking: Enables multi-networking on the cluster.
             --enable-nested-virtualization: Enables the use of nested virtualization on the default initial node pool.
+            --enable-network-egress-cost-allocation&: Enable network egress cost allocation.
             --enable-network-egress-metering: Enable network egress metering on this cluster.
             --enable-network-policy: Enable network policy enforcement for this cluster.
             --enable-pod-snapshots: Enable the Pod Snapshot feature on the cluster.
@@ -1779,6 +1790,7 @@ commands:
             --min-nodes=: Minimum number of nodes per zone in the node pool.
             --monitoring=: Set the components that have monitoring enabled.
             --network-performance-configs=: Configures network performance settings for the cluster.
+            --network-suite=&: Sets the networking suite tier for the cluster.
             --network-tier=&: Set the network tier for the cluster, possible values are premium, standard and default.
             --network=: The Compute Engine Network that the cluster will connect to.
             --no-async&: Return immediately, without waiting for the operation in progress to
@@ -1788,6 +1800,7 @@ commands:
             --no-disable-multi-nic-lustre&: Disable the Lustre CSI driver to automatically detect
             --no-disable-pod-cidr-overprovision&: Disables pod cidr overprovision on nodes.
             --no-enable-agent-sandbox&: Enable the Agent Sandbox feature on the cluster.
+            --no-enable-ambient-networking&: Enable ambient networking on the cluster.
             --no-enable-authorized-networks-on-private-endpoint&: Enable enforcement of --master-authorized-networks CIDR ranges for
             --no-enable-autoprovisioning&: Enables  node autoprovisioning for a cluster.
             --no-enable-autoprovisioning-autorepair!&: Enable node autorepair for autoprovisioned node pools.
@@ -1799,19 +1812,23 @@ commands:
             --no-enable-autoupgrade&: Sets autoupgrade feature for a cluster's default node pool(s).
             --no-enable-basic-auth&: Enable basic (username/password) auth for the cluster.
             --no-enable-binauthz&: (DEPRECATED) Enable Binary Authorization for this cluster.
+            --no-enable-cdpf&: Enable Custom Dataplane Functions (CDPF) on the cluster.
             --no-enable-cilium-clusterwide-network-policy&: Enable Cilium Clusterwide Network Policies on the cluster.
             --no-enable-cloud-logging&: (DEPRECATED) Automatically send logs from the cluster to the Google Cloud Logging API.
             --no-enable-cloud-monitoring&: (DEPRECATED) Automatically send metrics from pods in the cluster to the Google Cloud Monitoring API.
             --no-enable-cloud-run-alpha&: Enable Cloud Run alpha features on this cluster.
+            --no-enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Autopilot and standard clusters.
             --no-enable-confidential-nodes&: Enable confidential nodes for the cluster.
             --no-enable-confidential-storage&: Enable confidential storage for the cluster.
             --no-enable-cost-allocation&: ""
+            --no-enable-dataplane-ebpf-host-routing&: Enable Dataplane V2 eBPF host routing for the cluster.
             --no-enable-dataplane-v2&: ""
             --no-enable-default-compute-class&: Enable the default compute class to use for the cluster.
             --no-enable-dns-access&: Enable access to the cluster's control plane over DNS-based endpoint.
             --no-enable-fleet&: ""
             --no-enable-fqdn-network-policy&: Enable FQDN Network Policies on the cluster.
             --no-enable-google-cloud-access&: When you enable Google Cloud Access, any public IP addresses owned by Google
+            --no-enable-granular-nat&: Enables Granular NAT for the cluster.
             --no-enable-gvnic&: ""
             --no-enable-identity-service&: Enable Identity Service component on the cluster.
             --no-enable-image-streaming&: Enable Image Streaming for the cluster, allowing nodes to stream container
@@ -1837,6 +1854,7 @@ commands:
             --no-enable-mesh-certificates&: Enable Mesh Certificates.
             --no-enable-multi-networking&: Enables multi-networking on the cluster.
             --no-enable-nested-virtualization&: ""
+            --no-enable-network-egress-cost-allocation&: Enable network egress cost allocation.
             --no-enable-network-egress-metering&: Enable network egress metering on this cluster.
             --no-enable-network-policy&: Enable network policy enforcement for this cluster.
             --no-enable-private-endpoint&: Cluster is managed using the private IP address of the master API endpoint.
@@ -1909,9 +1927,9 @@ commands:
             --total-min-nodes=: Minimum number of all nodes in the node pool.
             --tpu-ipv4-cidr=&: Set the IP range for the Cloud TPUs.
             --username=: The user name to use for basic auth for the cluster.
-            --wiz-sensor-api-key-secret-uri=&: The GCP Secret Manager URI for the Wiz API key secret.
-            --wiz-sensor-proxy-secret-uri=&: The GCP Secret Manager URI for the Wiz proxy configuration.
-            --wiz-sensor-registry-secret-uri=&: The GCP Secret Manager URI for the Wiz registry secret.
+            --wiz-sensor-api-key-secret-uri=: The Secret Manager URI for the Wiz API key secret, for example, projects/my-project/secrets/my-api-key/versions/1 or projects/my-project/secrets/my-api-key/versions/latest.
+            --wiz-sensor-proxy-secret-uri=: The Secret Manager URI for the Wiz proxy configuration, for example, projects/my-project/secrets/my-proxy-secret/versions/1 or projects/my-project/secrets/my-proxy-secret/versions/latest.
+            --wiz-sensor-registry-secret-uri=: The Secret Manager URI for the Wiz registry secret, for example, projects/my-project/secrets/my-registry-secret/versions/1 or projects/my-project/secrets/my-registry-secret/versions/latest.
             --workload-metadata-from-node=&: Type of metadata server available to pods running in the node pool.
             --workload-metadata=: Type of metadata server available to pods running in the node pool.
             --workload-pool=: Enable Workload Identity on the cluster.
@@ -1919,6 +1937,9 @@ commands:
             --zone=: Compute zone (e.g. us-central1-a) for a zonal cluster.
           completion:
             flag:
+                adaptive-pod-allocation-mode:
+                    - adaptive-allocation
+                    - disabled
                 anonymous-authentication-config:
                     - ENABLED
                     - LIMITED
@@ -1981,6 +2002,10 @@ commands:
                     - NONE
                 membership-type:
                     - LIGHTWEIGHT
+                network-suite:
+                    - essentials
+                    - standard
+                    - enterprise
                 network-tier:
                     - premium
                     - standard
@@ -2037,6 +2062,7 @@ commands:
         - name: create-auto
           description: Create an Autopilot cluster for running containers.
           flags:
+            --adaptive-pod-allocation-mode=&: Set the Pod IP allocation mode of the cluster (GKE Adaptive Cluster IPAM).
             --additive-vpc-scope-dns-domain=: The domain used in Additive VPC scope.
             --aggregation-ca=: The Certificate Authority Service caPool that will back the aggregation CA
             --anonymous-authentication-config=: Enable or restrict anonymous access to the cluster.
@@ -2044,6 +2070,7 @@ commands:
             --auto-monitoring-scope=: Enables Auto-Monitoring for a specific scope within the cluster.
             --autopilot-general-profile=: Sets the Autopilot general profile for the cluster; possible values are `none` and `no-performance`.
             --autopilot-privileged-admission=: Specifies which privileged workload allowlist paths can be referenced and
+            --autoprovisioning-config-file=&: Path of the JSON/YAML file which contains information about the
             --autoprovisioning-enable-insecure-kubelet-readonly-port: Enables the Kubelet's insecure read only port for Autoprovisioned
             --autoprovisioning-network-tags=: Applies the given Compute Engine tags (comma separated) on all nodes in the auto-provisioned node pools of the new Standard cluster or the new Autopilot cluster.
             --autoprovisioning-resource-manager-tags=: Applies the specified comma-separated resource manager tags that has the
@@ -2051,6 +2078,7 @@ commands:
             --boot-disk-kms-key=: The Customer Managed Encryption Key used to encrypt the boot disk attached
             --cluster-ca=: The Certificate Authority Service caPool that will back the cluster CA
             --cluster-ipv4-cidr=: The IP address range for the pods in this cluster in CIDR notation (e.g.
+            --cluster-scale-to-zero-delay=&: Additional delay before the cluster is scaled to 0 nodes when there are no
             --cluster-secondary-range-name=: Set the secondary range to be used as the source for pod IPs.
             --cluster-version=: The Kubernetes version to use for the master and nodes.
             --compliance-standards=&: Comma-delimited list of standards to be enabled.
@@ -2069,16 +2097,21 @@ commands:
             --disable-multi-nic-lustre: Disable the Lustre CSI driver to automatically detect
             --disable-pod-snapshots: Disable the Pod Snapshot feature on the cluster.
             --enable-agent-sandbox: Enable the Agent Sandbox feature on the cluster.
+            --enable-ambient-networking: Enable ambient networking on the cluster.
             --enable-authorized-networks-on-private-endpoint: Enable enforcement of --master-authorized-networks CIDR ranges for
             --enable-auto-ipam: Enable the Auto IP Address Management (Auto IPAM) feature for the cluster.
             --enable-backup-restore: Enable the Backup for GKE add-on.
+            --enable-cdpf&: Enable Custom Dataplane Functions (CDPF) on the cluster.
             --enable-cilium-clusterwide-network-policy: Enable Cilium Clusterwide Network Policies on the cluster.
+            --enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Autopilot and standard clusters.
             --enable-confidential-nodes: Enable confidential nodes for the cluster.
+            --enable-dataplane-ebpf-host-routing&: Enable Dataplane V2 eBPF host routing for the cluster.
             --enable-dataplane-v2-flow-observability: Enables Advanced Datapath Observability which allows for a real-time view into pod-to-pod traffic within your cluster.
             --enable-default-compute-class: Enable the default compute class to use for the cluster.
             --enable-dns-access: Enable access to the cluster's control plane over DNS-based endpoint.
             --enable-fleet: Set cluster project as the fleet host project.
             --enable-google-cloud-access: When you enable Google Cloud Access, any public IP addresses owned by Google
+            --enable-granular-nat&: Enables Granular NAT for the cluster.
             --enable-insecure-binding-system-authenticated: Allow using `system:authenticated` as a subject in ClusterRoleBindings and RoleBindings.
             --enable-insecure-binding-system-unauthenticated: Allow using `system:unauthenticated` and `system:anonymous` as subjects in ClusterRoleBindings and RoleBindings.
             --enable-ip-access: Enable access to the cluster's control plane over private IP and
@@ -2126,20 +2159,26 @@ commands:
             --master-ipv4-cidr=: IPv4 CIDR range to use for the master network.
             --membership-type=: Specify a membership type for the cluster's fleet membership.
             --monitoring=: Set the components that have monitoring enabled.
+            --network-suite=&: Sets the networking suite tier for the cluster.
             --network=: The Compute Engine Network that the cluster will connect to.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-autoprovisioning-enable-insecure-kubelet-readonly-port&: Enables the Kubelet's insecure read only port for Autoprovisioned
             --no-disable-additive-vpc-scope&: Disables Additive VPC Scope.
             --no-disable-multi-nic-lustre&: Disable the Lustre CSI driver to automatically detect
             --no-enable-agent-sandbox&: Enable the Agent Sandbox feature on the cluster.
+            --no-enable-ambient-networking&: Enable ambient networking on the cluster.
             --no-enable-authorized-networks-on-private-endpoint&: Enable enforcement of --master-authorized-networks CIDR ranges for
             --no-enable-backup-restore&: Enable the Backup for GKE add-on.
+            --no-enable-cdpf&: Enable Custom Dataplane Functions (CDPF) on the cluster.
             --no-enable-cilium-clusterwide-network-policy&: Enable Cilium Clusterwide Network Policies on the cluster.
+            --no-enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Autopilot and standard clusters.
             --no-enable-confidential-nodes&: Enable confidential nodes for the cluster.
+            --no-enable-dataplane-ebpf-host-routing&: Enable Dataplane V2 eBPF host routing for the cluster.
             --no-enable-default-compute-class&: Enable the default compute class to use for the cluster.
             --no-enable-dns-access&: Enable access to the cluster's control plane over DNS-based endpoint.
             --no-enable-fleet&: ""
             --no-enable-google-cloud-access&: When you enable Google Cloud Access, any public IP addresses owned by Google
+            --no-enable-granular-nat&: Enables Granular NAT for the cluster.
             --no-enable-insecure-binding-system-authenticated&: Allow using `system:authenticated` as a subject in ClusterRoleBindings and RoleBindings.
             --no-enable-insecure-binding-system-unauthenticated&: Allow using `system:unauthenticated` and `system:anonymous` as subjects in ClusterRoleBindings and RoleBindings.
             --no-enable-ip-access&: Enable access to the cluster's control plane over private IP and
@@ -2183,14 +2222,17 @@ commands:
             --tag-bindings=&: List of tag-bindings KEY=VALUE pairs to bind.
             --tier=: (DEPRECATED) Set the desired tier for the cluster.
             --timeout=&: Timeout (seconds) for waiting on the operation to complete.
-            --wiz-sensor-api-key-secret-uri=&: The GCP Secret Manager URI for the Wiz API key secret.
-            --wiz-sensor-proxy-secret-uri=&: The GCP Secret Manager URI for the Wiz proxy configuration.
-            --wiz-sensor-registry-secret-uri=&: The GCP Secret Manager URI for the Wiz registry secret.
+            --wiz-sensor-api-key-secret-uri=: The Secret Manager URI for the Wiz API key secret, for example, projects/my-project/secrets/my-api-key/versions/1 or projects/my-project/secrets/my-api-key/versions/latest.
+            --wiz-sensor-proxy-secret-uri=: The Secret Manager URI for the Wiz proxy configuration, for example, projects/my-project/secrets/my-proxy-secret/versions/1 or projects/my-project/secrets/my-proxy-secret/versions/latest.
+            --wiz-sensor-registry-secret-uri=: The Secret Manager URI for the Wiz registry secret, for example, projects/my-project/secrets/my-registry-secret/versions/1 or projects/my-project/secrets/my-registry-secret/versions/latest.
             --workload-policies=: Add Autopilot workload policies to the cluster.
             --workload-vulnerability-scanning=: Sets the mode of the Kubernetes security posture API's workload
             --zone=: Compute zone (e.g. us-central1-a) for a zonal cluster.
           completion:
             flag:
+                adaptive-pod-allocation-mode:
+                    - adaptive-allocation
+                    - disabled
                 anonymous-authentication-config:
                     - ENABLED
                     - LIMITED
@@ -2219,6 +2261,10 @@ commands:
                     - NONE
                 membership-type:
                     - LIGHTWEIGHT
+                network-suite:
+                    - essentials
+                    - standard
+                    - enterprise
                 node-creation-mode:
                     - CONTROL_PLANE
                     - KUBELET
@@ -2299,6 +2345,7 @@ commands:
         - name: update
           description: Update cluster settings for an existing container cluster.
           flags:
+            --adaptive-pod-allocation-mode=&: Set the Pod IP allocation mode of the cluster (GKE Adaptive Cluster IPAM).
             --add-maintenance-exclusion-end=: End time of the exclusion window.
             --add-maintenance-exclusion-name=: A descriptor for the exclusion that can be used to remove it.
             --add-maintenance-exclusion-scope=: Scope of the exclusion window to specify the type of upgrades that the exclusion
@@ -2339,6 +2386,7 @@ commands:
             --cluster-dns-domain=: DNS domain for this cluster.
             --cluster-dns-scope=: DNS scope for the Cloud DNS zone created - valid only with
             --cluster-dns=: DNS provider to use for this cluster.
+            --cluster-scale-to-zero-delay=&: Additional delay before the cluster is scaled to 0 nodes when there are no
             --complete-credential-rotation: Complete the IP and credential rotation for this cluster.
             --complete-ip-rotation: Complete the IP rotation for this cluster.
             --compliance-standards=&: Comma-delimited list of standards to be enabled.
@@ -2348,7 +2396,7 @@ commands:
             --control-plane-egress=: Configures the egress policy for the GKE control plane to control outbound
             --database-encryption-key=: Enable Database Encryption.
             --dataplane-v2-observability-mode=: '(REMOVED) '
-            --default-compute-class=&: Sets the default compute class for the cluster.
+            --default-compute-class=: Sets the default compute class for the cluster.
             --disable-additive-vpc-scope: Disables Additive VPC Scope.
             --disable-auto-ipam: Disable the Auto IP Address Management (Auto IPAM) feature for the cluster.
             --disable-autopilot&: Converts a cluster from Autopilot mode to Standard mode.
@@ -2357,12 +2405,14 @@ commands:
             --disable-dataplane-v2-metrics: Stops exposing advanced datapath flow metrics on node port.
             --disable-default-snat: Disable default source NAT rules applied in cluster nodes.
             --disable-l4-lb-firewall-reconciliation: Disable reconciliation on the cluster for L4 Load Balancer VPC
+            --disable-managed-autoscaling&: Disable GKE managed autoscaling in the cluster.
             --disable-managed-prometheus: Disable managed collection for Managed Service for
             --disable-multi-nic-lustre: Disable the Lustre CSI driver to automatically detect
             --disable-pod-snapshots: Disable the Pod Snapshot feature on the cluster.
             --disable-workload-identity: Disable Workload Identity on the cluster.
             --drain-additional-ip-ranges=&: Set status of additional subnetworks named "my-subnet" to DRAINING.
             --enable-agent-sandbox: Enable the Agent Sandbox feature on the cluster.
+            --enable-ambient-networking: Enable or disable ambient networking on the cluster.
             --enable-authorized-networks-on-private-endpoint: Enable enforcement of --master-authorized-networks CIDR ranges for
             --enable-auto-ipam: Enable the Auto IP Address Management (Auto IPAM) feature for the cluster.
             --enable-autopilot-compatibility-auditing: Lets you run the
@@ -2374,9 +2424,12 @@ commands:
             --enable-autoscaling: Enables autoscaling for a node pool.
             --enable-basic-auth: Enable basic (username/password) auth for the cluster.
             --enable-binauthz: (DEPRECATED) Enable Binary Authorization for this cluster.
+            --enable-cdpf&: Enable Custom Dataplane Functions (CDPF) on the cluster.
             --enable-cilium-clusterwide-network-policy: Enable Cilium Clusterwide Network Policies on the cluster.
-            --enable-cost-allocation: Enable the cost management feature.
-            --enable-dataplane-v2&: ""
+            --enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Autopilot and standard clusters.
+            --enable-cost-allocation: Enable the cost allocation feature.
+            --enable-dataplane-ebpf-host-routing&: Enable Dataplane V2 eBPF host routing for the cluster.
+            --enable-dataplane-v2: Enabling Dataplane V2 causes a re-creation of all cluster nodes.
             --enable-dataplane-v2-flow-observability: Enables Advanced Datapath Observability which allows for a real-time view into pod-to-pod traffic within your cluster.
             --enable-dataplane-v2-metrics: Exposes advanced datapath flow metrics on node port.
             --enable-default-compute-class: Enable the default compute class to use for the cluster.
@@ -2384,6 +2437,7 @@ commands:
             --enable-fleet: Set cluster project as the fleet host project.
             --enable-fqdn-network-policy: Enable FQDN Network Policies on the cluster.
             --enable-google-cloud-access: When you enable Google Cloud Access, any public IP addresses owned by Google
+            --enable-granular-nat&: Enables Granular NAT for the cluster.
             --enable-identity-service: Enable Identity Service component on the cluster.
             --enable-image-streaming: Enable Image Streaming for the cluster, allowing nodes to stream container
             --enable-insecure-binding-system-authenticated: Allow using `system:authenticated` as a subject in ClusterRoleBindings and RoleBindings.
@@ -2400,11 +2454,13 @@ commands:
             --enable-l4-lb-firewall-reconciliation: Enable reconciliation on the cluster for L4 Load Balancer VPC
             --enable-legacy-authorization: Enables the legacy ABAC authentication for the cluster.
             --enable-legacy-lustre-port: Allow the Lustre CSI driver to initialize LNet (the virtual network layer for Lustre kernel module) using port 6988.
+            --enable-managed-autoscaling&: Enable GKE managed autoscaling in the cluster.
             --enable-managed-prometheus: Enables managed collection for Managed Service for Prometheus in the cluster.
             --enable-master-authorized-networks: Allow only specified set of CIDR blocks (specified by the
             --enable-master-global-access: Use with private clusters to allow access to the master's private endpoint from any Google Cloud region or on-premises environment regardless of the
             --enable-mesh-certificates&: Enable Mesh Certificates.
             --enable-multi-networking: Enables multi-networking on the cluster.
+            --enable-network-egress-cost-allocation&: Enable network egress cost allocation.
             --enable-network-egress-metering: Enable network egress metering on this cluster.
             --enable-network-policy: Enable network policy enforcement for this cluster.
             --enable-pod-snapshots: Enable the Pod Snapshot feature on the cluster.
@@ -2456,6 +2512,7 @@ commands:
             --monitoring-service=: (DEPRECATED) Monitoring service to use for the cluster.
             --monitoring=: Set the components that have monitoring enabled.
             --network-performance-configs=: Configures network performance settings for the cluster.
+            --network-suite=&: Sets the networking suite tier for the cluster.
             --network-tier=&: Set the network tier for the cluster, possible values are premium, standard and default.
             --no-add-maintenance-exclusion-until-end-of-support&: End time of the exclusion window is the end of the cluster's support.
             --no-async&: Return immediately, without waiting for the operation in progress to
@@ -2475,6 +2532,7 @@ commands:
             --no-disable-multi-nic-lustre&: Disable the Lustre CSI driver to automatically detect
             --no-disable-workload-identity&: Disable Workload Identity on the cluster.
             --no-enable-agent-sandbox&: Enable the Agent Sandbox feature on the cluster.
+            --no-enable-ambient-networking&: Enable or disable ambient networking on the cluster.
             --no-enable-authorized-networks-on-private-endpoint&: Enable enforcement of --master-authorized-networks CIDR ranges for
             --no-enable-autopilot-compatibility-auditing&: Lets you run the
             --no-enable-autoprovisioning&: Enables  node autoprovisioning for a cluster.
@@ -2485,14 +2543,18 @@ commands:
             --no-enable-autoscaling&: Enables autoscaling for a node pool.
             --no-enable-basic-auth&: Enable basic (username/password) auth for the cluster.
             --no-enable-binauthz&: (DEPRECATED) Enable Binary Authorization for this cluster.
+            --no-enable-cdpf&: Enable Custom Dataplane Functions (CDPF) on the cluster.
             --no-enable-cilium-clusterwide-network-policy&: Enable Cilium Clusterwide Network Policies on the cluster.
+            --no-enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Autopilot and standard clusters.
             --no-enable-cost-allocation&: ""
+            --no-enable-dataplane-ebpf-host-routing&: Enable Dataplane V2 eBPF host routing for the cluster.
             --no-enable-dataplane-v2&: ""
             --no-enable-default-compute-class&: Enable the default compute class to use for the cluster.
             --no-enable-dns-access&: Enable access to the cluster's control plane over DNS-based endpoint.
             --no-enable-fleet&: ""
             --no-enable-fqdn-network-policy&: Enable FQDN Network Policies on the cluster.
             --no-enable-google-cloud-access&: When you enable Google Cloud Access, any public IP addresses owned by Google
+            --no-enable-granular-nat&: Enables Granular NAT for the cluster.
             --no-enable-identity-service&: Enable Identity Service component on the cluster.
             --no-enable-image-streaming&: Enable Image Streaming for the cluster, allowing nodes to stream container
             --no-enable-insecure-binding-system-authenticated&: Allow using `system:authenticated` as a subject in ClusterRoleBindings and RoleBindings.
@@ -2512,6 +2574,7 @@ commands:
             --no-enable-master-global-access&: ""
             --no-enable-mesh-certificates&: Enable Mesh Certificates.
             --no-enable-multi-networking&: Enables multi-networking on the cluster.
+            --no-enable-network-egress-cost-allocation&: Enable network egress cost allocation.
             --no-enable-network-egress-metering&: Enable network egress metering on this cluster.
             --no-enable-network-policy&: Enable network policy enforcement for this cluster.
             --no-enable-private-endpoint&: Enables cluster's control plane to be accessible using private IP
@@ -2571,15 +2634,22 @@ commands:
             --update-addons=: Cluster addons to enable or disable.
             --update-labels=: Labels to apply to the Google Cloud resources in use by the Kubernetes Engine
             --username=: The user name to use for basic auth for the cluster.
-            --wiz-sensor-api-key-secret-uri=&: The GCP Secret Manager URI for the Wiz API key secret.
-            --wiz-sensor-proxy-secret-uri=&: The GCP Secret Manager URI for the Wiz proxy configuration.
-            --wiz-sensor-registry-secret-uri=&: The GCP Secret Manager URI for the Wiz registry secret.
+            --wiz-sensor-api-key-secret-uri=: The Secret Manager URI for the Wiz API key secret, for example, projects/my-project/secrets/my-api-key/versions/1 or projects/my-project/secrets/my-api-key/versions/latest.
+            --wiz-sensor-proxy-secret-uri=: The Secret Manager URI for the Wiz proxy configuration, for example, projects/my-project/secrets/my-proxy-secret/versions/1 or projects/my-project/secrets/my-proxy-secret/versions/latest.
+            --wiz-sensor-registry-secret-uri=: The Secret Manager URI for the Wiz registry secret, for example, projects/my-project/secrets/my-registry-secret/versions/1 or projects/my-project/secrets/my-registry-secret/versions/latest.
             --workload-policies=: Add Autopilot workload policies to the cluster.
             --workload-pool=: Enable Workload Identity on the cluster.
             --workload-vulnerability-scanning=: Sets the mode of the Kubernetes security posture API's workload
             --zone=: Compute zone (e.g. us-central1-a) for a zonal cluster.
           completion:
             flag:
+                adaptive-pod-allocation-mode:
+                    - adaptive-allocation
+                    - disabled
+                add-maintenance-exclusion-scope:
+                    - no_upgrades
+                    - no_minor_upgrades
+                    - no_minor_or_node_upgrades
                 anonymous-authentication-config:
                     - ENABLED
                     - LIMITED
@@ -2627,6 +2697,10 @@ commands:
                     - NONE
                 membership-type:
                     - LIGHTWEIGHT
+                network-suite:
+                    - essentials
+                    - standard
+                    - enterprise
                 network-tier:
                     - premium
                     - standard
@@ -2729,6 +2803,19 @@ commands:
           commands:
             - name: describe
               description: Describe the Config Management feature.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --location=: Location for the memberships.
+                --memberships=!: IDs of the memberships or fully qualified identifiers for the memberships.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --view=!: View of the feature.
+              completion:
+                flag:
+                    view:
+                        - config
+                        - fleet-default-member-config
+                        - full
+                        - list
             - name: disable
               description: Disable the Config Management feature.
               flags:
@@ -2740,6 +2827,19 @@ commands:
                 --no-fleet-default-member-config&: Disable the [fleet-default membership configuration](https://docs.cloud.google.com/kubernetes-engine/fleet-management/docs/manage-features).
                 --no-force&: Force disablement.
                 --uninstall: Uninstall any previously-installed and managed Config Sync on the specified
+            - name: update
+              description: Update the Config Management feature.
+              flags:
+                --all-memberships: All memberships in the fleet.
+                --config=: Path to YAML file, or `-` to read from stdin, that specifies the
+                --fleet-default-member-config=: Path to YAML file, or `-` to read from stdin, that specifies the
+                --location=: Location for the memberships.
+                --memberships=!: IDs of the memberships or fully qualified identifiers for the memberships.
+                --origin=: Update the configuration of the target membership(s) to the [fleet-default membership configuration](https://docs.cloud.google.com/kubernetes-engine/fleet-management/docs/manage-features).
+              completion:
+                flag:
+                    origin:
+                        - fleet
         - name: create
           description: Create a fleet.
           flags:
@@ -3016,8 +3116,10 @@ commands:
                 --no-has-private-issuer&: Set to true for clusters where no publicly-routable OIDC discovery
                 --no-install-connect-agent&: If set to True for a GKE cluster, Connect agent will be installed in
                 --no-internal-ip&: Whether to use the internal IP address of the cluster endpoint.
+                --no-read-only&: Register the cluster with a `READ_ONLY` membership type.
                 --proxy=: The proxy address in the format of http[s]://{hostname}.
                 --public-issuer-url=: Skip auto-discovery and register the cluster with this issuer URL.
+                --read-only: Register the cluster with a `READ_ONLY` membership type.
                 --service-account-key-file=: The JSON file of a Google Cloud service account private key.
             - name: support-access
               description: Membership used for support access.
@@ -3496,9 +3598,9 @@ commands:
               description: Create a rollout sequence resource.
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
-                --auto-rollout-scope=&: Specifies the types of upgrades for which rollouts are automatically
+                --auto-rollout-scope=: Specifies the types of upgrades for which rollouts are automatically
                 --display-name=: Display name of the rollout sequence.
-                --ignored-clusters-selector=&: Selector for clusters to exclude from the Rollout Sequence.
+                --ignored-clusters-selector=: Selector for clusters to exclude from the Rollout Sequence.
                 --labels=: Labels for the rollout sequence.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --stage-config=!: Path to the YAML file containing the stage configurations.
@@ -3522,10 +3624,10 @@ commands:
               description: Update a rollout sequence resource.
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
-                --auto-rollout-scope=&: Specifies the types of upgrades for which rollouts are automatically
-                --clear-ignored-clusters-selector&: Clear the ignored clusters selector.
+                --auto-rollout-scope=: Specifies the types of upgrades for which rollouts are automatically
+                --clear-ignored-clusters-selector: Clear the ignored clusters selector.
                 --display-name=: Display name of the rollout sequence.
-                --ignored-clusters-selector=&: Selector for clusters to exclude from the Rollout Sequence.
+                --ignored-clusters-selector=: Selector for clusters to exclude from the Rollout Sequence.
                 --labels=: Labels for the rollout sequence.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-clear-ignored-clusters-selector&: Clear the ignored clusters selector.
@@ -3536,9 +3638,19 @@ commands:
                 --async: Return immediately, without waiting for the operation in progress to
                 --control-plane-version=: The GKE cluster version to upgrade the control plane to.
                 --force: Force rollout creation even if an active rollout exists on the first stage of the sequence.
+                --ignore-cluster-disruption-budgets: If set, the rollout will ignore the disruption budgets
+                --ignore-maintenance-policies: If set, the rollout will ignore any maintenance policies
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-force&: Force rollout creation even if an active rollout exists on the first stage of the sequence.
+                --no-ignore-cluster-disruption-budgets&: If set, the rollout will ignore the disruption budgets
+                --no-ignore-maintenance-policies&: If set, the rollout will ignore any maintenance policies
+                --no-patch-only&: If set, the rollout will only upgrade clusters that are already on
+                --no-prioritized&: If set, conflicting rollouts will be paused, to allow this rollout
                 --node-version=: The GKE version to upgrade the nodes to.
+                --patch-only: If set, the rollout will only upgrade clusters that are already on
+                --prioritized: If set, conflicting rollouts will be paused, to allow this rollout
+                --soak-duration-override-all-stages=: Overrides the soak duration for all stages of the rollout.
+                --soak-duration-overrides-per-stage=: Overrides the soak duration for specific stages of the rollout,
         - name: scopes
           description: Manage scopes of all your GKE fleets.
           commands:
@@ -3833,6 +3945,19 @@ commands:
           commands:
             - name: describe
               description: Describe the Config Management feature.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --location=: Location for the memberships.
+                --memberships=!: IDs of the memberships or fully qualified identifiers for the memberships.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --view=!: View of the feature.
+              completion:
+                flag:
+                    view:
+                        - config
+                        - fleet-default-member-config
+                        - full
+                        - list
             - name: disable
               description: Disable the Config Management feature.
               flags:
@@ -3844,6 +3969,19 @@ commands:
                 --no-fleet-default-member-config&: Disable the [fleet-default membership configuration](https://docs.cloud.google.com/kubernetes-engine/fleet-management/docs/manage-features).
                 --no-force&: Force disablement.
                 --uninstall: Uninstall any previously-installed and managed Config Sync on the specified
+            - name: update
+              description: Update the Config Management feature.
+              flags:
+                --all-memberships: All memberships in the fleet.
+                --config=: Path to YAML file, or `-` to read from stdin, that specifies the
+                --fleet-default-member-config=: Path to YAML file, or `-` to read from stdin, that specifies the
+                --location=: Location for the memberships.
+                --memberships=!: IDs of the memberships or fully qualified identifiers for the memberships.
+                --origin=: Update the configuration of the target membership(s) to the [fleet-default membership configuration](https://docs.cloud.google.com/kubernetes-engine/fleet-management/docs/manage-features).
+              completion:
+                flag:
+                    origin:
+                        - fleet
         - name: create
           description: Create a fleet.
           flags:
@@ -4120,8 +4258,10 @@ commands:
                 --no-has-private-issuer&: Set to true for clusters where no publicly-routable OIDC discovery
                 --no-install-connect-agent&: If set to True for a GKE cluster, Connect agent will be installed in
                 --no-internal-ip&: Whether to use the internal IP address of the cluster endpoint.
+                --no-read-only&: Register the cluster with a `READ_ONLY` membership type.
                 --proxy=: The proxy address in the format of http[s]://{hostname}.
                 --public-issuer-url=: Skip auto-discovery and register the cluster with this issuer URL.
+                --read-only: Register the cluster with a `READ_ONLY` membership type.
                 --service-account-key-file=: The JSON file of a Google Cloud service account private key.
             - name: support-access
               description: Membership used for support access.
@@ -4600,9 +4740,9 @@ commands:
               description: Create a rollout sequence resource.
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
-                --auto-rollout-scope=&: Specifies the types of upgrades for which rollouts are automatically
+                --auto-rollout-scope=: Specifies the types of upgrades for which rollouts are automatically
                 --display-name=: Display name of the rollout sequence.
-                --ignored-clusters-selector=&: Selector for clusters to exclude from the Rollout Sequence.
+                --ignored-clusters-selector=: Selector for clusters to exclude from the Rollout Sequence.
                 --labels=: Labels for the rollout sequence.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --stage-config=!: Path to the YAML file containing the stage configurations.
@@ -4626,10 +4766,10 @@ commands:
               description: Update a rollout sequence resource.
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
-                --auto-rollout-scope=&: Specifies the types of upgrades for which rollouts are automatically
-                --clear-ignored-clusters-selector&: Clear the ignored clusters selector.
+                --auto-rollout-scope=: Specifies the types of upgrades for which rollouts are automatically
+                --clear-ignored-clusters-selector: Clear the ignored clusters selector.
                 --display-name=: Display name of the rollout sequence.
-                --ignored-clusters-selector=&: Selector for clusters to exclude from the Rollout Sequence.
+                --ignored-clusters-selector=: Selector for clusters to exclude from the Rollout Sequence.
                 --labels=: Labels for the rollout sequence.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-clear-ignored-clusters-selector&: Clear the ignored clusters selector.
@@ -4640,9 +4780,19 @@ commands:
                 --async: Return immediately, without waiting for the operation in progress to
                 --control-plane-version=: The GKE cluster version to upgrade the control plane to.
                 --force: Force rollout creation even if an active rollout exists on the first stage of the sequence.
+                --ignore-cluster-disruption-budgets: If set, the rollout will ignore the disruption budgets
+                --ignore-maintenance-policies: If set, the rollout will ignore any maintenance policies
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-force&: Force rollout creation even if an active rollout exists on the first stage of the sequence.
+                --no-ignore-cluster-disruption-budgets&: If set, the rollout will ignore the disruption budgets
+                --no-ignore-maintenance-policies&: If set, the rollout will ignore any maintenance policies
+                --no-patch-only&: If set, the rollout will only upgrade clusters that are already on
+                --no-prioritized&: If set, conflicting rollouts will be paused, to allow this rollout
                 --node-version=: The GKE version to upgrade the nodes to.
+                --patch-only: If set, the rollout will only upgrade clusters that are already on
+                --prioritized: If set, conflicting rollouts will be paused, to allow this rollout
+                --soak-duration-override-all-stages=: Overrides the soak duration for all stages of the rollout.
+                --soak-duration-overrides-per-stage=: Overrides the soak duration for specific stages of the rollout,
         - name: scopes
           description: Manage scopes of all your GKE fleets.
           commands:
@@ -5111,6 +5261,7 @@ commands:
                 windows-os-version:
                     - ltsc2019
                     - ltsc2022
+                    - ltsc2025
                 workload-metadata:
                     - GCE_METADATA
                     - GKE_METADATA
@@ -5178,7 +5329,7 @@ commands:
             --confidential-node-type=: Recreate all the nodes in the node pool to be confidential VM
             --consolidation-delay=: Set the duration after which the Cluster Autoscaler can scale down
             --containerd-config-from-file=: Path of the YAML file that contains containerd configuration entries like configuring access to private image registries.
-            --datapath-provider=&: Specifies the datapath provider for the cluster.
+            --datapath-provider=: Specifies the datapath provider for the node pool.
             --disk-size=: Size for node VM boot disks in GB.
             --disk-type=: Type of the node VM boot disk.
             --enable-autoprovisioning: Enables Cluster Autoscaler to treat the node pool as if it was autoprovisioned.
@@ -5229,6 +5380,7 @@ commands:
             --no-remove-maintenance-exclusion-until-end-of-support&: Remove node pool maintenance exclusion until the end of support.
             --no-respect-pdb-during-node-pool-deletion&: Whether to respect PDBs when deleting nodes in the node pool.
             --node-architecture-taint-behavior=: Control how architecture taint should be applied to nodes in an existing node pool.
+            --node-config-update-mode=: Specifies the rollout strategy to apply node pool configuration updates in-place.
             --node-drain-grace-period-seconds=: The grace period in seconds for nodes to drain before being forcefully removed.
             --node-drain-pdb-timeout-seconds=: The timeout in seconds for the node pool to be drained.
             --node-labels=: Replaces all the user specified Kubernetes labels on all nodes in an existing
@@ -5279,9 +5431,12 @@ commands:
                     - unspecified
                     - arm
                     - none
+                node-config-update-mode:
+                    - LIVE_UPDATE_WITHOUT_DRAIN
                 windows-os-version:
                     - ltsc2019
                     - ltsc2022
+                    - ltsc2025
                 workload-metadata:
                     - GCE_METADATA
                     - GKE_METADATA

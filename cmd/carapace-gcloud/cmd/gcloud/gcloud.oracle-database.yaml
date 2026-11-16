@@ -105,6 +105,7 @@ commands:
                     - ajd
                     - apex
                     - dw
+                    - lh
                     - oltp
                 properties-license-type:
                     - bring-your-own-license
@@ -334,6 +335,18 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update labels of an ExadataInfrastructure.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Clear labels value and set to empty map.
+            --labels=: Set labels to new value.
+            --location=: The location id of the cloudExadataInfrastructure resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --remove-labels=: Remove existing value from map labels.
+            --request-id=: An optional ID to identify the request.
+            --update-labels=: Update labels value or add key value pair.
     - name: cloud-vm-clusters
       description: Manage Cloud Vm Cluster resources.
       commands:
@@ -350,16 +363,19 @@ commands:
             --display-name=: User friendly name for this resource.
             --exadata-infrastructure=!: ID of the cloudExadataInfrastructure or fully qualified identifier for the cloudExadataInfrastructure.
             --exascale-db-storage-vault=!: ID of the exascaleDbStorageVault or fully qualified identifier for the exascaleDbStorageVault.
+            --identity-connector-disabled: If set to true, disables the automatic provisioning
             --labels=: Labels or tags associated with the VM Cluster.
-            --location=: For resources [backup-odb-subnet, cloud_vm_cluster, exadata-infrastructure, exascale-db-storage-vault, odb-network, odb-subnet], provides fallback value for resource location attribute.
+            --location=: For resources [backup-odb-subnet, cloud_vm_cluster, exadata-infrastructure, exascale-db-storage-vault, odb-dns-zone, odb-network, odb-subnet], provides fallback value for resource location attribute.
             --network=!: ID of the network or fully qualified identifier for the network.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-diagnostics-data-collection-options-events-enabled&: Indicates whether diagnostic collection is enabled for the VM cluster
             --no-diagnostics-data-collection-options-health-monitoring-enabled&: Indicates whether health monitoring is enabled for the VM cluster
             --no-diagnostics-data-collection-options-incident-logs-enabled&: Indicates whether incident logs and trace collection are enabled for the VM
+            --no-identity-connector-disabled&: If set to true, disables the automatic provisioning
             --no-properties-local-backup-enabled&: Use local backup.
             --no-properties-sparse-diskgroup-enabled&: Use exadata sparse snapshots.
-            --odb-network=: For resources [backup-odb-subnet, odb-network, odb-subnet], provides fallback value for resource odb-network attribute.
+            --odb-dns-zone=!: ID of the odbDnsZone or fully qualified identifier for the odbDnsZone.
+            --odb-network=: For resources [backup-odb-subnet, odb-dns-zone, odb-network, odb-subnet], provides fallback value for resource odb-network attribute.
             --odb-subnet=!: ID of the odbSubnet or fully qualified identifier for the odbSubnet.
             --properties-cluster-name=: OCI Cluster name.
             --properties-cpu-core-count=!: Number of enabled CPU cores.
@@ -426,6 +442,18 @@ commands:
           description: Describe cloudVmClusters.
           flags:
             --location=: The location id of the cloudVmCluster resource.
+        - name: disable-identity-connector
+          description: Disable the Workload Identity Connector for a Cloud VM Cluster.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the cloudVmCluster resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: enable-identity-connector
+          description: Enable the Workload Identity Connector for a Cloud VM Cluster.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the cloudVmCluster resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
         - name: list
           description: List all CloudVmClusters.
           flags:
@@ -436,6 +464,18 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update labels of a CloudVmCluster.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Clear labels value and set to empty map.
+            --labels=: Set labels to new value.
+            --location=: The location id of the cloudVmCluster resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --remove-labels=: Remove existing value from map labels.
+            --request-id=: An optional ID to identify the request.
+            --update-labels=: Update labels value or add key value pair.
     - name: database-character-sets
       description: Manage Database Character Set resources.
       commands:
@@ -449,6 +489,72 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+    - name: database-connections
+      description: Manage Database Connection resources.
+      commands:
+        - name: create
+          description: Create a new DatabaseConnection.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --connection-string=!: Oracle Easy Connect or TNS connection string.
+            --display-name=: User-friendly display name for the connection.
+            --labels=: 'Optional: Labels as key-value pairs to organize the resource.'
+            --location=: For resources [database_connection, odb-network], provides fallback value for resource location attribute.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --odb-network=!: ID of the odbNetwork or fully qualified identifier for the odbNetwork.
+            --password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --request-id=: An optional ID to identify the request.
+            --secret=: For resources [password-secret-version, wallet-secret-version], provides fallback value for resource secret attribute.
+            --username=: The default database username to use for connections.
+            --wallet-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+        - name: delete
+          description: Delete a DatabaseConnection.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the databaseConnection resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --request-id=: An optional ID to identify the request.
+        - name: describe
+          description: Get details of a DatabaseConnection.
+          flags:
+            --location=: The location id of the databaseConnection resource.
+        - name: execute-sql
+          description: Execute a SQL statement on a DatabaseConnection.
+          flags:
+            --location=: The location id of the databaseConnection resource.
+            --params=: 'Optional: Bind variables (parameters) to be used with the SQL statement.'
+            --sql-statement=!: The SQL statement to execute.
+        - name: list
+          description: List all DatabaseConnections.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --location=!: ID of the location or fully qualified identifier for the location.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: test
+          description: Test connectivity of a DatabaseConnection.
+          flags:
+            --location=: The location id of the databaseConnection resource.
+        - name: update
+          description: Update a DatabaseConnection.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Clear labels value and set to empty map.
+            --clear-wallet-secret-version: Clear wallet_secret_version value and set to null.
+            --labels=: Set labels to new value.
+            --location=: The location id of the databaseConnection resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --no-clear-wallet-secret-version&: Clear wallet_secret_version value and set to null.
+            --password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
+            --remove-labels=: Remove existing value from map labels.
+            --request-id=: An optional ID to identify the request.
+            --secret=: For resources [password-secret-version, wallet-secret-version], provides fallback value for resource secret attribute.
+            --update-labels=: Update labels value or add key value pair.
+            --wallet-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
     - name: databases
       description: Manage Database resources.
       commands:
@@ -628,6 +734,18 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update labels of a DbSystem.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Clear labels value and set to empty map.
+            --labels=: Set labels to new value.
+            --location=: The location id of the dbSystem resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --remove-labels=: Remove existing value from map labels.
+            --request-id=: An optional ID to identify the request.
+            --update-labels=: Update labels value or add key value pair.
     - name: db-versions
       description: Manage Db Version resources.
       commands:
@@ -666,12 +784,14 @@ commands:
             --data-collection-options-is-health-monitoring-enabled: Indicates whether to enable health monitoring.
             --data-collection-options-is-incident-logs-enabled: Indicates whether to enable incident logs and trace collection.
             --display-name=!: The display name for the ExadbVmCluster.
+            --identity-connector-disabled: If set to true, disables the automatic provisioning
             --labels=: The labels or tags associated with the ExadbVmCluster.
             --location=: For resources [backup-odb-subnet, exadb_vm_cluster, odb-network, odb-subnet, properties-exascale-db-storage-vault], provides fallback value for resource location attribute.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-data-collection-options-is-diagnostics-events-enabled&: Indicates whether to enable data collection for diagnostics.
             --no-data-collection-options-is-health-monitoring-enabled&: Indicates whether to enable health monitoring.
             --no-data-collection-options-is-incident-logs-enabled&: Indicates whether to enable incident logs and trace collection.
+            --no-identity-connector-disabled&: If set to true, disables the automatic provisioning
             --odb-network=: For resources [backup-odb-subnet, odb-network, odb-subnet], provides fallback value for resource odb-network attribute.
             --odb-subnet=!: ID of the odbSubnet or fully qualified identifier for the odbSubnet.
             --properties-additional-ecpu-count-per-node=: The number of additional ECPUs per node for an Exadata VM cluster on
@@ -708,6 +828,18 @@ commands:
           description: Get details of a ExadbVmCluster.
           flags:
             --location=: The location id of the exadbVmCluster resource.
+        - name: disable-identity-connector
+          description: Disable the Workload Identity Connector for an Exadb VM Cluster.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the exadbVmCluster resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: enable-identity-connector
+          description: Enable the Workload Identity Connector for an Exadb VM Cluster.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --location=: The location id of the exadbVmCluster resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
         - name: list
           description: List all ExadbVmClusters.
           flags:
@@ -779,6 +911,18 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update labels of an ExascaleDbStorageVault.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Clear labels value and set to empty map.
+            --labels=: Set labels to new value.
+            --location=: The location id of the exascaleDbStorageVault resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --remove-labels=: Remove existing value from map labels.
+            --request-id=: An optional ID to identify the request.
+            --update-labels=: Update labels value or add key value pair.
     - name: gi-versions
       description: Manage Gi Version resources.
       commands:
@@ -850,6 +994,18 @@ commands:
             flag:
                 type:
                     - default
+        - name: update
+          description: Update labels of a GoldengateConnectionAssignment.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Clear labels value and set to empty map.
+            --labels=: Set labels to new value.
+            --location=: The location id of the goldengateConnectionAssignment resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --remove-labels=: Remove existing value from map labels.
+            --request-id=: An optional ID to identify the request.
+            --update-labels=: Update labels value or add key value pair.
     - name: goldengate-connection-types
       description: Manage Goldengate Connection Type resources.
       commands:
@@ -1300,6 +1456,18 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: update
+          description: Update labels of a GoldengateConnection.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Clear labels value and set to empty map.
+            --labels=: Set labels to new value.
+            --location=: The location id of the goldengateConnection resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --remove-labels=: Remove existing value from map labels.
+            --request-id=: An optional ID to identify the request.
+            --update-labels=: Update labels value or add key value pair.
     - name: goldengate-deployment-environments
       description: Manage Goldengate Deployment Environment resources.
       commands:
@@ -1421,6 +1589,18 @@ commands:
             --async: Return immediately, without waiting for the operation in progress to
             --location=: The location id of the goldengateDeployment resource.
             --no-async&: Return immediately, without waiting for the operation in progress to
+        - name: update
+          description: Update labels of a GoldengateDeployment.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Clear labels value and set to empty map.
+            --labels=: Set labels to new value.
+            --location=: The location id of the goldengateDeployment resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --remove-labels=: Remove existing value from map labels.
+            --request-id=: An optional ID to identify the request.
+            --update-labels=: Update labels value or add key value pair.
     - name: odb-networks
       description: Manage Odb Network resources.
       commands:
@@ -1433,6 +1613,7 @@ commands:
             --location=: The location id of the odbNetwork resource.
             --network=!: ID of the network or fully qualified identifier for the network.
             --no-async&: Return immediately, without waiting for the operation in progress to
+            --psc-interface-config-network-attachment=: The resource name of the Network Attachment that
             --request-id=: An optional ID to identify the request.
         - name: delete
           description: Delete an OdbNetwork.
@@ -1455,6 +1636,43 @@ commands:
             --page-size=: Some services group resource list output into pages.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: odb-dns-zones
+          description: Manage Odb Dns Zone resources.
+          commands:
+            - name: create
+              description: Create a new OdbDnsZone.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --domain=!: The DNS suffix for the zone.
+                --labels=: Labels or tags associated with the resource.
+                --location=: The location id of the odbDnsZone resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --odb-network=: The odbNetwork id of the odbDnsZone resource.
+                --request-id=: An optional ID to identify the request.
+            - name: delete
+              description: Delete an OdbDnsZone.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --location=: The location id of the odbDnsZone resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --odb-network=: The odbNetwork id of the odbDnsZone resource.
+                --request-id=: An optional ID to identify the request.
+            - name: describe
+              description: Get details of an OdbDnsZone.
+              flags:
+                --location=: The location id of the odbDnsZone resource.
+                --odb-network=: The odbNetwork id of the odbDnsZone resource.
+            - name: list
+              description: List all OdbDnsZones.
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=: The location id of the odbNetwork resource.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --odb-network=!: ID of the odbNetwork or fully qualified identifier for the odbNetwork.
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
         - name: odb-subnets
           description: Manage Odb Subnet resources.
           commands:
@@ -1498,6 +1716,34 @@ commands:
                 --page-size=: Some services group resource list output into pages.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: Update labels of an OdbSubnet.
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --clear-labels: Clear labels value and set to empty map.
+                --labels=: Set labels to new value.
+                --location=: The location id of the odbSubnet resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-clear-labels&: Clear labels value and set to empty map.
+                --odb-network=: The odbNetwork id of the odbSubnet resource.
+                --remove-labels=: Remove existing value from map labels.
+                --request-id=: An optional ID to identify the request.
+                --update-labels=: Update labels value or add key value pair.
+        - name: update
+          description: Update an OdbNetwork.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --clear-labels: Clear labels value and set to empty map.
+            --clear-service-connectivity-config: Set odbNetwork.serviceConnectivityConfig back to default value.
+            --labels=: Set labels to new value.
+            --location=: The location id of the odbNetwork resource.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-clear-labels&: Clear labels value and set to empty map.
+            --no-clear-service-connectivity-config&: Set odbNetwork.serviceConnectivityConfig back to default value.
+            --psc-interface-config-network-attachment=: The resource name of the Network Attachment that
+            --remove-labels=: Remove existing value from map labels.
+            --request-id=: An optional ID to identify the request.
+            --update-labels=: Update labels value or add key value pair.
     - name: operations
       description: Manage Operation resources.
       commands:
