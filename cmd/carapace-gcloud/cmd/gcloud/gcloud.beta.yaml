@@ -3648,6 +3648,7 @@ commands:
                         - z3-highmem-22-highlssd
                         - z3-highmem-32-highlssd
                         - z3-highmem-44-highlssd
+                        - z4d-highmem-16-standardlssd
                     ssl-mode:
                         - ALLOW_UNENCRYPTED_AND_ENCRYPTED
                         - ENCRYPTED_ONLY
@@ -3921,6 +3922,7 @@ commands:
                         - z3-highmem-22-highlssd
                         - z3-highmem-32-highlssd
                         - z3-highmem-44-highlssd
+                        - z4d-highmem-16-standardlssd
                     ssl-mode:
                         - ALLOW_UNENCRYPTED_AND_ENCRYPTED
                         - ENCRYPTED_ONLY
@@ -4271,48 +4273,6 @@ commands:
               description: '*(BETA)*  Wait for a Cloud API Gateway operation to complete.'
               flags:
                 --location=: Cloud location for operation.
-    - name: api-registry
-      description: '*(BETA)*  Manage Cloud API Registry Command Group.'
-      commands:
-        - name: mcp
-          description: '*(BETA)*  *(DEPRECATED)*  Manage MCP Command Group.'
-          commands:
-            - name: disable
-              description: '*(BETA)*  *(DEPRECATED)*  *(REMOVED)*  Disables MCP server for a given service in the current project.'
-              hidden: true
-            - name: enable
-              description: '*(BETA)*  *(DEPRECATED)*  *(REMOVED)*  Enables MCP server for a given service in the current project.'
-              hidden: true
-            - name: servers
-              description: '*(BETA)*  *(DEPRECATED)*  Manage Cloud API Registry MCP servers.'
-              commands:
-                - name: list
-                  description: '*(BETA)*  *(DEPRECATED)*  *(REMOVED)*  List MCP servers.'
-                  hidden: true
-                  flags:
-                    --all: If provided, list all the available (both enabled and non-enabled) MCP servers for the project.
-                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                    --limit=: Maximum number of resources to list.
-                    --no-all&: If provided, list all the available (both enabled and non-enabled) MCP servers for the project.
-                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                    --page-size=: Some services group resource list output into pages.
-                    --sort-by=: Comma-separated list of resource field key names to sort by.
-                    --uri: Print a list of resource URIs instead of the default output, and change the
-            - name: tools
-              description: '*(BETA)*  *(DEPRECATED)*  Manage Cloud API Registry MCP tools.'
-              commands:
-                - name: list
-                  description: '*(BETA)*  *(DEPRECATED)*  *(REMOVED)*  List MCP tools.'
-                  hidden: true
-                  flags:
-                    --all: If provided, list all the available MCP tools for all (both enabled and non-enabled) the MCP Servers for the project.
-                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                    --limit=: Maximum number of resources to list.
-                    --no-all&: If provided, list all the available MCP tools for all (both enabled and non-enabled) the MCP Servers for the project.
-                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                    --page-size=: Some services group resource list output into pages.
-                    --sort-by=: Comma-separated list of resource field key names to sort by.
-                    --uri: Print a list of resource URIs instead of the default output, and change the
     - name: apigee
       description: '*(BETA)*  Manage Apigee resources.'
       commands:
@@ -4512,21 +4472,21 @@ commands:
             - name: create
               description: '*(BETA)*  Create an Apigee API product.'
               flags:
-                --all-environments: Make all environments accessible through this API product.
+                --all-environments=: Make all environments accessible through this API product.
                 --all-proxies: Expose all available API proxies and their resources.
                 --apis=: Comma-separated names of API proxies to which this API product is bound.
                 --attributes=: Key-value attribute pairs that may be used to extend the default API product profile with customer-specific metadata.
                 --description=: Overview of the API product.
                 --display-name=: Name to be displayed in the UI or developer portal to developers registering for API access.
                 --environments=: Environments to which the API product is bound.
-                --internal-access: Prevent external access to this API product.
+                --internal-access=: Prevent external access to this API product.
                 --manual-approval: Require manual approval of developer requests to access this API product before their consumer keys can be used.
                 --no-all-proxies&: Expose all available API proxies and their resources.
                 --no-manual-approval&: Require manual approval of developer requests to access this API product before their consumer keys can be used.
                 --oauth-scopes=: Comma-separated list of OAuth scopes that are validated at runtime.
                 --organization=: Apigee organization containing the API product.
-                --private-access: Hide this API product in the developer portal but make it accessible by external developers.
-                --public-access: Make this API product visible to developers in the Apigee developer portal.
+                --private-access=: Hide this API product in the developer portal but make it accessible by external developers.
+                --public-access=: Make this API product visible to developers in the Apigee developer portal.
                 --quota-interval=: Time interval over which the number of request messages is calculated.
                 --quota-unit=: Time unit for `--quota-interval`.
                 --quota=: Number of request messages permitted per app by this API product
@@ -4567,15 +4527,15 @@ commands:
                 --all-apis: Include all deployed API proxies in the product, so long as they match the other parameters.
                 --all-environments: Make all environments accessible through this API product.
                 --all-resources: Include all deployed API resources in the product, so long as they match the other parameters.
-                --automatic-approval: Allow developers to generate approved consumer keys without waiting for approval.
+                --automatic-approval=: Allow developers to generate approved consumer keys without waiting for approval.
                 --clear-attributes: Removes all attributes.
                 --clear-description: Remove the API product's description.
                 --clear-oauth-scopes: Removes all OAuth scopes.
                 --clear-quota: Remove any quota currently imposed on the API product.
                 --description=: Overview of the API product.
                 --display-name=: Name to be displayed in the UI or developer portal to developers registering for API access.
-                --internal-access: Prevent external access to this API product.
-                --manual-approval: Require manual approval of developer requests to access this API product before their consumer keys can be used.
+                --internal-access=: Prevent external access to this API product.
+                --manual-approval=: Require manual approval of developer requests to access this API product before their consumer keys can be used.
                 --no-all-apis&: Include all deployed API proxies in the product, so long as they match the other parameters.
                 --no-all-environments&: Make all environments accessible through this API product.
                 --no-all-resources&: Include all deployed API resources in the product, so long as they match the other parameters.
@@ -4584,8 +4544,8 @@ commands:
                 --no-clear-oauth-scopes&: Removes all OAuth scopes.
                 --no-clear-quota&: Remove any quota currently imposed on the API product.
                 --organization=: Apigee organization containing the API product.
-                --private-access: Hide this API product in the developer portal but make it accessible by external developers.
-                --public-access: Make this API product visible to developers in the Apigee developer portal.
+                --private-access=: Hide this API product in the developer portal but make it accessible by external developers.
+                --public-access=: Make this API product visible to developers in the Apigee developer portal.
                 --quota-interval=: Time interval over which the number of request messages is calculated.
                 --quota-unit=: Time unit for `--quota-interval`.
                 --quota=: Number of request messages permitted per app by this API
@@ -5092,9 +5052,11 @@ commands:
                 --key=!: Flag key used in client runtime evaluation (required).
                 --labels=: The labels on the resource, which can be used for categorization.
                 --location=: For resources [flag, unit-kind], provides fallback value for resource location attribute.
+                --no-with-default-evaluation&: If set, populates the flag with default boolean variants (`Enabled`=`true`
                 --state=: Current state of the flag.
                 --unit-kind=!: ID of the unitKind or fully qualified identifier for the unitKind.
                 --variants=: A list of variants.
+                --with-default-evaluation: If set, populates the flag with default boolean variants (`Enabled`=`true`
               completion:
                 flag:
                     flag-value-type:
@@ -8495,6 +8457,108 @@ commands:
                     --no-clear-properties&: Clear all properties from the namespace.
                     --remove-properties=: List of properties to remove.
                     --update-properties=: List of properties to update or add.
+            - name: views
+              description: '*(BETA)*  Manage BigLake Iceberg REST catalog views.'
+              commands:
+                - name: create
+                  description: '*(BETA)*  Create a BigLake Iceberg view.'
+                  flags:
+                    --catalog=: The Iceberg Catalog for the resource.
+                    --create-from-file=!: Path to a JSON file containing the view creation request.
+                    --endpoint-mode=: Specifies endpoint mode for a given command.
+                    --namespace=!: ID of the namespace or fully qualified identifier for the namespace.
+                  completion:
+                    flag:
+                        endpoint-mode:
+                            - global
+                            - regional
+                            - regional-preferred
+                - name: delete
+                  description: '*(BETA)*  Delete a BigLake Iceberg view.'
+                  flags:
+                    --catalog=: The Iceberg Catalog for the resource.
+                    --endpoint-mode=: Specifies endpoint mode for a given command.
+                    --namespace=: The Iceberg Namespace for the resource.
+                  completion:
+                    flag:
+                        endpoint-mode:
+                            - global
+                            - regional
+                            - regional-preferred
+                - name: describe
+                  description: '*(BETA)*  Describe a BigLake Iceberg view.'
+                  flags:
+                    --catalog=: The Iceberg Catalog for the resource.
+                    --endpoint-mode=: Specifies endpoint mode for a given command.
+                    --namespace=: The Iceberg Namespace for the resource.
+                  completion:
+                    flag:
+                        endpoint-mode:
+                            - global
+                            - regional
+                            - regional-preferred
+                - name: get-iam-policy
+                  description: '*(BETA)*  Get the IAM policy for a BigLake Iceberg REST catalog view.'
+                  flags:
+                    --catalog=: The Iceberg Catalog for the resource.
+                    --endpoint-mode=: Specifies endpoint mode for a given command.
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --namespace=: The Iceberg Namespace for the resource.
+                    --page-size=: Some services group resource list output into pages.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                  completion:
+                    flag:
+                        endpoint-mode:
+                            - global
+                            - regional
+                            - regional-preferred
+                - name: list
+                  description: '*(BETA)*  List BigLake Iceberg REST views.'
+                  flags:
+                    --catalog=: The Iceberg Catalog for the resource.
+                    --endpoint-mode=: Specifies endpoint mode for a given command.
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --namespace=!: ID of the namespace or fully qualified identifier for the namespace.
+                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                    --page-size=: Some services group resource list output into pages.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --uri: Print a list of resource URIs instead of the default output, and change the
+                  completion:
+                    flag:
+                        endpoint-mode:
+                            - global
+                            - regional
+                            - regional-preferred
+                - name: set-iam-policy
+                  description: '*(BETA)*  Set the IAM policy for a BigLake Iceberg REST catalog view.'
+                  flags:
+                    --catalog=: The Iceberg Catalog for the resource.
+                    --endpoint-mode=: Specifies endpoint mode for a given command.
+                    --namespace=: The Iceberg Namespace for the resource.
+                  completion:
+                    flag:
+                        endpoint-mode:
+                            - global
+                            - regional
+                            - regional-preferred
+                - name: update
+                  description: '*(BETA)*  Update a BigLake Iceberg view.'
+                  flags:
+                    --catalog=: The Iceberg Catalog for the resource.
+                    --clear-properties: Clear all properties from the namespace.
+                    --endpoint-mode=: Specifies endpoint mode for a given command.
+                    --namespace=: The Iceberg Namespace for the resource.
+                    --no-clear-properties&: Clear all properties from the namespace.
+                    --remove-properties=: List of properties to remove.
+                    --update-properties=: List of properties to update or add.
+                  completion:
+                    flag:
+                        endpoint-mode:
+                            - global
+                            - regional
+                            - regional-preferred
     - name: bigtable
       description: '*(BETA)*  Manage your Cloud Bigtable storage.'
       commands:
@@ -8847,6 +8911,14 @@ commands:
                 --condition=: A condition to include in the binding.
                 --member=!: The principal to add the binding for.
                 --role=!: Role name to assign to the principal.
+            - name: apply-ddl
+              description: '*(BETA)*  Apply DDL statements to a Bigtable instance.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --ddl-file=: Path of a UTF-8 file containing semicolon-separated DDL (Data Definition Language) statements to execute sequentially on the instance.
+                --ddl=: Semicolon-separated DDL (Data Definition Language) statements to execute sequentially on the instance.
+                --no-async&: Return immediately, without waiting for the operation in progress to
             - name: create
               description: '*(BETA)*  Create a new Bigtable instance.'
               flags:
@@ -10934,6 +11006,7 @@ commands:
                 --create-lustres=: Parameters to create a Lustre instance.
                 --create-network=: Parameters to create a VPC (Virtual Private Cloud) network.
                 --description=: Description of the cluster.
+                --existing-instances=: Parameters to define existing instances config for Imported Clusters.
                 --filestores=: Reference of existing filestore instance.
                 --flex-start-instances=: Parameters to define cluster Flex Start instances.
                 --labels=: Cluster labels as key value pairs.
@@ -11013,6 +11086,7 @@ commands:
             - name: update
               description: '*(BETA)*  Updates a Cluster Director resource.'
               flags:
+                --add-existing-instances=: Parameters to define existing instances config for Imported Clusters.
                 --add-filestore-instances=: Reference of existing filestore instance.
                 --add-flex-start-instances=: Parameters to define cluster Flex Start instances.
                 --add-labels=: Cluster labels as key value pairs.
@@ -11034,6 +11108,7 @@ commands:
                 --description=: Description of the cluster.
                 --location=: Location ID of the cluster resource.
                 --no-async&: Return immediately, without waiting for the operation in progress to
+                --remove-existing-instances=: Parameters to remove existing instances config by id for Imported
                 --remove-filestore-instances=: Parameters to remove filestore instance config by filestore name.
                 --remove-flex-start-instances=: Parameters to remove Flex Start instance config by compute id.
                 --remove-labels=: Parameters to remove cluster label by key.
@@ -11820,6 +11895,7 @@ commands:
                 --no-enable-cloud-data-lineage-integration&: Enable Cloud Data Lineage integration, supported for Composer 2 Environments.
                 --no-enable-master-authorized-networks&: Enable link:https://cloud.google.com/kubernetes-engine/docs/how-to/authorized-networks[Master
                 --no-enable-private-environment&: Disable internet connection from any Composer component,
+                --no-rollback-image-version&: Roll back the environment to the previous image version in-place,
                 --no-support-web-server-plugins&: Enable the support for web server plugins, supported in Composer 3
                 --no-web-server-allow-all&: Allows all IP addresses to access the Airflow web server.
                 --no-web-server-deny-all&: Denies all incoming traffic to the Airflow web server.
@@ -11830,6 +11906,7 @@ commands:
                 --remove-env-variables=: A list of environment variables to remove.
                 --remove-labels=: List of label keys to remove.
                 --remove-pypi-packages=: A list of PyPI package names to remove.
+                --rollback-image-version: Roll back the environment to the previous image version in-place,
                 --scheduler-count=: Number of schedulers, supported in the Environments with Airflow 2.0.1 and later.
                 --scheduler-cpu=: CPU allocated to Airflow scheduler.
                 --scheduler-memory=: Memory allocated to Airflow scheduler, ex.
@@ -18938,7 +19015,7 @@ commands:
               flags:
                 --description=: An optional, textual description for the network attachment.
                 --producer-accept-list=: Projects that are allowed to connect to this network attachment.
-                --producer-reject-list=: Projects that are not allowed to connect to this network attachment.
+                --producer-reject-list=: Comma-separated list of Google Cloud project IDs or project numbers that are not allowed to connect to this network attachment.
                 --region=: Region of the network attachment to update.
                 --subnets-region=: Region of the subnetworks to operate on.
                 --subnets=: The subnetworks provided by the consumer for the producers
@@ -18950,8 +19027,8 @@ commands:
               flags:
                 --description=: An optional, textual description for the network edge security service.
                 --region=: Region of the network edge security service to create.
-                --security-policy-region=: Region of the security policy to operate on.
-                --security-policy=: The security policy that will be set for this network edge security service.
+                --security-policy-region=: Google Cloud region of the security policy to operate on, formatted as a plain string (for example, `us-central1`).
+                --security-policy=: Name or URI of an existing Google Cloud Armor security policy to associate with this network edge security service.
             - name: delete
               description: '*(BETA)*  Delete network edge security services.'
               flags:
@@ -18974,8 +19051,8 @@ commands:
               flags:
                 --description=: An optional, textual description for the network edge security service.
                 --region=: Region of the network edge security service to update.
-                --security-policy-region=: Region of the security policy to operate on.
-                --security-policy=: The security policy that will be set for this network edge security service.
+                --security-policy-region=: Google Cloud region of the security policy to operate on, formatted as a standard geographic region string (for example, `us-central1`).
+                --security-policy=: Name or URI of the security policy to attach to this network edge security service.
         - name: network-endpoint-groups
           description: '*(BETA)*  Read and manipulate Compute Engine network endpoint groups.'
           commands:
@@ -19076,23 +19153,23 @@ commands:
                   description: '*(BETA)*  Create a new association between a firewall policy and a network.'
                   flags:
                     --associated-policy-to-be-replaced=: Name of an already associated firewall policy to replace.
-                    --firewall-policy-region=: Region of the firewall policy to create.
-                    --firewall-policy=!: Firewall policy ID with which to create association.
-                    --global-firewall-policy: If set, the firewall policy is global.
+                    --firewall-policy-region=: Region of the network firewall policy for which to create the association, specified as a string identifier (for example, `us-central1`).
+                    --firewall-policy=!: Name of the network firewall policy to associate with a target resource, such as a VPC network.
+                    --global-firewall-policy: Indicate that the associated network firewall policy is a global resource.
                     --name=: Name of the association.
                     --network=!: Name of the network with which the association is created.
-                    --no-global-firewall-policy&: If set, the firewall policy is global.
+                    --no-global-firewall-policy&: Indicate that the associated network firewall policy is a global resource.
                     --no-replace-association-on-target&: By default, if you attempt to insert an association to a network that is already associated with a firewall policy the method will fail.
                     --priority=: Priority of the association.
                     --replace-association-on-target: By default, if you attempt to insert an association to a network that is already associated with a firewall policy the method will fail.
                 - name: delete
                   description: '*(BETA)*  Delete a new association between a firewall policy and an network or folder resource.'
                   flags:
-                    --firewall-policy-region=: Region of the firewall policy to delete.
-                    --firewall-policy=!: Firewall policy ID with which to delete association.
-                    --global-firewall-policy: If set, the firewall policy is global.
+                    --firewall-policy-region=: Google Cloud region string (for example, `us-central1`) of the network firewall policy whose association is being deleted.
+                    --firewall-policy=!: Name of the network firewall policy from which to delete the association.
+                    --global-firewall-policy: Indicate that the referenced network firewall policy is global in scope.
                     --name=!: Name of the association to delete.
-                    --no-global-firewall-policy&: If set, the firewall policy is global.
+                    --no-global-firewall-policy&: Indicate that the referenced network firewall policy is global in scope.
                 - name: update
                   description: '*(BETA)*  Update association between a firewall policy and a network.'
                   flags:
@@ -19108,7 +19185,7 @@ commands:
                 --global: If set, the firewall policy is global.
                 --no-global&: If set, the firewall policy is global.
                 --region=: Region of the firewall policy to clone-rules.
-                --source-firewall-policy=!: Name of the source network firewall policy to copy the rules from.
+                --source-firewall-policy=!: Name or fully qualified URI of the source network firewall policy from which to copy rules.
             - name: create
               description: '*(BETA)*  Create a Compute Engine Network firewall policy.'
               flags:
@@ -19116,7 +19193,7 @@ commands:
                 --global: If set, the firewall policy is global.
                 --no-global&: If set, the firewall policy is global.
                 --policy-source=&: Policy source for the network firewall policy.
-                --policy-type=: Network firewall policy type.
+                --policy-type=: Classification type of the network firewall policy, specified as a string enum (such as `VPC_POLICY` for standard Virtual Private Cloud environments or `RDMA_ROCE_POLICY` for RDMA over Converged Ethernet workloads).
                 --region=: Region of the firewall policy to create.
               completion:
                 flag:
@@ -19195,12 +19272,12 @@ commands:
                     --dest-ip-ranges=: Destination IP ranges to match for this rule.
                     --direction=: Direction of the traffic the rule is applied.
                     --disabled: Use this flag to disable the rule.
-                    --firewall-policy=!: Firewall policy ID with which to create rule.
-                    --global-firewall-policy!: Use this flag to indicate that firewall policy is global.
-                    --layer4-configs=!: A list of destination protocols and ports to which the firewall rule will apply.
+                    --firewall-policy=!: Name of the existing network firewall policy where the new mirroring rule is created (for example, `my-policy`).
+                    --global-firewall-policy!: Indicate that the targeted network firewall policy operates at the global scope.
+                    --layer4-configs=!: Comma-separated list of destination protocols and optional port ranges to which the firewall rule applies.
                     --no-disabled&: Use this flag to disable the rule.
-                    --no-global-firewall-policy!&: Use this flag to indicate that firewall policy is global.
-                    --security-profile-group=: A security profile group to be used with mirror action.
+                    --no-global-firewall-policy!&: Indicate that the targeted network firewall policy operates at the global scope.
+                    --security-profile-group=: Relative resource name or full URL of the security profile group to be used with the `mirror` action.
                     --src-ip-ranges=: A list of IP address blocks that are allowed to make inbound connections that match the firewall rule to the instances on the network.
                     --target-secure-tags=: An optional, list of target secure tags with a name of the format tagValues/ or full namespaced name
                   completion:
@@ -19215,9 +19292,9 @@ commands:
                 - name: delete
                   description: '*(BETA)*  Deletes a Compute Engine network firewall policy packet mirroirng rule.'
                   flags:
-                    --firewall-policy=!: Firewall policy ID with which to delete rule.
-                    --global-firewall-policy!: Use this flag to indicate that firewall policy is global.
-                    --no-global-firewall-policy!&: Use this flag to indicate that firewall policy is global.
+                    --firewall-policy=!: Name of the network firewall policy containing the mirroring rule to be deleted (for example, `my-policy`).
+                    --global-firewall-policy!: Indicate that the target network firewall policy operates at the global scope.
+                    --no-global-firewall-policy!&: Indicate that the target network firewall policy operates at the global scope.
                 - name: describe
                   description: '*(BETA)*  Describes a Compute Engine network firewall policy pakcet mirroring rule.'
                   flags:
@@ -20200,26 +20277,26 @@ commands:
                     --request-header-to-exclude=: Adds a request header to the request field exclusions associated with the rule
                     --request-query-param-to-exclude=: Adds a request query parameter to the request field exclusions associated with
                     --request-uri-to-exclude=: Adds a request URI to the request field exclusions associated with the rule set
-                    --security-policy=!: short name of the security policy into which the rule should be updated.
+                    --security-policy=!: Short name or numeric ID of the organization security policy into which the preconfigured WAF exclusion configuration is added.
                     --target-rule-ids=: A comma-separated list of target rule IDs under the WAF rule set where the
                     --target-rule-set=!: Target WAF rule set where the request field exclusions being added would apply.
                 - name: create
                   description: '*(BETA)*  Create a Compute Engine organizationsecurity policy rule.'
                   flags:
                     --action=!: Action to take if the request matches the match condition.
-                    --cloud-armor: Specified for Hierarchical Cloud Armor rules.
+                    --cloud-armor: Configure the newly created organization security policy rule as a Hierarchical Cloud Armor rule rather than a standard hierarchical firewall rule.
                     --description=: An optional, textual description for the rule.
                     --dest-ip-ranges=: Destination IP ranges to match for this rule.
                     --direction=: Direction of the traffic the rule is applied.
                     --enable-logging: Use this flag to enable logging of connections that allowed or denied by this rule.
                     --expression=: The Cloud Armor rules language expression to match for this rule.
-                    --layer4-configs=: A list of destination protocols and ports to which the firewall rule will apply.
-                    --no-cloud-armor&: Specified for Hierarchical Cloud Armor rules.
+                    --layer4-configs=: Comma-separated list of destination protocols and ports to which the firewall rule applies.
+                    --no-cloud-armor&: Configure the newly created organization security policy rule as a Hierarchical Cloud Armor rule rather than a standard hierarchical firewall rule.
                     --no-enable-logging&: Use this flag to enable logging of connections that allowed or denied by this rule.
                     --no-preview&: If specified, the action will not be enforced.
                     --organization=: Organization which the organization security policy belongs to.
                     --preview: If specified, the action will not be enforced.
-                    --security-policy=!: short name of the security policy into which the rule should be inserted.
+                    --security-policy=!: Short name or numeric ID of the existing organization security policy into which the rule is inserted.
                     --src-ip-ranges=: The source IPs/IP ranges to match for this rule.
                     --target-resources=: List of URLs of target resources to which the rule is applied.
                     --target-service-accounts=: List of target service accounts for the rule.
@@ -20240,12 +20317,12 @@ commands:
                   description: '*(BETA)*  Delete a Compute Engine organization security policy rule.'
                   flags:
                     --organization=: Organization which the organization security policy belongs to.
-                    --security-policy=!: short name of the security policy into which the rule should be deleted.
+                    --security-policy=!: Short name or numeric ID of the organization security policy from which the specified rule is deleted.
                 - name: describe
                   description: '*(BETA)*  Describe a Compute Engine organization security policy rule.'
                   flags:
                     --organization=: Organization which the organization security policy belongs to.
-                    --security-policy=!: short name of the security policy into which the rule should be described.
+                    --security-policy=!: Short name or numeric ID of the organization security policy that contains the rule to describe.
                 - name: remove-preconfig-waf-exclusion
                   description: '*(BETA)*  Remove an exclusion configuration for preconfigured WAF evaluation from a security policy rule.'
                   flags:
@@ -20255,27 +20332,27 @@ commands:
                     --request-header-to-exclude=: Removes a request header from the existing request field exclusions associated
                     --request-query-param-to-exclude=: Removes a request query parameter from the existing request field exclusions
                     --request-uri-to-exclude=: Removes a request URI from the existing request field exclusions associated with
-                    --security-policy=!: short name of the security policy into which the rule should be updated.
+                    --security-policy=!: Short name or numeric ID of the organization security policy containing the WAF exclusion rule to update.
                     --target-rule-ids=: A comma-separated list of target rule IDs under the WAF rule set from where to
                     --target-rule-set=!: Target WAF rule set from where to remove the request field exclusions.
                 - name: update
                   description: '*(BETA)*  Update a Compute Engine security policy rule.'
                   flags:
                     --action=: Action to take if the request matches the match condition.
-                    --cloud-armor: Specified for Hierarchical Cloud Armor rules.
+                    --cloud-armor: Indicate that the rule being updated belongs to a Hierarchical Cloud Armor security policy rather than a standard hierarchical firewall policy.
                     --description=: An optional, textual description for the rule.
                     --dest-ip-ranges=: Destination IP ranges to match for this rule.
                     --direction=: Direction of the traffic the rule is applied.
                     --enable-logging: Use this flag to enable logging of connections that allowed or denied by this rule.
                     --expression=: The Cloud Armor rules language expression to match for this rule.
-                    --layer4-configs=: A list of destination protocols and ports to which the firewall rule will apply.
+                    --layer4-configs=: Comma-separated list of destination Layer 4 protocols and ports to which the organizational firewall rule applies.
                     --new-priority=: New priority for the rule to update.
-                    --no-cloud-armor&: Specified for Hierarchical Cloud Armor rules.
+                    --no-cloud-armor&: Indicate that the rule being updated belongs to a Hierarchical Cloud Armor security policy rather than a standard hierarchical firewall policy.
                     --no-enable-logging&: Use this flag to enable logging of connections that allowed or denied by this rule.
                     --no-preview&: If specified, the action will not be enforced.
                     --organization=: Organization which the organization security policy belongs to.
                     --preview: If specified, the action will not be enforced.
-                    --security-policy=!: short name of the security policy into which the rule should be updated.
+                    --security-policy=!: Short name or numeric ID of the organization security policy containing the rule to update.
                     --src-ip-ranges=: The source IPs/IP ranges to match for this rule.
                     --target-resources=: List of URLs of target resources to which the rule is applied.
                     --target-service-accounts=: List of target service accounts for the rule.
@@ -20296,7 +20373,7 @@ commands:
               description: '*(BETA)*  Update a Compute Engine organization security policy.'
               flags:
                 --description=: An optional, textual description for the organization security policy.
-                --json-custom-content-types=: A comma-separated list of custom Content-Type header values to apply JSON
+                --json-custom-content-types=: Comma-separated list of user-defined HTTP Content-Type header values that trigger JSON parsing for preconfigured Web Application Firewall (WAF) rules.
                 --json-parsing=: The JSON parsing behavior for this rule.
                 --log-level=: The level of detail to display for WAF logging.
                 --organization=: Organization in which the organization security policy is to be updated.
@@ -20403,7 +20480,7 @@ commands:
                   description: '*(BETA)*  Execute an OS patch on the specified VM instances.'
                   flags:
                     --apt-dist: If specified, machines running Apt use the `apt-get dist-upgrade` command;
-                    --apt-excludes=: List of Apt packages to exclude from update.
+                    --apt-excludes=: Comma-separated list of exact Apt package names to exclude from the update process (for example, `apache2,nginx`).
                     --apt-exclusive-packages=: An exclusive list of packages to be updated.
                     --async: Return immediately, without waiting for the operation in progress to
                     --description=: Textual description of the patch job.
@@ -20434,7 +20511,7 @@ commands:
                     --pre-patch-linux-success-codes=: Additional exit codes that the executable can return to indicate a
                     --pre-patch-windows-executable=: A set of commands to run on a Windows machine before an OS patch begins.
                     --pre-patch-windows-success-codes=: Additional exit codes that the executable can return to indicate a
-                    --reboot-config=: Post-patch reboot settings.
+                    --reboot-config=: Post-patch reboot configuration for the patch job execution, specified as a string enum.
                     --rollout-disruption-budget-percent=: Percentage of VMs per zone to disrupt at any given moment.
                     --rollout-disruption-budget=: Number of VMs per zone to disrupt at any given moment.
                     --rollout-mode=: Mode of the rollout.
@@ -20488,13 +20565,13 @@ commands:
                     --description=: Description of the policy orchestrator.
                     --folder=: Folder of the policy_orchestrator.
                     --include-folders=: Applies policy to selected folders.
-                    --include-locations=: Applies policy to selected locations, e.g. `us-central1-a`.
+                    --include-locations=: Comma-separated list of Google Cloud locations (such as zones, for
                     --include-projects=: Applies policy to selected projects.
                     --no-async&: Return immediately, without waiting for the operation in progress to
                     --organization=: Organization of the policy_orchestrator.
                     --policy-file=: Absolute path to the OS policy assignment file on your local client.
-                    --policy-id=: Policy id.
-                    --policy-type=!: Policy type to use.
+                    --policy-id=: Unique identifier of the orchestrated OS policy assignment resource
+                    --policy-type=!: Type of policy to use for the policy orchestrator, specified as a
                     --state=: State of the policy orchestrator.
                   completion:
                     flag:
@@ -21800,12 +21877,12 @@ commands:
                     --log-filter=: Filter for logs exported to stackdriver.
                     --max-ports-per-vm=: Maximum ports to be allocated to a VM.
                     --min-ports-per-vm=: Minimum ports to be allocated to a VM.
-                    --nat-all-subnet-ip-ranges: Allow all IP ranges of all subnetworks in the region, including
+                    --nat-all-subnet-ip-ranges=: Allow all IP ranges of all subnetworks in the region, including
                     --nat-custom-subnet-ip-ranges=: List of subnetwork primary and secondary IP ranges to be allowed to
                     --nat-external-ip-pool-region=&: 'Region of the addresss to operate on. '
                     --nat-external-ip-pool=: External IP Addresses to use for Cloud NAT
-                    --nat-primary-subnet-ip-ranges: Allow only primary IP ranges of all subnetworks in the region to use
-                    --nat64-all-v6-subnet-ip-ranges: Allow all IPv6 subnetwork ranges in the region to use NAT.
+                    --nat-primary-subnet-ip-ranges=: Allow only primary IP ranges of all subnetworks in the region to use
+                    --nat64-all-v6-subnet-ip-ranges=: Allow all IPv6 subnetwork ranges in the region to use NAT.
                     --nat64-custom-v6-subnet-ip-ranges=: List of subnetworks with IPv6 ranges to be allowed to use NAT.
                     --no-async&: Return immediately, without waiting for the operation in progress to
                     --no-auto-allocate-nat-external-ips&: Automatically allocate external IP addresses for Cloud NAT
@@ -21934,14 +22011,14 @@ commands:
                     --log-filter=: Filter for logs exported to stackdriver.
                     --max-ports-per-vm=: Maximum ports to be allocated to a VM.
                     --min-ports-per-vm=: Minimum ports to be allocated to a VM.
-                    --nat-all-subnet-ip-ranges: Allow all IP ranges of all subnetworks in the region, including
+                    --nat-all-subnet-ip-ranges=: Allow all IP ranges of all subnetworks in the region, including
                     --nat-custom-subnet-ip-ranges=: List of subnetwork primary and secondary IP ranges to be allowed to
                     --nat-external-drain-ip-pool-region=&: 'Region of the addresss to operate on. '
                     --nat-external-drain-ip-pool=: External IP Addresses to be drained
                     --nat-external-ip-pool-region=&: 'Region of the addresss to operate on. '
                     --nat-external-ip-pool=: External IP Addresses to use for Cloud NAT
-                    --nat-primary-subnet-ip-ranges: Allow only primary IP ranges of all subnetworks in the region to use
-                    --nat64-all-v6-subnet-ip-ranges: Allow all IPv6 subnetwork ranges in the region to use NAT.
+                    --nat-primary-subnet-ip-ranges=: Allow only primary IP ranges of all subnetworks in the region to use
+                    --nat64-all-v6-subnet-ip-ranges=: Allow all IPv6 subnetwork ranges in the region to use NAT.
                     --nat64-custom-v6-subnet-ip-ranges=: List of subnetworks with IPv6 ranges to be allowed to use NAT.
                     --no-async&: Return immediately, without waiting for the operation in progress to
                     --no-auto-allocate-nat-external-ips&: Automatically allocate external IP addresses for Cloud NAT
@@ -25742,7 +25819,7 @@ commands:
                 --cluster-dns-scope=: DNS scope for the Cloud DNS zone created - valid only with
                 --cluster-dns=: DNS provider to use for this cluster.
                 --cluster-ipv4-cidr=: The IP address range for the pods in this cluster in CIDR notation (e.g.
-                --cluster-scale-to-zero-delay=&: Additional delay before the cluster is scaled to 0 nodes when there are no
+                --cluster-scale-to-zero-delay=: Additional delay before the cluster is scaled to 0 nodes when there are no
                 --cluster-secondary-range-name=: Set the secondary range to be used as the source for pod IPs.
                 --cluster-version=: The Kubernetes version to use for the master and nodes.
                 --compliance-standards=&: Comma-delimited list of standards to be enabled.
@@ -25792,7 +25869,7 @@ commands:
                 --enable-cloud-logging: (DEPRECATED) Automatically send logs from the cluster to the Google Cloud Logging API.
                 --enable-cloud-monitoring: (DEPRECATED) Automatically send metrics from pods in the cluster to the Google Cloud Monitoring API.
                 --enable-cloud-run-alpha: Enable Cloud Run alpha features on this cluster.
-                --enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Autopilot and standard clusters.
+                --enable-cluster-scale-to-zero: Enable cluster scale-to-zero for Standard clusters.
                 --enable-confidential-nodes: Enable confidential nodes for the cluster.
                 --enable-confidential-storage: Enable confidential storage for the cluster.
                 --enable-cost-allocation: Enable the cost allocation feature.
@@ -25967,7 +26044,7 @@ commands:
                 --no-enable-cloud-logging&: (DEPRECATED) Automatically send logs from the cluster to the Google Cloud Logging API.
                 --no-enable-cloud-monitoring&: (DEPRECATED) Automatically send metrics from pods in the cluster to the Google Cloud Monitoring API.
                 --no-enable-cloud-run-alpha&: Enable Cloud Run alpha features on this cluster.
-                --no-enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Autopilot and standard clusters.
+                --no-enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Standard clusters.
                 --no-enable-confidential-nodes&: Enable confidential nodes for the cluster.
                 --no-enable-confidential-storage&: Enable confidential storage for the cluster.
                 --no-enable-cost-allocation&: ""
@@ -26042,6 +26119,7 @@ commands:
                 --no-shielded-integrity-monitoring&: Enables monitoring and attestation of the boot integrity of the
                 --no-shielded-secure-boot&: The instance will boot with secure boot enabled.
                 --no-spot&: Create nodes using spot VM instances in the new cluster.
+                --no-wiz-sensor-system-critical-priority&: Run the Wiz Sensor DaemonSet with the system-node-critical priority class, so it can preempt lower-priority pods to get scheduled.
                 --node-architecture-taint-behavior=: Control how architecture taint should be applied to nodes in default node pool(s) in new
                 --node-creation-mode=: Configures node creation mode for the cluster, either via kubelet or via control plane.
                 --node-labels=: Applies the given Kubernetes labels on all nodes in the new node pool.
@@ -26094,8 +26172,10 @@ commands:
                 --tpu-ipv4-cidr=&: Set the IP range for the Cloud TPUs.
                 --username=: The user name to use for basic auth for the cluster.
                 --wiz-sensor-api-key-secret-uri=: The Secret Manager URI for the Wiz API key secret, for example, projects/my-project/secrets/my-api-key/versions/1 or projects/my-project/secrets/my-api-key/versions/latest.
+                --wiz-sensor-image-tag=&: 'The Wiz Sensor image tag to run: `v1` or `v1-prev` to follow Wiz''s auto-update tags, or a sensor version such as `1.0.12603` to pin the sensor to that release.'
                 --wiz-sensor-proxy-secret-uri=: The Secret Manager URI for the Wiz proxy configuration, for example, projects/my-project/secrets/my-proxy-secret/versions/1 or projects/my-project/secrets/my-proxy-secret/versions/latest.
                 --wiz-sensor-registry-secret-uri=: The Secret Manager URI for the Wiz registry secret, for example, projects/my-project/secrets/my-registry-secret/versions/1 or projects/my-project/secrets/my-registry-secret/versions/latest.
+                --wiz-sensor-system-critical-priority&: Run the Wiz Sensor DaemonSet with the system-node-critical priority class, so it can preempt lower-priority pods to get scheduled.
                 --workload-metadata-from-node=&: Type of metadata server available to pods running in the node pool.
                 --workload-metadata=: Type of metadata server available to pods running in the node pool.
                 --workload-pool=: Enable Workload Identity on the cluster.
@@ -26131,6 +26211,7 @@ commands:
                         - sev
                         - sev_snp
                         - tdx
+                        - bmsai
                     control-plane-egress:
                         - NONE
                         - VIA_CONTROL_PLANE
@@ -26266,7 +26347,7 @@ commands:
                 --boot-disk-kms-key=: The Customer Managed Encryption Key used to encrypt the boot disk attached
                 --cluster-ca=: The Certificate Authority Service caPool that will back the cluster CA
                 --cluster-ipv4-cidr=: The IP address range for the pods in this cluster in CIDR notation (e.g.
-                --cluster-scale-to-zero-delay=&: Additional delay before the cluster is scaled to 0 nodes when there are no
+                --cluster-scale-to-zero-delay=: Additional delay before the cluster is scaled to 0 nodes when there are no
                 --cluster-secondary-range-name=: Set the secondary range to be used as the source for pod IPs.
                 --cluster-version=: The Kubernetes version to use for the master and nodes.
                 --compliance-standards=&: Comma-delimited list of standards to be enabled.
@@ -26291,7 +26372,7 @@ commands:
                 --enable-backup-restore: Enable the Backup for GKE add-on.
                 --enable-cdpf&: Enable Custom Dataplane Functions (CDPF) on the cluster.
                 --enable-cilium-clusterwide-network-policy: Enable Cilium Clusterwide Network Policies on the cluster.
-                --enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Autopilot and standard clusters.
+                --enable-cluster-scale-to-zero: Enable cluster scale-to-zero for Standard clusters.
                 --enable-confidential-nodes: Enable confidential nodes for the cluster.
                 --enable-dataplane-ebpf-host-routing&: Enable Dataplane V2 eBPF host routing for the cluster.
                 --enable-dataplane-v2-flow-observability: Enables Advanced Datapath Observability which allows for a real-time view into pod-to-pod traffic within your cluster.
@@ -26365,7 +26446,7 @@ commands:
                 --no-enable-backup-restore&: Enable the Backup for GKE add-on.
                 --no-enable-cdpf&: Enable Custom Dataplane Functions (CDPF) on the cluster.
                 --no-enable-cilium-clusterwide-network-policy&: Enable Cilium Clusterwide Network Policies on the cluster.
-                --no-enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Autopilot and standard clusters.
+                --no-enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Standard clusters.
                 --no-enable-confidential-nodes&: Enable confidential nodes for the cluster.
                 --no-enable-dataplane-ebpf-host-routing&: Enable Dataplane V2 eBPF host routing for the cluster.
                 --no-enable-default-compute-class&: Enable the default compute class to use for the cluster.
@@ -26401,6 +26482,7 @@ commands:
                 --no-enable-slurm-operator&: Enable the Slurm Operator GKE add-on.
                 --no-enable-workload-config-audit&: (DEPRECATED) Enables Protect API's workload configuration auditing.
                 --no-enable-workload-vulnerability-scanning&: (DEPRECATED) Enables Protect API's workload vulnerability scanning.
+                --no-wiz-sensor-system-critical-priority&: Run the Wiz Sensor DaemonSet with the system-node-critical priority class, so it can preempt lower-priority pods to get scheduled.
                 --node-creation-mode=: Configures node creation mode for the cluster, either via kubelet or via control plane.
                 --node-pool-upgrade-concurrency-config=: Configure the concurrency settings for node pool auto upgrades.
                 --private-endpoint-subnetwork=: Sets the subnetwork GKE uses to provision the control plane's
@@ -26422,8 +26504,10 @@ commands:
                 --tier=: (DEPRECATED) Set the desired tier for the cluster.
                 --timeout=&: Timeout (seconds) for waiting on the operation to complete.
                 --wiz-sensor-api-key-secret-uri=: The Secret Manager URI for the Wiz API key secret, for example, projects/my-project/secrets/my-api-key/versions/1 or projects/my-project/secrets/my-api-key/versions/latest.
+                --wiz-sensor-image-tag=&: 'The Wiz Sensor image tag to run: `v1` or `v1-prev` to follow Wiz''s auto-update tags, or a sensor version such as `1.0.12603` to pin the sensor to that release.'
                 --wiz-sensor-proxy-secret-uri=: The Secret Manager URI for the Wiz proxy configuration, for example, projects/my-project/secrets/my-proxy-secret/versions/1 or projects/my-project/secrets/my-proxy-secret/versions/latest.
                 --wiz-sensor-registry-secret-uri=: The Secret Manager URI for the Wiz registry secret, for example, projects/my-project/secrets/my-registry-secret/versions/1 or projects/my-project/secrets/my-registry-secret/versions/latest.
+                --wiz-sensor-system-critical-priority&: Run the Wiz Sensor DaemonSet with the system-node-critical priority class, so it can preempt lower-priority pods to get scheduled.
                 --workload-policies=: Add Autopilot workload policies to the cluster.
                 --workload-vulnerability-scanning=: Sets the mode of the Kubernetes security posture API's workload
                 --zone=: Compute zone (e.g. us-central1-a) for a zonal cluster.
@@ -26450,6 +26534,7 @@ commands:
                         - sev
                         - sev_snp
                         - tdx
+                        - bmsai
                     control-plane-egress:
                         - NONE
                         - VIA_CONTROL_PLANE
@@ -26599,7 +26684,7 @@ commands:
                 --cluster-dns-domain=: DNS domain for this cluster.
                 --cluster-dns-scope=: DNS scope for the Cloud DNS zone created - valid only with
                 --cluster-dns=: DNS provider to use for this cluster.
-                --cluster-scale-to-zero-delay=&: Additional delay before the cluster is scaled to 0 nodes when there are no
+                --cluster-scale-to-zero-delay=: Additional delay before the cluster is scaled to 0 nodes when there are no
                 --complete-convert-to-autopilot&: Commit the Autopilot conversion operation by deleting all Standard node pools
                 --complete-credential-rotation: Complete the IP and credential rotation for this cluster.
                 --complete-ip-rotation: Complete the IP rotation for this cluster.
@@ -26644,7 +26729,7 @@ commands:
                 --enable-binauthz: (DEPRECATED) Enable Binary Authorization for this cluster.
                 --enable-cdpf&: Enable Custom Dataplane Functions (CDPF) on the cluster.
                 --enable-cilium-clusterwide-network-policy: Enable Cilium Clusterwide Network Policies on the cluster.
-                --enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Autopilot and standard clusters.
+                --enable-cluster-scale-to-zero: Enable cluster scale-to-zero for Standard clusters.
                 --enable-cost-allocation: Enable the cost allocation feature.
                 --enable-dataplane-ebpf-host-routing&: Enable Dataplane V2 eBPF host routing for the cluster.
                 --enable-dataplane-v2: Enabling Dataplane V2 causes a re-creation of all cluster nodes.
@@ -26793,7 +26878,7 @@ commands:
                 --no-enable-binauthz&: (DEPRECATED) Enable Binary Authorization for this cluster.
                 --no-enable-cdpf&: Enable Custom Dataplane Functions (CDPF) on the cluster.
                 --no-enable-cilium-clusterwide-network-policy&: Enable Cilium Clusterwide Network Policies on the cluster.
-                --no-enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Autopilot and standard clusters.
+                --no-enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Standard clusters.
                 --no-enable-cost-allocation&: ""
                 --no-enable-dataplane-ebpf-host-routing&: Enable Dataplane V2 eBPF host routing for the cluster.
                 --no-enable-dataplane-v2&: ""
@@ -26860,6 +26945,7 @@ commands:
                 --no-start-credential-rotation&: Start the rotation of IP and credentials for this cluster.
                 --no-start-ip-rotation&: Start the rotation of this cluster to a new IP.
                 --no-unset-membership-type&: ""
+                --no-wiz-sensor-system-critical-priority&: Run the Wiz Sensor DaemonSet with the system-node-critical priority class, so it can preempt lower-priority pods to get scheduled.
                 --node-creation-mode=: Configures node creation mode for the cluster, either via kubelet or via control plane.
                 --node-locations=: The set of zones in which the specified node footprint should be replicated.
                 --node-pool-upgrade-concurrency-config=: Configure the concurrency settings for node pool auto upgrades.
@@ -26901,8 +26987,10 @@ commands:
                 --update-labels=: Labels to apply to the Google Cloud resources in use by the Kubernetes Engine
                 --username=: The user name to use for basic auth for the cluster.
                 --wiz-sensor-api-key-secret-uri=: The Secret Manager URI for the Wiz API key secret, for example, projects/my-project/secrets/my-api-key/versions/1 or projects/my-project/secrets/my-api-key/versions/latest.
+                --wiz-sensor-image-tag=&: 'The Wiz Sensor image tag to run: `v1` or `v1-prev` to follow Wiz''s auto-update tags, or a sensor version such as `1.0.12603` to pin the sensor to that release.'
                 --wiz-sensor-proxy-secret-uri=: The Secret Manager URI for the Wiz proxy configuration, for example, projects/my-project/secrets/my-proxy-secret/versions/1 or projects/my-project/secrets/my-proxy-secret/versions/latest.
                 --wiz-sensor-registry-secret-uri=: The Secret Manager URI for the Wiz registry secret, for example, projects/my-project/secrets/my-registry-secret/versions/1 or projects/my-project/secrets/my-registry-secret/versions/latest.
+                --wiz-sensor-system-critical-priority&: Run the Wiz Sensor DaemonSet with the system-node-critical priority class, so it can preempt lower-priority pods to get scheduled.
                 --workload-policies=: Add Autopilot workload policies to the cluster.
                 --workload-pool=: Enable Workload Identity on the cluster.
                 --workload-vulnerability-scanning=: Sets the mode of the Kubernetes security posture API's workload
@@ -29949,6 +30037,7 @@ commands:
                         - sev
                         - sev_snp
                         - tdx
+                        - bmsai
                         - disabled
                     disk-type:
                         - pd-standard
@@ -30149,6 +30238,7 @@ commands:
                         - sev
                         - sev_snp
                         - tdx
+                        - bmsai
                         - disabled
                     datapath-provider:
                         - advanced-datapath
@@ -31218,7 +31308,7 @@ commands:
             - name: describe
               description: '*(BETA)*  Outputs the Job object resulting from the Get API.'
               flags:
-                --full: Retrieve the full Job rather than the summary view
+                --full=: Retrieve the full Job rather than the summary view
                 --region=: Region ID of the job's regional endpoint.
             - name: drain
               description: '*(BETA)*  Drains all jobs that match the command line arguments.'
@@ -34746,7 +34836,7 @@ commands:
                 --limit=: Maximum number of resources to list.
                 --no-uri&: Print a list of resource URIs instead of the default output, and change the
                 --page-size=: Some services group resource list output into pages.
-                --simple-list: Changes the --format flag to print the resource IDs.
+                --simple-list=: Changes the --format flag to print the resource IDs.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
             - name: stop
@@ -34797,7 +34887,7 @@ commands:
                 --limit=: Maximum number of resources to list.
                 --no-uri&: Print a list of resource URIs instead of the default output, and change the
                 --page-size=: Some services group resource list output into pages.
-                --simple-list: Changes the --format flag to print the resource IDs.
+                --simple-list=: Changes the --format flag to print the resource IDs.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
         - name: operations
@@ -34812,7 +34902,7 @@ commands:
                 --limit=: Maximum number of resources to list.
                 --no-uri&: Print a list of resource URIs instead of the default output, and change the
                 --page-size=: Some services group resource list output into pages.
-                --simple-list: Changes the --format flag to print the resource IDs.
+                --simple-list=: Changes the --format flag to print the resource IDs.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
             - name: wait
@@ -34834,7 +34924,7 @@ commands:
                 --limit=: Maximum number of resources to list.
                 --no-uri&: Print a list of resource URIs instead of the default output, and change the
                 --page-size=: Some services group resource list output into pages.
-                --simple-list: Changes the --format flag to print the resource IDs.
+                --simple-list=: Changes the --format flag to print the resource IDs.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
         - name: type-providers
@@ -39766,7 +39856,7 @@ commands:
                     --async: Return immediately, without waiting for the operation in progress to
                     --attribute-condition=: A [Common Expression Language](https://opensource.google/projects/cel) expression, in plain
                     --attribute-mapping=!: Maps claims from the authentication credentials issued by the Identity Provider into Google
-                    --attribute-sync-interval=&: An interval that determines how often user attributes are synced from the
+                    --attribute-sync-interval=: An interval that determines how often user attributes are synced from the
                     --client-id=!: The OIDC client ID.
                     --client-secret-value=: The OIDC client secret.
                     --description=: A description for the workforce pool provider.
@@ -40095,8 +40185,8 @@ commands:
                     --async: Return immediately, without waiting for the operation in progress to
                     --attribute-condition=: A [Common Expression Language](https://opensource.google/projects/cel) expression, in plain
                     --attribute-mapping=: Maps claims from the authentication credentials issued by the Identity Provider into Google
-                    --attribute-sync-interval=&: An interval that determines how often user attributes are synced from the
-                    --clear-attribute-sync-interval&: Clear the attribute sync interval.
+                    --attribute-sync-interval=: An interval that determines how often user attributes are synced from the
+                    --clear-attribute-sync-interval: Clear the attribute sync interval.
                     --clear-client-secret: Clear the OIDC client secret.
                     --clear-extended-attributes-config: Clear the extended attributes configuration.
                     --clear-extra-attributes-config: Clear the extra attributes configuration.
@@ -42050,11 +42140,11 @@ commands:
                 --enable-analytics: Whether to opt the bucket into Log Analytics.
                 --folder=: Folder of the bucket to update.
                 --location=!: Location of the bucket.
-                --locked: Lock the bucket and prevent it from being modified or deleted (unless it is empty).
+                --locked: Lock the bucket and prevent it from being modified or deleted.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-clear-indexes&: Remove all logging indexes from the bucket.
                 --no-enable-analytics&: Whether to opt the bucket into Log Analytics.
-                --no-locked&: Lock the bucket and prevent it from being modified or deleted (unless it is empty).
+                --no-locked&: Lock the bucket and prevent it from being modified or deleted.
                 --organization=: Organization of the bucket to update.
                 --remove-indexes=: Specify the field path of the logging index(es) to delete.
                 --restricted-fields=: A new set of restricted fields for the bucket.
@@ -44306,6 +44396,149 @@ commands:
                         - telephony
                         - telephony_short
                         - video_enhanced
+            - name: recognizers
+              description: '*(BETA)*  Manage Google cloud speech-to-text recognizers.'
+              commands:
+                - name: create
+                  description: '*(BETA)*  Create a speech-to-text recognizer.'
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --audio-channel-count=: Number of channels present in the audio data sent for recognition.
+                    --display-name=: Name of this recognizer as it appears in UIs.
+                    --enable-automatic-punctuation: If set, adds punctuation to recognition result hypotheses.
+                    --enable-spoken-emojis: If set, adds spoken emoji formatting.
+                    --enable-spoken-punctuation: If set, replaces spoken punctuation with the corresponding symbols in the request.
+                    --enable-word-confidence: If set, the top result includes a list of words and the confidence for
+                    --enable-word-time-offsets: If set, the top result includes a list of words and their timestamps.
+                    --encoding=: Encoding format of the provided audio.
+                    --language-codes=!: Language code is one of `en-US`, `en-GB`, `fr-FR`.
+                    --location=: Location of the recognizer.
+                    --max-alternatives=: Maximum number of recognition hypotheses to be returned.
+                    --max-speaker-count=!: Maximum number of speakers in the conversation.
+                    --min-speaker-count=!: Minimum number of speakers in the conversation.
+                    --model=!: Which model to use for recognition requests.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --no-enable-automatic-punctuation&: If set, adds punctuation to recognition result hypotheses.
+                    --no-enable-spoken-emojis&: If set, adds spoken emoji formatting.
+                    --no-enable-spoken-punctuation&: If set, replaces spoken punctuation with the corresponding symbols in the request.
+                    --no-enable-word-confidence&: If set, the top result includes a list of words and the confidence for
+                    --no-enable-word-time-offsets&: If set, the top result includes a list of words and their timestamps.
+                    --no-profanity-filter&: If set, the server will censor profanities.
+                    --no-separate-channel-recognition&: Mode for recognizing multi-channel audio using Separate Channel Recognition.
+                    --profanity-filter: If set, the server will censor profanities.
+                    --sample-rate=: Sample rate in Hertz of the audio data sent for recognition.
+                    --separate-channel-recognition: Mode for recognizing multi-channel audio using Separate Channel Recognition.
+                - name: delete
+                  description: '*(BETA)*  Delete a Speech-to-text recognizer.'
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --location=: Location of the recognizer.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                - name: describe
+                  description: '*(BETA)*  Obtain details about Speech-to-text recognizer.'
+                  flags:
+                    --location=: Location of the recognizer.
+                - name: list
+                  description: '*(BETA)*  List Speech-to-text recognizers.'
+                  flags:
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --location=!: ID of the location or fully qualified identifier for the location.
+                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                    --page-size=: Some services group resource list output into pages.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --uri: Print a list of resource URIs instead of the default output, and change the
+                - name: run-batch
+                  description: '*(BETA)*  Get transcripts of long (more than 60 seconds) audio from a gcloud uri.'
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --audio-channel-count=: Number of channels present in the audio data sent for recognition.
+                    --audio=!: Location of the audio file to transcribe.
+                    --enable-automatic-punctuation: If set, adds punctuation to recognition result hypotheses.
+                    --enable-spoken-emojis: If set, adds spoken emoji formatting.
+                    --enable-spoken-punctuation: If set, replaces spoken punctuation with the corresponding symbols in the request.
+                    --enable-word-confidence: If set, the top result includes a list of words and the confidence for
+                    --enable-word-time-offsets: If set, the top result includes a list of words and their timestamps.
+                    --encoding=: Encoding format of the provided audio.
+                    --hint-boost=: Boost value for the phrases passed to --hint-phrases.
+                    --hint-phrase-sets=: List of phrase set resource names to use for speech recognition.
+                    --hint-phrases=: List of strings containing word and phrase "hints" so that the
+                    --language-codes=: Language code is one of `en-US`, `en-GB`, `fr-FR`.
+                    --location=: Location of the recognizer.
+                    --max-alternatives=: Maximum number of recognition hypotheses to be returned.
+                    --max-speaker-count=!: Maximum number of speakers in the conversation.
+                    --min-speaker-count=!: Minimum number of speakers in the conversation.
+                    --model=: Which model to use for recognition requests.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --no-enable-automatic-punctuation&: If set, adds punctuation to recognition result hypotheses.
+                    --no-enable-spoken-emojis&: If set, adds spoken emoji formatting.
+                    --no-enable-spoken-punctuation&: If set, replaces spoken punctuation with the corresponding symbols in the request.
+                    --no-enable-word-confidence&: If set, the top result includes a list of words and the confidence for
+                    --no-enable-word-time-offsets&: If set, the top result includes a list of words and their timestamps.
+                    --no-profanity-filter&: If set, the server will censor profanities.
+                    --no-separate-channel-recognition&: Mode for recognizing multi-channel audio using Separate Channel Recognition.
+                    --profanity-filter: If set, the server will censor profanities.
+                    --sample-rate=: Sample rate in Hertz of the audio data sent for recognition.
+                    --separate-channel-recognition: Mode for recognizing multi-channel audio using Separate Channel Recognition.
+                - name: run-short
+                  description: '*(BETA)*  Get transcripts of short (less than 60 seconds) audio from an audio file.'
+                  flags:
+                    --audio-channel-count=: Number of channels present in the audio data sent for recognition.
+                    --audio=!: Location of the audio file to transcribe.
+                    --enable-automatic-punctuation: If set, adds punctuation to recognition result hypotheses.
+                    --enable-spoken-emojis: If set, adds spoken emoji formatting.
+                    --enable-spoken-punctuation: If set, replaces spoken punctuation with the corresponding symbols in the request.
+                    --enable-word-confidence: If set, the top result includes a list of words and the confidence for
+                    --enable-word-time-offsets: If set, the top result includes a list of words and their timestamps.
+                    --encoding=: Encoding format of the provided audio.
+                    --hint-boost=: Boost value for the phrases passed to --hint-phrases.
+                    --hint-phrase-sets=: List of phrase set resource names to use for speech recognition.
+                    --hint-phrases=: List of strings containing word and phrase "hints" so that the
+                    --language-codes=: Language code is one of `en-US`, `en-GB`, `fr-FR`.
+                    --location=: Location of the recognizer.
+                    --max-alternatives=: Maximum number of recognition hypotheses to be returned.
+                    --max-speaker-count=!: Maximum number of speakers in the conversation.
+                    --min-speaker-count=!: Minimum number of speakers in the conversation.
+                    --model=: Which model to use for recognition requests.
+                    --no-enable-automatic-punctuation&: If set, adds punctuation to recognition result hypotheses.
+                    --no-enable-spoken-emojis&: If set, adds spoken emoji formatting.
+                    --no-enable-spoken-punctuation&: If set, replaces spoken punctuation with the corresponding symbols in the request.
+                    --no-enable-word-confidence&: If set, the top result includes a list of words and the confidence for
+                    --no-enable-word-time-offsets&: If set, the top result includes a list of words and their timestamps.
+                    --no-profanity-filter&: If set, the server will censor profanities.
+                    --no-separate-channel-recognition&: Mode for recognizing multi-channel audio using Separate Channel Recognition.
+                    --profanity-filter: If set, the server will censor profanities.
+                    --sample-rate=: Sample rate in Hertz of the audio data sent for recognition.
+                    --separate-channel-recognition: Mode for recognizing multi-channel audio using Separate Channel Recognition.
+                - name: update
+                  description: '*(BETA)*  Update a Speech-to-text recognizer.'
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --audio-channel-count=: Number of channels present in the audio data sent for recognition.
+                    --display-name=: Name of this recognizer as it appears in UIs.
+                    --enable-automatic-punctuation: If set, adds punctuation to recognition result hypotheses.
+                    --enable-spoken-emojis: If set, adds spoken emoji formatting.
+                    --enable-spoken-punctuation: If set, replaces spoken punctuation with the corresponding symbols in the request.
+                    --enable-word-confidence: If set, the top result includes a list of words and the confidence for
+                    --enable-word-time-offsets: If set, the top result includes a list of words and their timestamps.
+                    --encoding=: Encoding format of the provided audio.
+                    --language-codes=: Language code is one of `en-US`, `en-GB`, `fr-FR`.
+                    --location=: Location of the recognizer.
+                    --max-alternatives=: Maximum number of recognition hypotheses to be returned.
+                    --max-speaker-count=!: Maximum number of speakers in the conversation.
+                    --min-speaker-count=!: Minimum number of speakers in the conversation.
+                    --model=: Which model to use for recognition requests.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --no-enable-automatic-punctuation&: If set, adds punctuation to recognition result hypotheses.
+                    --no-enable-spoken-emojis&: If set, adds spoken emoji formatting.
+                    --no-enable-spoken-punctuation&: If set, replaces spoken punctuation with the corresponding symbols in the request.
+                    --no-enable-word-confidence&: If set, the top result includes a list of words and the confidence for
+                    --no-enable-word-time-offsets&: If set, the top result includes a list of words and their timestamps.
+                    --no-profanity-filter&: If set, the server will censor profanities.
+                    --no-separate-channel-recognition&: Mode for recognizing multi-channel audio using Separate Channel Recognition.
+                    --profanity-filter: If set, the server will censor profanities.
+                    --sample-rate=: Sample rate in Hertz of the audio data sent for recognition.
+                    --separate-channel-recognition: Mode for recognizing multi-channel audio using Separate Channel Recognition.
         - name: translate
           description: '*(BETA)*  Cloud ML Translate command groups.'
           commands:
@@ -46849,7 +47082,7 @@ commands:
               hidden: true
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
-                --global&: Indicates that the spoke is global.
+                --global=&: Indicates that the spoke is global.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --region=: A Google Cloud region.
             - name: deactivate
@@ -46857,20 +47090,20 @@ commands:
               hidden: true
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
-                --global&: Indicates that the spoke is global.
+                --global=&: Indicates that the spoke is global.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --region=: A Google Cloud region.
             - name: delete
               description: '*(BETA)*  Delete a spoke.'
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
-                --global: Indicates that the spoke is global.
+                --global=: Indicates that the spoke is global.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --region=: A Google Cloud region.
             - name: describe
               description: '*(BETA)*  Describe a spoke.'
               flags:
-                --global: Indicates that the spoke is global.
+                --global=: Indicates that the spoke is global.
                 --region=: A Google Cloud region.
             - name: gateways
               description: '*(BETA)*  Manage Gateway spokes.'
@@ -46993,7 +47226,7 @@ commands:
                     --async: Return immediately, without waiting for the operation in progress to
                     --description=: Description of the spoke to create.
                     --exclude-export-ranges=: Subnet IP address range(s) to hide from other VPC networks that are
-                    --global: Indicates that the spoke is global.
+                    --global=: Indicates that the spoke is global.
                     --group=: Group that the spoke will be part of.
                     --hub=!: Hub that the spoke will attach to.
                     --include-export-ranges=: Subnet IP address range(s) to export to other VPC networks that are
@@ -47009,7 +47242,7 @@ commands:
                     --clear-labels: Remove all labels.
                     --description=: New description of the spoke.
                     --exclude-export-ranges=: New exclude export ranges of the spoke.
-                    --global: Indicates that the spoke is global.
+                    --global=: Indicates that the spoke is global.
                     --include-export-ranges=: New include export ranges of the spoke.
                     --no-async&: Return immediately, without waiting for the operation in progress to
                     --no-clear-labels&: Remove all labels.
@@ -47061,7 +47294,7 @@ commands:
                     --async: Return immediately, without waiting for the operation in progress to
                     --description=: Description of the spoke to create.
                     --exclude-export-ranges=: Subnet IP address range(s) to hide from other VPC networks that are
-                    --global: Indicates that the spoke is global.
+                    --global=: Indicates that the spoke is global.
                     --group=: Group that the spoke will be part of.
                     --hub=!: Hub that the spoke will attach to.
                     --include-export-ranges=: Subnet IP address range(s) to export to other VPC networks that are
@@ -47076,7 +47309,7 @@ commands:
                     --clear-labels: Remove all labels.
                     --description=: New description of the spoke.
                     --exclude-export-ranges=: New exclude export ranges of the spoke.
-                    --global: Indicates that the spoke is global.
+                    --global=: Indicates that the spoke is global.
                     --include-export-ranges=: New include export ranges of the spoke.
                     --no-async&: Return immediately, without waiting for the operation in progress to
                     --no-clear-labels&: Remove all labels.
@@ -47122,7 +47355,7 @@ commands:
               description: '*(BETA)*  List spokes.'
               flags:
                 --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                --global: Indicates that the spoke is global.
+                --global=: Indicates that the spoke is global.
                 --limit=: Maximum number of resources to list.
                 --page-size=: Some services group resource list output into pages.
                 --region=: A Google Cloud region.
@@ -54338,7 +54571,10 @@ commands:
                 --encryption-key-shutdown-hours=&: The number of hours to wait before an automatic shutdown server after CMEK key revocation is detected.
                 --endpoint-mode=: Specifies endpoint mode for a given command.
                 --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
+                --functional-type=&: Specifies the function of the resource for automatic registration in Agent Registry.
                 --grace-period=: The duration between SIGTERM and SIGKILL when shutting down instances.
+                --identity-certificate&: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
+                --identity-type=&: Configures the type of identity assigned to the resource.
                 --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/hello:latest`).
                 --ingress=: Set the ingress traffic sources allowed to call the service.
                 --invoker-iam-check: Optionally disable invoker IAM checks.
@@ -54353,6 +54589,7 @@ commands:
                 --no-clear-volume-mounts&: Remove all existing mounts from the current container.
                 --no-clear-volumes&: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
                 --no-default-url&: Toggles the default url for a run instance.
+                --no-identity-certificate&: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
                 --no-invoker-iam-check&: Optionally disable invoker IAM checks.
                 --no-public&: Make the service public by disabling invoker IAM checks and IAP.
                 --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
@@ -54386,6 +54623,12 @@ commands:
                         - global
                         - regional
                         - regional-preferred
+                    functional-type:
+                        - agent
+                        - mcp-server
+                    identity-type:
+                        - agent-identity
+                        - service-account
                     ingress:
                         - all
                         - internal
@@ -54444,6 +54687,9 @@ commands:
                 --encryption-key-shutdown-hours=&: The number of hours to wait before an automatic shutdown server after CMEK key revocation is detected.
                 --endpoint-mode=: Specifies endpoint mode for a given command.
                 --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
+                --functional-type=&: Specifies the function of the resource for automatic registration in Agent Registry.
+                --identity-certificate&: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
+                --identity-type=&: Configures the type of identity assigned to the resource.
                 --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/hello:latest`).
                 --ingress=: Set the ingress traffic sources allowed to call the service.
                 --invoker-iam-check: Optionally disable invoker IAM checks.
@@ -54465,6 +54711,7 @@ commands:
                 --no-clear-volume-mounts&: Remove all existing mounts from the current container.
                 --no-clear-volumes&: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
                 --no-default-url&: Toggles the default url for a run instance.
+                --no-identity-certificate&: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
                 --no-invoker-iam-check&: Optionally disable invoker IAM checks.
                 --no-public&: Make the service public by disabling invoker IAM checks and IAP.
                 --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
@@ -54501,6 +54748,12 @@ commands:
                         - global
                         - regional
                         - regional-preferred
+                    functional-type:
+                        - agent
+                        - mcp-server
+                    identity-type:
+                        - agent-identity
+                        - service-account
                     ingress:
                         - all
                         - internal
@@ -54695,7 +54948,10 @@ commands:
                 --encryption-key-shutdown-hours=&: The number of hours to wait before an automatic shutdown server after CMEK key revocation is detected.
                 --endpoint-mode=: Specifies endpoint mode for a given command.
                 --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
+                --functional-type=&: Specifies the function of the resource for automatic registration in Agent Registry.
                 --grace-period=: The duration between SIGTERM and SIGKILL when shutting down instances.
+                --identity-certificate&: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
+                --identity-type=&: Configures the type of identity assigned to the resource.
                 --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/hello:latest`).
                 --ingress=: Set the ingress traffic sources allowed to call the service.
                 --invoker-iam-check: Optionally disable invoker IAM checks.
@@ -54717,6 +54973,7 @@ commands:
                 --no-clear-volume-mounts&: Remove all existing mounts from the current container.
                 --no-clear-volumes&: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
                 --no-default-url&: Toggles the default url for a run instance.
+                --no-identity-certificate&: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
                 --no-invoker-iam-check&: Optionally disable invoker IAM checks.
                 --no-public&: Make the service public by disabling invoker IAM checks and IAP.
                 --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
@@ -54753,6 +55010,12 @@ commands:
                         - global
                         - regional
                         - regional-preferred
+                    functional-type:
+                        - agent
+                        - mcp-server
+                    identity-type:
+                        - agent-identity
+                        - service-account
                     ingress:
                         - all
                         - internal
@@ -56480,6 +56743,7 @@ commands:
                 --clear-network: Disconnect this Cloud Run worker from the VPC network it is connected to.
                 --clear-network-tags: Clears all existing network tags from the Cloud Run worker.
                 --clear-post-key-revocation-action-type: Remove any previously set post CMEK key revocation action type.
+                --clear-scaling-cpu-target: Clears the CPU utilization scaling target.
                 --clear-secrets: Remove all secrets.
                 --clear-volume-mounts: Remove all existing mounts from the current container.
                 --clear-volumes: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
@@ -56502,7 +56766,9 @@ commands:
                 --instances=: The number of instances to run for this WorkerPool.
                 --key=: CMEK key reference to encrypt the container with.
                 --labels=: List of label KEY=VALUE pairs to add.
+                --max=: The maximum number of container instances to run for this WorkerPool or 'default' to use system default of 100. This instance limit will be divided among all Revisions receiving a percentage of instance assignments and can be modified without deploying a new Revision.
                 --memory=: Set a memory limit.
+                --min=: The minimum number of container instances to run for this WorkerPool or 'default' to use system default of 1. These instances will be divided among all Revisions receiving a percentage of instance assignments and can be modified without deploying a new Revision.
                 --network-tags=: Applies the given network tags (comma separated) to the Cloud Run worker.
                 --network=: The VPC network that the Cloud Run worker will be able to send traffic to.
                 --no-async&: Return immediately, without waiting for the operation in progress to
@@ -56515,6 +56781,7 @@ commands:
                 --no-clear-network&: Disconnect this Cloud Run worker from the VPC network it is connected to.
                 --no-clear-network-tags&: 'Clears all existing network tags from the Cloud Run worker. '
                 --no-clear-post-key-revocation-action-type&: Remove any previously set post CMEK key revocation action type.
+                --no-clear-scaling-cpu-target&: Clears the CPU utilization scaling target.
                 --no-clear-secrets&: Remove all secrets.
                 --no-clear-volume-mounts&: Remove all existing mounts from the current container.
                 --no-clear-volumes&: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
@@ -56535,7 +56802,8 @@ commands:
                 --revision-suffix=: Specify the suffix of the revision name.
                 --runtime=&: The runtime to use.
                 --sandbox-launcher: Set the container as a sandbox supervisor to launch sandboxes.
-                --scaling=&: The scaling mode to use for this WorkerPool.
+                --scaling-cpu-target=: This represents the CPU utilization target threshold for scaling up new instances.
+                --scaling=: The scaling mode to use for this WorkerPool.
                 --service-account=: the email address of an IAM service account associated with the revision of the service.
                 --set-cloudsql-instances=: Completely replace the current Cloud SQL instances with the given values.
                 --set-env-vars=: List of key-value pairs to set as environment variables.
@@ -56740,6 +57008,7 @@ commands:
                 --clear-network: Disconnect this Cloud Run worker from the VPC network it is connected to.
                 --clear-network-tags: Clears all existing network tags from the Cloud Run worker.
                 --clear-post-key-revocation-action-type: Remove any previously set post CMEK key revocation action type.
+                --clear-scaling-cpu-target: Clears the CPU utilization scaling target.
                 --clear-secrets: Remove all secrets.
                 --clear-volume-mounts: Remove all existing mounts from the current container.
                 --clear-volumes: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
@@ -56762,7 +57031,9 @@ commands:
                 --instances=: The number of instances to run for this WorkerPool.
                 --key=: CMEK key reference to encrypt the container with.
                 --labels=: List of label KEY=VALUE pairs to add.
+                --max=: The maximum number of container instances to run for this WorkerPool or 'default' to use system default of 100. This instance limit will be divided among all Revisions receiving a percentage of instance assignments and can be modified without deploying a new Revision.
                 --memory=: Set a memory limit.
+                --min=: The minimum number of container instances to run for this WorkerPool or 'default' to use system default of 1. These instances will be divided among all Revisions receiving a percentage of instance assignments and can be modified without deploying a new Revision.
                 --network-tags=: Applies the given network tags (comma separated) to the Cloud Run worker.
                 --network=: The VPC network that the Cloud Run worker will be able to send traffic to.
                 --no-async&: Return immediately, without waiting for the operation in progress to
@@ -56775,6 +57046,7 @@ commands:
                 --no-clear-network&: Disconnect this Cloud Run worker from the VPC network it is connected to.
                 --no-clear-network-tags&: 'Clears all existing network tags from the Cloud Run worker. '
                 --no-clear-post-key-revocation-action-type&: Remove any previously set post CMEK key revocation action type.
+                --no-clear-scaling-cpu-target&: Clears the CPU utilization scaling target.
                 --no-clear-secrets&: Remove all secrets.
                 --no-clear-volume-mounts&: Remove all existing mounts from the current container.
                 --no-clear-volumes&: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
@@ -56795,7 +57067,8 @@ commands:
                 --revision-suffix=: Specify the suffix of the revision name.
                 --runtime=&: The runtime to use.
                 --sandbox-launcher: Set the container as a sandbox supervisor to launch sandboxes.
-                --scaling=&: The scaling mode to use for this WorkerPool.
+                --scaling-cpu-target=: This represents the CPU utilization target threshold for scaling up new instances.
+                --scaling=: The scaling mode to use for this WorkerPool.
                 --service-account=: the email address of an IAM service account associated with the revision of the service.
                 --set-cloudsql-instances=: Completely replace the current Cloud SQL instances with the given values.
                 --set-env-vars=: List of key-value pairs to set as environment variables.
@@ -57059,9 +57332,11 @@ commands:
                 --key=!: Flag key used in client runtime evaluation (required).
                 --labels=: The labels on the resource, which can be used for categorization.
                 --location=: For resources [flag, unit-kind], provides fallback value for resource location attribute.
+                --no-with-default-evaluation&: If set, populates the flag with default boolean variants (`Enabled`=`true`
                 --state=: Current state of the flag.
                 --unit-kind=!: ID of the unitKind or fully qualified identifier for the unitKind.
                 --variants=: A list of variants.
+                --with-default-evaluation: If set, populates the flag with default boolean variants (`Enabled`=`true`
               completion:
                 flag:
                     endpoint-mode:
@@ -62233,6 +62508,7 @@ commands:
                 --final-backup: Enables the final backup to be taken at the time of instance deletion.
                 --final-backup-retention-days=: Specifies number of days to retain final backup.
                 --gce-zone=: (DEPRECATED) Preferred Compute Engine zone (e.g. us-central1-a, us-central1-b, etc.).
+                --initial-users=&: IAM users to create on the instance during creation.
                 --insights-config-enhanced-query-insights-enabled: Enable enhanced query insights for Enterprise Plus edition to provide more detailed query
                 --insights-config-query-insights-enabled: Enable query insights feature to provide query and query plan
                 --insights-config-query-plans-per-minute=: Number of query plans to sample every minute.
@@ -62527,6 +62803,7 @@ commands:
                 --clear-database-center-integration&: Clear the Database Center integration setting of the instance, so that the instance uses the default Database Center integration behavior.
                 --clear-database-flags: Clear the database flags set on the instance.
                 --clear-entra-id-config: Clears the Entra ID config for the SQL Server instance.
+                --clear-entra-id-manager-application-id&: Clears the Entra ID manager application ID without affecting the tenant ID or application ID.
                 --clear-failover-dr-replica-name: Clear the DR replica setting for the primary instance.
                 --clear-gae-apps: Specified to clear the list of App Engine apps that can access this instance.
                 --clear-labels: Remove all labels.
@@ -62572,6 +62849,8 @@ commands:
                 --enable-sql-server-password-policy&: Enables password policy on SQL Server local logins.
                 --enforce-new-sql-network-architecture: Force the instance to use the new network architecture.
                 --entra-id-application-id=!: Set the Entraid application ID.
+                --entra-id-auto-rotation&: Enables or disables automatic Entra ID certificate rotation during maintenance windows.
+                --entra-id-manager-application-id=&: The Entra ID application ID of the certificate manager application used to manage certificates via Workload Identity Federation.
                 --entra-id-tenant-id=!: Set the Entraid tenant ID.
                 --failover-dr-replica-name=: Set a Disaster Recovery (DR) replica with the specified name for the primary instance.
                 --final-backup: Enables the final backup to be taken at the time of instance deletion.
@@ -62610,6 +62889,7 @@ commands:
                 --no-clear-database-center-integration&: Clear the Database Center integration setting of the instance, so that the instance uses the default Database Center integration behavior.
                 --no-clear-database-flags&: Clear the database flags set on the instance.
                 --no-clear-entra-id-config&: Clears the Entra ID config for the SQL Server instance.
+                --no-clear-entra-id-manager-application-id&: Clears the Entra ID manager application ID without affecting the tenant ID or application ID.
                 --no-clear-failover-dr-replica-name&: Clear the DR replica setting for the primary instance.
                 --no-clear-gae-apps&: Specified to clear the list of App Engine apps that can access this instance.
                 --no-clear-labels&: Remove all labels.
@@ -62642,6 +62922,7 @@ commands:
                 --no-enable-psc-write-endpoint-dns&: Enable the global DNS record pointing to the primary, for Enterprise Plus edition only.
                 --no-enable-sql-server-password-policy&: Enables password policy on SQL Server local logins.
                 --no-enforce-new-sql-network-architecture&: Force the instance to use the new network architecture.
+                --no-entra-id-auto-rotation&: Enables or disables automatic Entra ID certificate rotation during maintenance windows.
                 --no-final-backup&: Enables the final backup to be taken at the time of instance deletion.
                 --no-include-replicas-for-major-version-upgrade&: Enable the major version upgrade of replicas when the in-place major version upgrade of a primary instance is initated with `--database-version`.
                 --no-insights-config-enhanced-query-insights-enabled&: Enable enhanced query insights for Enterprise Plus edition to provide more detailed query
@@ -63126,8 +63407,10 @@ commands:
                   description: '*(BETA)*  Create an Entra ID certificate for a Cloud SQL instance.'
                   flags:
                     --async: Return immediately, without waiting for the operation in progress to
+                    --auto-upload&: If true, also uploads the new certificate to the Entra ID application of the instance by using the manager application, and confirms that the certificate can be used.
                     --instance=!: Cloud SQL instance ID.
                     --no-async&: Return immediately, without waiting for the operation in progress to
+                    --no-auto-upload&: If true, also uploads the new certificate to the Entra ID application of the instance by using the manager application, and confirms that the certificate can be used.
                 - name: list
                   description: '*(BETA)*  List all Entra ID certificates for a Cloud SQL instance.'
                   flags:
@@ -63150,6 +63433,8 @@ commands:
                     --async: Return immediately, without waiting for the operation in progress to
                     --instance=!: Cloud SQL instance ID.
                     --no-async&: Return immediately, without waiting for the operation in progress to
+                    --no-verify&: If true, pre-validates certificate permissions against Entra ID before rotation.
+                    --verify&: If true, pre-validates certificate permissions against Entra ID before rotation.
             - name: server-ca-certs
               description: '*(BETA)*  Provide commands for managing server CA certs of Cloud SQL instances.'
               commands:
@@ -63553,9 +63838,10 @@ commands:
           description: '*(BETA)*  Delete a task or multiple tasks from a queue.'
           flags:
             --failed-tasks-file=: Path to a file to output JSON details of tasks that failed or were skipped during batch deletion.
-            --from-file=: Path to a file containing task IDs/names to delete, one per line or in JSON/YAML format.
+            --from-file=&: (DEPRECATED) Path to a file containing task IDs/names to delete, one per line or in JSON/YAML format.
             --location=: The location where we want to manage the queue or task.
             --queue=: The queue the task belongs to.
+            --tasks-from-file=: Path to a file containing task IDs/names to delete, one per line or in JSON/YAML format.
         - name: describe
           description: '*(BETA)*  Show details about a task.'
           flags:
@@ -64655,15 +64941,12 @@ commands:
                 --service=!: The service producer to generate service agents for (e.g. bigquery.googleapis.com).
     - name: workspace-add-ons
       description: '*(BETA)*  Manage Google Workspace Add-ons resources.'
-      hidden: true
       commands:
         - name: chat-app-config
           description: '*(BETA)*  Manage the Google Chat app configuration of a project.'
-          hidden: true
           commands:
             - name: describe
               description: '*(BETA)*  Describe the Google Chat app configuration of a project.'
-              hidden: true
               flags:
                 --view=: Settings to include in the output.
               completion:
@@ -64673,7 +64956,6 @@ commands:
                         - full
             - name: update
               description: '*(BETA)*  Update the Google Chat app configuration of a project.'
-              hidden: true
               flags:
                 --add-allowlisted-testing-principals=: Email addresses of users or groups to add to the testing
                 --apps-script-deployment-id=: ID of the Apps Script deployment that handles the app's events.
@@ -64709,31 +64991,24 @@ commands:
                         - disabled
         - name: deployments
           description: '*(BETA)*  Manage Google Workspace Add-ons Deployments.'
-          hidden: true
           commands:
             - name: create
               description: '*(BETA)*  Create a Google Workspace Add-ons deployment.'
-              hidden: true
               flags:
                 --deployment-file=: path to the deployment file
                 --deployment-object=: json string of the deploymentObject
             - name: delete
               description: '*(BETA)*  Delete a Google Workspace Add-ons deployment.'
-              hidden: true
               flags:
                 --etag=: etag of the deployment file
             - name: describe
               description: '*(BETA)*  Describe a Google Workspace Add-ons deployment.'
-              hidden: true
             - name: install
               description: '*(BETA)*  Install a Google Workspace Add-ons deployment.'
-              hidden: true
             - name: install-status
               description: '*(BETA)*  Get the install status of a Google Workspace Add-ons deployment.'
-              hidden: true
             - name: list
               description: '*(BETA)*  List Google Workspace Add-ons deployments.'
-              hidden: true
               flags:
                 --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
                 --limit=: Maximum number of resources to list.
@@ -64743,17 +65018,14 @@ commands:
                 --uri: Print a list of resource URIs instead of the default output, and change the
             - name: replace
               description: '*(BETA)*  Replace a Google Workspace Add-ons deployment.'
-              hidden: true
               flags:
                 --deployment-file=: path to the deployment file
                 --deployment-object=: json string of the deploymentObject
                 --etag=: etag of the deployment file
             - name: uninstall
               description: '*(BETA)*  Uninstall a Google Workspace Add-ons deployment.'
-              hidden: true
         - name: get-authorization
           description: '*(BETA)*  Gets the authorization information for deployments in a given project.'
-          hidden: true
     - name: workspace-key-access
       description: '*(BETA)*  Manage Workspace Key Access (KACLS) endpoints and configs.'
       commands:

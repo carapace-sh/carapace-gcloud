@@ -1624,7 +1624,7 @@ commands:
             --cluster-dns-scope=: DNS scope for the Cloud DNS zone created - valid only with
             --cluster-dns=: DNS provider to use for this cluster.
             --cluster-ipv4-cidr=: The IP address range for the pods in this cluster in CIDR notation (e.g.
-            --cluster-scale-to-zero-delay=&: Additional delay before the cluster is scaled to 0 nodes when there are no
+            --cluster-scale-to-zero-delay=: Additional delay before the cluster is scaled to 0 nodes when there are no
             --cluster-secondary-range-name=: Set the secondary range to be used as the source for pod IPs.
             --cluster-version=: The Kubernetes version to use for the master and nodes.
             --compliance-standards=&: Comma-delimited list of standards to be enabled.
@@ -1671,7 +1671,7 @@ commands:
             --enable-cloud-logging: (DEPRECATED) Automatically send logs from the cluster to the Google Cloud Logging API.
             --enable-cloud-monitoring: (DEPRECATED) Automatically send metrics from pods in the cluster to the Google Cloud Monitoring API.
             --enable-cloud-run-alpha: Enable Cloud Run alpha features on this cluster.
-            --enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Autopilot and standard clusters.
+            --enable-cluster-scale-to-zero: Enable cluster scale-to-zero for Standard clusters.
             --enable-confidential-nodes: Enable confidential nodes for the cluster.
             --enable-confidential-storage: Enable confidential storage for the cluster.
             --enable-cost-allocation: Enable the cost allocation feature.
@@ -1817,7 +1817,7 @@ commands:
             --no-enable-cloud-logging&: (DEPRECATED) Automatically send logs from the cluster to the Google Cloud Logging API.
             --no-enable-cloud-monitoring&: (DEPRECATED) Automatically send metrics from pods in the cluster to the Google Cloud Monitoring API.
             --no-enable-cloud-run-alpha&: Enable Cloud Run alpha features on this cluster.
-            --no-enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Autopilot and standard clusters.
+            --no-enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Standard clusters.
             --no-enable-confidential-nodes&: Enable confidential nodes for the cluster.
             --no-enable-confidential-storage&: Enable confidential storage for the cluster.
             --no-enable-cost-allocation&: ""
@@ -1879,6 +1879,7 @@ commands:
             --no-shielded-integrity-monitoring&: Enables monitoring and attestation of the boot integrity of the
             --no-shielded-secure-boot&: The instance will boot with secure boot enabled.
             --no-spot&: Create nodes using spot VM instances in the new cluster.
+            --no-wiz-sensor-system-critical-priority&: Run the Wiz Sensor DaemonSet with the system-node-critical priority class, so it can preempt lower-priority pods to get scheduled.
             --node-architecture-taint-behavior=: Control how architecture taint should be applied to nodes in default node pool(s) in new
             --node-creation-mode=: Configures node creation mode for the cluster, either via kubelet or via control plane.
             --node-labels=: Applies the given Kubernetes labels on all nodes in the new node pool.
@@ -1928,8 +1929,10 @@ commands:
             --tpu-ipv4-cidr=&: Set the IP range for the Cloud TPUs.
             --username=: The user name to use for basic auth for the cluster.
             --wiz-sensor-api-key-secret-uri=: The Secret Manager URI for the Wiz API key secret, for example, projects/my-project/secrets/my-api-key/versions/1 or projects/my-project/secrets/my-api-key/versions/latest.
+            --wiz-sensor-image-tag=&: 'The Wiz Sensor image tag to run: `v1` or `v1-prev` to follow Wiz''s auto-update tags, or a sensor version such as `1.0.12603` to pin the sensor to that release.'
             --wiz-sensor-proxy-secret-uri=: The Secret Manager URI for the Wiz proxy configuration, for example, projects/my-project/secrets/my-proxy-secret/versions/1 or projects/my-project/secrets/my-proxy-secret/versions/latest.
             --wiz-sensor-registry-secret-uri=: The Secret Manager URI for the Wiz registry secret, for example, projects/my-project/secrets/my-registry-secret/versions/1 or projects/my-project/secrets/my-registry-secret/versions/latest.
+            --wiz-sensor-system-critical-priority&: Run the Wiz Sensor DaemonSet with the system-node-critical priority class, so it can preempt lower-priority pods to get scheduled.
             --workload-metadata-from-node=&: Type of metadata server available to pods running in the node pool.
             --workload-metadata=: Type of metadata server available to pods running in the node pool.
             --workload-pool=: Enable Workload Identity on the cluster.
@@ -1963,6 +1966,7 @@ commands:
                     - sev
                     - sev_snp
                     - tdx
+                    - bmsai
                 control-plane-egress:
                     - NONE
                     - VIA_CONTROL_PLANE
@@ -2078,7 +2082,7 @@ commands:
             --boot-disk-kms-key=: The Customer Managed Encryption Key used to encrypt the boot disk attached
             --cluster-ca=: The Certificate Authority Service caPool that will back the cluster CA
             --cluster-ipv4-cidr=: The IP address range for the pods in this cluster in CIDR notation (e.g.
-            --cluster-scale-to-zero-delay=&: Additional delay before the cluster is scaled to 0 nodes when there are no
+            --cluster-scale-to-zero-delay=: Additional delay before the cluster is scaled to 0 nodes when there are no
             --cluster-secondary-range-name=: Set the secondary range to be used as the source for pod IPs.
             --cluster-version=: The Kubernetes version to use for the master and nodes.
             --compliance-standards=&: Comma-delimited list of standards to be enabled.
@@ -2103,7 +2107,7 @@ commands:
             --enable-backup-restore: Enable the Backup for GKE add-on.
             --enable-cdpf&: Enable Custom Dataplane Functions (CDPF) on the cluster.
             --enable-cilium-clusterwide-network-policy: Enable Cilium Clusterwide Network Policies on the cluster.
-            --enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Autopilot and standard clusters.
+            --enable-cluster-scale-to-zero: Enable cluster scale-to-zero for Standard clusters.
             --enable-confidential-nodes: Enable confidential nodes for the cluster.
             --enable-dataplane-ebpf-host-routing&: Enable Dataplane V2 eBPF host routing for the cluster.
             --enable-dataplane-v2-flow-observability: Enables Advanced Datapath Observability which allows for a real-time view into pod-to-pod traffic within your cluster.
@@ -2171,7 +2175,7 @@ commands:
             --no-enable-backup-restore&: Enable the Backup for GKE add-on.
             --no-enable-cdpf&: Enable Custom Dataplane Functions (CDPF) on the cluster.
             --no-enable-cilium-clusterwide-network-policy&: Enable Cilium Clusterwide Network Policies on the cluster.
-            --no-enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Autopilot and standard clusters.
+            --no-enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Standard clusters.
             --no-enable-confidential-nodes&: Enable confidential nodes for the cluster.
             --no-enable-dataplane-ebpf-host-routing&: Enable Dataplane V2 eBPF host routing for the cluster.
             --no-enable-default-compute-class&: Enable the default compute class to use for the cluster.
@@ -2204,6 +2208,7 @@ commands:
             --no-enable-secret-sync-rotation&: Enables the rotation of secrets in the Secret Sync component.
             --no-enable-security-posture&: (DEPRECATED) Enables the GKE Security Posture API's features.
             --no-enable-slurm-operator&: Enable the Slurm Operator GKE add-on.
+            --no-wiz-sensor-system-critical-priority&: Run the Wiz Sensor DaemonSet with the system-node-critical priority class, so it can preempt lower-priority pods to get scheduled.
             --node-creation-mode=: Configures node creation mode for the cluster, either via kubelet or via control plane.
             --private-endpoint-subnetwork=: Sets the subnetwork GKE uses to provision the control plane's
             --region=: Compute region (e.g. us-central1) for a regional cluster.
@@ -2223,8 +2228,10 @@ commands:
             --tier=: (DEPRECATED) Set the desired tier for the cluster.
             --timeout=&: Timeout (seconds) for waiting on the operation to complete.
             --wiz-sensor-api-key-secret-uri=: The Secret Manager URI for the Wiz API key secret, for example, projects/my-project/secrets/my-api-key/versions/1 or projects/my-project/secrets/my-api-key/versions/latest.
+            --wiz-sensor-image-tag=&: 'The Wiz Sensor image tag to run: `v1` or `v1-prev` to follow Wiz''s auto-update tags, or a sensor version such as `1.0.12603` to pin the sensor to that release.'
             --wiz-sensor-proxy-secret-uri=: The Secret Manager URI for the Wiz proxy configuration, for example, projects/my-project/secrets/my-proxy-secret/versions/1 or projects/my-project/secrets/my-proxy-secret/versions/latest.
             --wiz-sensor-registry-secret-uri=: The Secret Manager URI for the Wiz registry secret, for example, projects/my-project/secrets/my-registry-secret/versions/1 or projects/my-project/secrets/my-registry-secret/versions/latest.
+            --wiz-sensor-system-critical-priority&: Run the Wiz Sensor DaemonSet with the system-node-critical priority class, so it can preempt lower-priority pods to get scheduled.
             --workload-policies=: Add Autopilot workload policies to the cluster.
             --workload-vulnerability-scanning=: Sets the mode of the Kubernetes security posture API's workload
             --zone=: Compute zone (e.g. us-central1-a) for a zonal cluster.
@@ -2249,6 +2256,7 @@ commands:
                     - sev
                     - sev_snp
                     - tdx
+                    - bmsai
                 control-plane-egress:
                     - NONE
                     - VIA_CONTROL_PLANE
@@ -2386,7 +2394,7 @@ commands:
             --cluster-dns-domain=: DNS domain for this cluster.
             --cluster-dns-scope=: DNS scope for the Cloud DNS zone created - valid only with
             --cluster-dns=: DNS provider to use for this cluster.
-            --cluster-scale-to-zero-delay=&: Additional delay before the cluster is scaled to 0 nodes when there are no
+            --cluster-scale-to-zero-delay=: Additional delay before the cluster is scaled to 0 nodes when there are no
             --complete-credential-rotation: Complete the IP and credential rotation for this cluster.
             --complete-ip-rotation: Complete the IP rotation for this cluster.
             --compliance-standards=&: Comma-delimited list of standards to be enabled.
@@ -2426,7 +2434,7 @@ commands:
             --enable-binauthz: (DEPRECATED) Enable Binary Authorization for this cluster.
             --enable-cdpf&: Enable Custom Dataplane Functions (CDPF) on the cluster.
             --enable-cilium-clusterwide-network-policy: Enable Cilium Clusterwide Network Policies on the cluster.
-            --enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Autopilot and standard clusters.
+            --enable-cluster-scale-to-zero: Enable cluster scale-to-zero for Standard clusters.
             --enable-cost-allocation: Enable the cost allocation feature.
             --enable-dataplane-ebpf-host-routing&: Enable Dataplane V2 eBPF host routing for the cluster.
             --enable-dataplane-v2: Enabling Dataplane V2 causes a re-creation of all cluster nodes.
@@ -2545,7 +2553,7 @@ commands:
             --no-enable-binauthz&: (DEPRECATED) Enable Binary Authorization for this cluster.
             --no-enable-cdpf&: Enable Custom Dataplane Functions (CDPF) on the cluster.
             --no-enable-cilium-clusterwide-network-policy&: Enable Cilium Clusterwide Network Policies on the cluster.
-            --no-enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Autopilot and standard clusters.
+            --no-enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Standard clusters.
             --no-enable-cost-allocation&: ""
             --no-enable-dataplane-ebpf-host-routing&: Enable Dataplane V2 eBPF host routing for the cluster.
             --no-enable-dataplane-v2&: ""
@@ -2598,6 +2606,7 @@ commands:
             --no-start-credential-rotation&: Start the rotation of IP and credentials for this cluster.
             --no-start-ip-rotation&: Start the rotation of this cluster to a new IP.
             --no-unset-membership-type&: ""
+            --no-wiz-sensor-system-critical-priority&: Run the Wiz Sensor DaemonSet with the system-node-critical priority class, so it can preempt lower-priority pods to get scheduled.
             --node-creation-mode=: Configures node creation mode for the cluster, either via kubelet or via control plane.
             --node-locations=: The set of zones in which the specified node footprint should be replicated.
             --node-pool=: Node pool to be updated.
@@ -2635,8 +2644,10 @@ commands:
             --update-labels=: Labels to apply to the Google Cloud resources in use by the Kubernetes Engine
             --username=: The user name to use for basic auth for the cluster.
             --wiz-sensor-api-key-secret-uri=: The Secret Manager URI for the Wiz API key secret, for example, projects/my-project/secrets/my-api-key/versions/1 or projects/my-project/secrets/my-api-key/versions/latest.
+            --wiz-sensor-image-tag=&: 'The Wiz Sensor image tag to run: `v1` or `v1-prev` to follow Wiz''s auto-update tags, or a sensor version such as `1.0.12603` to pin the sensor to that release.'
             --wiz-sensor-proxy-secret-uri=: The Secret Manager URI for the Wiz proxy configuration, for example, projects/my-project/secrets/my-proxy-secret/versions/1 or projects/my-project/secrets/my-proxy-secret/versions/latest.
             --wiz-sensor-registry-secret-uri=: The Secret Manager URI for the Wiz registry secret, for example, projects/my-project/secrets/my-registry-secret/versions/1 or projects/my-project/secrets/my-registry-secret/versions/latest.
+            --wiz-sensor-system-critical-priority&: Run the Wiz Sensor DaemonSet with the system-node-critical priority class, so it can preempt lower-priority pods to get scheduled.
             --workload-policies=: Add Autopilot workload policies to the cluster.
             --workload-pool=: Enable Workload Identity on the cluster.
             --workload-vulnerability-scanning=: Sets the mode of the Kubernetes security posture API's workload
@@ -5226,6 +5237,7 @@ commands:
                     - sev
                     - sev_snp
                     - tdx
+                    - bmsai
                     - disabled
                 disk-type:
                     - pd-standard
@@ -5408,6 +5420,7 @@ commands:
                     - sev
                     - sev_snp
                     - tdx
+                    - bmsai
                     - disabled
                 datapath-provider:
                     - advanced-datapath

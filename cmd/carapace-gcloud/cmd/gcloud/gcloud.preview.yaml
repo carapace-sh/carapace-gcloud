@@ -138,12 +138,14 @@ commands:
                 --ip-collection-region=&: 'Region of the ipCollection to operate on. '
                 --ip-collection=: If specified, the public delegated prefix (PDP) from which to allocate the BYOIP IP address.
                 --ip-version=: Version of the IP address to be allocated and reserved.
+                --network-attachment=!: Regional network attachment resource in which the address(es) should be
                 --network-tier=: The network tier to assign to the reserved IP addresses.
                 --network=: If specified, the network resource in which the address(es) should be
                 --no-global&: If set, the addresses are global.
                 --prefix-length=: The prefix length of the IP range.
                 --purpose=: The purpose of the address resource.
                 --region=: Region of the addresses to create.
+                --service-class-id=: Regional Service Class ID of the producer service associated with the
                 --subnet-region=&: 'Region of the subnet to operate on. '
                 --subnet=: If specified, the subnet name in which the address(es) should be reserved.
               completion:
@@ -589,6 +591,7 @@ commands:
                         - INTERNAL_SELF_MANAGED
                         - EXTERNAL_MANAGED
                         - INTERNAL_MANAGED
+                        - EXTERNAL_PASSTHROUGH
                     locality-lb-policy:
                         - INVALID_LB_POLICY
                         - ROUND_ROBIN
@@ -1870,9 +1873,11 @@ commands:
                 --global: If set, the forwarding rule is global.
                 --global-address: If set, the address is global.
                 --global-backend-service: If set, the backend service is global.
+                --global-ip-collection: If set, the public delegated prefix is global.
                 --global-target-http-proxy: If set, the http proxy is global.
                 --global-target-https-proxy: If set, the https proxy is global.
                 --global-target-tcp-proxy: If set, the tcp proxy is global.
+                --ip-addresses=: The global IP addresses that the forwarding rule serves.
                 --ip-collection-region=: Region of the public delegated prefix to operate on.
                 --ip-collection=: Resource reference to a public delegated prefix.
                 --ip-protocol=: IP protocol that the rule will serve.
@@ -1888,6 +1893,7 @@ commands:
                 --no-global&: If set, the forwarding rule is global.
                 --no-global-address&: If set, the address is global.
                 --no-global-backend-service&: If set, the backend service is global.
+                --no-global-ip-collection&: If set, the public delegated prefix is global.
                 --no-global-target-http-proxy&: If set, the http proxy is global.
                 --no-global-target-https-proxy&: If set, the https proxy is global.
                 --no-global-target-tcp-proxy&: If set, the tcp proxy is global.
@@ -1933,6 +1939,7 @@ commands:
                     load-balancing-scheme:
                         - EXTERNAL
                         - EXTERNAL_MANAGED
+                        - EXTERNAL_PASSTHROUGH
                         - INTERNAL
                         - INTERNAL_MANAGED
                         - INTERNAL_SELF_MANAGED
@@ -2020,6 +2027,7 @@ commands:
                     load-balancing-scheme:
                         - EXTERNAL
                         - EXTERNAL_MANAGED
+                        - EXTERNAL_PASSTHROUGH
                         - INTERNAL
                         - INTERNAL_MANAGED
                         - INTERNAL_SELF_MANAGED
@@ -2311,7 +2319,7 @@ commands:
                 --instance-name=: The name of the existing VM that the HA Controller manages.
                 --instance-network-interface=: Configures per-zone IP addresses for the instance network interfaces.
                 --migrate-disks-to-regional: Specifies whether to migrate the zonal disks of the VM to regional disks.
-                --network-auto-configuration=: Adds a network interface to the instance.
+                --network-auto-configuration=: This flag configures the regional internal passthrough Network Load Balancer for the HA Controller.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-migrate-disks-to-regional&: Specifies whether to migrate the zonal disks of the VM to regional disks.
                 --region=: The name of the Google Compute Engine region where the HA Controller exists.
@@ -6424,7 +6432,7 @@ commands:
               flags:
                 --description=: An optional, textual description for the network attachment.
                 --producer-accept-list=: Projects that are allowed to connect to this network attachment.
-                --producer-reject-list=: Projects that are not allowed to connect to this network attachment.
+                --producer-reject-list=: Comma-separated list of Google Cloud project IDs or project numbers that are not allowed to connect to this network attachment.
                 --region=: Region of the network attachment to update.
                 --subnets-region=: Region of the subnetworks to operate on.
                 --subnets=: The subnetworks provided by the consumer for the producers
@@ -6436,8 +6444,8 @@ commands:
               flags:
                 --description=: An optional, textual description for the network edge security service.
                 --region=: Region of the network edge security service to create.
-                --security-policy-region=: Region of the security policy to operate on.
-                --security-policy=: The security policy that will be set for this network edge security service.
+                --security-policy-region=: Google Cloud region of the security policy to operate on, formatted as a plain string (for example, `us-central1`).
+                --security-policy=: Name or URI of an existing Google Cloud Armor security policy to associate with this network edge security service.
             - name: delete
               description: '*(PREVIEW)*  Delete network edge security services.'
               flags:
@@ -6460,8 +6468,8 @@ commands:
               flags:
                 --description=: An optional, textual description for the network edge security service.
                 --region=: Region of the network edge security service to update.
-                --security-policy-region=: Region of the security policy to operate on.
-                --security-policy=: The security policy that will be set for this network edge security service.
+                --security-policy-region=: Google Cloud region of the security policy to operate on, formatted as a standard geographic region string (for example, `us-central1`).
+                --security-policy=: Name or URI of the security policy to attach to this network edge security service.
         - name: network-endpoint-groups
           description: '*(PREVIEW)*  Read and manipulate Compute Engine network endpoint groups.'
           commands:
@@ -6560,23 +6568,23 @@ commands:
                   description: '*(PREVIEW)*  Create a new association between a firewall policy and a network.'
                   flags:
                     --associated-policy-to-be-replaced=: Name of an already associated firewall policy to replace.
-                    --firewall-policy-region=: Region of the firewall policy to create.
-                    --firewall-policy=!: Firewall policy ID with which to create association.
-                    --global-firewall-policy: If set, the firewall policy is global.
+                    --firewall-policy-region=: Region of the network firewall policy for which to create the association, specified as a string identifier (for example, `us-central1`).
+                    --firewall-policy=!: Name of the network firewall policy to associate with a target resource, such as a VPC network.
+                    --global-firewall-policy: Indicate that the associated network firewall policy is a global resource.
                     --name=: Name of the association.
                     --network=!: Name of the network with which the association is created.
-                    --no-global-firewall-policy&: If set, the firewall policy is global.
+                    --no-global-firewall-policy&: Indicate that the associated network firewall policy is a global resource.
                     --no-replace-association-on-target&: By default, if you attempt to insert an association to a network that is already associated with a firewall policy the method will fail.
                     --priority=: Priority of the association.
                     --replace-association-on-target: By default, if you attempt to insert an association to a network that is already associated with a firewall policy the method will fail.
                 - name: delete
                   description: '*(PREVIEW)*  Delete a new association between a firewall policy and an network or folder resource.'
                   flags:
-                    --firewall-policy-region=: Region of the firewall policy to delete.
-                    --firewall-policy=!: Firewall policy ID with which to delete association.
-                    --global-firewall-policy: If set, the firewall policy is global.
+                    --firewall-policy-region=: Google Cloud region string (for example, `us-central1`) of the network firewall policy whose association is being deleted.
+                    --firewall-policy=!: Name of the network firewall policy from which to delete the association.
+                    --global-firewall-policy: Indicate that the referenced network firewall policy is global in scope.
                     --name=!: Name of the association to delete.
-                    --no-global-firewall-policy&: If set, the firewall policy is global.
+                    --no-global-firewall-policy&: Indicate that the referenced network firewall policy is global in scope.
                 - name: update
                   description: '*(PREVIEW)*  Update association between a firewall policy and a network.'
                   flags:
@@ -6592,14 +6600,14 @@ commands:
                 --global: If set, the firewall policy is global.
                 --no-global&: If set, the firewall policy is global.
                 --region=: Region of the firewall policy to clone-rules.
-                --source-firewall-policy=!: Name of the source network firewall policy to copy the rules from.
+                --source-firewall-policy=!: Name or fully qualified URI of the source network firewall policy from which to copy rules.
             - name: create
               description: '*(PREVIEW)*  Create a Compute Engine Network firewall policy.'
               flags:
                 --description=: An optional, textual description for the network firewall policy.
                 --global: If set, the firewall policy is global.
                 --no-global&: If set, the firewall policy is global.
-                --policy-type=: Network firewall policy type.
+                --policy-type=: Classification type of the network firewall policy, specified as a string enum (such as `VPC_POLICY` for standard Virtual Private Cloud environments or `RDMA_ROCE_POLICY` for RDMA over Converged Ethernet workloads).
                 --region=: Region of the firewall policy to create.
               completion:
                 flag:
@@ -6674,12 +6682,12 @@ commands:
                     --dest-ip-ranges=: Destination IP ranges to match for this rule.
                     --direction=: Direction of the traffic the rule is applied.
                     --disabled: Use this flag to disable the rule.
-                    --firewall-policy=!: Firewall policy ID with which to create rule.
-                    --global-firewall-policy!: Use this flag to indicate that firewall policy is global.
-                    --layer4-configs=!: A list of destination protocols and ports to which the firewall rule will apply.
+                    --firewall-policy=!: Name of the existing network firewall policy where the new mirroring rule is created (for example, `my-policy`).
+                    --global-firewall-policy!: Indicate that the targeted network firewall policy operates at the global scope.
+                    --layer4-configs=!: Comma-separated list of destination protocols and optional port ranges to which the firewall rule applies.
                     --no-disabled&: Use this flag to disable the rule.
-                    --no-global-firewall-policy!&: Use this flag to indicate that firewall policy is global.
-                    --security-profile-group=: A security profile group to be used with mirror action.
+                    --no-global-firewall-policy!&: Indicate that the targeted network firewall policy operates at the global scope.
+                    --security-profile-group=: Relative resource name or full URL of the security profile group to be used with the `mirror` action.
                     --src-ip-ranges=: A list of IP address blocks that are allowed to make inbound connections that match the firewall rule to the instances on the network.
                     --target-secure-tags=: An optional, list of target secure tags with a name of the format tagValues/ or full namespaced name
                   completion:
@@ -6694,9 +6702,9 @@ commands:
                 - name: delete
                   description: '*(PREVIEW)*  Deletes a Compute Engine network firewall policy packet mirroirng rule.'
                   flags:
-                    --firewall-policy=!: Firewall policy ID with which to delete rule.
-                    --global-firewall-policy!: Use this flag to indicate that firewall policy is global.
-                    --no-global-firewall-policy!&: Use this flag to indicate that firewall policy is global.
+                    --firewall-policy=!: Name of the network firewall policy containing the mirroring rule to be deleted (for example, `my-policy`).
+                    --global-firewall-policy!: Indicate that the target network firewall policy operates at the global scope.
+                    --no-global-firewall-policy!&: Indicate that the target network firewall policy operates at the global scope.
                 - name: describe
                   description: '*(PREVIEW)*  Describes a Compute Engine network firewall policy pakcet mirroring rule.'
                   flags:
@@ -7496,26 +7504,26 @@ commands:
                     --request-header-to-exclude=: Adds a request header to the request field exclusions associated with the rule
                     --request-query-param-to-exclude=: Adds a request query parameter to the request field exclusions associated with
                     --request-uri-to-exclude=: Adds a request URI to the request field exclusions associated with the rule set
-                    --security-policy=!: short name of the security policy into which the rule should be updated.
+                    --security-policy=!: Short name or numeric ID of the organization security policy into which the preconfigured WAF exclusion configuration is added.
                     --target-rule-ids=: A comma-separated list of target rule IDs under the WAF rule set where the
                     --target-rule-set=!: Target WAF rule set where the request field exclusions being added would apply.
                 - name: create
                   description: '*(PREVIEW)*  Create a Compute Engine organizationsecurity policy rule.'
                   flags:
                     --action=!: Action to take if the request matches the match condition.
-                    --cloud-armor: Specified for Hierarchical Cloud Armor rules.
+                    --cloud-armor: Configure the newly created organization security policy rule as a Hierarchical Cloud Armor rule rather than a standard hierarchical firewall rule.
                     --description=: An optional, textual description for the rule.
                     --dest-ip-ranges=: Destination IP ranges to match for this rule.
                     --direction=: Direction of the traffic the rule is applied.
                     --enable-logging: Use this flag to enable logging of connections that allowed or denied by this rule.
                     --expression=: The Cloud Armor rules language expression to match for this rule.
-                    --layer4-configs=: A list of destination protocols and ports to which the firewall rule will apply.
-                    --no-cloud-armor&: Specified for Hierarchical Cloud Armor rules.
+                    --layer4-configs=: Comma-separated list of destination protocols and ports to which the firewall rule applies.
+                    --no-cloud-armor&: Configure the newly created organization security policy rule as a Hierarchical Cloud Armor rule rather than a standard hierarchical firewall rule.
                     --no-enable-logging&: Use this flag to enable logging of connections that allowed or denied by this rule.
                     --no-preview&: If specified, the action will not be enforced.
                     --organization=: Organization which the organization security policy belongs to.
                     --preview: If specified, the action will not be enforced.
-                    --security-policy=!: short name of the security policy into which the rule should be inserted.
+                    --security-policy=!: Short name or numeric ID of the existing organization security policy into which the rule is inserted.
                     --src-ip-ranges=: The source IPs/IP ranges to match for this rule.
                     --target-resources=: List of URLs of target resources to which the rule is applied.
                     --target-service-accounts=: List of target service accounts for the rule.
@@ -7536,12 +7544,12 @@ commands:
                   description: '*(PREVIEW)*  Delete a Compute Engine organization security policy rule.'
                   flags:
                     --organization=: Organization which the organization security policy belongs to.
-                    --security-policy=!: short name of the security policy into which the rule should be deleted.
+                    --security-policy=!: Short name or numeric ID of the organization security policy from which the specified rule is deleted.
                 - name: describe
                   description: '*(PREVIEW)*  Describe a Compute Engine organization security policy rule.'
                   flags:
                     --organization=: Organization which the organization security policy belongs to.
-                    --security-policy=!: short name of the security policy into which the rule should be described.
+                    --security-policy=!: Short name or numeric ID of the organization security policy that contains the rule to describe.
                 - name: remove-preconfig-waf-exclusion
                   description: '*(PREVIEW)*  Remove an exclusion configuration for preconfigured WAF evaluation from a security policy rule.'
                   flags:
@@ -7551,27 +7559,27 @@ commands:
                     --request-header-to-exclude=: Removes a request header from the existing request field exclusions associated
                     --request-query-param-to-exclude=: Removes a request query parameter from the existing request field exclusions
                     --request-uri-to-exclude=: Removes a request URI from the existing request field exclusions associated with
-                    --security-policy=!: short name of the security policy into which the rule should be updated.
+                    --security-policy=!: Short name or numeric ID of the organization security policy containing the WAF exclusion rule to update.
                     --target-rule-ids=: A comma-separated list of target rule IDs under the WAF rule set from where to
                     --target-rule-set=!: Target WAF rule set from where to remove the request field exclusions.
                 - name: update
                   description: '*(PREVIEW)*  Update a Compute Engine security policy rule.'
                   flags:
                     --action=: Action to take if the request matches the match condition.
-                    --cloud-armor: Specified for Hierarchical Cloud Armor rules.
+                    --cloud-armor: Indicate that the rule being updated belongs to a Hierarchical Cloud Armor security policy rather than a standard hierarchical firewall policy.
                     --description=: An optional, textual description for the rule.
                     --dest-ip-ranges=: Destination IP ranges to match for this rule.
                     --direction=: Direction of the traffic the rule is applied.
                     --enable-logging: Use this flag to enable logging of connections that allowed or denied by this rule.
                     --expression=: The Cloud Armor rules language expression to match for this rule.
-                    --layer4-configs=: A list of destination protocols and ports to which the firewall rule will apply.
+                    --layer4-configs=: Comma-separated list of destination Layer 4 protocols and ports to which the organizational firewall rule applies.
                     --new-priority=: New priority for the rule to update.
-                    --no-cloud-armor&: Specified for Hierarchical Cloud Armor rules.
+                    --no-cloud-armor&: Indicate that the rule being updated belongs to a Hierarchical Cloud Armor security policy rather than a standard hierarchical firewall policy.
                     --no-enable-logging&: Use this flag to enable logging of connections that allowed or denied by this rule.
                     --no-preview&: If specified, the action will not be enforced.
                     --organization=: Organization which the organization security policy belongs to.
                     --preview: If specified, the action will not be enforced.
-                    --security-policy=!: short name of the security policy into which the rule should be updated.
+                    --security-policy=!: Short name or numeric ID of the organization security policy containing the rule to update.
                     --src-ip-ranges=: The source IPs/IP ranges to match for this rule.
                     --target-resources=: List of URLs of target resources to which the rule is applied.
                     --target-service-accounts=: List of target service accounts for the rule.
@@ -7592,7 +7600,7 @@ commands:
               description: '*(PREVIEW)*  Update a Compute Engine organization security policy.'
               flags:
                 --description=: An optional, textual description for the organization security policy.
-                --json-custom-content-types=: A comma-separated list of custom Content-Type header values to apply JSON
+                --json-custom-content-types=: Comma-separated list of user-defined HTTP Content-Type header values that trigger JSON parsing for preconfigured Web Application Firewall (WAF) rules.
                 --json-parsing=: The JSON parsing behavior for this rule.
                 --log-level=: The level of detail to display for WAF logging.
                 --organization=: Organization in which the organization security policy is to be updated.
@@ -8606,12 +8614,12 @@ commands:
                     --log-filter=: Filter for logs exported to stackdriver.
                     --max-ports-per-vm=: Maximum ports to be allocated to a VM.
                     --min-ports-per-vm=: Minimum ports to be allocated to a VM.
-                    --nat-all-subnet-ip-ranges: Allow all IP ranges of all subnetworks in the region, including
+                    --nat-all-subnet-ip-ranges=: Allow all IP ranges of all subnetworks in the region, including
                     --nat-custom-subnet-ip-ranges=: List of subnetwork primary and secondary IP ranges to be allowed to
                     --nat-external-ip-pool-region=&: 'Region of the addresss to operate on. '
                     --nat-external-ip-pool=: External IP Addresses to use for Cloud NAT
-                    --nat-primary-subnet-ip-ranges: Allow only primary IP ranges of all subnetworks in the region to use
-                    --nat64-all-v6-subnet-ip-ranges: Allow all IPv6 subnetwork ranges in the region to use NAT.
+                    --nat-primary-subnet-ip-ranges=: Allow only primary IP ranges of all subnetworks in the region to use
+                    --nat64-all-v6-subnet-ip-ranges=: Allow all IPv6 subnetwork ranges in the region to use NAT.
                     --nat64-custom-v6-subnet-ip-ranges=: List of subnetworks with IPv6 ranges to be allowed to use NAT.
                     --no-async&: Return immediately, without waiting for the operation in progress to
                     --no-auto-allocate-nat-external-ips&: Automatically allocate external IP addresses for Cloud NAT
@@ -8740,14 +8748,14 @@ commands:
                     --log-filter=: Filter for logs exported to stackdriver.
                     --max-ports-per-vm=: Maximum ports to be allocated to a VM.
                     --min-ports-per-vm=: Minimum ports to be allocated to a VM.
-                    --nat-all-subnet-ip-ranges: Allow all IP ranges of all subnetworks in the region, including
+                    --nat-all-subnet-ip-ranges=: Allow all IP ranges of all subnetworks in the region, including
                     --nat-custom-subnet-ip-ranges=: List of subnetwork primary and secondary IP ranges to be allowed to
                     --nat-external-drain-ip-pool-region=&: 'Region of the addresss to operate on. '
                     --nat-external-drain-ip-pool=: External IP Addresses to be drained
                     --nat-external-ip-pool-region=&: 'Region of the addresss to operate on. '
                     --nat-external-ip-pool=: External IP Addresses to use for Cloud NAT
-                    --nat-primary-subnet-ip-ranges: Allow only primary IP ranges of all subnetworks in the region to use
-                    --nat64-all-v6-subnet-ip-ranges: Allow all IPv6 subnetwork ranges in the region to use NAT.
+                    --nat-primary-subnet-ip-ranges=: Allow only primary IP ranges of all subnetworks in the region to use
+                    --nat64-all-v6-subnet-ip-ranges=: Allow all IPv6 subnetwork ranges in the region to use NAT.
                     --nat64-custom-v6-subnet-ip-ranges=: List of subnetworks with IPv6 ranges to be allowed to use NAT.
                     --no-async&: Return immediately, without waiting for the operation in progress to
                     --no-auto-allocate-nat-external-ips&: Automatically allocate external IP addresses for Cloud NAT

@@ -2,6 +2,15 @@
 name: tasks
 description: Manage Cloud Tasks queues and tasks.
 commands:
+    - name: batch-create
+      description: Create multiple tasks from a file in a single batch operation.
+      flags:
+        --dry-run: If set to true, validates the task specifications without creating the tasks.
+        --failed-tasks-file=: Optional path to a file where a JSON record of failed tasks will be written.
+        --location=: The location where we want to manage the queue or task.
+        --no-dry-run&: If set to true, validates the task specifications without creating the tasks.
+        --queue=!: The queue the tasks belong to.
+        --tasks-from-file=!: Path to a JSON or YAML file containing a list of tasks to create, or - to read from stdin.
     - name: buffer
       description: Buffers a task into a queue.
       flags:
@@ -31,7 +40,12 @@ commands:
         --body-file=: File containing HTTP body data sent to the task worker processing
         --header=: An HTTP request header.
         --location=: The location where we want to manage the queue or task.
+        --max-attempts=: The maximum number of times the system will attempt to run the task.
+        --max-backoff=: The maximum time to wait before retrying (e.g. 300s).
+        --max-doublings=: The maximum number of times the backoff period will double.
+        --max-retry-duration=: The maximum time window allowed for retrying a failed task (e.g. 3600s).
         --method=: The HTTP method to use for the request.
+        --min-backoff=: The minimum time to wait before retrying (e.g. 10s).
         --queue=!: The queue the task belongs to.
         --relative-uri=: The relative URI of the request.
         --routing=: The route to be used for this task.
@@ -43,7 +57,12 @@ commands:
         --body-file=: File containing HTTP body data sent to the task worker processing
         --header=: An HTTP request header.
         --location=: The location where we want to manage the queue or task.
+        --max-attempts=: The maximum number of times the system will attempt to run the task.
+        --max-backoff=: The maximum time to wait before retrying (e.g. 300s).
+        --max-doublings=: The maximum number of times the backoff period will double.
+        --max-retry-duration=: The maximum time window allowed for retrying a failed task (e.g. 3600s).
         --method=: The HTTP method to use for the request.
+        --min-backoff=: The minimum time to wait before retrying (e.g. 10s).
         --oauth-service-account-email=!: The service account email to be used for generating an OAuth2 access
         --oauth-token-scope=: The scope to be used when generating an OAuth2 access token to be
         --oidc-service-account-email=!: The service account email to be used for generating an OpenID
@@ -52,10 +71,12 @@ commands:
         --schedule-time=: The time when the task is scheduled to be first attempted.
         --url=!: The full URL path that the request will be sent to.
     - name: delete
-      description: Delete a task from a queue.
+      description: Delete a task or multiple tasks from a queue.
       flags:
+        --failed-tasks-file=: Path to a file to output JSON details of tasks that failed or were skipped during batch deletion.
         --location=: The location where we want to manage the queue or task.
         --queue=: The queue the task belongs to.
+        --tasks-from-file=: Path to a file containing task IDs/names to delete, one per line or in JSON/YAML format.
     - name: describe
       description: Show details about a task.
       flags:
