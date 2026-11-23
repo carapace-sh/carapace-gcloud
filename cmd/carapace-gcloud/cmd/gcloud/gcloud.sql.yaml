@@ -198,6 +198,48 @@ commands:
                     - SSD
                     - HDD
                     - HYPERDISK_BALANCED
+    - name: blue-green-deployments
+      description: Provide commands for managing Cloud SQL blue-green deployments.
+      commands:
+        - name: create
+          description: Creates a Cloud SQL blue-green deployment.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --description=: User-provided description for the blue-green deployment.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: Regional location (e.g. asia-east1, us-east1).
+            --source-instance=!: Cloud SQL instance to be used as source for the blue-green deployment.
+            --target-database-version=: Database version for the target instance, for major version upgrade.
+        - name: delete
+          description: Deletes a Cloud SQL blue-green deployment.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --delete-old-source: Delete the old source instance.
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --no-delete-old-source&: Delete the old source instance.
+            --region=: Regional location (e.g. asia-east1, us-east1).
+        - name: describe
+          description: Retrieves information about a Cloud SQL blue-green deployment.
+          flags:
+            --no-show-config-diff&: Show the configuration difference between source and target instances.
+            --region=: Regional location (e.g. asia-east1, us-east1).
+            --show-config-diff: Show the configuration difference between source and target instances.
+        - name: list
+          description: Lists Cloud SQL blue-green deployments.
+          flags:
+            --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+            --limit=: Maximum number of resources to list.
+            --no-uri&: Print a list of resource URIs instead of the default output, and change the
+            --page-size=: Some services group resource list output into pages.
+            --region=: Regional location (e.g. asia-east1, us-east1).
+            --sort-by=: Comma-separated list of resource field key names to sort by.
+            --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: switchover
+          description: Performs switchover for a Cloud SQL blue-green deployment.
+          flags:
+            --async: Return immediately, without waiting for the operation in progress to
+            --no-async&: Return immediately, without waiting for the operation in progress to
+            --region=: Regional location (e.g. asia-east1, us-east1).
     - name: connect
       description: Connects to a Cloud SQL instance.
       flags:
@@ -534,6 +576,7 @@ commands:
             --final-backup: Enables the final backup to be taken at the time of instance deletion.
             --final-backup-retention-days=: Specifies number of days to retain final backup.
             --gce-zone=: (DEPRECATED) Preferred Compute Engine zone (e.g. us-central1-a, us-central1-b, etc.).
+            --initial-users=&: IAM users to create on the instance during creation.
             --insights-config-enhanced-query-insights-enabled: Enable enhanced query insights for Enterprise Plus edition to provide more detailed query
             --insights-config-query-insights-enabled: Enable query insights feature to provide query and query plan
             --insights-config-query-plans-per-minute=: Number of query plans to sample every minute.
@@ -546,6 +589,8 @@ commands:
             --maintenance-window-hour=: Hour of day for maintenance window, in UTC time zone.
             --master-instance-name=: Name of the instance which will act as master in the replication setup.
             --memory=: Whole number value indicating how much memory is desired in the machine.
+            --msdtc-enabled: Enable/Disable Microsoft Distributed Transaction Coordinator (MSDTC) for SQL Server instances.
+            --msdtc-rpc-auth-mode=: RPC authentication mode for Microsoft Distributed Transaction Coordinator (MSDTC) for SQL Server instances.
             --network=: Network in the current project that the instance will be part of.
             --no-assign-ip&: Assign a public IP address to the instance.
             --no-async&: Return immediately, without waiting for the operation in progress to
@@ -578,6 +623,7 @@ commands:
             --no-insights-config-query-insights-enabled&: Enable query insights feature to provide query and query plan
             --no-insights-config-record-application-tags&: Allow application tags to be recorded by the query insights
             --no-insights-config-record-client-address&: Allow the client address to be recorded by the query insights
+            --no-msdtc-enabled&: Enable/Disable Microsoft Distributed Transaction Coordinator (MSDTC) for SQL Server instances.
             --no-password-policy-disallow-username-substring&: Disallow username as a part of the password.
             --no-recreate-replicas-on-primary-crash&: Allow/Disallow replica recreation when a primary MySQL instance operating in reduced durability mode crashes.
             --no-require-ssl&: Specified if users connecting over IP must use SSL.
@@ -695,6 +741,10 @@ commands:
                     - THU
                     - FRI
                     - SAT
+                msdtc-rpc-auth-mode:
+                    - allow-only-secure-rpc-calls
+                    - fallback-to-unsecure-rpc-if-necessary
+                    - turn-off-rpc-security
                 password-policy-complexity:
                     - COMPLEXITY_DEFAULT
                     - COMPLEXITY_UNSPECIFIED
@@ -839,6 +889,7 @@ commands:
             --clear-database-center-integration&: Clear the Database Center integration setting of the instance, so that the instance uses the default Database Center integration behavior.
             --clear-database-flags: Clear the database flags set on the instance.
             --clear-entra-id-config: Clears the Entra ID config for the SQL Server instance.
+            --clear-entra-id-manager-application-id&: Clears the Entra ID manager application ID without affecting the tenant ID or application ID.
             --clear-failover-dr-replica-name: Clear the DR replica setting for the primary instance.
             --clear-gae-apps: Specified to clear the list of App Engine apps that can access this instance.
             --clear-password-policy: Clear the existing password policy.
@@ -881,6 +932,8 @@ commands:
             --enable-sql-server-password-policy&: Enables password policy on SQL Server local logins.
             --enforce-new-sql-network-architecture: Force the instance to use the new network architecture.
             --entra-id-application-id=!: Set the Entraid application ID.
+            --entra-id-auto-rotation&: Enables or disables automatic Entra ID certificate rotation during maintenance windows.
+            --entra-id-manager-application-id=&: The Entra ID application ID of the certificate manager application used to manage certificates via Workload Identity Federation.
             --entra-id-tenant-id=!: Set the Entraid tenant ID.
             --failover-dr-replica-name=: Set a Disaster Recovery (DR) replica with the specified name for the primary instance.
             --final-backup: Enables the final backup to be taken at the time of instance deletion.
@@ -901,6 +954,8 @@ commands:
             --maintenance-window-day=: Day of week for maintenance window, in UTC time zone.
             --maintenance-window-hour=: Hour of day for maintenance window, in UTC time zone.
             --memory=: Whole number value indicating how much memory is desired in the machine.
+            --msdtc-enabled: Enable/Disable Microsoft Distributed Transaction Coordinator (MSDTC) for SQL Server instances.
+            --msdtc-rpc-auth-mode=: RPC authentication mode for Microsoft Distributed Transaction Coordinator (MSDTC) for SQL Server instances.
             --network=: Network in the current project that the instance will be part of.
             --no-assign-ip&: Assign a public IP address to the instance.
             --no-async&: Return immediately, without waiting for the operation in progress to
@@ -917,6 +972,7 @@ commands:
             --no-clear-database-center-integration&: Clear the Database Center integration setting of the instance, so that the instance uses the default Database Center integration behavior.
             --no-clear-database-flags&: Clear the database flags set on the instance.
             --no-clear-entra-id-config&: Clears the Entra ID config for the SQL Server instance.
+            --no-clear-entra-id-manager-application-id&: Clears the Entra ID manager application ID without affecting the tenant ID or application ID.
             --no-clear-failover-dr-replica-name&: Clear the DR replica setting for the primary instance.
             --no-clear-gae-apps&: Specified to clear the list of App Engine apps that can access this instance.
             --no-clear-password-policy&: Clear the existing password policy.
@@ -946,6 +1002,7 @@ commands:
             --no-enable-psc-write-endpoint-dns&: Enable the global DNS record pointing to the primary, for Enterprise Plus edition only.
             --no-enable-sql-server-password-policy&: Enables password policy on SQL Server local logins.
             --no-enforce-new-sql-network-architecture&: Force the instance to use the new network architecture.
+            --no-entra-id-auto-rotation&: Enables or disables automatic Entra ID certificate rotation during maintenance windows.
             --no-final-backup&: Enables the final backup to be taken at the time of instance deletion.
             --no-include-replicas-for-major-version-upgrade&: Enable the major version upgrade of replicas when the in-place major version upgrade of a primary instance is initated with `--database-version`.
             --no-insights-config-enhanced-query-insights-enabled&: Enable enhanced query insights for Enterprise Plus edition to provide more detailed query
@@ -953,6 +1010,7 @@ commands:
             --no-insights-config-record-application-tags&: Allow application tags to be recorded by the query insights
             --no-insights-config-record-client-address&: Allow the client address to be recorded by the query insights
             --no-maintenance-window-any&: Removes the user-specified maintenance window.
+            --no-msdtc-enabled&: Enable/Disable Microsoft Distributed Transaction Coordinator (MSDTC) for SQL Server instances.
             --no-password-policy-disallow-username-substring&: Disallow username as a part of the password.
             --no-reconcile-psa-networking&: Reconciles the instance's PSA networking configuration.
             --no-recreate-replicas-on-primary-crash&: Allow/Disallow replica recreation when a primary MySQL instance operating in reduced durability mode crashes.
@@ -1079,6 +1137,10 @@ commands:
                     - THU
                     - FRI
                     - SAT
+                msdtc-rpc-auth-mode:
+                    - allow-only-secure-rpc-calls
+                    - fallback-to-unsecure-rpc-if-necessary
+                    - turn-off-rpc-security
                 password-policy-complexity:
                     - COMPLEXITY_DEFAULT
                     - COMPLEXITY_UNSPECIFIED
@@ -1454,8 +1516,10 @@ commands:
               description: Create an Entra ID certificate for a Cloud SQL instance.
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
+                --auto-upload&: If true, also uploads the new certificate to the Entra ID application of the instance by using the manager application, and confirms that the certificate can be used.
                 --instance=!: Cloud SQL instance ID.
                 --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-auto-upload&: If true, also uploads the new certificate to the Entra ID application of the instance by using the manager application, and confirms that the certificate can be used.
             - name: list
               description: List all Entra ID certificates for a Cloud SQL instance.
               flags:
@@ -1478,6 +1542,8 @@ commands:
                 --async: Return immediately, without waiting for the operation in progress to
                 --instance=!: Cloud SQL instance ID.
                 --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-verify&: If true, pre-validates certificate permissions against Entra ID before rotation.
+                --verify&: If true, pre-validates certificate permissions against Entra ID before rotation.
         - name: server-ca-certs
           description: Provide commands for managing server CA certs of Cloud SQL instances.
           commands:

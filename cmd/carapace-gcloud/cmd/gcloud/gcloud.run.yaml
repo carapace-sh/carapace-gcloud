@@ -128,6 +128,7 @@ commands:
         --deploy-health-check: Schedules a single instance of the Revision and waits for it to pass its startup probe for the deployment to succeed.
         --description=: Provides an optional, human-readable description of the service.
         --encryption-key-shutdown-hours=: The number of hours to wait before an automatic shutdown server after CMEK key revocation is detected.
+        --endpoint-mode=: Specifies endpoint mode for a given command.
         --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
         --execution-environment=: Selects the execution environment where the application will run.
         --function=: Specifies that the deployed object is a function.
@@ -233,6 +234,10 @@ commands:
             connectivity:
                 - external
                 - internal
+            endpoint-mode:
+                - global
+                - regional
+                - regional-preferred
             execution-environment:
                 - gen1
                 - gen2
@@ -348,9 +353,16 @@ commands:
         - name: add-iam-policy-binding
           description: Add IAM policy binding to a Cloud Run job.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --member=!: The principal to add the binding for.
             --region=: Region in which the resource can be found.
             --role=!: Role name to assign to the principal.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: create
           description: Create a Cloud Run job.
           flags:
@@ -370,6 +382,7 @@ commands:
             --container=: Specifies a container by name.
             --cpu=: Set a CPU limit in Kubernetes cpu units.
             --depends-on=: List of container dependencies to add to the current container.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
             --execute-now: Execute the job immediately after the creation or update  completes.
             --execution-environment=&: Selects the execution environment where the application will run.
@@ -414,6 +427,10 @@ commands:
             --workdir=: Working directory of the container process.
           completion:
             flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
                 execution-environment:
                     - gen1
                     - gen2
@@ -425,8 +442,15 @@ commands:
           description: Delete a job.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --region=: Region in which the resource can be found.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: deploy
           description: Create or update a Cloud Run job.
           flags:
@@ -448,6 +472,7 @@ commands:
             --container=: Specifies a container by name.
             --cpu=: Set a CPU limit in Kubernetes cpu units.
             --depends-on=: List of container dependencies to add to the current container.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
             --execute-now: Execute the job immediately after the creation or update  completes.
             --execution-environment=&: Selects the execution environment where the application will run.
@@ -496,6 +521,10 @@ commands:
             --workdir=: Working directory of the container process.
           completion:
             flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
                 execution-environment:
                     - gen1
                     - gen2
@@ -506,13 +535,21 @@ commands:
         - name: describe
           description: Obtain details about jobs.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --region=: Region in which the resource can be found.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: execute
           description: Execute a job.
           flags:
             --args=: Comma-separated arguments passed to the command run by the container image.
             --async: Return immediately, without waiting for the operation in progress to
             --container=: Specifies a container by name.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-wait&: Wait until the execution has completed running before exiting.
             --region=: Region in which the resource can be found.
@@ -520,6 +557,12 @@ commands:
             --tasks=: Number of tasks that must run to completion for the execution to be considered done.
             --update-env-vars=: List of key-value pairs to set as environment variables overrides for an execution of a job.
             --wait: Wait until the execution has completed running before exiting.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: executions
           description: View and manage your Cloud Run jobs executions.
           flags:
@@ -529,26 +572,55 @@ commands:
               description: Cancel an execution.
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
+                --endpoint-mode=: Specifies endpoint mode for a given command.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --region=: Region in which the resource can be found.
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
             - name: delete
               description: Delete an execution.
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
+                --endpoint-mode=: Specifies endpoint mode for a given command.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --region=: Region in which the resource can be found.
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
             - name: describe
               description: Obtain details about executions.
               flags:
+                --endpoint-mode=: Specifies endpoint mode for a given command.
                 --region=: Region in which the resource can be found.
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
             - name: describe-latest
               description: Obtain details about the latest execution of a job.
               flags:
+                --endpoint-mode=: Specifies endpoint mode for a given command.
                 --job=!: ID of the Job or fully qualified identifier for the Job.
                 --region=: Region in which the resource can be found.
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
             - name: list
               description: List executions.
               flags:
+                --endpoint-mode=: Specifies endpoint mode for a given command.
                 --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
                 --job=: Limit matched resources to the given job.
                 --limit=: Maximum number of resources to list.
@@ -558,6 +630,12 @@ commands:
                 --region=: Region in which the resource can be found.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
             - name: tasks
               description: View and manage your Cloud Run jobs tasks.
               flags:
@@ -566,13 +644,21 @@ commands:
                 - name: describe
                   description: Obtain details about tasks.
                   flags:
+                    --endpoint-mode=: Specifies endpoint mode for a given command.
                     --region=: Region in which the resource can be found.
+                  completion:
+                    flag:
+                        endpoint-mode:
+                            - global
+                            - regional
+                            - regional-preferred
                 - name: list
                   description: List tasks.
                   flags:
                     --abandoned: Include abandoned tasks.
                     --cancelled: Include cancelled tasks.
                     --completed: Include succeeded, failed, and cancelled tasks.
+                    --endpoint-mode=: Specifies endpoint mode for a given command.
                     --execution=!: ID of the Execution or fully qualified identifier for the Execution.
                     --failed: Include failed tasks.
                     --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
@@ -588,17 +674,31 @@ commands:
                     --started: Include running, succeeded, failed, and cancelled tasks.
                     --succeeded: Include succeeded tasks.
                     --uri: Print a list of resource URIs instead of the default output, and change the
+                  completion:
+                    flag:
+                        endpoint-mode:
+                            - global
+                            - regional
+                            - regional-preferred
         - name: get-iam-policy
           description: Get the IAM policy for a Cloud Run job.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
             --page-size=: Some services group resource list output into pages.
             --region=: Region in which the resource can be found.
             --sort-by=: Comma-separated list of resource field key names to sort by.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: list
           description: List jobs.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
             --namespace=&: ID of the namespace or fully qualified identifier for the namespace.
@@ -607,6 +707,12 @@ commands:
             --region=: Region in which the resource can be found.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: logs
           description: Read logs for Cloud Run jobs.
           flags:
@@ -628,21 +734,42 @@ commands:
         - name: remove-iam-policy-binding
           description: Remove IAM policy binding of a Cloud Run job.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --member=!: The principal to remove the binding for.
             --region=: Region in which the resource can be found.
             --role=!: The role to remove the principal from.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: replace
           description: Create or replace a job from a YAML job specification.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
             --client-name=&: Name of the client handling the deployment.
             --client-version=&: Version of the client handling the deployment.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --region=: Region in which the resource can be found.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: set-iam-policy
           description: Set the IAM policy for a job.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --region=: Region in which the resource can be found.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: update
           description: Update a Cloud Run Job.
           flags:
@@ -669,6 +796,7 @@ commands:
             --container=: Specifies a container by name.
             --cpu=: Set a CPU limit in Kubernetes cpu units.
             --depends-on=: List of container dependencies to add to the current container.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
             --execute-now: Execute the job immediately after the creation or update  completes.
             --execution-environment=&: Selects the execution environment where the application will run.
@@ -723,6 +851,10 @@ commands:
             --workdir=: Working directory of the container process.
           completion:
             flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
                 execution-environment:
                     - gen1
                     - gen2
@@ -1031,6 +1163,7 @@ commands:
             --cluster-location=&: Zone in which the cluster is located.
             --cluster=&: ID of the cluster or fully qualified identifier for the cluster.
             --context=&: The name of the context in your kubectl config file to use for connecting.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --kubeconfig=&: The absolute path to your kubectl config file.
             --namespace=: 'Specific to Cloud Run for Anthos: Kubernetes namespace for the revision.'
             --no-async&: Return immediately, without waiting for the operation in progress to
@@ -1038,6 +1171,10 @@ commands:
             --region=: Region in which the resource can be found.
           completion:
             flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
                 platform:
                     - gke
                     - kubernetes
@@ -1048,12 +1185,17 @@ commands:
             --cluster-location=&: Zone in which the cluster is located.
             --cluster=&: ID of the cluster or fully qualified identifier for the cluster.
             --context=&: The name of the context in your kubectl config file to use for connecting.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --kubeconfig=&: The absolute path to your kubectl config file.
             --namespace=: 'Specific to Cloud Run for Anthos: Kubernetes namespace for the revision.'
             --platform=&: Target platform for running commands.
             --region=: Region in which the resource can be found.
           completion:
             flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
                 platform:
                     - gke
                     - kubernetes
@@ -1064,6 +1206,7 @@ commands:
             --cluster-location=&: Zone in which the cluster is located.
             --cluster=&: ID of the cluster or fully qualified identifier for the cluster.
             --context=&: The name of the context in your kubectl config file to use for connecting.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --kubeconfig=&: The absolute path to your kubectl config file.
             --limit=: Maximum number of resources to list.
@@ -1077,6 +1220,10 @@ commands:
             --uri: Print a list of resource URIs instead of the default output, and change the
           completion:
             flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
                 platform:
                     - gke
                     - kubernetes
@@ -1162,6 +1309,7 @@ commands:
             --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
             --condition=: A condition to include in the binding.
             --context=&: The name of the context in your kubectl config file to use for connecting.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --kubeconfig=&: The absolute path to your kubectl config file.
             --member=!: The principal to add the binding for.
             --platform=&: Target platform for running commands.
@@ -1169,6 +1317,10 @@ commands:
             --role=!: Role name to assign to the principal.
           completion:
             flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
                 platform:
                     - gke
                     - kubernetes
@@ -1180,6 +1332,7 @@ commands:
             --cluster-location=&: Zone in which the cluster is located.
             --cluster=&: ID of the cluster or fully qualified identifier for the cluster.
             --context=&: The name of the context in your kubectl config file to use for connecting.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --kubeconfig=&: The absolute path to your kubectl config file.
             --namespace=: 'Specific to Cloud Run for Anthos: Kubernetes namespace for the service.'
             --no-async&: Return immediately, without waiting for the operation in progress to
@@ -1187,6 +1340,10 @@ commands:
             --region=: Region in which the resource can be found.
           completion:
             flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
                 platform:
                     - gke
                     - kubernetes
@@ -1197,12 +1354,17 @@ commands:
             --cluster-location=&: Zone in which the cluster is located.
             --cluster=&: ID of the cluster or fully qualified identifier for the cluster.
             --context=&: The name of the context in your kubectl config file to use for connecting.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --kubeconfig=&: The absolute path to your kubectl config file.
             --namespace=: 'Specific to Cloud Run for Anthos: Kubernetes namespace for the service.'
             --platform=&: Target platform for running commands.
             --region=: Region in which the resource can be found.
           completion:
             flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
                 platform:
                     - gke
                     - kubernetes
@@ -1213,6 +1375,7 @@ commands:
             --cluster-location=&: Zone in which the cluster is located.
             --cluster=&: ID of the cluster or fully qualified identifier for the cluster.
             --context=&: The name of the context in your kubectl config file to use for connecting.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --kubeconfig=&: The absolute path to your kubectl config file.
             --limit=: Maximum number of resources to list.
@@ -1222,6 +1385,10 @@ commands:
             --sort-by=: Comma-separated list of resource field key names to sort by.
           completion:
             flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
                 platform:
                     - gke
                     - kubernetes
@@ -1232,6 +1399,7 @@ commands:
             --cluster-location=&: Zone in which the cluster is located.
             --cluster=&: ID of the cluster or fully qualified identifier for the cluster.
             --context=&: The name of the context in your kubectl config file to use for connecting.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --kubeconfig=&: The absolute path to your kubectl config file.
             --limit=: Maximum number of resources to list.
@@ -1244,6 +1412,10 @@ commands:
             --uri: Print a list of resource URIs instead of the default output, and change the
           completion:
             flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
                 platform:
                     - gke
                     - kubernetes
@@ -1292,6 +1464,7 @@ commands:
             --cluster-location=&: Zone in which the cluster is located.
             --cluster=&: ID of the cluster or fully qualified identifier for the cluster.
             --context=&: The name of the context in your kubectl config file to use for connecting.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --kubeconfig=&: The absolute path to your kubectl config file.
             --namespace=: 'Specific to Cloud Run for Anthos: Kubernetes namespace for the service.'
             --no-show-exec-error&: If true and command fails, print the underlying command that was executed and its exit status.
@@ -1303,6 +1476,10 @@ commands:
             --token=: The specific identity token to add to all requests of the proxied service.
           completion:
             flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
                 platform:
                     - gke
                     - kubernetes
@@ -1316,6 +1493,7 @@ commands:
             --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
             --condition=: The condition of the binding that you want to remove.
             --context=&: The name of the context in your kubectl config file to use for connecting.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --kubeconfig=&: The absolute path to your kubectl config file.
             --member=!: The principal to remove the binding for.
             --no-all&: ""
@@ -1324,6 +1502,10 @@ commands:
             --role=!: The role to remove the principal from.
           completion:
             flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
                 platform:
                     - gke
                     - kubernetes
@@ -1338,6 +1520,7 @@ commands:
             --cluster=&: ID of the cluster or fully qualified identifier for the cluster.
             --context=&: The name of the context in your kubectl config file to use for connecting.
             --dry-run: If set to true, only validates the configuration.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --kubeconfig=&: The absolute path to your kubectl config file.
             --namespace=&: ID of the namespace or fully qualified identifier for the namespace.
             --no-async&: Return immediately, without waiting for the operation in progress to
@@ -1346,6 +1529,10 @@ commands:
             --region=: Region in which the resource can be found.
           completion:
             flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
                 platform:
                     - gke
                     - kubernetes
@@ -1356,11 +1543,16 @@ commands:
             --cluster-location=&: Zone in which the cluster is located.
             --cluster=&: ID of the cluster or fully qualified identifier for the cluster.
             --context=&: The name of the context in your kubectl config file to use for connecting.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --kubeconfig=&: The absolute path to your kubectl config file.
             --platform=&: Target platform for running commands.
             --region=: Region in which the resource can be found.
           completion:
             flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
                 platform:
                     - gke
                     - kubernetes
@@ -1407,6 +1599,7 @@ commands:
             --depends-on=: List of container dependencies to add to the current container.
             --deploy-health-check: Schedules a single instance of the Revision and waits for it to pass its startup probe for the deployment to succeed.
             --encryption-key-shutdown-hours=: The number of hours to wait before an automatic shutdown server after CMEK key revocation is detected.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
             --execution-environment=: Selects the execution environment where the application will run.
             --gpu-type=: The GPU type to use.
@@ -1499,6 +1692,10 @@ commands:
                 connectivity:
                     - external
                     - internal
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
                 execution-environment:
                     - gen1
                     - gen2
@@ -1525,6 +1722,7 @@ commands:
             --cluster-location=&: Zone in which the cluster is located.
             --cluster=&: ID of the cluster or fully qualified identifier for the cluster.
             --context=&: The name of the context in your kubectl config file to use for connecting.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --kubeconfig=&: The absolute path to your kubectl config file.
             --namespace=: 'Specific to Cloud Run for Anthos: Kubernetes namespace for the service.'
             --no-async&: Return immediately, without waiting for the operation in progress to
@@ -1540,6 +1738,10 @@ commands:
             --update-tags=: List of key-value pairs to set as tags.
           completion:
             flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
                 platform:
                     - gke
                     - kubernetes
@@ -1552,15 +1754,29 @@ commands:
           flags:
             --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
             --condition=: A condition to include in the binding.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --member=!: The principal to add the binding for.
             --region=: The Cloud Run region.
             --role=!: Role name to assign to the principal.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: delete
           description: Delete a worker-pool.
           flags:
             --async: Return immediately, without waiting for the operation in progress to
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --region=: The Cloud region for the WorkerPool.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: deploy
           description: Create or update a Cloud Run worker-pool.
           flags:
@@ -1592,6 +1808,7 @@ commands:
             --depends-on=: List of container dependencies to add to the current container.
             --description=: Provides an optional, human-readable description of the service.
             --encryption-key-shutdown-hours=: The number of hours to wait before an automatic shutdown server after CMEK key revocation is detected.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
             --gpu-type=: The GPU type to use.
             --gpu-zonal-redundancy: Set GPU zonal redundancy.
@@ -1646,6 +1863,10 @@ commands:
             --workdir=: Working directory of the container process.
           completion:
             flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
                 post-key-revocation-action-type:
                     - prevent-new
                     - shut-down
@@ -1656,18 +1877,33 @@ commands:
         - name: describe
           description: Obtain details about a given worker-pool.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --region=: Region in which the resource can be found.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: get-iam-policy
           description: Get the IAM policy for a Cloud Run worker pool.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
             --page-size=: Some services group resource list output into pages.
             --region=: The Cloud Run region.
             --sort-by=: Comma-separated list of resource field key names to sort by.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: list
           description: List available worker-pools.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
             --limit=: Maximum number of resources to list.
             --no-uri&: Print a list of resource URIs instead of the default output, and change the
@@ -1675,6 +1911,12 @@ commands:
             --region=: Region in which the resource can be found.
             --sort-by=: Comma-separated list of resource field key names to sort by.
             --uri: Print a list of resource URIs instead of the default output, and change the
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: logs
           description: Read logs for Cloud Run worker pools.
           flags:
@@ -1706,10 +1948,17 @@ commands:
             --all: Remove all bindings with this role and principal, irrespective of any
             --condition-from-file=: Path to a local JSON or YAML file that defines the condition.
             --condition=: The condition of the binding that you want to remove.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --member=!: The principal to remove the binding for.
             --no-all&: ""
             --region=: The Cloud Run region.
             --role=!: The role to remove the principal from.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: replace
           description: Create or replace a worker-pool from a YAML worker-pool specification.
           flags:
@@ -1717,8 +1966,15 @@ commands:
             --client-name=&: Name of the client handling the deployment.
             --client-version=&: Version of the client handling the deployment.
             --dry-run: If set to true, only validates the configuration.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-dry-run&: If set to true, only validates the configuration.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: revisions
           description: View and manage your Cloud Run WorkerPools revisions.
           commands:
@@ -1726,16 +1982,31 @@ commands:
               description: Delete a worker pool revision.
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
+                --endpoint-mode=: Specifies endpoint mode for a given command.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --region=: The Cloud region for the WorkerPoolRevision.
                 --worker-pool=: WorkerPool for the WorkerPoolRevision.
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
             - name: describe
               description: Obtain details about a given worker pool revision.
               flags:
+                --endpoint-mode=: Specifies endpoint mode for a given command.
                 --region=: Region in which the resource can be found.
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
             - name: list
               description: List available worker pool revisions.
               flags:
+                --endpoint-mode=: Specifies endpoint mode for a given command.
                 --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
                 --limit=: Maximum number of resources to list.
                 --namespace=&: ID of the namespace or fully qualified identifier for the namespace.
@@ -1745,10 +2016,23 @@ commands:
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
                 --worker-pool=: Limit matched revisions to the given worker.
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
         - name: set-iam-policy
           description: Set the IAM policy for a worker pool.
           flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --region=: The Cloud Run region.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
         - name: update
           description: Update Cloud Run environment variables and other configuration settings.
           flags:
@@ -1780,6 +2064,7 @@ commands:
             --depends-on=: List of container dependencies to add to the current container.
             --description=: Provides an optional, human-readable description of the service.
             --encryption-key-shutdown-hours=: The number of hours to wait before an automatic shutdown server after CMEK key revocation is detected.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
             --gpu-type=: The GPU type to use.
             --gpu-zonal-redundancy: Set GPU zonal redundancy.
@@ -1833,6 +2118,10 @@ commands:
             --workdir=: Working directory of the container process.
           completion:
             flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
                 post-key-revocation-action-type:
                     - prevent-new
                     - shut-down
@@ -1845,8 +2134,15 @@ commands:
           flags:
             --async: Return immediately, without waiting for the operation in progress to
             --breakglass=: Justification to bypass Binary Authorization policy constraints and allow the operation.
+            --endpoint-mode=: Specifies endpoint mode for a given command.
             --no-async&: Return immediately, without waiting for the operation in progress to
             --no-to-latest&: True to assign 100 percent of instances to the 'latest' revision of this service.
             --region=: The Cloud region for the WorkerPool.
             --to-latest: True to assign 100 percent of instances to the 'latest' revision of this service.
             --to-revisions=: Comma separated list of instance assignments in the form REVISION-NAME=PERCENTAGE.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred

@@ -1959,11 +1959,9 @@ commands:
                 --request-id=: An optional request ID to identify requests.
         - name: skill-encryption-spec
           description: '*(ALPHA)*  Manage the Skill encryption spec of a location.'
-          hidden: true
           commands:
             - name: describe
               description: '*(ALPHA)*  Describe the Skill encryption spec of a location.'
-              hidden: true
               flags:
                 --endpoint-mode=: Specifies endpoint mode for a given command.
                 --location=!: ID of the location or fully qualified identifier for the location.
@@ -1975,7 +1973,6 @@ commands:
                         - regional-preferred
             - name: update
               description: '*(ALPHA)*  Update the Skill encryption spec of a location.'
-              hidden: true
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
                 --endpoint-mode=: Specifies endpoint mode for a given command.
@@ -4689,6 +4686,7 @@ commands:
                         - z3-highmem-22-highlssd
                         - z3-highmem-32-highlssd
                         - z3-highmem-44-highlssd
+                        - z4d-highmem-16-standardlssd
                     ssl-mode:
                         - ALLOW_UNENCRYPTED_AND_ENCRYPTED
                         - ENCRYPTED_ONLY
@@ -4962,6 +4960,7 @@ commands:
                         - z3-highmem-22-highlssd
                         - z3-highmem-32-highlssd
                         - z3-highmem-44-highlssd
+                        - z4d-highmem-16-standardlssd
                     ssl-mode:
                         - ALLOW_UNENCRYPTED_AND_ENCRYPTED
                         - ENCRYPTED_ONLY
@@ -5423,48 +5422,6 @@ commands:
               description: '*(ALPHA)*  Wait for a Cloud API Gateway operation to complete.'
               flags:
                 --location=: Cloud location for operation.
-    - name: api-registry
-      description: '*(ALPHA)*  Manage Cloud API Registry Command Group.'
-      commands:
-        - name: mcp
-          description: '*(ALPHA)*  *(DEPRECATED)*  Manage MCP Command Group.'
-          commands:
-            - name: disable
-              description: '*(ALPHA)*  *(DEPRECATED)*  *(REMOVED)*  Disables MCP server for a given service in the current project.'
-              hidden: true
-            - name: enable
-              description: '*(ALPHA)*  *(DEPRECATED)*  *(REMOVED)*  Enables MCP server for a given service in the current project.'
-              hidden: true
-            - name: servers
-              description: '*(ALPHA)*  *(DEPRECATED)*  Manage Cloud API Registry MCP servers.'
-              commands:
-                - name: list
-                  description: '*(ALPHA)*  *(DEPRECATED)*  *(REMOVED)*  List MCP servers.'
-                  hidden: true
-                  flags:
-                    --all: If provided, list all the available (both enabled and non-enabled) MCP servers for the project.
-                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                    --limit=: Maximum number of resources to list.
-                    --no-all&: If provided, list all the available (both enabled and non-enabled) MCP servers for the project.
-                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                    --page-size=: Some services group resource list output into pages.
-                    --sort-by=: Comma-separated list of resource field key names to sort by.
-                    --uri: Print a list of resource URIs instead of the default output, and change the
-            - name: tools
-              description: '*(ALPHA)*  *(DEPRECATED)*  Manage Cloud API Registry MCP tools.'
-              commands:
-                - name: list
-                  description: '*(ALPHA)*  *(DEPRECATED)*  *(REMOVED)*  List MCP tools.'
-                  hidden: true
-                  flags:
-                    --all: If provided, list all the available MCP tools for all (both enabled and non-enabled) the MCP Servers for the project.
-                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
-                    --limit=: Maximum number of resources to list.
-                    --no-all&: If provided, list all the available MCP tools for all (both enabled and non-enabled) the MCP Servers for the project.
-                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
-                    --page-size=: Some services group resource list output into pages.
-                    --sort-by=: Comma-separated list of resource field key names to sort by.
-                    --uri: Print a list of resource URIs instead of the default output, and change the
     - name: apigee
       description: '*(ALPHA)*  Manage Apigee resources.'
       commands:
@@ -5675,21 +5632,21 @@ commands:
             - name: create
               description: '*(ALPHA)*  Create an Apigee API product.'
               flags:
-                --all-environments: Make all environments accessible through this API product.
+                --all-environments=: Make all environments accessible through this API product.
                 --all-proxies: Expose all available API proxies and their resources.
                 --apis=: Comma-separated names of API proxies to which this API product is bound.
                 --attributes=: Key-value attribute pairs that may be used to extend the default API product profile with customer-specific metadata.
                 --description=: Overview of the API product.
                 --display-name=: Name to be displayed in the UI or developer portal to developers registering for API access.
                 --environments=: Environments to which the API product is bound.
-                --internal-access: Prevent external access to this API product.
+                --internal-access=: Prevent external access to this API product.
                 --manual-approval: Require manual approval of developer requests to access this API product before their consumer keys can be used.
                 --no-all-proxies&: Expose all available API proxies and their resources.
                 --no-manual-approval&: Require manual approval of developer requests to access this API product before their consumer keys can be used.
                 --oauth-scopes=: Comma-separated list of OAuth scopes that are validated at runtime.
                 --organization=: Apigee organization containing the API product.
-                --private-access: Hide this API product in the developer portal but make it accessible by external developers.
-                --public-access: Make this API product visible to developers in the Apigee developer portal.
+                --private-access=: Hide this API product in the developer portal but make it accessible by external developers.
+                --public-access=: Make this API product visible to developers in the Apigee developer portal.
                 --quota-interval=: Time interval over which the number of request messages is calculated.
                 --quota-unit=: Time unit for `--quota-interval`.
                 --quota=: Number of request messages permitted per app by this API product
@@ -5730,15 +5687,15 @@ commands:
                 --all-apis: Include all deployed API proxies in the product, so long as they match the other parameters.
                 --all-environments: Make all environments accessible through this API product.
                 --all-resources: Include all deployed API resources in the product, so long as they match the other parameters.
-                --automatic-approval: Allow developers to generate approved consumer keys without waiting for approval.
+                --automatic-approval=: Allow developers to generate approved consumer keys without waiting for approval.
                 --clear-attributes: Removes all attributes.
                 --clear-description: Remove the API product's description.
                 --clear-oauth-scopes: Removes all OAuth scopes.
                 --clear-quota: Remove any quota currently imposed on the API product.
                 --description=: Overview of the API product.
                 --display-name=: Name to be displayed in the UI or developer portal to developers registering for API access.
-                --internal-access: Prevent external access to this API product.
-                --manual-approval: Require manual approval of developer requests to access this API product before their consumer keys can be used.
+                --internal-access=: Prevent external access to this API product.
+                --manual-approval=: Require manual approval of developer requests to access this API product before their consumer keys can be used.
                 --no-all-apis&: Include all deployed API proxies in the product, so long as they match the other parameters.
                 --no-all-environments&: Make all environments accessible through this API product.
                 --no-all-resources&: Include all deployed API resources in the product, so long as they match the other parameters.
@@ -5747,8 +5704,8 @@ commands:
                 --no-clear-oauth-scopes&: Removes all OAuth scopes.
                 --no-clear-quota&: Remove any quota currently imposed on the API product.
                 --organization=: Apigee organization containing the API product.
-                --private-access: Hide this API product in the developer portal but make it accessible by external developers.
-                --public-access: Make this API product visible to developers in the Apigee developer portal.
+                --private-access=: Hide this API product in the developer portal but make it accessible by external developers.
+                --public-access=: Make this API product visible to developers in the Apigee developer portal.
                 --quota-interval=: Time interval over which the number of request messages is calculated.
                 --quota-unit=: Time unit for `--quota-interval`.
                 --quota=: Number of request messages permitted per app by this API
@@ -7195,9 +7152,11 @@ commands:
                 --key=!: Flag key used in client runtime evaluation (required).
                 --labels=: The labels on the resource, which can be used for categorization.
                 --location=: For resources [flag, unit-kind], provides fallback value for resource location attribute.
+                --no-with-default-evaluation&: If set, populates the flag with default boolean variants (`Enabled`=`true`
                 --state=: Current state of the flag.
                 --unit-kind=!: ID of the unitKind or fully qualified identifier for the unitKind.
                 --variants=: A list of variants.
+                --with-default-evaluation: If set, populates the flag with default boolean variants (`Enabled`=`true`
               completion:
                 flag:
                     flag-value-type:
@@ -9833,6 +9792,7 @@ commands:
               description: '*(ALPHA)*  Create a Backup and DR Backup Insight Plan.'
               hidden: true
               flags:
+                --allowed-rule-recurrence-criteria=!: Backup rule recurrences whose backups are processed by this plan.
                 --async: Return immediately, without waiting for the operation in progress to
                 --backup-vault=: The ID of the Backup Vault.
                 --endpoint-mode=: Specifies endpoint mode for a given command.
@@ -10761,10 +10721,7 @@ commands:
               description: '*(ALPHA)*  Unpublish a Knowledge Catalog Data Product or BigLake tables from external partners.'
               flags:
                 --connection-catalog=!: ID of the catalog or fully qualified identifier for the catalog.
-                --data-product=&: The Knowledge Catalog Data Product to unpublish.
-                --iceberg-catalog=&: ID of the catalog or fully qualified identifier for the catalog.
-                --sap-federated-identity-provider=&: The resource name of the Workload Identity Federation (WIF) provider resource representing the SAP federated identity.
-                --share=!: The name of the Share to unpublish from external partners.
+                --share=!: Name of the Share to unpublish from external partners.
         - name: delta-sharing
           description: '*(ALPHA)*  Biglake Delta Sharing Catalogs.'
           commands:
@@ -11243,11 +11200,9 @@ commands:
                     --update-properties=: List of properties to update or add.
             - name: views
               description: '*(ALPHA)*  Manage BigLake Iceberg REST catalog views.'
-              hidden: true
               commands:
                 - name: create
                   description: '*(ALPHA)*  Create a BigLake Iceberg view.'
-                  hidden: true
                   flags:
                     --catalog=: The Iceberg Catalog for the resource.
                     --create-from-file=!: Path to a JSON file containing the view creation request.
@@ -11261,7 +11216,6 @@ commands:
                             - regional-preferred
                 - name: delete
                   description: '*(ALPHA)*  Delete a BigLake Iceberg view.'
-                  hidden: true
                   flags:
                     --catalog=: The Iceberg Catalog for the resource.
                     --endpoint-mode=: Specifies endpoint mode for a given command.
@@ -11274,7 +11228,6 @@ commands:
                             - regional-preferred
                 - name: describe
                   description: '*(ALPHA)*  Describe a BigLake Iceberg view.'
-                  hidden: true
                   flags:
                     --catalog=: The Iceberg Catalog for the resource.
                     --endpoint-mode=: Specifies endpoint mode for a given command.
@@ -11287,7 +11240,6 @@ commands:
                             - regional-preferred
                 - name: get-iam-policy
                   description: '*(ALPHA)*  Get the IAM policy for a BigLake Iceberg REST catalog view.'
-                  hidden: true
                   flags:
                     --catalog=: The Iceberg Catalog for the resource.
                     --endpoint-mode=: Specifies endpoint mode for a given command.
@@ -11304,7 +11256,6 @@ commands:
                             - regional-preferred
                 - name: list
                   description: '*(ALPHA)*  List BigLake Iceberg REST views.'
-                  hidden: true
                   flags:
                     --catalog=: The Iceberg Catalog for the resource.
                     --endpoint-mode=: Specifies endpoint mode for a given command.
@@ -11323,7 +11274,6 @@ commands:
                             - regional-preferred
                 - name: set-iam-policy
                   description: '*(ALPHA)*  Set the IAM policy for a BigLake Iceberg REST catalog view.'
-                  hidden: true
                   flags:
                     --catalog=: The Iceberg Catalog for the resource.
                     --endpoint-mode=: Specifies endpoint mode for a given command.
@@ -11336,7 +11286,6 @@ commands:
                             - regional-preferred
                 - name: update
                   description: '*(ALPHA)*  Update a BigLake Iceberg view.'
-                  hidden: true
                   flags:
                     --catalog=: The Iceberg Catalog for the resource.
                     --clear-properties: Clear all properties from the namespace.
@@ -11693,7 +11642,7 @@ commands:
                 --instance=: Bigtable instance for the cluster.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-disable-autoscaling&: Set this flag and --num-nodes to disable autoscaling.
-                --node-scaling-factor=&: The target node scaling factor for the cluster.
+                --node-scaling-factor=&: Target node scaling factor for the cluster.
                 --num-nodes=!: Number of nodes to serve.
               completion:
                 flag:
@@ -11725,6 +11674,14 @@ commands:
                 --condition=: A condition to include in the binding.
                 --member=!: The principal to add the binding for.
                 --role=!: Role name to assign to the principal.
+            - name: apply-ddl
+              description: '*(ALPHA)*  Apply DDL statements to a Bigtable instance.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --ddl-file=: Path of a UTF-8 file containing semicolon-separated DDL (Data Definition Language) statements to execute sequentially on the instance.
+                --ddl=: Semicolon-separated DDL (Data Definition Language) statements to execute sequentially on the instance.
+                --no-async&: Return immediately, without waiting for the operation in progress to
             - name: config
               description: '*(ALPHA)*  Manage Cloud Bigtable instance configurations.'
               commands:
@@ -15262,6 +15219,7 @@ commands:
                 --create-network=: Parameters to create a VPC (Virtual Private Cloud) network.
                 --description=: Description of the cluster.
                 --enable-slurm-health-check: If false, Slurm health checking is disabled, and health_check_interval,
+                --existing-instances=: Parameters to define existing instances config for Imported Clusters.
                 --filestores=: Reference of existing filestore instance.
                 --flex-start-instances=: Parameters to define cluster Flex Start instances.
                 --labels=: Cluster labels as key value pairs.
@@ -15384,6 +15342,7 @@ commands:
             - name: update
               description: '*(ALPHA)*  Updates a Cluster Director resource.'
               flags:
+                --add-existing-instances=: Parameters to define existing instances config for Imported Clusters.
                 --add-filestore-instances=: Reference of existing filestore instance.
                 --add-flex-start-instances=: Parameters to define cluster Flex Start instances.
                 --add-labels=: Cluster labels as key value pairs.
@@ -15404,11 +15363,13 @@ commands:
                 --add-spot-instances=: Parameters to define cluster spot instances.
                 --add-storage-buckets=: Reference of existing Google Cloud Storage bucket.
                 --async: Return immediately, without waiting for the operation in progress to
+                --controller-version=: The slurm controller version for the cluster.
                 --description=: Description of the cluster.
                 --enable-slurm-health-check: If false, Slurm health checking is disabled, and health_check_interval,
                 --location=: Location ID of the cluster resource.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-enable-slurm-health-check&: ""
+                --remove-existing-instances=: Parameters to remove existing instances config by id for Imported
                 --remove-filestore-instances=: Parameters to remove filestore instance config by filestore name.
                 --remove-flex-start-instances=: Parameters to remove Flex Start instance config by compute id.
                 --remove-labels=: Parameters to remove cluster label by key.
@@ -16051,6 +16012,7 @@ commands:
                 --no-enable-cloud-data-lineage-integration&: Enable Cloud Data Lineage integration, supported for Composer 2 Environments.
                 --no-enable-master-authorized-networks&: Enable link:https://cloud.google.com/kubernetes-engine/docs/how-to/authorized-networks[Master
                 --no-enable-private-environment&: Disable internet connection from any Composer component,
+                --no-rollback-image-version&: Roll back the environment to the previous image version in-place,
                 --no-support-web-server-plugins&: Enable the support for web server plugins, supported in Composer 3
                 --no-web-server-allow-all&: Allows all IP addresses to access the Airflow web server.
                 --no-web-server-deny-all&: Denies all incoming traffic to the Airflow web server.
@@ -16062,6 +16024,7 @@ commands:
                 --remove-labels=: List of label keys to remove.
                 --remove-pypi-packages=: A list of PyPI package names to remove.
                 --remove-user-workloads-service-accounts=&: A list of Kubernetes Service Account names to remove from user workloads
+                --rollback-image-version: Roll back the environment to the previous image version in-place,
                 --scheduler-count=: Number of schedulers, supported in the Environments with Airflow 2.0.1 and later.
                 --scheduler-cpu=: CPU allocated to Airflow scheduler.
                 --scheduler-memory=: Memory allocated to Airflow scheduler, ex.
@@ -19021,7 +18984,7 @@ commands:
                 --failover-initiation=!: Specifies how a failover is triggered.
                 --instance-name=: The name of the existing VM that the HA Controller manages.
                 --migrate-disks-to-regional: Specifies whether to migrate the zonal disks of the VM to regional disks.
-                --network-auto-configuration=: Adds a network interface to the instance.
+                --network-auto-configuration=: This flag configures the regional internal passthrough Network Load Balancer for the HA Controller.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-migrate-disks-to-regional&: Specifies whether to migrate the zonal disks of the VM to regional disks.
                 --region=: The name of the Google Compute Engine region where the HA Controller exists.
@@ -24276,7 +24239,7 @@ commands:
               flags:
                 --description=: An optional, textual description for the network attachment.
                 --producer-accept-list=: Projects that are allowed to connect to this network attachment.
-                --producer-reject-list=: Projects that are not allowed to connect to this network attachment.
+                --producer-reject-list=: Comma-separated list of Google Cloud project IDs or project numbers that are not allowed to connect to this network attachment.
                 --region=: Region of the network attachment to update.
                 --subnets-region=: Region of the subnetworks to operate on.
                 --subnets=: The subnetworks provided by the consumer for the producers
@@ -24288,8 +24251,8 @@ commands:
               flags:
                 --description=: An optional, textual description for the network edge security service.
                 --region=: Region of the network edge security service to create.
-                --security-policy-region=: Region of the security policy to operate on.
-                --security-policy=: The security policy that will be set for this network edge security service.
+                --security-policy-region=: Google Cloud region of the security policy to operate on, formatted as a plain string (for example, `us-central1`).
+                --security-policy=: Name or URI of an existing Google Cloud Armor security policy to associate with this network edge security service.
             - name: delete
               description: '*(ALPHA)*  Delete network edge security services.'
               flags:
@@ -24312,8 +24275,8 @@ commands:
               flags:
                 --description=: An optional, textual description for the network edge security service.
                 --region=: Region of the network edge security service to update.
-                --security-policy-region=: Region of the security policy to operate on.
-                --security-policy=: The security policy that will be set for this network edge security service.
+                --security-policy-region=: Google Cloud region of the security policy to operate on, formatted as a standard geographic region string (for example, `us-central1`).
+                --security-policy=: Name or URI of the security policy to attach to this network edge security service.
         - name: network-endpoint-groups
           description: '*(ALPHA)*  Read and manipulate Compute Engine network endpoint groups.'
           commands:
@@ -24417,23 +24380,23 @@ commands:
                   description: '*(ALPHA)*  Create a new association between a firewall policy and a network.'
                   flags:
                     --associated-policy-to-be-replaced=: Name of an already associated firewall policy to replace.
-                    --firewall-policy-region=: Region of the firewall policy to create.
-                    --firewall-policy=!: Firewall policy ID with which to create association.
-                    --global-firewall-policy: If set, the firewall policy is global.
+                    --firewall-policy-region=: Region of the network firewall policy for which to create the association, specified as a string identifier (for example, `us-central1`).
+                    --firewall-policy=!: Name of the network firewall policy to associate with a target resource, such as a VPC network.
+                    --global-firewall-policy: Indicate that the associated network firewall policy is a global resource.
                     --name=: Name of the association.
                     --network=!: Name of the network with which the association is created.
-                    --no-global-firewall-policy&: If set, the firewall policy is global.
+                    --no-global-firewall-policy&: Indicate that the associated network firewall policy is a global resource.
                     --no-replace-association-on-target&: By default, if you attempt to insert an association to a network that is already associated with a firewall policy the method will fail.
                     --priority=: Priority of the association.
                     --replace-association-on-target: By default, if you attempt to insert an association to a network that is already associated with a firewall policy the method will fail.
                 - name: delete
                   description: '*(ALPHA)*  Delete a new association between a firewall policy and an network or folder resource.'
                   flags:
-                    --firewall-policy-region=: Region of the firewall policy to delete.
-                    --firewall-policy=!: Firewall policy ID with which to delete association.
-                    --global-firewall-policy: If set, the firewall policy is global.
+                    --firewall-policy-region=: Google Cloud region string (for example, `us-central1`) of the network firewall policy whose association is being deleted.
+                    --firewall-policy=!: Name of the network firewall policy from which to delete the association.
+                    --global-firewall-policy: Indicate that the referenced network firewall policy is global in scope.
                     --name=!: Name of the association to delete.
-                    --no-global-firewall-policy&: If set, the firewall policy is global.
+                    --no-global-firewall-policy&: Indicate that the referenced network firewall policy is global in scope.
                 - name: update
                   description: '*(ALPHA)*  Update association between a firewall policy and a network.'
                   flags:
@@ -24449,7 +24412,7 @@ commands:
                 --global: If set, the firewall policy is global.
                 --no-global&: If set, the firewall policy is global.
                 --region=: Region of the firewall policy to clone-rules.
-                --source-firewall-policy=!: Name of the source network firewall policy to copy the rules from.
+                --source-firewall-policy=!: Name or fully qualified URI of the source network firewall policy from which to copy rules.
             - name: create
               description: '*(ALPHA)*  Create a Compute Engine Network firewall policy.'
               flags:
@@ -24457,7 +24420,7 @@ commands:
                 --global: If set, the firewall policy is global.
                 --no-global&: If set, the firewall policy is global.
                 --policy-source=&: Policy source for the network firewall policy.
-                --policy-type=: Network firewall policy type.
+                --policy-type=: Classification type of the network firewall policy, specified as a string enum (such as `VPC_POLICY` for standard Virtual Private Cloud environments or `RDMA_ROCE_POLICY` for RDMA over Converged Ethernet workloads).
                 --region=: Region of the firewall policy to create.
                 --security-profile-fallback-action=: The action to take if the security profile group cannot be applied.
               completion:
@@ -24540,12 +24503,12 @@ commands:
                     --dest-ip-ranges=: Destination IP ranges to match for this rule.
                     --direction=: Direction of the traffic the rule is applied.
                     --disabled: Use this flag to disable the rule.
-                    --firewall-policy=!: Firewall policy ID with which to create rule.
-                    --global-firewall-policy!: Use this flag to indicate that firewall policy is global.
-                    --layer4-configs=!: A list of destination protocols and ports to which the firewall rule will apply.
+                    --firewall-policy=!: Name of the existing network firewall policy where the new mirroring rule is created (for example, `my-policy`).
+                    --global-firewall-policy!: Indicate that the targeted network firewall policy operates at the global scope.
+                    --layer4-configs=!: Comma-separated list of destination protocols and optional port ranges to which the firewall rule applies.
                     --no-disabled&: Use this flag to disable the rule.
-                    --no-global-firewall-policy!&: Use this flag to indicate that firewall policy is global.
-                    --security-profile-group=: A security profile group to be used with mirror action.
+                    --no-global-firewall-policy!&: Indicate that the targeted network firewall policy operates at the global scope.
+                    --security-profile-group=: Relative resource name or full URL of the security profile group to be used with the `mirror` action.
                     --src-ip-ranges=: A list of IP address blocks that are allowed to make inbound connections that match the firewall rule to the instances on the network.
                     --target-secure-tags=: An optional, list of target secure tags with a name of the format tagValues/ or full namespaced name
                   completion:
@@ -24560,9 +24523,9 @@ commands:
                 - name: delete
                   description: '*(ALPHA)*  Deletes a Compute Engine network firewall policy packet mirroirng rule.'
                   flags:
-                    --firewall-policy=!: Firewall policy ID with which to delete rule.
-                    --global-firewall-policy!: Use this flag to indicate that firewall policy is global.
-                    --no-global-firewall-policy!&: Use this flag to indicate that firewall policy is global.
+                    --firewall-policy=!: Name of the network firewall policy containing the mirroring rule to be deleted (for example, `my-policy`).
+                    --global-firewall-policy!: Indicate that the target network firewall policy operates at the global scope.
+                    --no-global-firewall-policy!&: Indicate that the target network firewall policy operates at the global scope.
                 - name: describe
                   description: '*(ALPHA)*  Describes a Compute Engine network firewall policy pakcet mirroring rule.'
                   flags:
@@ -25654,27 +25617,27 @@ commands:
                     --request-header-to-exclude=: Adds a request header to the request field exclusions associated with the rule
                     --request-query-param-to-exclude=: Adds a request query parameter to the request field exclusions associated with
                     --request-uri-to-exclude=: Adds a request URI to the request field exclusions associated with the rule set
-                    --security-policy=!: short name of the security policy into which the rule should be updated.
+                    --security-policy=!: Short name or numeric ID of the organization security policy into which the preconfigured WAF exclusion configuration is added.
                     --target-rule-ids=: A comma-separated list of target rule IDs under the WAF rule set where the
                     --target-rule-set=!: Target WAF rule set where the request field exclusions being added would apply.
                 - name: create
                   description: '*(ALPHA)*  Create a Compute Engine security policy rule.'
                   flags:
                     --action=!: Action to take if the request matches the match condition.
-                    --cloud-armor: Specified for Hierarchical Cloud Armor rules.
+                    --cloud-armor: Configure the newly created organization security policy rule as a Hierarchical Cloud Armor rule rather than a standard hierarchical firewall rule.
                     --description=: An optional, textual description for the rule.
                     --dest-ip-ranges=: Destination IP ranges to match for this rule.
                     --dest-ports=: A list of destination protocols and ports to which the firewall rule will apply.
                     --direction=: Direction of the traffic the rule is applied.
                     --enable-logging: Use this flag to enable logging of connections that allowed or denied by this rule.
                     --expression=: The Cloud Armor rules language expression to match for this rule.
-                    --layer4-configs=: A list of destination protocols and ports to which the firewall rule will apply.
-                    --no-cloud-armor&: Specified for Hierarchical Cloud Armor rules.
+                    --layer4-configs=: Comma-separated list of destination protocols and ports to which the firewall rule applies.
+                    --no-cloud-armor&: Configure the newly created organization security policy rule as a Hierarchical Cloud Armor rule rather than a standard hierarchical firewall rule.
                     --no-enable-logging&: Use this flag to enable logging of connections that allowed or denied by this rule.
                     --no-preview&: If specified, the action will not be enforced.
                     --organization=: Organization which the organization security policy belongs to.
                     --preview: If specified, the action will not be enforced.
-                    --security-policy=!: short name of the security policy into which the rule should be inserted.
+                    --security-policy=!: Short name or numeric ID of the existing organization security policy into which the rule is inserted.
                     --src-ip-ranges=: The source IPs/IP ranges to match for this rule.
                     --target-resources=: List of URLs of target resources to which the rule is applied.
                     --target-service-accounts=: List of target service accounts for the rule.
@@ -25695,12 +25658,12 @@ commands:
                   description: '*(ALPHA)*  Delete a Compute Engine organization security policy rule.'
                   flags:
                     --organization=: Organization which the organization security policy belongs to.
-                    --security-policy=!: short name of the security policy into which the rule should be deleted.
+                    --security-policy=!: Short name or numeric ID of the organization security policy from which the specified rule is deleted.
                 - name: describe
                   description: '*(ALPHA)*  Describe a Compute Engine organization security policy rule.'
                   flags:
                     --organization=: Organization which the organization security policy belongs to.
-                    --security-policy=!: short name of the security policy into which the rule should be described.
+                    --security-policy=!: Short name or numeric ID of the organization security policy that contains the rule to describe.
                 - name: remove-preconfig-waf-exclusion
                   description: '*(ALPHA)*  '
                   flags:
@@ -25710,28 +25673,28 @@ commands:
                     --request-header-to-exclude=: Removes a request header from the existing request field exclusions associated
                     --request-query-param-to-exclude=: Removes a request query parameter from the existing request field exclusions
                     --request-uri-to-exclude=: Removes a request URI from the existing request field exclusions associated with
-                    --security-policy=!: short name of the security policy into which the rule should be updated.
+                    --security-policy=!: Short name or numeric ID of the organization security policy containing the WAF exclusion rule to update.
                     --target-rule-ids=: A comma-separated list of target rule IDs under the WAF rule set from where to
                     --target-rule-set=!: Target WAF rule set from where to remove the request field exclusions.
                 - name: update
                   description: '*(ALPHA)*  Update a Compute Engine security policy rule.'
                   flags:
                     --action=: Action to take if the request matches the match condition.
-                    --cloud-armor: Specified for Hierarchical Cloud Armor rules.
+                    --cloud-armor: Indicate that the rule being updated belongs to a Hierarchical Cloud Armor security policy rather than a standard hierarchical firewall policy.
                     --description=: An optional, textual description for the rule.
                     --dest-ip-ranges=: Destination IP ranges to match for this rule.
                     --dest-ports=: A list of destination protocols and ports to which the firewall rule will apply.
                     --direction=: Direction of the traffic the rule is applied.
                     --enable-logging: Use this flag to enable logging of connections that allowed or denied by this rule.
                     --expression=: The Cloud Armor rules language expression to match for this rule.
-                    --layer4-configs=: A list of destination protocols and ports to which the firewall rule will apply.
+                    --layer4-configs=: Comma-separated list of destination Layer 4 protocols and ports to which the organizational firewall rule applies.
                     --new-priority=: New priority for the rule to update.
-                    --no-cloud-armor&: Specified for Hierarchical Cloud Armor rules.
+                    --no-cloud-armor&: Indicate that the rule being updated belongs to a Hierarchical Cloud Armor security policy rather than a standard hierarchical firewall policy.
                     --no-enable-logging&: Use this flag to enable logging of connections that allowed or denied by this rule.
                     --no-preview&: If specified, the action will not be enforced.
                     --organization=: Organization which the organization security policy belongs to.
                     --preview: If specified, the action will not be enforced.
-                    --security-policy=!: short name of the security policy into which the rule should be updated.
+                    --security-policy=!: Short name or numeric ID of the organization security policy containing the rule to update.
                     --src-ip-ranges=: The source IPs/IP ranges to match for this rule.
                     --target-resources=: List of URLs of target resources to which the rule is applied.
                     --target-service-accounts=: List of target service accounts for the rule.
@@ -25752,7 +25715,7 @@ commands:
               description: '*(ALPHA)*  Update a Compute Engine organization security policy.'
               flags:
                 --description=: An optional, textual description for the organization security policy.
-                --json-custom-content-types=: A comma-separated list of custom Content-Type header values to apply JSON
+                --json-custom-content-types=: Comma-separated list of user-defined HTTP Content-Type header values that trigger JSON parsing for preconfigured Web Application Firewall (WAF) rules.
                 --json-parsing=: The JSON parsing behavior for this rule.
                 --log-level=: The level of detail to display for WAF logging.
                 --organization=: Organization in which the organization security policy is to be updated.
@@ -25955,7 +25918,7 @@ commands:
                       flags:
                         --endpoint-mode=: Specifies endpoint mode for a given command.
                         --location=: Location of the OS policy assignment operation.
-                        --os-policy-assignment=: OS policy assignment.
+                        --os-policy-assignment=: ID or name of the OS policy assignment associated with the operation to
                       completion:
                         flag:
                             endpoint-mode:
@@ -25967,7 +25930,7 @@ commands:
                       flags:
                         --endpoint-mode=: Specifies endpoint mode for a given command.
                         --location=: Location of the OS policy assignment operation.
-                        --os-policy-assignment=: OS policy assignment.
+                        --os-policy-assignment=: Identifier of the OS policy assignment associated with the long-running
                       completion:
                         flag:
                             endpoint-mode:
@@ -26024,13 +25987,13 @@ commands:
                     --description=: Description of the policy orchestrator.
                     --folder=: Folder of the policy_orchestrator.
                     --include-folders=: Applies policy to selected folders.
-                    --include-locations=: Applies policy to selected locations, e.g. `us-central1-a`.
+                    --include-locations=: Comma-separated list of Google Cloud locations (such as zones, for
                     --include-projects=: Applies policy to selected projects.
                     --no-async&: Return immediately, without waiting for the operation in progress to
                     --organization=: Organization of the policy_orchestrator.
                     --policy-file=: Absolute path to the OS policy assignment file on your local client.
-                    --policy-id=: Policy id.
-                    --policy-type=!: Policy type to use.
+                    --policy-id=: Unique identifier of the orchestrated OS policy assignment resource
+                    --policy-type=!: Type of policy to use for the policy orchestrator, specified as a
                     --state=: State of the policy orchestrator.
                   completion:
                     flag:
@@ -27646,12 +27609,12 @@ commands:
                     --log-filter=: Filter for logs exported to stackdriver.
                     --max-ports-per-vm=: Maximum ports to be allocated to a VM.
                     --min-ports-per-vm=: Minimum ports to be allocated to a VM.
-                    --nat-all-subnet-ip-ranges: Allow all IP ranges of all subnetworks in the region, including
+                    --nat-all-subnet-ip-ranges=: Allow all IP ranges of all subnetworks in the region, including
                     --nat-custom-subnet-ip-ranges=: List of subnetwork primary and secondary IP ranges to be allowed to
                     --nat-external-ip-pool-region=&: 'Region of the addresss to operate on. '
                     --nat-external-ip-pool=: External IP Addresses to use for Cloud NAT
-                    --nat-primary-subnet-ip-ranges: Allow only primary IP ranges of all subnetworks in the region to use
-                    --nat64-all-v6-subnet-ip-ranges: Allow all IPv6 subnetwork ranges in the region to use NAT.
+                    --nat-primary-subnet-ip-ranges=: Allow only primary IP ranges of all subnetworks in the region to use
+                    --nat64-all-v6-subnet-ip-ranges=: Allow all IPv6 subnetwork ranges in the region to use NAT.
                     --nat64-custom-v6-subnet-ip-ranges=: List of subnetworks with IPv6 ranges to be allowed to use NAT.
                     --no-async&: Return immediately, without waiting for the operation in progress to
                     --no-auto-allocate-nat-external-ips&: Automatically allocate external IP addresses for Cloud NAT
@@ -27780,14 +27743,14 @@ commands:
                     --log-filter=: Filter for logs exported to stackdriver.
                     --max-ports-per-vm=: Maximum ports to be allocated to a VM.
                     --min-ports-per-vm=: Minimum ports to be allocated to a VM.
-                    --nat-all-subnet-ip-ranges: Allow all IP ranges of all subnetworks in the region, including
+                    --nat-all-subnet-ip-ranges=: Allow all IP ranges of all subnetworks in the region, including
                     --nat-custom-subnet-ip-ranges=: List of subnetwork primary and secondary IP ranges to be allowed to
                     --nat-external-drain-ip-pool-region=&: 'Region of the addresss to operate on. '
                     --nat-external-drain-ip-pool=: External IP Addresses to be drained
                     --nat-external-ip-pool-region=&: 'Region of the addresss to operate on. '
                     --nat-external-ip-pool=: External IP Addresses to use for Cloud NAT
-                    --nat-primary-subnet-ip-ranges: Allow only primary IP ranges of all subnetworks in the region to use
-                    --nat64-all-v6-subnet-ip-ranges: Allow all IPv6 subnetwork ranges in the region to use NAT.
+                    --nat-primary-subnet-ip-ranges=: Allow only primary IP ranges of all subnetworks in the region to use
+                    --nat64-all-v6-subnet-ip-ranges=: Allow all IPv6 subnetwork ranges in the region to use NAT.
                     --nat64-custom-v6-subnet-ip-ranges=: List of subnetworks with IPv6 ranges to be allowed to use NAT.
                     --no-async&: Return immediately, without waiting for the operation in progress to
                     --no-auto-allocate-nat-external-ips&: Automatically allocate external IP addresses for Cloud NAT
@@ -33544,7 +33507,7 @@ commands:
                 --cluster-dns-scope=: DNS scope for the Cloud DNS zone created - valid only with
                 --cluster-dns=: DNS provider to use for this cluster.
                 --cluster-ipv4-cidr=: The IP address range for the pods in this cluster in CIDR notation (e.g.
-                --cluster-scale-to-zero-delay=&: Additional delay before the cluster is scaled to 0 nodes when there are no
+                --cluster-scale-to-zero-delay=: Additional delay before the cluster is scaled to 0 nodes when there are no
                 --cluster-secondary-range-name=: Set the secondary range to be used as the source for pod IPs.
                 --cluster-version=: The Kubernetes version to use for the master and nodes.
                 --compliance-standards=&: Comma-delimited list of standards to be enabled.
@@ -33594,7 +33557,7 @@ commands:
                 --enable-cloud-logging: (DEPRECATED) Automatically send logs from the cluster to the Google Cloud Logging API.
                 --enable-cloud-monitoring: (DEPRECATED) Automatically send metrics from pods in the cluster to the Google Cloud Monitoring API.
                 --enable-cloud-run-alpha: Enable Cloud Run alpha features on this cluster.
-                --enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Autopilot and standard clusters.
+                --enable-cluster-scale-to-zero: Enable cluster scale-to-zero for Standard clusters.
                 --enable-confidential-nodes: Enable confidential nodes for the cluster.
                 --enable-confidential-storage: Enable confidential storage for the cluster.
                 --enable-cost-allocation: Enable the cost allocation feature.
@@ -33772,7 +33735,7 @@ commands:
                 --no-enable-cloud-logging&: (DEPRECATED) Automatically send logs from the cluster to the Google Cloud Logging API.
                 --no-enable-cloud-monitoring&: (DEPRECATED) Automatically send metrics from pods in the cluster to the Google Cloud Monitoring API.
                 --no-enable-cloud-run-alpha&: Enable Cloud Run alpha features on this cluster.
-                --no-enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Autopilot and standard clusters.
+                --no-enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Standard clusters.
                 --no-enable-confidential-nodes&: Enable confidential nodes for the cluster.
                 --no-enable-confidential-storage&: Enable confidential storage for the cluster.
                 --no-enable-cost-allocation&: ""
@@ -33849,6 +33812,7 @@ commands:
                 --no-shielded-integrity-monitoring&: Enables monitoring and attestation of the boot integrity of the
                 --no-shielded-secure-boot&: The instance will boot with secure boot enabled.
                 --no-spot&: Create nodes using spot VM instances in the new cluster.
+                --no-wiz-sensor-system-critical-priority&: Run the Wiz Sensor DaemonSet with the system-node-critical priority class, so it can preempt lower-priority pods to get scheduled.
                 --node-architecture-taint-behavior=: Control how architecture taint should be applied to nodes in default node pool(s) in new
                 --node-creation-mode=: Configures node creation mode for the cluster, either via kubelet or via control plane.
                 --node-labels=: Applies the given Kubernetes labels on all nodes in the new node pool.
@@ -33904,8 +33868,10 @@ commands:
                 --tpu-ipv4-cidr=&: Set the IP range for the Cloud TPUs.
                 --username=: The user name to use for basic auth for the cluster.
                 --wiz-sensor-api-key-secret-uri=: The Secret Manager URI for the Wiz API key secret, for example, projects/my-project/secrets/my-api-key/versions/1 or projects/my-project/secrets/my-api-key/versions/latest.
+                --wiz-sensor-image-tag=&: 'The Wiz Sensor image tag to run: `v1` or `v1-prev` to follow Wiz''s auto-update tags, or a sensor version such as `1.0.12603` to pin the sensor to that release.'
                 --wiz-sensor-proxy-secret-uri=: The Secret Manager URI for the Wiz proxy configuration, for example, projects/my-project/secrets/my-proxy-secret/versions/1 or projects/my-project/secrets/my-proxy-secret/versions/latest.
                 --wiz-sensor-registry-secret-uri=: The Secret Manager URI for the Wiz registry secret, for example, projects/my-project/secrets/my-registry-secret/versions/1 or projects/my-project/secrets/my-registry-secret/versions/latest.
+                --wiz-sensor-system-critical-priority&: Run the Wiz Sensor DaemonSet with the system-node-critical priority class, so it can preempt lower-priority pods to get scheduled.
                 --workload-metadata-from-node=&: Type of metadata server available to pods running in the node pool.
                 --workload-metadata=: Type of metadata server available to pods running in the node pool.
                 --workload-pool=: Enable Workload Identity on the cluster.
@@ -33941,6 +33907,7 @@ commands:
                         - sev
                         - sev_snp
                         - tdx
+                        - bmsai
                     control-plane-egress:
                         - NONE
                         - VIA_CONTROL_PLANE
@@ -34076,7 +34043,7 @@ commands:
                 --boot-disk-kms-key=: The Customer Managed Encryption Key used to encrypt the boot disk attached
                 --cluster-ca=: The Certificate Authority Service caPool that will back the cluster CA
                 --cluster-ipv4-cidr=: The IP address range for the pods in this cluster in CIDR notation (e.g.
-                --cluster-scale-to-zero-delay=&: Additional delay before the cluster is scaled to 0 nodes when there are no
+                --cluster-scale-to-zero-delay=: Additional delay before the cluster is scaled to 0 nodes when there are no
                 --cluster-secondary-range-name=: Set the secondary range to be used as the source for pod IPs.
                 --cluster-version=: The Kubernetes version to use for the master and nodes.
                 --compliance-standards=&: Comma-delimited list of standards to be enabled.
@@ -34101,7 +34068,7 @@ commands:
                 --enable-backup-restore: Enable the Backup for GKE add-on.
                 --enable-cdpf&: Enable Custom Dataplane Functions (CDPF) on the cluster.
                 --enable-cilium-clusterwide-network-policy: Enable Cilium Clusterwide Network Policies on the cluster.
-                --enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Autopilot and standard clusters.
+                --enable-cluster-scale-to-zero: Enable cluster scale-to-zero for Standard clusters.
                 --enable-confidential-nodes: Enable confidential nodes for the cluster.
                 --enable-dataplane-ebpf-host-routing&: Enable Dataplane V2 eBPF host routing for the cluster.
                 --enable-dataplane-v2-flow-observability: Enables Advanced Datapath Observability which allows for a real-time view into pod-to-pod traffic within your cluster.
@@ -34175,7 +34142,7 @@ commands:
                 --no-enable-backup-restore&: Enable the Backup for GKE add-on.
                 --no-enable-cdpf&: Enable Custom Dataplane Functions (CDPF) on the cluster.
                 --no-enable-cilium-clusterwide-network-policy&: Enable Cilium Clusterwide Network Policies on the cluster.
-                --no-enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Autopilot and standard clusters.
+                --no-enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Standard clusters.
                 --no-enable-confidential-nodes&: Enable confidential nodes for the cluster.
                 --no-enable-dataplane-ebpf-host-routing&: Enable Dataplane V2 eBPF host routing for the cluster.
                 --no-enable-default-compute-class&: Enable the default compute class to use for the cluster.
@@ -34211,6 +34178,7 @@ commands:
                 --no-enable-slurm-operator&: Enable the Slurm Operator GKE add-on.
                 --no-enable-workload-config-audit&: (DEPRECATED) Enables Protect API's workload configuration auditing.
                 --no-enable-workload-vulnerability-scanning&: (DEPRECATED) Enables Protect API's workload vulnerability scanning.
+                --no-wiz-sensor-system-critical-priority&: Run the Wiz Sensor DaemonSet with the system-node-critical priority class, so it can preempt lower-priority pods to get scheduled.
                 --node-creation-mode=: Configures node creation mode for the cluster, either via kubelet or via control plane.
                 --node-pool-upgrade-concurrency-config=: Configure the concurrency settings for node pool auto upgrades.
                 --private-endpoint-subnetwork=: Sets the subnetwork GKE uses to provision the control plane's
@@ -34232,8 +34200,10 @@ commands:
                 --tier=: (DEPRECATED) Set the desired tier for the cluster.
                 --timeout=&: Timeout (seconds) for waiting on the operation to complete.
                 --wiz-sensor-api-key-secret-uri=: The Secret Manager URI for the Wiz API key secret, for example, projects/my-project/secrets/my-api-key/versions/1 or projects/my-project/secrets/my-api-key/versions/latest.
+                --wiz-sensor-image-tag=&: 'The Wiz Sensor image tag to run: `v1` or `v1-prev` to follow Wiz''s auto-update tags, or a sensor version such as `1.0.12603` to pin the sensor to that release.'
                 --wiz-sensor-proxy-secret-uri=: The Secret Manager URI for the Wiz proxy configuration, for example, projects/my-project/secrets/my-proxy-secret/versions/1 or projects/my-project/secrets/my-proxy-secret/versions/latest.
                 --wiz-sensor-registry-secret-uri=: The Secret Manager URI for the Wiz registry secret, for example, projects/my-project/secrets/my-registry-secret/versions/1 or projects/my-project/secrets/my-registry-secret/versions/latest.
+                --wiz-sensor-system-critical-priority&: Run the Wiz Sensor DaemonSet with the system-node-critical priority class, so it can preempt lower-priority pods to get scheduled.
                 --workload-policies=: Add Autopilot workload policies to the cluster.
                 --workload-vulnerability-scanning=: Sets the mode of the Kubernetes security posture API's workload
                 --zone=: Compute zone (e.g. us-central1-a) for a zonal cluster.
@@ -34260,6 +34230,7 @@ commands:
                         - sev
                         - sev_snp
                         - tdx
+                        - bmsai
                     control-plane-egress:
                         - NONE
                         - VIA_CONTROL_PLANE
@@ -34409,7 +34380,7 @@ commands:
                 --cluster-dns-domain=: DNS domain for this cluster.
                 --cluster-dns-scope=: DNS scope for the Cloud DNS zone created - valid only with
                 --cluster-dns=: DNS provider to use for this cluster.
-                --cluster-scale-to-zero-delay=&: Additional delay before the cluster is scaled to 0 nodes when there are no
+                --cluster-scale-to-zero-delay=: Additional delay before the cluster is scaled to 0 nodes when there are no
                 --complete-convert-to-autopilot&: Commit the Autopilot conversion operation by deleting all Standard node pools
                 --complete-credential-rotation: Complete the IP and credential rotation for this cluster.
                 --complete-ip-rotation: Complete the IP rotation for this cluster.
@@ -34454,7 +34425,7 @@ commands:
                 --enable-binauthz: (DEPRECATED) Enable Binary Authorization for this cluster.
                 --enable-cdpf&: Enable Custom Dataplane Functions (CDPF) on the cluster.
                 --enable-cilium-clusterwide-network-policy: Enable Cilium Clusterwide Network Policies on the cluster.
-                --enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Autopilot and standard clusters.
+                --enable-cluster-scale-to-zero: Enable cluster scale-to-zero for Standard clusters.
                 --enable-cost-allocation: Enable the cost allocation feature.
                 --enable-dataplane-ebpf-host-routing&: Enable Dataplane V2 eBPF host routing for the cluster.
                 --enable-dataplane-v2: Enabling Dataplane V2 causes a re-creation of all cluster nodes.
@@ -34603,7 +34574,7 @@ commands:
                 --no-enable-binauthz&: (DEPRECATED) Enable Binary Authorization for this cluster.
                 --no-enable-cdpf&: Enable Custom Dataplane Functions (CDPF) on the cluster.
                 --no-enable-cilium-clusterwide-network-policy&: Enable Cilium Clusterwide Network Policies on the cluster.
-                --no-enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Autopilot and standard clusters.
+                --no-enable-cluster-scale-to-zero&: Enable cluster scale-to-zero for Standard clusters.
                 --no-enable-cost-allocation&: ""
                 --no-enable-dataplane-ebpf-host-routing&: Enable Dataplane V2 eBPF host routing for the cluster.
                 --no-enable-dataplane-v2&: ""
@@ -34670,6 +34641,7 @@ commands:
                 --no-start-credential-rotation&: Start the rotation of IP and credentials for this cluster.
                 --no-start-ip-rotation&: Start the rotation of this cluster to a new IP.
                 --no-unset-membership-type&: ""
+                --no-wiz-sensor-system-critical-priority&: Run the Wiz Sensor DaemonSet with the system-node-critical priority class, so it can preempt lower-priority pods to get scheduled.
                 --node-creation-mode=: Configures node creation mode for the cluster, either via kubelet or via control plane.
                 --node-locations=: The set of zones in which the specified node footprint should be replicated.
                 --node-pool-upgrade-concurrency-config=: Configure the concurrency settings for node pool auto upgrades.
@@ -34712,8 +34684,10 @@ commands:
                 --update-labels=: Labels to apply to the Google Cloud resources in use by the Kubernetes Engine
                 --username=: The user name to use for basic auth for the cluster.
                 --wiz-sensor-api-key-secret-uri=: The Secret Manager URI for the Wiz API key secret, for example, projects/my-project/secrets/my-api-key/versions/1 or projects/my-project/secrets/my-api-key/versions/latest.
+                --wiz-sensor-image-tag=&: 'The Wiz Sensor image tag to run: `v1` or `v1-prev` to follow Wiz''s auto-update tags, or a sensor version such as `1.0.12603` to pin the sensor to that release.'
                 --wiz-sensor-proxy-secret-uri=: The Secret Manager URI for the Wiz proxy configuration, for example, projects/my-project/secrets/my-proxy-secret/versions/1 or projects/my-project/secrets/my-proxy-secret/versions/latest.
                 --wiz-sensor-registry-secret-uri=: The Secret Manager URI for the Wiz registry secret, for example, projects/my-project/secrets/my-registry-secret/versions/1 or projects/my-project/secrets/my-registry-secret/versions/latest.
+                --wiz-sensor-system-critical-priority&: Run the Wiz Sensor DaemonSet with the system-node-critical priority class, so it can preempt lower-priority pods to get scheduled.
                 --workload-policies=: Add Autopilot workload policies to the cluster.
                 --workload-pool=: Enable Workload Identity on the cluster.
                 --workload-vulnerability-scanning=: Sets the mode of the Kubernetes security posture API's workload
@@ -38105,6 +38079,7 @@ commands:
                         - sev
                         - sev_snp
                         - tdx
+                        - bmsai
                         - disabled
                     disk-type:
                         - pd-standard
@@ -38309,6 +38284,7 @@ commands:
                         - sev
                         - sev_snp
                         - tdx
+                        - bmsai
                         - disabled
                     datapath-provider:
                         - advanced-datapath
@@ -43862,7 +43838,7 @@ commands:
                 --limit=: Maximum number of resources to list.
                 --no-uri&: Print a list of resource URIs instead of the default output, and change the
                 --page-size=: Some services group resource list output into pages.
-                --simple-list: Changes the --format flag to print the resource IDs.
+                --simple-list=: Changes the --format flag to print the resource IDs.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
             - name: stop
@@ -43914,7 +43890,7 @@ commands:
                 --limit=: Maximum number of resources to list.
                 --no-uri&: Print a list of resource URIs instead of the default output, and change the
                 --page-size=: Some services group resource list output into pages.
-                --simple-list: Changes the --format flag to print the resource IDs.
+                --simple-list=: Changes the --format flag to print the resource IDs.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
         - name: operations
@@ -43929,7 +43905,7 @@ commands:
                 --limit=: Maximum number of resources to list.
                 --no-uri&: Print a list of resource URIs instead of the default output, and change the
                 --page-size=: Some services group resource list output into pages.
-                --simple-list: Changes the --format flag to print the resource IDs.
+                --simple-list=: Changes the --format flag to print the resource IDs.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
             - name: wait
@@ -43951,7 +43927,7 @@ commands:
                 --limit=: Maximum number of resources to list.
                 --no-uri&: Print a list of resource URIs instead of the default output, and change the
                 --page-size=: Some services group resource list output into pages.
-                --simple-list: Changes the --format flag to print the resource IDs.
+                --simple-list=: Changes the --format flag to print the resource IDs.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
                 --uri: Print a list of resource URIs instead of the default output, and change the
         - name: type-providers
@@ -48472,6 +48448,21 @@ commands:
             --language=: preferred language of contact.
             --notification-categories=: list of notification categories contact is subscribed to.
             --organization=: organization number where contacts are set.
+    - name: express
+      description: '*(ALPHA)*  Get started quickly with Google Cloud Express.'
+      hidden: true
+      commands:
+        - name: init
+          description: '*(ALPHA)*  Initialize Google Cloud Express.'
+          hidden: true
+          flags:
+            --endpoint-mode=: Specifies endpoint mode for a given command.
+          completion:
+            flag:
+                endpoint-mode:
+                    - global
+                    - regional
+                    - regional-preferred
     - name: fault-testing
       description: '*(ALPHA)*  Manage Fault Testing resources.'
       commands:
@@ -48484,7 +48475,7 @@ commands:
                 --description=: Description of the exclusion window's purpose
                 --duration=!: The length of time the exclusion window remains active once
                 --location=: The location id of the exclusionWindow resource.
-                --tags=&: Tag keys/values directly bound to this resource.
+                --tags=: Tag keys/values directly bound to this resource.
             - name: delete
               description: '*(ALPHA)*  Delete exclusionWindows.'
               flags:
@@ -48524,6 +48515,8 @@ commands:
               description: '*(ALPHA)*  Create an experiment template.'
               flags:
                 --cloud-sql-failover-instance=!: The identifying name of the Cloud SQL instance to fail over.
+                --cloud-sql-failover-operation-type=&: The type of operation to perform.
+                --cloud-sql-failover-target-replica=&: The identifying name of the target replica instance.
                 --description=: Optional user-provided description or notes.
                 --display-name=: Human-readable template name.
                 --duration=!: How long the experiment is intended to run.
@@ -48540,6 +48533,13 @@ commands:
                 --l7-lb-http-fault-forwarding-rule=!: The identifying name of the forwarding rule resource where the faults will
                 --location=: The location id of the experimentTemplate resource.
                 --tags=&: Tag keys/values directly bound to this resource.
+              completion:
+                flag:
+                    cloud-sql-failover-operation-type:
+                        - dr-failover
+                        - dr-switchover
+                        - ha-failover
+                        - promotion
             - name: delete
               description: '*(ALPHA)*  Delete an experiment template.'
               flags:
@@ -48563,6 +48563,8 @@ commands:
               flags:
                 --clear-action: Set experimentTemplate.action back to default value.
                 --cloud-sql-failover-instance=: The identifying name of the Cloud SQL instance to fail over.
+                --cloud-sql-failover-operation-type=&: The type of operation to perform.
+                --cloud-sql-failover-target-replica=&: The identifying name of the target replica instance.
                 --description=: Optional user-provided description or notes.
                 --display-name=: Human-readable template name.
                 --duration=: How long the experiment is intended to run.
@@ -48579,6 +48581,13 @@ commands:
                 --l7-lb-http-fault-forwarding-rule=: The identifying name of the forwarding rule resource where the faults will
                 --location=: The location id of the experimentTemplate resource.
                 --no-clear-action&: Set experimentTemplate.action back to default value.
+              completion:
+                flag:
+                    cloud-sql-failover-operation-type:
+                        - dr-failover
+                        - dr-switchover
+                        - ha-failover
+                        - promotion
         - name: experiments
           description: '*(ALPHA)*  Manage Experiment resources.'
           commands:
@@ -48610,7 +48619,7 @@ commands:
                 --location=: For resources [experiment, experiment-template], provides fallback value for resource location attribute.
                 --no-start-on-create-enabled&: If true, the experiment will be started immediately after creation.
                 --start-on-create-enabled: If true, the experiment will be started immediately after creation.
-                --tags=&: Tag keys/values directly bound to this resource.
+                --tags=: Tag keys/values directly bound to this resource.
             - name: delete
               description: '*(ALPHA)*  Delete an experiment.'
               flags:
@@ -48650,6 +48659,8 @@ commands:
               description: '*(ALPHA)*  Create a validation.'
               flags:
                 --cloud-sql-failover-instance=!: The identifying name of the Cloud SQL instance to fail over.
+                --cloud-sql-failover-operation-type=&: The type of operation to perform.
+                --cloud-sql-failover-target-replica=&: The identifying name of the target replica instance.
                 --description=: Notes or details about the `Validation` dry run.
                 --display-name=: A human-readable name of the `Validation` dry run.
                 --gce-fail-compute-instances=!: Specifies instances by name.
@@ -48664,7 +48675,14 @@ commands:
                 --l7-lb-http-fault-delay=!: Delay duration.
                 --l7-lb-http-fault-forwarding-rule=!: The identifying name of the forwarding rule resource where the faults will
                 --location=: The location id of the validation resource.
-                --tags=&: Tag keys/values directly bound to this resource.
+                --tags=: Tag keys/values directly bound to this resource.
+              completion:
+                flag:
+                    cloud-sql-failover-operation-type:
+                        - dr-failover
+                        - dr-switchover
+                        - ha-failover
+                        - promotion
             - name: delete
               description: '*(ALPHA)*  Delete a validation.'
               flags:
@@ -49063,8 +49081,9 @@ commands:
                   description: '*(ALPHA)*  Create a new Firebase SQL Connect service.'
                   hidden: true
                   flags:
-                    --cloud-sql-database-id=!: Cloud SQL database ID to link to the service, or to create if it does not exist.
+                    --cloud-sql-database-id=&: (DEPRECATED) Database ID to link to the service.
                     --cloud-sql-instance-id=!: Cloud SQL instance ID or resource name to link to the service, or to create if it does not exist.
+                    --database-id=: Database ID to link to the service, or to create if it does not exist.
                     --endpoint-mode=: Specifies endpoint mode for a given command.
                     --location=!: Google Cloud region (e.g. us-central1).
                     --sql-source-dir=: Path to the local SQL root directory (e.g. ./sql).
@@ -52085,7 +52104,7 @@ commands:
                     --async: Return immediately, without waiting for the operation in progress to
                     --attribute-condition=: A [Common Expression Language](https://opensource.google/projects/cel) expression, in plain
                     --attribute-mapping=!: Maps claims from the authentication credentials issued by the Identity Provider into Google
-                    --attribute-sync-interval=&: An interval that determines how often user attributes are synced from the
+                    --attribute-sync-interval=: An interval that determines how often user attributes are synced from the
                     --client-id=!: The OIDC client ID.
                     --client-secret-value=: The OIDC client secret.
                     --description=: A description for the workforce pool provider.
@@ -52309,6 +52328,8 @@ commands:
                       description: '*(ALPHA)*  Create an IAM workforce identity pool provider SCIM tenant.'
                       flags:
                         --claim-mapping=!: A comma-separated list of KEY=VALUE pairs defining attribute mappings.
+                        --custom-group-attribute=&: Custom SCIM attribute to define for the Group resource, as `name=NAME` (for example
+                        --custom-user-attribute=&: Custom SCIM attribute to define for the User resource, as `name=NAME` (for example
                         --description=: Optional, user-specified description for the SCIM tenant (max 256 characters).
                         --display-name=: Optional, user-specified display name for the SCIM tenant (max 32 characters).
                         --location=: The location for the workforce pool.
@@ -52413,6 +52434,8 @@ commands:
                     - name: update
                       description: '*(ALPHA)*  Update an IAM workforce identity pool provider SCIM tenant.'
                       flags:
+                        --add-custom-group-attribute=&: Custom SCIM attribute to add to the Group resource, as `name=NAME` (for example
+                        --add-custom-user-attribute=&: Custom SCIM attribute to add to the User resource, as `name=NAME` (for example
                         --claim-mapping=: A comma-separated list of KEY=VALUE pairs defining attribute mappings.
                         --description=: Optional, user-specified description for the SCIM tenant (max 256 characters).
                         --display-name=: Optional, user-specified display name for the SCIM tenant (max 32 characters).
@@ -52434,8 +52457,8 @@ commands:
                     --async: Return immediately, without waiting for the operation in progress to
                     --attribute-condition=: A [Common Expression Language](https://opensource.google/projects/cel) expression, in plain
                     --attribute-mapping=: Maps claims from the authentication credentials issued by the Identity Provider into Google
-                    --attribute-sync-interval=&: An interval that determines how often user attributes are synced from the
-                    --clear-attribute-sync-interval&: Clear the attribute sync interval.
+                    --attribute-sync-interval=: An interval that determines how often user attributes are synced from the
+                    --clear-attribute-sync-interval: Clear the attribute sync interval.
                     --clear-client-secret: Clear the OIDC client secret.
                     --clear-extended-attributes-config: Clear the extended attributes configuration.
                     --clear-extra-attributes-config: Clear the extra attributes configuration.
@@ -52635,6 +52658,7 @@ commands:
               description: '*(ALPHA)*  Describe a workload identity pool.'
               flags:
                 --location=: The location name.
+                --organization=: The organization id.
             - name: list
               description: '*(ALPHA)*  List workload identity pools.'
               flags:
@@ -52642,6 +52666,7 @@ commands:
                 --limit=: Maximum number of resources to list.
                 --location=!: ID of the location or fully qualified identifier for the location.
                 --no-show-deleted&: Whether to return soft-deleted pools.
+                --organization=: The organization id.
                 --page-size=: Some services group resource list output into pages.
                 --show-deleted: Whether to return soft-deleted pools.
                 --sort-by=: Comma-separated list of resource field key names to sort by.
@@ -52753,8 +52778,10 @@ commands:
                 --description=: A description of the pool.
                 --disabled: Whether the pool is disabled.
                 --display-name=: A display name for the pool.
+                --inline-trust-config-file=: YAML file with configuration for providing additional trust bundles.
                 --location=: The location name.
                 --no-disabled&: Whether the pool is disabled.
+                --organization=: The organization id.
     - name: iap
       description: '*(ALPHA)*  Manage IAP policies.'
       commands:
@@ -54666,11 +54693,11 @@ commands:
                 --enable-analytics: Whether to opt the bucket into Log Analytics.
                 --folder=: Folder of the bucket to update.
                 --location=!: Location of the bucket.
-                --locked: Lock the bucket and prevent it from being modified or deleted (unless it is empty).
+                --locked: Lock the bucket and prevent it from being modified or deleted.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-clear-indexes&: Remove all logging indexes from the bucket.
                 --no-enable-analytics&: Whether to opt the bucket into Log Analytics.
-                --no-locked&: Lock the bucket and prevent it from being modified or deleted (unless it is empty).
+                --no-locked&: Lock the bucket and prevent it from being modified or deleted.
                 --organization=: Organization of the bucket to update.
                 --remove-indexes=: Specify the field path of the logging index(es) to delete.
                 --restricted-fields=: A new set of restricted fields for the bucket.
@@ -57168,7 +57195,7 @@ commands:
                     --labels=: Labels for resource organization.
                     --location=: For resources [aggcurve, model-resources], provides fallback value for resource location attribute.
                     --model-resources=!: IDs of the models or fully qualified identifiers for the models.
-                    --models=: The model IDs used to generate the agg curves.
+                    --models=: The model IDs used to generate the aggregation curves.
                     --no-async&: Return immediately, without waiting for the operation in progress to
                     --request-id=: An optional request ID to identify requests.
                     --workspace=: For resources [aggcurve, model-resources], provides fallback value for resource workspace attribute.
@@ -57305,23 +57332,6 @@ commands:
               description: '*(ALPHA)*  Datasets represent discrete data slices ready for exploratory analysis and model training.'
               hidden: true
               commands:
-                - name: accept-proposal
-                  description: '*(ALPHA)*  accept datasets.'
-                  hidden: true
-                  flags:
-                    --async: Return immediately, without waiting for the operation in progress to
-                    --endpoint-mode=: Specifies endpoint mode for a given command.
-                    --expected-proposal-id=!: The proposal ID the user actually reviewed.
-                    --location=: The location id of the dataset resource.
-                    --no-async&: Return immediately, without waiting for the operation in progress to
-                    --request-id=: A unique request ID to identify requests.
-                    --workspace=: The workspace id of the dataset resource.
-                  completion:
-                    flag:
-                        endpoint-mode:
-                            - global
-                            - regional
-                            - regional-preferred
                 - name: batch-create
                   description: '*(ALPHA)*  batch datasets.'
                   hidden: true
@@ -57412,23 +57422,6 @@ commands:
                             - global
                             - regional
                             - regional-preferred
-                - name: decline-proposal
-                  description: '*(ALPHA)*  decline datasets.'
-                  hidden: true
-                  flags:
-                    --async: Return immediately, without waiting for the operation in progress to
-                    --endpoint-mode=: Specifies endpoint mode for a given command.
-                    --expected-proposal-id=!: The proposal ID the user actually reviewed.
-                    --location=: The location id of the dataset resource.
-                    --no-async&: Return immediately, without waiting for the operation in progress to
-                    --request-id=: A unique request ID to identify requests.
-                    --workspace=: The workspace id of the dataset resource.
-                  completion:
-                    flag:
-                        endpoint-mode:
-                            - global
-                            - regional
-                            - regional-preferred
                 - name: delete
                   description: '*(ALPHA)*  Delete datasets.'
                   hidden: true
@@ -57474,32 +57467,6 @@ commands:
                         eda-report-type:
                             - export
                             - ui
-                        endpoint-mode:
-                            - global
-                            - regional
-                            - regional-preferred
-                - name: fetch-proposal
-                  description: '*(ALPHA)*  fetch datasets.'
-                  hidden: true
-                  flags:
-                    --endpoint-mode=: Specifies endpoint mode for a given command.
-                    --location=: The location id of the dataset resource.
-                    --workspace=: The workspace id of the dataset resource.
-                  completion:
-                    flag:
-                        endpoint-mode:
-                            - global
-                            - regional
-                            - regional-preferred
-                - name: fetch-recommended-model-spec
-                  description: '*(ALPHA)*  fetch datasets.'
-                  hidden: true
-                  flags:
-                    --endpoint-mode=: Specifies endpoint mode for a given command.
-                    --location=: The location id of the dataset resource.
-                    --workspace=: The workspace id of the dataset resource.
-                  completion:
-                    flag:
                         endpoint-mode:
                             - global
                             - regional
@@ -57699,8 +57666,14 @@ commands:
                         --feature-selection-organic-rf-channels=: Active subset of organic R&F channel names
                         --feature-selection-paid-media-channels=: Active subset of paid media channel names (`PaidMediaChannelSpec.channel`).
                         --feature-selection-paid-rf-channels=: Active subset of paid R&F channel names
+                        --first-date-day=: Day of a month.
+                        --first-date-month=: Month of a year.
+                        --first-date-year=: Year of the date.
                         --is-default-model: Indicates if this is the currently designated "default" or "final" model
                         --labels=: Labels for this model.
+                        --last-date-day=: Day of a month.
+                        --last-date-month=: Month of a year.
+                        --last-date-year=: Year of the date.
                         --location=: The location id of the model resource.
                         --no-async&: Return immediately, without waiting for the operation in progress to
                         --no-is-default-model&: Indicates if this is the currently designated "default" or "final" model
@@ -57813,6 +57786,35 @@ commands:
                         --endpoint-mode=: Specifies endpoint mode for a given command.
                         --location=: The location id of the dataset resource.
                         --workspace=: The workspace id of the dataset resource.
+                      completion:
+                        flag:
+                            endpoint-mode:
+                                - global
+                                - regional
+                                - regional-preferred
+                    - name: infer
+                      description: '*(ALPHA)*  infer models.'
+                      hidden: true
+                      flags:
+                        --async: Return immediately, without waiting for the operation in progress to
+                        --dataset=: The dataset id of the model resource.
+                        --end-date-day=: Day of a month.
+                        --end-date-month=: Month of a year.
+                        --end-date-year=: Year of the date.
+                        --endpoint-mode=: Specifies endpoint mode for a given command.
+                        --infer-parameters-channel-constraints=: Channel spend boundaries keyed by channel name.
+                        --infer-parameters-flexible: If true, runs flexible budget optimization targeting an
+                        --infer-parameters-initial-budget=: Initial total budget dollar amount to allocate across channels.
+                        --infer-parameters-target-mroi=: Target Marginal Return on Investment (return on next incremental dollar).
+                        --infer-parameters-target-roi=: Target Return on Investment (revenue / spend).
+                        --location=: The location id of the model resource.
+                        --no-async&: Return immediately, without waiting for the operation in progress to
+                        --no-infer-parameters-flexible&: If true, runs flexible budget optimization targeting an
+                        --request-id=: A unique request ID to identify requests.
+                        --start-date-day=: Day of a month.
+                        --start-date-month=: Month of a year.
+                        --start-date-year=: Year of the date.
+                        --workspace=: The workspace id of the model resource.
                       completion:
                         flag:
                             endpoint-mode:
@@ -57984,23 +57986,6 @@ commands:
                   flags:
                     --endpoint-mode=: Specifies endpoint mode for a given command.
                     --location=: The location id of the dataset resource.
-                    --workspace=: The workspace id of the dataset resource.
-                  completion:
-                    flag:
-                        endpoint-mode:
-                            - global
-                            - regional
-                            - regional-preferred
-                - name: trigger-pre-modeling-agent
-                  description: '*(ALPHA)*  trigger datasets.'
-                  hidden: true
-                  flags:
-                    --async: Return immediately, without waiting for the operation in progress to
-                    --endpoint-mode=: Specifies endpoint mode for a given command.
-                    --location=: The location id of the dataset resource.
-                    --no-async&: Return immediately, without waiting for the operation in progress to
-                    --request-id=: A unique request ID to identify requests.
-                    --selected-eda-issues=: Identifiers of EDA findings/issues selected by the user to address.
                     --workspace=: The workspace id of the dataset resource.
                   completion:
                     flag:
@@ -59454,9 +59439,9 @@ commands:
                     --enable-word-confidence: If set, the top result includes a list of words and the confidence for
                     --enable-word-time-offsets: If set, the top result includes a list of words and their timestamps.
                     --encoding=: Encoding format of the provided audio.
-                    --hint-boost=: Boost value for the phrases passed to --phrases.
-                    --hint-phrase-sets=: A list of phrase set resource names to use for speech recognition.
-                    --hint-phrases=: A list of strings containing word and phrase "hints" so that the '
+                    --hint-boost=: Boost value for the phrases passed to --hint-phrases.
+                    --hint-phrase-sets=: List of phrase set resource names to use for speech recognition.
+                    --hint-phrases=: List of strings containing word and phrase "hints" so that the
                     --language-codes=: Language code is one of `en-US`, `en-GB`, `fr-FR`.
                     --location=: Location of the recognizer.
                     --max-alternatives=: Maximum number of recognition hypotheses to be returned.
@@ -59485,9 +59470,9 @@ commands:
                     --enable-word-confidence: If set, the top result includes a list of words and the confidence for
                     --enable-word-time-offsets: If set, the top result includes a list of words and their timestamps.
                     --encoding=: Encoding format of the provided audio.
-                    --hint-boost=: Boost value for the phrases passed to --phrases.
-                    --hint-phrase-sets=: A list of phrase set resource names to use for speech recognition.
-                    --hint-phrases=: A list of strings containing word and phrase "hints" so that the '
+                    --hint-boost=: Boost value for the phrases passed to --hint-phrases.
+                    --hint-phrase-sets=: List of phrase set resource names to use for speech recognition.
+                    --hint-phrases=: List of strings containing word and phrase "hints" so that the
                     --language-codes=: Language code is one of `en-US`, `en-GB`, `fr-FR`.
                     --location=: Location of the recognizer.
                     --max-alternatives=: Maximum number of recognition hypotheses to be returned.
@@ -67666,11 +67651,13 @@ commands:
               flags:
                 --async: Return immediately, without waiting for the operation in progress to
                 --clear-labels: Clear labels value and set to empty map.
+                --clear-password-secret-version: Clear password_secret_version value and set to null.
                 --clear-wallet-secret-version: Clear wallet_secret_version value and set to null.
                 --labels=: Set labels to new value.
                 --location=: The location id of the databaseConnection resource.
                 --no-async&: Return immediately, without waiting for the operation in progress to
                 --no-clear-labels&: Clear labels value and set to empty map.
+                --no-clear-password-secret-version&: Clear password_secret_version value and set to null.
                 --no-clear-wallet-secret-version&: Clear wallet_secret_version value and set to null.
                 --password-secret-version=!: ID of the secretVersion or fully qualified identifier for the secretVersion.
                 --remove-labels=: Remove existing value from map labels.
@@ -67702,13 +67689,8 @@ commands:
           description: '*(ALPHA)*  Manage Db System Compute Performance resources.'
           hidden: true
           commands:
-            - name: describe
-              description: '*(ALPHA)*  Describe dbSystemComputePerformances.'
-              hidden: true
-              flags:
-                --location=: The location id of the dbSystemComputePerformance resource.
             - name: list
-              description: '*(ALPHA)*  List dbSystemComputePerformances.'
+              description: '*(ALPHA)*  List all DbSystemComputePerformances.'
               hidden: true
               flags:
                 --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
@@ -68109,13 +68091,8 @@ commands:
           description: '*(ALPHA)*  Manage Flex Component resources.'
           hidden: true
           commands:
-            - name: describe
-              description: '*(ALPHA)*  Describe flexComponents.'
-              hidden: true
-              flags:
-                --location=: The location id of the flexComponent resource.
             - name: list
-              description: '*(ALPHA)*  List flexComponents.'
+              description: '*(ALPHA)*  List all FlexComponents.'
               hidden: true
               flags:
                 --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
@@ -68918,6 +68895,20 @@ commands:
                     --page-size=: Some services group resource list output into pages.
                     --sort-by=: Comma-separated list of resource field key names to sort by.
                     --uri: Print a list of resource URIs instead of the default output, and change the
+                - name: update
+                  description: '*(ALPHA)*  Update odbDnsZones.'
+                  hidden: true
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --clear-labels: Clear labels value and set to empty map.
+                    --labels=: Set labels to new value.
+                    --location=: The location id of the odbDnsZone resource.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --no-clear-labels&: Clear labels value and set to empty map.
+                    --odb-network=: The odbNetwork id of the odbDnsZone resource.
+                    --remove-labels=: Remove existing value from map labels.
+                    --request-id=: An optional ID to identify the request.
+                    --update-labels=: Update labels value or add key value pair.
             - name: odb-subnets
               description: '*(ALPHA)*  Manage Odb Subnet resources.'
               hidden: true
@@ -70581,6 +70572,34 @@ commands:
                         - global
                         - regional
                         - regional-preferred
+            - name: export
+              description: '*(ALPHA)*  Export a cost per token policy.'
+              hidden: true
+              flags:
+                --destination=: Path to a YAML file where the configuration will be exported.
+                --endpoint-mode=: Specifies endpoint mode for a given command.
+                --location=: The location id of the costPerTokenPolicy resource.
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
+            - name: import
+              description: '*(ALPHA)*  Import a cost per token policy.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --endpoint-mode=: Specifies endpoint mode for a given command.
+                --location=: The location id of the costPerTokenPolicy resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --source=: Path to a YAML file containing the configuration export data.
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
             - name: list
               description: '*(ALPHA)*  List cost per token policies.'
               hidden: true
@@ -70749,6 +70768,34 @@ commands:
                         - global
                         - regional
                         - regional-preferred
+            - name: export
+              description: '*(ALPHA)*  Export a token aggregation policy.'
+              hidden: true
+              flags:
+                --destination=: Path to a YAML file where the configuration will be exported.
+                --endpoint-mode=: Specifies endpoint mode for a given command.
+                --location=: The location id of the tokenAggregationPolicy resource.
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
+            - name: import
+              description: '*(ALPHA)*  Import a token aggregation policy.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --endpoint-mode=: Specifies endpoint mode for a given command.
+                --location=: The location id of the tokenAggregationPolicy resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --source=: Path to a YAML file containing the configuration export data.
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
             - name: list
               description: '*(ALPHA)*  List token aggregation policies.'
               hidden: true
@@ -70841,6 +70888,34 @@ commands:
               flags:
                 --endpoint-mode=: Specifies endpoint mode for a given command.
                 --location=: The location id of the tokenBudgetPolicy resource.
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
+            - name: export
+              description: '*(ALPHA)*  Export a token budget policy.'
+              hidden: true
+              flags:
+                --destination=: Path to a YAML file where the configuration will be exported.
+                --endpoint-mode=: Specifies endpoint mode for a given command.
+                --location=: The location id of the tokenBudgetPolicy resource.
+              completion:
+                flag:
+                    endpoint-mode:
+                        - global
+                        - regional
+                        - regional-preferred
+            - name: import
+              description: '*(ALPHA)*  Import a token budget policy.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --endpoint-mode=: Specifies endpoint mode for a given command.
+                --location=: The location id of the tokenBudgetPolicy resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --source=: Path to a YAML file containing the configuration export data.
               completion:
                 flag:
                     endpoint-mode:
@@ -73120,6 +73195,7 @@ commands:
           flags:
             --add-cloudsql-instances=: Append the given values to the current Cloud SQL instances.
             --add-custom-audiences=: Append the given values to the current custom audiences.
+            --add-iap-users=: Comma-separated list of principals to grant access to the service through Identity-Aware Proxy (IAP).
             --add-volume-mount=: Adds a mount to the current container.
             --add-volume=: Adds a volume to the Cloud Run resource.
             --allow-unauthenticated: Whether to enable allowing unauthenticated access to the service.
@@ -73243,7 +73319,6 @@ commands:
             --no-local-build&: When set, the application dependencies are installed and runtime configurations (like base-image, cmd, args) are prepared locally on your machine using your local development environment, and the resulting packaged source archive is deployed directly to Cloud Run without building a container image.
             --no-overflow-scaling&: Whether to start instances for new requests when no capacity is available on existing instances.
             --no-public&: Make the service public by disabling invoker IAM checks and IAP.
-            --no-run-build&: Enables using Cloud Run API to orchestrate builds.
             --no-run-upload&: Specifies that the source should be uploaded via Cloud Run UploadSource API.
             --no-sandbox&: Run this container in a sandbox, isolating it from the host.
             --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
@@ -73266,12 +73341,12 @@ commands:
             --remove-containers=: List of containers to remove.
             --remove-custom-audiences=: Remove the given values from the current custom audiences.
             --remove-env-vars=: List of environment variables to be removed.
+            --remove-iap-users=: Comma-separated list of principals to revoke access to the service through Identity-Aware Proxy (IAP), in the same format as `--add-iap-users`.
             --remove-labels=: List of label keys to remove.
             --remove-secrets=: List of secrets to be removed.
             --remove-volume-mount=: Removes the volume mounted at the specified path from the current container.
             --remove-volume=: Removes volumes from the Cloud Run resource.
             --revision-suffix=: Specify the suffix of the revision name.
-            --run-build&: Enables using Cloud Run API to orchestrate builds.
             --run-upload: Specifies that the source should be uploaded via Cloud Run UploadSource API.
             --runtime=&: The runtime to use.
             --sandbox&: Run this container in a sandbox, isolating it from the host.
@@ -73481,7 +73556,10 @@ commands:
                 --encryption-key-shutdown-hours=&: The number of hours to wait before an automatic shutdown server after CMEK key revocation is detected.
                 --endpoint-mode=: Specifies endpoint mode for a given command.
                 --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
+                --functional-type=&: Specifies the function of the resource for automatic registration in Agent Registry.
                 --grace-period=: The duration between SIGTERM and SIGKILL when shutting down instances.
+                --identity-certificate&: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
+                --identity-type=&: Configures the type of identity assigned to the resource.
                 --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/hello:latest`).
                 --ingress=: Set the ingress traffic sources allowed to call the service.
                 --invoker-iam-check: Optionally disable invoker IAM checks.
@@ -73497,6 +73575,7 @@ commands:
                 --no-clear-volume-mounts&: Remove all existing mounts from the current container.
                 --no-clear-volumes&: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
                 --no-default-url&: Toggles the default url for a run instance.
+                --no-identity-certificate&: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
                 --no-invoker-iam-check&: Optionally disable invoker IAM checks.
                 --no-public&: Make the service public by disabling invoker IAM checks and IAP.
                 --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
@@ -73530,6 +73609,13 @@ commands:
                         - global
                         - regional
                         - regional-preferred
+                    functional-type:
+                        - agent
+                        - mcp-server
+                    identity-type:
+                        - agent-identity
+                        - service-account
+                        - workload-identity
                     ingress:
                         - all
                         - internal
@@ -73590,6 +73676,9 @@ commands:
                 --encryption-key-shutdown-hours=&: The number of hours to wait before an automatic shutdown server after CMEK key revocation is detected.
                 --endpoint-mode=: Specifies endpoint mode for a given command.
                 --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
+                --functional-type=&: Specifies the function of the resource for automatic registration in Agent Registry.
+                --identity-certificate&: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
+                --identity-type=&: Configures the type of identity assigned to the resource.
                 --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/hello:latest`).
                 --ingress=: Set the ingress traffic sources allowed to call the service.
                 --invoker-iam-check: Optionally disable invoker IAM checks.
@@ -73612,6 +73701,7 @@ commands:
                 --no-clear-volume-mounts&: Remove all existing mounts from the current container.
                 --no-clear-volumes&: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
                 --no-default-url&: Toggles the default url for a run instance.
+                --no-identity-certificate&: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
                 --no-invoker-iam-check&: Optionally disable invoker IAM checks.
                 --no-public&: Make the service public by disabling invoker IAM checks and IAP.
                 --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
@@ -73648,6 +73738,13 @@ commands:
                         - global
                         - regional
                         - regional-preferred
+                    functional-type:
+                        - agent
+                        - mcp-server
+                    identity-type:
+                        - agent-identity
+                        - service-account
+                        - workload-identity
                     ingress:
                         - all
                         - internal
@@ -73951,7 +74048,10 @@ commands:
                 --encryption-key-shutdown-hours=&: The number of hours to wait before an automatic shutdown server after CMEK key revocation is detected.
                 --endpoint-mode=: Specifies endpoint mode for a given command.
                 --env-vars-file=: Path to a local YAML or ENV file with definitions for all environment
+                --functional-type=&: Specifies the function of the resource for automatic registration in Agent Registry.
                 --grace-period=: The duration between SIGTERM and SIGKILL when shutting down instances.
+                --identity-certificate&: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
+                --identity-type=&: Configures the type of identity assigned to the resource.
                 --image=: Name of the container image to deploy (e.g. `us-docker.pkg.dev/cloudrun/container/hello:latest`).
                 --ingress=: Set the ingress traffic sources allowed to call the service.
                 --invoker-iam-check: Optionally disable invoker IAM checks.
@@ -73974,6 +74074,7 @@ commands:
                 --no-clear-volume-mounts&: Remove all existing mounts from the current container.
                 --no-clear-volumes&: Remove all existing volumes from the Cloud Run resource, including volumes mounted as secrets
                 --no-default-url&: Toggles the default url for a run instance.
+                --no-identity-certificate&: Enables automatic provisioning of identity certificates from the trust domain into the container environment.
                 --no-invoker-iam-check&: Optionally disable invoker IAM checks.
                 --no-public&: Make the service public by disabling invoker IAM checks and IAP.
                 --no-sandbox-launcher&: Set the container as a sandbox supervisor to launch sandboxes.
@@ -74010,6 +74111,13 @@ commands:
                         - global
                         - regional
                         - regional-preferred
+                    functional-type:
+                        - agent
+                        - mcp-server
+                    identity-type:
+                        - agent-identity
+                        - service-account
+                        - workload-identity
                     ingress:
                         - all
                         - internal
@@ -74754,6 +74862,7 @@ commands:
               flags:
                 --add-cloudsql-instances=: Append the given values to the current Cloud SQL instances.
                 --add-custom-audiences=: Append the given values to the current custom audiences.
+                --add-iap-users=: Comma-separated list of principals to grant access to the service through Identity-Aware Proxy (IAP).
                 --add-regions=&: Additional regions to deploy the multi-region Service
                 --add-volume-mount=: Adds a mount to the current container.
                 --add-volume=: Adds a volume to the Cloud Run resource.
@@ -74871,6 +74980,7 @@ commands:
                 --remove-containers=: List of containers to remove.
                 --remove-custom-audiences=: Remove the given values from the current custom audiences.
                 --remove-env-vars=: List of environment variables to be removed.
+                --remove-iap-users=: Comma-separated list of principals to revoke access to the service through Identity-Aware Proxy (IAP), in the same format as `--add-iap-users`.
                 --remove-labels=: List of label keys to remove.
                 --remove-regions=&: Existing egions to remove the multi-region Service from
                 --remove-secrets=: List of secrets to be removed.
@@ -75787,6 +75897,7 @@ commands:
               flags:
                 --add-cloudsql-instances=: Append the given values to the current Cloud SQL instances.
                 --add-custom-audiences=: Append the given values to the current custom audiences.
+                --add-iap-users=: Comma-separated list of principals to grant access to the service through Identity-Aware Proxy (IAP).
                 --add-volume-mount=: Adds a mount to the current container.
                 --add-volume=: Adds a volume to the Cloud Run resource.
                 --ambient-networking: Enables ambient networking for the resource, allowing it to participate in a service mesh without sidecar injection.
@@ -75905,6 +76016,7 @@ commands:
                 --remove-containers=: List of containers to remove.
                 --remove-custom-audiences=: Remove the given values from the current custom audiences.
                 --remove-env-vars=: List of environment variables to be removed.
+                --remove-iap-users=: Comma-separated list of principals to revoke access to the service through Identity-Aware Proxy (IAP), in the same format as `--add-iap-users`.
                 --remove-labels=: List of label keys to remove.
                 --remove-secrets=: List of secrets to be removed.
                 --remove-volume-mount=: Removes the volume mounted at the specified path from the current container.
@@ -76593,9 +76705,11 @@ commands:
                 --key=!: Flag key used in client runtime evaluation (required).
                 --labels=: The labels on the resource, which can be used for categorization.
                 --location=: For resources [flag, unit-kind], provides fallback value for resource location attribute.
+                --no-with-default-evaluation&: If set, populates the flag with default boolean variants (`Enabled`=`true`
                 --state=: Current state of the flag.
                 --unit-kind=!: ID of the unitKind or fully qualified identifier for the unitKind.
                 --variants=: A list of variants.
+                --with-default-evaluation: If set, populates the flag with default boolean variants (`Enabled`=`true`
               completion:
                 flag:
                     endpoint-mode:
@@ -81869,6 +81983,7 @@ commands:
                 --destination-instance=: The Cloud Spanner instance for the backup.
                 --encryption-type=: The encryption type of the copied backup.
                 --expiration-date=: Expiration time of the backup, must be at least 6 hours and at most 366 days from the time when the source backup is created.
+                --instance-partition-mappings=&: Maps non-default source instance partition IDs to destination instance partition IDs for backups in geo-partitioned instances.
                 --kms-key=!: ID of the key or fully qualified identifier for the key.
                 --kms-keyring=: KMS keyring id of the key.
                 --kms-keys=!: IDs of the keys or fully qualified identifiers for the keys.
@@ -83312,6 +83427,7 @@ commands:
                 --gce-instance=&: The list of full resource names of the GCE instances that are to be onboarded to Cloud SQL.
                 --gce-instances=&: The list of full resource names of the GCE instances that are to be onboarded to Cloud SQL.
                 --gce-zone=: (DEPRECATED) Preferred Compute Engine zone (e.g. us-central1-a, us-central1-b, etc.).
+                --initial-users=&: IAM users to create on the instance during creation.
                 --insights-config-enhanced-query-insights-enabled: Enable enhanced query insights for Enterprise Plus edition to provide more detailed query
                 --insights-config-query-insights-enabled: Enable query insights feature to provide query and query plan
                 --insights-config-query-plans-per-minute=: Number of query plans to sample every minute.
@@ -83618,6 +83734,7 @@ commands:
                 --clear-database-center-integration&: Clear the Database Center integration setting of the instance, so that the instance uses the default Database Center integration behavior.
                 --clear-database-flags: Clear the database flags set on the instance.
                 --clear-entra-id-config: Clears the Entra ID config for the SQL Server instance.
+                --clear-entra-id-manager-application-id&: Clears the Entra ID manager application ID without affecting the tenant ID or application ID.
                 --clear-failover-dr-replica-name: Clear the DR replica setting for the primary instance.
                 --clear-gae-apps: Specified to clear the list of App Engine apps that can access this instance.
                 --clear-labels: Remove all labels.
@@ -83666,6 +83783,8 @@ commands:
                 --enforce-cmek-log-encryption-at-source&: Enforce CMEK log encryption at source.
                 --enforce-new-sql-network-architecture: Force the instance to use the new network architecture.
                 --entra-id-application-id=!: Set the Entraid application ID.
+                --entra-id-auto-rotation&: Enables or disables automatic Entra ID certificate rotation during maintenance windows.
+                --entra-id-manager-application-id=&: The Entra ID application ID of the certificate manager application used to manage certificates via Workload Identity Federation.
                 --entra-id-tenant-id=!: Set the Entraid tenant ID.
                 --failover-dr-replica-name=: Set a Disaster Recovery (DR) replica with the specified name for the primary instance.
                 --final-backup: Enables the final backup to be taken at the time of instance deletion.
@@ -83707,6 +83826,7 @@ commands:
                 --no-clear-database-center-integration&: Clear the Database Center integration setting of the instance, so that the instance uses the default Database Center integration behavior.
                 --no-clear-database-flags&: Clear the database flags set on the instance.
                 --no-clear-entra-id-config&: Clears the Entra ID config for the SQL Server instance.
+                --no-clear-entra-id-manager-application-id&: Clears the Entra ID manager application ID without affecting the tenant ID or application ID.
                 --no-clear-failover-dr-replica-name&: Clear the DR replica setting for the primary instance.
                 --no-clear-gae-apps&: Specified to clear the list of App Engine apps that can access this instance.
                 --no-clear-labels&: Remove all labels.
@@ -83742,6 +83862,7 @@ commands:
                 --no-enable-sql-server-password-policy&: Enables password policy on SQL Server local logins.
                 --no-enforce-cmek-log-encryption-at-source&: Enforce CMEK log encryption at source.
                 --no-enforce-new-sql-network-architecture&: Force the instance to use the new network architecture.
+                --no-entra-id-auto-rotation&: Enables or disables automatic Entra ID certificate rotation during maintenance windows.
                 --no-final-backup&: Enables the final backup to be taken at the time of instance deletion.
                 --no-include-replicas-for-major-version-upgrade&: Enable the major version upgrade of replicas when the in-place major version upgrade of a primary instance is initated with `--database-version`.
                 --no-insights-config-enhanced-query-insights-enabled&: Enable enhanced query insights for Enterprise Plus edition to provide more detailed query
@@ -84231,8 +84352,10 @@ commands:
                   description: '*(ALPHA)*  Create an Entra ID certificate for a Cloud SQL instance.'
                   flags:
                     --async: Return immediately, without waiting for the operation in progress to
+                    --auto-upload&: If true, also uploads the new certificate to the Entra ID application of the instance by using the manager application, and confirms that the certificate can be used.
                     --instance=!: Cloud SQL instance ID.
                     --no-async&: Return immediately, without waiting for the operation in progress to
+                    --no-auto-upload&: If true, also uploads the new certificate to the Entra ID application of the instance by using the manager application, and confirms that the certificate can be used.
                 - name: list
                   description: '*(ALPHA)*  List all Entra ID certificates for a Cloud SQL instance.'
                   flags:
@@ -84255,6 +84378,8 @@ commands:
                     --async: Return immediately, without waiting for the operation in progress to
                     --instance=!: Cloud SQL instance ID.
                     --no-async&: Return immediately, without waiting for the operation in progress to
+                    --no-verify&: If true, pre-validates certificate permissions against Entra ID before rotation.
+                    --verify&: If true, pre-validates certificate permissions against Entra ID before rotation.
             - name: server-ca-certs
               description: '*(ALPHA)*  Provide commands for managing server CA certs of Cloud SQL instances.'
               commands:
@@ -84644,7 +84769,9 @@ commands:
                   description: '*(ALPHA)*  Returns details of Anywhere Cache instance of a bucket.'
                   flags:
                     --no-raw&: Shows metadata in the format returned by the API instead of standardizing it.
+                    --no-show-ingest-on-write-prefixes&: Lists all prefixes that have ingest-on-write enabled for this Anywhere Cache instance.
                     --raw: Shows metadata in the format returned by the API instead of standardizing it.
+                    --show-ingest-on-write-prefixes&: Lists all prefixes that have ingest-on-write enabled for this Anywhere Cache instance.
                 - name: disable
                   description: '*(ALPHA)*  Disable Anywhere Cache instances.'
                 - name: list
@@ -84952,7 +85079,7 @@ commands:
                 --no-uniform-bucket-level-access&: Enables or disables [uniform bucket-level access](https://cloud.google.com/storage/docs/bucket-policy-only) for the buckets.
                 --no-versioning&: Allows you to configure a Cloud Storage bucket to keep old versions of objects.
                 --pap: If True, sets [public access prevention](https://cloud.google.com/storage/docs/public-access-prevention) to "enforced".
-                --pause-hard-delete&: Pauses hard deletion of soft-deleted objects in the bucket.
+                --pause-hard-delete: Pauses hard deletion of soft-deleted objects in the bucket.
                 --predefined-acl=: Applies predefined, or "canned," ACLs to a resource.
                 --predefined-default-object-acl=: Apply a predefined set of default object access controls tobuckets
                 --public-access-prevention: If True, sets [public access prevention](https://cloud.google.com/storage/docs/public-access-prevention) to "enforced".
@@ -85111,6 +85238,7 @@ commands:
                 --description=: The description of the feature configuration.
                 --exclude-bucket-id-regexes=: Comma-separated list of bucket ID regexes to exclude.
                 --exclude-locations=: Comma-separated list of locations to exclude.
+                --gemini-enrichments-config-file=&: Path to a local JSON or YAML file (or `-` to read from standard input)
                 --include-bucket-id-regexes=: Comma-separated list of bucket ID regexes to include.
                 --include-locations=: Comma-separated list of locations to include.
                 --no-async&: Return immediately, without waiting for the operation in progress to
@@ -85789,6 +85917,14 @@ commands:
                 --no-soft-deleted&: Displays soft-deleted resources only.
                 --raw: Shows metadata in the format returned by the API instead of standardizing it.
                 --soft-deleted: Displays soft-deleted resources only.
+            - name: describe-context
+              description: '*(ALPHA)*  Describe a context of a Cloud Storage object.'
+              hidden: true
+              flags:
+                --additional-headers=: Includes arbitrary headers in storage API calls.
+                --key=!: Key of the context to describe.
+                --no-raw&: Shows metadata in the format returned by the API instead of standardizing it.
+                --raw: Shows metadata in the format returned by the API instead of standardizing it.
             - name: get-iam-policy
               description: '*(ALPHA)*  Get the access policy for an object.'
               hidden: true
@@ -86125,9 +86261,10 @@ commands:
           description: '*(ALPHA)*  Delete a task or multiple tasks from a queue.'
           flags:
             --failed-tasks-file=: Path to a file to output JSON details of tasks that failed or were skipped during batch deletion.
-            --from-file=: Path to a file containing task IDs/names to delete, one per line or in JSON/YAML format.
+            --from-file=&: (DEPRECATED) Path to a file containing task IDs/names to delete, one per line or in JSON/YAML format.
             --location=: The location where we want to manage the queue or task.
             --queue=: The queue the task belongs to.
+            --tasks-from-file=: Path to a file containing task IDs/names to delete, one per line or in JSON/YAML format.
         - name: describe
           description: '*(ALPHA)*  Show details about a task.'
           flags:
@@ -86379,9 +86516,109 @@ commands:
             --location=: The location where we want to manage the queue or task.
             --queue=: The queue the task belongs to.
     - name: telemetry
-      description: '*(ALPHA)*  Manage Telemetry resources.'
+      description: '*(ALPHA)*  Manage Telemetry resources in the Unified Telemetry Platform.'
       hidden: true
       commands:
+        - name: collectors
+          description: '*(ALPHA)*  Commands to list and describe Telemetry collectors.'
+          hidden: true
+          commands:
+            - name: describe
+              description: '*(ALPHA)*  Describe a Telemetry collector.'
+              hidden: true
+              flags:
+                --location=: The location id of the collector resource.
+            - name: list
+              description: '*(ALPHA)*  List Telemetry collectors.'
+              hidden: true
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=!: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+        - name: fleets
+          description: '*(ALPHA)*  Commands to create, read, update, and delete Telemetry collector fleets.'
+          hidden: true
+          commands:
+            - name: create
+              description: '*(ALPHA)*  Create a Telemetry collector fleet.'
+              hidden: true
+              flags:
+                --description=: A human-readable description of this Fleet.
+                --location=: The location id of the fleet resource.
+                --request-id=: An optional request ID to identify requests.
+            - name: delete
+              description: '*(ALPHA)*  Delete a Telemetry collector fleet.'
+              hidden: true
+              flags:
+                --location=: The location id of the fleet resource.
+                --request-id=: An optional request ID to identify requests.
+            - name: describe
+              description: '*(ALPHA)*  Describe a Telemetry collector fleet.'
+              hidden: true
+              flags:
+                --location=: The location id of the fleet resource.
+            - name: list
+              description: '*(ALPHA)*  List Telemetry collector fleets.'
+              hidden: true
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=!: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: rollouts
+              description: '*(ALPHA)*  Commands to create, read, and delete rollouts of policy set revisions to a Telemetry collector fleet.'
+              hidden: true
+              commands:
+                - name: create
+                  description: '*(ALPHA)*  Create a Telemetry collector fleet rollout.'
+                  hidden: true
+                  flags:
+                    --async: Return immediately, without waiting for the operation in progress to
+                    --fleet=: The fleet id of the rollout resource.
+                    --location=: For resources [rollout, policy-set-revision], provides fallback value for resource location attribute.
+                    --no-async&: Return immediately, without waiting for the operation in progress to
+                    --policy-set-revision=!: ID of the revision or fully qualified identifier for the revision.
+                    --policy-set=: The policySet id of the revision resource.
+                    --request-id=: An optional request ID to identify requests.
+                - name: delete
+                  description: '*(ALPHA)*  Delete a Telemetry collector fleet rollout.'
+                  hidden: true
+                  flags:
+                    --fleet=: The fleet id of the rollout resource.
+                    --location=: The location id of the rollout resource.
+                    --request-id=: An optional request ID to identify requests.
+                - name: describe
+                  description: '*(ALPHA)*  Describe a Telemetry collector fleet rollout.'
+                  hidden: true
+                  flags:
+                    --fleet=: The fleet id of the rollout resource.
+                    --location=: The location id of the rollout resource.
+                - name: list
+                  description: '*(ALPHA)*  List Telemetry collector fleet rollouts.'
+                  hidden: true
+                  flags:
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --fleet=!: ID of the fleet or fully qualified identifier for the fleet.
+                    --limit=: Maximum number of resources to list.
+                    --location=: The location id of the fleet resource.
+                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                    --page-size=: Some services group resource list output into pages.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: '*(ALPHA)*  Update a Telemetry collector fleet.'
+              hidden: true
+              flags:
+                --description=: A human-readable description of this Fleet.
+                --location=: The location id of the fleet resource.
+                --request-id=: An optional request ID to identify requests.
         - name: pipelines
           description: '*(ALPHA)*  Manage Telemetry pipeline resources and their routes.'
           hidden: true
@@ -86414,6 +86651,7 @@ commands:
                     --location=: The location id of the route resource.
                     --no-disabled&: If set to true, this route is disabled and does not export any telemetry
                     --pipeline=: The pipeline id of the route resource.
+                    --request-id=: An optional request ID to identify requests.
                     --target=!: Destination where the telemetry data will be routed to.
                 - name: delete
                   description: '*(ALPHA)*  Delete a Telemetry route.'
@@ -86421,6 +86659,7 @@ commands:
                   flags:
                     --location=: The location id of the route resource.
                     --pipeline=: The pipeline id of the route resource.
+                    --request-id=: An optional request ID to identify requests.
                 - name: describe
                   description: '*(ALPHA)*  Describe a Telemetry route.'
                   hidden: true
@@ -86447,7 +86686,99 @@ commands:
                     --location=: The location id of the route resource.
                     --no-disabled&: If set to true, this route is disabled and does not export any telemetry
                     --pipeline=: The pipeline id of the route resource.
+                    --request-id=: An optional request ID to identify requests.
                     --target=: Destination where the telemetry data will be routed to.
+        - name: policy-sets
+          description: '*(ALPHA)*  Commands to create, read, update, and delete Telemetry policy sets.'
+          hidden: true
+          commands:
+            - name: create
+              description: '*(ALPHA)*  Create a Telemetry policy set.'
+              hidden: true
+              flags:
+                --component-policies=: The component policies to be applied.
+                --description=: A human-readable description of this PolicySet.
+                --location=: The location id of the policySet resource.
+                --receiver-policies=: The receiver policies to be applied.
+                --request-id=: An optional request ID to identify requests.
+                --universal-policies=: The universal policies that are applied after the component policies.
+            - name: delete
+              description: '*(ALPHA)*  Delete a Telemetry policy set.'
+              hidden: true
+              flags:
+                --async: Return immediately, without waiting for the operation in progress to
+                --force: Indicates whether child revisions of this `PolicySet` should be deleted.
+                --location=: The location id of the policySet resource.
+                --no-async&: Return immediately, without waiting for the operation in progress to
+                --no-force&: Indicates whether child revisions of this `PolicySet` should be deleted.
+                --request-id=: An optional request ID to identify requests.
+            - name: describe
+              description: '*(ALPHA)*  Describe a Telemetry policy set.'
+              hidden: true
+              flags:
+                --location=: The location id of the policySet resource.
+            - name: list
+              description: '*(ALPHA)*  List Telemetry policy sets.'
+              hidden: true
+              flags:
+                --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                --limit=: Maximum number of resources to list.
+                --location=!: ID of the location or fully qualified identifier for the location.
+                --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                --page-size=: Some services group resource list output into pages.
+                --sort-by=: Comma-separated list of resource field key names to sort by.
+                --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: revisions
+              description: '*(ALPHA)*  Commands to read and delete revisions of a Telemetry policy set.'
+              hidden: true
+              commands:
+                - name: delete
+                  description: '*(ALPHA)*  Delete a Telemetry policy set revision.'
+                  hidden: true
+                  flags:
+                    --location=: The location id of the revision resource.
+                    --policy-set=: The policySet id of the revision resource.
+                    --request-id=: An optional request ID to identify requests.
+                - name: describe
+                  description: '*(ALPHA)*  Describe a Telemetry policy set revision.'
+                  hidden: true
+                  flags:
+                    --location=: The location id of the revision resource.
+                    --policy-set=: The policySet id of the revision resource.
+                - name: list
+                  description: '*(ALPHA)*  List Telemetry policy set revisions.'
+                  hidden: true
+                  flags:
+                    --filter=: Apply a Boolean filter _EXPRESSION_ to each resource item to be listed.
+                    --limit=: Maximum number of resources to list.
+                    --location=: The location id of the policySet resource.
+                    --no-uri&: Print a list of resource URIs instead of the default output, and change the
+                    --page-size=: Some services group resource list output into pages.
+                    --policy-set=!: ID of the policySet or fully qualified identifier for the policySet.
+                    --sort-by=: Comma-separated list of resource field key names to sort by.
+                    --uri: Print a list of resource URIs instead of the default output, and change the
+            - name: update
+              description: '*(ALPHA)*  Update a Telemetry policy set.'
+              hidden: true
+              flags:
+                --add-component-policies=: Add new value to component_policies list.
+                --add-receiver-policies=: Add new value to receiver_policies list.
+                --add-universal-policies=: Add new value to universal_policies list.
+                --clear-component-policies: Clear component_policies value and set to empty list.
+                --clear-receiver-policies: Clear receiver_policies value and set to empty list.
+                --clear-universal-policies: Clear universal_policies value and set to empty list.
+                --component-policies=: Set component_policies to new value.
+                --description=: A human-readable description of this PolicySet.
+                --location=: The location id of the policySet resource.
+                --no-clear-component-policies&: Clear component_policies value and set to empty list.
+                --no-clear-receiver-policies&: Clear receiver_policies value and set to empty list.
+                --no-clear-universal-policies&: Clear universal_policies value and set to empty list.
+                --receiver-policies=: Set receiver_policies to new value.
+                --remove-component-policies=: Remove existing value from component_policies list.
+                --remove-receiver-policies=: Remove existing value from receiver_policies list.
+                --remove-universal-policies=: Remove existing value from universal_policies list.
+                --request-id=: An optional request ID to identify requests.
+                --universal-policies=: Set universal_policies to new value.
     - name: terraform
       description: '*(ALPHA)*  Commands related to Terraform management of Google Cloud Platform resources.'
       commands:
